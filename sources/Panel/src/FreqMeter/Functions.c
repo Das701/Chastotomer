@@ -1,18 +1,18 @@
-char Text_To_Display (char x, char y,near rom  unsigned char * data);
-void Command_To_Display (near rom unsigned char * data);
+char Text_To_Display (char x, char y,unsigned char * data);
+void Command_To_Display (unsigned char * data);
 unsigned char Nomber(unsigned char x, unsigned char y, unsigned char length, int data);
 void Rectangle (char X, char Xend, char Y, char Yend, char data);
 
 void Nomber_Image_Char(unsigned char x, unsigned char y, struct RES * DDat, char sign);
 
-#include <delays.h>
+//#include <delays.h>
 //#include "GP1157.c"
 
 void main(void);
-char Compare (char Data, near rom char * ComArray);
-void ROMStringTX (unsigned near rom unsigned char * data);
-void RAMStringTX (unsigned char * data);
-char FindString (rom char *rom *data);
+char Compare (char Data,char* ComArray);
+void ROMStringTX (unsigned char* data);
+void RAMStringTX (unsigned char* data);
+char FindString (char * *data);
 void Processing (void);
 void SymbolFind (char);
 void RegRW(void);
@@ -31,18 +31,18 @@ long degree(long Dat, char deg);
 float FloatDegree(signed char deg);
 void IndRes(void);
 char FindAllDiction	(char Ind);
-char FindAndCheck (rom char *rom *Pointer, char min, char max);
+char FindAndCheck (char* *Pointer, char min, char max);
 void ErrQueue (char n);
 void BinToBinDec (struct RES * Res);
 
 char ErrQue[20];		//Очередь ошибок
 char QueIndex=0;		//Индекс очереди ошибок
 
-	rom char ConvTab[6] = 	{Chan_A, Chan_C, Chan_B, Chan_B, Chan_B, Chan_B};
-	rom char ConvTab3[3] = 	{Ch_a_c, Ch_c_a, Ch_b_c};
-	rom char ConvTab4[3] = 	{Ch_a_c, Ch_c_a, Ch_b_a};
+	char ConvTab[6] = 	{Chan_A, Chan_C, Chan_B, Chan_B, Chan_B, Chan_B};
+	char ConvTab3[3] = 	{Ch_a_c, Ch_c_a, Ch_b_c};
+	char ConvTab4[3] = 	{Ch_a_c, Ch_c_a, Ch_b_a};
 
-	rom char **Point;
+	char **Point;
 	char Temp, *Point8, CommInd;
 
 //-----------------------------------------------------
@@ -57,7 +57,7 @@ void RAMStringTX (unsigned char * data)
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
-void ROMStringTX (unsigned near rom unsigned char * data)
+void ROMStringTX (unsigned char * data)
 {
 	while(*data)
 	{
@@ -69,7 +69,7 @@ void ROMStringTX (unsigned near rom unsigned char * data)
 //-----------------------------------------------------
 
 //-----------------------------------------------------
-char FindString (rom char *rom *data)
+char FindString (char* *data)
 {
 	char i, ans, temp ;
 	short j;
@@ -938,7 +938,7 @@ signed short StringToBin (void)
 //--------------------------------------------------------------------
 //-----------------------------------------------------
 //Функция сравнения переменной Data с каждым элементом массива ComArray
-char Compare (char Data, near rom unsigned char * ComArray)
+char Compare (char Data, unsigned char * ComArray)
 {
 	char Temp = *ComArray;
 

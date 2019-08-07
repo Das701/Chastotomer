@@ -1,5 +1,5 @@
-#include <p18f4520.h>
-#include <timers.h>
+//#include <p18f4520.h>
+//#include <timers.h>
 
 //__CONFIG(1, FOSC_INTIO67 & FCMEN_OFF & IESO_OFF);
 void Time (void);
@@ -1444,7 +1444,8 @@ void CalibrateMode (void)
 //-----------------------------------------------------
 void main(void)
 {
-
+    HAL::Init();
+    Display::Init();
 	char i;
 //FloatToBinDec(1.23456789E+4, 3, 9);
 
@@ -1524,10 +1525,10 @@ void main(void)
 
 	Flags.Test = 0;
 
-	for(i=0;i<15; i++)
-	{
-		TransfWord (StartSet[i]);								//Передача частотомеру данных начальной установки
-	}
+	//for(i=0;i<15; i++)
+	//{
+	//	TransfWord (StartSet[i]);								//Передача частотомеру данных начальной установки
+	//}
 
   
 
