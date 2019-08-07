@@ -1,0 +1,11 @@
+JLink*
+archive.zip
+*out.txt
+*.out
+
+sources/.vs/*
+sources/Panel/Objects/*
+sources/Panel/Listings/*
+sources/Panel/DebugConfig/*
+sources/generated/*
+sources/ThirdParty/*
