@@ -738,6 +738,31 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>FreqMeter</GroupName>
+          <Files>
+            <File>
+              <FileName>FL_Display.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FreqMeter\FL_Display.c</FilePath>
+            </File>
+            <File>
+              <FileName>Functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FreqMeter\Functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>GP1157.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FreqMeter\GP1157.c</FilePath>
+            </File>
+            <File>
+              <FileName>Pointers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FreqMeter\Pointers.c</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
   </Targets>
