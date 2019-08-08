@@ -566,12 +566,12 @@ struct
 //		****************
 //333333333333333333333333333333333//
 
-struct struct_1 *rom F0[3][6] =
+struct struct_1 * F0[3][6] =
 {
-{&STR9, &STR4, &STR7, &STR6, &STR5, &STR8},
+{(struct struct_1 *)&STR9, (struct struct_1 *) &STR4, (struct struct_1 *) &STR7, (struct struct_1 *) &STR6, (struct struct_1 *) &STR5, (struct struct_1 *) &STR8},
 //{&STR4, &STR5, &STR6, &STR7, &STR8, &STR9},
-{&STR10, &STR11, &STR12, &STR13, &STR14, &STR15},
-{&STR16, &STR17, &STR18, &STR19, &STR20}
+{(struct struct_1 *)&STR10, (struct struct_1 *) &STR11, (struct struct_1 *)&STR12, (struct struct_1 *)&STR13, (struct struct_1 *)&STR14, (struct struct_1 *)&STR15},
+{(struct struct_1 *)&STR16, (struct struct_1 *)&STR17, (struct struct_1 *)&STR18, (struct struct_1 *)&STR19, (struct struct_1 *)&STR20}
 };		//Строка - состояние 1-й функциональной клавиши
 
 struct struct_1 *Level_1[6];

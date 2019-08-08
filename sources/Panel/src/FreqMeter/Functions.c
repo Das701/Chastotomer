@@ -9,7 +9,8 @@ void Nomber_Image_Char(unsigned char x, unsigned char y, struct RES * DDat, char
 //#include "GP1157.c"
 
 void main(void);
-char Compare (char Data,char* ComArray);
+//char Compare (char Data,char* ComArray);
+char Compare (char Data, unsigned char* ComArray);
 void ROMStringTX (unsigned char* data);
 void RAMStringTX (unsigned char* data);
 char FindString (char * *data);
@@ -48,23 +49,23 @@ char QueIndex=0;		//Индекс очереди ошибок
 //-----------------------------------------------------
 void RAMStringTX (unsigned char * data)
 {
-	while(*data)
-	{
-		while(!PIR1bits.TXIF);
-		if(*data != 0x16) TXREG = *data;
-		data++;
-	}
+//	while(*data)
+//	{
+//		while(!PIR1bits.TXIF);
+//		if(*data != 0x16) TXREG = *data;
+//		data++;
+//	}
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 void ROMStringTX (unsigned char * data)
 {
-	while(*data)
-	{
-		while(!PIR1bits.TXIF);
-		TXREG = *data;
-		data++;
-	}
+//	while(*data)
+//	{
+//		while(!PIR1bits.TXIF);
+//		TXREG = *data;
+//		data++;
+//	}
 }
 //-----------------------------------------------------
 
@@ -108,11 +109,11 @@ void SymbolFind (char Symb)
 		if(InpSTR[StartInd + i] == Symb)
 		{
 			StartInd = i;
-			return 1;
+//			return 1;
 		}
 		i++;
 	}
-	return 0;
+//	return 0;
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
@@ -141,7 +142,7 @@ void Processing (void)
 	    case Measure:
 		ConfSyst();
 		ArrayCnt = 1;
-		TransfWord(0b01010000011);			//Передача частотомеру команды ПРОГРАММНЫЙ ЗАПУСК
+		TransfWord(01010000011);			//Передача частотомеру команды ПРОГРАММНЫЙ ЗАПУСК
 		Flags.SoftStart = 1;				//Установка флага активности программного запуска
 		break; 
 
@@ -150,9 +151,9 @@ void Processing (void)
 		break; 
 
 	    case RST:	//Сброс
-		_asm
-		RESET
-		_endasm
+	//	_asm
+	//	RESET
+	//	_endasm
 		break; 
 
 	    case CLS:	//Очистка состояния
@@ -211,7 +212,7 @@ void ReadSyst(void)
 		}
 	}
 
-	TransfWord(0b01010000011);			//Передача частотомеру команды ПРОГРАММНЫЙ ЗАПУСК
+	TransfWord(01010000011);			//Передача частотомеру команды ПРОГРАММНЫЙ ЗАПУСК
 	Flags.SoftStart = 1;				//Установка флага активности программного запуска
 }
 //-----------------------------------------------------,
@@ -422,7 +423,7 @@ void TrigSyst(void)
 				if((LevTemp < 401) && (LevTemp > -401))	Kin[Chan] = 0;					//Делитель откл
 				else									{Kin[Chan] = 1; LevTemp /=10;}	//Делитель вкл
 			
-				TransfWord(0b00010000000 | Kin[Chan]);					//Делитель
+				TransfWord(00010000000 | Kin[Chan]);					//Делитель
 
 				Level[Chan] = LevTemp;
 				TransfWord(LevTemp | 0x400);	//Передача частотомеру данных об уровне синхронизации
@@ -448,7 +449,7 @@ void TrigSyst(void)
 //Auto_M---Auto_M---Auto_M---Auto_M---Auto_M---Auto_M---Auto_M---Auto_M---Auto_M---Auto_M---Auto_M---
  	  	case Auto_M:
 
-		TransfWord(0b01111000011);	//Передача частотомеру команды АВТО
+		TransfWord(01111000011);	//Передача частотомеру команды АВТО
 		Flags.Auto = 1;				//Установка флага активности режима АВТО
 		Flags.RefrCreen_2 = 1;		//Установка флага второстепенного обновления экрана
 
@@ -472,7 +473,7 @@ void TrigSyst(void)
 
 
 		Kin[Chan] = 1;								//Делитель вкл
-		TransfWord(0b00010000001);					//Делитель вкл
+		TransfWord(00010000001);					//Делитель вкл
 
 		if(MesMode == Esl)		Level[Chan] = -62;  //ЭСЛ
 		else 					Level[Chan] = 60;	//ТТЛ
@@ -497,7 +498,7 @@ void ConfSyst(void)
 		ROMStringTX(String39[((Mode[0]>>4)+1)<<1]);					//Режим
 		ROMStringTX(",");
 
-		MesMode = Mode[0]&0b1111;
+		MesMode = Mode[0]&1111;
 		if((Channel==Chan_B)&&(Mode[0]>47))
 		{
 			if(Mode[0]==(HANd+48))		MesMode = WIDe;
@@ -938,7 +939,7 @@ signed short StringToBin (void)
 //--------------------------------------------------------------------
 //-----------------------------------------------------
 //Функция сравнения переменной Data с каждым элементом массива ComArray
-char Compare (char Data, unsigned char * ComArray)
+char Compare (char Data, unsigned char* ComArray)
 {
 	char Temp = *ComArray;
 
@@ -972,22 +973,22 @@ char Order (long Data)
 //-----------------------------------------------------
 void TransfAll (void) 	//Передача на плату частотомера всех настроек
 {
-	TransfWord (0b00000000000 | Channel);			//Канал А
-	TransfWord (0b00001000000 | Rin[Channel]);			//
-	TransfWord (0b00010000000 | Kin[Channel]);			//
-	TransfWord (0b00011000000 | OpenClose[Channel]);	//
-	TransfWord (0b00100000000 | Rise[Channel]);			//
-	TransfWord (0b00101000000 | LF[Channel]);			//
-	TransfWord (0b00110000000 | Mode[0]);				//
-	TransfWord (0b00111000000 | Notch[0]);				//
-	TransfWord (0b01000000000 | MeasTime[0]);			//
-	TransfWord (0b01001000000 | Generator[0]);			//
-	TransfWord (0b01010000000 | Starting[0]);			//
-	TransfWord (0b01011000000 | IndTime[0]);			//
-	TransfWord (0b01100000000 | Memory[0]);				//
-	TransfWord (0b01101000000 | Synch[Channel]);		//
+	TransfWord (00000000000 | Channel);			//Канал А
+	TransfWord (00001000000 | Rin[Channel]);			//
+	TransfWord (00010000000 | Kin[Channel]);			//
+	TransfWord (00011000000 | OpenClose[Channel]);	//
+	TransfWord (00100000000 | Rise[Channel]);			//
+	TransfWord (00101000000 | LF[Channel]);			//
+	TransfWord (00110000000 | Mode[0]);				//
+	TransfWord (00111000000 | Notch[0]);				//
+	TransfWord (01000000000 | MeasTime[0]);			//
+	TransfWord (01001000000 | Generator[0]);			//
+	TransfWord (01010000000 | Starting[0]);			//
+	TransfWord (01011000000 | IndTime[0]);			//
+	TransfWord (01100000000 | Memory[0]);				//
+	TransfWord (01101000000 | Synch[Channel]);		//
 
-	TransfWord (0b00110000000 | Mode[0]);				//
+	TransfWord (00110000000 | Mode[0]);				//
 }
 //*-----------------------------------------------------*/
 //-----------------------------------------------------
@@ -998,11 +999,11 @@ void MesErr (char ER)
 	Rectangle (0, 9, 1, 1, 0);
 	ER = Nomber(10, 1, 3, ER);
 	Rectangle (ER, 35, 1, 1, 0);
-	Delay10KTCYx(255);
-	Delay10KTCYx(255);
-	Delay10KTCYx(255);
-	Delay10KTCYx(255);
-	Delay10KTCYx(255);
+//	Delay10KTCYx(255);
+//	Delay10KTCYx(255);
+//	Delay10KTCYx(255);
+//	Delay10KTCYx(255);
+//	Delay10KTCYx(255);
 	ErrReg = 0;
 }
 //-----------------------------------------------------
@@ -1049,17 +1050,17 @@ float FloatDegree(signed char deg)
 void IndRes(void)
 {
 	signed char TempR, TempOr;
-
-	INTCONbits.TMR0IE = 0;		//Запрет прерывания от модуля TMR0
-	Nomber_Image_Char(72, 3, &RES_Dat, SignDig);			//Отображение на индикаторе результата измерения
-	INTCONbits.TMR0IE = 1;		//Разрешение прерывания от модуля TMR0
-
-	if(Compare(Mode[0], CNT_Const)) TempR = 3;
-	else TempR = Mode[0]>>4;
-
-
-	if(Mode[0]==34 && Flags.Test)	Text_To_Display(238, 5, "   ");
-	else							Text_To_Display(238, 5, MeasLable[TempR][RES_Dat.IndOrder+4]);		//Отображаем единицы измерения
+//
+//	INTCONbits.TMR0IE = 0;		//Запрет прерывания от модуля TMR0
+//	Nomber_Image_Char(72, 3, &RES_Dat, SignDig);			//Отображение на индикаторе результата измерения
+//	INTCONbits.TMR0IE = 1;		//Разрешение прерывания от модуля TMR0
+//
+//	if(Compare(Mode[0], CNT_Const)) TempR = 3;
+//	else TempR = Mode[0]>>4;
+//
+//
+//	if(Mode[0]==34 && Flags.Test)	Text_To_Display(238, 5, "   ");
+//	else							Text_To_Display(238, 5, MeasLable[TempR][RES_Dat.IndOrder+4]);		//Отображаем единицы измерения
 }
 //-----------------------------------------------------
 
@@ -1083,7 +1084,7 @@ char FindAllDiction	(char Ind)
 }
 
 //-----------------------------------------------------
-char FindAndCheck (rom char *rom *Pointer, char min, char max)
+char FindAndCheck (char * *Pointer, char min, char max)
 {
 	char TempInd, Temp;
 

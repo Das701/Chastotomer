@@ -1,6 +1,6 @@
 //#include <p18f4520.h>
 //#include <timers.h>
-
+#include "defines.h"
 //__CONFIG(1, FOSC_INTIO67 & FCMEN_OFF & IESO_OFF);
 void Time (void);
 void KeyRefresh(char);
@@ -28,7 +28,7 @@ float Fl_Result;
 
 int ENC_max, ENC_min, EncoderCount_16, *EncoderPointer_16 = &EncoderCount_16;//
 char EncoderCount = 0, *EncoderPointer = &EncoderCount, Timer3;
-char a, b, c, ModeIndex = 0, ModeScreen=1, ModeScreenPre, Channel_2, ChannelIndex, ErrReg=0;
+char a, b, c, ModeIndex = 0,  ModeScreenPre, Channel_2, ChannelIndex, ErrReg=0;
 char FuncKeyIndex;
 char Keyboard_Previous, Keyboard_Previous_2, KeyTemp, Keyboard = 0, SignDig;
  
@@ -45,6 +45,7 @@ short Timer2=0;
 //char buf[50];
 
 #define LineFeed	10
+
 
 #include "Pointers.c"
 #include "Functions.c"
@@ -113,82 +114,88 @@ void IntFlags (void) 	//Проверка флагов прерывания
 //-----------------------------------------------------
 */
 //-------------------------------------------------------
-#pragma code INTERRUPT_VECTOR_HI = 0x08			//Размещаем функцию по 8 адресу
+#pragma code INTERRUPT_VECTOR_HI = 0x08	//Размещаем функцию по 8 адресу
+
+void Delay10KTCYx(unsigned char d)
+{
+    
+}
+
 void interHi(void)
 {
-  _asm GOTO IntFlagsHi _endasm
+  //_asm GOTO IntFlagsHi _endasm
 }
 #pragma code
 //-------------------------------------------------------
 #pragma interrupt IntFlagsHi		//Указываем функцию, в которой будет сохраняться контекст прерывания
 void IntFlagsHi (void) 	//Проверка флагов прерывания
 {
-	if(INTCONbits.TMR0IF && INTCONbits.TMR0IE)		Time();
-	if(PIE1bits.RCIE && PIR1bits.RCIF)				UsRX();
-	if(INTCON3bits.INT1IF && INTCON3bits.INT1IE)	Int_1();
-	if(INTCONbits.INT0IF && INTCONbits.INT0IE)		Int_0();
+//	if(INTCONbits.TMR0IF && INTCONbits.TMR0IE)		Time();
+//	if(PIE1bits.RCIE && PIR1bits.RCIF)				UsRX();
+//	if(INTCON3bits.INT1IF && INTCON3bits.INT1IE)	Int_1();
+//	if(INTCONbits.INT0IF && INTCONbits.INT0IE)		Int_0();
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 void Int_0 (void) 	//Обработка прерывания от 
 {
- 	INTCONbits.INT0IF = 0;
-	INTCON3bits.INT1IF = 0;
-
-	INTCONbits.INT0IE=0;
-	INTCON3bits.INT1IE=1;
-
-	if(ENC2)	INTCON2bits.INTEDG1=0;
-	else		INTCON2bits.INTEDG1=1;
-
-
-	if(INTCON2bits.INTEDG0)
-	{
-		if(ENC2)
-		{
-			if(*EncoderPointer>ENC_min)
-			{
-				(*EncoderPointer)--;
-				Flags.ENC_Event=1;				//Установка флага события энкодера
-			}
-			else	(*EncoderPointer) = ENC_min;
-			if(*EncoderPointer_16>ENC_min)
-			{
-				(*EncoderPointer_16)--;
-				Flags.ENC_Event=1;				//Установка флага события энкодера
-			}
-			else (*EncoderPointer_16) = ENC_min;
-		}
-		else
-		{
-			if(*EncoderPointer<ENC_max)	
-			{
-				(*EncoderPointer)++;
-				Flags.ENC_Event=1;				//Установка флага события энкодера
-			}
-			else (*EncoderPointer) = ENC_max;
-			if(*EncoderPointer_16<ENC_max)
-			{
-				(*EncoderPointer_16)++;
-				Flags.ENC_Event=1;				//Установка флага события энкодера
-			}
-			else (*EncoderPointer_16) = ENC_max;
-		}
-		Flags.Control_Event=1;
-	}
+// 	INTCONbits.INT0IF = 0;
+//	INTCON3bits.INT1IF = 0;
+//
+//	INTCONbits.INT0IE=0;
+//	INTCON3bits.INT1IE=1;
+//
+//	if(ENC2)	INTCON2bits.INTEDG1=0;
+//	else		INTCON2bits.INTEDG1=1;
+//
+//
+//	if(INTCON2bits.INTEDG0)
+//	{
+//		if(ENC2)
+//		{
+//			if(*EncoderPointer>ENC_min)
+//			{
+//				(*EncoderPointer)--;
+//				Flags.ENC_Event=1;				//Установка флага события энкодера
+//			}
+//			else	(*EncoderPointer) = ENC_min;
+//			if(*EncoderPointer_16>ENC_min)
+//			{
+//				(*EncoderPointer_16)--;
+//				Flags.ENC_Event=1;				//Установка флага события энкодера
+//			}
+//			else (*EncoderPointer_16) = ENC_min;
+//		}
+//		else
+//		{
+//			if(*EncoderPointer<ENC_max)	
+//			{
+//				(*EncoderPointer)++;
+//				Flags.ENC_Event=1;				//Установка флага события энкодера
+//			}
+//			else (*EncoderPointer) = ENC_max;
+//			if(*EncoderPointer_16<ENC_max)
+//			{
+//				(*EncoderPointer_16)++;
+//				Flags.ENC_Event=1;				//Установка флага события энкодера
+//			}
+//			else (*EncoderPointer_16) = ENC_max;
+//		}
+//		Flags.Control_Event=1;
+//	}
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 void Int_1 (void) 	//Обработка прерывания от 
 {
-	INTCON3bits.INT1IF = 0;
- 	INTCONbits.INT0IF = 0;
-
-	INTCONbits.INT0IE=1;
-	INTCON3bits.INT1IE=0;
-
-	if(ENC1)	INTCON2bits.INTEDG0=0;
-	else		INTCON2bits.INTEDG0=1;
+//	INTCON3bits.INT1IF = 0;
+// 	INTCONbits.INT0IF = 0;
+//
+//	INTCONbits.INT0IE=1;
+//	INTCON3bits.INT1IE=0;
+//
+//	if(ENC1)	INTCON2bits.INTEDG0=0;
+//	else		INTCON2bits.INTEDG0=1;
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
@@ -196,41 +203,41 @@ void UsRX(void)
 {
 	char Temp;
 
-	if(RCSTAbits.OERR)	//Исправление ошибки переполнения
-	{
-		RCREG;
-		RCREG;
-		RCSTAbits.CREN = 0;
-		RCSTAbits.CREN = 1;
-		ErrReg |= 32;
-		return;
-	}
-
-	if(RCSTAbits.FERR)
-	{
-		ErrReg |= 64;
-		RCREG;	//Исправление ошибки кадра
-		return;
-	}
-
-	Temp = RCREG;
-
-	if(Temp>0x40 && Temp<0x5B)	Temp += 0x20;	//Преобразование к нижнему регистру
-
-	InpSTR[STRIndex] = Temp;
-
-	if(STRIndex<127) STRIndex++;
-
-	if(Temp != LineFeed) return;
-
-	for(; STRIndex<128; STRIndex++)	InpSTR[STRIndex] = 0;	//Заполнение нулями остатка массива
-
-	STRIndex = 0;
-	StartInd = 0;
-	CommIndex = 0;
-
-	Flags.ReceiveFlag = 1;		//Флаг готовности оьработки принятой строки
-
+//	if(RCSTAbits.OERR)	//Исправление ошибки переполнения
+//	{
+//		RCREG;
+//		RCREG;
+//		RCSTAbits.CREN = 0;
+//		RCSTAbits.CREN = 1;
+//		ErrReg |= 32;
+//		return;
+//	}
+//
+//	if(RCSTAbits.FERR)
+//	{
+//		ErrReg |= 64;
+//		RCREG;	//Исправление ошибки кадра
+//		return;
+//	}
+//
+//	Temp = RCREG;
+//
+//	if(Temp>0x40 && Temp<0x5B)	Temp += 0x20;	//Преобразование к нижнему регистру
+//
+//	InpSTR[STRIndex] = Temp;
+//
+//	if(STRIndex<127) STRIndex++;
+//
+//	if(Temp != LineFeed) return;
+//
+//	for(; STRIndex<128; STRIndex++)	InpSTR[STRIndex] = 0;	//Заполнение нулями остатка массива
+//
+//	STRIndex = 0;
+//	StartInd = 0;
+//	CommIndex = 0;
+//
+//	Flags.ReceiveFlag = 1;		//Флаг готовности оьработки принятой строки
+//
 //	BinToBinDec(123456789, 9);
 
 }
@@ -240,95 +247,95 @@ void Time (void) 	//Обработка прерывания от таймера TMR0
 {
 	char Counter;
 
-	INTCONbits.TMR0IF = 0;	//Сброс флага прерывания от TMR0
-
-	TMR0H = 0x3C;
-	TMR0L = 0xB0;
-
-
-
-	Slider -=ConstTime[MeasTime[0]];
-	if(Slider > 4095) Slider = 0;//328	 ConstTime[MeasTime[0]];
-
-	if(Timer1!=0)	Timer1--;
-	if(Timer2!=0)	Timer2--;
-	if(Timer3!=0)	Timer3--;
-
-	if(V13)
-	{
-		Timer3 = 2;
-		if(Slider == 0)Slider = 4096;
-	}
-	else Slider = 0;
-
-	ReceiveWord();
-
-	Cnt++;
-
-	Counter = 0;
-	KeyTemp = Free;
-
-	row_1 = 0;
-	row_2 = 1;
-	row_3 = 1;
-	Delay10TCYx(2);
-
-	if(column_1 == 0)	{KeyTemp = Key_2;		Counter++;}
-	if(column_2 == 0)	{KeyTemp = ChannelsKey;	Counter++;}
-	if(column_3 == 0)	{KeyTemp = Key_1;		Counter++;}
-	if(column_4 == 0)	{KeyTemp = 12;			Counter++;}
-
-	row_1 = 1;
-	row_2 = 0;
-	row_3 = 1;
-	Delay10TCYx(2);
-
-	if(column_1 == 0)	{KeyTemp = Key_6;	Counter++;}
-	if(column_2 == 0)	{KeyTemp = Key_5;	Counter++;}
-	if(column_3 == 0)	{KeyTemp = Key_4;	Counter++;}
-	if(column_4 == 0)	{KeyTemp = Key_3;	Counter++;}
-
-	row_1 = 1;
-	row_2 = 1;
-	row_3 = 0;
-	Delay10TCYx(2);
-
-	if(column_1 == 0)	{KeyTemp = TestKey;		Counter++;}
-	if(column_2 == 0)	{KeyTemp = AutoKey;		Counter++;}
-	if(column_3 == 0)	{KeyTemp = IndicateKey;	Counter++;}
-	if(column_4 == 0)	{KeyTemp = ModesKey;	Counter++;}
-
-	if(ENCBUT == 0)		KeyTemp = EncKey;
-
-
-
-	if(KeyTemp == Free)		Keyboard_Previous = KeyTemp;
-	else
-	{
-		if(Flags.SoftStart)
-		{
-			Flags.SoftStart = 0;				//Сброс флага активности программного запуска
-			TransfWord(0b01010000000);			//Передача частотомеру команды ВНУТРЕННИЙ РЕЖИМ ЗАПУСКА
-			Starting[0]=0;
-		}
-	}
-
-
-
-	if(Keyboard_Previous != KeyTemp)
-	{
-		Flags.Control_Event = 1;
-		Flags.Key_Event = 1;
-
-		if(Keyboard_Previous_2 != KeyTemp)	Flags.Change_Event = 1;
-		Keyboard_Previous_2 = KeyTemp;
-		Keyboard_Previous = KeyTemp;
-		Keyboard = KeyTemp;
-
-		if(Keyboard < MenuSize[ModeIndex])	Flags.FunKey_Event = 1;	//Если была нажата функциональная клавиша, то устанавливаем соответствующий флаг
-	}
-	if(Counter > 1) ErrReg |= 1;
-	else			ErrReg &= ~1; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//	INTCONbits.TMR0IF = 0;	//Сброс флага прерывания от TMR0
+//
+//	TMR0H = 0x3C;
+//	TMR0L = 0xB0;
+//
+//
+//
+//	Slider -=ConstTime[MeasTime[0]];
+//	if(Slider > 4095) Slider = 0;//328	 ConstTime[MeasTime[0]];
+//
+//	if(Timer1!=0)	Timer1--;
+//	if(Timer2!=0)	Timer2--;
+//	if(Timer3!=0)	Timer3--;
+//
+//	if(V13)
+//	{
+//		Timer3 = 2;
+//		if(Slider == 0)Slider = 4096;
+//	}
+//	else Slider = 0;
+//
+//	ReceiveWord();
+//
+//	Cnt++;
+//
+//	Counter = 0;
+//	KeyTemp = Free;
+//
+//	row_1 = 0;
+//	row_2 = 1;
+//	row_3 = 1;
+//	Delay10TCYx(2);
+//
+//	if(column_1 == 0)	{KeyTemp = Key_2;		Counter++;}
+//	if(column_2 == 0)	{KeyTemp = ChannelsKey;	Counter++;}
+//	if(column_3 == 0)	{KeyTemp = Key_1;		Counter++;}
+//	if(column_4 == 0)	{KeyTemp = 12;			Counter++;}
+//
+//	row_1 = 1;
+//	row_2 = 0;
+//	row_3 = 1;
+//	Delay10TCYx(2);
+//
+//	if(column_1 == 0)	{KeyTemp = Key_6;	Counter++;}
+//	if(column_2 == 0)	{KeyTemp = Key_5;	Counter++;}
+//	if(column_3 == 0)	{KeyTemp = Key_4;	Counter++;}
+//	if(column_4 == 0)	{KeyTemp = Key_3;	Counter++;}
+//
+//	row_1 = 1;
+//	row_2 = 1;
+//	row_3 = 0;
+//	Delay10TCYx(2);
+//
+//	if(column_1 == 0)	{KeyTemp = TestKey;		Counter++;}
+//	if(column_2 == 0)	{KeyTemp = AutoKey;		Counter++;}
+//	if(column_3 == 0)	{KeyTemp = IndicateKey;	Counter++;}
+//	if(column_4 == 0)	{KeyTemp = ModesKey;	Counter++;}
+//
+//	if(ENCBUT == 0)		KeyTemp = EncKey;
+//
+//
+//
+//	if(KeyTemp == Free)		Keyboard_Previous = KeyTemp;
+//	else
+//	{
+//		if(Flags.SoftStart)
+//		{
+//			Flags.SoftStart = 0;				//Сброс флага активности программного запуска
+//			TransfWord(0b01010000000);			//Передача частотомеру команды ВНУТРЕННИЙ РЕЖИМ ЗАПУСКА
+//			Starting[0]=0;
+//		}
+//	}
+//
+//
+//
+//	if(Keyboard_Previous != KeyTemp)
+//	{
+//		Flags.Control_Event = 1;
+//		Flags.Key_Event = 1;
+//
+//		if(Keyboard_Previous_2 != KeyTemp)	Flags.Change_Event = 1;
+//		Keyboard_Previous_2 = KeyTemp;
+//		Keyboard_Previous = KeyTemp;
+//		Keyboard = KeyTemp;
+//
+//		if(Keyboard < MenuSize[ModeIndex])	Flags.FunKey_Event = 1;	//Если была нажата функциональная клавиша, то устанавливаем соответствующий флаг
+//	}
+//	if(Counter > 1) ErrReg |= 1;
+//	else			ErrReg &= ~1; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 //-----------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------
@@ -357,10 +364,10 @@ void KeyRefresh(char FKey)
 
 	if(Channel != Chan_B)
 	{
-    	if((Mode[0] == 3)||(Mode[0] == 1))	Level_1[5] = &STR14_1;		//Меняем клавишу ВРЕМЯ на N
+    	if((Mode[0] == 3)||(Mode[0] == 1))	Level_1[5] = (struct struct_1 *)&STR14_1;		//Меняем клавишу ВРЕМЯ на N
     	if(Mode[0] == 17)
 		{
-			Level_1[4] = &STR15;		//Меняем клавишу МЕТКИ на ВРЕМЯ
+			Level_1[4] = (struct struct_1 *)&STR15;		//Меняем клавишу МЕТКИ на ВРЕМЯ
 			MenuSize[1] = 5;			//Уменьшаем количество клавиш до пяти
 		}
 	}
@@ -371,8 +378,8 @@ void KeyRefresh(char FKey)
 	{
 		if((Mode[0] == 33)||(Mode[0] == 16))
 		{
-		 	Level_1[5] = &STR14_1;		//Меняем клавишу ВРЕМЯ на N
-			if(Mode[0] == 33)	Level_1[5] = &STR14_2;	//Меняем клавишу N в режиме длительности с усреднением
+		 	Level_1[5] = (struct struct_1 *)&STR14_1;		//Меняем клавишу ВРЕМЯ на N
+			if(Mode[0] == 33)	Level_1[5] = (struct struct_1 *)&STR14_2;	//Меняем клавишу N в режиме длительности с усреднением
 		}
 		if(((Mode[0] & 240) == 32) && (Mode[0]!=33)) 		MenuSize[1] = 5;			//В режиме ДЛИТЕЛЬНОСТЬ уменьшаем количество клавиш до пяти
 		if((Mode[0] > 47)&&(Mode[0] < 52))					MenuSize[1] = 4;	//В режиме СЧЕТ,уменьшаем количество клавиш до четырех
@@ -381,25 +388,25 @@ void KeyRefresh(char FKey)
 		if(Mode[0]== 50)
 		{
 			MenuSize[1] = 5;	//В режиме СЧЕТ, РУЧНОЙ увеличиваем количество клавиш до пяти
-			Level_1[4] = &STR14_1;
+			Level_1[4] = (struct struct_1 *)&STR14_1;
 		}
 
 		switch(Channel)							//Осуществляем более детальную настройку клавиш
 		{
 			case Chan_A:		//Канал А
-			Level_1[0] = &STR10;		//Режим измерения частоты
-			Level_1[2] = &STR12;		//Режим измерения длительности
-			Level_1[3] = &STR13;		//Режим счета
+			Level_1[0] = (struct struct_1 *)&STR10;		//Режим измерения частоты
+			Level_1[2] = (struct struct_1 *)&STR12;		//Режим измерения длительности
+			Level_1[3] = (struct struct_1 *)&STR13;		//Режим счета
 			break;
 	
 			case Chan_B:		//Канал В
 			MenuSize[1] = 3;			//Уменьшаем количество клавиш до трех
-			Level_1[0] = &STR10_1;		//Режим измерения частоты
-			Level_1[1] = &STR13_1;		//Режим счета
-			Level_1[2] = &STR15;		//Время
+			Level_1[0] = (struct struct_1 *)&STR10_1;		//Режим измерения частоты
+			Level_1[1] = (struct struct_1 *)&STR13_1;		//Режим счета
+			Level_1[2] = (struct struct_1 *)&STR15;		//Время
 
 			if(Compare(Mode[0], N_B_Const))	//Если выбран режим счет по периоду или отношение частот
-			Level_1[2] = &STR14_1;		//Меняем клавишу ВРЕМЯ на N
+			Level_1[2] = (struct struct_1 *)&STR14_1;		//Меняем клавишу ВРЕМЯ на N
 
 			if((Mode[0] == 48) || (Mode[0] == 49))	//Если выбран режим счет по длительности
 			MenuSize[1] = 2;			//Уменьшаем количество клавиш до двух
@@ -407,9 +414,9 @@ void KeyRefresh(char FKey)
 			break;
 
     		case Chan_C:		//Канал С
-			Level_1[0] = &STR10_2;		//Режим измерения частоты
-			Level_1[2] = &STR12_1;		//Режим измерения длительности
-			Level_1[3] = &STR13_2;		//Режим счета
+			Level_1[0] = (struct struct_1 *)&STR10_2;		//Режим измерения частоты
+			Level_1[2] = (struct struct_1 *)&STR12_1;		//Режим измерения длительности
+			Level_1[3] = (struct struct_1 *)&STR13_2;		//Режим счета
 			break; 
 
 			default:
@@ -596,8 +603,8 @@ void MeasureTimer (void)
 			Slider = 3968;
 		}
 
-		Rectangle (X0+1, X1-1-((Slider>>7)&31), Y1>>3, Y1>>3, 0b01111110);
-		Rectangle (X1-((Slider>>7)&31), X1-1, Y1>>3, Y1>>3, 0b01000010);
+		Rectangle (X0+1, X1-1-((Slider>>7)&31), Y1>>3, Y1>>3, 01111110);
+		Rectangle (X1-((Slider>>7)&31), X1-1, Y1>>3, Y1>>3, 01000010);
 
 		Rectangle (a, X1-1, 6, 6, 0);
 		Line (X0, X0, Y0, Y2);
@@ -677,7 +684,7 @@ void Selection (char data)	//Функция ограничения, сохранения и отображения перем
 	{
 			Flags.RefrCreen_2 = 1;							//Установка флага второстепенного обновления экрана
 			Kin[Channel] = 1;								//Делитель вкл
-			TransfWord(0b00010000001);						//Делитель вкл
+			TransfWord(00010000001);						//Делитель вкл
 
 			if(Synch[Channel]==0)	Level[Channel] = 60;	//ТТЛ
 			else 					Level[Channel] = -62;	//ЭСЛ
@@ -713,7 +720,7 @@ void MeasureScreen (void)
 		if(!(Compare(Mode[0], TEST_Const)))		//Отключение режима ТЕСТ (если в текущем режиме он запрещен)
 		{
 			Flags.Test = 0;	
-			TransfWord(0b01111000000);			//Передача частотомеру команды ИЗМЕРЕНИЕ
+			TransfWord(01111000000);			//Передача частотомеру команды ИЗМЕРЕНИЕ
 		}
 
 		Flags.RefrCreen = 0;
@@ -911,13 +918,13 @@ void MeasureScreen (void)
 			if(Flags.Test==1)
 			{
 				Flags.Test = 0;				//Отключение режима ТЕСТ (если был включен)
-				TransfWord(0b01111000000);	//Передача частотомеру команды ИЗМЕРЕНИЕ
+				TransfWord(01111000000);	//Передача частотомеру команды ИЗМЕРЕНИЕ
 			}
 			else
 			{
 				Flags.Test = 1;				//Включение режима ТЕСТ
 				ModeIndex = 1;				//Отобразим клавиши РЕЖИМЫ
-				TransfWord(0b01111000001);	//Передача частотомеру команды ТЕСТ
+				TransfWord(01111000001);	//Передача частотомеру команды ТЕСТ
 			}
 		}
 	}
@@ -944,7 +951,7 @@ void MeasureScreen (void)
 	if(Flags.Key_Event && (Keyboard == AutoKey) && !Flags.Hold && !Flags.Test && (Channel != Chan_B))
 	{
 		Flags.Key_Event = 0;		//Сброс флага события клавиатуры
-		TransfWord(0b01111000011);	//Передача частотомеру команды АВТО
+		TransfWord(01111000011);	//Передача частотомеру команды АВТО
 		Flags.Auto = 1;				//Установка флага активности режима АВТО
 		Flags.RefrCreen_2 = 1;		//Установка флага второстепенного обновления экрана (обновление индикации параметров)
 	}
@@ -968,7 +975,7 @@ void MeasureScreen (void)
 	if((Mode[0]== 33)&&(MeasTime[0] == 0))	//В режиме длительность с усреднением исключаем число усреднений 1, заменяя на 10
 	{
 		MeasTime[0] = 1;						//Отключение режима ТЕСТ (если если выбран не подходящий режим)
-		TransfWord(0b01000000001);			//Передача частотомеру команды ИЗМЕРЕНИЕ
+		TransfWord(01000000001);			//Передача частотомеру команды ИЗМЕРЕНИЕ
 	}
 
 }
@@ -977,315 +984,315 @@ void MeasureScreen (void)
 			//Функция передачи слова на плату частотомера
 void TransfWord (unsigned int Data)
 {
-	char i;
-	int CNT=0;
-
-	while(BUSY)
-	{
-		CNT++;
-		if(CNT>20000)
-		{
-			ErrReg |= 2;	//Установка ошибки связи	
-			return;
-		}
-	}
-
-	ErrReg &= ~2;	//Сброс ошибки связи
-
-	ISHT = 0;
-	MDO = 0;
-
-	for(i=0; i<11; i++)
-	{
-		if(Data & 1024) MDO = 1;
-		else MDO = 0;
-
-		_asm
-		nop
-		nop
-		nop
-		_endasm
-
-		ISHT = 1;
-
-		_asm
-		nop
-		nop
-		nop
-		_endasm
-		ISHT = 0;
-
-	Data <<=1;
-	}
-		MDO = 0;
-
-		_asm
-		nop
-		nop
-		nop
-		_endasm
-
-		ISHT = 1;
-
-		_asm
-		nop
-		nop
-		nop
-		_endasm
-
-		MDO = 1;
-
-		_asm
-		nop
-		nop
-		nop
-		_endasm
-
-		MDO = 0;
-
-		_asm
-		nop
-		nop
-		nop
-		_endasm
-
-		ISHT = 0;
+//	char i;
+//	int CNT=0;
+//
+//	while(BUSY)
+//	{
+//		CNT++;
+//		if(CNT>20000)
+//		{
+//			ErrReg |= 2;	//Установка ошибки связи	
+//			return;
+//		}
+//	}
+//
+//	ErrReg &= ~2;	//Сброс ошибки связи
+//
+//	ISHT = 0;
+//	MDO = 0;
+//
+//	for(i=0; i<11; i++)
+//	{
+//		if(Data & 1024) MDO = 1;
+//		else MDO = 0;
+//
+//		_asm
+//		nop
+//		nop
+//		nop
+//		_endasm
+//
+//		ISHT = 1;
+//
+//		_asm
+//		nop
+//		nop
+//		nop
+//		_endasm
+//		ISHT = 0;
+//
+//	Data <<=1;
+//	}
+//		MDO = 0;
+//
+//		_asm
+//		nop
+//		nop
+//		nop
+//		_endasm
+//
+//		ISHT = 1;
+//
+//		_asm
+//		nop
+//		nop
+//		nop
+//		_endasm
+//
+//		MDO = 1;
+//
+//		_asm
+//		nop
+//		nop
+//		nop
+//		_endasm
+//
+//		MDO = 0;
+//
+//		_asm
+//		nop
+//		nop
+//		nop
+//		_endasm
+//
+//		ISHT = 0;
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 			//Функция приема слова с платы частотомера
 void ReceiveWord(void)
 {
-	char i, limit = 0;
-	signed long Receive_0 = 0, Receive_1 = 0;
-	signed char ResOrder = 0;
-	float TempFl, TempFl_2;
-
-	if(!BOUT)
-	{
-		if(!RDY2)
-		{
-			while((!RDY2)	&&	limit<64)
-			{
-		
-				Receive_1 <<=1;
-				if(Receive_0 & 0x80000000)		Receive_1 |= 1;
-				Receive_0 <<=1;
-				limit++;
-		
-				BSHT = 1;
-		
-				_asm
-				nop
-				nop
-				nop
-				_endasm
-		
-				if(BOUT) Receive_0 |= 1;
-				else Receive_0 &= ~1;
-		
-				BSHT = 0;
-				_asm
-				nop
-				nop
-				nop
-				_endasm
-			}
-
-			if(BOUT) Receive_0 |= 1;
-			else Receive_0 &= ~1;
-
-/*			if(limit==64)
-			{
-				ErrReg |= 2;	//Установка ошибки связи	
-				return;
-			}*/
-
-			Receive_0 = (Receive_0>>1)&0x3FFFFFFF;
-
-			Interpol = (Receive_0>>3)&1023;
-	//		Interpol = (Receive_1>>3)&1023;
-
-		}
-		else		return;
-	}
-	else
-	{
-		if(BOUT) Receive_0 |= 1;
-		else Receive_0 &= ~1;
-
-		while(limit<13)
-		{
-			Receive_0 <<=1;
-			limit++;
-		
-			BSHT = 1;
-		
-			_asm 
-			nop
-			nop
-			nop
-			_endasm
-		
-			if(BOUT) Receive_0 |= 1;
-			else Receive_0 &= ~1;
-		
-			BSHT = 0;
-			_asm
-			nop
-			nop
-			nop
-			_endasm
-		}
-
-		BSHT = 1;
-		
-		_asm
-		nop
-		nop
-		nop
-		nop
-		nop
-		nop
-		_endasm
-	
-		BSHT = 0;
-
-	 	ReceiveData = Receive_0&0x1FFF;
-
-		if(BOUT)
-		{
-			ErrReg |= 2;	//Установка ошибки связи	
-			return;
-		}
-		if((Receive_0&0x7)==7)
-		{
-			ErrReg |= (Receive_0>>3)&0b11100;			//Флаги ошибки с платы частотомера
-		}
-
-		Flags.DataReceive = 1;					//Установка флага принятого сообщения;
-		return;
-	}
-
-//Receive_0=999999999;
-
-	if((Flags.Test == 0)&&(Channel == Chan_B))		//Для канала B
-	{
-		Receive_0 *= 16;
-	}
-
-	SignDig = Order(Receive_0);			//Количество отображаемых символов
-
-
-	if(Compare(Mode[0], NormalMode)||((Mode[0] == 2)&&(Channel == Chan_B)))		//Результат не требующий выполнения деления
-	{
-		if(Mode[0] == 0)
-		{
-			ResOrder = 3-MeasTime[0];					//Множитель для прямого измерения частоты
-		}
-
-		if(Mode[0] == 1)	ResOrder = 0-MeasTime[0];	//)отношения частот А/С (C/A)
-       
-        if(Mode[0] == 2)	ResOrder = 0-MeasTime[0];	//)отношения частот А/С (C/A)    //ya
-
-		if(Mode[0] == 50)	ResOrder = 0;				//счет за число периодов
-	
-		if((Mode[0] == 16)||(Mode[0] == 33))
-		{
-			ResOrder = -8 - MeasTime[0] + Notch[0];		//Множитель для периода и длительности с усреднением
-	
-			if((Mode[0] == 33) && !Flags.Test)	Receive_0 *= 2;		//Для длительности с усреднением результат умножаем на 2
-		}
-	
-		if((Mode[0] == 32)||(Mode[0] == 35))
-		{
-			ResOrder = -8 + Notch[0];					//Множитель	для длительности и интервала
-		}
-	
-		if((Mode[0] == 34) && !Flags.Test)				//Для режима длительности с интерполятором
-		{
-
-			ResOrder = -9;
-		//10.04.18	Receive_0 = 50.0*(N2-2*N1+Interpol)/(N2-N1);//Fl_Result;
-
-            Interpols=Interpol-N1;
-            Receive_0 = 20.0+((Interpols*80)/(N2-N1));//Fl_Result;
-        //10.04.18
-		}
-
-		RES_Dat.Data = Receive_0;
-		RES_Dat.Order = ResOrder;
-
-	}
-	else
-	{
-
-		if(Mode[0] == 37)													//Для режима ФАЗА
-		{
-			if(!Receive_1)			//Проверяем делитель на нуль
-			{
-				ResOrder = 0;			
-				Fl_Result = 2e9;
-			}
-			else
-			{
-				Fl_Result = Receive_0;
-				Fl_Result /= Receive_1;
-				if(Fl_Result>0.5)	Fl_Result -= 1.0;
-				Fl_Result *=360*FloatDegree(SignDig-1);
-				ResOrder = 0-(SignDig-1);
-			}
-		}
-		if(Mode[0] == 36)												//Для режима скважность
-		{
-			if(!Receive_1)			//Проверяем делитель на нуль
-			{
-				ResOrder = 0;			
-				Fl_Result = 2e9;
-			}
-			else
-			{
-				Fl_Result = Receive_0*FloatDegree(SignDig*2-3);
-				Fl_Result /= Receive_1;
-				ResOrder = 0-(SignDig*2-3);
-			}
-		}
-
-		if(Mode[0] == 2)												//Для режима отношения к частоте В
-		{
-			if(!Receive_0)			//Проверяем делитель на нуль
-			{
-				ResOrder = 0;			
-				Fl_Result = 2e9;
-			}
-			else
-			{
-				Fl_Result = Receive_1*FloatDegree(SignDig*2-1);
-				Fl_Result /= Receive_0*16;
-				ResOrder = 0-(SignDig*2-1);
-			}
-		}
-		if((Mode[0] == 3)||(Mode[0] == 17))	//17						//Для режимов 1/T и 1/f
-		{
-			if(!Receive_0)			//Проверяем делитель на нуль
-			{
-				ResOrder = 0;			
-				Fl_Result = 2e9;
-			}
-			else
-			{
-				Fl_Result = FloatDegree(SignDig*2-1);//(SignDig*2-1)
-				Fl_Result /= Receive_0;
-		
-				if(Mode[0] == 3)	ResOrder = 8 + MeasTime[0] - Notch[0] - (SignDig*2-1);	//1/T	-1*(Notch[0] - 8 - MeasTime[0])
-				else				ResOrder = MeasTime[0]-3-(SignDig*2-1);					//1/f
-			}
-		}
-		RES_Dat.Data = Fl_Result;
-		RES_Dat.Order = ResOrder;
-	}
-
-	Flags.TransceiveFlag = 1;	//Флаг готовности передачи результата измерения
+//	char i, limit = 0;
+//	signed long Receive_0 = 0, Receive_1 = 0;
+//	signed char ResOrder = 0;
+//	float TempFl, TempFl_2;
+//
+//	if(!BOUT)
+//	{
+//		if(!RDY2)
+//		{
+//			while((!RDY2)	&&	limit<64)
+//			{
+//		
+//				Receive_1 <<=1;
+//				if(Receive_0 & 0x80000000)		Receive_1 |= 1;
+//				Receive_0 <<=1;
+//				limit++;
+//		
+//				BSHT = 1;
+//		
+//				_asm
+//				nop
+//				nop
+//				nop
+//				_endasm
+//		
+//				if(BOUT) Receive_0 |= 1;
+//				else Receive_0 &= ~1;
+//		
+//				BSHT = 0;
+//				_asm
+//				nop
+//				nop
+//				nop
+//				_endasm
+//			}
+//
+//			if(BOUT) Receive_0 |= 1;
+//			else Receive_0 &= ~1;
+//
+///*			if(limit==64)
+//			{
+//				ErrReg |= 2;	//Установка ошибки связи	
+//				return;
+//			}*/
+//
+//			Receive_0 = (Receive_0>>1)&0x3FFFFFFF;
+//
+//			Interpol = (Receive_0>>3)&1023;
+//	//		Interpol = (Receive_1>>3)&1023;
+//
+//		}
+//		else		return;
+//	}
+//	else
+//	{
+//		if(BOUT) Receive_0 |= 1;
+//		else Receive_0 &= ~1;
+//
+//		while(limit<13)
+//		{
+//			Receive_0 <<=1;
+//			limit++;
+//		
+//			BSHT = 1;
+//		
+//			_asm 
+//			nop
+//			nop
+//			nop
+//			_endasm
+//		
+//			if(BOUT) Receive_0 |= 1;
+//			else Receive_0 &= ~1;
+//		
+//			BSHT = 0;
+//			_asm
+//			nop
+//			nop
+//			nop
+//			_endasm
+//		}
+//
+//		BSHT = 1;
+//		
+//		_asm
+//		nop
+//		nop
+//		nop
+//		nop
+//		nop
+//		nop
+//		_endasm
+//	
+//		BSHT = 0;
+//
+//	 	ReceiveData = Receive_0&0x1FFF;
+//
+//		if(BOUT)
+//		{
+//			ErrReg |= 2;	//Установка ошибки связи	
+//			return;
+//		}
+//		if((Receive_0&0x7)==7)
+//		{
+//			ErrReg |= (Receive_0>>3)&0b11100;			//Флаги ошибки с платы частотомера
+//		}
+//
+//		Flags.DataReceive = 1;					//Установка флага принятого сообщения;
+//		return;
+//	}
+//
+////Receive_0=999999999;
+//
+//	if((Flags.Test == 0)&&(Channel == Chan_B))		//Для канала B
+//	{
+//		Receive_0 *= 16;
+//	}
+//
+//	SignDig = Order(Receive_0);			//Количество отображаемых символов
+//
+//
+//	if(Compare(Mode[0], NormalMode)||((Mode[0] == 2)&&(Channel == Chan_B)))		//Результат не требующий выполнения деления
+//	{
+//		if(Mode[0] == 0)
+//		{
+//			ResOrder = 3-MeasTime[0];					//Множитель для прямого измерения частоты
+//		}
+//
+//		if(Mode[0] == 1)	ResOrder = 0-MeasTime[0];	//)отношения частот А/С (C/A)
+//       
+//        if(Mode[0] == 2)	ResOrder = 0-MeasTime[0];	//)отношения частот А/С (C/A)    //ya
+//
+//		if(Mode[0] == 50)	ResOrder = 0;				//счет за число периодов
+//	
+//		if((Mode[0] == 16)||(Mode[0] == 33))
+//		{
+//			ResOrder = -8 - MeasTime[0] + Notch[0];		//Множитель для периода и длительности с усреднением
+//	
+//			if((Mode[0] == 33) && !Flags.Test)	Receive_0 *= 2;		//Для длительности с усреднением результат умножаем на 2
+//		}
+//	
+//		if((Mode[0] == 32)||(Mode[0] == 35))
+//		{
+//			ResOrder = -8 + Notch[0];					//Множитель	для длительности и интервала
+//		}
+//	
+//		if((Mode[0] == 34) && !Flags.Test)				//Для режима длительности с интерполятором
+//		{
+//
+//			ResOrder = -9;
+//		//10.04.18	Receive_0 = 50.0*(N2-2*N1+Interpol)/(N2-N1);//Fl_Result;
+//
+//            Interpols=Interpol-N1;
+//            Receive_0 = 20.0+((Interpols*80)/(N2-N1));//Fl_Result;
+//        //10.04.18
+//		}
+//
+//		RES_Dat.Data = Receive_0;
+//		RES_Dat.Order = ResOrder;
+//
+//	}
+//	else
+//	{
+//
+//		if(Mode[0] == 37)													//Для режима ФАЗА
+//		{
+//			if(!Receive_1)			//Проверяем делитель на нуль
+//			{
+//				ResOrder = 0;			
+//				Fl_Result = 2e9;
+//			}
+//			else
+//			{
+//				Fl_Result = Receive_0;
+//				Fl_Result /= Receive_1;
+//				if(Fl_Result>0.5)	Fl_Result -= 1.0;
+//				Fl_Result *=360*FloatDegree(SignDig-1);
+//				ResOrder = 0-(SignDig-1);
+//			}
+//		}
+//		if(Mode[0] == 36)												//Для режима скважность
+//		{
+//			if(!Receive_1)			//Проверяем делитель на нуль
+//			{
+//				ResOrder = 0;			
+//				Fl_Result = 2e9;
+//			}
+//			else
+//			{
+//				Fl_Result = Receive_0*FloatDegree(SignDig*2-3);
+//				Fl_Result /= Receive_1;
+//				ResOrder = 0-(SignDig*2-3);
+//			}
+//		}
+//
+//		if(Mode[0] == 2)												//Для режима отношения к частоте В
+//		{
+//			if(!Receive_0)			//Проверяем делитель на нуль
+//			{
+//				ResOrder = 0;			
+//				Fl_Result = 2e9;
+//			}
+//			else
+//			{
+//				Fl_Result = Receive_1*FloatDegree(SignDig*2-1);
+//				Fl_Result /= Receive_0*16;
+//				ResOrder = 0-(SignDig*2-1);
+//			}
+//		}
+//		if((Mode[0] == 3)||(Mode[0] == 17))	//17						//Для режимов 1/T и 1/f
+//		{
+//			if(!Receive_0)			//Проверяем делитель на нуль
+//			{
+//				ResOrder = 0;			
+//				Fl_Result = 2e9;
+//			}
+//			else
+//			{
+//				Fl_Result = FloatDegree(SignDig*2-1);//(SignDig*2-1)
+//				Fl_Result /= Receive_0;
+//		
+//				if(Mode[0] == 3)	ResOrder = 8 + MeasTime[0] - Notch[0] - (SignDig*2-1);	//1/T	-1*(Notch[0] - 8 - MeasTime[0])
+//				else				ResOrder = MeasTime[0]-3-(SignDig*2-1);					//1/f
+//			}
+//		}
+//		RES_Dat.Data = Fl_Result;
+//		RES_Dat.Order = ResOrder;
+//	}
+//
+//	Flags.TransceiveFlag = 1;	//Флаг готовности передачи результата измерения
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
@@ -1344,7 +1351,7 @@ void ChannelPrest (void)
 	if(!(Compare(Mode[0], TEST_Const)))
 	{
 		Flags.Test = 0;						//Отключение режима ТЕСТ (если если выбран не подходящий режим)
-		TransfWord(0b01111000000);			//Передача частотомеру команды ИЗМЕРЕНИЕ
+		TransfWord(01111000000);			//Передача частотомеру команды ИЗМЕРЕНИЕ
 	}
 }
 //-----------------------------------------------------
@@ -1386,7 +1393,7 @@ void CalibrateMode (void)
 			Text_To_Display(10, 4, "Нет ответа");	
 			while(Timer1 != 0);
 			Command_To_Display(CLEAR_DYSP);		//Очистка индикатора
-			TransfWord(0b01111000000);			//Передача частотомеру команды ИЗМЕРЕНИЕ
+			TransfWord(01111000000);			//Передача частотомеру команды ИЗМЕРЕНИЕ
 			return;
 		}
 
@@ -1418,10 +1425,10 @@ void CalibrateMode (void)
 	{
 		Flags.Key_Event = 0;							//Сброс флага события клавиатуры
 
-		TransfWord(0b01111000000);						//Передача частотомеру команды ИЗМЕРЕНИЕ (выход без сохранения)
+		TransfWord(01111000000);						//Передача частотомеру команды ИЗМЕРЕНИЕ (выход без сохранения)
 		ModeScreen = MEASURE_SCREEN;					//Выход из режима
 		Command_To_Display(CLEAR_DYSP);					//Очистка индикатора
-		TransfWord(0b01111000000);						//Передача частотомеру команды ИЗМЕРЕНИЕ
+		TransfWord(01111000000);						//Передача частотомеру команды ИЗМЕРЕНИЕ
 	}
 	//***************************
 	
@@ -1430,13 +1437,13 @@ void CalibrateMode (void)
 	{
 		Flags.Key_Event = 0;							//Сброс флага события клавиатуры
  	    ModeScreen = MEASURE_SCREEN;
-		TransfWord(0b01111000100);	//Передача частотомеру команды ВЫХОД С СОХРАНЕНИЕМ
+		TransfWord(01111000100);	//Передача частотомеру команды ВЫХОД С СОХРАНЕНИЕМ
 
 		Timer1 = 20;							//Время выдержки таймера 1 секунда
 		Text_To_Display(10, 4, "Сохранено");
 		while(Timer1 != 0);
 		Command_To_Display(CLEAR_DYSP);			//Очистка индикатора
-		TransfWord(0b01111000000);						//Передача частотомеру команды ИЗМЕРЕНИЕ
+		TransfWord(01111000000);						//Передача частотомеру команды ИЗМЕРЕНИЕ
 	}
 	//*****************
 }
@@ -1452,28 +1459,28 @@ void main(void)
 
 
 
-	PORTA = 0;
-	PORTB = 0; 
-	PORTC = 0; 
+//	PORTA = 0;
+//	PORTB = 0; 
+//	PORTC = 0; 
+//
+//	TRISA = 0;
+//	TRISB = 00111111;
+//	TRISC = 10000101;
+//	TRISD = 00001111;
 
-	TRISA = 0;
-	TRISB = 0b00111111;
-	TRISC = 0b10000101;
-	TRISD = 0b00001111;
+//	OSCCON = 01101100;
+//	OSCTUNE = 01000000;
 
-	OSCCON = 0b01101100;
-	OSCTUNE = 0b01000000;
+//	Delay10KTCYx(255);
+//	Delay10KTCYx(255);
 
-	Delay10KTCYx(255);
-	Delay10KTCYx(255);
+//	OpenTimer0( TIMER_INT_ON & T0_16BIT & T0_SOURCE_INT & T0_PS_1_4 );	//задержка таймера
 
-	OpenTimer0( TIMER_INT_ON & T0_16BIT & T0_SOURCE_INT & T0_PS_1_4 );	//задержка таймера
-
-	INTCONbits.GIE = 1; 	//enable global interrupts
-	INTCONbits.PEIE = 1; 
-	INTCON2 = 0b00000000;
-	INTCONbits.INT0IE=1;
-	INTCON3bits.INT1IE=1;
+//	INTCONbits.GIE = 1; 	//enable global interrupts
+//	INTCONbits.PEIE = 1; 
+//	INTCON2 = 00000000;
+//	INTCONbits.INT0IE=1;
+//	INTCON3bits.INT1IE=1;
 
 /*
 	INTCON3bits.INT1IP=1;			// INT1 High priority
@@ -1484,41 +1491,41 @@ void main(void)
 	INTCON2bits.TMR0IP=0;			//Низкий приоритет TMR0
 */
 
-	INTCON2bits.INTEDG0=1;
-	INTCON2bits.INTEDG1=1;
+//	INTCON2bits.INTEDG0=1;
+//	INTCON2bits.INTEDG1=1;
 
 //	RCONbits.IPEN = 1;
 
 //--------------------------
 	//Настройка USART
-	SPBRG = 25;		//Скорость 9600кб/с
-	RCSTAbits.SPEN = 1;
-	TXSTAbits.SYNC = 0;
-	PIR1bits.RCIF = 0;
-	PIE1bits.RCIE = 1;		//Разрешение прерывания от модуля
+//	SPBRG = 25;		//Скорость 9600кб/с
+//	RCSTAbits.SPEN = 1;
+//	TXSTAbits.SYNC = 0;
+//	PIR1bits.RCIF = 0;
+//	PIE1bits.RCIE = 1;		//Разрешение прерывания от модуля
 
 		//Включение передатчика
-	TXSTAbits.TXEN = 1;
+//	TXSTAbits.TXEN = 1;
 
 		//Включение приемника
-	RCSTAbits.CREN = 1;
+//	RCSTAbits.CREN = 1;
 
 //--------------------------
 	Init_Display();
 
 
-	PIE2bits.HLVDIE = 0;
-	HLVDCON = 0b00011110;
-	PIR2bits.HLVDIF = 0;
+//	PIE2bits.HLVDIE = 0;
+//	HLVDCON = 00011110;
+//	PIR2bits.HLVDIF = 0;
 
 	Flags.RefrCreen = 1;
 	Flags.Auto = 0;
 
      Text_To_Display(255,0," OAO MNIPI,Ч3-XX,Cher V 1.1");	
-   Delay10KTCYx(255); 
-   Delay10KTCYx(255);
-   Delay10KTCYx(255);
-   Delay10KTCYx(255); 
+//   Delay10KTCYx(255); 
+//   Delay10KTCYx(255);
+//   Delay10KTCYx(255);
+//   Delay10KTCYx(255); 
 
 	Command_To_Display(CLEAR_DYSP);
 		C0=20; C1=20; C2=20; C3=20; C4=20; C5=20; C6=20; C7=20; C8=20, C9=20;		//Заставим число на индикаторе целиком обновиться
@@ -1533,17 +1540,17 @@ void main(void)
   
 
     Delay10KTCYx(255);
-	ErrReg &= 0b00011100;
+	ErrReg &= 00011100;
 
 	while(1)
 	{	
-		if(PIR2bits.HLVDIF)
-		{
-			PIR2bits.HLVDIF = 0;
-			Delay10KTCYx(100);
-			Init_Display();
-			Flags.RefrCreen = 1;
-		}
+//		if(PIR2bits.HLVDIF)
+//		{
+//			PIR2bits.HLVDIF = 0;
+//			Delay10KTCYx(100);
+//			Init_Display();
+//			Flags.RefrCreen = 1;
+//		}
 
 
 	if((ArrayCnt!=0)&&Flags.TransceiveFlag)
@@ -1555,10 +1562,10 @@ void main(void)
 		BinToBinDec(&RES_Dat);
 		RAMStringTX(Decades);	//Передача на компьютер
 
-		while(!PIR1bits.TXIF);
-		TXREG = '\n';
+//		while(!PIR1bits.TXIF);
+//		TXREG = '\n';
 
-		if(ArrayCnt!=0)	TransfWord(0b01010000011);						//Передача частотомеру команды ПРОГРАММНЫЙ ЗАПУСК
+		if(ArrayCnt!=0)	TransfWord(01010000011);						//Передача частотомеру команды ПРОГРАММНЫЙ ЗАПУСК
 	}
 
 

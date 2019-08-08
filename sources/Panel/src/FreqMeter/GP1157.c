@@ -137,15 +137,15 @@ char* ImageChar[] =	{image_1, image_2, image_3, image_4, image_5, image_6, image
 //***********************************************
 void Write_To_Display (unsigned char data)
 {
-	Delay10TCYx(1);
-	while(RDY == 0)
-	{
-	}
-
-	WR = 0;
-	PORTA = data;
-	WR = 1;
-  
+//	Delay10TCYx(1);
+//	while(RDY == 0)
+//	{
+//	}
+//
+//	WR = 0;
+//	PORTA = data;
+//	WR = 1;
+//  
 }
 //***********************************************
 //***********************************************
