@@ -21,4 +21,33 @@
 
 #define HEX_FROM_2(hex1, hex0) ((uint)(0x##hex1) << 16 | (uint)0x##hex0)
 
-// Проверка связи
+struct Flags_ 
+{
+  unsigned Key_Event:1;
+  unsigned ENC_Event:1;
+  unsigned Control_Event:1;
+  unsigned RefrCreen:1;
+  unsigned FunKey_Event:1;
+  unsigned Change_Event:1;			//Флаг нажатия новой клавиши
+  unsigned RefrCreen_2:1;
+  unsigned DataReceive:1;
+  unsigned Test:1;
+  unsigned Calibrate:1;
+  unsigned Auto:1;
+  unsigned Hold:1;
+  unsigned Processing:1;
+  unsigned CNTNumb:1;
+  unsigned ReceiveFlag:1;
+  unsigned TransceiveFlag:1;
+  unsigned SoftStart:1;
+};
+
+extern struct Flags_ Flags;
+
+extern char ModeScreen;
+extern char ModeScreenPre;
+
+//Режимы работы
+#define CALIBRATE_MODE	0
+#define MEASURE_SCREEN	1
+#define CHANNEL_PREST	2

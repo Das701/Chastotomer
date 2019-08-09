@@ -1,8 +1,3 @@
-			//Режимы работы
-#define CALIBRATE_MODE	0
-#define MEASURE_SCREEN	1
-#define CHANNEL_PREST	2
-
 			//Измерительные каналы
 #define Chan_A		(char) 0
 #define Chan_B		(char) 2
@@ -31,25 +26,6 @@
 //======================
 		//Структура битовых переменных
 
-struct{
-  unsigned Key_Event:1;
-  unsigned ENC_Event:1;
-  unsigned Control_Event:1;
-  unsigned RefrCreen:1;
-  unsigned FunKey_Event:1;
-  unsigned Change_Event:1;			//Флаг нажатия новой клавиши
-  unsigned RefrCreen_2:1;
-  unsigned DataReceive:1;
-  unsigned Test:1;
-  unsigned Calibrate:1;
-  unsigned Auto:1;
-  unsigned Hold:1;
-  unsigned Processing:1;
-  unsigned CNTNumb:1;
-  unsigned ReceiveFlag:1;
-  unsigned TransceiveFlag:1;
-  unsigned SoftStart:1;
-} Flags ;
 //======================
 		//Структура двоично-десятичной переменной
 struct RES
@@ -106,7 +82,7 @@ unsigned char Point_Const[]	= {15,	 0, 1, 2, 4, 16, 32, 33, 34, 35, 36, 48, 49, 
 unsigned char Ave_Const[]	= {6,	 1, 3, 16, 33, 50, 51};								//Список констант режимов где отображается число усредняемых периодов
 unsigned char N_B_Const[]	= {4,	 1, 2, 50, 51};										//Список констант режимов канала В где требуется отображать N
 unsigned char M_Const[]		= {2,	 4, 48};											//Список констант режимов где требуется принудительно гасить символ М
-char ModeScreen=1;
+
 
 //--------------------------------
 //--------------------------

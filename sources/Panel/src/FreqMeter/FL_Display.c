@@ -28,7 +28,7 @@ float Fl_Result;
 
 int ENC_max, ENC_min, EncoderCount_16, *EncoderPointer_16 = &EncoderCount_16;//
 char EncoderCount = 0, *EncoderPointer = &EncoderCount, Timer3;
-char a, b, c, ModeIndex = 0,  ModeScreenPre, Channel_2, ChannelIndex, ErrReg=0;
+char a, b, c, ModeIndex = 0, Channel_2, ChannelIndex, ErrReg=0;
 char FuncKeyIndex;
 char Keyboard_Previous, Keyboard_Previous_2, KeyTemp, Keyboard = 0, SignDig;
  
@@ -1449,10 +1449,10 @@ void CalibrateMode (void)
 }
 
 //-----------------------------------------------------
-void main(void)
+void main2(void)
 {
-    HAL::Init();
-    Display::Init();
+//    HAL::Init();
+//    Display::Init();
 	char i;
 //FloatToBinDec(1.23456789E+4, 3, 9);
 
