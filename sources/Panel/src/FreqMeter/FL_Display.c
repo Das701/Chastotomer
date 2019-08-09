@@ -427,7 +427,9 @@ void KeyRefresh(char FKey)
 
 	for(a=0; a<MenuSize[TempMode]; a++)		//Рисуем все функциональные клавиши согласно указателю Level_1
 	{
+        
 		Image(a*36+38, 7, Level_1[a]->KeysImg);
+   
 	}
 	if(FKey<MenuSize[TempMode])
 	{
@@ -603,8 +605,8 @@ void MeasureTimer (void)
 			Slider = 3968;
 		}
 
-		Rectangle (X0+1, X1-1-((Slider>>7)&31), Y1>>3, Y1>>3, 01111110);
-		Rectangle (X1-((Slider>>7)&31), X1-1, Y1>>3, Y1>>3, 01000010);
+		Rectangle (X0+1, X1-1-((Slider>>7)&31), Y1>>3, Y1>>3, BIN_U8(01111110));
+		Rectangle (X1-((Slider>>7)&31), X1-1, Y1>>3, Y1>>3, BIN_U8(01000010));
 
 		Rectangle (a, X1-1, 6, 6, 0);
 		Line (X0, X0, Y0, Y2);

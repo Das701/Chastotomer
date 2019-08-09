@@ -10,4 +10,8 @@ namespace Display
     void Update();
 
     uint8_t* GetBuff();
+    
+    void BeginScene(Color color);
+    
+    void EndScene();
 };

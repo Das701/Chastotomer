@@ -1,7 +1,16 @@
 #include "defines.h"
 #include "Hardware/HAL.h"
 #include "Display/Display.h"
+#include "Display/Primitives.h"
+#include "Device.h"
+#include "Keyboard/Keyboard.h"
+#include "Display/Display.h"
+#include "Menu/Menu.h"
+#include "Device.h"
 
+
+
+using namespace Display::Primitives;
 
 
 extern "C"
@@ -21,6 +30,10 @@ void main(void)
 {
     HAL::Init();
     Display::Init();
+    
+        //Keyboard::Init();
+    //Menu::Init();
+//    Heap::Init();
 
 	Flags.RefrCreen = 1;
 	Flags.Auto = 0;
@@ -33,7 +46,10 @@ void main(void)
 	Flags.Test = 0;
 
 	while(1)
-	{	
+	{
+
+//        Device::Update();
+            
         if(ModeScreen != ModeScreenPre)		//Если переменная изменилась, то устанавливаем флаг обновления экрана
 		{
             Flags.RefrCreen = 1;
@@ -59,5 +75,7 @@ void main(void)
 			default:
 			break; 
 		}
+        
+        Display::EndScene();
 	}
 }
