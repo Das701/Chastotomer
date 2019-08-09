@@ -5,10 +5,44 @@ using namespace Display::Primitives;
 
 
 extern "C" {
-
-char Image(unsigned char x, unsigned char y, unsigned char * data)
+    
+    
+void DrawHLine (int x, int y, int wid)
 {
-    Point().Draw(x, y, Color::WHITE);
+    for(int s = x; s < x + wid; s++)
+    {   
+        Point().Draw(s, y, Color::WHITE);
+    }
+}
+void DrawVLine (int x, int y, int heig)
+{
+    for(int g = y; g < y + heig; g++)
+    {
+        Point().Draw(x, g, Color::WHITE);
+    }
 }
 
+ 
+void DrawRect(unsigned char x, unsigned char y, int wid, int heig)
+{
+    DrawHLine(x, y, wid);
+    DrawHLine(x, y + heig, wid);
+    DrawVLine(x, y, heig);
+    DrawVLine(x + wid, y, heig);   
+}
+char Image(unsigned char x, unsigned char y, unsigned char * data)
+{
+   DrawRect(x, y, 35, 7);
+}       
+void DrawByte (int x, int y, char data)
+{
+    for(int i = 0; i < 8; i++)  
+    {
+        char bit = GetBit(data, i);
+        if (bit != 0)
+        {
+            Point() .Draw(x, y+i, Color::WHITE);            
+        }
+    }     
+}
 }
