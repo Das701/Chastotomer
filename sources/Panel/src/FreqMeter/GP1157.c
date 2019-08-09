@@ -417,27 +417,27 @@ unsigned char Nomber(unsigned char x, unsigned char y, unsigned char length, int
 //-----------------------------------------------------
 void Rectangle (char X, char Xend, char Y, char Yend, char data)
 { // прямоугольник
-unsigned int a;
-
-	Cursor_Set(X, Y);
-
-	Write_To_Display(0x1F);
-	Write_To_Display(0x28);
-	Write_To_Display(0x66);
-	Write_To_Display(0x11);
-	Write_To_Display((Xend-X+1) & 255);
-	Write_To_Display((Xend-X+1) >> 8);
-	Write_To_Display(Yend-Y+1);
-	Write_To_Display(0x00);
-	Write_To_Display(0x01);
-
-	a = (Xend-X+1)*(Yend-Y+1);
-	
-	while(a)
-	{
-		Write_To_Display(data); 
-		a -=1;
-	}
+//unsigned int a;
+//
+//	Cursor_Set(X, Y);
+//
+//	Write_To_Display(0x1F);
+//	Write_To_Display(0x28);
+//	Write_To_Display(0x66);
+//	Write_To_Display(0x11);
+//	Write_To_Display((Xend-X+1) & 255);
+//	Write_To_Display((Xend-X+1) >> 8);
+//	Write_To_Display(Yend-Y+1);
+//	Write_To_Display(0x00);
+//	Write_To_Display(0x01);
+//
+//	a = (Xend-X+1)*(Yend-Y+1);
+//	
+//	while(a)
+//	{
+//		Write_To_Display(data); 
+//		a -=1;
+//	}
 }
 //-----------------------------------------------------
 //-----------------------------------------------------

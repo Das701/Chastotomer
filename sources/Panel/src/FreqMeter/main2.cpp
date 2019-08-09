@@ -30,7 +30,7 @@ void main(void)
 {
     HAL::Init();
     Display::Init();
-    
+    Display::BeginScene(Color::BLACK);
         //Keyboard::Init();
     //Menu::Init();
 //    Heap::Init();
@@ -75,6 +75,7 @@ void main(void)
 			default:
 			break; 
 		}
+
         
         Display::EndScene();
 	}
