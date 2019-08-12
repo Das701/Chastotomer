@@ -30,10 +30,12 @@ void DrawRect(unsigned char x, unsigned char y, int wid, int heig)
     DrawVLine(x, y, heig);
     DrawVLine(x + wid, y, heig);   
 }
-char Image(unsigned char x, unsigned char y, unsigned char * data)
+   
+char GetBit (char data, char bit)
 {
-   DrawRect(x, y, 35, 7);
-}       
+    return (data >> bit) & 1;   
+}
+
 void DrawByte (int x, int y, char data)
 {
     for(int i = 0; i < 8; i++)  
@@ -41,8 +43,15 @@ void DrawByte (int x, int y, char data)
         char bit = GetBit(data, i);
         if (bit != 0)
         {
-            Point() .Draw(x, y+i, Color::WHITE);            
+            Point() .Draw(x, y + i, Color::WHITE);            
         }
     }     
 }
+
+char Image(unsigned char x, unsigned char y, unsigned char * data)
+{
+   DrawRect(x, y, 35, 7);
+   DrawByte (x, y, data); 
+}  
+
 }
