@@ -1,10 +1,16 @@
 #pragma once
+#include "defines.h"
 
 void ERROR_HANDLER();
 
 
-class HAL
+struct HAL
 {
-public:
     static void Init();
+
+    struct SPI
+    {
+        static void Init();
+        static void Send(uint8 data, int num);
+    };
 };

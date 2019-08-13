@@ -3,22 +3,18 @@
 #include "Keyboard/Keyboard.h"
 #include "Display/Display.h"
 #include "Menu/Menu.h"
-#include "Device.h"
-#include "Data/Heap.h"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int main1(void)
+int main(void)
 {
     HAL::Init();
-    Display::Init();
-    Keyboard::Init();
-    Menu::Init();
-    Heap::Init();
+    //Display::Init();
+    //Keyboard::Init();
+    //Menu::Init();
     
     while (1)
     {
-        Device::Update();
     }
 }
 
