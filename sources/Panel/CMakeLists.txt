@@ -30,6 +30,7 @@ add_compile_options(/wd4310)    # cast truncates constant value
 add_compile_options(/wd4459)    # declaration of 'Temp' hides global declaration
 add_compile_options(/wd4514)    # unreferenced inline function has been removed
 add_compile_options(/wd4626)
+add_compile_options(/wd4668)    # 'xxx' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
 add_compile_options(/wd4710)    # function not inlined
 add_compile_options(/wd4774)    # format string expected in argument N is not a string literal
 add_compile_options(/wd4820)    # 'N' bytes padding added after data member
