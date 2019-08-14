@@ -11,6 +11,6 @@ struct HAL
     struct SPI
     {
         static void Init();
-        static void Send(uint8 data, int num);
+        static void Send(uint8 *data, int num);
     };
 };
