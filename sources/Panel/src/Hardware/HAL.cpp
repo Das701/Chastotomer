@@ -80,44 +80,44 @@ void HAL::SPI::Init()
 	//main.c
 
 	/* Set the SPI parameters */
-  hSPI.Instance               = SPIx;
-  hSPI.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
-  hSPI.Init.Direction         = SPI_DIRECTION_1LINE;
-  hSPI.Init.CLKPhase          = SPI_PHASE_1EDGE;
-  hSPI.Init.CLKPolarity       = SPI_POLARITY_HIGH;
-  hSPI.Init.CRCCalculation    = SPI_CRCCALCULATION_DISABLE;
-  hSPI.Init.CRCPolynomial     = 7;
-  hSPI.Init.DataSize          = SPI_DATASIZE_8BIT;
-  hSPI.Init.FirstBit          = SPI_FIRSTBIT_MSB;
-  hSPI.Init.NSS               = SPI_NSS_SOFT;
-  hSPI.Init.TIMode            = SPI_TIMODE_DISABLE;
+	hSPI.Instance               = SPIx;
+	hSPI.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+	hSPI.Init.Direction         = SPI_DIRECTION_1LINE;
+	hSPI.Init.CLKPhase          = SPI_PHASE_1EDGE;
+	hSPI.Init.CLKPolarity       = SPI_POLARITY_HIGH;
+	hSPI.Init.CRCCalculation    = SPI_CRCCALCULATION_DISABLE;
+	hSPI.Init.CRCPolynomial     = 7;
+	hSPI.Init.DataSize          = SPI_DATASIZE_8BIT;
+	hSPI.Init.FirstBit          = SPI_FIRSTBIT_MSB;
+	hSPI.Init.NSS               = SPI_NSS_SOFT;
+	hSPI.Init.TIMode            = SPI_TIMODE_DISABLE;
 	hSPI.Init.Mode              = SPI_MODE_MASTER; 
 	if(HAL_SPI_Init(&hSPI) != HAL_OK)
-  {
-    /* Initialization Error */
-    ERROR_HANDLER();
-  }
+	{
+		/* Initialization Error */
+		ERROR_HANDLER();
+	}
 	//stm32f4xx_hal_msp.c
-  GPIO_InitTypeDef  isGPIO;
-	
+	GPIO_InitTypeDef  isGPIO;
+		
 	/* Enable GPIO TX/RX clock */
 	SPIx_SCK_GPIO_CLK_ENABLE();
-  SPIx_MOSI_GPIO_CLK_ENABLE();
-	
-  /* Enable SPI clock */
-  SPIx_CLK_ENABLE(); 
-	
+	SPIx_MOSI_GPIO_CLK_ENABLE();
+		
+	/* Enable SPI clock */
+	SPIx_CLK_ENABLE(); 
+		
 	/* SPI SCK GPIO pin configuration  */
-  isGPIO.Pin       = SPIx_SCK_PIN;
-  isGPIO.Mode      = GPIO_MODE_AF_PP;
-  isGPIO.Pull      = GPIO_PULLUP;
-  isGPIO.Speed     = GPIO_SPEED_FAST;
-  isGPIO.Alternate = SPIx_SCK_AF;
-  HAL_GPIO_Init(SPIx_SCK_GPIO_PORT, &isGPIO);
+	isGPIO.Pin       = SPIx_SCK_PIN;
+	isGPIO.Mode      = GPIO_MODE_AF_PP;
+	isGPIO.Pull      = GPIO_PULLUP;
+	isGPIO.Speed     = GPIO_SPEED_FAST;
+	isGPIO.Alternate = SPIx_SCK_AF;
+	HAL_GPIO_Init(SPIx_SCK_GPIO_PORT, &isGPIO);
 	/* SPI MOSI GPIO pin configuration  */
-  isGPIO.Pin = SPIx_MOSI_PIN;
-  isGPIO.Alternate = SPIx_MOSI_AF;
-  HAL_GPIO_Init(SPIx_MOSI_GPIO_PORT, &isGPIO);
+	isGPIO.Pin = SPIx_MOSI_PIN;
+	isGPIO.Alternate = SPIx_MOSI_AF;
+	HAL_GPIO_Init(SPIx_MOSI_GPIO_PORT, &isGPIO);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
