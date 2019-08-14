@@ -2,25 +2,9 @@
 #include "stm32f4xx_hal.h"
 
 
-//main.h temporary
-#define SPIx                             SPI4
-#define SPIx_CLK_ENABLE()                __HAL_RCC_SPI4_CLK_ENABLE()
-#define SPIx_SCK_GPIO_CLK_ENABLE()       __HAL_RCC_GPIOA_CLK_ENABLE() 
-#define SPIx_MOSI_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE() 
-#define SPIx_DC_GPIO_CLK_ENABLE()        __HAL_RCC_GPIOC_CLK_ENABLE()
-#define SPIx_SCK_PIN                     GPIO_PIN_5
-#define SPIx_SCK_GPIO_PORT               GPIOA
-#define SPIx_SCK_AF                      GPIO_AF5_SPI4
-#define SPIx_MOSI_PIN                    GPIO_PIN_7
-#define SPIx_MOSI_GPIO_PORT              GPIOA
-#define SPIx_MOSI_AF                     GPIO_AF5_SPI4
-#define SPIx_DC_PIN                      GPIO_PIN_5
-#define SPIx_DC_GPIO_PORT                GPIOC
-#define SPIx_DC_AF                       GPIO_AF5_SPI4
-
-
 static void SystemClock_Config(void);
-static SPI_HandleTypeDef hSPI; 
+static SPI_HandleTypeDef hSPI;
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void HAL::Init()
@@ -83,10 +67,11 @@ void SystemClock_Config(void)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void HAL::SPI::Init()
 {
-    //main.c
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_SPI4_CLK_ENABLE();
 
-    /* Set the SPI parameters */
-    hSPI.Instance               = SPIx;
+    hSPI.Instance               = SPI4;
     hSPI.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
     hSPI.Init.Direction         = SPI_DIRECTION_1LINE;
     hSPI.Init.CLKPhase          = SPI_PHASE_1EDGE;
@@ -98,41 +83,28 @@ void HAL::SPI::Init()
     hSPI.Init.NSS               = SPI_NSS_SOFT;
     hSPI.Init.TIMode            = SPI_TIMODE_DISABLE;
     hSPI.Init.Mode              = SPI_MODE_MASTER; 
+
     if(HAL_SPI_Init(&hSPI) != HAL_OK)
     {
-        /* Initialization Error */
         ERROR_HANDLER();
     }
-    //stm32f4xx_hal_msp.c
+
     GPIO_InitTypeDef  isGPIO;
         
-    /* Enable GPIO TX/RX clock */
-    SPIx_SCK_GPIO_CLK_ENABLE();
-    SPIx_MOSI_GPIO_CLK_ENABLE();
-    SPIx_DC_GPIO_CLK_ENABLE();    
-    /* Enable SPI clock */
-    SPIx_CLK_ENABLE(); 
-        
-    /* SPI SCK GPIO pin configuration  */
-    isGPIO.Pin       = SPIx_SCK_PIN;
+    isGPIO.Pin       = GPIO_PIN_5 | GPIO_PIN_7;
     isGPIO.Mode      = GPIO_MODE_AF_PP;
     isGPIO.Pull      = GPIO_PULLUP;
     isGPIO.Speed     = GPIO_SPEED_FAST;
-    isGPIO.Alternate = SPIx_SCK_AF;
-    HAL_GPIO_Init(SPIx_SCK_GPIO_PORT, &isGPIO);
-    /* SPI MOSI GPIO pin configuration  */
-    isGPIO.Pin = SPIx_MOSI_PIN;
-    isGPIO.Alternate = SPIx_MOSI_AF;
-    HAL_GPIO_Init(SPIx_MOSI_GPIO_PORT, &isGPIO);
-    /* SPI DC GPIO pin configuration  */
-    isGPIO.Pin = SPIx_DC_PIN;
+    isGPIO.Alternate = GPIO_AF5_SPI4;
+    HAL_GPIO_Init(GPIOA, &isGPIO);
 
-    isGPIO.Alternate = SPIx_DC_AF;
-    HAL_GPIO_Init(SPIx_DC_GPIO_PORT, &isGPIO);
+    isGPIO.Pin = GPIO_PIN_5;
+    isGPIO.Alternate = GPIO_AF5_SPI4;
+    HAL_GPIO_Init(GPIOC, &isGPIO);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void HAL::SPI::Send(uint8 *buffer, int num)
+void HAL::SPI::Send(uint8 *buffer, uint16 num)
 {
     HAL_SPI_Transmit(&hSPI, (uint8 *)buffer, num, HAL_MAX_DELAY);
 }
