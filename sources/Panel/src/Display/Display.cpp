@@ -142,11 +142,66 @@ void InitWindow(uint8 startcol, uint8 stopcol, uint8 startrow,uint8 stoprow)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::Update()
 {
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);   //set D/C# pin high
-    
-//    HAL::SPI::Send(buffer, 2048);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
+    int cout;
+    uint byte;
+    uint8 buffer1[128];
+    uint8 totcount = 0;
+    //Преобразование в grayscale
+    for(uint y = 0; y < 64; y++)
+    {
+        for(uint x = 0; x < 256; x++) 
+        {
+            if(x % 2 == 0)
+            {
+                if(buf[x][y] == buf[x + 1][y] && buf[x][y] == 0xFF)
+                {
+                    int cout = 1;
+                }
+                if(buf[x][y] == buf[x + 1][y] && buf[x][y] != 0xFF)
+                {
+                    int cout = 2;
+                }
+                if(buf[x][y] != buf[x + 1][y] && buf[x][y] == 0xFF)
+                {
+                    int cout = 3;
+                }
+                if(buf[x][y] != buf[x + 1][y] && buf[x][y] != 0xFF)
+                {
+                    int cout = 4;
+                }
+                switch(cout)
+                {
+                    case 1:
+                    {
+                      byte = 0xFF;
+                      break;
+                    }
+                    case 2:
+                    {
+                      byte = 0x00;
+                      break;
+                    }
+                    case 3:
+                    {
+                      byte = 0xF0;
+                      break;
+                    }
+                    case 4:
+                    {
+                      byte = 0x0F;
+                      break;
+                    }
+                }
+                byte = buffer1[totcount];
+                totcount++;
+            }
+        }
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);   //set D/C# pin high
+        HAL::SPI::Send(buffer1, 128);
+        totcount = 0;
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
+    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -68,6 +68,7 @@ void SystemClock_Config(void)
 void HAL::SPI::Init()
 {
     __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOC_CLK_ENABLE();
     __HAL_RCC_SPI4_CLK_ENABLE();
 
@@ -103,6 +104,16 @@ void HAL::SPI::Init()
     isGPIO.Mode      = GPIO_MODE_OUTPUT_PP;
     isGPIO.Alternate = GPIO_MODE_AF_PP;
     HAL_GPIO_Init(GPIOC, &isGPIO);
+    
+    isGPIO.Pin = GPIO_PIN_4;                // Управление CS дисплея
+    isGPIO.Mode      = GPIO_MODE_OUTPUT_PP;
+    isGPIO.Alternate = GPIO_MODE_AF_PP;
+    HAL_GPIO_Init(GPIOA, &isGPIO);
+    
+    isGPIO.Pin = GPIO_PIN_1;                // Управление RES дисплея
+    isGPIO.Mode      = GPIO_MODE_OUTPUT_PP;
+    isGPIO.Alternate = GPIO_MODE_AF_PP;
+    HAL_GPIO_Init(GPIOB, &isGPIO);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
