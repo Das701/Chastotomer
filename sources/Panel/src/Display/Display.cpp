@@ -11,7 +11,12 @@ using namespace Display::Primitives;
 
 /// Буфер с изображение
 static uint8 buffer[256 * 64 / 8];
+static uint8 buf[256][64];
 
+void DrawPoint(uint x, uint y)
+{
+  buf[x][y]=0xFF;  
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void Delay(uint ms)
@@ -27,17 +32,21 @@ static void Delay(uint ms)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Command(uint8 command)
 {
-    Delay(100);
+    Delay(1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET); //set D/C# pin low
     HAL::SPI::Send(&command, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Data(uint8 data)
 {
-    Delay(100);
+    Delay(1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);   //set D/C# pin high
     HAL::SPI::Send(&data, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -49,10 +58,12 @@ uint8* Display::GetBuff()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::Init()
 {
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);   //Reset pin low
-    Delay(100);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);     //Reset pin high
-    Delay(100);
+    
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);   //Reset pin low
+    Delay(1);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);     //Reset pin high
+    Delay(1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
     Command(0xFD);      //set Command unlock
     Data(0x12);
     Command(0xAE);      //set display off
@@ -112,10 +123,30 @@ void Display::Init()
     Delay(200);         //stabilize VDD
 }
 
+void InitWindow(uint8 startcol, uint8 stopcol, uint8 startrow,uint8 stoprow)
+{
+
+    Command(0x15);
+    Data(28+startcol);
+    Data(28+stopcol);
+
+    Command(0x75);
+    Data(startrow);
+    Data(stoprow);
+
+    Command(0x5C);
+    Delay(50);
+    
+}
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::Update()
 {
-
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);   //set D/C# pin high
+    
+//    HAL::SPI::Send(buffer, 2048);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
