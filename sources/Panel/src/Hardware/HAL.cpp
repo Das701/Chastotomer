@@ -98,8 +98,10 @@ void HAL::SPI::Init()
     isGPIO.Alternate = GPIO_AF5_SPI4;
     HAL_GPIO_Init(GPIOA, &isGPIO);
 
-    isGPIO.Pin = GPIO_PIN_5;
-    isGPIO.Alternate = GPIO_AF5_SPI4;
+    
+    isGPIO.Pin = GPIO_PIN_5;                // Управление DC дисплея
+    isGPIO.Mode      = GPIO_MODE_OUTPUT_PP;
+    isGPIO.Alternate = GPIO_MODE_AF_PP;
     HAL_GPIO_Init(GPIOC, &isGPIO);
 }
 
