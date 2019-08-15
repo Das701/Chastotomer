@@ -21,11 +21,9 @@ void DrawPoint(uint x, uint y)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void Delay(uint ms)
 {
-    uint time = 0;
     uint timestamp = HAL_GetTick();
-    while(time < ms)
+    while(HAL_GetTick() - timestamp < ms)
     {
-       time = HAL_GetTick() - timestamp; 
     }
 }
 
@@ -151,7 +149,7 @@ void Display::Update()
         {
             uint8 low = buf[x][y] & 0x0F;
             uint8 high = buf[x + 1][y] & 0xF0;
-            buffer1[totcount] = low || high;
+            buffer1[totcount] = low | high;
             totcount++;
         }
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
