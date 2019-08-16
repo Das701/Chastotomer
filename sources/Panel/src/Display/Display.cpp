@@ -18,6 +18,32 @@ void DrawPoint(uint x, uint y)
   buf[x][y]=0xFF;  
 }
 
+void DrawHLine(uint x, uint y, uint hlength)
+{
+    for(uint i=0; i<hlength; i++)
+    {
+    DrawPoint(x, y);
+    x++;        
+    }
+}
+
+void DrawVLine(uint x, uint y, uint vlength)
+{
+    for(uint i=0; i<vlength; i++)
+    {
+    DrawPoint(x, y);
+    y++;        
+    }
+}
+
+void Rect(uint x, uint y, uint vlength, uint hlength)
+{
+    DrawHLine(x, y, hlength);
+    DrawVLine(x, y, vlength);
+    DrawHLine(x, y + vlength, hlength);
+    DrawVLine(x + hlength, y, vlength);
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void Delay(uint ms)
 {
