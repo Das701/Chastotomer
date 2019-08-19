@@ -4,16 +4,105 @@
 #include "Hardware/HAL.h"
 #include "Menu/Menu.h"
 #include <cstring>
+#include <cstdlib>
 
 
 #define COLOR_BLACK 0x00
 #define COLOR_WHITE 0xFF
 
+#define CS_OPEN         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
+#define CS_CLOSE        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
+
+#define SET_DC_COMMAND  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET)
+#define SET_DC_DATA     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET)
+
+#define SET_RES_LOW     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET)
+#define SET_RES_HI      HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET)
+
+#define COM_ENABLE_GRAY_SCALE_TABLE 0x00    /* Enable Gray Scale Table */
+#define COM_COL_ADDRESS             0x15    /* Set Column Address */
+#define COM_WRITE_RAM  	            0x5C    /* Write RAM Command */
+#define COM_ROW_ADDRESS             0x75    /* Set Row Address */
+#define COM_REMAP_AND_DUAL          0xA0    /* Set Re-map and Dual COM Line mode */
+#define COM_DISPLAY_START_LINE      0xA1    /* Set Display Start Line */
+#define COM_DISPLAY_OFFSET          0xA2    /* Set Display Offset */
+#define COM_DISPLAY_MODE_GS15       0xA5    /* ƒисплей переводитс€ в режим, в котором все пиксели имеют максимальную €ркость GS15 */
+#define COM_FUNC_SELECT             0xAB    /* Function Selection */    
+                                            // A[0] = 0b, выбрать внешнее питание дл€ VDD (внутренний регул€тор запрещен).
+                                            // A[0] = 1b, разрешить работу внутреннего регул€тора дл€ VDD(состо€ние по умолчанию после сброса).
+#define COM_SLEEP_MODE_ON           0xAE    /* Set Sleep mode ON */
+#define COM_SLEEP_MODE_OFF          0xAF    /* Set Sleep mode OFF */
+#define COM_FRONT_CLOCK_DIV         0xB3    /* Set Front Clock Divider / Oscillator Frequency */
+#define COM_DISPLAY_ENHANCEMENT_A   0xB4    /* Display Enhancement A */
+                                            // A[1:0] = 00b: разрешить внешнее VSL
+                                            // A[1:0] = 10b : внутреннее VSL(после сброса)
+                                            // B[7:3] = 11111b : улучшает качество GS диспле€
+                                            // B[7:3] = 10110b : обычный режим(после сброса)
+#define COM_GPIO                    0xB5    /* Set GPIO */
+#define COM_GRAY_SCALE_TABLE        0xB8    /* Set Gray Scale Table */
+#define COM_MUX_RATIO               0xCA    /* Set MUX Ratio */
+#define COM_LOCK                    0xFD    /* Set Command Lock */
+
+
 /// Ѕуфер с изображение
 static uint8 buf[256][64];
 
+static void Delay(uint ms);
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void SendCommand(uint8 command)
+{
+    Delay(1);
+    CS_OPEN;
+    Delay(1);
+    SET_DC_COMMAND;
+    Delay(1);
+    HAL::SPI::Send(&command, 1);
+    Delay(1);
+    CS_CLOSE;
+    Delay(1);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void SendData(uint8 data)
+{
+    Delay(1);
+    CS_OPEN;
+    Delay(1);
+    SET_DC_DATA;
+    Delay(1);
+    HAL::SPI::Send(&data, 1);
+    Delay(1);
+    CS_CLOSE;
+    Delay(1);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void SendData(uint8 *data, int num)
+{
+    for (int i = 0; i < num; i++)
+    {
+        SendData(data[i]);
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void SendCommand(uint8 command, uint8 data)
+{
+    SendCommand(command);
+    SendData(data);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void SendCommand(uint8 command, uint8 data0, uint8 data1)
+{
+    SendCommand(command);
+    SendData(data0);
+    SendData(data1);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawPoint(int x, int y, uint8 color = COLOR_WHITE)
 {
     if (x < 256 && x >= 0 && y < 64 && y  >= 0)
@@ -76,75 +165,45 @@ static void Delay(uint ms)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void SendCommand(uint8 command)
-{
-    Delay(1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET); //set D/C# pin low
-    HAL::SPI::Send(&command, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void SendData(uint8 data)
-{
-    Delay(1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);   //set D/C# pin high
-    HAL::SPI::Send(&data, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::Init()
 {
     
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);   //Reset pin low
-    Delay(100);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);     //Reset pin high
-    Delay(100);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
-    SendCommand(0xFD);      //set Command unlock
-    SendData(0x12);
-    SendCommand(0xAE);      //set display off
-    SendCommand(0xB3);      //set display clock divide ratio...
-    SendData(0x91);         //...to 135 Frames/sec
-    SendCommand(0xCA);      //set multiplex ratio...
-    SendData(0x3F);         //...to 64?1
-    SendCommand(0xA2);      //set display offset
-    SendData(0x00);         //...to 0
-    SendCommand(0xA1);      //start display start line
-    SendData(0x00);         //...to 0
-    SendCommand(0xA0);      //set Re?Map & Dual COM Line Mode
-    SendData(0x14);
-    SendData(0x11);
-    SendCommand(0xB5);      //disable IO intput
-    SendData(0x00);
-    SendCommand(0xAB);      //function select
-    SendData(0x01);
-    SendCommand(0xB4);      //enable VSL extern
-    SendData(0xA0);
-    SendData(0xFD);
+    SET_RES_LOW;
+    Delay(500);
+    SET_RES_HI;
+    Delay(500);
+    CS_CLOSE;
+    SendCommand(COM_LOCK, 0x12);                        // unlock
+    SendCommand(COM_FRONT_CLOCK_DIV, 0x91);             // to 135 fps
+    SendCommand(COM_MUX_RATIO, 0x3F);
+    SendCommand(COM_DISPLAY_OFFSET, 0x00);
+    SendCommand(COM_DISPLAY_START_LINE, 0x00);
+    SendCommand(COM_REMAP_AND_DUAL, 0x14, 0x11);
+    SendCommand(COM_GPIO, 0x00);                        //disable IO intput
+    SendCommand(COM_FUNC_SELECT, 0x01);
+    SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0xA0, 0xFD); //enable VSL extern
     SendCommand(0xC1);      //set contrast current
     SendData(0xFF);
     SendCommand(0xC7);      //set master contrast current
     SendData(0x0F);
-    SendCommand(0xB8);      //set gray scale table
-    SendData(0x00);
-    SendData(0x00);
-    SendData(0x00);
-    SendData(0x03);
-    SendData(0x06);
-    SendData(0x10);
-    SendData(0x1D);
-    SendData(0x2A);
-    SendData(0x37);
-    SendData(0x46);
-    SendData(0x58);
-    SendData(0x6A);
-    SendData(0x7F);
-    SendData(0x96);
-    SendData(0xB4);
+    SendCommand(COM_GRAY_SCALE_TABLE);
+    SendData(0);
+    SendData(0);
+    SendData(0);
+    SendData(0);
+    SendData(0);
+    SendData(0);
+    SendData(0);
+    SendData(0);
+    SendData(180);
+    SendData(180);
+    SendData(180);
+    SendData(180);
+    SendData(180);
+    SendData(180);
+    SendData(180);
+    SendData(180);
+    SendCommand(COM_ENABLE_GRAY_SCALE_TABLE);
     SendCommand(0xB1);      //set phase length
     SendData(0xE8);
     SendCommand(0xD1);      //enhance driving scheme capability
@@ -158,30 +217,26 @@ void Display::Init()
     SendData(0x07);
     SendCommand(0xA9);      //no partial mode
     SendCommand(0xA6);      //set normal display mode
-    Delay(100);           //stabilize VDD
-    SendCommand(0xAF);      //display on
+    Delay(200);           //stabilize VDD
+    SendCommand(COM_SLEEP_MODE_OFF);
     Delay(200);         //stabilize VDD
 
-    SendCommand(0xA5);
+    SendCommand(COM_DISPLAY_MODE_GS15);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void EndScreen()
 {
-    SendCommand(0x15);      // ”станавливаем начальную и конечную колонки
-    SendData(0x00);         // начальна€
-    SendData(0xFF);         // конечна€
+    SendCommand(COM_COL_ADDRESS, 0x00, 0xFF);
 
-    SendCommand(0x75);      // ”станавливаем начальную и конечную строки
-    SendData(0x00);         // начальна€
-    SendData(0xFF);         //  онечна€
+    SendCommand(COM_ROW_ADDRESS, 0x00, 0xFF);
 
-    SendCommand(0x5C);      // «аписываем данные
+    SendCommand(COM_WRITE_RAM);
 
     Delay(50);
 
     uint8 buffer1[128];
-    //ѕреобразование в grayscale
+
     for(uint y = 0; y < 64; y++)
     {
         uint8 totcount = 0;
@@ -192,18 +247,14 @@ void EndScreen()
             buffer1[totcount] = (uint8)(low | high);
             totcount++;
         }
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);   //set D/C# pin high
-        HAL::SPI::Send(buffer1, 128);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
+
+        SendData(buffer1, 128);
     }
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::Update()
 {
-    BeginScreen();
-    
-    DrawRectangle(10, 5, 10, 15, COLOR_WHITE);
+    DrawRectangle(std::rand() % 256, std::rand() % 64, std::rand() % 256, std::rand() % 256, (uint8)((std::rand() % 2) ? COLOR_WHITE : COLOR_BLACK));
    
     EndScreen();
 }

@@ -77,7 +77,7 @@ void HAL::SPI::Init()
     hSPI.Init.CRCCalculation    = SPI_CRCCALCULATION_DISABLE;
     hSPI.Init.CRCPolynomial     = 7;
     hSPI.Init.DataSize          = SPI_DATASIZE_8BIT;
-    hSPI.Init.FirstBit          = SPI_FIRSTBIT_LSB;
+    hSPI.Init.FirstBit          = SPI_FIRSTBIT_MSB;
     hSPI.Init.NSS               = SPI_NSS_SOFT;
     hSPI.Init.TIMode            = SPI_TIMODE_DISABLE;
     hSPI.Init.Mode              = SPI_MODE_MASTER; 
@@ -92,24 +92,21 @@ void HAL::SPI::Init()
     isGPIO.Pin       = GPIO_PIN_5 | GPIO_PIN_7;
     isGPIO.Mode      = GPIO_MODE_AF_PP;
     isGPIO.Pull      = GPIO_PULLUP;
-    isGPIO.Speed     = GPIO_SPEED_FAST;
+    isGPIO.Speed     = GPIO_SPEED_LOW;
     isGPIO.Alternate = GPIO_AF5_SPI4;
     HAL_GPIO_Init(GPIOA, &isGPIO);
 
     
-    isGPIO.Pin = GPIO_PIN_5;                // Управление DC дисплея
-    isGPIO.Mode      = GPIO_MODE_OUTPUT_PP;
-    isGPIO.Alternate = GPIO_MODE_AF_PP;
+    isGPIO.Pin      = GPIO_PIN_5;                // Управление DC дисплея
+    isGPIO.Mode     = GPIO_MODE_OUTPUT_PP;
     HAL_GPIO_Init(GPIOC, &isGPIO);
     
-    isGPIO.Pin = GPIO_PIN_4;                // Управление CS дисплея
-    isGPIO.Mode      = GPIO_MODE_OUTPUT_PP;
-    isGPIO.Alternate = GPIO_MODE_AF_PP;
+    isGPIO.Pin      = GPIO_PIN_4;                // Управление CS дисплея
+    isGPIO.Mode     = GPIO_MODE_OUTPUT_PP;
     HAL_GPIO_Init(GPIOA, &isGPIO);
     
-    isGPIO.Pin = GPIO_PIN_1;                // Управление RES дисплея
-    isGPIO.Mode      = GPIO_MODE_OUTPUT_PP;
-    isGPIO.Alternate = GPIO_MODE_AF_PP;
+    isGPIO.Pin      = GPIO_PIN_1;                // Управление RES дисплея
+    isGPIO.Mode     = GPIO_MODE_OUTPUT_PP;
     HAL_GPIO_Init(GPIOB, &isGPIO);
 }
 
