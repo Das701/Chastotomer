@@ -13,15 +13,18 @@ using namespace Display::Primitives;
 static uint8 buffer[256 * 64 / 8];
 static uint8 buf[256][64];
 
-void DrawPoint(uint x, uint y)
+void DrawPoint(int x, int y)
 {
-  buf[x][y]=0xFF;  
+    if (x < 256 && x >= 0 && y < 64 && y  >= 0)
+    {
+        buf[x][y] = 0xFF; 
+    }        
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void DrawHLine(uint x, uint y, uint hlength)
+void DrawHLine(int x, int y, int length)
 {
-    for(uint i=0; i<hlength; i++)
+    for(uint i = 0; i < length; i++)
     {
         DrawPoint(x, y);
         x++;        
@@ -29,9 +32,9 @@ void DrawHLine(uint x, uint y, uint hlength)
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void DrawVLine(uint x, uint y, uint vlength)
+void DrawVLine(int x, int y, int length)
 {
-    for(uint i=0; i<vlength; i++)
+    for(uint i = 0; i < length; i++)
     {
         DrawPoint(x, y);
         y++;        
@@ -39,20 +42,20 @@ void DrawVLine(uint x, uint y, uint vlength)
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void Rect(uint x, uint y, uint vlength, uint hlength)
+void DrawRectangle(int x, int y, int height, int width)
 {
-    DrawHLine(x, y, hlength);
-    DrawVLine(x, y, vlength);
-    DrawHLine(x, y + vlength, hlength);
-    DrawVLine(x + hlength, y, vlength);
+    DrawHLine(x, y, width);
+    DrawVLine(x, y, height);
+    DrawHLine(x, y + height, width);
+    DrawVLine(x + width, y, height);
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void RectFill(uint x, uint y, uint vlength, uint hlength)
+void FillRectangle(int x, int y, int height, int width)
 {
-    for(uint y0 = y; y0 < y + vlength; y0++)
+    for(uint y0 = y; y0 < y + height; y0++)
     {
-        DrawHLine(x, y0, hlength);
+        DrawHLine(x, y0, width);
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
