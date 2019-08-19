@@ -24,7 +24,7 @@ void DrawPoint(int x, int y)
 
 void DrawHLine(int x, int y, int length)
 {
-    for(uint i = 0; i < length; i++)
+    for(int i = 0; i < length; i++)
     {
         DrawPoint(x, y);
         x++;        
@@ -34,7 +34,7 @@ void DrawHLine(int x, int y, int length)
 
 void DrawVLine(int x, int y, int length)
 {
-    for(uint i = 0; i < length; i++)
+    for(int i = 0; i < length; i++)
     {
         DrawPoint(x, y);
         y++;        
@@ -53,7 +53,7 @@ void DrawRectangle(int x, int y, int height, int width)
 
 void FillRectangle(int x, int y, int height, int width)
 {
-    for(uint y0 = y; y0 < y + height; y0++)
+    for(int y0 = y; y0 < y + height; y0++)
     {
         DrawHLine(x, y0, width);
     }
