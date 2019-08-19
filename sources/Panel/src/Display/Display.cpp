@@ -17,7 +17,7 @@ static uint8 buf[256][64];
 
 
 
-void DrawPoint(int x, int y, uint8 color)
+void DrawPoint(int x, int y, uint8 color = COLOR_WHITE)
 {
     if (x < 256 && x >= 0 && y < 64 && y  >= 0)
     {     
@@ -66,7 +66,7 @@ void FillRectangle(int x, int y, int height, int width, uint8 color)
 
 void EmptyBuffer ()
 {
-    FillRectangle(0, 0, 64, 256, COLOR_WHITE);
+    FillRectangle(0, 0, 64, 256, COLOR_BLACK);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -105,35 +105,16 @@ uint8* Display::GetBuff()
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void WriteDisplay()
-{
-    uint8 buffer1[128];
-    //Преобразование в grayscale
-    for(uint y = 0; y < 64; y++)
-    {
-        uint8 totcount = 0;
-        for(uint x = 0; x < 256; x += 2) 
-        {
-            uint8 low = buf[x][y] & 0x0F;
-            uint8 high = buf[x + 1][y] & 0xF0;
-            buffer1[totcount] = low | high;
-            totcount++;
-        }
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);   //set D/C# pin high
-        HAL::SPI::Send(buffer1, 128);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
-    }
-}
+
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::Init()
 {
     
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);   //Reset pin low
-    Delay(1);
+    Delay(100);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);     //Reset pin high
-    Delay(1);
+    Delay(100);
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
     Command(0xFD);      //set Command unlock
     Data(0x12);
@@ -211,11 +192,34 @@ void InitWindow(uint8 startcol, uint8 stopcol, uint8 startrow,uint8 stoprow)
     
 }
 
+void WriteDisplay()
+{
+    InitWindow(0,255,0,64);
+    uint8 buffer1[128];
+    //Преобразование в grayscale
+    for(uint y = 0; y < 64; y++)
+    {
+        uint8 totcount = 0;
+        for(uint x = 0; x < 256; x += 2) 
+        {
+            uint8 low = buf[x][y] & 0x0F;
+            uint8 high = buf[x + 1][y] & 0xF0;
+            buffer1[totcount] = low | high;
+            totcount++;
+        }
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);   //set D/C# pin high
+        HAL::SPI::Send(buffer1, 128);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
+    }
+}
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::Update()
 {
     EmptyBuffer();
-    DrawRectangle(10, 5, 10, 15, COLOR_BLACK);
+    
+    DrawRectangle(10, 5, 10, 15, COLOR_WHITE);
+   
     WriteDisplay();
 }
 
