@@ -6,6 +6,8 @@
 #include "Menu/Menu.h"
 #include <cstring>
 
+#define COLOR_BLACK 0x00
+#define COLOR_WHITE 0xFF
 
 using namespace Display::Primitives;
 
@@ -13,63 +15,61 @@ using namespace Display::Primitives;
 static uint8 buffer[256 * 64 / 8];
 static uint8 buf[256][64];
 
-void EmptyBuffer ()
-{
-    for(int y = 0; y < 64; y++)
-    {
-        for(int x = 0; x < 256; x++)
-        {
-            buf[x][y] = 0x00;
-        }
-    }
-}
 
-void DrawPoint(int x, int y)
+
+void DrawPoint(int x, int y, uint8 color)
 {
     if (x < 256 && x >= 0 && y < 64 && y  >= 0)
-    {
-        buf[x][y] = 0xFF; 
+    {     
+        buf[x][y] = color;      
     }        
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void DrawHLine(int x, int y, int length)
+void DrawHLine(int x, int y, int length, uint8 color)
 {
     for(int i = 0; i < length; i++)
     {
-        DrawPoint(x, y);
+        DrawPoint(x, y, color);
         x++;        
     }
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void DrawVLine(int x, int y, int length)
+void DrawVLine(int x, int y, int length, uint8 color)
 {
     for(int i = 0; i < length; i++)
     {
-        DrawPoint(x, y);
+        DrawPoint(x, y, color);
         y++;        
     }
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void DrawRectangle(int x, int y, int height, int width)
+void DrawRectangle(int x, int y, int height, int width, uint8 color)
 {
-    DrawHLine(x, y, width);
-    DrawVLine(x, y, height);
-    DrawHLine(x, y + height, width);
-    DrawVLine(x + width, y, height);
+    DrawHLine(x, y, width, color);
+    DrawVLine(x, y, height, color);
+    DrawHLine(x, y + height, width, color);
+    DrawVLine(x + width, y, height, color);
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void FillRectangle(int x, int y, int height, int width)
+void FillRectangle(int x, int y, int height, int width, uint8 color)
 {
     for(int y0 = y; y0 < y + height; y0++)
     {
-        DrawHLine(x, y0, width);
+        DrawHLine(x, y0, width, color);
     }
 }
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void EmptyBuffer ()
+{
+    FillRectangle(0, 0, 64, 256, COLOR_WHITE);
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static void Delay(uint ms)
 {
     uint timestamp = HAL_GetTick();
@@ -102,6 +102,28 @@ void Data(uint8 data)
 uint8* Display::GetBuff()
 {
     return buffer;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void WriteDisplay()
+{
+    uint8 buffer1[128];
+    //Преобразование в grayscale
+    for(uint y = 0; y < 64; y++)
+    {
+        uint8 totcount = 0;
+        for(uint x = 0; x < 256; x += 2) 
+        {
+            uint8 low = buf[x][y] & 0x0F;
+            uint8 high = buf[x + 1][y] & 0xF0;
+            buffer1[totcount] = low | high;
+            totcount++;
+        }
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);   //set D/C# pin high
+        HAL::SPI::Send(buffer1, 128);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
+    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -193,24 +215,8 @@ void InitWindow(uint8 startcol, uint8 stopcol, uint8 startrow,uint8 stoprow)
 void Display::Update()
 {
     EmptyBuffer();
-    DrawRectangle(10, 5, 10, 15);
-    uint8 buffer1[128];
-    //Преобразование в grayscale
-    for(uint y = 0; y < 64; y++)
-    {
-        uint8 totcount = 0;
-        for(uint x = 0; x < 256; x += 2) 
-        {
-            uint8 low = buf[x][y] & 0x0F;
-            uint8 high = buf[x + 1][y] & 0xF0;
-            buffer1[totcount] = low | high;
-            totcount++;
-        }
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);   //set D/C# pin high
-        HAL::SPI::Send(buffer1, 128);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
-    }
+    DrawRectangle(10, 5, 10, 15, COLOR_BLACK);
+    WriteDisplay();
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
