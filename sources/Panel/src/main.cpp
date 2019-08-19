@@ -10,11 +10,16 @@ int main(void)
 {
     HAL::Init();
     Display::Init();
+    Display::Update();
     //Keyboard::Init();
     //Menu::Init();
     
+    int i = 0;
+    
     while (1)
     {
+        i++;
+        i++;
     }
 }
 

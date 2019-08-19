@@ -13,6 +13,17 @@ using namespace Display::Primitives;
 static uint8 buffer[256 * 64 / 8];
 static uint8 buf[256][64];
 
+void EmptyBuffer ()
+{
+    for(int y = 0; y < 64; y++)
+    {
+        for(int x = 0; x < 256; x++)
+        {
+            buf[x][y] = 0x00;
+        }
+    }
+}
+
 void DrawPoint(int x, int y)
 {
     if (x < 256 && x >= 0 && y < 64 && y  >= 0)
@@ -181,6 +192,8 @@ void InitWindow(uint8 startcol, uint8 stopcol, uint8 startrow,uint8 stoprow)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::Update()
 {
+    EmptyBuffer();
+    DrawRectangle(10, 5, 10, 15);
     uint8 buffer1[128];
     //Преобразование в grayscale
     for(uint y = 0; y < 64; y++)
