@@ -70,14 +70,14 @@ void HAL::SPI::Init()
     __HAL_RCC_SPI4_CLK_ENABLE();
 
     hSPI.Instance               = SPI4;
-    hSPI.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+    hSPI.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
     hSPI.Init.Direction         = SPI_DIRECTION_1LINE;
     hSPI.Init.CLKPhase          = SPI_PHASE_1EDGE;
     hSPI.Init.CLKPolarity       = SPI_POLARITY_HIGH;
     hSPI.Init.CRCCalculation    = SPI_CRCCALCULATION_DISABLE;
     hSPI.Init.CRCPolynomial     = 7;
     hSPI.Init.DataSize          = SPI_DATASIZE_8BIT;
-    hSPI.Init.FirstBit          = SPI_FIRSTBIT_MSB;
+    hSPI.Init.FirstBit          = SPI_FIRSTBIT_LSB;
     hSPI.Init.NSS               = SPI_NSS_SOFT;
     hSPI.Init.TIMode            = SPI_TIMODE_DISABLE;
     hSPI.Init.Mode              = SPI_MODE_MASTER; 

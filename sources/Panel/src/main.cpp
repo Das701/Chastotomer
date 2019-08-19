@@ -16,6 +16,8 @@ int main(void)
     while (1)
     {
         Display::Update();
+        
+        Display::Update();
     }
 }
 
