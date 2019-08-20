@@ -96,15 +96,15 @@ void HAL::SPI::Init()
         ERROR_HANDLER();
     }
 
-    isGPIO.Pin      = GPIO_PIN_5;                // Управление DC дисплея
+    isGPIO.Pin      = GPIO_PIN_5;                // Управление D/C# дисплея
     isGPIO.Mode     = GPIO_MODE_OUTPUT_PP;
     HAL_GPIO_Init(GPIOC, &isGPIO);
     
-    isGPIO.Pin      = GPIO_PIN_4;                // Управление CS дисплея
+    isGPIO.Pin      = GPIO_PIN_4;                // Управление CS# дисплея
     isGPIO.Mode     = GPIO_MODE_OUTPUT_PP;
     HAL_GPIO_Init(GPIOA, &isGPIO);
     
-    isGPIO.Pin      = GPIO_PIN_1;                // Управление RES дисплея
+    isGPIO.Pin      = GPIO_PIN_1;                // Управление RES# дисплея
     isGPIO.Mode     = GPIO_MODE_OUTPUT_PP;
     HAL_GPIO_Init(GPIOB, &isGPIO);
 }

@@ -56,6 +56,7 @@
                                             // A[5:4] = 00b: зарезервированное состояние
                                             // A[5:4] = 10b : нормальное состояние(после сброса).
 #define COM_LOCK                    0xFD    /* Set Command Lock */
+                                            // A[2] определяет защиту интерфейса от доступа со стороны микроконтроллера(значение после сброса 12h).
 
 
 /// Буфер с изображение
@@ -72,6 +73,9 @@ static void SendCommand(uint8 command, uint8 data0, uint8 data1);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Init()
 {
+    Delay(500);
+    SET_RES_HI;
+    Delay(500);
     SET_RES_LOW;
     Delay(500);
     SET_RES_HI;
@@ -84,7 +88,7 @@ void Display::Init()
     SendCommand(COM_DISPLAY_START_LINE, 0x00);
     SendCommand(COM_REMAP_AND_DUAL, 0x14, 0x11);
     SendCommand(COM_GPIO, 0x00);                        //disable IO intput
-    SendCommand(COM_FUNC_SELECT, 0x01);
+    SendCommand(COM_FUNC_SELECT, 0x00);
     SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0xA0, 0xFD); //enable VSL extern
     SendCommand(COM_CONTRAST, 0xFF);
     SendCommand(COM_MASTER_CONTRAST, 0x0F);
