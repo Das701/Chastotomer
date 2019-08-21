@@ -6,6 +6,8 @@
 namespace Display
 {
     void Init();
+
+    void Init2();
     /// Инициализация чёрно-белого режима
     void InitBlack();
 

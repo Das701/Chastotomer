@@ -81,7 +81,7 @@ void HAL::SPI::Init()
     hSPI.Instance               = SPI1;
     hSPI.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
     hSPI.Init.Direction         = SPI_DIRECTION_1LINE;
-    hSPI.Init.CLKPhase          = SPI_PHASE_1EDGE;
+    hSPI.Init.CLKPhase          = SPI_PHASE_2EDGE;
     hSPI.Init.CLKPolarity       = SPI_POLARITY_HIGH;
     hSPI.Init.CRCCalculation    = SPI_CRCCALCULATION_DISABLE;
     hSPI.Init.CRCPolynomial     = 7;

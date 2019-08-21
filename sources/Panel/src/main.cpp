@@ -9,7 +9,7 @@
 int main(void)
 {
     HAL::Init();
-    Display::InitBlack();
+    Display::Init();
     //Keyboard::Init();
     //Menu::Init();
     

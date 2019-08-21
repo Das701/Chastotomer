@@ -22,8 +22,8 @@
 #define HAL_CORTEX_MODULE_ENABLED
 #define HAL_SPI_MODULE_ENABLED
 
-#define USE_HAL_LTDC_REGISTER_CALLBACKS 0
-#define USE_HAL_TIM_REGISTER_CALLBACKS  0
+//#define USE_HAL_LTDC_REGISTER_CALLBACKS 0
+//#define USE_HAL_TIM_REGISTER_CALLBACKS  0
 
 
 /* ########################## HSE/HSI Values adaptation ##################### */
