@@ -5,7 +5,6 @@
 #include <cstring>
 
 #include "Display/Primitives.h"
-#include "Menu/Menu.h"
 
 
 using namespace Display::Primitives;
@@ -49,8 +48,6 @@ void Display::Update()
     BeginScene(Color::BLACK);
    
     Rectangle(256, 64).Draw(0, 0, Color::WHITE);
-
-    Menu::Draw(30, 30);
 
     EndScene();
 }

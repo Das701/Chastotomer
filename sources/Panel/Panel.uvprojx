@@ -534,21 +534,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Data</GroupName>
-          <Files>
-            <File>
-              <FileName>Heap.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Data\Heap.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Heap.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Data\Heap.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Display</GroupName>
           <Files>
             <File>
@@ -655,73 +640,9 @@
         </Group>
         <Group>
           <GroupName>Menu</GroupName>
-          <Files>
-            <File>
-              <FileName>Menu.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Menu.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Menu.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Menu.h</FilePath>
-            </File>
-            <File>
-              <FileName>MenuItems.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\MenuItems.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>MenuItems.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\MenuItems.h</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>Menu/Pages</GroupName>
-          <Files>
-            <File>
-              <FileName>PageChannels.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\PageChannels.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageChannels.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\PageChannels.h</FilePath>
-            </File>
-            <File>
-              <FileName>PageIndication.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\PageIndication.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageIndication.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\PageIndication.h</FilePath>
-            </File>
-            <File>
-              <FileName>PageModes.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\PageModes.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageModes.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\PageModes.h</FilePath>
-            </File>
-            <File>
-              <FileName>MainPage.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\MainPage.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>MainPage.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\MainPage.h</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>Utils</GroupName>
