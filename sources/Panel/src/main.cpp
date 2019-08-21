@@ -15,6 +15,7 @@ int main(void)
     while (1)
     {
         Device::Update();
+        Display::Update();
     }
 }
 

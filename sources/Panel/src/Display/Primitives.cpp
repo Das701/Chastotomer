@@ -56,7 +56,7 @@ void HLine::Draw(int x, int y, Color color)
     
     uint8 value = Color::GetCurrent().value;
     
-    while (p < end)
+    while (p <= end)
     {
         *p++ = value;
     }

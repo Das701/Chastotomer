@@ -566,6 +566,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\Colors.h</FilePath>
             </File>
+            <File>
+              <FileName>Display_HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Display_HAL.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -640,9 +645,43 @@
         </Group>
         <Group>
           <GroupName>Menu</GroupName>
+          <Files>
+            <File>
+              <FileName>Menu.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Menu.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Menu.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Menu.h</FilePath>
+            </File>
+            <File>
+              <FileName>MenuItems.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\MenuItems.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MenuItems.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\MenuItems.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Menu/Pages</GroupName>
+          <Files>
+            <File>
+              <FileName>PageModes.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageModes.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PageModes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\PageModes.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Utils</GroupName>
