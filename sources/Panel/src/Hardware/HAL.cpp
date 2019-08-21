@@ -3,18 +3,13 @@
 
 
 static void SystemClock_Config(void);
-static SPI_HandleTypeDef hSPI;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void HAL::Init()
 {
     HAL_Init();
-    __HAL_RCC_SYSCFG_CLK_ENABLE();
-    __HAL_RCC_PWR_CLK_ENABLE();
     SystemClock_Config();
-    
-    SPI::Init();
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -61,65 +56,6 @@ void SystemClock_Config(void)
     {
         ERROR_HANDLER();
     }
-}
-
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void HAL::SPI::Init()
-{
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-    __HAL_RCC_SPI4_CLK_ENABLE();
-
-    hSPI.Instance               = SPI4;
-    hSPI.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
-    hSPI.Init.Direction         = SPI_DIRECTION_1LINE;
-    hSPI.Init.CLKPhase          = SPI_PHASE_1EDGE;
-    hSPI.Init.CLKPolarity       = SPI_POLARITY_HIGH;
-    hSPI.Init.CRCCalculation    = SPI_CRCCALCULATION_DISABLE;
-    hSPI.Init.CRCPolynomial     = 7;
-    hSPI.Init.DataSize          = SPI_DATASIZE_8BIT;
-    hSPI.Init.FirstBit          = SPI_FIRSTBIT_MSB;
-    hSPI.Init.NSS               = SPI_NSS_SOFT;
-    hSPI.Init.TIMode            = SPI_TIMODE_DISABLE;
-    hSPI.Init.Mode              = SPI_MODE_MASTER; 
-
-    if(HAL_SPI_Init(&hSPI) != HAL_OK)
-    {
-        ERROR_HANDLER();
-    }
-
-    GPIO_InitTypeDef  isGPIO;
-        
-    isGPIO.Pin       = GPIO_PIN_5 | GPIO_PIN_7;
-    isGPIO.Mode      = GPIO_MODE_AF_PP;
-    isGPIO.Pull      = GPIO_PULLUP;
-    isGPIO.Speed     = GPIO_SPEED_FAST;
-    isGPIO.Alternate = GPIO_AF5_SPI4;
-    HAL_GPIO_Init(GPIOA, &isGPIO);
-
-    
-    isGPIO.Pin = GPIO_PIN_5;                // Управление DC дисплея
-    isGPIO.Mode      = GPIO_MODE_OUTPUT_PP;
-    isGPIO.Alternate = GPIO_MODE_AF_PP;
-    HAL_GPIO_Init(GPIOC, &isGPIO);
-    
-    isGPIO.Pin = GPIO_PIN_4;                // Управление CS дисплея
-    isGPIO.Mode      = GPIO_MODE_OUTPUT_PP;
-    isGPIO.Alternate = GPIO_MODE_AF_PP;
-    HAL_GPIO_Init(GPIOA, &isGPIO);
-    
-    isGPIO.Pin = GPIO_PIN_1;                // Управление RES дисплея
-    isGPIO.Mode      = GPIO_MODE_OUTPUT_PP;
-    isGPIO.Alternate = GPIO_MODE_AF_PP;
-    HAL_GPIO_Init(GPIOB, &isGPIO);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void HAL::SPI::Send(uint8 *buffer, uint16 num)
-{
-    HAL_SPI_Transmit(&hSPI, (uint8 *)buffer, num, HAL_MAX_DELAY);
 }
 
 

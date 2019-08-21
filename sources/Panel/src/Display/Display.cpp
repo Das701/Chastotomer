@@ -2,202 +2,69 @@
 #include "stm32f4xx_hal.h"
 #include "Display.h"
 #include "Hardware/HAL.h"
+#include <cstring>
+
 #include "Display/Primitives.h"
 #include "Menu/Menu.h"
-#include <cstring>
 
 
 using namespace Display::Primitives;
 
-/// Буфер с изображение
-static uint8 buffer[256 * 64 / 8];
-static uint8 buf[256][64];
+/// Этот буфер отображается на экране
+static uint8 front[240][320];
+/// В этом буфере рисуем
+static uint8 RGB565_240x320[240][320] = { 0x00000000 };
 
-void DrawPoint(int x, int y)
-{
-    if (x < 256 && x >= 0 && y < 64 && y  >= 0)
-    {
-        buf[x][y] = 0xFF; 
-    }        
-}
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LTDC_HandleTypeDef hltdc;
+static void MX_LTDC_Init(void);
+static void MX_GPIO_Init(void);
 
-void DrawHLine(int x, int y, int length)
-{
-    for(int i = 0; i < length; i++)
-    {
-        DrawPoint(x, y);
-        x++;        
-    }
-}
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-void DrawVLine(int x, int y, int length)
-{
-    for(int i = 0; i < length; i++)
-    {
-        DrawPoint(x, y);
-        y++;        
-    }
-}
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-void DrawRectangle(int x, int y, int height, int width)
-{
-    DrawHLine(x, y, width);
-    DrawVLine(x, y, height);
-    DrawHLine(x, y + height, width);
-    DrawVLine(x + width, y, height);
-}
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-void FillRectangle(int x, int y, int height, int width)
-{
-    for(int y0 = y; y0 < y + height; y0++)
-    {
-        DrawHLine(x, y0, width);
-    }
-}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void Delay(uint ms)
-{
-    uint timestamp = HAL_GetTick();
-    while(HAL_GetTick() - timestamp < ms)
-    {
-    }
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Command(uint8 command)
-{
-    Delay(1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET); //set D/C# pin low
-    HAL::SPI::Send(&command, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Data(uint8 data)
-{
-    Delay(1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);   //set D/C# pin high
-    HAL::SPI::Send(&data, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 uint8* Display::GetBuff()
 {
-    return buffer;
+    return &(RGB565_240x320[0][0]);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::Init()
 {
-    
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);   //Reset pin low
-    Delay(1);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);     //Reset pin high
-    Delay(1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
-    Command(0xFD);      //set Command unlock
-    Data(0x12);
-    Command(0xAE);      //set display off
-    Command(0xB3);      //set display clock divide ratio...
-    Data(0x91);         //...to 135 Frames/sec
-    Command(0xCA);      //set multiplex ratio...
-    Data(0x3F);         //...to 64?1
-    Command(0xA2);      //set display offset
-    Data(0x00);         //...to 0
-    Command(0xA1);      //start display start line
-    Data(0x00);         //...to 0
-    Command(0xA0);      //set Re?Map & Dual COM Line Mode
-    Data(0x14);
-    Data(0x11);
-    Command(0xB5);      //disable IO intput
-    Data(0x00);
-    Command(0xAB);      //function select
-    Data(0x01);
-    Command(0xB4);      //enable VSL extern
-    Data(0xA0);
-    Data(0xFD);
-    Command(0xC1);      //set contrast current
-    Data(0xFF);
-    Command(0xC7);      //set master contrast current
-    Data(0x0F);
-    Command(0xB8);      //set gray scale table
-    Data(0x00);
-    Data(0x00);
-    Data(0x00);
-    Data(0x03);
-    Data(0x06);
-    Data(0x10);
-    Data(0x1D);
-    Data(0x2A);
-    Data(0x37);
-    Data(0x46);
-    Data(0x58);
-    Data(0x6A);
-    Data(0x7F);
-    Data(0x96);
-    Data(0xB4);
-    Command(0xB1);      //set phase length
-    Data(0xE8);
-    Command(0xD1);      //enhance driving scheme capability
-    Data(0x82);
-    Data(0x20);
-    Command(0xBB);      //first pre charge voltage
-    Data(0x1F);
-    Command(0xB6);      //second pre charge voltage
-    Data(0x08);
-    Command(0xBE);      //VCOMH
-    Data(0x07);
-    Command(0xA9);      //no partial mode
-    Command(0xA6);      //set normal display mode
-    Delay(1);           //stabilize VDD
-    Command(0xAF);      //display on
-    Delay(200);         //stabilize VDD
-}
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    MX_GPIO_Init();
+    MX_LTDC_Init();
 
-void InitWindow(uint8 startcol, uint8 stopcol, uint8 startrow,uint8 stoprow)
-{
+    uint ColorTable[2] = { 0x00000000U, 0xFFFFFFFFU };
 
-    Command(0x15);
-    Data(28+startcol);
-    Data(28+stopcol);
+    HAL_LTDC_EnableCLUT(&hltdc, 0);
 
-    Command(0x75);
-    Data(startrow);
-    Data(stoprow);
+    HAL_LTDC_ConfigCLUT(&hltdc, ColorTable, 2, 0);
 
-    Command(0x5C);
-    Delay(50);
-    
+    HAL_LTDC_SetAddress(&hltdc, (uint)&front, 0);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::Update()
 {
-    uint8 buffer1[128];
-    //Преобразование в grayscale
-    for(uint y = 0; y < 64; y++)
+    BeginScene(Color::BLACK);
+
+    static int x0 = 0;
+    static int y0 = 0;
+
+    x0++;
+    y0++;
+
+    if (x0 == 2)
     {
-        uint8 totcount = 0;
-        for(uint x = 0; x < 256; x += 2) 
-        {
-            uint8 low = buf[x][y] & 0x0F;
-            uint8 high = buf[x + 1][y] & 0xF0;
-            buffer1[totcount] = low | high;
-            totcount++;
-        }
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);   //CS pin low
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);   //set D/C# pin high
-        HAL::SPI::Send(buffer1, 128);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   //CS pin high
+        x0 = 0;
+        y0 = 0;
     }
+
+    int x = x0 + (320 - 256) / 2;
+    int y = y0 + (240 - 64) / 2;
+
+    Rectangle(256, 64).Draw(x, y, Color::WHITE);
+
+    Menu::Draw(x + 30, y + 30);
+
+    EndScene();
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -209,5 +76,74 @@ void Display::BeginScene(Color color)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::EndScene()
 {
+    std::memcpy(front, RGB565_240x320, 240 * 320);
+}
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void MX_LTDC_Init(void)
+{
+    LTDC_LayerCfgTypeDef pLayerCfg = { 0 };
+
+    hltdc.Instance = LTDC;
+    hltdc.Init.HSPolarity = LTDC_HSPOLARITY_AL;
+    hltdc.Init.VSPolarity = LTDC_VSPOLARITY_AL;
+    hltdc.Init.DEPolarity = LTDC_DEPOLARITY_AH;
+    hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IIPC;
+    hltdc.Init.HorizontalSync = 0;
+    hltdc.Init.VerticalSync = 0;
+    hltdc.Init.AccumulatedHBP = 70;
+    hltdc.Init.AccumulatedVBP = 13;
+    hltdc.Init.AccumulatedActiveW = 390;
+    hltdc.Init.AccumulatedActiveH = 253;
+    hltdc.Init.TotalWidth = 408;
+    hltdc.Init.TotalHeigh = 263;
+    hltdc.Init.Backcolor.Blue = 0;
+    hltdc.Init.Backcolor.Green = 0;
+    hltdc.Init.Backcolor.Red = 0;
+
+    if (HAL_LTDC_Init(&hltdc) != HAL_OK)
+    {
+        ERROR_HANDLER();
+    }
+
+    pLayerCfg.WindowX0 = 0;
+    pLayerCfg.WindowX1 = 320;
+    pLayerCfg.WindowY0 = 0;
+    pLayerCfg.WindowY1 = 240;
+    pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_L8;
+    pLayerCfg.Alpha = 0xFF;
+    pLayerCfg.Alpha0 = 0xFF;
+    pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
+    pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
+    pLayerCfg.FBStartAdress = (uint32_t)&(RGB565_240x320[0][0]);
+    pLayerCfg.ImageWidth = 320;
+    pLayerCfg.ImageHeight = 240;
+    pLayerCfg.Backcolor.Blue = 0;
+    pLayerCfg.Backcolor.Green = 0;
+    pLayerCfg.Backcolor.Red = 0;
+
+    if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg, 0) != HAL_OK)
+    {
+        ERROR_HANDLER();
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void MX_GPIO_Init(void)
+{
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+
+    GPIO_InitTypeDef GPIO_InitStruct = { 0 };
+
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_6;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 }
