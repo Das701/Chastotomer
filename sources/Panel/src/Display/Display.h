@@ -9,7 +9,11 @@ namespace Display
 
     void Update();
 
-    uint8_t* GetBuff();
+    uint8 *GetPixel(int x, int y);
+
+    inline int GetWidth() { return 320; };
+
+    inline int GetHeight() { return 240; };
     
     void BeginScene(Color color);
     

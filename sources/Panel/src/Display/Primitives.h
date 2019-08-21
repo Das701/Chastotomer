@@ -30,20 +30,20 @@ namespace Display
         class HLine
         {
         public:
-            HLine(int width);
+            HLine(int _length) : length(_length) {};
             void Draw(int x, int y, Color color = Color::Number);
         private:
-            const int width;
+            const int length;
         };
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         class VLine
         {
         public:
-            VLine(int height);
+            VLine(int _length) : length(_length) {};
             void Draw(int x, int y, Color color = Color::Number);
         private:
-            const int height;
+            const int length;
         };
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
