@@ -11,9 +11,9 @@ namespace Display
 
     uint8 *GetPixel(int x, int y);
 
-    inline int GetWidth() { return 320; };
+    inline int GetWidth() { return 256; };
 
-    inline int GetHeight() { return 240; };
+    inline int GetHeight() { return 64; };
     
     void BeginScene(Color color);
     

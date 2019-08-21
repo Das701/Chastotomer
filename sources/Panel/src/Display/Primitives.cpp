@@ -50,38 +50,9 @@ void HLine::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
-    int w = Display::GetWidth();
-    int h = Display::GetHeight();
-
-    if (y < 0 || y >= h)
-    {
-        return;
-    }
-
-    int delta = length;
-
-    if (x < 0)
-    {
-        delta = length + x;
-        x = 0;
-        if (delta < 0)
-        {
-            return;
-        }
-    }
-
-    if (x + delta >= w)
-    {
-        delta = w - x;
-        if (delta < 0)
-        {
-            return;
-        }
-    }
-
     uint8 *p = Display::GetPixel(x, y);
     
-    uint8 *end = p + delta;
+    uint8 *end = p + length;
     
     uint8 value = Color::GetCurrent().value;
     
@@ -97,14 +68,12 @@ void VLine::Draw(int x, int y, Color color)
     color.SetAsCurrent();
 
     uint8 *p = Display::GetPixel(x, y);
-
+    
     uint8 value = Color::GetCurrent().value;
-
-    int width = Display::GetWidth();
-
+    
     for (int i = 0; i < length; i++)
     {
         *p = value;
-        p += width;
+        p += 320;
     }
 }
