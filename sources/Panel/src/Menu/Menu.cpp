@@ -2,6 +2,7 @@
 #include "Menu.h"
 #include "MenuItems.h"
 #include "Menu/Pages/PageModes.h"
+#include "Display/Text.h"
 
 
 /// Горизонтальная координата верхнего левого угла меню
@@ -16,4 +17,6 @@ static Page *page = PageModes::self;
 void Menu::Draw()
 {
     page->Draw(x0, y0);
+
+    Display::Text("Test string. Тестовая строка. 123").Write(10, 10, Color::WHITE);
 }

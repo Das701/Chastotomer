@@ -21,7 +21,7 @@ struct Font
             Number,
             None
         } value;
-        Type(E v) : value(v) {};
+        Type(E v = None) : value(v) {};
         operator uint8() const { return (uint8)value; };
     };
 
@@ -36,10 +36,5 @@ struct Font
 };
 
 
+/// Текущий шрифт
 extern const Font *font;
-extern const Font *fonts[Font::Type::Number];
-
-extern const uint8 font5display[3080];
-extern const uint8 font8display[3080];
-extern const uint8 fontUGOdisplay[3080];
-extern const uint8 fontUGO2display[3080];

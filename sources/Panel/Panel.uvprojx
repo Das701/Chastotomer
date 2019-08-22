@@ -571,6 +571,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\Display\Display_HAL.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Text.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Text.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Text.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Text.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -2,9 +2,11 @@
 #include "PageModes.h"
 #include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
+#include "Display/Text.h"
 
 
 using namespace Display::Primitives;
+using namespace Display;
 
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
