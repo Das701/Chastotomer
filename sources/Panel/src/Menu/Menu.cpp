@@ -8,7 +8,7 @@
 /// √оризонтальна€ координата верхнего левого угла меню
 static int x0 = 36;
 /// ¬ертикальна€ координата верхнего левого угла меню
-static int y0 = 54;
+static int y0 = 53;
 
 static Page *page = PageModes::self;
 
@@ -19,6 +19,4 @@ void Menu::Draw()
     font->SetType(Font::Type::_8);
 
     page->Draw(x0, y0);
-
-    Display::Text("Test string. “естова€ строка. 123").Write(10, 10, Color::WHITE);
 }

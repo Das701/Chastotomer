@@ -9,7 +9,7 @@ public:
     virtual void Draw(int x, int y) {};
 
     static const int WIDTH = 35;
-    static const int HEIGHT = 10;
+    static const int HEIGHT = 11;
 };
 
 

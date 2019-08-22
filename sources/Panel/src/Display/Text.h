@@ -11,6 +11,7 @@ namespace Display
         Text(char *text);
         ~Text();
         void Write(int x, int y, Color color = Color::Number);
+        void Write(int x, int width, int y, Color color = Color::Number);
     private:
         char *text;
 
