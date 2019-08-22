@@ -9,7 +9,7 @@ using namespace Display::Primitives;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Text::Text(char *_text, Font::Type _type) : type(_type)
+Text::Text(char *_text)
 {
     uint numSymbols = std::strlen(_text);
 
@@ -34,8 +34,6 @@ Text::~Text()
 void Text::Write(int x, int y, Color color)
 {
     color.SetAsCurrent();
-
-    Font::SetType(type);
 
     char *p = text;
 

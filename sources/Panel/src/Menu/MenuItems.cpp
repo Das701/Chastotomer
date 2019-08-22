@@ -1,9 +1,11 @@
 #include "defines.h"
 #include "MenuItems.h"
 #include "Display/Primitives.h"
+#include "Display/Text.h"
 
 
 using namespace Display::Primitives;
+using namespace Display;
 
 Page Page::empty;
 
@@ -25,8 +27,5 @@ void Page::Draw(int x, int y)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Button::Draw(int x, int y)
 {
-    if (funcDraw)
-    {
-        funcDraw(x + 3, y + 3);
-    }
+    Text(text).Write(x, y);
 }

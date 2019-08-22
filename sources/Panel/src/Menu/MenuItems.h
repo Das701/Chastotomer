@@ -17,12 +17,12 @@ public:
 class Button : public Item
 {
 public:
-    Button(pFuncVII _funcDraw) : funcDraw(_funcDraw) {};
+    Button(char *_text) : text(_text) {};
 
     virtual void Draw(int x, int y);
 
 private:
-    pFuncVII funcDraw;
+    char *text;
 };
 
 
