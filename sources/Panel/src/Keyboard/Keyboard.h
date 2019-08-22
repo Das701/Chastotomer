@@ -1,10 +1,6 @@
 #pragma once
 #include "defines.h"
 
-namespace Keyboard
-{
-    void Init();
-};
 
 struct Control
 {
@@ -43,5 +39,15 @@ struct Control
     } action;
 
     Control(E v = _NULL, Action::E a = Action::Press) : value(v), action(a) {};
-    operator uint8() const { return (uint8)value; };
+
+    const char *Name();
+};
+
+namespace Keyboard
+{
+    void Init();
+    /// Возвращает true, если есть событыия
+    bool Empty();
+    /// Возвращает следующее событие
+    Control NextControl();
 };

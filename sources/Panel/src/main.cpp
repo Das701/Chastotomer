@@ -2,7 +2,7 @@
 #include "Hardware/HAL.h"
 #include "Keyboard/Keyboard.h"
 #include "Display/Display.h"
-#include "Device.h"
+#include "Menu/Menu.h"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -14,7 +14,7 @@ int main(void)
 
     while (1)
     {
-        Device::Update();
+        Menu::Update();
         Display::Update();
     }
 }

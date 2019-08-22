@@ -9,12 +9,14 @@ namespace Display
     {
     public:
         Text(char *text);
+        Text(const char *text);
         ~Text();
         void Write(int x, int y, Color color = Color::Number);
         void Write(int x, int width, int y, Color color = Color::Number);
     private:
         char *text;
 
+        void Create(const char *text);
         int WriteSymbol(int x, int y, uint8 symbol);
     };
 }
