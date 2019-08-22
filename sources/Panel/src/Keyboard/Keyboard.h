@@ -6,24 +6,29 @@ struct Control
 {
     enum E
     {
-        _0,
-        _1,
-        _2,
+        GovButton,
+        Mode,
+        Indication,
         _3,
-        _4,
-        _5,
+        Left,
+        Right,
         _6,
         _7,
         _8,
         _9,
-        _F1,
-        _F2,
-        _F3,
-        _F4,
+        _A,
+        _B,
+        _C,
+        _D,
         _F5,
         _ESC,
         _Left,
         _Right,
+        GovLeft,
+        GovRight,
+        _Channel,
+        Test,
+        Auto,
         _NULL
     } value;
 

@@ -15,11 +15,11 @@ static TIM_HandleTypeDef handleTIM4;
 
 static Control::E controls[NUM_SL][NUM_RL] =
 {
-    {Control::_0,   Control::_1,    Control::_2,     Control::_3,  Control::_4},
-    {Control::_5,   Control::_6,    Control::_7,     Control::_8,  Control::_9},
-    {Control::_F1,  Control::_F2,   Control::_F3,    Control::_F4, Control::_F5},
-    {Control::_ESC, Control::_Left, Control::_Right, Control::_0,  Control::_0},
-    {Control::_0,   Control::_1,    Control::_2,     Control::_3,  Control::_4}
+    {Control::GovButton,  Control::Right, Control::GovLeft,    Control::Test,      Control::_A},
+    {Control::Mode,       Control::_6,    Control::GovRight,   Control::_Left,     Control::_B},
+    {Control::Indication, Control::_7,    Control::_ESC,       Control::GovButton, Control::_C},
+    {Control::_3,         Control::_8,    Control::_Right,     Control::Test,      Control::_D},
+    {Control::Left,       Control::_9,    Control::Indication, Control::Auto,      Control::_F5}
 };
 
 /// Очередь сообщений - здесь все события органов управления
@@ -261,24 +261,29 @@ const char *Control::Name()
 {
     static const char *names[] =
     {
-        "0",
-        "1",
-        "2",
+        "Ручка нажать",
+        "РЕЖИМ",
+        "ИНДИКАЦИЯ",
         "3",
-        "4",
-        "5",
+        "<-",
+        "->",
         "6",
         "7",
         "8",
         "9",
-        "F1",
-        "F2",
-        "F3",
-        "F4",
+        "A",
+        "B",
+        "C",
+        "D",
         "F5",
         "ESC",
         "Left",
         "Right",
+        "Ручка влево",
+        "Ручка вправо",
+        "Channel",
+        "ТЕСТ",
+        "АВТО",
         "NULL"
     };
 
