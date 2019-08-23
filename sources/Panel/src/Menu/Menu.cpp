@@ -39,27 +39,27 @@ void Menu::Update()
     {
         Control control = Keyboard::NextControl();
         
-         if(control.value == Control::Mode) 
+        if(control.value == Control::Mode) 
         {
             openedPage = PageModes::self;
         }
-        if(control.value == Control::Indication) 
+        else if(control.value == Control::Indication) 
         {
             openedPage = PageModeIndication::self;
         }
-        if(control.value == Control::_A) 
+        else if(control.value == Control::_A) 
         {
             openedPage = PageModeChannels::self;
         }
-        if(control.value == Control::_B) 
+        else if(control.value == Control::_B) 
         {
             openedPage = PageModeChannelsB::self;
         }
-        if(control.value == Control::_C) 
+        else if(control.value == Control::_C) 
         {
             openedPage = &Page::empty;
         }
-        if(control.value == Control::_D) 
+        else if(control.value == Control::_D) 
         {
             openedPage = &Page::empty;
         }
