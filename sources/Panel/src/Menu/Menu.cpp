@@ -16,6 +16,7 @@ static int x0 = 36;
 /// Вертикальная координата верхнего левого угла меню
 static int y0 = 53;
 
+int s = 0;
 static Page *openedPage = PageModes::self;
 
 /// Последний нажатый элемент управления
@@ -62,6 +63,14 @@ void Menu::Update()
         else if(control.value == Control::_D) 
         {
             openedPage = &Page::empty;
+        }
+        if(control.value == Control::Right) 
+        {
+            openedPage->ControlRight();
+        }
+        if(control.value == Control::Left) 
+        {
+            openedPage->ControlLeft();
         }
     }
 }

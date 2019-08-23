@@ -30,8 +30,13 @@ private:
 class Page : public Item
 {
 public:
-    Page(Item **_items = nullptr) : items(_items) {};
-
+    Page(Item **_items = nullptr) : items(_items), currentItem(0) {};
+    
+    int NumItems();
+        
+    void ControlRight();
+    void ControlLeft();
+        
     virtual void Draw(int x, int y);
 
     static Page empty;
@@ -39,4 +44,5 @@ public:
 private:
     /// Указатель на массив элементов меню. Заканчивается нулём.
     Item **items;
+    int currentItem;
 };

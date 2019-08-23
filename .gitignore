@@ -2,6 +2,7 @@ JLink*
 archive.zip
 *out.txt
 *.out
+*.tmp
 
 sources/.vs/*
 sources/Panel/Objects/*

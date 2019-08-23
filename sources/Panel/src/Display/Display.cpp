@@ -11,7 +11,7 @@ void Display::Update()
 {
     BeginScene(Color::BLACK);
 
-    Rectangle(256, 64).Draw(0, 0, Color::GRAY);
+    Rectangle(256, 64).Draw(0, 0, Color::WHITE);
 
     Menu::Draw();
 
