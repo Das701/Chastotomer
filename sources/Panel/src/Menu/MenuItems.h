@@ -1,12 +1,14 @@
 #pragma once
 #include "defines.h"
-
+#include "Keyboard/Keyboard.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Item
 {
 public:
     virtual void Draw(int x, int y) {};
+    
+    virtual bool PressButton(Control control) {};
 
     static const int WIDTH = 35;
     static const int HEIGHT = 11;
@@ -21,6 +23,8 @@ public:
 
     virtual void Draw(int x, int y);
 
+    //virtual bool PressButton(Control control);    
+        
 private:
     char *text;
 };
@@ -38,7 +42,9 @@ public:
     void ControlLeft();
         
     virtual void Draw(int x, int y);
-
+    
+    virtual bool PressButton(Control control);    
+        
     static Page empty;
 
 private:

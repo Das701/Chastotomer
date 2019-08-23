@@ -16,11 +16,9 @@ static int x0 = 36;
 /// Вертикальная координата верхнего левого угла меню
 static int y0 = 53;
 
-int s = 0;
 static Page *openedPage = PageModes::self;
 
 /// Последний нажатый элемент управления
-//static Control lastControl;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,6 +37,11 @@ void Menu::Update()
     while (!Keyboard::Empty())
     {
         Control control = Keyboard::NextControl();
+        
+        if(openedPage->PressButton(control))
+        {
+            continue;
+        }
         
         if(control.value == Control::Mode) 
         {

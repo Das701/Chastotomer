@@ -44,6 +44,17 @@ void Button::Draw(int x, int y)
     Text(text).Write(x, WIDTH, y + 2);
 }
 
+bool Page::PressButton(Control control)
+{
+    if(control.value == Control::GovButton)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
 int Page::NumItems()
 {
