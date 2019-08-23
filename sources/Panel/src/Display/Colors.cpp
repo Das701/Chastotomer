@@ -7,8 +7,9 @@
 using namespace Display::Primitives;
 
 Color Color::BLACK(0);
-Color Color::WHITE(1);
-Color Color::Number(2);
+Color Color::GRAY(1);
+Color Color::WHITE(2);
+Color Color::Number(3);
 
 
 Color Color::current = Color::BLACK;

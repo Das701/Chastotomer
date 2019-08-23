@@ -7,6 +7,7 @@ struct Color
     uint8 value;
 
     static Color BLACK;
+    static Color GRAY;
     static Color WHITE;
     static Color Number;
 
