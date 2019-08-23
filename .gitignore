@@ -3,6 +3,7 @@ archive.zip
 *out.txt
 *.out
 *.tmp
+*.Sasha
 
 sources/.vs/*
 sources/Panel/Objects/*

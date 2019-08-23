@@ -925,8 +925,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Menu\Pages\PageModes.cpp</PathWithFileName>
-      <FilenameWithoutPath>PageModes.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\Menu\Pages\PageChannelA.cpp</PathWithFileName>
+      <FilenameWithoutPath>PageChannelA.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -937,8 +937,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Menu\Pages\PageModes.h</PathWithFileName>
-      <FilenameWithoutPath>PageModes.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\Menu\Pages\PageChannelA.h</PathWithFileName>
+      <FilenameWithoutPath>PageChannelA.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -949,8 +949,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Menu\Pages\PageModeIndication.cpp</PathWithFileName>
-      <FilenameWithoutPath>PageModeIndication.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\Menu\Pages\PageChannelB.cpp</PathWithFileName>
+      <FilenameWithoutPath>PageChannelB.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -961,8 +961,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Menu\Pages\PageModeIndication.h</PathWithFileName>
-      <FilenameWithoutPath>PageModeIndication.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\Menu\Pages\PageChannelB.h</PathWithFileName>
+      <FilenameWithoutPath>PageChannelB.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -973,8 +973,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Menu\Pages\PageModeChannels.cpp</PathWithFileName>
-      <FilenameWithoutPath>PageModeChannels.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\Menu\Pages\PageIndication.cpp</PathWithFileName>
+      <FilenameWithoutPath>PageIndication.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -985,8 +985,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Menu\Pages\PageModeChannels.h</PathWithFileName>
-      <FilenameWithoutPath>PageModeChannels.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\Menu\Pages\PageIndication.h</PathWithFileName>
+      <FilenameWithoutPath>PageIndication.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -997,8 +997,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Menu\Pages\PageModeChannelsB.cpp</PathWithFileName>
-      <FilenameWithoutPath>PageModeChannelsB.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\Menu\Pages\PageModes.cpp</PathWithFileName>
+      <FilenameWithoutPath>PageModes.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1009,8 +1009,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Menu\Pages\PageModeChannelsB.h</PathWithFileName>
-      <FilenameWithoutPath>PageModeChannelsB.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\Menu\Pages\PageModes.h</PathWithFileName>
+      <FilenameWithoutPath>PageModes.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

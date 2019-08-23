@@ -4,9 +4,9 @@
 #include "Menu/Pages/PageModes.h"
 #include "Display/Text.h"
 #include "Keyboard/Keyboard.h"
-#include "Menu/Pages/PageModeIndication.h"
-#include "Menu/Pages/PageModeChannels.h"
-#include "Menu/Pages/PageModeChannelsB.h"
+#include "Menu/Pages/PageIndication.h"
+#include "Menu/Pages/PageChannelA.h"
+#include "Menu/Pages/PageChannelB.h"
 
 using namespace Display;
 

@@ -8,7 +8,7 @@ class Item
 public:
     virtual void Draw(int x, int y) {};
     
-    virtual bool PressButton(Control control) {};
+    virtual bool PressButton(Control control) { return false; };
 
     static const int WIDTH = 35;
     static const int HEIGHT = 11;

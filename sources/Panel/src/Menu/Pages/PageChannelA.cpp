@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "PageModeChannels.h"
+#include "PageChannelA.h"
 #include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"

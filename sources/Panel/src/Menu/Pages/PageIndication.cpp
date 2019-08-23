@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "PageModeIndication.h"
+#include "PageIndication.h"
 #include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
