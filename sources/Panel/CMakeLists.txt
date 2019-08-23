@@ -18,6 +18,7 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
 add_compile_options(/wd4018)    # 'xxx': signed/unsigned mismatch
 add_compile_options(/wd4057)
+add_compile_options(/wd4062)    # enumerator 'xxx' in switch of enum 'yyy' is not handled
 add_compile_options(/wd4068)    # unknown pragma
 add_compile_options(/wd4100)    # 'xxx': unreferenced formal parameter
 add_compile_options(/wd4101)    # 'xxx': unreferenced local variable

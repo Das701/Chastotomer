@@ -2,7 +2,7 @@
 #include "Menu/MenuItems.h"
 
 
-class PageModeIndication
+class PageIndication
 {
 public:
     static Page *self;

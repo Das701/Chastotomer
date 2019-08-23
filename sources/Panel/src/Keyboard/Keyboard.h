@@ -16,10 +16,10 @@ struct Control
         _7,
         _8,
         _9,
-        _A,
-        _B,
-        _C,
-        _D,
+        A,
+        B,
+        C,
+        D,
         _F5,
         _ESC,
         _Left,
@@ -41,6 +41,7 @@ struct Control
             Long
         } value;
         Action(E v) : value(v) {};
+        bool IsPress() const { return value == Press; };
     } action;
 
     Control(E v = _NULL, Action::E a = Action::Press) : value(v), action(a) {};

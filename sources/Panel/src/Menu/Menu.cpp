@@ -8,17 +8,19 @@
 #include "Menu/Pages/PageChannelA.h"
 #include "Menu/Pages/PageChannelB.h"
 
+
 using namespace Display;
 
+/// ќткрывает страницу, соответствующую воздействию control. ¬озвращает false, если дл€ воздействи€ нет соответствующей страницы
+static bool OpenPage(Control control);
 
 /// √оризонтальна€ координата верхнего левого угла меню
 static int x0 = 36;
 /// ¬ертикальна€ координата верхнего левого угла меню
 static int y0 = 53;
-
+/// “екуща€ отображаема€ страница меню
 static Page *openedPage = PageModes::self;
 
-/// ѕоследний нажатый элемент управлени€
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,53 +29,58 @@ void Menu::Draw()
     font->SetType(Font::Type::_8);
  
     openedPage->Draw(x0, y0);
-   
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu::Update()
 {
-    
     while (!Keyboard::Empty())
     {
         Control control = Keyboard::NextControl();
         
-        if(openedPage->PressButton(control))
+        if(openedPage->OnControl(control))
         {
             continue;
         }
         
-        if(control.value == Control::Mode) 
+        if (OpenPage(control))
         {
-            openedPage = PageModes::self;
-        }
-        else if(control.value == Control::Indication) 
-        {
-            openedPage = PageModeIndication::self;
-        }
-        else if(control.value == Control::_A) 
-        {
-            openedPage = PageModeChannels::self;
-        }
-        else if(control.value == Control::_B) 
-        {
-            openedPage = PageModeChannelsB::self;
-        }
-        else if(control.value == Control::_C) 
-        {
-            openedPage = &Page::empty;
-        }
-        else if(control.value == Control::_D) 
-        {
-            openedPage = &Page::empty;
-        }
-        if(control.value == Control::Right) 
-        {
-            openedPage->ControlRight();
-        }
-        if(control.value == Control::Left) 
-        {
-            openedPage->ControlLeft();
+            continue;
         }
     }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static bool OpenPage(Control control)
+{
+    if (!control.action.IsPress())
+    {
+        return false;
+    }
+
+    switch (control.value)
+    {
+    case Control::Mode:
+        openedPage = PageModes::self;
+        return true;
+
+    case Control::Indication:
+        openedPage = PageIndication::self;
+        return true;
+
+    case Control::A:
+        openedPage = PageChannelA::self;
+        return true;
+
+    case Control::B:
+        openedPage = PageChannelB::self;
+        return true;
+
+    case Control::C:
+    case Control::D:
+        openedPage = &Page::empty;
+        return true;
+    }
+
+    return false;
 }

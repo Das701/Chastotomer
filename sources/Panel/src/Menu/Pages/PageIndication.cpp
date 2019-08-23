@@ -34,6 +34,6 @@ static Item *items[] =
     nullptr
 };
 
-static Page pageModeIndication(items);
+static Page pageIndication(items);
 
-Page *PageModeIndication::self = &pageModeIndication;
+Page *PageIndication::self = &pageIndication;

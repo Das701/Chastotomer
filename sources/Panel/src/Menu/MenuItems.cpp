@@ -13,30 +13,23 @@ Page Page::empty;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Page::Draw(int x, int y)
 {
-
     if (items)
     {
         for (int i = 0; items[i] != 0; i++)
         {
+            Color color = (i == currentItem) ? Color::GRAY : Color::WHITE;
+
             if(i == currentItem) 
             {
-                Rectangle(WIDTH, HEIGHT).Draw(x, y, Color::GRAY);
-                Rectangle(WIDTH - 2, HEIGHT - 2).Draw(x + 1, y + 1, Color::GRAY);
+                Rectangle(WIDTH - 2, HEIGHT - 2).Draw(x + 1, y + 1, color);
             }
-            else
-            {
-                Rectangle(WIDTH, HEIGHT).Draw(x, y, Color::WHITE);
-            }
+
+            Rectangle(WIDTH, HEIGHT).Draw(x, y, color);
             items[i]->Draw(x, y);
             x += Item::WIDTH + 2;
-
         }
-        
     }
-
 }
-
-
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Button::Draw(int x, int y)
@@ -44,47 +37,59 @@ void Button::Draw(int x, int y)
     Text(text).Write(x, WIDTH, y + 2);
 }
 
-bool Page::PressButton(Control control)
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool Page::OnControl(Control control)
 {
-    if(control.value == Control::GovButton)
+    switch (control.value)
     {
+    case Control::Right:
+        SelectNextItem();
+        return true;
+
+    case Control::Left:
+        SelectPrevItem();
+        return true;
+
+    case Control::GovButton:
+
         return true;
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
 }
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool Button::OnControl(Control control)
+{
+    return true;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int Page::NumItems()
 {
-    int i;
-    for (i = 0; items[i] != 0; i++)
+    int i = 0;
+    while(items[i++] != 0)
     {
     }
     return i;
 }
 
-void Page::ControlRight()
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Page::SelectNextItem()
 {
-
-    if(currentItem == NumItems() - 1)
+    currentItem++;
+    if (currentItem == NumItems())
     {
         currentItem = 0;
     }
-    else
-    {
-        currentItem++;
-    }
 }
-void Page::ControlLeft()
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Page::SelectPrevItem()
 {
-    if(currentItem == 0)
+    currentItem--;
+    if (currentItem < 0)
     {
         currentItem = NumItems() - 1;
-    }
-    else
-    {
-        currentItem--;
     }
 }

@@ -2,7 +2,7 @@
 #include "Menu/MenuItems.h"
 
 
-class PageModeChannels
+class PageChannelA
 {
 public:
     static Page *self;

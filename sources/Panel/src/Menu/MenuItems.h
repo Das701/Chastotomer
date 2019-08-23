@@ -2,13 +2,15 @@
 #include "defines.h"
 #include "Keyboard/Keyboard.h"
 
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Item
 {
 public:
+    /// Функция отрисовки
     virtual void Draw(int x, int y) {};
-    
-    virtual bool PressButton(Control control) { return false; };
+    /// Функция обработки нажатия кнопки/поворота ручки
+    virtual bool OnControl(Control control) { return false; };
 
     static const int WIDTH = 35;
     static const int HEIGHT = 11;
@@ -23,7 +25,7 @@ public:
 
     virtual void Draw(int x, int y);
 
-    //virtual bool PressButton(Control control);    
+    virtual bool OnControl(Control control);
         
 private:
     char *text;
@@ -36,18 +38,19 @@ class Page : public Item
 public:
     Page(Item **_items = nullptr) : items(_items), currentItem(0) {};
     
-    int NumItems();
-        
-    void ControlRight();
-    void ControlLeft();
-        
     virtual void Draw(int x, int y);
     
-    virtual bool PressButton(Control control);    
+    virtual bool OnControl(Control control);    
         
     static Page empty;
 
 private:
+    /// Делает текущим следующий элемент
+    void SelectNextItem();
+    /// Делает текущим предыдущий элемент
+    void SelectPrevItem();
+    /// Возвращает количество итемов на странице
+    int NumItems();
     /// Указатель на массив элементов меню. Заканчивается нулём.
     Item **items;
     int currentItem;

@@ -15,10 +15,10 @@ static TIM_HandleTypeDef handleTIM4;
 
 static Control::E controls[NUM_SL][NUM_RL] =
 {
-    {Control::GovButton,  Control::Right, Control::GovLeft,    Control::Test,      Control::_A},
-    {Control::Mode,       Control::_6,    Control::GovRight,   Control::_Left,     Control::_B},
-    {Control::Indication, Control::_7,    Control::_ESC,       Control::GovButton, Control::_C},
-    {Control::_3,         Control::_8,    Control::_Right,     Control::Test,      Control::_D},
+    {Control::GovButton,  Control::Right, Control::GovLeft,    Control::Test,      Control::A},
+    {Control::Mode,       Control::_6,    Control::GovRight,   Control::_Left,     Control::B},
+    {Control::Indication, Control::_7,    Control::_ESC,       Control::GovButton, Control::C},
+    {Control::_3,         Control::_8,    Control::_Right,     Control::Test,      Control::D},
     {Control::Left,       Control::_9,    Control::Indication, Control::Auto,      Control::_F5}
 };
 
@@ -34,8 +34,8 @@ static bool alreadyLong[NUM_RL][NUM_SL];
 static uint timePress[NUM_SL][NUM_RL];
 
 /// Время последнего автонажатия нопки
-static uint prevRepeat = 0;
-static uint prevPause  = 0;
+volatile uint prevRepeat = 0;
+volatile uint prevPause  = 0;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

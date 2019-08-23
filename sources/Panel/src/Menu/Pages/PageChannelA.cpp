@@ -38,6 +38,6 @@ static Item *items[] =
     nullptr
 };
 
-static Page pageModeChannels(items);
+static Page pageChannelA(items);
 
-Page *PageModeChannels::self = &pageModeChannels;
+Page *PageChannelA::self = &pageChannelA;
