@@ -9,28 +9,16 @@ using namespace Display::Primitives;
 using namespace Display;
 
 
-uint8 modeFreq = 0;
-uint8 maxFreq = 4;
-void FreqMode()
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static uint8 modeFreq = 0;
+
+MeasureFrequency PageModes::ModeMeasureFrequency()
 {
-    switch(modeFreq)
-    {
-        case 0:
-            Text("Режим частота 1").Write(10, 35, 10);
-        case 1:
-            Text("Режим частота 2").Write(10, 35, 10);
-        case 2:
-            Text("Режим частота 3").Write(10, 35, 10);
-        case 3:
-            Text("Режим частота 4").Write(10, 35, 10);
-    }
+    return (MeasureFrequency)modeFreq;
 }
 
-static Switch bFreq("f", &FreqMode, &modeFreq, &maxFreq);
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /// Выбор режима измерения частоты, отношения частот, "тахометра"
-static Button bFrequency("f");
+static Switch sFrequency("f", &modeFreq, 4, nullptr);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /// Выбор режима измерения периода
@@ -61,7 +49,7 @@ static Button bNumberPeriods("N");
 
 static Item *items[] =
 {
-    &bFrequency,
+    &sFrequency,
     &bPeriod,
     &bDuration,
     &bCountPulse,

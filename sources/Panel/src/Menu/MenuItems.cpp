@@ -2,6 +2,7 @@
 #include "MenuItems.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
+#include "Utils/Math.h"
 
 
 using namespace Display::Primitives;
@@ -32,7 +33,7 @@ void Page::Draw(int x, int y)
         {
             Color color = Color::WHITE;
 
-            if (i == currentItem)
+            if (i == selectedItem)
             {
                 color = Color::GRAY;
                 Rectangle(WIDTH - 2, HEIGHT - 2).Draw(x + 1, y + 1, color);
@@ -59,10 +60,7 @@ bool Page::OnControl(Control control)
         return true;
 
     case Control::GovButton: 
-        
-        ClickCount();
-
-        return true;
+        return SelectedItem()->OnControl(control);
     }
 
     return false;
@@ -72,40 +70,46 @@ bool Page::OnControl(Control control)
 int Page::NumItems()
 {
     int i = 0;
-    while(items[i++] != 0)
+    while(items[i] != 0)
     {
+        i++;
     }
-    return i - 1;
+    return i;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Page::SelectNextItem()
 {
-    currentItem++;
-    if (currentItem == NumItems())
-    {
-        currentItem = 0;
-    }
+    Math::CircleIncrease<int>(&selectedItem, 0, NumItems() - 1);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Page::SelectPrevItem()
 {
-    currentItem--;
-    if (currentItem < 0)
-    {
-        currentItem = NumItems() - 1;
-    }
+    Math::CircleDecrease<int>(&selectedItem, 0, NumItems() - 1);
 }
 
-void Switch::ClickCount()
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+bool Switch::OnControl(Control control)
 {
-    int s = 0;
-    s++;
-    *count = s;
-    if (*count == *max)
+    if (control.action.IsPress() && control.value == Control::GovButton)
     {
-        *count = 0;
+        Math::CircleIncrease<uint8>(state, 0, (uint8)(num - 1));
+
+        if (funcOnPress)
+        {
+            funcOnPress();
+        }
+
+        return true;
     }
-    onClick();
+
+    return false;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Switch::Draw(int x, int y)
+{
+    Text(text).Write(x, WIDTH, y + 2);
 }
