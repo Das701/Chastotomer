@@ -26,7 +26,6 @@ void Button::Draw(int x, int y)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Page::Draw(int x, int y)
 {
-    DrawOnClick();
     if (items)
     {
         for (int i = 0; items[i] != 0; i++)
@@ -60,11 +59,8 @@ bool Page::OnControl(Control control)
         return true;
 
     case Control::GovButton: 
-    clickCount++;
-    if (clickCount == 4)
-    {
-        clickCount = 0;
-    }
+        
+        ClickCount();
 
         return true;
     }
@@ -102,21 +98,14 @@ void Page::SelectPrevItem()
     }
 }
 
-void Page::DrawOnClick()
+void Switch::ClickCount()
 {
-    if (clickCount == 1)
+    int s = 0;
+    s++;
+    *count = s;
+    if (*count == *max)
     {
-        items[currentItem]->Draw(10, 10);
+        *count = 0;
     }
-    else if (clickCount == 2)
-    {
-        items[currentItem]->Draw(10, 10);
-        Rectangle(WIDTH, HEIGHT).Draw(10, 10, Color::WHITE);
-    }
-    else if (clickCount == 3)
-    {
-        items[currentItem]->Draw(10, 10);
-        Rectangle(WIDTH, HEIGHT).Draw(10, 10, Color::WHITE);
-        Rectangle(WIDTH - 2, HEIGHT - 2).Draw(11, 11, Color::WHITE);
-    }
+    onClick();
 }

@@ -9,6 +9,24 @@ using namespace Display::Primitives;
 using namespace Display;
 
 
+uint8 modeFreq = 0;
+uint8 maxFreq = 4;
+void FreqMode()
+{
+    switch(modeFreq)
+    {
+        case 0:
+            Text("Режим частота 1").Write(10, 35, 10);
+        case 1:
+            Text("Режим частота 2").Write(10, 35, 10);
+        case 2:
+            Text("Режим частота 3").Write(10, 35, 10);
+        case 3:
+            Text("Режим частота 4").Write(10, 35, 10);
+    }
+}
+
+static Switch bFreq("f", &FreqMode, &modeFreq, &maxFreq);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /// Выбор режима измерения частоты, отношения частот, "тахометра"
