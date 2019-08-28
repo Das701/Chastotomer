@@ -29,7 +29,10 @@ void Display::Update()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawModeMeasureFrequency()
 {
-    static const char * const modes[4] = { "Режим 1", "Режим 2", "Режим 3", "Режим 4" };
+    static const char * const modes[5] = { "Частота", "f(A)/f(C)", "f(A)/f(B)", "f=1/T", "Тахометр" };
 
-    Text(modes[PageModes::ModeMeasureFrequency()]).Write(10, 10);
+    Text(modes[PageModes::ModeMeasureFrequency()]).Write(10, 30);
+    Text("Измерение частоты").Write(38, 15);
+    Text("f").Write(18, 10);
+    Rectangle(25, 15).Draw(10, 8, Color::WHITE);
 }

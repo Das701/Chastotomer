@@ -8,7 +8,7 @@
 using namespace Display::Primitives;
 using namespace Display;
 
-
+static void OnPressFreq();
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static uint8 modeFreq = 0;
 
@@ -18,7 +18,7 @@ MeasureFrequency PageModes::ModeMeasureFrequency()
 }
 
 /// ¬ыбор режима измерени€ частоты, отношени€ частот, "тахометра"
-static Switch sFrequency("f", &modeFreq, 4, nullptr);
+static Switch sFrequency("f", &modeFreq, 5, &OnPressFreq);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /// ¬ыбор режима измерени€ периода
@@ -57,6 +57,19 @@ static Item *items[] =
     &bTimeMeasure,
     nullptr
 };
+
+static void OnPressFreq()
+{
+    if((MeasureFrequency)modeFreq == _AC || (MeasureFrequency)modeFreq == _fT)
+    {
+        items[5] = &bNumberPeriods;
+    }
+    else
+    {
+        items[5] = &bTimeMeasure;
+    }
+
+}
 
 static Page pageModes(items);
 

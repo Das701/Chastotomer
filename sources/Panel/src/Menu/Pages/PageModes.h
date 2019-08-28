@@ -4,10 +4,12 @@
 
 enum MeasureFrequency
 {
-    _1,
-    _2,
-    _3,
-    _4
+    _Freq,
+    _AC,
+    _AB,
+    _fT,
+    _tachometer,
+    
 };
 
 class PageModes
