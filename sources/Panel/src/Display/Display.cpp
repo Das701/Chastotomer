@@ -10,7 +10,7 @@ using Display::Text;
 
 
 static void DrawModeMeasureFrequency();
-
+static void DrawModeMeasurePeriod();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Update()
@@ -19,7 +19,7 @@ void Display::Update()
 
     Rectangle(256, 64).Draw(0, 0, Color::WHITE);
 
-    DrawModeMeasureFrequency();
+    DrawModeMeasurePeriod();
 
     Menu::Draw();
 
@@ -35,4 +35,19 @@ static void DrawModeMeasureFrequency()
     Text("Измерение частоты").Write(38, 15);
     Text("f").Write(18, 10);
     Rectangle(25, 15).Draw(10, 8, Color::WHITE);
+}
+
+static void DrawModeMeasurePeriod()
+{
+    static const char * const modes[2] = { "Период", "T=1/f" };
+
+    Text(modes[PageModes::ModeMeasurePeriod()]).Write(10, 30);
+    Text("Измерение периода").Write(38, 15);
+    Text("T").Write(18, 10);
+    Rectangle(25, 15).Draw(10, 8, Color::WHITE);
+}
+
+static void DrawMode()
+{
+
 }

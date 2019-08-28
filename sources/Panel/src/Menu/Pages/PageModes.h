@@ -8,7 +8,14 @@ enum MeasureFrequency
     _AC,
     _AB,
     _fT,
-    _tachometer,
+    _tachometer
+    
+};
+
+enum MeasurePeriod
+{
+    _Period,
+    _Tf
     
 };
 
@@ -18,4 +25,5 @@ public:
     static Page *self;
     /// Возвращает режим измерения частоты
     static MeasureFrequency ModeMeasureFrequency();
+    static MeasurePeriod ModeMeasurePeriod();
 };

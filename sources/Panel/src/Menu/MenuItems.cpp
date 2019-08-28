@@ -3,7 +3,7 @@
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Utils/Math.h"
-
+#include "Menu/Pages/PageModes.h"
 
 using namespace Display::Primitives;
 using namespace Display;
@@ -113,3 +113,4 @@ void Switch::Draw(int x, int y)
 {
     Text(text).Write(x, WIDTH, y + 2);
 }
+
