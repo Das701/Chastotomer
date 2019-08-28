@@ -2,21 +2,25 @@
 #include "Menu/MenuItems.h"
 
 
-enum MeasureFrequency
+struct MeasureFrequency
 {
-    _Freq,
-    _AC,
-    _AB,
-    _fT,
-    _tachometer
-    
+    enum E
+    {
+        Freq,       ///< Частота
+        AC,         ///< f(A) / f(C)
+        AB,         ///< f(A) / f(B)
+        T_1,        ///< f = 1 / T
+        Tachometer  ///< Тахометр
+    };
 };
 
-enum MeasurePeriod
+struct MeasurePeriod
 {
-    _Period,
-    _Tf
-    
+    enum E
+    {
+        Period,     ///< Период
+        F_1         ///< T = 1 / f
+    };
 };
 
 class PageModes
@@ -24,6 +28,7 @@ class PageModes
 public:
     static Page *self;
     /// Возвращает режим измерения частоты
-    static MeasureFrequency ModeMeasureFrequency();
-    static MeasurePeriod ModeMeasurePeriod();
+    static MeasureFrequency::E ModeMeasureFrequency();
+    /// Возвращает режим измерения периода
+    static MeasurePeriod::E ModeMeasurePeriod();
 };

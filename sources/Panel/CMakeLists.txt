@@ -24,6 +24,7 @@ add_compile_options(/wd4100)    # 'xxx': unreferenced formal parameter
 add_compile_options(/wd4101)    # 'xxx': unreferenced local variable
 add_compile_options(/wd4129)    # 'xxx': unrecognized character escape sequence
 add_compile_options(/wd4189)    # 'xxx': local variable is initialized but not referenced
+add_compile_options(/wd4211)    #  nonstandard extension used: redefined extern to static
 add_compile_options(/wd4242)    # 'xxx': conversion from 'int' to 'short', possible loss of data
 add_compile_options(/wd4244)    # 'xxx': conversion from 'int' to 'char', possible loss of data
 add_compile_options(/wd4305)    # 'xxx': truncation from 'int' to 'char'

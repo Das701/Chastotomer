@@ -8,28 +8,60 @@
 using namespace Display::Primitives;
 using namespace Display;
 
-static void OnPressFreq();
-static void OnPressPeriod();
+extern Item *items[];
+
+extern Button bPeriodTimeLabels;
+extern Button bTimeMeasure;
+extern Button bNumberPeriods;
+
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static uint8 modeFreq = 0;
-static uint8 modePeriod = 0;
-MeasureFrequency PageModes::ModeMeasureFrequency()
+static MeasureFrequency::E modeFreq = MeasureFrequency::Freq;
+
+MeasureFrequency::E PageModes::ModeMeasureFrequency()
 {
-    return (MeasureFrequency)modeFreq;
+    return modeFreq;
 }
 
-MeasurePeriod PageModes::ModeMeasurePeriod()
+static void OnPress_Frequency()
 {
-    return (MeasurePeriod)modePeriod;
+    if (modeFreq == MeasureFrequency::AC || modeFreq == MeasureFrequency::T_1)
+    {
+        items[5] = &bNumberPeriods;
+    }
+    else
+    {
+        items[5] = &bTimeMeasure;
+    }
 }
 
 /// Выбор режима измерения частоты, отношения частот, "тахометра"
-static Switch sFrequency("f", &modeFreq, 5, &OnPressFreq);
+static Switch sFrequency("f", (uint8 *)&modeFreq, 5, &OnPress_Frequency);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static MeasurePeriod::E modePeriod = MeasurePeriod::Period;
+
+MeasurePeriod::E PageModes::ModeMeasurePeriod()
+{
+    return modePeriod;
+}
+
+static void OnPress_Period()
+{
+    if (modePeriod == MeasurePeriod::Period)
+    {
+        items[4] = &bPeriodTimeLabels;
+        items[5] = &bNumberPeriods;
+    }
+    else
+    {
+        items[4] = &bTimeMeasure;
+        items[5] = nullptr;
+    }
+}
+
 /// Выбор режима измерения периода
-static Switch sPeriod("T", &modePeriod, 2, &OnPressPeriod);
-static Button bPeriod("T");
+static Switch sPeriod("T", (uint8 *)&modePeriod, 2, &OnPress_Period);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /// Выбор режима измерения длительности импульсов, интервалов, коэффициента заполнения, разности фаз
@@ -64,34 +96,6 @@ static Item *items[] =
     &bTimeMeasure,
     nullptr
 };
-
-static void OnPressFreq()
-{
-    if((MeasureFrequency)modeFreq == _AC || (MeasureFrequency)modeFreq == _fT)
-    {
-        items[5] = &bNumberPeriods;
-    }
-    else
-    {
-        items[5] = &bTimeMeasure;
-    }
-    
-}
-
-static void OnPressPeriod()
-{
-    if((MeasurePeriod)modePeriod == _Period)
-    {
-        items[4] = &bPeriodTimeLabels;
-        items[5] = &bNumberPeriods;
-    }
-    else
-    {
-        items[4] = &bTimeMeasure;
-        items[5] = nullptr;
-    }
-
-}
 
 static Page pageModes(items);
 
