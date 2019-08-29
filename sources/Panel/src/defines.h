@@ -1,5 +1,16 @@
 #pragma once
-#include "mytypes.h"
+
+typedef unsigned short      uint16;
+typedef unsigned char       uint8;
+typedef unsigned int        uint;
+typedef const char * const  pString;
+
+typedef void(*pFuncVII)(int, int);
+
+
+#ifndef WIN32
+#define nullptr 0
+#endif
 
 #define _bitset(bits)                               \
   ((uint8)(                                         \

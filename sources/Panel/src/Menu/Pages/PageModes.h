@@ -2,7 +2,22 @@
 #include "Menu/MenuItems.h"
 
 
-struct MeasureFrequency
+struct ModeMeasure
+{
+    enum E
+    {
+        Frequency,      ///< Измерение частоты
+        Period,         ///< Измерение периода
+        Duration,       ///< Измерение длительности
+        CountPulse      ///< Подсчёт импульсов
+    } value;
+
+    explicit ModeMeasure(E v) : value(v) {};
+    operator int() { return (int)value; };
+};
+
+/// Режим измерения частоты
+struct ModeMeasureFrequency
 {
     enum E
     {
@@ -11,19 +26,27 @@ struct MeasureFrequency
         AB,         ///< f(A) / f(B)
         T_1,        ///< f = 1 / T
         Tachometer  ///< Тахометр
-    };
+    } value;
+
+    explicit ModeMeasureFrequency(E v) : value(v) {};
+    operator int() { return (int)value; };
 };
 
-struct MeasurePeriod
+/// Режим измерения периода
+struct ModeMeasurePeriod
 {
     enum E
     {
         Period,     ///< Период
         F_1         ///< T = 1 / f
-    };
+    } value;
+
+    explicit ModeMeasurePeriod(E v) : value(v) {};
+    operator int() { return (int)value; };
 };
 
-struct MeasureDuration
+/// Режим измерения длительности
+struct ModeMeasureDuration
 {
     enum E
     {
@@ -33,10 +56,28 @@ struct MeasureDuration
         Interval,   ///< Интервал
         S_1,        ///< 1 / S
         Phase       ///< Фаза
-    };
+    } value;
+
+    explicit ModeMeasureDuration(E v) : value(v) {};
+    operator int() { return (int)value; };
 };
 
-struct TimeLabelLenght
+/// Режим счёта импульсов
+struct ModeCountPulse
+{
+    enum E
+    {
+        Manual,     ///< Ручн.
+        ATC,        ///< A(tC)
+        ATC_1       ///< A(TC)
+    } value;
+
+    explicit ModeCountPulse(E v) : value(v) {};
+    operator int() { return (int)value; };
+};
+
+/// Период меток времени
+struct PeriodTimeLabels
 {
     enum E
     {
@@ -46,43 +87,44 @@ struct TimeLabelLenght
         T_6,        ///< 10-6
         T_7,        ///< 10-7
         T_8         ///< 10-8
-    };
+    } value;
+
+    explicit PeriodTimeLabels(E v) : value(v) {};
+    operator int() { return (int)value; };
 };
 
-struct CountPulse
-{
-    enum E
-    { 
-        Manual,     ///< Ручн.
-        ATC,        ///< A(tC)
-        ATC_1       ///< A(TC)
-    };
-};
-
+/// Время счёта
 struct TimeMeasure
 {
     enum E
     {
-        MSec_1,     ///< 1ms
-        MSec_10,    ///< 10ms
-        MSec_100,   ///< 100ms
-        Sec_1,      ///< 1s
-        Sec_10,     ///< 10s
-        Sec_100     ///< 100s
-    };
+        _1ms,       ///< 1ms
+        _10ms,      ///< 10ms
+        _100ms,     ///< 100ms
+        _1s,        ///< 1s
+        _10s,       ///< 10s
+        _100s       ///< 100s
+    } value;
+
+    explicit TimeMeasure(E v) : value(v) {};
+    operator int() { return (int)value; };
 };
 
+/// Число периодов
 struct NumberPeriods
 {
     enum E
     {
-        NP_1,       ///< 1
-        NP_10,      ///< 10
-        NP_100,     ///< 100
-        NP_1K,      ///< 1K
-        NP_10K,     ///< 10K
-        NP_100K     ///< 100K
-    };
+        _1,       ///< 1
+        _10,      ///< 10
+        _100,     ///< 100
+        _1K,      ///< 1K
+        _10K,     ///< 10K
+        _100K     ///< 100K
+    } value;
+
+    explicit NumberPeriods(E v) : value(v) {};
+    operator int() { return (int)value; };
 };
 
 
@@ -90,18 +132,20 @@ class PageModes
 {
 public:
     static Page *self;
-    /// Возвращает режим измерения частоты
-    static MeasureFrequency::E ModeMeasureFrequency();
-    /// Возвращает режим измерения периода
-    static MeasurePeriod::E ModeMeasurePeriod();
-    /// Возвращает режим измерения длительности
-    static MeasureDuration::E ModeMeasureDuration();
-    /// Возвращает длительность временных меток
-    static TimeLabelLenght::E ModeTimeLabelLenght();
-    /// Возвращает счет числа импульсов
-    static CountPulse::E ModeCountPulse();
-    /// Возвращает время счета
-    static TimeMeasure::E ModeTimeMeasure();
-    /// Возвращает число периодов измерения
-    static NumberPeriods::E ModeNumberPeriods();
+    /// Режим измерения
+    static ModeMeasure modeMeasure;
+    /// Режим измерения частоты
+    static ModeMeasureFrequency modeMeasureFrequency;
+    /// Режим измерения периода
+    static ModeMeasurePeriod modeMeasurePeriod;
+    /// Режим измерения длительности
+    static ModeMeasureDuration modeMeasureDuration;
+    /// Режим счёта импульсов
+    static ModeCountPulse modeCountPulse;
+    /// Период меток времени
+    static PeriodTimeLabels periodTimeLabels;
+    /// Время счета
+    static TimeMeasure timeMeasure;
+    /// Число периодов измерения
+    static NumberPeriods numberPeriods;
 };
