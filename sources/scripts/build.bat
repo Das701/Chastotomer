@@ -1,9 +1,13 @@
 @echo off
 
-cd keil
-call build.bat
-cd ..
+rem cd keil
+rem call build.bat
+rem cd ..
 
-cd vs_keil
+rem cd vs_keil
+rem call build.bat
+rem cd ..
+
+cd vs_win
 call build.bat
 cd ..
