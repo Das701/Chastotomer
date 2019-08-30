@@ -12,10 +12,10 @@ extern Item *items[];
 extern Switch sPeriodTimeLabels;
 extern Switch sTimeMeasure;
 extern Switch sNumberPeriods;
-int drawMode = 0;
+
 
 TypeMeasure          PageModes::typeMeasure(TypeMeasure::Frequency);
-Hints                PageModes::hintsMode(Hints::FrequencyHints);
+Hint                 PageModes::hint(Hint::Frequency);
 ModeMeasureFrequency PageModes::modeMeasureFrequency(ModeMeasureFrequency::Freq);
 ModeMeasurePeriod    PageModes::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration  PageModes::modeMeasureDuration(ModeMeasureDuration::Ndt);
@@ -41,8 +41,8 @@ static void OnPress_Frequency()
         items[4] = &sPeriodTimeLabels;
         items[5] = &sTimeMeasure;
     }
-    PageModes::hintsMode.value = Hints::FrequencyHints;
-    
+
+    PageModes::hint.value = Hint::Frequency;
     PageModes::typeMeasure.value = TypeMeasure::Frequency;
 }
 
@@ -62,8 +62,8 @@ static void OnPress_Period()
         items[4] = &sTimeMeasure;
         items[5] = nullptr;
     }
-    PageModes::hintsMode.value = Hints::PeriodHints;
 
+    PageModes::hint.value = Hint::Period;
     PageModes::typeMeasure.value = TypeMeasure::Period;
 }
 
@@ -88,8 +88,8 @@ static void OnPress_Duration()
         items[4] = &sPeriodTimeLabels;
         items[5] = nullptr;
     }
-    PageModes::hintsMode.value = Hints::DurationHints;
 
+    PageModes::hint.value = Hint::Duration;
     PageModes::typeMeasure.value = TypeMeasure::Duration;
 }
 /// Выбор режима измерения длительности импульсов, интервалов, коэффициента заполнения, разности фаз
@@ -109,8 +109,8 @@ static void OnPress_CountPulse()
         items[4] = nullptr;
         items[5] = nullptr;
     }
-    PageModes::hintsMode.value = Hints::CountPulseHints;
 
+    PageModes::hint.value = Hint::CountPulse;
     PageModes::typeMeasure.value = TypeMeasure::CountPulse;
 }
 /// Выбор режима счёта импульсов
@@ -119,7 +119,7 @@ static Switch sCountPulse("Счёт", (uint8 *)&PageModes::modeCountPulse, 3, &OnPre
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_TimeLabels()
 {
-    PageModes::hintsMode.value = Hints::TimeLabelsHints;
+    PageModes::hint.value = Hint::TimeLabels;
 }
 /// Выбор периода меток времени
 static Switch sPeriodTimeLabels("Метки", (uint8 *)&PageModes::periodTimeLabels, 6, &OnPress_TimeLabels);
@@ -127,7 +127,7 @@ static Switch sPeriodTimeLabels("Метки", (uint8 *)&PageModes::periodTimeLabels, 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_TimeMeasure()
 {
-    PageModes::hintsMode.value = Hints::TimeMeasureHints;
+    PageModes::hint.value = Hint::TimeMeasure;
 }
 /// Выбор времени измерения
 static Switch sTimeMeasure("Время",(uint8 *)&PageModes::timeMeasure, 6, &OnPress_TimeMeasure);
@@ -135,7 +135,7 @@ static Switch sTimeMeasure("Время",(uint8 *)&PageModes::timeMeasure, 6, &OnPress
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_NumberPeriods()
 {
-    PageModes::hintsMode.value = Hints::NumberPeriodsHints;
+    PageModes::hint.value = Hint::NumberPeriods;
 }
 /// Выбор числа усредняемых периодов входного сигнала
 static Switch sNumberPeriods("N",(uint8 *)&PageModes::numberPeriods, 6, &OnPress_NumberPeriods);

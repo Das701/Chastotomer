@@ -1,9 +1,9 @@
 @echo off
 
-rem cd vs_keil
-rem call make_build.bat
-rem cd..
-
-cd vs_win
+cd vs_keil
 call make_build.bat
-cd ..
+cd..
+
+rem cd vs_win
+rem call make_build.bat
+rem cd ..

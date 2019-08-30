@@ -17,20 +17,20 @@ struct TypeMeasure
     pString ToText ();
 };
 
-struct Hints
+struct Hint
 {
     enum E
     {
-        FrequencyHints,      ///< Измерение частоты
-        PeriodHints,         ///< Измерение периода
-        DurationHints,       ///< Измерение длительности
-        CountPulseHints,     ///< Подсчёт импульсов
-        TimeLabelsHints,
-        TimeMeasureHints,
-        NumberPeriodsHints   
+        Frequency,      ///< Измерение частоты
+        Period,         ///< Измерение периода
+        Duration,       ///< Измерение длительности
+        CountPulse,     ///< Подсчёт импульсов
+        TimeLabels,
+        TimeMeasure,
+        NumberPeriods   
     } value;
 
-    explicit Hints(E v) : value(v) {};
+    explicit Hint(E v) : value(v) {};
     operator int() { return (int)value; };
 };
 
@@ -160,7 +160,7 @@ public:
     /// Тип измерения
     static TypeMeasure typeMeasure;
     /// Подсказки
-    static Hints hintsMode;
+    static Hint hint;
     /// Режим измерения частоты
     static ModeMeasureFrequency modeMeasureFrequency;
     /// Режим измерения периода

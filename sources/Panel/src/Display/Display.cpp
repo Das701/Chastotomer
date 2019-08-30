@@ -9,13 +9,13 @@ using namespace Display::Primitives;
 using Display::Text;
 
 /// Нарисовать тип измерения
-static void DrawType(int x, int y, int width, int height, int rectY);
+static void DrawTypeMeasure(int x, int y);
 /// Нарисовать режим измерения
-static void DrawMode(int x, int y);
-/// Нарисовать подсказки
-static void DrawHints(int x, int y);
+static void DrawModeMeasure(int x, int y);
+/// Нарисовать подсказку
+static void DrawHint(int x, int y);
 /// Нарисовать статус-бар
-static void DrawStatusBar(int x, int y, int width, int height, int rectY);
+static void DrawStatusBar(int x, int y);
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,13 +25,13 @@ void Display::Update()
 
     Rectangle(256, 64).Draw(0, 0, Color::WHITE);
 
-    DrawStatusBar(2, 49, 31, 15, 45);
+    DrawStatusBar(2, 49);
     
-    DrawType(5, 10, 25, 18, 5);
+    DrawTypeMeasure(5, 10);
     
-    DrawMode(10, 30);
+    DrawModeMeasure(10, 30);
 
-    DrawHints(38, 15);
+    DrawHint(38, 15);
 
     Menu::Draw();
 
@@ -39,8 +39,10 @@ void Display::Update()
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawType(int x, int y, int width, int height, int rectY)
+static void DrawTypeMeasure(int x, int y)
 {
+    int width = 25;
+
     if(PageModes::typeMeasure.value == TypeMeasure::Frequency)
     {
         Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
@@ -57,11 +59,11 @@ static void DrawType(int x, int y, int width, int height, int rectY)
     {
         Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
     }   
-    Rectangle(width, height).Draw(x, rectY, Color::WHITE);
+    Rectangle(width, 18).Draw(x, 5, Color::WHITE);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawMode(int x, int y)
+static void DrawModeMeasure(int x, int y)
 {
     if(PageModes::typeMeasure.value == TypeMeasure::Frequency)
     {
@@ -78,12 +80,14 @@ static void DrawMode(int x, int y)
     else
     {
         Text(PageModes::modeCountPulse.ToText()).Write(x, y);
-    }   
+    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawStatusBar(int x, int y, int width, int height, int rectY)
+static void DrawStatusBar(int x, int y)
 {
+    int width = 31;
+
     if(PageModes::typeMeasure.value == TypeMeasure::Frequency)
     {
         if (PageModes::modeMeasureFrequency == ModeMeasureFrequency::AC || 
@@ -96,7 +100,7 @@ static void DrawStatusBar(int x, int y, int width, int height, int rectY)
             Text(PageModes::timeMeasure.ToText()).Write(x, width, y);
         }
     }
-    if(PageModes::typeMeasure.value == TypeMeasure::Period)
+    else if(PageModes::typeMeasure.value == TypeMeasure::Period)
     {
         if (PageModes::modeMeasurePeriod == ModeMeasurePeriod::Period)
         {
@@ -107,50 +111,51 @@ static void DrawStatusBar(int x, int y, int width, int height, int rectY)
             Text(PageModes::timeMeasure.ToText()).Write(x, width, y);
         }
     }
-    if(PageModes::typeMeasure.value == TypeMeasure::Duration)
+    else if(PageModes::typeMeasure.value == TypeMeasure::Duration)
     {
         if (PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt_1)
         {
             Text(PageModes::numberPeriods.ToText()).Write(x, width, y);
         }
     }
-    if(PageModes::typeMeasure.value == TypeMeasure::CountPulse)
+    else if(PageModes::typeMeasure.value == TypeMeasure::CountPulse)
     {
         if (PageModes::modeCountPulse == ModeCountPulse::ATC_1)
         {
             Text(PageModes::numberPeriods.ToText()).Write(x, width, y);
         }
     }
-    Rectangle(width, height).Draw(x, rectY, Color::WHITE);
+
+    Rectangle(width, 15).Draw(x, 45, Color::WHITE);
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawHints(int x, int y)
+static void DrawHint(int x, int y)
 {
-    if(PageModes::hintsMode.value == Hints::FrequencyHints)
+    if(PageModes::hint.value == Hint::Frequency)
     {
         Text(PageModes::modeMeasureFrequency.ToText()).Write(Text("Измерение частоты : ").Write(x, y), y);
     }
-    else if (PageModes::hintsMode.value == Hints::PeriodHints)
+    else if (PageModes::hint.value == Hint::Period)
     {
         Text(PageModes::modeMeasurePeriod.ToText()).Write(Text("Измерение периода : ").Write(x, y), y);
     }
-    else if (PageModes::hintsMode.value == Hints::DurationHints)
+    else if (PageModes::hint.value == Hint::Duration)
     {
         Text(PageModes::modeMeasureDuration.ToText()).Write(Text("Измерение длительности : ").Write(x, y), y);
     }
-    else if (PageModes::hintsMode.value == Hints::CountPulseHints)
+    else if (PageModes::hint.value == Hint::CountPulse)
     {
         Text(PageModes::modeCountPulse.ToText()).Write(Text("Счет числа импульсов : ").Write(x, y), y);
     }
-    else if (PageModes::hintsMode.value == Hints::TimeLabelsHints)
+    else if (PageModes::hint.value == Hint::TimeLabels)
     {
         Text(PageModes::periodTimeLabels.ToText()).Write(Text("Длительность временных меток : ").Write(x, y), y);
     }
-    else if (PageModes::hintsMode.value == Hints::TimeMeasureHints)
+    else if (PageModes::hint.value == Hint::TimeMeasure)
     {  
         Text(PageModes::timeMeasure.ToText()).Write(Text("Время счета : ").Write(x, y), y);
     }
-    else if (PageModes::hintsMode.value == Hints::NumberPeriodsHints)
+    else if (PageModes::hint.value == Hint::NumberPeriods)
     {
         Text(PageModes::numberPeriods.ToText()).Write(Text("Число периодов измерения : ").Write(x, y), y);
     }
