@@ -17,5 +17,5 @@ namespace Display
     
     void BeginScene(Color color);
     
-    void EndScene();
+    void EndScene(); 
 };

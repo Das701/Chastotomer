@@ -2,7 +2,7 @@
 #include "Menu/MenuItems.h"
 
 
-struct ModeMeasure
+struct TypeMeasure
 {
     enum E
     {
@@ -12,7 +12,25 @@ struct ModeMeasure
         CountPulse      ///< Подсчёт импульсов
     } value;
 
-    explicit ModeMeasure(E v) : value(v) {};
+    explicit TypeMeasure(E v) : value(v) {};
+    operator int() { return (int)value; };
+    pString ToText ();
+};
+
+struct Hints
+{
+    enum E
+    {
+        FrequencyHints,      ///< Измерение частоты
+        PeriodHints,         ///< Измерение периода
+        DurationHints,       ///< Измерение длительности
+        CountPulseHints,     ///< Подсчёт импульсов
+        TimeLabelsHints,
+        TimeMeasureHints,
+        NumberPeriodsHints   
+    } value;
+
+    explicit Hints(E v) : value(v) {};
     operator int() { return (int)value; };
 };
 
@@ -30,6 +48,7 @@ struct ModeMeasureFrequency
 
     explicit ModeMeasureFrequency(E v) : value(v) {};
     operator int() { return (int)value; };
+    pString ToText ();
 };
 
 /// Режим измерения периода
@@ -43,6 +62,7 @@ struct ModeMeasurePeriod
 
     explicit ModeMeasurePeriod(E v) : value(v) {};
     operator int() { return (int)value; };
+    pString ToText ();
 };
 
 /// Режим измерения длительности
@@ -60,6 +80,7 @@ struct ModeMeasureDuration
 
     explicit ModeMeasureDuration(E v) : value(v) {};
     operator int() { return (int)value; };
+    pString ToText ();
 };
 
 /// Режим счёта импульсов
@@ -74,6 +95,7 @@ struct ModeCountPulse
 
     explicit ModeCountPulse(E v) : value(v) {};
     operator int() { return (int)value; };
+    pString ToText ();
 };
 
 /// Период меток времени
@@ -91,6 +113,7 @@ struct PeriodTimeLabels
 
     explicit PeriodTimeLabels(E v) : value(v) {};
     operator int() { return (int)value; };
+    pString ToText ();
 };
 
 /// Время счёта
@@ -108,6 +131,7 @@ struct TimeMeasure
 
     explicit TimeMeasure(E v) : value(v) {};
     operator int() { return (int)value; };
+    pString ToText ();
 };
 
 /// Число периодов
@@ -125,6 +149,7 @@ struct NumberPeriods
 
     explicit NumberPeriods(E v) : value(v) {};
     operator int() { return (int)value; };
+    pString ToText (); 
 };
 
 
@@ -132,8 +157,10 @@ class PageModes
 {
 public:
     static Page *self;
-    /// Режим измерения
-    static ModeMeasure modeMeasure;
+    /// Тип измерения
+    static TypeMeasure typeMeasure;
+    /// Подсказки
+    static Hints hintsMode;
     /// Режим измерения частоты
     static ModeMeasureFrequency modeMeasureFrequency;
     /// Режим измерения периода

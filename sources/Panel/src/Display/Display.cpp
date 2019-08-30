@@ -8,28 +8,14 @@
 using namespace Display::Primitives;
 using Display::Text;
 
-extern int drawMode;
-static int lastDrawMode = 1;
-
+/// Нарисовать тип измерения
+static void DrawType(int x, int y, int width, int height, int rectY);
 /// Нарисовать режим измерения
-static void DrawMode();
-/// Нарисовать режим измерения частоты
-static void DrawModeMeasureFrequency();
-/// Нарисовать режим измерения периода
-static void DrawModeMeasurePeriod();
-/// Нарисовать режим измерения длительности
-static void DrawModeMeasureDuration();
-/// Нарисовать режим счёта импульсов
-static void DrawModeCountPulse();
-
-/// Нарисовать период меток времени
-static void DrawPeriodTimeLabels();
-/// Нарисовать время счёта
-static void DrawTimeMeasure();
-/// Нарисовать число периодов
-static void DrawNumberPeriods();
+static void DrawMode(int x, int y);
+/// Нарисовать подсказки
+static void DrawHints(int x, int y);
 /// Нарисовать статус-бар
-static void DrawStatusBar();
+static void DrawStatusBar(int x, int y, int width, int height, int rectY);
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,9 +25,13 @@ void Display::Update()
 
     Rectangle(256, 64).Draw(0, 0, Color::WHITE);
 
-    DrawStatusBar();
+    DrawStatusBar(2, 49, 31, 15, 45);
+    
+    DrawType(5, 10, 25, 18, 5);
+    
+    DrawMode(10, 30);
 
-    DrawMode();
+    DrawHints(38, 15);
 
     Menu::Draw();
 
@@ -49,166 +39,119 @@ void Display::Update()
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawModeMeasureFrequency()
+static void DrawType(int x, int y, int width, int height, int rectY)
 {
-    static const pString modes[5] = { "Частота", "f(A)/f(C)", "f(A)/f(B)", "f=1/T", "Тахометр" };
-
-    Text(modes[PageModes::modeMeasureFrequency]).Write(10, 30);
-    Text("Измерение частоты").Write(38, 15);
-    Text("f").Write(18, 10);
-    Rectangle(25, 15).Draw(10, 8, Color::WHITE);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawModeMeasurePeriod()
-{
-    static const pString modes[2] = { "Период", "T=1/f" };
-
-    Text(modes[PageModes::modeMeasurePeriod]).Write(10, 30);
-    Text("Измерение периода").Write(38, 15);
-    Text("T").Write(18, 10);
-    Rectangle(25, 15).Draw(10, 8, Color::WHITE);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawModeMeasureDuration()
-{
-    static const pString modes[6] = { "ndt", "<ndt>", "ndt/1нс", "Интервал", "1/S", "Фаза" };
-
-    Text(modes[PageModes::modeMeasureDuration]).Write(10, 30);
-    Text("Измерение длительности").Write(38, 15);
-    Text("t").Write(18, 10);
-    Rectangle(25, 15).Draw(10, 8, Color::WHITE);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawModeCountPulse()
-{
-    static const pString modes[3] = { "Ручн.", "А(tC)", "А(TC)" };
-
-    Text(modes[PageModes::modeCountPulse]).Write(10, 30);
-    Text("Счет числа импульсов").Write(38, 15);
-    Text("Счет").Write(12, 10);
-    Rectangle(25, 15).Draw(10, 8, Color::WHITE);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawPeriodTimeLabels()
-{
-    static const pString modes[6] = { "10-3", "10-4", "10-5", "10-6", "10-7", "10-8" };
-
-    Text(modes[PageModes::periodTimeLabels]).Write(10, 30);
-    Text("Длительность временных меток:").Write(38, 15);
-    switch (lastDrawMode)
+    if(PageModes::typeMeasure.value == TypeMeasure::Frequency)
     {
-    case 1:
-        Text("f").Write(18, 10);
-        break;
-    case 2:
-        Text("T").Write(18, 10);
-        break;
-    case 3:
-        Text("t").Write(18, 10);
-        break;
+        Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
     }
-    Rectangle(25, 15).Draw(10, 8, Color::WHITE);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawTimeMeasure()
-{
-    static const pString modes[6] = { "1ms", "10ms", "100ms", "1s", "10s", "100s" };
-
-    Text(modes[PageModes::timeMeasure]).Write(10, 30);
-    Text("Время счета:").Write(38, 15);
-    switch (lastDrawMode)
+    else if(PageModes::typeMeasure.value == TypeMeasure::Period)
     {
-    case 1:
-        Text("f").Write(18, 10);
-        break;
-    case 2:
-        Text("T").Write(18, 10);
-        break;
-    case 3:
-        Text("t").Write(18, 10);
-        break;
+        Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
     }
-    Rectangle(25, 15).Draw(10, 8, Color::WHITE);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawNumberPeriods()
-{
-    static const pString modes[6] = { "1", "10", "100", "1K", "10K", "100K" };
-
-    Text(modes[PageModes::numberPeriods]).Write(10, 30);
-    Text("Число периодов измерения:").Write(38, 15);
-    switch (lastDrawMode)
+    else if(PageModes::typeMeasure.value == TypeMeasure::Duration)
     {
-    case 1:
-        Text("f").Write(18, 10);
-        break;
-    case 2:
-        Text("T").Write(18, 10);
-        break;
-    case 3:
-        Text("t").Write(18, 10);
-        break;
-    }
-    Rectangle(25, 15).Draw(10, 8, Color::WHITE);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawStatusBar()
-{
-//    if(statusBar == 1)
-    {
-        static const pString modes[6] = { "1ms", "10ms", "100ms", "1s", "10s", "100s" };
-        Text(modes[PageModes::timeMeasure]).Write(8, 49);
-    }
-//    if(statusBar == 2)
-    {
-        static const pString modes[6] = { "1", "10", "100", "1K", "10K", "100K" };
-        Text(modes[PageModes::numberPeriods]).Write(8, 49);
-    }
-    Rectangle(25, 15).Draw(5, 45, Color::WHITE);
-}
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawMode()
-{
-    if(drawMode == 1)
-    {
-        DrawModeMeasureFrequency();
-        lastDrawMode = 1;
-    }
-    else if (drawMode == 2)
-    {
-        DrawModeMeasurePeriod();
-        lastDrawMode = 2;
-    }
-    else if (drawMode == 3)
-    {
-        DrawModeMeasureDuration();
-        lastDrawMode = 3;
-    }
-    else if (drawMode == 4)
-    {
-        DrawModeCountPulse();
-    }
-    else if (drawMode == 5)
-    {
-        DrawPeriodTimeLabels();
-    }
-    else if (drawMode == 6)
-    {
-        DrawTimeMeasure();
-    }
-    else if (drawMode == 7)
-    {
-        DrawNumberPeriods();
+        Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
     }
     else
     {
-        DrawModeMeasureFrequency();
+        Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
+    }   
+    Rectangle(width, height).Draw(x, rectY, Color::WHITE);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void DrawMode(int x, int y)
+{
+    if(PageModes::typeMeasure.value == TypeMeasure::Frequency)
+    {
+        Text(PageModes::modeMeasureFrequency.ToText()).Write(x, y);
+    }
+    else if(PageModes::typeMeasure.value == TypeMeasure::Period)
+    {
+        Text(PageModes::modeMeasurePeriod.ToText()).Write(x, y);
+    }
+    else if(PageModes::typeMeasure.value == TypeMeasure::Duration)
+    {
+        Text(PageModes::modeMeasureDuration.ToText()).Write(x, y);
+    }
+    else
+    {
+        Text(PageModes::modeCountPulse.ToText()).Write(x, y);
+    }   
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void DrawStatusBar(int x, int y, int width, int height, int rectY)
+{
+    if(PageModes::typeMeasure.value == TypeMeasure::Frequency)
+    {
+        if (PageModes::modeMeasureFrequency == ModeMeasureFrequency::AC || 
+        PageModes::modeMeasureFrequency == ModeMeasureFrequency::T_1)
+        {
+            Text(PageModes::numberPeriods.ToText()).Write(x, width, y);
+        }
+        else
+        {
+            Text(PageModes::timeMeasure.ToText()).Write(x, width, y);
+        }
+    }
+    if(PageModes::typeMeasure.value == TypeMeasure::Period)
+    {
+        if (PageModes::modeMeasurePeriod == ModeMeasurePeriod::Period)
+        {
+            Text(PageModes::numberPeriods.ToText()).Write(x, width, y);
+        }
+        else
+        {
+            Text(PageModes::timeMeasure.ToText()).Write(x, width, y);
+        }
+    }
+    if(PageModes::typeMeasure.value == TypeMeasure::Duration)
+    {
+        if (PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt_1)
+        {
+            Text(PageModes::numberPeriods.ToText()).Write(x, width, y);
+        }
+    }
+    if(PageModes::typeMeasure.value == TypeMeasure::CountPulse)
+    {
+        if (PageModes::modeCountPulse == ModeCountPulse::ATC_1)
+        {
+            Text(PageModes::numberPeriods.ToText()).Write(x, width, y);
+        }
+    }
+    Rectangle(width, height).Draw(x, rectY, Color::WHITE);
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void DrawHints(int x, int y)
+{
+    if(PageModes::hintsMode.value == Hints::FrequencyHints)
+    {
+        Text(PageModes::modeMeasureFrequency.ToText()).Write(Text("Измерение частоты : ").Write(x, y), y);
+    }
+    else if (PageModes::hintsMode.value == Hints::PeriodHints)
+    {
+        Text(PageModes::modeMeasurePeriod.ToText()).Write(Text("Измерение периода : ").Write(x, y), y);
+    }
+    else if (PageModes::hintsMode.value == Hints::DurationHints)
+    {
+        Text(PageModes::modeMeasureDuration.ToText()).Write(Text("Измерение длительности : ").Write(x, y), y);
+    }
+    else if (PageModes::hintsMode.value == Hints::CountPulseHints)
+    {
+        Text(PageModes::modeCountPulse.ToText()).Write(Text("Счет числа импульсов : ").Write(x, y), y);
+    }
+    else if (PageModes::hintsMode.value == Hints::TimeLabelsHints)
+    {
+        Text(PageModes::periodTimeLabels.ToText()).Write(Text("Длительность временных меток : ").Write(x, y), y);
+    }
+    else if (PageModes::hintsMode.value == Hints::TimeMeasureHints)
+    {  
+        Text(PageModes::timeMeasure.ToText()).Write(Text("Время счета : ").Write(x, y), y);
+    }
+    else if (PageModes::hintsMode.value == Hints::NumberPeriodsHints)
+    {
+        Text(PageModes::numberPeriods.ToText()).Write(Text("Число периодов измерения : ").Write(x, y), y);
     }
 }

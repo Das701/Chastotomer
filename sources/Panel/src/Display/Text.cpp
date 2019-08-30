@@ -43,7 +43,7 @@ void Text::Create(const char *_text)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Text::Write(int x, int y, Color color)
+int Text::Write(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
@@ -53,16 +53,18 @@ void Text::Write(int x, int y, Color color)
     {
         x = WriteSymbol(x, y, (uint8)(*p++)) + 1;
     }
+    return x;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Text::Write(int x, int width, int y, Color color)
+int Text::Write(int x, int width, int y, Color color)
 {
     int length = Font::GetLengthText(text);
 
     int delta = (width - length) / 2;
 
     Write(x + delta, y, color);
+    return x;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
