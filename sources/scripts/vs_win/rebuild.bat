@@ -3,7 +3,7 @@
 @echo .
 @echo %TIME%   Rebuild GUI version ...
 
-MSBuild.exe ..\..\generated\Win32\Device\Device57.vcxproj -clp:ErrorsOnly;WarningsOnly -nologo -t:rebuild
+MSBuild.exe ..\..\generated\Win32\Panel\Panel_GUI.vcxproj -clp:ErrorsOnly;WarningsOnly -nologo -t:rebuild
 set BUILD_STATUS=%ERRORLEVEL%
 if %BUILD_STATUS%==0 goto Success
 
