@@ -157,6 +157,11 @@ static Page pageModes(items);
 
 Page *PageModes::self = &pageModes;
 
+//char * Enum::ToText()
+//{
+//    return names[value];
+//}
+
 pString NumberPeriods::ToText()
 {
     static const pString names[6] = { "1", "10", "100", "1K", "10K", "100K" };

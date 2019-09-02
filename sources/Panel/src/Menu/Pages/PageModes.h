@@ -1,8 +1,14 @@
 #pragma once
 #include "Menu/MenuItems.h"
 
+//struct Enum
+//{
+//    int value;
+//    char *names[];
+//    virtual char *ToText();
+//};
 
-struct TypeMeasure
+struct TypeMeasure 
 {
     enum E
     {

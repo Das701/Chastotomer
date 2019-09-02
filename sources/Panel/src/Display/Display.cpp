@@ -2,6 +2,7 @@
 #include "Primitives.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/PageModes.h"
+#include "Menu/Pages/PageChannelA.h"
 #include "Text.h"
 
 
@@ -41,24 +42,8 @@ void Display::Update()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawTypeMeasure(int x, int y)
 {
-    int width = 25;
-
-    if(PageModes::typeMeasure.value == TypeMeasure::Frequency)
-    {
-        Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
-    }
-    else if(PageModes::typeMeasure.value == TypeMeasure::Period)
-    {
-        Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
-    }
-    else if(PageModes::typeMeasure.value == TypeMeasure::Duration)
-    {
-        Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
-    }
-    else
-    {
-        Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
-    }   
+    int width = 25; 
+    Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
     Rectangle(width, 18).Draw(x, 5, Color::WHITE);
 }
 
@@ -158,5 +143,34 @@ static void DrawHint(int x, int y)
     else if (PageModes::hint.value == Hint::NumberPeriods)
     {
         Text(PageModes::numberPeriods.ToText()).Write(Text("Число периодов измерения : ").Write(x, y), y);
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void DrawChannelA(int x, int y)
+{
+    if(PageChannelA::hintA.value == HintA::OCI)
+    {
+        Text(PageChannelA::modeOCI.ToText()).Write(x, y);
+    }
+    else if(PageChannelA::hintA.value == HintA::Impedance)
+    {
+        Text(PageChannelA::modeImpedance.ToText()).Write(x, y);
+    }
+    else if(PageChannelA::hintA.value == HintA::Filter)
+    {
+        Text(PageChannelA::modeFilter.ToText()).Write(x, y);
+    }
+    else if(PageChannelA::hintA.value == HintA::Front)
+    {
+        Text(PageChannelA::modeFront.ToText()).Write(x, y);
+    }
+    else if(PageChannelA::hintA.value == HintA::VD)
+    {
+        Text(PageChannelA::modeVD.ToText()).Write(x, y);
+    }
+    else if(PageChannelA::hintA.value == HintA::Sync)
+    {
+        Text(PageChannelA::modeSync.ToText()).Write(x, y);
     }
 }
