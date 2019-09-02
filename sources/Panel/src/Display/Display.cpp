@@ -10,13 +10,13 @@ using namespace Display::Primitives;
 using Display::Text;
 
 /// Нарисовать тип измерения
-static void DrawTypeMeasure(int x, int y);
+static void DrawTypeMeasure();
 /// Нарисовать режим измерения
-static void DrawModeMeasure(int x, int y);
+static void DrawModeMeasure();
 /// Нарисовать подсказку
-static void DrawHint(int x, int y);
+static void DrawHint();
 /// Нарисовать статус-бар
-static void DrawStatusBar(int x, int y);
+static void DrawStatusBar();
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,13 +26,13 @@ void Display::Update()
 
     Rectangle(256, 64).Draw(0, 0, Color::WHITE);
 
-    DrawStatusBar(2, 49);
+    DrawStatusBar();
     
-    DrawTypeMeasure(5, 10);
+    DrawTypeMeasure();
     
-    DrawModeMeasure(10, 30);
+    DrawModeMeasure();
 
-    DrawHint(38, 15);
+    DrawHint();
 
     Menu::Draw();
 
@@ -40,16 +40,21 @@ void Display::Update()
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawTypeMeasure(int x, int y)
+static void DrawTypeMeasure()
 {
+    int x = 5;
+    int y = 10;
     int width = 25; 
     Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
     Rectangle(width, 18).Draw(x, 5, Color::WHITE);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawModeMeasure(int x, int y)
+static void DrawModeMeasure()
 {
+    int x = 10;
+    int y = 30;
+
     if(PageModes::typeMeasure.value == TypeMeasure::Frequency)
     {
         Text(PageModes::modeMeasureFrequency.ToText()).Write(x, y);
@@ -69,8 +74,10 @@ static void DrawModeMeasure(int x, int y)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawStatusBar(int x, int y)
+static void DrawStatusBar()
 {
+    int x = 2;
+    int y = 49;
     int width = 31;
 
     if(PageModes::typeMeasure.value == TypeMeasure::Frequency)
@@ -114,63 +121,7 @@ static void DrawStatusBar(int x, int y)
     Rectangle(width, 15).Draw(x, 45, Color::WHITE);
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawHint(int x, int y)
+static void DrawHint()
 {
-    if(PageModes::hint.value == Hint::Frequency)
-    {
-        Text(PageModes::modeMeasureFrequency.ToText()).Write(Text("Измерение частоты : ").Write(x, y), y);
-    }
-    else if (PageModes::hint.value == Hint::Period)
-    {
-        Text(PageModes::modeMeasurePeriod.ToText()).Write(Text("Измерение периода : ").Write(x, y), y);
-    }
-    else if (PageModes::hint.value == Hint::Duration)
-    {
-        Text(PageModes::modeMeasureDuration.ToText()).Write(Text("Измерение длительности : ").Write(x, y), y);
-    }
-    else if (PageModes::hint.value == Hint::CountPulse)
-    {
-        Text(PageModes::modeCountPulse.ToText()).Write(Text("Счет числа импульсов : ").Write(x, y), y);
-    }
-    else if (PageModes::hint.value == Hint::TimeLabels)
-    {
-        Text(PageModes::periodTimeLabels.ToText()).Write(Text("Длительность временных меток : ").Write(x, y), y);
-    }
-    else if (PageModes::hint.value == Hint::TimeMeasure)
-    {  
-        Text(PageModes::timeMeasure.ToText()).Write(Text("Время счета : ").Write(x, y), y);
-    }
-    else if (PageModes::hint.value == Hint::NumberPeriods)
-    {
-        Text(PageModes::numberPeriods.ToText()).Write(Text("Число периодов измерения : ").Write(x, y), y);
-    }
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawChannelA(int x, int y)
-{
-    if(PageChannelA::hintA.value == HintA::OCI)
-    {
-        Text(PageChannelA::modeOCI.ToText()).Write(x, y);
-    }
-    else if(PageChannelA::hintA.value == HintA::Impedance)
-    {
-        Text(PageChannelA::modeImpedance.ToText()).Write(x, y);
-    }
-    else if(PageChannelA::hintA.value == HintA::Filter)
-    {
-        Text(PageChannelA::modeFilter.ToText()).Write(x, y);
-    }
-    else if(PageChannelA::hintA.value == HintA::Front)
-    {
-        Text(PageChannelA::modeFront.ToText()).Write(x, y);
-    }
-    else if(PageChannelA::hintA.value == HintA::VD)
-    {
-        Text(PageChannelA::modeVD.ToText()).Write(x, y);
-    }
-    else if(PageChannelA::hintA.value == HintA::Sync)
-    {
-        Text(PageChannelA::modeSync.ToText()).Write(x, y);
-    }
+    Text(Menu::Hint()).Write(38, 15);
 }

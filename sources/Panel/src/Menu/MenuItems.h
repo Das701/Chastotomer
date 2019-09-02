@@ -3,6 +3,18 @@
 #include "Keyboard/Keyboard.h"
 
 
+struct Enumeration
+{
+    /// Текущее состояние перечисления
+    uint8  value;
+    char **names;
+    Enumeration(uint8 v) : value(v) {};
+    operator int() { return (int)value; };
+    char *ToText() const { return names[value]; };
+    int NumStates() const;
+};
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Item
 {
@@ -10,10 +22,15 @@ public:
     /// Функция отрисовки
     virtual void Draw(int x, int y) = 0;
     /// Функция обработки нажатия кнопки/поворота ручки
-    virtual bool OnControl(Control control) { return false; };
+    virtual bool OnControl(const Control &control) { return false; };
 
     static const int WIDTH = 35;
     static const int HEIGHT = 11;
+    /// Здесь хранится полная подсказка для последнего использованного итема
+    static char hint[100];
+protected:
+    /// Общая часть подсказки
+    char *commonHint;
 };
 
 
@@ -24,7 +41,7 @@ public:
     Button(char *_text) : text(_text){};
 
     virtual void Draw(int x, int y);
-    virtual bool OnControl(Control control);
+    virtual bool OnControl(const Control &control);
     
 private:
     char *text;
@@ -36,16 +53,22 @@ class Switch : public Item
 {
 public:
 
-    Switch(char *_text, uint8 *_state, uint8 _num, void(*_onClick)()) : text(_text), funcOnPress(_onClick), state(_state), num(_num) {};
+    Switch(char *_text, char *_comHint, char **_names, Enumeration *_state, void(*_onClick)()) :
+        text(_text), funcOnPress(_onClick), state(_state)
+    {
+        state->names = _names;
+        commonHint = _comHint;
+    };
 
     virtual void Draw(int x, int y);
-    virtual bool OnControl(Control control);
+    virtual bool OnControl(const Control &control);
 
 private:
-    char  *text;            ///< Надпись на переключателе
-    void (*funcOnPress)();  ///< Эта функция вызывается после изменения состояния переключателя
-    uint8 *state;           ///< Адрес переменной с состоянием переключателя
-    uint8  num;             ///< Количество состояний переключателя
+    char        *text;              ///< Надпись на переключателе
+    void       (*funcOnPress)();    ///< Эта функция вызывается после изменения состояния переключателя
+    Enumeration *state;             ///< Адрес переменной с состоянием переключателя
+
+    void CreateHint();
 };
 
 
@@ -56,7 +79,7 @@ public:
     Page(Item **_items = nullptr) : items(_items), selectedItem(0) {};
 
     virtual void Draw(int x, int y);
-    virtual bool OnControl(Control control);    
+    virtual bool OnControl(const Control &control);    
     /// Возвращает указатель на выделенный пункт меню
     Item *SelectedItem() { return items[selectedItem]; };
 
@@ -72,5 +95,4 @@ private:
     /// Указатель на массив элементов меню. Заканчивается нулём.
     Item **items;
     int selectedItem;
-    
 };

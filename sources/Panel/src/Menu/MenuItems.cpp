@@ -4,15 +4,30 @@
 #include "Display/Text.h"
 #include "Utils/Math.h"
 #include "Menu/Pages/PageModes.h"
+#include <cstring>
 
 using namespace Display::Primitives;
 using namespace Display;
 
 Page Page::empty;
+char Item::hint[100];
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool Button::OnControl(Control control)
+int Enumeration::NumStates() const
+{
+    int result = 0;
+
+    for (int i = 0; names[i] != nullptr; i++)
+    {
+        result++;
+    }
+
+    return result;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+bool Button::OnControl(const Control &control)
 {
     return true;
 }
@@ -47,7 +62,7 @@ void Page::Draw(int x, int y)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool Page::OnControl(Control control)
+bool Page::OnControl(const Control &control)
 {
     switch (control.value)
     {
@@ -91,16 +106,18 @@ void Page::SelectPrevItem()
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool Switch::OnControl(Control control)
+bool Switch::OnControl(const Control &control)
 {
     if (control.action.IsPress() && control.value == Control::GovButton)
     {
-        Math::CircleIncrease<uint8>(state, 0, (uint8)(num - 1));
+        Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
 
         if (funcOnPress)
         {
             funcOnPress();
         }
+
+        CreateHint();
 
         return true;
     }
@@ -114,3 +131,10 @@ void Switch::Draw(int x, int y)
     Text(text).Write(x, WIDTH, y + 2);
 }
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Switch::CreateHint()
+{
+    std::strcpy(hint, commonHint);
+    std::strcat(hint, " : ");
+    std::strcat(hint, state->ToText());
+}

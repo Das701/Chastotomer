@@ -185,6 +185,7 @@
             <hadXRAM>0</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>2</RvdsVP>
+            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -325,6 +326,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>1</uSurpInc>
             <uC99>0</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>3</v6Lang>
             <v6LangP>3</v6LangP>
@@ -660,6 +662,11 @@
               <FileName>MenuItems.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\MenuItems.h</FilePath>
+            </File>
+            <File>
+              <FileName>MenuItemsDef.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\MenuItemsDef.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -24,6 +24,12 @@ static Page *openedPage = PageModes::self;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void Menu::Init()
+{
+    PageModes::Init();
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu::Draw()
 {
     font->SetType(Font::Type::_8);
@@ -38,14 +44,9 @@ void Menu::Update()
     {
         Control control = Keyboard::NextControl();
         
-        if(openedPage->OnControl(control))
+        if(!openedPage->OnControl(control))
         {
-            continue;
-        }
-        
-        if (OpenPage(control))
-        {
-            continue;
+            OpenPage(control);
         }
     }
 }
@@ -63,24 +64,35 @@ static bool OpenPage(Control control)
     case Control::Mode:
         openedPage = PageModes::self;
         return true;
+        break;
 
     case Control::Indication:
         openedPage = PageIndication::self;
         return true;
+        break;
 
     case Control::A:
         openedPage = PageChannelA::self;
         return true;
+        break;
 
     case Control::B:
         openedPage = PageChannelB::self;
         return true;
+        break;
 
     case Control::C:
     case Control::D:
         openedPage = &Page::empty;
         return true;
+        break;
     }
 
     return false;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+char *Menu::Hint()
+{
+    return openedPage->hint;
 }

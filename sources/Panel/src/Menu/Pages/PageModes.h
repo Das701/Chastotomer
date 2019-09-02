@@ -1,14 +1,8 @@
 #pragma once
 #include "Menu/MenuItems.h"
 
-//struct Enum
-//{
-//    int value;
-//    char *names[];
-//    virtual char *ToText();
-//};
 
-struct TypeMeasure 
+struct TypeMeasure : public Enumeration
 {
     enum E
     {
@@ -16,32 +10,13 @@ struct TypeMeasure
         Period,         ///< Измерение периода
         Duration,       ///< Измерение длительности
         CountPulse      ///< Подсчёт импульсов
-    } value;
+    };
 
-    explicit TypeMeasure(E v) : value(v) {};
-    operator int() { return (int)value; };
-    pString ToText ();
-};
-
-struct Hint
-{
-    enum E
-    {
-        Frequency,      ///< Измерение частоты
-        Period,         ///< Измерение периода
-        Duration,       ///< Измерение длительности
-        CountPulse,     ///< Подсчёт импульсов
-        TimeLabels,
-        TimeMeasure,
-        NumberPeriods   
-    } value;
-
-    explicit Hint(E v) : value(v) {};
-    operator int() { return (int)value; };
+    explicit TypeMeasure(E v) : Enumeration((uint8)v) {};
 };
 
 /// Режим измерения частоты
-struct ModeMeasureFrequency
+struct ModeMeasureFrequency : public Enumeration
 {
     enum E
     {
@@ -50,29 +25,25 @@ struct ModeMeasureFrequency
         AB,         ///< f(A) / f(B)
         T_1,        ///< f = 1 / T
         Tachometer  ///< Тахометр
-    } value;
+    };
 
-    explicit ModeMeasureFrequency(E v) : value(v) {};
-    operator int() { return (int)value; };
-    pString ToText ();
+    explicit ModeMeasureFrequency(E v) : Enumeration((uint8)v) {};
 };
 
 /// Режим измерения периода
-struct ModeMeasurePeriod
+struct ModeMeasurePeriod : public Enumeration
 {
     enum E
     {
         Period,     ///< Период
         F_1         ///< T = 1 / f
-    } value;
+    };
 
-    explicit ModeMeasurePeriod(E v) : value(v) {};
-    operator int() { return (int)value; };
-    pString ToText ();
+    explicit ModeMeasurePeriod(E v) : Enumeration((uint8)v) {};
 };
 
 /// Режим измерения длительности
-struct ModeMeasureDuration
+struct ModeMeasureDuration : public Enumeration
 {
     enum E
     {
@@ -82,30 +53,26 @@ struct ModeMeasureDuration
         Interval,   ///< Интервал
         S_1,        ///< 1 / S
         Phase       ///< Фаза
-    } value;
+    };
 
-    explicit ModeMeasureDuration(E v) : value(v) {};
-    operator int() { return (int)value; };
-    pString ToText ();
+    explicit ModeMeasureDuration(E v) : Enumeration((uint8)v) {};
 };
 
 /// Режим счёта импульсов
-struct ModeCountPulse
+struct ModeCountPulse : public Enumeration
 {
     enum E
     {
         Manual,     ///< Ручн.
         ATC,        ///< A(tC)
         ATC_1       ///< A(TC)
-    } value;
+    };
 
-    explicit ModeCountPulse(E v) : value(v) {};
-    operator int() { return (int)value; };
-    pString ToText ();
+    explicit ModeCountPulse(E v) : Enumeration((uint8)v) {};
 };
 
 /// Период меток времени
-struct PeriodTimeLabels
+struct PeriodTimeLabels : public Enumeration
 {
     enum E
     {
@@ -115,15 +82,13 @@ struct PeriodTimeLabels
         T_6,        ///< 10-6
         T_7,        ///< 10-7
         T_8         ///< 10-8
-    } value;
+    };
 
-    explicit PeriodTimeLabels(E v) : value(v) {};
-    operator int() { return (int)value; };
-    pString ToText ();
+    explicit PeriodTimeLabels(E v) : Enumeration((uint8)v) {};
 };
 
 /// Время счёта
-struct TimeMeasure
+struct TimeMeasure : public Enumeration
 {
     enum E
     {
@@ -133,15 +98,13 @@ struct TimeMeasure
         _1s,        ///< 1s
         _10s,       ///< 10s
         _100s       ///< 100s
-    } value;
+    };
 
-    explicit TimeMeasure(E v) : value(v) {};
-    operator int() { return (int)value; };
-    pString ToText ();
+    explicit TimeMeasure(E v) : Enumeration((uint8)v) {};
 };
 
 /// Число периодов
-struct NumberPeriods
+struct NumberPeriods : public Enumeration
 {
     enum E
     {
@@ -151,11 +114,9 @@ struct NumberPeriods
         _1K,      ///< 1K
         _10K,     ///< 10K
         _100K     ///< 100K
-    } value;
+    };
 
-    explicit NumberPeriods(E v) : value(v) {};
-    operator int() { return (int)value; };
-    pString ToText (); 
+    explicit NumberPeriods(E v) : Enumeration((uint8)v) {};
 };
 
 
@@ -163,10 +124,10 @@ class PageModes
 {
 public:
     static Page *self;
+
+    static void Init();
     /// Тип измерения
     static TypeMeasure typeMeasure;
-    /// Подсказки
-    static Hint hint;
     /// Режим измерения частоты
     static ModeMeasureFrequency modeMeasureFrequency;
     /// Режим измерения периода
