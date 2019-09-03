@@ -11,7 +11,7 @@ using namespace Display;
 
 Page Page::empty;
 char Item::hint[100];
-
+char Item::channelSettings[100];
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int Enumeration::NumStates() const
@@ -118,7 +118,7 @@ bool Switch::OnControl(const Control &control)
         }
 
         CreateHint();
-
+        
         return true;
     }
 
@@ -138,3 +138,5 @@ void Switch::CreateHint()
     std::strcat(hint, " : ");
     std::strcat(hint, state->ToText());
 }
+
+

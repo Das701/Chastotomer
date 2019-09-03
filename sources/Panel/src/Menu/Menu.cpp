@@ -27,6 +27,10 @@ static Page *openedPage = PageModes::self;
 void Menu::Init()
 {
     PageModes::Init();
+
+    
+    Switch::CreateChannelSettings();
+    
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -64,28 +68,23 @@ static bool OpenPage(Control control)
     case Control::Mode:
         openedPage = PageModes::self;
         return true;
-        break;
 
     case Control::Indication:
         openedPage = PageIndication::self;
         return true;
-        break;
 
     case Control::A:
         openedPage = PageChannelA::self;
         return true;
-        break;
 
     case Control::B:
         openedPage = PageChannelB::self;
         return true;
-        break;
 
     case Control::C:
     case Control::D:
         openedPage = &Page::empty;
         return true;
-        break;
     }
 
     return false;
@@ -96,3 +95,4 @@ char *Menu::Hint()
 {
     return openedPage->hint;
 }
+

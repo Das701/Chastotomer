@@ -18,7 +18,6 @@ static void DrawHint();
 /// Нарисовать статус-бар
 static void DrawStatusBar();
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Update()
 {
@@ -34,6 +33,9 @@ void Display::Update()
 
     DrawHint();
 
+    Text(Switch::ChannelSettings()).Write(38, 5);
+
+    
     Menu::Draw();
 
     EndScene();
@@ -124,4 +126,6 @@ static void DrawStatusBar()
 static void DrawHint()
 {
     Text(Menu::Hint()).Write(38, 15);
+
 }
+

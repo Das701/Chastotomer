@@ -3,12 +3,13 @@
 #include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
-
+#include <cstring>
 
 using namespace Display::Primitives;
 using namespace Display;
 
 extern Item *items[];
+
 
 ChannelInput    PageChannelA::channelInput(ChannelInput::Closed);
 InputImpedance  PageChannelA::inputImpedance(InputImpedance::_1MOmh);
@@ -18,9 +19,35 @@ Divider         PageChannelA::divider(Divider::_1);
 LevelSynch      PageChannelA::levelSynch(LevelSynch::TTL);
 
 
+static const char *settings[] = { "A: ", "ÎÂ ", "1ÌÎì", " ", "Ôðîíò", " ", "0mV ", nullptr };
+
+void Switch::CreateChannelSettings()
+{
+
+   channelSettings[0] = 0;
+        for (int i = 0; settings[i] != 0; i++)
+        {
+            
+            std::strcat(channelSettings, settings[i]);
+        }
+
+}
+int count = 0;
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_OCI()
 {
+    
+    if(count == 0)
+    {
+        settings[1] = "ÇÂ ";
+        count++;
+    }
+    else
+    {
+        settings[1] = "ÎÂ ";
+        count--;
+    }
+    Switch::CreateChannelSettings();
 }
 
 static char *namesInput[] = { "Îòêð. âõîä", "Çàêð. âõîä", nullptr };
@@ -35,6 +62,18 @@ static Switch sInputChoice(
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Impedance()
 {
+//    int count = 0;
+//    if(count == 0)
+//    {
+//        settings[2] = "50Îì";
+//        count++;
+//    }
+//    else
+//    {
+//        settings[2] = "1ÌÎì";
+//        count--;
+//    }
+//    Switch::CreateChannelSettings();
 }
 
 static char *namesImpedance[] = { "1 ÌÎì", "50 Îì", nullptr };
@@ -49,6 +88,18 @@ static Switch sImpedance(
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Filter()
 {
+//
+//    if(count == 0)
+//    {
+//        settings[3] = " ÔÍ× ";
+//        count++;
+//    }
+//    else
+//    {
+//        settings[3] = " ";
+//        count--;
+//    }
+//    Switch::CreateChannelSettings();
 }
 
 static char *namesLowpassFilter[] = { "Îòêë.", "Âêë.", nullptr };
@@ -63,6 +114,18 @@ static Switch sLowpassFilter(
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Front()
 {
+//    int count = 0;
+//    if(count == 0)
+//    {
+//        settings[4] = "Ñðåç";
+//        count++;
+//    }
+//    else
+//    {
+//        settings[4] = "Ôðîíò";
+//        count--;
+//    }
+//    Switch::CreateChannelSettings();
 }
 
 static char *namesFront[] = { "Ôðîíò", "Ñðåç", nullptr };
@@ -77,6 +140,18 @@ static Switch sFront(
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_VD()
 {
+//    int count = 0;
+//    if(count == 0)
+//    {
+//        settings[5] = " 1/10 ";
+//        count++;
+//    }
+//    else
+//    {
+//        settings[5] = " ";
+//        count--;
+//    }
+//    Switch::CreateChannelSettings();
 }
 
 static char *namesDivider[] = { "1:1", "1:10", nullptr };
@@ -91,6 +166,18 @@ static Switch sDivider(
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Sync()
 {
+//    int count = 0;
+//    if(count == 0)
+//    {
+//        settings[6] = "1200mV";
+//        count++;
+//    }
+//    else
+//    {
+//        settings[6] = "-1240mV";
+//        count--;
+//    }
+//    Switch::CreateChannelSettings();
 }
 
 static char *namesSync[] = { "ÒÒË", "ÝÑË", nullptr };

@@ -28,6 +28,7 @@ public:
     static const int HEIGHT = 11;
     /// Здесь хранится полная подсказка для последнего использованного итема
     static char hint[100];
+    static char channelSettings[100];
 protected:
     /// Общая часть подсказки
     char *commonHint;
@@ -59,7 +60,8 @@ public:
         state->names = _names;
         commonHint = _comHint;
     };
-
+    static void CreateChannelSettings();
+    static char* ChannelSettings(){ return channelSettings; };
     virtual void Draw(int x, int y);
     virtual bool OnControl(const Control &control);
 
@@ -94,5 +96,6 @@ private:
     int NumItems();
     /// Указатель на массив элементов меню. Заканчивается нулём.
     Item **items;
+
     int selectedItem;
 };
