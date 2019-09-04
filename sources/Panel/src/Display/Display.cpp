@@ -33,8 +33,7 @@ void Display::Update()
 
     DrawHint();
 
-    Text(Switch::ChannelSettings()).Write(38, 5);
-
+    Text(Menu::ChannelSettings()).Write(38, 5);
     
     Menu::Draw();
 

@@ -12,6 +12,7 @@ struct Enumeration
     Enumeration(uint8 v) : value(v) {};
     operator int() { return (int)value; };
     char *ToText() const { return names[value]; };
+    char *UGO() const { return ugo[value]; };
     int NumStates() const;
 };
 
@@ -29,7 +30,6 @@ public:
     static const int HEIGHT = 11;
     /// «десь хранитс€ полна€ подсказка дл€ последнего использованного итема
     static char hint[100];
-    static char channelSettings[100];
 protected:
     /// ќбща€ часть подсказки
     char *commonHint;
@@ -62,8 +62,6 @@ public:
         
         commonHint = _comHint;
     };
-    static void CreateChannelSettings();
-    static char* ChannelSettings(){ return channelSettings; };
     virtual void Draw(int x, int y);
     virtual bool OnControl(const Control &control);
 

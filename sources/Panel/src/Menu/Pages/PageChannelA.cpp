@@ -18,11 +18,6 @@ ModeFront       PageChannelA::modeFront(ModeFront::Front);
 Divider         PageChannelA::divider(Divider::_1);
 LevelSynch      PageChannelA::levelSynch(LevelSynch::TTL);
 
-
-static const char *settings[] = { "A: ", "ÎÂ ", "1ÌÎì", " ", "Ôðîíò", " ", "0mV ", nullptr };
-
-
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_OCI()
 {
@@ -188,21 +183,3 @@ static Item *items[] =
 static Page pageChannelA(items);
 
 Page *PageChannelA::self = &pageChannelA;
-
-
-void Switch::CreateChannelSettings()
-{
-
-    std::strcpy(channelSettings, "A: ");
-//    for (int i = 0; settings[i] != 0; i++)
-//    {
-//        std::strcat(channelSettings, settings[i]);
-//    }
-    int i=1;
-    std::strcat(channelSettings, ugoInput[i]);
-    std::strcat(channelSettings, ugoImpedance[i]);
-    std::strcat(channelSettings, ugoLowpassFilter[i]);
-    std::strcat(channelSettings, ugoFront[i]);
-    std::strcat(channelSettings, ugoDivider[i]);
-    std::strcat(channelSettings, ugoSync[i]);
-}

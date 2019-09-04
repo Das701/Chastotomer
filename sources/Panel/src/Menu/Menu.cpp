@@ -7,6 +7,7 @@
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/Pages/PageChannelA.h"
 #include "Menu/Pages/PageChannelB.h"
+#include <cstring>
 
 
 using namespace Display;
@@ -27,10 +28,6 @@ static Page *openedPage = PageModes::self;
 void Menu::Init()
 {
     PageModes::Init();
-
-    
-    Switch::CreateChannelSettings();
-    
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -96,3 +93,14 @@ char *Menu::Hint()
     return openedPage->hint;
 }
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+char *Menu::ChannelSettings()
+{
+    static char settings[100] = { 0 };
+
+    std::strcpy(settings, "A: ");
+
+    std::strcat(settings, PageChannelA::channelInput.UGO());
+
+    return settings;
+}
