@@ -79,8 +79,11 @@ static bool OpenPage(Control control)
         return true;
 
     case Control::C:
+        openedPage = &Page::emptyC;
+        return true;
+    
     case Control::D:
-        openedPage = &Page::empty;
+        openedPage = &Page::emptyD;
         return true;
     }
 
@@ -94,13 +97,55 @@ char *Menu::Hint()
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+static void DefaultSettings(char *settings)
+{
+    std::strcat(settings, "ÎÂ ");
+    std::strcat(settings, "1ÌÎì");
+    std::strcat(settings, " ");
+    std::strcat(settings, "Ôðîíò");
+    std::strcat(settings, " ");
+    std::strcat(settings, "0mV ");        
+}
+
+
 char *Menu::ChannelSettings()
 {
     static char settings[100] = { 0 };
-
-    std::strcpy(settings, "A: ");
-
-    std::strcat(settings, PageChannelA::channelInput.UGO());
-
+    if(openedPage == PageChannelA::self)
+    {
+        std::strcpy(settings, "A: ");
+        std::strcat(settings, PageChannelA::channelInput.UGO());
+        std::strcat(settings, PageChannelA::inputImpedance.UGO());
+        std::strcat(settings, PageChannelA::modeFilter.UGO());
+        std::strcat(settings, PageChannelA::modeFront.UGO());
+        std::strcat(settings, PageChannelA::divider.UGO());
+        std::strcat(settings, PageChannelA::levelSynch.UGO());        
+    }
+    else if(openedPage == PageChannelB::self)
+    {
+        std::strcpy(settings, "B: ");
+        std::strcat(settings, PageChannelA::channelInput.UGO());
+        std::strcat(settings, PageChannelB::inputImpedance.UGO());
+        std::strcat(settings, PageChannelB::modeFilter.UGO());
+        std::strcat(settings, PageChannelB::modeFront.UGO());
+        std::strcat(settings, PageChannelB::divider.UGO());
+        std::strcat(settings, PageChannelB::levelSynch.UGO()); 
+    }
+    else if(openedPage == &Page::emptyC)
+    {
+        std::strcpy(settings, "C: ");
+        DefaultSettings(settings);
+    }
+    else if(openedPage == &Page::emptyD)
+    {
+        std::strcpy(settings, "D: ");
+        DefaultSettings(settings);
+    }
+    else
+    {
+       std::strcpy(settings, "A: ");
+       DefaultSettings(settings); 
+    }
     return settings;
 }

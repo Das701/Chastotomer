@@ -37,18 +37,6 @@ static Switch sInputChoice(
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Impedance()
 {
-//    int count = 0;
-//    if(count == 0)
-//    {
-//        settings[2] = "50Ом";
-//        count++;
-//    }
-//    else
-//    {
-//        settings[2] = "1МОм";
-//        count--;
-//    }
-//    Switch::CreateChannelSettings();
 }
 
 static char *namesImpedance[] = { "1 МОм", "50 Ом", nullptr };
@@ -64,22 +52,10 @@ static Switch sImpedance(
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Filter()
 {
-//
-//    if(count == 0)
-//    {
-//        settings[3] = " ФНЧ ";
-//        count++;
-//    }
-//    else
-//    {
-//        settings[3] = " ";
-//        count--;
-//    }
-//    Switch::CreateChannelSettings();
 }
 
 static char *namesLowpassFilter[] = { "Откл.", "Вкл.", nullptr };
-static char *ugoLowpassFilter[] = { " ", "ФНЧ ", nullptr };
+static char *ugoLowpassFilter[] = { "ФНЧ ", " ", nullptr };
 
 /// Включение(отключение) ФНЧ
 static Switch sLowpassFilter(
@@ -91,18 +67,6 @@ static Switch sLowpassFilter(
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Front()
 {
-//    int count = 0;
-//    if(count == 0)
-//    {
-//        settings[4] = "Срез";
-//        count++;
-//    }
-//    else
-//    {
-//        settings[4] = "Фронт";
-//        count--;
-//    }
-//    Switch::CreateChannelSettings();
 }
 
 static char *namesFront[] = { "Фронт", "Срез", nullptr };
@@ -118,18 +82,6 @@ static Switch sFront(
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_VD()
 {
-//    int count = 0;
-//    if(count == 0)
-//    {
-//        settings[5] = " 1/10 ";
-//        count++;
-//    }
-//    else
-//    {
-//        settings[5] = " ";
-//        count--;
-//    }
-//    Switch::CreateChannelSettings();
 }
 
 static char *namesDivider[] = { "1:1", "1:10", nullptr };
@@ -145,18 +97,6 @@ static Switch sDivider(
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Sync()
 {
-//    int count = 0;
-//    if(count == 0)
-//    {
-//        settings[6] = "1200mV";
-//        count++;
-//    }
-//    else
-//    {
-//        settings[6] = "-1240mV";
-//        count--;
-//    }
-//    Switch::CreateChannelSettings();
 }
 
 static char *namesSync[] = { "ТТЛ", "ЭСЛ", nullptr };

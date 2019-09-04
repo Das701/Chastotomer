@@ -10,6 +10,8 @@ using namespace Display::Primitives;
 using namespace Display;
 
 Page Page::empty;
+Page Page::emptyC;
+Page Page::emptyD;
 char Item::hint[100];
 
 
@@ -138,15 +140,4 @@ void Switch::CreateHint()
     std::strcat(hint, " : ");
     std::strcat(hint, state->ToText());
 }
-
-//void Switch::CreateChannelSettings()
-//{
-//
-//    std::strcpy(channelSettings, "A: ");
-////    for (int i = 0; settings[i] != 0; i++)
-////    {
-////        std::strcat(channelSettings, settings[i]);
-////    }
-//    std::strcat(channelSettings, state->ugo);
-//}
 

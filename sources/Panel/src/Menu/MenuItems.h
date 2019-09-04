@@ -59,7 +59,7 @@ public:
         text(_text), funcOnPress(_onClick), state(_state)
     {
         state->names = _names;
-        
+        state->ugo = _ugo;
         commonHint = _comHint;
     };
     virtual void Draw(int x, int y);
@@ -86,6 +86,8 @@ public:
     Item *SelectedItem() { return items[selectedItem]; };
 
     static Page empty;
+    static Page emptyC;
+    static Page emptyD;
     
 private:
     /// Делает текущим следующий элемент
