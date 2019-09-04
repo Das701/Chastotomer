@@ -57,7 +57,7 @@ static void OnPress_Frequency()
 DEF_SWITCH_5(sFrequency,
     "f", "Измерение частоты",
     "Частота", "f(A)/f(C)", "f(A)/f(B)", "f=1/T", "Тахометр",
-    PageModes::modeMeasureFrequency, OnPress_Frequency);
+    nullptr, PageModes::modeMeasureFrequency, OnPress_Frequency);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Period()
@@ -80,7 +80,7 @@ static void OnPress_Period()
 DEF_SWITCH_2(sPeriod,
     "T", "Измерение периода",
     "Период", "T=1/f",
-    PageModes::modeMeasurePeriod, OnPress_Period
+    nullptr, PageModes::modeMeasurePeriod, OnPress_Period
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ static void OnPress_Duration()
 DEF_SWITCH_6(sDuration,
     "t", "Измерение длительности",
     "ndt", "<ndt>", "ndt/1нс", "Интервал", "1/S", "Фаза",
-    PageModes::modeMeasureDuration,
+    nullptr, PageModes::modeMeasureDuration,
     OnPress_Duration
 );
 
@@ -135,7 +135,7 @@ static void OnPress_CountPulse()
 DEF_SWITCH_3(sCountPulse,
     "Счёт", "Счёт числа импульсов",
     "Ручн.", "А(tC)", "А(TC)",
-    PageModes::modeCountPulse,
+    nullptr, PageModes::modeCountPulse,
     OnPress_CountPulse
 );
 
@@ -148,7 +148,7 @@ static void OnPress_TimeLabels()
 DEF_SWITCH_6(sPeriodTimeLabels,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    PageModes::periodTimeLabels,
+    nullptr, PageModes::periodTimeLabels,
     OnPress_TimeLabels
 );
 
@@ -161,7 +161,7 @@ static void OnPress_TimeMeasure()
 DEF_SWITCH_6(sTimeMeasure,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s",
-    PageModes::timeMeasure,
+    nullptr, PageModes::timeMeasure,
     OnPress_TimeMeasure
 );
 
@@ -174,7 +174,7 @@ static void OnPress_NumberPeriods()
 DEF_SWITCH_6(sNumberPeriods,
     "N", "Число периодов измерения",
     "1", "10", "100", "1K", "10K", "100K",
-    PageModes::numberPeriods,
+    nullptr, PageModes::numberPeriods,
     OnPress_NumberPeriods
 );
 

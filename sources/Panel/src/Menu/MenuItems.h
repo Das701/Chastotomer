@@ -8,6 +8,7 @@ struct Enumeration
     /// Текущее состояние перечисления
     uint8  value;
     char **names;
+    char **ugo;
     Enumeration(uint8 v) : value(v) {};
     operator int() { return (int)value; };
     char *ToText() const { return names[value]; };
@@ -54,10 +55,11 @@ class Switch : public Item
 {
 public:
 
-    Switch(char *_text, char *_comHint, char **_names, Enumeration *_state, void(*_onClick)()) :
+    Switch(char *_text, char *_comHint, char **_names, char **_ugo, Enumeration *_state, void(*_onClick)()) :
         text(_text), funcOnPress(_onClick), state(_state)
     {
         state->names = _names;
+        
         commonHint = _comHint;
     };
     static void CreateChannelSettings();

@@ -139,4 +139,14 @@ void Switch::CreateHint()
     std::strcat(hint, state->ToText());
 }
 
+//void Switch::CreateChannelSettings()
+//{
+//
+//    std::strcpy(channelSettings, "A: ");
+////    for (int i = 0; settings[i] != 0; i++)
+////    {
+////        std::strcat(channelSettings, settings[i]);
+////    }
+//    std::strcat(channelSettings, state->ugo);
+//}
 
