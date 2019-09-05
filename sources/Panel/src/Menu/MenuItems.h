@@ -86,8 +86,6 @@ public:
     Item *SelectedItem() { return items[selectedItem]; };
 
     static Page empty;
-    static Page emptyC;
-    static Page emptyD;
     
 private:
     /// Делает текущим следующий элемент

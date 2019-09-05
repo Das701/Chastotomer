@@ -28,7 +28,7 @@ static void OnPress_OCI()
 DEF_SWITCH_UGO_2(sInputChoice,
     "ОЗВ", "Вход",
     "Откр. вход", "Закр. вход",
-    "ОВ ", "ЗВ ",
+    "ОВ", "ЗВ",
     PageChannelA::channelInput, OnPress_OCI
 );
 
@@ -41,7 +41,7 @@ static void OnPress_Impedance()
 DEF_SWITCH_UGO_2(sImpedance,
     "Rвх", "Входное сопротивление текущего канала",
     "1 МОм", "50 Ом",
-    "1МОм ", "50Ом ",
+    "1МОм", "50Ом",
     PageChannelA::inputImpedance, OnPress_Impedance
 );
 
@@ -54,7 +54,7 @@ static void OnPress_Filter()
 DEF_SWITCH_UGO_2(sLowpassFilter,
     "ФНЧ", "Включение/отключение фильтра НЧ",
     "Откл.", "Вкл.",
-    "ФНЧ ", " ",
+    "ФНЧ", "",
     PageChannelA::modeFilter, OnPress_Filter
 );
 
@@ -80,7 +80,7 @@ static void OnPress_VD()
 DEF_SWITCH_UGO_2(sDivider,
     "1/1 1/10", "Включение/отключение входного делителя напряжения",
     "1:1", "1:10",
-    " ", "1:10 ",
+    "", "1:10",
     PageChannelA::divider, OnPress_VD
 );
 
@@ -93,7 +93,7 @@ static void OnPress_Sync()
 DEF_SWITCH_UGO_2(sSync,
     "Синхр", "Выбор уровня сихронизации",
     "ТТЛ", "ЭСЛ",
-    "1200mV ", "-1240mV ",
+    "1200mV", "-1240mV",
     PageChannelA::levelSynch, OnPress_Sync
 );
 

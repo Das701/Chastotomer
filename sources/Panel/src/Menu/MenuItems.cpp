@@ -10,8 +10,6 @@ using namespace Display::Primitives;
 using namespace Display;
 
 Page Page::empty;
-Page Page::emptyC;
-Page Page::emptyD;
 char Item::hint[100];
 
 

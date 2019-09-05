@@ -3,6 +3,7 @@
 #include "Menu/Menu.h"
 #include "Menu/Pages/PageModes.h"
 #include "Menu/Pages/PageChannelA.h"
+#include "Menu/Pages/PageIndication.h"
 #include "Text.h"
 
 
@@ -17,7 +18,8 @@ static void DrawModeMeasure();
 static void DrawHint();
 /// Нарисовать статус-бар
 static void DrawStatusBar();
-
+static void DrawScreen();
+    
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Update()
 {
@@ -25,8 +27,23 @@ void Display::Update()
 
     Rectangle(256, 64).Draw(0, 0, Color::WHITE);
 
-    DrawStatusBar();
-    
+    DrawScreen();
+
+    EndScene();
+}
+
+static void DrawScreen()
+{
+        if(PageIndication::calibration)
+    {
+        Text("---Режим Калибровка---").Write(38, 5);
+        Text("Нажмите ЭНК. для сохранения").Write(5, 15);
+        Text("Нажмите любую клавишу для выхода").Write(5, 50);
+    }
+    else
+    {
+    DrawStatusBar();    
+        
     DrawTypeMeasure();
     
     DrawModeMeasure();
@@ -36,8 +53,7 @@ void Display::Update()
     Text(Menu::ChannelSettings()).Write(38, 5);
     
     Menu::Draw();
-
-    EndScene();
+    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

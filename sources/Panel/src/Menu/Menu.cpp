@@ -7,6 +7,8 @@
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/Pages/PageChannelA.h"
 #include "Menu/Pages/PageChannelB.h"
+#include "Menu/Pages/PageChannelC.h"
+#include "Menu/Pages/PageChannelD.h"
 #include <cstring>
 
 
@@ -79,11 +81,11 @@ static bool OpenPage(Control control)
         return true;
 
     case Control::C:
-        openedPage = &Page::emptyC;
+        openedPage = PageChannelC::self;
         return true;
     
     case Control::D:
-        openedPage = &Page::emptyD;
+        openedPage = PageChannelD::self;
         return true;
     }
 
@@ -100,12 +102,13 @@ char *Menu::Hint()
 
 static void DefaultSettings(char *settings)
 {
-    std::strcat(settings, "ÎÂ ");
+    std::strcat(settings, "ÎÂ");
+    std::strcat(settings, " ");
     std::strcat(settings, "1ÌÎì");
     std::strcat(settings, " ");
     std::strcat(settings, "Ôðîíò");
     std::strcat(settings, " ");
-    std::strcat(settings, "0mV ");        
+    std::strcat(settings, "0mV");        
 }
 
 
@@ -116,36 +119,41 @@ char *Menu::ChannelSettings()
     {
         std::strcpy(settings, "A: ");
         std::strcat(settings, PageChannelA::channelInput.UGO());
+        std::strcat(settings, " ");
         std::strcat(settings, PageChannelA::inputImpedance.UGO());
+        std::strcat(settings, " ");
         std::strcat(settings, PageChannelA::modeFilter.UGO());
+        std::strcat(settings, " ");
         std::strcat(settings, PageChannelA::modeFront.UGO());
+        std::strcat(settings, " ");
         std::strcat(settings, PageChannelA::divider.UGO());
+        std::strcat(settings, " ");
         std::strcat(settings, PageChannelA::levelSynch.UGO());        
     }
     else if(openedPage == PageChannelB::self)
     {
         std::strcpy(settings, "B: ");
         std::strcat(settings, PageChannelA::channelInput.UGO());
+        std::strcat(settings, " ");
         std::strcat(settings, PageChannelB::inputImpedance.UGO());
+        std::strcat(settings, " ");
         std::strcat(settings, PageChannelB::modeFilter.UGO());
+        std::strcat(settings, " ");
         std::strcat(settings, PageChannelB::modeFront.UGO());
+        std::strcat(settings, " ");
         std::strcat(settings, PageChannelB::divider.UGO());
+        std::strcat(settings, " ");
         std::strcat(settings, PageChannelB::levelSynch.UGO()); 
     }
-    else if(openedPage == &Page::emptyC)
+    else if(openedPage == PageChannelC::self)
     {
         std::strcpy(settings, "C: ");
         DefaultSettings(settings);
     }
-    else if(openedPage == &Page::emptyD)
+    else if(openedPage == PageChannelD::self)
     {
         std::strcpy(settings, "D: ");
         DefaultSettings(settings);
-    }
-    else
-    {
-       std::strcpy(settings, "A: ");
-       DefaultSettings(settings); 
     }
     return settings;
 }

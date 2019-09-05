@@ -3,34 +3,80 @@
 #include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
-
+#include "Menu/MenuItemsDef.h"
 
 using namespace Display::Primitives;
 using namespace Display;
+extern Item *items[];
 
+DisplayTime         PageIndication::displayTime(DisplayTime::S_001);
+RefGenerator        PageIndication::refGenerator(RefGenerator::Internal);
+LaunchSource        PageIndication::launchSource(LaunchSource::LS_Internal);
+Calibration         PageIndication::calibration(Calibration::Unpressed);
+MemoryMode          PageIndication::memoryMode(MemoryMode::M_On);
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void OnPress_DisplayTime()
+{
+}
 
 /// Выбор времени отображения результата измерения
-static Button bDisplayTime("Т-ИНД");
+DEF_SWITCH_3(sDisplayTime,
+    "Т-ИНД", "Время индикации",
+    "0.1s.", "1s.", "10s.",
+    PageIndication::displayTime, OnPress_DisplayTime);
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void OnPress_RefGenerator()
+{
+}
 
 /// Выбор опорного генератора
-static Button bRefGenerator("ОГ");
+DEF_SWITCH_2(sRefGenerator,
+    "ОГ", "Выбор опорного генератора",
+    "Внутренний", "Внешний", 
+    PageIndication::refGenerator, OnPress_RefGenerator);
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void OnPress_LaunchSource()
+{
+}
 
 /// Выбор источника запуска
-static Button bLaunchSource("ЗАП");
+DEF_SWITCH_3(sLaunchSource,
+    "ЗАП", "Выбор источника запуска",
+    "Внутренний", "Внешний", "Однократный",
+    PageIndication::launchSource, OnPress_LaunchSource);
 
-/// Вход в режим калибровки 
-static Button bCalibration("Калиб");
+static void OnPress_Calibration()
+{
+}
+
+/// Вход в режим калибровки
+DEF_SWITCH_2(sCalibration,
+    "Калиб",nullptr,
+    "Не нажата", "Нажата", 
+    PageIndication::calibration, OnPress_Calibration);
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void OnPress_MemoryMode()
+{
+}
 
 /// Включение(отключение) режима памяти
-static Button bMemoryMode("Пам");
+DEF_SWITCH_2(sMemoryMode,
+    "Пам", "Режим память",
+    "Вкл", "Выкл", 
+    PageIndication::memoryMode, OnPress_MemoryMode);
 
 static Item *items[] =
 {
-    &bDisplayTime,
-    &bRefGenerator,
-    &bLaunchSource,
-    &bCalibration,
-    &bMemoryMode,
+    &sDisplayTime,
+    &sRefGenerator,
+    &sLaunchSource,
+    &sCalibration,
+    &sMemoryMode,
     nullptr
 };
 
