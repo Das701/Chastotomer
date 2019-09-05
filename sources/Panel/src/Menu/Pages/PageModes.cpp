@@ -15,15 +15,15 @@ extern Switch sTimeMeasure;
 extern Switch sNumberPeriods;
 
 
-TypeMeasure          PageModes::typeMeasure(TypeMeasure::Frequency);
-ModeMeasureFrequency PageModes::modeMeasureFrequency(ModeMeasureFrequency::Freq);
-ModeMeasurePeriod    PageModes::modeMeasurePeriod(ModeMeasurePeriod::Period);
-ModeMeasureDuration  PageModes::modeMeasureDuration(ModeMeasureDuration::Ndt);
-ModeCountPulse       PageModes::modeCountPulse(ModeCountPulse::Manual);
+TypeMeasure             PageModes::typeMeasure(TypeMeasure::Frequency);
+ModeMeasureFrequency    PageModes::modeMeasureFrequency(ModeMeasureFrequency::Freq);
+ModeMeasurePeriod       PageModes::modeMeasurePeriod(ModeMeasurePeriod::Period);
+ModeMeasureDuration     PageModes::modeMeasureDuration(ModeMeasureDuration::Ndt);
+ModeMeasureCountPulse   PageModes::modeMeasureCountPulse(ModeMeasureCountPulse::Manual);
 
-PeriodTimeLabels     PageModes::periodTimeLabels(PeriodTimeLabels::T_3);
-NumberPeriods        PageModes::numberPeriods(NumberPeriods::_1);
-TimeMeasure          PageModes::timeMeasure(TimeMeasure::_1ms);
+PeriodTimeLabels        PageModes::periodTimeLabels(PeriodTimeLabels::T_3);
+NumberPeriods           PageModes::numberPeriods(NumberPeriods::_1);
+TimeMeasure             PageModes::timeMeasure(TimeMeasure::_1ms);
 
 
 
@@ -116,7 +116,7 @@ DEF_SWITCH_6(sDuration,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_CountPulse()
 {
-    if (PageModes::modeCountPulse == ModeCountPulse::ATC_1)
+    if (PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::ATC_1)
     {
 
         items[4] = &sNumberPeriods;
@@ -135,7 +135,7 @@ static void OnPress_CountPulse()
 DEF_SWITCH_3(sCountPulse,
     "Счёт", "Счёт числа импульсов",
     "Ручн.", "А(tC)", "А(TC)",
-    PageModes::modeCountPulse,
+    PageModes::modeMeasureCountPulse,
     OnPress_CountPulse
 );
 

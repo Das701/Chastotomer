@@ -9,7 +9,6 @@
 using namespace Display::Primitives;
 using namespace Display;
 
-Page Page::empty;
 char Item::hint[100];
 
 

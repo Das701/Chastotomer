@@ -67,7 +67,7 @@ static void OnPress_Front()
 DEF_SWITCH_UGO_2(sFront,
     "Фронт", "Выбор типа синхронизации",
     "Фронт", "Срез",
-    "Фронт ", "Срез ",
+    "Фронт", "Срез",
     PageChannelA::modeFront, OnPress_Front
 );
 

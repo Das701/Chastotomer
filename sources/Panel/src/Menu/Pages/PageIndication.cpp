@@ -9,11 +9,11 @@ using namespace Display::Primitives;
 using namespace Display;
 extern Item *items[];
 
-DisplayTime         PageIndication::displayTime(DisplayTime::S_001);
+DisplayTime         PageIndication::displayTime(DisplayTime::_100ms);
 RefGenerator        PageIndication::refGenerator(RefGenerator::Internal);
-LaunchSource        PageIndication::launchSource(LaunchSource::LS_Internal);
+LaunchSource        PageIndication::launchSource(LaunchSource::Internal);
 Calibration         PageIndication::calibration(Calibration::Unpressed);
-MemoryMode          PageIndication::memoryMode(MemoryMode::M_On);
+MemoryMode          PageIndication::memoryMode(MemoryMode::On);
 
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

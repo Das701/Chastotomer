@@ -59,7 +59,7 @@ struct ModeMeasureDuration : public Enumeration
 };
 
 /// Режим счёта импульсов
-struct ModeCountPulse : public Enumeration
+struct ModeMeasureCountPulse : public Enumeration
 {
     enum E
     {
@@ -68,7 +68,7 @@ struct ModeCountPulse : public Enumeration
         ATC_1       ///< A(TC)
     };
 
-    explicit ModeCountPulse(E v) : Enumeration((uint8)v) {};
+    explicit ModeMeasureCountPulse(E v) : Enumeration((uint8)v) {};
 };
 
 /// Период меток времени
@@ -135,7 +135,7 @@ public:
     /// Режим измерения длительности
     static ModeMeasureDuration modeMeasureDuration;
     /// Режим счёта импульсов
-    static ModeCountPulse modeCountPulse;
+    static ModeMeasureCountPulse modeMeasureCountPulse;
     /// Период меток времени
     static PeriodTimeLabels periodTimeLabels;
     /// Время счета

@@ -3,7 +3,7 @@
 #include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
-
+#include "Menu/MenuItemsDef.h"
 #include <cstring>
 
 using namespace Display::Primitives;
@@ -24,15 +24,12 @@ static void OnPress_OCI()
 {
 }
 
-static char *namesInput[] = { "Откр. вход", "Закр. вход", nullptr };
-static char *ugoInput[] = { "ОВ ", "ЗВ ", nullptr };
-
 /// Выбор закрытого(открытого) входа текущего канала
-static Switch sInputChoice(
-    "ОЗВ", "Вход", namesInput,
-    ugoInput, 
-    &PageChannelB::channelInput,
-    &OnPress_OCI
+DEF_SWITCH_UGO_2(sInputChoice,
+    "ОЗВ", "Вход",
+    "Откр. вход", "Закр. вход",
+    "ОВ", "ЗВ",
+    PageChannelB::channelInput, OnPress_OCI
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -40,14 +37,12 @@ static void OnPress_Impedance()
 {
 }
 
-static char *namesImpedance[] = { "1 МОм", "50 Ом", nullptr };
-static char *ugoImpedance[] = { "1МОм ", "50Ом ", nullptr };
-
 /// Установка входного сопротивления текущего канала
-static Switch sImpedance(
-    "Rвх", "Входное сопротивление текущего канала", namesImpedance,
-    ugoImpedance, &PageChannelB::inputImpedance,
-    &OnPress_Impedance
+DEF_SWITCH_UGO_2(sImpedance,
+    "Rвх", "Входное сопротивление текущего канала",
+    "1 МОм", "50 Ом",
+    "1МОм", "50Ом",
+    PageChannelB::inputImpedance, OnPress_Impedance
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -55,14 +50,12 @@ static void OnPress_Filter()
 {
 }
 
-static char *namesLowpassFilter[] = { "Откл.", "Вкл.", nullptr };
-static char *ugoLowpassFilter[] = { "ФНЧ ", " ", nullptr };
-
 /// Включение(отключение) ФНЧ
-static Switch sLowpassFilter(
-    "ФНЧ", "Включение/отключение фильтра НЧ", namesLowpassFilter,
-    ugoLowpassFilter, &PageChannelB::modeFilter,
-    &OnPress_Filter
+DEF_SWITCH_UGO_2(sLowpassFilter,
+    "ФНЧ", "Включение/отключение фильтра НЧ",
+    "Откл.", "Вкл.",
+    "ФНЧ", "",
+    PageChannelB::modeFilter, OnPress_Filter
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -70,14 +63,12 @@ static void OnPress_Front()
 {
 }
 
-static char *namesFront[] = { "Фронт", "Срез", nullptr };
-static char *ugoFront[] = { "Фронт ", "Срез ", nullptr };
-
 /// Выбор фронта синхронизации текущего канала
-static Switch sFront(
-    "Фронт", "Выбор типа синхронизации", namesFront,
-    ugoFront, &PageChannelB::modeFront,
-    &OnPress_Front
+DEF_SWITCH_UGO_2(sFront,
+    "Фронт", "Выбор типа синхронизации",
+    "Фронт", "Срез",
+    "Фронт", "Срез",
+    PageChannelB::modeFront, OnPress_Front
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -85,14 +76,12 @@ static void OnPress_VD()
 {
 }
 
-static char *namesDivider[] = { "1:1", "1:10", nullptr };
-static char *ugoDivider[] = { " ", "1:10 ", nullptr };
-
 /// Включение(отключение) входного делителя напряжения
-static Switch sDivider(
-    "1/1 1/10", "Включение/отключение входного делителя напряжения", namesDivider,
-    ugoDivider, &PageChannelB::divider,
-    &OnPress_VD
+DEF_SWITCH_UGO_2(sDivider,
+    "1/1 1/10", "Включение/отключение входного делителя напряжения",
+    "1:1", "1:10",
+    "", "1:10",
+    PageChannelB::divider, OnPress_VD
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -100,14 +89,12 @@ static void OnPress_Sync()
 {
 }
 
-static char *namesSync[] = { "ТТЛ", "ЭСЛ", nullptr };
-static char *ugoSync[] = { "1200mV ", "-1240mV ", nullptr };
-
 /// Выбор уровня синхронизации ТТЛ, ЭСЛ
-static Switch sSync(
-    "Синхр", "Выбор уровня сихронизации", namesSync,
-    ugoSync, &PageChannelB::levelSynch,
-    &OnPress_Sync
+DEF_SWITCH_UGO_2(sSync,
+    "Синхр", "Выбор уровня сихронизации",
+    "ТТЛ", "ЭСЛ",
+    "1200mV", "-1240mV",
+    PageChannelB::levelSynch, OnPress_Sync
 );
 
 static Item *items[] =

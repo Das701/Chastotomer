@@ -29,7 +29,8 @@ struct Control
         _Channel,
         Test,
         Auto,
-        _NULL
+        _NULL,
+        Count
     } value;
 
     struct Action

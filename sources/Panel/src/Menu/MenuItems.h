@@ -9,11 +9,12 @@ struct Enumeration
     uint8  value;
     char **names;
     char **ugo;
-    Enumeration(uint8 v) : value(v) {};
-    operator int() { return (int)value; };
-    char *ToText() const { return names[value]; };
-    char *UGO() const { return ugo[value]; };
+    Enumeration(uint8 v) : value(v) {}
+    operator int() { return (int)value; }
+    char *ToText() const { return names[value]; }
+    char *UGO() const { return ugo[value]; }
     int NumStates() const;
+    bool Is(uint8 v) const { return value == v; }
 };
 
 
@@ -84,8 +85,6 @@ public:
     virtual bool OnControl(const Control &control);    
     /// Возвращает указатель на выделенный пункт меню
     Item *SelectedItem() { return items[selectedItem]; };
-
-    static Page empty;
     
 private:
     /// Делает текущим следующий элемент

@@ -18,6 +18,9 @@ static void DrawModeMeasure();
 static void DrawHint();
 /// Нарисовать статус-бар
 static void DrawStatusBar();
+/// Нарисовать строку настроек текущего канала
+static void DrawChannelSettings();
+
 static void DrawScreen();
     
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +37,7 @@ void Display::Update()
 
 static void DrawScreen()
 {
-        if(PageIndication::calibration)
+    if(PageIndication::calibration.Is(Calibration::Pressed))
     {
         Text("---Режим Калибровка---").Write(38, 5);
         Text("Нажмите ЭНК. для сохранения").Write(5, 15);
@@ -42,52 +45,47 @@ static void DrawScreen()
     }
     else
     {
-    DrawStatusBar();    
+        DrawStatusBar();    
+            
+        DrawTypeMeasure();
         
-    DrawTypeMeasure();
-    
-    DrawModeMeasure();
+        DrawModeMeasure();
 
-    DrawHint();
+        DrawHint();
 
-    Text(Menu::ChannelSettings()).Write(38, 5);
-    
-    Menu::Draw();
+        DrawChannelSettings();
+
+        Menu::Draw();
     }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void DrawChannelSettings()
+{
+    Text(Menu::ChannelSettings()).Write(38, 5);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawTypeMeasure()
 {
     int x = 5;
-    int y = 10;
     int width = 25; 
-    Text(PageModes::typeMeasure.ToText()).Write(x, width, y);
+    Text(PageModes::typeMeasure.ToText()).Write(x, width, 10);
     Rectangle(width, 18).Draw(x, 5, Color::WHITE);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawModeMeasure()
 {
-    int x = 10;
-    int y = 30;
+    static const Enumeration *modes[4] =
+    {
+        &PageModes::modeMeasureFrequency,
+        &PageModes::modeMeasurePeriod,
+        &PageModes::modeMeasureDuration,
+        &PageModes::modeMeasureCountPulse
+    };
 
-    if(PageModes::typeMeasure.value == TypeMeasure::Frequency)
-    {
-        Text(PageModes::modeMeasureFrequency.ToText()).Write(x, y);
-    }
-    else if(PageModes::typeMeasure.value == TypeMeasure::Period)
-    {
-        Text(PageModes::modeMeasurePeriod.ToText()).Write(x, y);
-    }
-    else if(PageModes::typeMeasure.value == TypeMeasure::Duration)
-    {
-        Text(PageModes::modeMeasureDuration.ToText()).Write(x, y);
-    }
-    else
-    {
-        Text(PageModes::modeCountPulse.ToText()).Write(x, y);
-    }
+    Text(modes[PageModes::typeMeasure.value]->ToText()).Write(10, 30);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -129,7 +127,7 @@ static void DrawStatusBar()
     }
     else if(PageModes::typeMeasure.value == TypeMeasure::CountPulse)
     {
-        if (PageModes::modeCountPulse == ModeCountPulse::ATC_1)
+        if (PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::ATC_1)
         {
             Text(PageModes::numberPeriods.ToText()).Write(x, width, y);
         }
@@ -141,6 +139,5 @@ static void DrawStatusBar()
 static void DrawHint()
 {
     Text(Menu::Hint()).Write(38, 15);
-
 }
 
