@@ -5,8 +5,9 @@
 #include "Menu/Pages/PageChannelA.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Text.h"
+#include "Menu/MenuItems.h"
 
-
+extern int timestamp;
 using namespace Display::Primitives;
 using Display::Text;
 
@@ -138,6 +139,10 @@ static void DrawStatusBar()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawHint()
 {
+   
+    if(HAL_GetTick() < timestamp + 5000)
+    {
     Text(Menu::Hint()).Write(38, 15);
+    }
 }
 

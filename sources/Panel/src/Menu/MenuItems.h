@@ -15,6 +15,7 @@ struct Enumeration
     char *UGO() const { return ugo[value]; }
     int NumStates() const;
     bool Is(uint8 v) const { return value == v; }
+
 };
 
 
@@ -31,6 +32,7 @@ public:
     static const int HEIGHT = 11;
     /// Здесь хранится полная подсказка для последнего использованного итема
     static char hint[100];
+
 protected:
     /// Общая часть подсказки
     char *commonHint;
@@ -85,7 +87,7 @@ public:
     virtual bool OnControl(const Control &control);    
     /// Возвращает указатель на выделенный пункт меню
     Item *SelectedItem() { return items[selectedItem]; };
-    
+
 private:
     /// Делает текущим следующий элемент
     void SelectNextItem();
@@ -95,6 +97,7 @@ private:
     int NumItems();
     /// Указатель на массив элементов меню. Заканчивается нулём.
     Item **items;
+    
 
     int selectedItem;
 };

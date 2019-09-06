@@ -5,10 +5,12 @@
 #include "Utils/Math.h"
 #include "Menu/Pages/PageModes.h"
 #include <cstring>
+#include "stm32f4xx_hal.h"
+
 
 using namespace Display::Primitives;
 using namespace Display;
-
+int timestamp;
 char Item::hint[100];
 
 
@@ -74,6 +76,7 @@ bool Page::OnControl(const Control &control)
         return true;
 
     case Control::GovButton: 
+        timestamp = HAL_GetTick();
         return SelectedItem()->OnControl(control);
     }
 
