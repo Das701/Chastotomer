@@ -31,11 +31,13 @@ public:
     static const int WIDTH = 35;
     static const int HEIGHT = 11;
     /// «десь хранитс€ полна€ подсказка дл€ последнего использованного итема
-    static char hint[100];
+    char* Hint();
 
 protected:
     /// ќбща€ часть подсказки
     char *commonHint;
+    static char hint[100];
+    static uint timestamp;
 };
 
 

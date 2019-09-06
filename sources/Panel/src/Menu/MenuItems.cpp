@@ -6,13 +6,14 @@
 #include "Menu/Pages/PageModes.h"
 #include <cstring>
 #include "stm32f4xx_hal.h"
-
+#include "Menu/Pages/PageChannelA.h"
 
 using namespace Display::Primitives;
 using namespace Display;
-int timestamp;
-char Item::hint[100];
 
+char Item::hint[100];
+uint Item::timestamp = 0;
+char emptyMass[100]= { 0 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int Enumeration::NumStates() const
@@ -68,15 +69,28 @@ bool Page::OnControl(const Control &control)
     switch (control.value)
     {
     case Control::Right:
+        if( PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
+        {
+        }
+        else
+        {
         SelectNextItem();
+        }
         return true;
 
     case Control::Left:
+        if( PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
+        {
+            
+        }
+        else
+        {
         SelectPrevItem();
+        }
         return true;
 
     case Control::GovButton: 
-        timestamp = HAL_GetTick();
+        timestamp = HAL_GetTick() + 5000;
         return SelectedItem()->OnControl(control);
     }
 
@@ -141,3 +155,14 @@ void Switch::CreateHint()
     std::strcat(hint, state->ToText());
 }
 
+char* Item::Hint()
+{
+    if(HAL_GetTick() < timestamp)
+    {
+        return hint;
+    }
+    else 
+    {
+        return emptyMass;
+    }
+}

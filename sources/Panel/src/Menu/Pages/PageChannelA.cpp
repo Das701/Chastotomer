@@ -11,7 +11,7 @@ using namespace Display;
 
 extern Item *items[];
 
-
+SyncPress       PageChannelA::syncPress(SyncPress::SyncNotPressed);
 ChannelInput    PageChannelA::channelInput(ChannelInput::Closed);
 InputImpedance  PageChannelA::inputImpedance(InputImpedance::_1MOmh);
 ModeFilter      PageChannelA::modeFilter(ModeFilter::Off);
@@ -22,6 +22,7 @@ LevelSynch      PageChannelA::levelSynch(LevelSynch::TTL);
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_OCI()
 {
+    PageChannelA::syncPress.value = SyncPress::SyncNotPressed;
 }
 
 /// Выбор закрытого(открытого) входа текущего канала
@@ -35,6 +36,7 @@ DEF_SWITCH_UGO_2(sInputChoice,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Impedance()
 {
+    PageChannelA::syncPress.value = SyncPress::SyncNotPressed;
 }
 
 /// Установка входного сопротивления текущего канала
@@ -48,6 +50,7 @@ DEF_SWITCH_UGO_2(sImpedance,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Filter()
 {
+    PageChannelA::syncPress.value = SyncPress::SyncNotPressed;
 }
 
 /// Включение(отключение) ФНЧ
@@ -61,6 +64,7 @@ DEF_SWITCH_UGO_2(sLowpassFilter,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Front()
 {
+    PageChannelA::syncPress.value = SyncPress::SyncNotPressed;
 }
 
 /// Выбор фронта синхронизации текущего канала
@@ -74,6 +78,7 @@ DEF_SWITCH_UGO_2(sFront,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_VD()
 {
+    PageChannelA::syncPress.value = SyncPress::SyncNotPressed;
 }
 
 /// Включение(отключение) входного делителя напряжения
@@ -87,6 +92,7 @@ DEF_SWITCH_UGO_2(sDivider,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Sync()
 {
+    PageChannelA::syncPress.value = SyncPress::SyncPressed;
 }
 
 /// Выбор уровня синхронизации ТТЛ, ЭСЛ
