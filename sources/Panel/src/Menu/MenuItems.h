@@ -15,7 +15,7 @@ struct Enumeration
     char *UGO() const { return ugo[value]; }
     int NumStates() const;
     bool Is(uint8 v) const { return value == v; }
-
+    
 };
 
 
@@ -27,7 +27,7 @@ public:
     virtual void Draw(int x, int y) = 0;
     /// Функция обработки нажатия кнопки/поворота ручки
     virtual bool OnControl(const Control &control) { return false; };
-
+    
     static const int WIDTH = 35;
     static const int HEIGHT = 11;
     /// Здесь хранится полная подсказка для последнего использованного итема
@@ -38,6 +38,8 @@ protected:
     char *commonHint;
     static char hint[100];
     static uint timestamp;
+    static int syncValue;
+    char * syncUgo;
 };
 
 

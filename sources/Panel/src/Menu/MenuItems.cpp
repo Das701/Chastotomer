@@ -5,6 +5,7 @@
 #include "Utils/Math.h"
 #include "Menu/Pages/PageModes.h"
 #include <cstring>
+#include <string>
 #include "stm32f4xx_hal.h"
 #include "Menu/Pages/PageChannelA.h"
 
@@ -14,6 +15,7 @@ using namespace Display;
 char Item::hint[100];
 uint Item::timestamp = 0;
 char emptyMass[100]= { 0 };
+int Item::syncValue = 1240;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int Enumeration::NumStates() const
@@ -71,21 +73,23 @@ bool Page::OnControl(const Control &control)
     case Control::Right:
         if( PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
         {
+            syncValue = syncValue + 20;
+            syncUgo = std::to_string(syncValue);
         }
         else
         {
-        SelectNextItem();
+            SelectNextItem();
         }
         return true;
 
     case Control::Left:
         if( PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
         {
-            
+            syncValue = syncValue - 20;
         }
         else
         {
-        SelectPrevItem();
+            SelectPrevItem();
         }
         return true;
 
@@ -166,3 +170,4 @@ char* Item::Hint()
         return emptyMass;
     }
 }
+
