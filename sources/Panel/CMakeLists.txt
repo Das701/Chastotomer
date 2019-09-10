@@ -12,7 +12,7 @@ include_directories( src
                      ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Inc
                     )
 
-add_definitions(-DSTM32F429xx)
+add_definitions(-DSTM32F401xE)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
@@ -31,12 +31,15 @@ add_compile_options(/wd4305)    # 'xxx': truncation from 'int' to 'char'
 add_compile_options(/wd4310)    # cast truncates constant value
 add_compile_options(/wd4459)    # declaration of 'Temp' hides global declaration
 add_compile_options(/wd4514)    # unreferenced inline function has been removed
+add_compile_options(/wd4571)    # Informational: catch(...) semantics changed since Visual C++ 7.1
+add_compile_options(/wd4625)    # 'xxx': copy constructor was implicitly defined as deleted
 add_compile_options(/wd4626)
 add_compile_options(/wd4668)    # 'xxx' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
 add_compile_options(/wd4710)    # function not inlined
 add_compile_options(/wd4774)    # format string expected in argument N is not a string literal
 add_compile_options(/wd4820)    # 'N' bytes padding added after data member
 add_compile_options(/wd4996)    # This function or variable may be unsafe
+add_compile_options(/wd5026)    # 'xxx': move constructor was implicitly defined as deleted
 add_compile_options(/wd5027)
 add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
 

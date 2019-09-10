@@ -1,10 +1,17 @@
 #pragma once
+#include "defines.h"
+
 
 void ERROR_HANDLER();
 
-
-class HAL
+struct HAL
 {
-public:
     static void Init();
+    
+    /// Используется для записи в дисплей
+    struct SPI1_
+    {
+        static void Init();
+        static void Send(uint8 *data, uint16 num);
+    };
 };
