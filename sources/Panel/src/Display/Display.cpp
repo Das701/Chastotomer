@@ -38,25 +38,30 @@ void Display::Update()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawScreen()
 {
-    if(PageIndication::calibration.Is(Calibration::Pressed))
+//    if(PageIndication::calibration.Is(Calibration::Pressed))
+//    {
+//        Text("---Режим Калибровка---").Write(38, 5);
+//        Text("Нажмите ЭНК. для сохранения").Write(5, 15);
+//        Text("Нажмите любую клавишу для выхода").Write(5, 50);
+//    }
+//    else
+//    {
+//        DrawStatusBar();    
+//            
+//        DrawTypeMeasure();
+//        
+//        DrawModeMeasure();
+//    
+//        DrawHint();
+//    
+//        DrawChannelSettings();
+//    
+//        Menu::Draw();
+//    }
+    for (int i = 0; i < 100; i++)
     {
-        Text("---Режим Калибровка---").Write(38, 5);
-        Text("Нажмите ЭНК. для сохранения").Write(5, 15);
-        Text("Нажмите любую клавишу для выхода").Write(5, 50);
-    }
-    else
-    {
-        DrawStatusBar();    
-            
-        DrawTypeMeasure();
-        
-        DrawModeMeasure();
-    
-        DrawHint();
-    
-        DrawChannelSettings();
-    
-        Menu::Draw();
+        Point().Draw(std::rand() % 250, std::rand() % 60, Color::WHITE);
+        Point().Draw(std::rand() % 250, std::rand() % 60, Color::BLACK);
     }
 }
 

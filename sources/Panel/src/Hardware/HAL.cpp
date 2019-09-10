@@ -1,4 +1,4 @@
-﻿#include "HAL.h"
+#include "HAL.h"
 #include "stm32f4xx_hal.h"
 
 
@@ -76,7 +76,7 @@ void HAL::SPI1_::Init()
     HAL_GPIO_Init(GPIOA, &isGPIO);
 
     handleSPI1.Instance = SPI1;
-    handleSPI1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
+    handleSPI1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
     handleSPI1.Init.Direction = SPI_DIRECTION_1LINE;
     handleSPI1.Init.CLKPhase = SPI_PHASE_2EDGE;
     handleSPI1.Init.CLKPolarity = SPI_POLARITY_HIGH;

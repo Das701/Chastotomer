@@ -81,7 +81,7 @@ static uint8 front[HEIGHT_BUFFER][WIDTH_BUFFER];
 void Display::Init()
 {
     CS_CLOSE;
-
+    
     Delay(500);
     SET_RES_HI;
     Delay(500);
@@ -90,7 +90,7 @@ void Display::Init()
     SET_RES_HI;
     Delay(500);
     SendCommand(COM_LOCK, 0x12);                    // unlock
-
+    
     SendCommand(COM_FRONT_CLOCK_DIV, 0x91);         // to 135 fps
     SendCommand(COM_MUX_RATIO, 0x3F);               // set multiplex ratio
     SendCommand(COM_REMAP_AND_DUAL, 0x14, 0x11);
@@ -102,11 +102,11 @@ void Display::Init()
     SendCommand(COM_ENABLE_GRAY_SCALE_TABLE);
     SendCommand(COM_PRECHARGE_VOLTAGE, 0x1F);
     SendCommand(COM_CONTRAST, 0xFF);
-
+    
     Delay(200);                                     //stabilize VDD
     SendCommand(COM_SLEEP_MODE_OFF);
     Delay(200);                                     //stabilize VDD
-
+    
     SendCommand(COM_VCOMH, 0x07);
     SendCommand(COM_DISPLAY_MODE_NORMAL);
 }
@@ -126,34 +126,61 @@ void Display::BeginScene(Color color)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::EndScene()
 {
-    SendCommand(COM_COL_ADDRESS, 0, 119);   // Устанавливаем адреса начального и конечного столбца. Первое число задает начальный адрес, второе - конечный адрес.
-    SendCommand(COM_ROW_ADDRESS, 0, 63);    // Устанавливает адреса начальной и конечной строки. Первое число задает начальный адрес, второе - конечный адрес.
-    SendCommand(COM_WRITE_RAM);             // Разрешаем микроконтроллеру записать данные в RAM.
+        /*
+        1. 0x15. Устанавливает адреса начального и конечного столбца. A[6:0] задает начальный адрес (после сброса =0), B[6:0] конечный адрес (после сброса =119). Адрес может быть установлен
+                 в диапазоне от 0 до 119.
+        2. 0x75. Устанавливает адреса начальной и конечной строки. A[6:0] задает начальный адрес (после сброса =0), B[6:0] конечный адрес (после сброса =127). Адрес может быть установлен в
+                 диапазоне от 0 до 127.
+        3. 0x5C. Разрешает микроконтроллеру записать данные в RAM.
+    */
 
-    Delay(50);
-
-    for (int row = 0; row < HEIGHT_BUFFER; row++)
-    {
-        for (int col = 0; col < WIDTH_BUFFER; col++)
-        {
-            front[row][col] = (uint8)std::rand();
-        }
-
-        SendData(&front[row][0], 120);
-    }
-
-
-    //uint8 line[128];
-    //
     //for (int row = 0; row < HEIGHT_BUFFER; row++)
     //{
-    //    for (int col = 0; col < 128; col += 2)
+    //    for (int col = 0; col < WIDTH_BUFFER; col++)
     //    {
-    //        line[col] = (uint8)(front[row][col] | (front[row][col + 1] << 4));
+    //        front[row][col] = (uint8)std::rand();
     //    }
-    //
-    //    SendData(line, 120);
     //}
+
+    SendCommand(COM_COL_ADDRESS, 28, 90);
+    SendCommand(COM_ROW_ADDRESS, 1, 63);
+    SendCommand(COM_WRITE_RAM);
+
+    //Delay(50);
+
+    for (int row = 0; row < HEIGHT_BUFFER - 1; row++)
+    {
+        SendData(&front[row][0], 64);
+    }
+    
+//    SendCommand(COM_COL_ADDRESS, 0, 119);   // Устанавливаем адреса начального и конечного столбца. Первое число задает начальный адрес, второе - конечный адрес.
+//    SendCommand(COM_ROW_ADDRESS, 0, 63);    // Устанавливает адреса начальной и конечной строки. Первое число задает начальный адрес, второе - конечный адрес.
+//    SendCommand(COM_WRITE_RAM);             // Разрешаем микроконтроллеру записать данные в RAM.
+//
+//    Delay(50);
+//
+//    for (int row = 0; row < HEIGHT_BUFFER; row++)
+//    {
+//        for (int col = 0; col < WIDTH_BUFFER; col++)
+//        {
+//            front[row][col] = (uint8)std::rand();
+//        }
+//
+//        SendData(&front[row][0], 120);
+//    }
+//
+//
+//    //uint8 line[128];
+//    //
+//    //for (int row = 0; row < HEIGHT_BUFFER; row++)
+//    //{
+//    //    for (int col = 0; col < 128; col += 2)
+//    //    {
+//    //        line[col] = (uint8)(front[row][col] | (front[row][col + 1] << 4));
+//    //    }
+//    //
+//    //    SendData(line, 120);
+//    //}
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
