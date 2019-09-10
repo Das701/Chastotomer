@@ -74,7 +74,7 @@ bool Page::OnControl(const Control &control)
         if( PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
         {
             syncValue = syncValue + 20;
-            syncUgo = std::to_string(syncValue);
+            //syncUgo = to_string(syncValue);
         }
         else
         {

@@ -9,7 +9,8 @@ struct TypeMeasure : public Enumeration
         Frequency,      ///< Измерение частоты
         Period,         ///< Измерение периода
         Duration,       ///< Измерение длительности
-        CountPulse      ///< Подсчёт импульсов
+        CountPulse,     ///< Подсчёт импульсов
+        Count
     };
 
     explicit TypeMeasure(E v) : Enumeration((uint8)v) {};
