@@ -11,11 +11,11 @@ int main(void)
     HAL::Init();
     Display::Init();
     //Keyboard::Init();
-    //Menu::Init();
+    Menu::Init();
 
     while (1)
     {
-        //Menu::Update();
+        Menu::Update();
         Display::Update();
     }
 }

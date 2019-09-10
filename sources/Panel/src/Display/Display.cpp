@@ -69,7 +69,7 @@ void Display::Update()
 {
     BeginScene(Color::BLACK);
 
-    //DrawScreen();
+    DrawScreen();
 
     static int x = 0;
     static int y = 0;
@@ -77,21 +77,25 @@ void Display::Update()
     int sizeX = 4;
     int sizeY = 4;
 
+    static Rectangle rect(sizeX, sizeY);
+
     CalculateCoord(x, y, sizeX, sizeY);
 
-    Rectangle(sizeX, sizeY).Fill(x, y, Color::WHITE);
+    rect.Fill(x, y, Color::WHITE);
 
-    static int x2 = 0;
-    static int y2 = 0;
+    rect.Draw(x, y + 5, Color::WHITE);
 
-    CalculateCoord(x2, y2, sizeX, sizeY);
+    rect.Fill(0, 0, Color::WHITE);
+    rect.Fill(256 - 4, 0, Color::WHITE);
+    rect.Fill(0, 64 - 4, Color::WHITE);
+    rect.Fill(256 - 4, 64 - 4, Color::WHITE);
 
-    Rectangle(sizeX, sizeY).Fill(x2, y2, Color::WHITE);
+    HLine line(200);
 
-    for (int i = 0; i < 100; i++)
+    for (int y = 15; y < 50; y += 3)
     {
-        Point().Draw(std::rand() % 250, std::rand() % 60, Color::WHITE);
-        Point().Draw(std::rand() % 250, std::rand() % 60, Color::BLACK);
+        line.Draw(50, y, Color::WHITE);
+        line.Draw(50, y + 1, Color::WHITE);
     }
 
     EndScene();
@@ -117,7 +121,7 @@ static void DrawScreen()
         DrawHint();
     
         DrawChannelSettings();
-    
+
         Menu::Draw();
     }
 }

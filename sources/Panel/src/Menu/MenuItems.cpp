@@ -51,13 +51,13 @@ void Page::Draw(int x, int y)
         for (int i = 0; items[i] != 0; i++)
         {
             Color color = Color::WHITE;
-
+        
             if (i == selectedItem)
             {
                 color = Color::_5;
                 Rectangle(WIDTH - 2, HEIGHT - 2).Draw(x + 1, y + 1, color);
             }
-
+        
             Rectangle(WIDTH, HEIGHT).Draw(x, y, color);
             items[i]->Draw(x, y);
             x += Item::WIDTH + 2;
