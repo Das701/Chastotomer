@@ -54,7 +54,7 @@ void Page::Draw(int x, int y)
         
             if (i == selectedItem)
             {
-                color = Color::_5;
+                color = Color::_10;
                 Rectangle(WIDTH - 2, HEIGHT - 2).Draw(x + 1, y + 1, color);
             }
         

@@ -91,7 +91,8 @@ void Display::Init()
     Delay(500);
     SendCommand(COM_LOCK, 0x12);                    // unlock
     
-    SendCommand(COM_FRONT_CLOCK_DIV, 0x91);         // to 135 fps
+    //SendCommand(COM_FRONT_CLOCK_DIV, 0x91);         // to 135 fps
+    SendCommand(COM_FRONT_CLOCK_DIV, 0x80 | 0x2);
     SendCommand(COM_MUX_RATIO, 0x3F);               // set multiplex ratio
     SendCommand(COM_REMAP_AND_DUAL, 0x14, 0x11);
     SendCommand(COM_DISPLAY_OFFSET, 0x00);          // set display offset
@@ -103,14 +104,16 @@ void Display::Init()
     SendCommand(COM_PRECHARGE_VOLTAGE, 0x1F);
     SendCommand(COM_CONTRAST, 0xFF);
     SendCommand(COM_MASTER_CONTRAST, 0x0F);
-    SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0x02, 253);
+    SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0xa2, 0x05 | 0xfd);
     SendCommand(COM_SECOND_PRECHARGE_T, 0);
+
+    SendCommand(COM_PHASE_LENGTH, 0x32);
     
     Delay(200);                                     //stabilize VDD
     SendCommand(COM_SLEEP_MODE_OFF);
     Delay(200);                                     //stabilize VDD
     
-    SendCommand(COM_VCOMH, 0x07);
+    SendCommand(COM_VCOMH, 0x00);
     SendCommand(COM_DISPLAY_MODE_NORMAL);
     //SendCommand(COM_DISPLAY_MODE_GS15);
 }
