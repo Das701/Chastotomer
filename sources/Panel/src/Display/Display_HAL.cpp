@@ -102,6 +102,9 @@ void Display::Init()
     SendCommand(COM_ENABLE_GRAY_SCALE_TABLE);
     SendCommand(COM_PRECHARGE_VOLTAGE, 0x1F);
     SendCommand(COM_CONTRAST, 0xFF);
+    SendCommand(COM_MASTER_CONTRAST, 0x0F);
+    SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0x02, 253);
+    SendCommand(COM_SECOND_PRECHARGE_T, 0);
     
     Delay(200);                                     //stabilize VDD
     SendCommand(COM_SLEEP_MODE_OFF);
@@ -109,6 +112,7 @@ void Display::Init()
     
     SendCommand(COM_VCOMH, 0x07);
     SendCommand(COM_DISPLAY_MODE_NORMAL);
+    //SendCommand(COM_DISPLAY_MODE_GS15);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -129,14 +133,16 @@ void Display::EndScene()
     for (int row = 0; row < HEIGHT_BUFFER; row++)
     {
         SendCommand(COM_COL_ADDRESS, 28, 127);      // Устанавливаем адреса начального и конечного столбца. Первое число задает начальный адрес, второе - конечный адрес.
-        SendCommand(COM_ROW_ADDRESS, HEIGHT_BUFFER - row + 1, HEIGHT_BUFFER - row + 1);     // Устанавливает адреса начальной и конечной строки. Первое число задает начальный адрес, второе - конечный адрес.
+        SendCommand(COM_ROW_ADDRESS, HEIGHT_BUFFER - row - 1, HEIGHT_BUFFER - row - 1);     // Устанавливает адреса начальной и конечной строки. Первое число задает начальный адрес, второе - конечный адрес.
+//        SendCommand(COM_ROW_ADDRESS, row, row);
         SendCommand(COM_WRITE_RAM);                 // Разрешаем микроконтроллеру записать данные в RAM.
 
         static uint8 line[128];
 
         for (int i = 0; i < WIDTH_BUFFER; i += 2)
         {
-            line[128 - 1 - i / 2] = (uint8)(front[row][i] | (front[row][i + 1] << 4));
+            line[127 - i / 2] = (uint8)(front[row][i] | (front[row][i + 1] << 4));
+            //line[i / 2] = (uint8)(front[row][i + 1] | (front[row][i] << 4));
         }
 
         SendData(line, 128);

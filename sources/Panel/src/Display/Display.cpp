@@ -74,8 +74,8 @@ void Display::Update()
     static int x = 0;
     static int y = 0;
 
-    int sizeX = 4;
-    int sizeY = 4;
+    int sizeX = 8;
+    int sizeY = 3;
 
     static Rectangle rect(sizeX, sizeY);
 
@@ -85,17 +85,18 @@ void Display::Update()
 
     rect.Draw(x, y + 5, Color::WHITE);
 
-    rect.Fill(0, 0, Color::WHITE);
-    rect.Fill(256 - 4, 0, Color::WHITE);
-    rect.Fill(0, 64 - 4, Color::WHITE);
-    rect.Fill(256 - 4, 64 - 4, Color::WHITE);
+    ///rect.Fill(0, 0, Color::WHITE);
+    ///rect.Fill(256 - 4, 0, Color::WHITE);
+    ///rect.Fill(0, 64 - 4, Color::WHITE);
+    ///rect.Fill(256 - 4, 64 - 4, Color::WHITE);
 
     HLine line(200);
 
-    for (int y = 15; y < 50; y += 3)
+    for (int y = 15; y < 50; y += 5)
     {
         line.Draw(50, y, Color::WHITE);
         line.Draw(50, y + 1, Color::WHITE);
+        line.Draw(50, y + 2, Color::WHITE);
     }
 
     EndScene();
