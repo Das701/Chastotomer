@@ -24,13 +24,75 @@ static void DrawStatusBar();
 static void DrawChannelSettings();
 
 static void DrawScreen();
-    
+
+
+static void CalculateCoord(int &x, int &y, int sizeX, int sizeY)
+{
+    static int deltaX = 1;
+    static int deltaY = 0;
+
+    x += deltaX;
+    y += deltaY;
+
+    if (x < 0)
+    {
+        x = 0;
+        deltaX = -deltaX;
+    }
+    if (y < 0)
+    {
+        y = 0;
+        deltaY = 1;
+    }
+    if (x + sizeX > 250)
+    {
+        deltaX = -deltaX;
+    }
+    if (y + sizeY > 60)
+    {
+        deltaY = -1;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void Delay(uint ms)
+{
+    uint timestamp = HAL_GetTick();
+    while (HAL_GetTick() - timestamp < ms)
+    {
+    }
+}
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Update()
 {
     BeginScene(Color::BLACK);
 
-    DrawScreen();
+    //DrawScreen();
+
+    static int x = 0;
+    static int y = 0;
+
+    int sizeX = 4;
+    int sizeY = 4;
+
+    CalculateCoord(x, y, sizeX, sizeY);
+
+    Rectangle(sizeX, sizeY).Fill(x, y, Color::WHITE);
+
+    static int x2 = 0;
+    static int y2 = 0;
+
+    CalculateCoord(x2, y2, sizeX, sizeY);
+
+    Rectangle(sizeX, sizeY).Fill(x2, y2, Color::WHITE);
+
+    for (int i = 0; i < 100; i++)
+    {
+        Point().Draw(std::rand() % 250, std::rand() % 60, Color::WHITE);
+        Point().Draw(std::rand() % 250, std::rand() % 60, Color::BLACK);
+    }
 
     EndScene();
 }
@@ -38,30 +100,25 @@ void Display::Update()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawScreen()
 {
-//    if(PageIndication::calibration.Is(Calibration::Pressed))
-//    {
-//        Text("---Режим Калибровка---").Write(38, 5);
-//        Text("Нажмите ЭНК. для сохранения").Write(5, 15);
-//        Text("Нажмите любую клавишу для выхода").Write(5, 50);
-//    }
-//    else
-//    {
-//        DrawStatusBar();    
-//            
-//        DrawTypeMeasure();
-//        
-//        DrawModeMeasure();
-//    
-//        DrawHint();
-//    
-//        DrawChannelSettings();
-//    
-//        Menu::Draw();
-//    }
-    for (int i = 0; i < 100; i++)
+    if(PageIndication::calibration.Is(Calibration::Pressed))
     {
-        Point().Draw(std::rand() % 250, std::rand() % 60, Color::WHITE);
-        Point().Draw(std::rand() % 250, std::rand() % 60, Color::BLACK);
+        Text("---Режим Калибровка---").Write(38, 5);
+        Text("Нажмите ЭНК. для сохранения").Write(5, 15);
+        Text("Нажмите любую клавишу для выхода").Write(5, 50);
+    }
+    else
+    {
+        DrawStatusBar();    
+            
+        DrawTypeMeasure();
+        
+        DrawModeMeasure();
+    
+        DrawHint();
+    
+        DrawChannelSettings();
+    
+        Menu::Draw();
     }
 }
 
