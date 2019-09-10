@@ -109,7 +109,7 @@ void HAL::SPI1_::Init()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void HAL::SPI1_::Send(uint8 *data, uint16 num)
 {
-    HAL_SPI_Transmit(&handleSPI1, (uint8 *)data, num, HAL_MAX_DELAY);
+    HAL_SPI_Transmit(&handleSPI1, (uint8 *)data, num, 1000);
 }
 
 
