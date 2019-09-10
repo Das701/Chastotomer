@@ -69,35 +69,43 @@ void Display::Update()
 {
     BeginScene(Color::BLACK);
 
-    DrawScreen();
-
-    static int x = 0;
-    static int y = 0;
-
-    int sizeX = 8;
-    int sizeY = 3;
-
-    static Rectangle rect(sizeX, sizeY);
-
-    CalculateCoord(x, y, sizeX, sizeY);
-
-    rect.Fill(x, y, Color::WHITE);
-
-    rect.Draw(x, y + 5, Color::WHITE);
-
-    ///rect.Fill(0, 0, Color::WHITE);
-    ///rect.Fill(256 - 4, 0, Color::WHITE);
-    ///rect.Fill(0, 64 - 4, Color::WHITE);
-    ///rect.Fill(256 - 4, 64 - 4, Color::WHITE);
-
-    HLine line(200);
-
-    for (int y = 15; y < 50; y += 5)
+    for (int row = 0; row < 64; row++)
     {
-        line.Draw(50, y, Color::WHITE);
-        line.Draw(50, y + 1, Color::WHITE);
-        line.Draw(50, y + 2, Color::WHITE);
+        //if ((row % 2) == 0)
+        {
+            HLine(row * 4).Draw(0, row, Color::WHITE);
+        }
     }
+
+//    DrawScreen();
+//
+//    static int x = 0;
+//    static int y = 0;
+//
+//    int sizeX = 8;
+//    int sizeY = 3;
+//
+//    static Rectangle rect(sizeX, sizeY);
+//
+//    CalculateCoord(x, y, sizeX, sizeY);
+//
+//    rect.Fill(x, y, Color::WHITE);
+//
+//    rect.Draw(x, y + 5, Color::WHITE);
+//
+//    ///rect.Fill(0, 0, Color::WHITE);
+//    ///rect.Fill(256 - 4, 0, Color::WHITE);
+//    ///rect.Fill(0, 64 - 4, Color::WHITE);
+//    ///rect.Fill(256 - 4, 64 - 4, Color::WHITE);
+//
+//    HLine line(200);
+//
+//    for (int y = 15; y < 50; y += 5)
+//    {
+//        line.Draw(50, y, Color::WHITE);
+//        line.Draw(50, y + 1, Color::WHITE);
+//        line.Draw(50, y + 2, Color::WHITE);
+//    }
 
     EndScene();
 }
