@@ -70,6 +70,7 @@ static void SendData(uint8 *data, uint16 num);
 static void SendCommand(uint8 command);
 static void SendCommand(uint8 command, uint8 data);
 static void SendCommand(uint8 command, uint8 data0, uint8 data1);
+static void SendCommand(uint8 command, uint8 *data, uint16 num);
 
 /// В этом буфере будем рисовать. Ширина равна 256 / 2 потому, что в байте хранятся 2 пикселя с 1 из 16-ти возможных градация каждая.
 #define WIDTH_BUFFER    (256)
@@ -89,33 +90,35 @@ void Display::Init()
     Delay(500);
     SET_RES_HI;
     Delay(500);
-    SendCommand(COM_LOCK, 0x12);                    // unlock
-    
-    //SendCommand(COM_FRONT_CLOCK_DIV, 0x91);         // to 135 fps
-    SendCommand(COM_FRONT_CLOCK_DIV, 0x80 | 0x2);
-    SendCommand(COM_MUX_RATIO, 0x3F);               // set multiplex ratio
-    SendCommand(COM_REMAP_AND_DUAL, 0x14, 0x11);
-    SendCommand(COM_DISPLAY_OFFSET, 0x00);          // set display offset
-    SendCommand(COM_DISPLAY_START_LINE, 0x00);      // set display start line
-    SendCommand(COM_GPIO, 0x00);                    //disable IO intput
-    SendCommand(COM_FUNC_SELECT_VDD, 0x01);
-    SendCommand(COM_DEFAULT_GRAY_SCALE_TABLE);
-    SendCommand(COM_ENABLE_GRAY_SCALE_TABLE);
-    SendCommand(COM_PRECHARGE_VOLTAGE, 0x1F);
-    SendCommand(COM_CONTRAST, 0xFF);
-    SendCommand(COM_MASTER_CONTRAST, 0x0F);
-    SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0xa2, 0x05 | 0xfd);
-    SendCommand(COM_SECOND_PRECHARGE_T, 0);
 
-    SendCommand(COM_PHASE_LENGTH, 0x32);
-    
-    Delay(200);                                     //stabilize VDD
-    SendCommand(COM_SLEEP_MODE_OFF);
-    Delay(200);                                     //stabilize VDD
-    
-    SendCommand(COM_VCOMH, 0x00);
-    SendCommand(COM_DISPLAY_MODE_NORMAL);
-    //SendCommand(COM_DISPLAY_MODE_GS15);
+    SendCommand(COM_LOCK, 0x12);                        // CommandLock
+    SendCommand(COM_SLEEP_MODE_ON);                     // Sleep in
+    SendCommand(COM_FRONT_CLOCK_DIV, 0x91);             // Set Display Clock Divide Ratio/Oscillator Frequency
+    SendCommand(COM_MUX_RATIO, 0x3F);                   // Set Multipex Ratio
+    SendCommand(COM_DISPLAY_OFFSET, 0x00);              // Set display offset
+    SendCommand(COM_DISPLAY_START_LINE, 0x00);          // Set display start line
+    SendCommand(COM_REMAP_AND_DUAL, 0x14, 0x11);        // Set re-map & dual COM line mode
+    SendCommand(COM_GPIO, 0x00);                        // Set GPIO
+    SendCommand(COM_FUNC_SELECT_VDD, 0x01);             // Function selection
+    SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0xA2, 0xFD); // Enable external VSL
+    SendCommand(COM_CONTRAST, 0xFF);                    // Set contrast current
+    SendCommand(COM_MASTER_CONTRAST, 0x0F);             // Master contrast current control
+
+    uint8 data[16] =
+    {
+        0x00, 0x01, 0x03, 0x06, 0x0A, 0x10, 0x1A, 0x28,
+        0x37, 0x47, 0x58, 0x6A, 0x7F, 0x96, 0xB4
+    };
+
+    SendCommand(COM_GRAY_SCALE_TABLE, data, 15);
+    SendCommand(COM_ENABLE_GRAY_SCALE_TABLE);           // Enable gray scale table
+    SendCommand(COM_PHASE_LENGTH, 0xE8);                // Set phase length
+    SendCommand(COM_DISPLAY_ENHANCEMENT_B, 0x82, 0x20); // Enhance driving scheme capability
+    SendCommand(COM_PRECHARGE_VOLTAGE, 0x1F);           // Set pre-charge voltage
+    SendCommand(COM_SECOND_PRECHARGE_T, 0x08);          // Set second pre-charge period
+    SendCommand(COM_VCOMH, 0x07);                       // Set VCOMH deselect level
+    SendCommand(COM_DISPLAY_MODE_NORMAL);               // Set display mode
+    SendCommand(COM_SLEEP_MODE_OFF);                    // Sleep out
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -136,7 +139,7 @@ void Display::EndScene()
     for (int row = 0; row < HEIGHT_BUFFER; row++)
     {
         SendCommand(COM_COL_ADDRESS, 28, 127);      // Устанавливаем адреса начального и конечного столбца. Первое число задает начальный адрес, второе - конечный адрес.
-        SendCommand(COM_ROW_ADDRESS, HEIGHT_BUFFER - row - 1, HEIGHT_BUFFER - row - 1);     // Устанавливает адреса начальной и конечной строки. Первое число задает начальный адрес, второе - конечный адрес.
+        SendCommand(COM_ROW_ADDRESS, (uint8)(HEIGHT_BUFFER - row - 1), (uint8)(HEIGHT_BUFFER - row - 1));     // Устанавливает адреса начальной и конечной строки. Первое число задает начальный адрес, второе - конечный адрес.
 //        SendCommand(COM_ROW_ADDRESS, row, row);
         SendCommand(COM_WRITE_RAM);                 // Разрешаем микроконтроллеру записать данные в RAM.
 
@@ -201,4 +204,11 @@ static void SendCommand(uint8 command, uint8 data0, uint8 data1)
     SendCommand(command);
     SendData(data0);
     SendData(data1);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void SendCommand(uint8 command, uint8 *data, uint16 num)
+{
+    SendCommand(command);
+    SendData(data, num);
 }
