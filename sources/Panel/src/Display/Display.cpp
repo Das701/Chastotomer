@@ -6,6 +6,7 @@
 #include "Menu/Pages/PageIndication.h"
 #include "Text.h"
 #include "Menu/MenuItems.h"
+#include <cstdlib>
 
 
 using namespace Display::Primitives;
@@ -25,38 +26,43 @@ static void DrawChannelSettings();
 static void DrawScreen();
     
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//void Display::Update()
-//{
-//    BeginScene(Color::BLACK);
-//
-//    Rectangle(256, 64).Draw(0, 0, Color::WHITE);
-//
-//    DrawScreen();
-//
-//    EndScene();
-//}
+void Display::Update()
+{
+    BeginScene(Color::BLACK);
 
+    DrawScreen();
+
+    EndScene();
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawScreen()
 {
-    if(PageIndication::calibration.Is(Calibration::Pressed))
+    //if(PageIndication::calibration.Is(Calibration::Pressed))
+    //{
+    //    Text("---Режим Калибровка---").Write(38, 5);
+    //    Text("Нажмите ЭНК. для сохранения").Write(5, 15);
+    //    Text("Нажмите любую клавишу для выхода").Write(5, 50);
+    //}
+    //else
+    //{
+    //    DrawStatusBar();    
+    //        
+    //    DrawTypeMeasure();
+    //    
+    //    DrawModeMeasure();
+    //
+    //    DrawHint();
+    //
+    //    DrawChannelSettings();
+    //
+    //    Menu::Draw();
+    //}
+
+    for (int i = 0; i < 100; i++)
     {
-        Text("---Режим Калибровка---").Write(38, 5);
-        Text("Нажмите ЭНК. для сохранения").Write(5, 15);
-        Text("Нажмите любую клавишу для выхода").Write(5, 50);
-    }
-    else
-    {
-        DrawStatusBar();    
-            
-        DrawTypeMeasure();
-        
-        DrawModeMeasure();
-
-        DrawHint();
-
-        DrawChannelSettings();
-
-        Menu::Draw();
+        Point().Draw(std::rand() % 250, std::rand() % 60, Color::WHITE);
+        Point().Draw(std::rand() % 250, std::rand() % 60, Color::BLACK);
     }
 }
 
