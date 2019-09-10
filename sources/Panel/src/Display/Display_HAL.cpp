@@ -129,14 +129,14 @@ void Display::EndScene()
     for (int row = 0; row < HEIGHT_BUFFER; row++)
     {
         SendCommand(COM_COL_ADDRESS, 28, 127);      // Устанавливаем адреса начального и конечного столбца. Первое число задает начальный адрес, второе - конечный адрес.
-        SendCommand(COM_ROW_ADDRESS, row, row);     // Устанавливает адреса начальной и конечной строки. Первое число задает начальный адрес, второе - конечный адрес.
+        SendCommand(COM_ROW_ADDRESS, HEIGHT_BUFFER - row + 1, HEIGHT_BUFFER - row + 1);     // Устанавливает адреса начальной и конечной строки. Первое число задает начальный адрес, второе - конечный адрес.
         SendCommand(COM_WRITE_RAM);                 // Разрешаем микроконтроллеру записать данные в RAM.
 
         static uint8 line[128];
 
         for (int i = 0; i < WIDTH_BUFFER; i += 2)
         {
-            line[i / 2] = (uint8)(front[row][i + 1] | (front[row][i] << 4));
+            line[128 - 1 - i / 2] = (uint8)(front[row][i] | (front[row][i + 1] << 4));
         }
 
         SendData(line, 128);
