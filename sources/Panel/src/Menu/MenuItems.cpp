@@ -37,29 +37,30 @@ bool Button::OnControl(const Control &control)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Button::Draw(int x, int y)
+void Button::Draw(int x, int y, bool selected)
 {
+    if (selected)
+    {
+        Color::BLACK.SetAsCurrent();
+    }
     Text(text).Write(x, WIDTH, y + 2);
 }
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Page::Draw(int x, int y)
+void Page::Draw(int x, int y, bool)
 {
     if (items)
     {
         for (int i = 0; items[i] != 0; i++)
         {
-            Color color = Color::WHITE;
-        
             if (i == selectedItem)
             {
-                color = Color::_10;
-                Rectangle(WIDTH - 2, HEIGHT - 2).Draw(x + 1, y + 1, color);
+                Rectangle(WIDTH - 2, HEIGHT - 1).Fill(x + 1, y + 1, Color::_14);
             }
         
-            Rectangle(WIDTH, HEIGHT).Draw(x, y, color);
-            items[i]->Draw(x, y);
+            Rectangle(WIDTH, HEIGHT).Draw(x, y, Color::WHITE);
+            items[i]->Draw(x, y, i == selectedItem);
             x += Item::WIDTH + 2;
         }
     }
@@ -146,8 +147,12 @@ bool Switch::OnControl(const Control &control)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Switch::Draw(int x, int y)
+void Switch::Draw(int x, int y, bool selected)
 {
+    if(selected)
+    {
+        Color::BLACK.SetAsCurrent();
+    }
     Text(text).Write(x, WIDTH, y + 2);
 }
 

@@ -113,74 +113,41 @@ void Display::Init()
     Delay(500);
     SET_RES_HI;
     Delay(500);
-    SendCommand(COM_LOCK, 0x12);                    // unlock
 
-    Delay(500);                                     //stabilize VDD
+    SendCommand(COM_LOCK, 0x12);        // Разблокировка команд
+
+    Delay(500);                         //stabilize VDD
     SendCommand(COM_SLEEP_MODE_OFF);
-    Delay(500);                                     //stabilize VDD
-    //                           частота  | коэффициент деления
-    SendCommand(COM_FRONT_CLOCK_DIV, 0x01 | 0x00);
-    SendCommand(COM_MUX_RATIO, 0x3F);               // set multiplex ratio
-    SendCommand(COM_REMAP_AND_DUAL, 0x14, 0x11);
-    SendCommand(COM_DISPLAY_OFFSET, 0x00);          // set display offset
-    SendCommand(COM_DISPLAY_START_LINE, 0x00);      // set display start line
-    SendCommand(COM_GPIO, 0x00);                    //disable IO intput
-    SendCommand(COM_FUNC_SELECT_VDD, 0x01);
-    SendCommand(COM_DEFAULT_GRAY_SCALE_TABLE);
-    SendCommand(COM_ENABLE_GRAY_SCALE_TABLE);
-    SendCommand(COM_PRECHARGE_VOLTAGE, 0x1F);
-    SendCommand(COM_CONTRAST, 0xFF);
-    SendCommand(COM_MASTER_CONTRAST, 0x03);
-    //SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0xa2, 0x05 | 0xfd);
-    SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0xa2, 0xfd);
-    SendCommand(COM_SECOND_PRECHARGE_T, 0x00);
+    Delay(500);                         //stabilize VDD
 
-    SendCommand(COM_PHASE_LENGTH, 0xFF);
-       
-    SendCommand(COM_DISPLAY_MODE_GS15);
-    
-    SendCommand(COM_VCOMH, 0x00);
-  
-    
-//    CS_CLOSE;
-//    
-//    Delay(500);
-//    SET_RES_HI;
-//    Delay(500);
-//    SET_RES_LOW;
-//    Delay(500);
-//    SET_RES_HI;
-//    Delay(500);
-//
-//    SendCommand(COM_LOCK, 0x12);                        // CommandLock
-//    SendCommand(COM_SLEEP_MODE_ON);                     // Sleep in
-//    //SendCommand(COM_FRONT_CLOCK_DIV, 0x91);             // Set Display Clock Divide Ratio/Oscillator Frequency
-//    SendCommand(COM_FRONT_CLOCK_DIV, 0x02 | 0x00);
-//    SendCommand(COM_MUX_RATIO, 0x3F);                   // Set Multipex Ratio
-//    SendCommand(COM_DISPLAY_OFFSET, 0x00);              // Set display offset
-//    SendCommand(COM_DISPLAY_START_LINE, 0x00);          // Set display start line
-//    SendCommand(COM_REMAP_AND_DUAL, 0x14, 0x11);        // Set re-map & dual COM line mode
-//    SendCommand(COM_GPIO, 0x00);                        // Set GPIO
-//    SendCommand(COM_FUNC_SELECT_VDD, 0x01);             // Function selection
-//    SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0xA2, 0xFD); // Enable external VSL
-//    SendCommand(COM_CONTRAST, 0x3F);                    // Set contrast current
-//    SendCommand(COM_MASTER_CONTRAST, 0x0F);             // Master contrast current control
-//
-//    uint8 data[16] =
-//    {
-//        0x00, 0x01, 0x03, 0x06, 0x0A, 0x10, 0x1A, 0x28,
-//        0x37, 0x47, 0x58, 0x6A, 0x7F, 0x96, 0xB4
-//    };
-//
-//    SendCommand(COM_GRAY_SCALE_TABLE, data, 15);
-//    SendCommand(COM_ENABLE_GRAY_SCALE_TABLE);           // Enable gray scale table
-//    SendCommand(COM_PHASE_LENGTH, 0xE8);                // Set phase length
-//    SendCommand(COM_DISPLAY_ENHANCEMENT_B, 0x82, 0x20); // Enhance driving scheme capability
-//    SendCommand(COM_PRECHARGE_VOLTAGE, 0x1F);           // Set pre-charge voltage
-//    SendCommand(COM_SECOND_PRECHARGE_T, 0x08);          // Set second pre-charge period
-//    SendCommand(COM_VCOMH, 0x07);                       // Set VCOMH deselect level
-//    SendCommand(COM_DISPLAY_MODE_INVERSE);               // Set display mode
-//    SendCommand(COM_SLEEP_MODE_OFF);                    // Sleep out
+    SendCommand(COM_FRONT_CLOCK_DIV, 0x90 | 0x01);  // 0x90 - Частота генератора, 0x01 - коэффициент деления частоты генератора
+
+    SendCommand(COM_MUX_RATIO, 0x3F);               // Переключения режима мультиплексирования
+
+    SendCommand(COM_DISPLAY_MODE_NORMAL);             // Зажигаем все точки
+
+    SendCommand(COM_DISPLAY_OFFSET, 0x00);          // Устновка смещения дисплея
+
+    SendCommand(COM_DISPLAY_START_LINE, 0x00);      // Установка начальной строки дисплея
+
+    SendCommand(COM_REMAP_AND_DUAL, 0x14, 0x11);    // 
+
+    SendCommand(COM_GPIO, 0x00);
+
+    SendCommand(COM_FUNC_SELECT_VDD, 0x01);
+
+    SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0xA2, 0x05 | 0xFD);
+
+    SendCommand(COM_CONTRAST, 0xFF);
+
+    SendCommand(COM_MASTER_CONTRAST, 0x0F);
+
+    //uint8 data[] = { 0x00, 0x01, 0x03, 0x06, 0x0a, 0x10, 0x1a, 0x28, 0x37, 0x47, 0x58, 0x6a, 0x7f, 0x96, 0xb4 };
+    uint8 data[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb6, 0xb6 };
+
+    SendCommand(COM_GRAY_SCALE_TABLE, data, 15);
+
+    SendCommand(COM_ENABLE_GRAY_SCALE_TABLE);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

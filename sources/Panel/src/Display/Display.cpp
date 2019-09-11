@@ -172,11 +172,11 @@ void Display::Update()
 {
     BeginScene(Color::BLACK);
 
-    //Func2();
+    Func2();
     
     Func3();
     
-    func();
+    //func();
 
     EndScene();
     

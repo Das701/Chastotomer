@@ -24,7 +24,7 @@ class Item
 {
 public:
     /// Функция отрисовки
-    virtual void Draw(int x, int y) = 0;
+    virtual void Draw(int x, int y, bool selected = false) = 0;
     /// Функция обработки нажатия кнопки/поворота ручки
     virtual bool OnControl(const Control &control) { return false; };
     
@@ -49,7 +49,7 @@ class Button : public Item
 public:
     Button(char *_text) : text(_text){};
 
-    virtual void Draw(int x, int y);
+    virtual void Draw(int x, int y, bool selected = false);
     virtual bool OnControl(const Control &control);
     
 private:
@@ -69,7 +69,7 @@ public:
         state->ugo = _ugo;
         commonHint = _comHint;
     };
-    virtual void Draw(int x, int y);
+    virtual void Draw(int x, int y, bool selected = false);
     virtual bool OnControl(const Control &control);
 
 private:
@@ -87,7 +87,7 @@ class Page : public Item
 public:
     Page(Item **_items = nullptr) : items(_items), selectedItem(0) {};
 
-    virtual void Draw(int x, int y);
+    virtual void Draw(int x, int y, bool selected = false);
     virtual bool OnControl(const Control &control);    
     /// Возвращает указатель на выделенный пункт меню
     Item *SelectedItem() { return items[selectedItem]; };
