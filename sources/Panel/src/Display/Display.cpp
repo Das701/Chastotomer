@@ -55,59 +55,147 @@ static void CalculateCoord(int &x, int &y, int sizeX, int sizeY)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void Delay(uint ms)
+//static void Delay(uint ms)
+//{
+//    uint timestamp = HAL_GetTick();
+//    while (HAL_GetTick() - timestamp < ms)
+//    {
+//    }
+//}
+
+extern void InverseMode();
+
+void Func1()
 {
-    uint timestamp = HAL_GetTick();
-    while (HAL_GetTick() - timestamp < ms)
+    for (int row = 0; row < 64; row++)
     {
+        if ((row % 3) == 0)
+        {
+            HLine(row * 4).Draw(0, row, Color::WHITE);
+        }
     }
 }
 
+void Func2()
+{
+    DrawScreen();
+}
+
+void Func3()
+{
+    static int x = 0;
+    static int y = 0;
+
+    int sizeX = 8;
+    int sizeY = 3;
+
+    static Rectangle rect(sizeX, sizeY);
+
+    CalculateCoord(x, y, sizeX, sizeY);
+
+    rect.Fill(x, y, Color::WHITE);
+
+    rect.Draw(x, y + 5, Color::WHITE);
+}
+
+void Func4()
+{
+    HLine line(205);
+
+    for (int y = 15; y < 50; y += 5)
+    {
+        line.Draw(50, y, Color::WHITE);
+        line.Draw(50, y + 1, Color::WHITE);
+        line.Draw(50, y + 2, Color::WHITE);
+        line.Draw(50, y + 3, Color::WHITE);
+        line.Draw(50, y + 4, Color::WHITE);
+    }
+}
+
+void Func5()
+{
+    for(int y = 15; y < 50; y++)
+    {
+        HLine((y - 15) * 6).Draw(50, y, Color::WHITE);
+    }
+}
+
+
+void(*func)() = Func4;
+
+
+//void Display::Update()
+//{
+//    BeginScene(Color::BLACK);
+//    
+//    static bool forward = true;
+//    static float delta = 0.1F;
+//    for (int y = 15; y < 50; y++)
+//    {
+//        int length = (y - 15) * delta;
+//        if (length > 255)
+//        {
+//            length = 255;
+//        }
+//        HLine(length).Draw(0, y, Color::WHITE);
+//    }
+//    
+//    delta += 0.1F;
+//    
+//    if(forward)
+//    {
+//        delta += 0.1F;
+//        if(delta > 100.
+//    }
+//    else
+//    {
+//    }
+//    
+//    EndScene();
+//}
+
+extern void ChangeFrequency();
+
+void ChangeFreq()
+{
+    static uint timeStamp = 0;
+    
+    if(HAL_GetTick() - timeStamp > 2000)
+    {
+        timeStamp = HAL_GetTick();
+        ChangeFrequency();
+    }
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Update()
 {
     BeginScene(Color::BLACK);
 
-    for (int row = 0; row < 64; row++)
-    {
-        //if ((row % 2) == 0)
-        {
-            HLine(row * 4).Draw(0, row, Color::WHITE);
-        }
-    }
-
-//    DrawScreen();
-//
-//    static int x = 0;
-//    static int y = 0;
-//
-//    int sizeX = 8;
-//    int sizeY = 3;
-//
-//    static Rectangle rect(sizeX, sizeY);
-//
-//    CalculateCoord(x, y, sizeX, sizeY);
-//
-//    rect.Fill(x, y, Color::WHITE);
-//
-//    rect.Draw(x, y + 5, Color::WHITE);
-//
-//    ///rect.Fill(0, 0, Color::WHITE);
-//    ///rect.Fill(256 - 4, 0, Color::WHITE);
-//    ///rect.Fill(0, 64 - 4, Color::WHITE);
-//    ///rect.Fill(256 - 4, 64 - 4, Color::WHITE);
-//
-//    HLine line(200);
-//
-//    for (int y = 15; y < 50; y += 5)
-//    {
-//        line.Draw(50, y, Color::WHITE);
-//        line.Draw(50, y + 1, Color::WHITE);
-//        line.Draw(50, y + 2, Color::WHITE);
-//    }
+    //Func2();
+    
+    Func3();
+    
+    func();
 
     EndScene();
+    
+    static uint timeStamp = 0;
+    
+    static const uint d = 2000;
+    
+    uint dT = HAL_GetTick() - timeStamp;
+    
+    if(dT > d && func == Func4)
+    {
+        func = Func5;
+    }
+    else if(dT > 2 * d)
+    {
+        func = Func4;
+        timeStamp = HAL_GetTick();
+     //   InverseMode();
+    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
