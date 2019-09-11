@@ -64,6 +64,8 @@
 
 using namespace Display::Primitives;
 
+static void ClearScreen();
+
 static void Delay(uint ms);
 static void SendData(uint8 data);
 static void SendData(uint8 *data, uint16 num);
@@ -124,7 +126,7 @@ void Display::Init()
 
     SendCommand(COM_MUX_RATIO, 0x3F);               // Переключения режима мультиплексирования
 
-    SendCommand(COM_DISPLAY_MODE_NORMAL);             // Зажигаем все точки
+    SendCommand(COM_DISPLAY_MODE_NORMAL);           // Зажигаем все точки
 
     SendCommand(COM_DISPLAY_OFFSET, 0x00);          // Устновка смещения дисплея
 
@@ -142,12 +144,23 @@ void Display::Init()
 
     SendCommand(COM_MASTER_CONTRAST, 0x0F);
 
-    //uint8 data[] = { 0x00, 0x01, 0x03, 0x06, 0x0a, 0x10, 0x1a, 0x28, 0x37, 0x47, 0x58, 0x6a, 0x7f, 0x96, 0xb4 };
-    uint8 data[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb6, 0xb6 };
+    uint8 data[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xED, 0xED };
 
     SendCommand(COM_GRAY_SCALE_TABLE, data, 15);
 
     SendCommand(COM_ENABLE_GRAY_SCALE_TABLE);
+
+    SendCommand(COM_PHASE_LENGTH, 0xFF);                        // От этой величины зависит отражение изображения на предыдущую строку
+
+    SendCommand(COM_DISPLAY_ENHANCEMENT_B, 0x82, 0x20);
+
+    SendCommand(COM_PRECHARGE_VOLTAGE, 0x1F);
+
+    SendCommand(COM_SECOND_PRECHARGE_T, 0x0F);
+
+    SendCommand(COM_VCOMH, 0x00);
+    
+    ClearScreen();
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -169,7 +182,6 @@ void Display::EndScene()
     {
         SendCommand(COM_COL_ADDRESS, 28, 91);      // Устанавливаем адреса начального и конечного столбца. Первое число задает начальный адрес, второе - конечный адрес.
         SendCommand(COM_ROW_ADDRESS, (uint8)(HEIGHT_BUFFER - row - 1), (uint8)(HEIGHT_BUFFER - row - 1));     // Устанавливает адреса начальной и конечной строки. Первое число задает начальный адрес, второе - конечный адрес.
-//        SendCommand(COM_ROW_ADDRESS, row, row);
         SendCommand(COM_WRITE_RAM);                 // Разрешаем микроконтроллеру записать данные в RAM.
 
         static uint8 line[128];
@@ -177,8 +189,27 @@ void Display::EndScene()
         for (int i = 0; i < WIDTH_BUFFER; i += 2)
         {
             line[127 - i / 2] = (uint8)(front[row][i] | (front[row][i + 1] << 4));
-            //line[i / 2] = (uint8)(front[row][i + 1] | (front[row][i] << 4));
         }
+
+        SendData(line, 128);
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void ClearScreen()
+{
+    static uint8 line[128];
+
+    for (int i = 0; i < 128; i++)
+    {
+        line[i] = 0;
+    }
+
+    for (int row = 0; row < HEIGHT_BUFFER; row++)
+    {
+        SendCommand(COM_COL_ADDRESS, 28, 91);
+        SendCommand(COM_ROW_ADDRESS, (uint8)row, (uint8)row);
+        SendCommand(COM_WRITE_RAM);
 
         SendData(line, 128);
     }

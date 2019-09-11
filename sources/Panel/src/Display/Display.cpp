@@ -95,7 +95,7 @@ void Func3()
 
     rect.Fill(x, y, Color::WHITE);
 
-    rect.Draw(x, y + 5, Color::WHITE);
+    rect.Fill(x, y + 5, Color::WHITE);
 }
 
 void Func4()
@@ -209,6 +209,8 @@ static void DrawScreen()
     }
     else
     {
+        Rectangle(255, 63).Draw(0, 0, Color::WHITE);
+
         DrawStatusBar();    
             
         DrawTypeMeasure();
@@ -232,10 +234,11 @@ void DrawChannelSettings()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawTypeMeasure()
 {
-    int x = 5;
+    int x = 0;
+    int y = 0;
     int width = 25; 
-    Text(PageModes::typeMeasure.ToText()).Write(x, width, 10);
-    Rectangle(width, 18).Draw(x, 5, Color::WHITE);
+    Text(PageModes::typeMeasure.ToText()).Write(x, width, y + 5);
+    Rectangle(width, 18).Draw(x, y, Color::WHITE);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -292,8 +295,8 @@ static void DrawStatusBar()
 
     const Enumeration *toText = enums[PageModes::typeMeasure][mode->value];
 
-    int y = 45;
-    int x = 2;
+    int y = 48;
+    int x = 0;
     int width = 31;
 
     if (toText)
