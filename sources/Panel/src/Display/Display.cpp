@@ -178,6 +178,11 @@ void Display::Update()
     
     //func();
 
+    for (int y = 0; y < 64; y += 4)
+    {
+        HLine(2).Draw(0, y);
+    }
+
     EndScene();
     
     static uint timeStamp = 0;

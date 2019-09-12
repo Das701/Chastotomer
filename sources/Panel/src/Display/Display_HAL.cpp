@@ -68,7 +68,6 @@ static void ClearScreen();
 
 static void Delay(uint ms);
 static void SendData(uint8 data);
-static void SendData(uint8 *data, uint16 num);
 static void SendCommand(uint8 command);
 static void SendCommand(uint8 command, uint8 data);
 static void SendCommand(uint8 command, uint8 data0, uint8 data1);
@@ -78,6 +77,9 @@ static void SendCommand(uint8 command, uint8 *data, uint16 num);
 #define WIDTH_BUFFER    (256)
 #define HEIGHT_BUFFER   (64)
 static uint8 front[HEIGHT_BUFFER][WIDTH_BUFFER];
+
+/// Данные одной строки
+static uint8 line[128];
 
 
 void InverseMode()
@@ -124,7 +126,7 @@ void Display::Init()
 
     SendCommand(COM_FRONT_CLOCK_DIV, 0x90 | 0x01);  // 0x90 - Частота генератора, 0x01 - коэффициент деления частоты генератора
 
-    SendCommand(COM_MUX_RATIO, 0x3F);               // Переключения режима мультиплексирования
+    SendCommand(COM_MUX_RATIO, 0x40);               // Переключения режима мультиплексирования
 
     SendCommand(COM_DISPLAY_MODE_NORMAL);           // Зажигаем все точки
 
@@ -138,7 +140,7 @@ void Display::Init()
 
     SendCommand(COM_FUNC_SELECT_VDD, 0x01);
 
-    SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0xA2, 0x05 | 0xFD);
+    SendCommand(COM_DISPLAY_ENHANCEMENT_A, 0xA2, 0xFD);
 
     SendCommand(COM_CONTRAST, 0xFF);
 
@@ -160,6 +162,8 @@ void Display::Init()
 
     SendCommand(COM_VCOMH, 0x00);
     
+    SendCommand(COM_COL_ADDRESS, 28, 91);
+
     ClearScreen();
 }
 
@@ -176,42 +180,51 @@ void Display::BeginScene(Color color)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void SendData(uint8 *data, uint16 num)
+{
+    CS_OPEN;
+    SET_DC_DATA;
+    HAL::SPI1_::Send(data, num);
+    CS_CLOSE;
+}
+
+////-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void SendDataScreen(uint8 row, uint8 *data, uint16 num)
+{
+    SendCommand(COM_ROW_ADDRESS, row, row);     // Устанавливает адреса начальной и конечной строки. Первое число задает начальный адрес, второе - конечный адрес.
+    SendCommand(COM_WRITE_RAM);                 // Разрешаем микроконтроллеру записать данные в RAM.
+    SendData(data, num);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::EndScene()
 {
-    for (int row = 0; row < HEIGHT_BUFFER; row++)
+    for (int row = 1; row < HEIGHT_BUFFER; row++)
     {
-        SendCommand(COM_COL_ADDRESS, 28, 91);      // Устанавливаем адреса начального и конечного столбца. Первое число задает начальный адрес, второе - конечный адрес.
-        SendCommand(COM_ROW_ADDRESS, (uint8)(HEIGHT_BUFFER - row - 1), (uint8)(HEIGHT_BUFFER - row - 1));     // Устанавливает адреса начальной и конечной строки. Первое число задает начальный адрес, второе - конечный адрес.
-        SendCommand(COM_WRITE_RAM);                 // Разрешаем микроконтроллеру записать данные в RAM.
-
-        static uint8 line[128];
-
         for (int i = 0; i < WIDTH_BUFFER; i += 2)
         {
             line[127 - i / 2] = (uint8)(front[row][i] | (front[row][i + 1] << 4));
         }
 
-        SendData(line, 128);
+        SendDataScreen((uint8)(HEIGHT_BUFFER - row), line, 128);
     }
+
+    for (int i = 0; i < WIDTH_BUFFER; i += 2)
+    {
+        line[127 - i / 2] = (uint8)(front[0][i] | (front[0][i + 1] << 4));
+    }
+
+    SendDataScreen(0, line, 128);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void ClearScreen()
 {
-    static uint8 line[128];
-
-    for (int i = 0; i < 128; i++)
-    {
-        line[i] = 0;
-    }
+    std::memset(line, 0, 128);
 
     for (int row = 0; row < HEIGHT_BUFFER; row++)
     {
-        SendCommand(COM_COL_ADDRESS, 28, 91);
-        SendCommand(COM_ROW_ADDRESS, (uint8)row, (uint8)row);
-        SendCommand(COM_WRITE_RAM);
-
-        SendData(line, 128);
+        SendDataScreen((uint8)row, line, 128);
     }
 }
 
@@ -239,15 +252,6 @@ static void SendData(uint8 data)
     CS_OPEN;
     SET_DC_DATA;
     HAL::SPI1_::Send(&data, 1);
-    CS_CLOSE;
-}
-
-////-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void SendData(uint8 *data, uint16 num)
-{
-    CS_OPEN;
-    SET_DC_DATA;
-    HAL::SPI1_::Send(data, num);
     CS_CLOSE;
 }
 
