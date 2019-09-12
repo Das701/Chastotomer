@@ -82,30 +82,6 @@ static uint8 front[HEIGHT_BUFFER][WIDTH_BUFFER];
 static uint8 line[128];
 
 
-void InverseMode()
-{
-    static bool isInverse = false;
-
-    SendCommand(isInverse ? (uint8)(COM_DISPLAY_MODE_NORMAL) : (uint8)(COM_DISPLAY_MODE_INVERSE));
-    
-    isInverse = !isInverse;
-}
-
-void ChangeFrequency()
-{
-    static uint freq = 255;
-    
-    
-    SendCommand(COM_FRONT_CLOCK_DIV, (uint8)freq);
-    
-    freq--;
-    
-    if(freq == 0)
-    {
-        freq = 0;
-    }
-}
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Init()
 {
@@ -197,22 +173,25 @@ static void SendDataScreen(uint8 row, uint8 *data, uint16 num)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static void CreateLine(int row)
+{
+    for (int i = 0; i < WIDTH_BUFFER; i += 2)
+    {
+        line[127 - i / 2] = (uint8)(front[row][i] | (front[row][i + 1] << 4));
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::EndScene()
 {
     for (int row = 1; row < HEIGHT_BUFFER; row++)
     {
-        for (int i = 0; i < WIDTH_BUFFER; i += 2)
-        {
-            line[127 - i / 2] = (uint8)(front[row][i] | (front[row][i + 1] << 4));
-        }
+        CreateLine(row);
 
         SendDataScreen((uint8)(HEIGHT_BUFFER - row), line, 128);
     }
 
-    for (int i = 0; i < WIDTH_BUFFER; i += 2)
-    {
-        line[127 - i / 2] = (uint8)(front[0][i] | (front[0][i + 1] << 4));
-    }
+    CreateLine(0);
 
     SendDataScreen(0, line, 128);
 }
