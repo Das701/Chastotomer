@@ -12,7 +12,7 @@ include_directories( src
                      ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Inc
                     )
 
-add_definitions(-DSTM32F401xE)
+add_definitions(-DSTM32F429xx)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 

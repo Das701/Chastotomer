@@ -10,7 +10,7 @@ int main(void)
 {
     HAL::Init();
     Display::Init();
-    //Keyboard::Init();
+    Keyboard::Init();
     Menu::Init();
 
     while (1)

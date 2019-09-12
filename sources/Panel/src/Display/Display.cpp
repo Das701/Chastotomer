@@ -99,11 +99,11 @@ static void DrawScreen()
         DrawTypeMeasure();
         
         DrawModeMeasure();
-    
+        
         DrawHint();
-    
+        
         DrawChannelSettings();
-
+        
         Menu::Draw();
     }
 }

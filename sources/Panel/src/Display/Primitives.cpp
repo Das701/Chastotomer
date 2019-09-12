@@ -74,6 +74,6 @@ void VLine::Draw(int x, int y, Color color)
     for (int i = 0; i < length; i++)
     {
         *p = value;
-        p += 256;
+        p += 320;
     }
 }
