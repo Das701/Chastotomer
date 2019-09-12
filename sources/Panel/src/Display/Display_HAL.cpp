@@ -66,7 +66,7 @@ using namespace Display::Primitives;
 
 static void ClearScreen();
 
-static void Delay(uint ms);
+//static void Delay(uint ms);
 static void SendData(uint8 data);
 static void SendCommand(uint8 command);
 static void SendCommand(uint8 command, uint8 data);
@@ -86,19 +86,14 @@ static uint8 line[128];
 void Display::Init()
 {
     CS_CLOSE;
-    Delay(500);
     SET_RES_HI;
-    Delay(500);
     SET_RES_LOW;
-    Delay(500);
+    HAL_Delay(100);
     SET_RES_HI;
-    Delay(500);
 
     SendCommand(COM_LOCK, 0x12);        // Разблокировка команд
 
-    Delay(500);                         //stabilize VDD
     SendCommand(COM_SLEEP_MODE_OFF);
-    Delay(500);                         //stabilize VDD
 
     SendCommand(COM_FRONT_CLOCK_DIV, 0x90 | 0x01);  // 0x90 - Частота генератора, 0x01 - коэффициент деления частоты генератора
 
@@ -204,15 +199,6 @@ static void ClearScreen()
     for (int row = 0; row < HEIGHT_BUFFER; row++)
     {
         SendDataScreen((uint8)row, line, 128);
-    }
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void Delay(uint ms)
-{
-    uint timestamp = HAL_GetTick();
-    while (HAL_GetTick() - timestamp < ms)
-    {
     }
 }
 
