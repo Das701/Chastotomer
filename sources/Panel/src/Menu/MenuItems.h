@@ -32,14 +32,14 @@ public:
     static const int HEIGHT = 11;
     /// «десь хранитс€ полна€ подсказка дл€ последнего использованного итема
     char* Hint();
-
+    static char * syncMass;
 protected:
     /// ќбща€ часть подсказки
     char *commonHint;
     static char hint[100];
     static uint timestamp;
     static int syncValue;
-    char * syncUgo;
+    
 };
 
 

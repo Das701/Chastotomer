@@ -16,6 +16,7 @@ char Item::hint[100];
 uint Item::timestamp = 0;
 char emptyMass[100]= { 0 };
 int Item::syncValue = 1240;
+char * Item::syncMass;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int Enumeration::NumStates() const
@@ -66,6 +67,36 @@ void Page::Draw(int x, int y, bool)
     }
 }
 
+
+void itoa (int n, char * syncMass) 
+{
+
+    char c;
+ 
+//        if (n < 0) { //turns n positive
+//               n = (-1 * n);
+//                u = "-"; //adds '-' on result string
+//        }
+ 
+    int i=0; //s counter
+    
+    do 
+    {
+        syncMass[i++]= n%10 + '0'; //conversion of each digit of n to char
+        n -= n%10; //update n value
+    }
+    
+    while ((n /= 10) > 0);
+    
+    for(int j = 0; j<i; j++, i--)
+    {
+        c = syncMass[j];
+        syncMass[j] = syncMass[i];
+        syncMass[i] = c;
+        
+    }
+}
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool Page::OnControl(const Control &control)
 {
@@ -75,7 +106,7 @@ bool Page::OnControl(const Control &control)
         if( PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
         {
             syncValue = syncValue + 20;
-            //syncUgo = to_string(syncValue);
+            itoa(syncValue, Item::syncMass);
         }
         else
         {
@@ -124,6 +155,8 @@ void Page::SelectPrevItem()
 {
     Math::CircleDecrease<int>(&selectedItem, 0, NumItems() - 1);
 }
+
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

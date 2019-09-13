@@ -103,7 +103,8 @@ char *Menu::ChannelSettings()
         ADD_UGO(PageChannelA::modeFilter.UGO());
         ADD_UGO(PageChannelA::modeFront.UGO());
         ADD_UGO(PageChannelA::divider.UGO());
-        ADD_UGO(PageChannelA::levelSynch.UGO());        
+        ADD_UGO(PageChannelA::levelSynch.UGO());    
+        std::strcat(settings, Item::syncMass);
     }
     else if(openedPage == PageChannelB::self)
     {
