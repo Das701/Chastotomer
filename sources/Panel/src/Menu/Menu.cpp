@@ -9,6 +9,8 @@
 #include "Menu/Pages/PageChannelB.h"
 #include "Menu/Pages/PageChannelC.h"
 #include "Menu/Pages/PageChannelD.h"
+#include "Settings.h"
+#include "Utils/String.h"
 #include <cstring>
 
 
@@ -19,7 +21,6 @@ static bool OpenPage(Control control);
 
 /// Текущая отображаемая страница меню
 static Page *openedPage = PageModes::self;
-
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,8 +104,9 @@ char *Menu::ChannelSettings()
         ADD_UGO(PageChannelA::modeFilter.UGO());
         ADD_UGO(PageChannelA::modeFront.UGO());
         ADD_UGO(PageChannelA::divider.UGO());
-        ADD_UGO(PageChannelA::levelSynch.UGO());    
-        std::strcat(settings, Item::syncMass);
+        ADD_UGO(PageChannelA::levelSynch.UGO());
+        char buffer[20];
+        std::strcat(settings, Int2String(set.syncValue, buffer));
     }
     else if(openedPage == PageChannelB::self)
     {
@@ -114,7 +116,7 @@ char *Menu::ChannelSettings()
         ADD_UGO(PageChannelB::modeFilter.UGO());
         ADD_UGO(PageChannelB::modeFront.UGO());
         ADD_UGO(PageChannelB::divider.UGO());
-        ADD_UGO(PageChannelB::levelSynch.UGO()); 
+        ADD_UGO(PageChannelB::levelSynch.UGO());
     }
     else if(openedPage == PageChannelC::self)
     {

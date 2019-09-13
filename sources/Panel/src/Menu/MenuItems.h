@@ -15,7 +15,6 @@ struct Enumeration
     char *UGO() const { return ugo[value]; }
     int NumStates() const;
     bool Is(uint8 v) const { return value == v; }
-    
 };
 
 
@@ -32,14 +31,13 @@ public:
     static const int HEIGHT = 11;
     /// Здесь хранится полная подсказка для последнего использованного итема
     char* Hint();
-    static char * syncMass;
 protected:
-    /// Общая часть подсказки
+    /// Общая часть подсказки для данного итема
     char *commonHint;
+    /// Полный текст подсказки для последнего использованного итема
     static char hint[100];
-    static uint timestamp;
-    static int syncValue;
-    
+    /// Время окончания отображения подсказки
+    static uint timeStopHint;
 };
 
 
@@ -101,7 +99,6 @@ private:
     int NumItems();
     /// Указатель на массив элементов меню. Заканчивается нулём.
     Item **items;
-    
-
+    /// Номер выбранного итема
     int selectedItem;
 };

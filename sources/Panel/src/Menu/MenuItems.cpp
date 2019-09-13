@@ -4,19 +4,20 @@
 #include "Display/Text.h"
 #include "Utils/Math.h"
 #include "Menu/Pages/PageModes.h"
-#include <cstring>
-#include <string>
 #include "stm32f4xx_hal.h"
 #include "Menu/Pages/PageChannelA.h"
+#include "Utils/String.h"
+#include "Settings.h"
+#include <cstring>
+#include <string>
+
 
 using namespace Display::Primitives;
 using namespace Display;
 
 char Item::hint[100];
-uint Item::timestamp = 0;
-char emptyMass[100]= { 0 };
-int Item::syncValue = 1240;
-char * Item::syncMass;
+uint Item::timeStopHint = 0;
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int Enumeration::NumStates() const
@@ -67,36 +68,6 @@ void Page::Draw(int x, int y, bool)
     }
 }
 
-
-void itoa (int n, char * syncMass) 
-{
-
-    char c;
- 
-//        if (n < 0) { //turns n positive
-//               n = (-1 * n);
-//                u = "-"; //adds '-' on result string
-//        }
- 
-    int i=0; //s counter
-    
-    do 
-    {
-        syncMass[i++]= n%10 + '0'; //conversion of each digit of n to char
-        n -= n%10; //update n value
-    }
-    
-    while ((n /= 10) > 0);
-    
-    for(int j = 0; j<i; j++, i--)
-    {
-        c = syncMass[j];
-        syncMass[j] = syncMass[i];
-        syncMass[i] = c;
-        
-    }
-}
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool Page::OnControl(const Control &control)
 {
@@ -105,8 +76,7 @@ bool Page::OnControl(const Control &control)
     case Control::Right:
         if( PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
         {
-            syncValue = syncValue + 20;
-            itoa(syncValue, Item::syncMass);
+            set.syncValue += 20;
         }
         else
         {
@@ -117,7 +87,7 @@ bool Page::OnControl(const Control &control)
     case Control::Left:
         if( PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
         {
-            syncValue = syncValue - 20;
+            set.syncValue -= 20;
         }
         else
         {
@@ -126,7 +96,7 @@ bool Page::OnControl(const Control &control)
         return true;
 
     case Control::GovButton: 
-        timestamp = HAL_GetTick() + 5000;
+        timeStopHint = HAL_GetTick() + 5000;
         return SelectedItem()->OnControl(control);
     }
 
@@ -155,8 +125,6 @@ void Page::SelectPrevItem()
 {
     Math::CircleDecrease<int>(&selectedItem, 0, NumItems() - 1);
 }
-
-
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -197,15 +165,9 @@ void Switch::CreateHint()
     std::strcat(hint, state->ToText());
 }
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 char* Item::Hint()
 {
-    if(HAL_GetTick() < timestamp)
-    {
-        return hint;
-    }
-    else 
-    {
-        return emptyMass;
-    }
+    return (HAL_GetTick() < timeStopHint) ? hint : "";
 }
 
