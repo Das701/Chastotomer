@@ -64,12 +64,12 @@ static bool OpenPage(Control control)
 /*  0 */  nullptr,
 /*  1 */  PageModes::self,
 /*  2 */  PageIndication::self,
-/*  3 */  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-/* 10 */  PageChannelA::self,
-/* 11 */  PageChannelB::self,
-/* 12 */  PageChannelC::self,
-/* 13 */  PageChannelD::self,
-/* 14 */  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
+/*  3 */  nullptr, nullptr,
+/*  5 */  PageChannelA::self,
+/*  6 */  PageChannelB::self,
+/*  7 */  PageChannelC::self,
+/*  8 */  PageChannelD::self,
+/*  9 */  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
     };
 
     if (pages[control.value])

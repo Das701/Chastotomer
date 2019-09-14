@@ -16,10 +16,10 @@ static TIM_HandleTypeDef handleTIM4;
 static Control::E controls[NUM_SL][NUM_RL] =
 {
     {Control::GovButton,  Control::Right, Control::GovLeft,    Control::Test,      Control::A},
-    {Control::Mode,       Control::_6,    Control::GovRight,   Control::_Left,     Control::B},
-    {Control::Indication, Control::_7,    Control::_ESC,       Control::GovButton, Control::C},
-    {Control::_3,         Control::_8,    Control::_Right,     Control::Test,      Control::D},
-    {Control::Left,       Control::_9,    Control::Indication, Control::Auto,      Control::_F5}
+    {Control::Mode,       Control::None,  Control::GovRight,   Control::None,      Control::B},
+    {Control::Indication, Control::None,  Control::None,       Control::GovButton, Control::C},
+    {Control::None,       Control::None,  Control::None,       Control::Test,      Control::D},
+    {Control::Left,       Control::None,  Control::Indication, Control::Auto,      Control::None}
 };
 
 /// ќчередь сообщений - здесь все событи€ органов управлени€
@@ -72,7 +72,7 @@ static void Update()
 
             Control control = controls[sl][rl];
 
-            if (control.value != Control::_NULL)
+            if (control.value != Control::None)
             {
                 if (timePress[rl][sl])                      // ≈сли клавиша находитс€ в нажатом положении
                 {

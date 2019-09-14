@@ -42,7 +42,7 @@ static uint colors[256];
 static bool needStartTimerLong = false;
 static bool needStopTimerLong = false;
 /// Здесь имя нажатой кнопки
-static Control::E pressedKey = Control::_NULL;
+static Control::E pressedKey = Control::None;
 
 
 /// Создаёт окно приложения. Возвращает хэндл виджета для отрисовки
@@ -149,8 +149,8 @@ static void CreateButtons(Frame *frame)
 
 	Control::E keys[2][5] =
 	{
-		{ Control::GovButton, Control::Indication, Control::Left,  Control::_6, Control::_8 },
-		{ Control::Mode,      Control::_3,         Control::Right, Control::_7, Control::_9 }
+		{ Control::GovButton, Control::Indication, Control::Left,  Control::None, Control::None },
+		{ Control::Mode,      Control::None,       Control::Right, Control::None, Control::None }
 	};
 
 	int x0 = 37;
@@ -201,8 +201,8 @@ static void CreateButtons(Frame *frame)
 
 	size.SetWidth(width);
 
-	CreateButton(Control::_3, frame, { x0 + width + dY, y0 }, size, "мс");
-	CreateButton(Control::_6, frame, { x0, y0 }, size, "с");
+    CreateButton(Control::None, frame, { x0 + width + dY, y0 }, size, "мс");
+	CreateButton(Control::None, frame, { x0, y0 }, size, "с");
 	y0 += height + dY;
 	CreateButton(Control::A, frame, { x0, y0 }, size, "<-");
 	CreateButton(Control::B, frame, { x0 + width + dY, y0 }, size, "->");
@@ -215,11 +215,11 @@ static void CreateButtons(Frame *frame)
 
 	int y = Frame::HEIGHT + 200;
 
-	CreateButtonsChannel(frame, "Канал 1", 5 + x00, y, Control::GovButton, Control::Mode, Control::Indication, Control::_3, Control::Left);
+	CreateButtonsChannel(frame, "Канал 1", 5 + x00, y, Control::GovButton, Control::Mode, Control::Indication, Control::None, Control::Left);
 
 	// Кнопки канала B
 
-	CreateButtonsChannel(frame, "Канал 1", 120 + x00, y, Control::Right, Control::_6, Control::_7, Control::_8, Control::_9);
+	CreateButtonsChannel(frame, "Канал 1", 120 + x00, y, Control::Right, Control::None, Control::None, Control::None, Control::None);
 
 	CreateButton(Control::A, frame, { 230 + x00, Frame::HEIGHT + 198 }, { 80, 25 }, "ПУСК/СТОП");
 }

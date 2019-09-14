@@ -15,8 +15,8 @@ class Frame : public wxFrame
 {
 public:
 
-    static const int WIDTH = 640;
-    static const int HEIGHT = 480;
+    static const int WIDTH = 512;
+    static const int HEIGHT = 128;
 
     Frame(const wxString& title);
 
