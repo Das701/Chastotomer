@@ -5,6 +5,9 @@
 
 namespace Display
 {
+	static const int WIDTH = 256;
+	static const int HEIGHT = 64;
+
     void Init();
 
     void Update();

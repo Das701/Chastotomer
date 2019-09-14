@@ -1,7 +1,5 @@
-#include "defines.h"
-#include "Text.h"
-#include "Display/Primitives.h"
-#include <cstring>
+#pragma once
+#include "Display/Text.h"
 
 
 using namespace Display;
@@ -21,12 +19,6 @@ Text::Text(const char *text)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Text::~Text()
-{
-    delete []text;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Text::Create(const char *_text)
 {
     uint numSymbols = std::strlen(_text);
@@ -43,17 +35,23 @@ void Text::Create(const char *_text)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Text::~Text()
+{
+    delete[]text;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int Text::Write(int x, int y, Color color)
 {
     color.SetAsCurrent();
-    
+
     if (text == nullptr)
     {
         return x;
     }
 
     char *p = text;
-    
+
     while (*p)
     {
         x = WriteSymbol(x, y, (uint8)(*p++)) + 1;
@@ -77,7 +75,7 @@ int Text::WriteSymbol(int x, int y, uint8 chr)
 {
     int height = font->height;
     int width = font->GetLengthSymbol((char)chr);
-    
+
     Symbol symbol = font->symbol[chr];
 
     for (int i = 0; i < height; i++)

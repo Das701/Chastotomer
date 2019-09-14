@@ -41,18 +41,19 @@ source_group(src            FILES              ../../Panel/src/defines.h
                                                            src/main_win.cpp
                                                            src/stdafx.h)
 source_group(Display        FILES                          src/Display/Display_win.cpp
-                                               ../../Panel/src/Display/Colors.cpp
+                                                           src/Display/Colors_win.h
                                                ../../Panel/src/Display/Colors.h
                                                ../../Panel/src/Display/Display.cpp
                                                ../../Panel/src/Display/Display.h
-                                               ../../Panel/src/Display/Primitives.cpp
                                                ../../Panel/src/Display/Primitives.h
+                                                           src/Display/Primitives_win.h
                                                ../../Panel/src/Display/Text.cpp
                                                ../../Panel/src/Display/Text.h)
 source_group(Display\\Font  REGULAR_EXPRESSION    ../Panel/src/Display/Font/*)
 source_group(Hardware       FILES              ../../Panel/src/Hardware/HAL.cpp
                                                ../../Panel/src/Hardware/HAL.h)
-source_group(Keyboard       REGULAR_EXPRESSION    ../Panel/src/Keyboard/*)
+source_group(Keyboard       FILES              ../../Panel/src/Keyboard/Keyboard.h
+                                                           src/Keyboard/Keyboard.cpp)
 source_group(Menu           REGULAR_EXPRESSION    ../Panel/src/Menu/*)
 source_group(Menu\\Pages    REGULAR_EXPRESSION    ../Panel/src/Menu/Pages/*)
 source_group(Utils          REGULAR_EXPRESSION    ../Panel/src/Utils/*)
@@ -66,18 +67,19 @@ file(GLOB SOURCES   ../../common/_VS_KEIL/HAL/*
                                 src/main_win.cpp                   
                                 src/stdafx.h
                                 src/Display/Display_win.cpp
-                    ../../Panel/src/Display/Colors.cpp
+                                src/Display/Colors_win.h
                     ../../Panel/src/Display/Colors.h
                     ../../Panel/src/Display/Display.cpp
                     ../../Panel/src/Display/Display.h
-                    ../../Panel/src/Display/Primitives.cpp
                     ../../Panel/src/Display/Primitives.h
+                                src/Display/Primitives_win.h
                     ../../Panel/src/Display/Text.cpp
                     ../../Panel/src/Display/Text.h
                     ../../Panel/src/Display/Font/*
                     ../../Panel/src/Hardware/HAL.cpp
                     ../../Panel/src/Hardware/HAL.h
-                    ../../Panel/src/Keyboard/*
+                    ../../Panel/src/Keyboard/Keyboard.h
+                                src/Keyboard/Keyboard.cpp
                     ../../Panel/src/Menu/*
                     ../../Panel/src/Menu/Pages/*
                     ../../Panel/src/Utils/*
