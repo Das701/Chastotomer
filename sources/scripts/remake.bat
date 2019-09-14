@@ -4,6 +4,6 @@ cd vs_keil
 call make_build.bat
 cd..
 
-rem cd vs_win
-rem call make_build.bat
-rem cd ..
+cd vs_win
+call make_build.bat
+cd ..

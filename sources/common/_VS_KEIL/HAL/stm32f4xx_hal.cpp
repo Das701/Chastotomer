@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "defines.h"
 #include "stm32f4xx_hal.h"
 #ifdef USE_SDL2
 #include <SDL_timer.h>

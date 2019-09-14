@@ -3,13 +3,13 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *e)
+HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *)
 {
     return HAL_OK;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *e)
+HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *)
 {
     return HAL_OK;
 }

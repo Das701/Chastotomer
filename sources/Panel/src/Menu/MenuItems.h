@@ -25,7 +25,7 @@ public:
     /// Функция отрисовки
     virtual void Draw(int x, int y, bool selected = false) = 0;
     /// Функция обработки нажатия кнопки/поворота ручки
-    virtual bool OnControl(const Control &control) { return false; };
+    virtual bool OnControl(const Control &) { return false; };
     
     static const int WIDTH = 35;
     static const int HEIGHT = 11;
