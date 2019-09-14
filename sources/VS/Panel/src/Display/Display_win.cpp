@@ -54,9 +54,7 @@ static wxRect GetMaxDisplay();
 /// Создаёт все кнопки
 static void CreateButtons(Frame *frame);
 /// Создаёт одну кнопку
-static void CreateButton(Control::E key, Frame *frame, const wxPoint &pos, const wxSize &size, pString title);
-/// Создаёт кнопки для меню канала
-static void CreateButtonsChannel(Frame *frame, const char *title, int x, int y, Control::E keyChannel, Control::E keyRangeLess, Control::E keyRangeMore, Control::E keyRShiftLess, Control::E keyRShiftMore);
+static void CreateButton(Control::E key, Frame *frame, const wxPoint &pos, const wxSize &size);
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -145,114 +143,42 @@ static HANDLE CreateFrame()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void CreateButtons(Frame *frame)
 {
-	// Рисуем кнопки меню и функциональные
+    int x0 = 37;
+    int y0 = Frame::HEIGHT + 15;
 
-	Control::E keys[2][5] =
-	{
-		{ Control::GovButton, Control::Indication, Control::Left,  Control::None, Control::None },
-		{ Control::Mode,      Control::None,       Control::Right, Control::None, Control::None }
-	};
-
-	int x0 = 37;
-	int y0 = Frame::HEIGHT + 10;
-
-	int dX = 68;
-	int dY = 5;
-
-	int width = 58;
-	int height = 25;
-
-	wxSize size = { width, height };
-
-	for (int i = 0; i < 5; i++)
-	{
-		for (int j = 0; j < 2; j++)
-		{
-			Control::E key = keys[j][i];
-			CreateButton(key, frame, { x0 + (width + dX) * i, y0 + (height + dY) * j }, size, Control(key).Name());
-		}
-	}
-
-	// Рисуем кнопки управления
-
-	dX = 5;
-
-	int x00 = 145;
-
-	width = height = 25;
-	x0 = x00 + 160;
-	y0 = Frame::HEIGHT + 100;
-
-	size.SetWidth(width);
-	size.SetHeight(height);
-
-	CreateButton(Control::GovButton, frame, { x0, y0 }, size, "E");
-	CreateButton(Control::Left, frame, { x0 - dX - width, y0 }, size, "L");
-	CreateButton(Control::Right, frame, { x0 + dX + width, y0 }, size, "R");
-	CreateButton(Control::GovLeft, frame, { x0, y0 - height - dY }, size, "U");
-	CreateButton(Control::GovRight, frame, { x0, y0 + height + dY }, size, "D");
-
-	// Кнопки времени
-
-	width = 51;
-	x0 = x00 + 5;
-
-	y0 = Frame::HEIGHT + 100;
-
-	size.SetWidth(width);
-
-    CreateButton(Control::None, frame, { x0 + width + dY, y0 }, size, "мс");
-	CreateButton(Control::None, frame, { x0, y0 }, size, "с");
-	y0 += height + dY;
-	CreateButton(Control::A, frame, { x0, y0 }, size, "<-");
-	CreateButton(Control::B, frame, { x0 + width + dY, y0 }, size, "->");
-
-	int x = x00 + 5 + (2 * width + dX) / 2 - width / 2;
-
-	CreateButton(Control::Test, frame, { x, y0 - height - dY - height - dY }, size, "Развёртка");
-
-	// Кнопки канала A
-
-	int y = Frame::HEIGHT + 200;
-
-	CreateButtonsChannel(frame, "Канал 1", 5 + x00, y, Control::GovButton, Control::Mode, Control::Indication, Control::None, Control::Left);
-
-	// Кнопки канала B
-
-	CreateButtonsChannel(frame, "Канал 1", 120 + x00, y, Control::Right, Control::None, Control::None, Control::None, Control::None);
-
-	CreateButton(Control::A, frame, { 230 + x00, Frame::HEIGHT + 198 }, { 80, 25 }, "ПУСК/СТОП");
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void CreateButtonsChannel(Frame *frame, const char *title, int x, int y, Control::E keyChannel, Control::E keyRangeLess, Control::E keyRangeMore, Control::E keyRShiftLess, Control::E keyRShiftMore)
-{
-    int width = 45;
-    int height = 20;
-
-    int dX = 5;
+    int dX = 40;
     int dY = 5;
 
-    wxSize size = { width, height };
+    int width = 80;
+    int height = 25;
 
-    CreateButton(keyRangeLess, frame, { x, y }, size, "мВ");
-    CreateButton(keyRangeMore, frame, { x, y + height + dY }, size, "В");
+    wxSize size(width, height);
 
-    CreateButton(keyRShiftMore, frame, { x + width + 2 * dX, y }, size, "+");
-    CreateButton(keyRShiftLess, frame, { x + width + 2 * dX, y + height + dY }, size, "-");
+    // Кнопки каналов
+    Control::E keysCh[4] = { Control::A, Control::B, Control::C, Control::C };
 
-    size.SetHeight(25);
-    size.SetWidth(width + width + dX * 2);
+    // Кнопки режимов
+    Control::E keysM[4] = { Control::Mode, Control::Indication, Control::Test, Control::Auto };
 
-    wxPoint pos = { x, y - dY - size.GetHeight() };
+    // Управляющие кнопки
+    Control::E keysC[4] = { Control::Left, Control::Esc, Control::Right, Control::None };
 
-    CreateButton(keyChannel, frame, pos, size, title);
+    // Кнопки регулятора
+    Control::E keysGov[4] = { Control::GovLeft, Control::GovButton, Control::GovRight, Control::None };
+
+    for (int i = 0; i < 4; i++)
+    {
+        CreateButton(keysCh[i], frame, { x0 + (width + dX) * i, y0 }, size);
+        CreateButton(keysM[i], frame, { x0 + (width + dX) * i, y0 + height + dY }, size);
+        CreateButton(keysC[i], frame, { x0 + (width + dX) * i, y0 + (height + dY) * 2 + 10 }, size);
+        CreateButton(keysGov[i], frame, { x0 + (width + dX) * i, y0 + (height + dY) * 3 + 20 }, size);
+    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void SetPositionAndSize(Frame *frame)
 {
-    wxSize size = { Frame::WIDTH + 9, Frame::HEIGHT + 320 };
+    wxSize size = { Frame::WIDTH + 9, Frame::HEIGHT + 230 };
 
     frame->SetSize(size);
     frame->SetMinSize(size);
@@ -264,9 +190,14 @@ static void SetPositionAndSize(Frame *frame)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void CreateButton(Control::E key, Frame *frame, const wxPoint &pos, const wxSize &size, pString title)
+static void CreateButton(Control::E key, Frame *frame, const wxPoint &pos, const wxSize &size)
 {
-    wxButton *button = new wxButton(frame, (wxWindowID)key, title, pos, size);
+    if (key == Control::None)
+    {
+        return;
+    }
+
+    wxButton *button = new wxButton(frame, (wxWindowID)key, Control(key).Name(), pos, size);
 
     button->Connect((wxWindowID)key, wxEVT_LEFT_DOWN, wxCommandEventHandler(Frame::OnDown));
     button->Connect((wxWindowID)key, wxEVT_LEFT_UP, wxCommandEventHandler(Frame::OnUp));
