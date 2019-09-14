@@ -26,9 +26,9 @@ static void OnPress_OCI()
 
 /// Выбор закрытого(открытого) входа текущего канала
 DEF_SWITCH_UGO_2(sInputChoice,
-    "ОЗВ", "Вход",
-    "Откр. вход", "Закр. вход",
-    "ОВ", "ЗВ",
+    "\x7C \x7D", "Вход",
+    "Открытый вход", "Закрытый вход",
+    "\x7C", "\x7D",
     PageChannelB::channelInput, OnPress_OCI
 );
 
@@ -39,7 +39,7 @@ static void OnPress_Impedance()
 
 /// Установка входного сопротивления текущего канала
 DEF_SWITCH_UGO_2(sImpedance,
-    "Rвх", "Входное сопротивление текущего канала",
+    "Rвх", "Входное сопротивление канала",
     "1 МОм", "50 Ом",
     "1МОм", "50Ом",
     PageChannelB::inputImpedance, OnPress_Impedance
@@ -65,9 +65,9 @@ static void OnPress_Front()
 
 /// Выбор фронта синхронизации текущего канала
 DEF_SWITCH_UGO_2(sFront,
-    "Фронт", "Выбор типа синхронизации",
+    "\x8D \x8E", "Выбор типа синхронизации",
     "Фронт", "Срез",
-    "Фронт", "Срез",
+    "\x8D", "\x8E",
     PageChannelB::modeFront, OnPress_Front
 );
 
@@ -78,7 +78,7 @@ static void OnPress_VD()
 
 /// Включение(отключение) входного делителя напряжения
 DEF_SWITCH_UGO_2(sDivider,
-    "1/1 1/10", "Включение/отключение входного делителя напряжения",
+    "\x7E\x7F\x7E \x7E\x7F\x8F", "Вкл/откл входного делителя",
     "1:1", "1:10",
     "", "1:10",
     PageChannelB::divider, OnPress_VD

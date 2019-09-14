@@ -19,6 +19,8 @@ char *Int2String(int n, char *buffer)
         n -= n % 10;
     } while ((n /= 10) > 0);
 
+    buffer[i] = '\0';
+
     for (int j = 0; j < i; j++, i--)
     {
         c = buffer[j];

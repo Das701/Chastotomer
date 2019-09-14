@@ -585,6 +585,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\Text.h</FilePath>
             </File>
+            <File>
+              <FileName>Symbols.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Symbols.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

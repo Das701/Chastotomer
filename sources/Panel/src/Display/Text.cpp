@@ -47,14 +47,9 @@ int Text::Write(int x, int y, Color color)
 {
     color.SetAsCurrent();
     
-    if (text == nullptr)
-    {
-        return x;
-    }
-
     char *p = text;
     
-    while (*p)
+    while (text && *p)
     {
         x = WriteSymbol(x, y, (uint8)(*p++)) + 1;
     }

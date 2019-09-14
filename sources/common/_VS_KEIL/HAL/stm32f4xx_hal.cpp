@@ -1,7 +1,10 @@
 #include "defines.h"
 #include "stm32f4xx_hal.h"
 #ifdef USE_SDL2
+#pragma warning(push)
+#pragma warning(disable:4668)
 #include <SDL_timer.h>
+#pragma warning(pop)
 #endif
 
 
