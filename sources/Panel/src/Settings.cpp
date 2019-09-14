@@ -4,5 +4,6 @@
 
 Settings set =
 {
-    1240        ///< syncValue
+    1240,           ///< syncValue
+    Channel::A      ///< currentChannel
 };

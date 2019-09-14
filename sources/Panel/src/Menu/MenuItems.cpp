@@ -16,7 +16,7 @@ using namespace Display::Primitives;
 using namespace Display;
 
 char Item::hint[100];
-uint Item::timeStopHint = 0;
+uint Item::timeHideHint = 0;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,30 +74,35 @@ bool Page::OnControl(const Control &control)
     switch (control.value)
     {
     case Control::Right:
-        if( PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
-        {
-            set.syncValue += 20;
-        }
-        else
-        {
-            SelectNextItem();
-        }
+        SelectNextItem();
         return true;
+        break;
 
     case Control::Left:
-        if( PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
+        SelectPrevItem();
+        return true;
+        break;
+
+    case Control::GovLeft:
+        if (PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
+        {
+            set.syncValue += 20;
+            return true;
+        }
+        break;
+
+    case Control::GovRight:
+        if (PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
         {
             set.syncValue -= 20;
+            return true;
         }
-        else
-        {
-            SelectPrevItem();
-        }
-        return true;
+        break;
 
     case Control::GovButton: 
-        timeStopHint = HAL_GetTick() + 5000;
+        timeHideHint = HAL_GetTick() + 5000;
         return SelectedItem()->OnControl(control);
+        break;
     }
 
     return false;
@@ -168,6 +173,6 @@ void Switch::CreateHint()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 char* Item::Hint()
 {
-    return (HAL_GetTick() < timeStopHint) ? hint : "";
+    return (HAL_GetTick() < timeHideHint) ? hint : "";
 }
 

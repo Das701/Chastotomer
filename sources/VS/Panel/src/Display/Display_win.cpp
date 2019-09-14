@@ -155,7 +155,7 @@ static void CreateButtons(Frame *frame)
     wxSize size(width, height);
 
     // Кнопки каналов
-    Control::E keysCh[4] = { Control::A, Control::B, Control::C, Control::C };
+    Control::E keysCh[4] = { Control::A, Control::B, Control::C, Control::D };
 
     // Кнопки режимов
     Control::E keysM[4] = { Control::Mode, Control::Indication, Control::Test, Control::Auto };

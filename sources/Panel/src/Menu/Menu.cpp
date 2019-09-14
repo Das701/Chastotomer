@@ -52,6 +52,22 @@ void Menu::Update()
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/// Устанавливает текущий канал в зависимости от нажатой кнопки
+static void SetCurrentChannel(Control &control)
+{
+    if (control.value >= Control::A && control.value <= Control::D)
+    {
+        static const Channel::E chans[9] =
+        {
+            Channel::Count, Channel::Count, Channel::Count, Channel::Count, Channel::Count,
+            Channel::A, Channel::B, Channel::C, Channel::D
+        };
+
+        set.currentChannel = chans[control.value];
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static bool OpenPage(Control control)
 {
     if (!control.action.IsPress())
@@ -71,6 +87,8 @@ static bool OpenPage(Control control)
 /*  8 */  PageChannelD::self,
 /*  9 */  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
     };
+
+    SetCurrentChannel(control);
 
     if (pages[control.value])
     {
@@ -96,7 +114,7 @@ char *Menu::ChannelSettings()
     std::strcat(settings, ugo);
 
     static char settings[100] = { 0 };
-    if(openedPage == PageChannelA::self)
+    if(set.currentChannel == Channel::A)
     {
         std::strcpy(settings, "A:");
         ADD_UGO(PageChannelA::channelInput.UGO());
@@ -108,21 +126,21 @@ char *Menu::ChannelSettings()
         char buffer[20];
         std::strcat(settings, Int2String(set.syncValue, buffer));
     }
-    else if(openedPage == PageChannelB::self)
+    else if(set.currentChannel == Channel::B)
     {
         std::strcpy(settings, "B:");
-        ADD_UGO(PageChannelA::channelInput.UGO());
+        ADD_UGO(PageChannelB::channelInput.UGO());
         ADD_UGO(PageChannelB::inputImpedance.UGO());
         ADD_UGO(PageChannelB::modeFilter.UGO());
         ADD_UGO(PageChannelB::modeFront.UGO());
         ADD_UGO(PageChannelB::divider.UGO());
         ADD_UGO(PageChannelB::levelSynch.UGO());
     }
-    else if(openedPage == PageChannelC::self)
+    else if(set.currentChannel == Channel::C)
     {
         std::strcpy(settings, "C:");
     }
-    else if(openedPage == PageChannelD::self)
+    else if(set.currentChannel == Channel::D)
     {
         std::strcpy(settings, "D:");
     }

@@ -37,7 +37,7 @@ protected:
     /// ѕолный текст подсказки дл€ последнего использованного итема
     static char hint[100];
     /// ¬рем€ окончани€ отображени€ подсказки
-    static uint timeStopHint;
+    static uint timeHideHint;
 };
 
 
