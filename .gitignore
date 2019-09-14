@@ -11,3 +11,5 @@ sources/Panel/Listings/*
 sources/Panel/DebugConfig/*
 sources/generated/*
 sources/ThirdParty/*
+sources/fonts/*.bin
+sources/fonts/*.tmp
