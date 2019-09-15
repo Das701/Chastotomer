@@ -1,16 +1,7 @@
 #pragma once
 #include "Menu/MenuItems.h"
 
-struct SyncPress
-{
-    enum E
-    {
-        SyncPressed,
-        SyncNotPressed
-    }value;
-    explicit SyncPress(E v) : value(v) {};
-    operator int() { return (int)value; };
-};
+
 /// Открытый/закрытый вход
 struct ChannelInput : public Enumeration
 {
@@ -88,7 +79,6 @@ class PageChannelA
 {
 public:
     static Page *self;
-    static SyncPress syncPress;
     static ChannelInput channelInput;
     static InputImpedance inputImpedance;
     static ModeFilter modeFilter;

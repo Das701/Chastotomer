@@ -13,12 +13,12 @@ using namespace Display;
 extern Item *items[7];
 
 
-ChannelInputB    PageChannelB::channelInput(ChannelInputB::Closed);
-InputImpedanceB  PageChannelB::inputImpedance(InputImpedanceB::_1MOmh);
-ModeFilterB      PageChannelB::modeFilter(ModeFilterB::Off);
-ModeFrontB       PageChannelB::modeFront(ModeFrontB::Front);
-DividerB         PageChannelB::divider(DividerB::_1);
-LevelSynchB      PageChannelB::levelSynch(LevelSynchB::TTL);
+ChannelInput     PageChannelB::channelInput(ChannelInput::Closed);
+InputImpedance   PageChannelB::inputImpedance(InputImpedance::_1MOmh);
+ModeFilter       PageChannelB::modeFilter(ModeFilter::Off);
+ModeFront        PageChannelB::modeFront(ModeFront::Front);
+Divider          PageChannelB::divider(Divider::_1);
+LevelSynch       PageChannelB::levelSynch(LevelSynch::TTL);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_OCI()
