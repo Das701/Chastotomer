@@ -109,36 +109,34 @@ char *Menu::ChannelSettings()
 
     char buffer[20];
 
+    static const char * const names[Channel::Count] = { "A:", "B:", "C:", "D:" };
+
     static char settings[100] = { 0 };
-    if(set.currentChannel == Channel::A)
+
+    std::strcpy(settings, names[CURRENT_CHANNEL]);
+
+    if(CURRENT_CHANNEL_IS_A)
     {
-        std::strcpy(settings, "A:");
         ADD_UGO(PageChannelA::channelInput.UGO());
         ADD_UGO(PageChannelA::inputImpedance.UGO());
         ADD_UGO(PageChannelA::modeFilter.UGO());
         ADD_UGO(PageChannelA::modeFront.UGO());
         ADD_UGO(PageChannelA::divider.UGO());
         ADD_UGO(PageChannelA::typeSynch.UGO());
-        std::strcat(settings, Int2String(LEVEL_SYNCH_A, buffer));
+        ADD_UGO(Int2String(LEVEL_SYNCH_A, buffer));
+        std::strcat(settings, "ìÂ");
     }
-    else if(set.currentChannel == Channel::B)
+    else if(CURRENT_CHANNEL_IS_B)
     {
-        std::strcpy(settings, "B:");
         ADD_UGO(PageChannelB::channelInput.UGO());
         ADD_UGO(PageChannelB::inputImpedance.UGO());
         ADD_UGO(PageChannelB::modeFilter.UGO());
         ADD_UGO(PageChannelB::modeFront.UGO());
         ADD_UGO(PageChannelB::divider.UGO());
         ADD_UGO(PageChannelB::typeSynch.UGO());
-        std::strcat(settings, Int2String(LEVEL_SYNCH_B, buffer));
+        ADD_UGO(Int2String(LEVEL_SYNCH_B, buffer));
+        std::strcat(settings, "ìÂ");
     }
-    else if(set.currentChannel == Channel::C)
-    {
-        std::strcpy(settings, "C:");
-    }
-    else if(set.currentChannel == Channel::D)
-    {
-        std::strcpy(settings, "D:");
-    }
+
     return settings;
 }

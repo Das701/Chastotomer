@@ -92,7 +92,7 @@ static void OnPress_Sync()
 DEF_SWITCH_UGO_2(sSync,
     "Синхр", "Выбор уровня сихронизации",
     "ТТЛ", "ЭСЛ",
-    "1200mV", "-1240mV",
+    "TTL", "ЭСЛ",
     PageChannelA::typeSynch, OnPress_Sync
 );
 

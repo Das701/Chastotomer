@@ -23,10 +23,10 @@ char *Int2String(int n, char *buffer)
 
     for (int j = 0; j < i; j++)
     {
+        i--;
         c = buffer[j];
         buffer[j] = buffer[i];
         buffer[i] = c;
-        i--;
     }
 
     return buffer;
