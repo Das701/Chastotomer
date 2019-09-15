@@ -69,19 +69,18 @@ void Page::Draw(int x, int y, bool)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static bool ChangeLevelSynch(int delta)
 {
-#define CHANGE_LEVEL(ch, delta)                 \
-    LEVEL_SYNCH(ch) = LEVEL_SYNCH(ch) + delta;  \
-    Hint::Create(Hint::FromItem());             \
-    return true;
-
     if (CURRENT_CHANNEL_IS_A && Hint::FromItem() == PageChannelA::switchTypeSynch)
     {
-        CHANGE_LEVEL(Channel::A, delta);
+        LEVEL_SYNCH_A = LEVEL_SYNCH_A + delta;
+        Hint::Create(Hint::FromItem());                 // Продлить время нахождения подсказки на экране
+        return true;
     }
 
     if (CURRENT_CHANNEL_IS_B && Hint::FromItem() == PageChannelB::switchTypeSynch)
     {
-        CHANGE_LEVEL(Channel::B, delta);
+        LEVEL_SYNCH_B = LEVEL_SYNCH_B + delta;
+        Hint::Create(Hint::FromItem());                 // Продлить время нахождения подсказки на экране
+        return true;
     }
 
     return false;
@@ -96,25 +95,27 @@ bool Page::OnControl(const Control &control)
     {
     case Control::Right:
         SelectNextItem();
+        Hint::Hide();
         result = true;
         break;
 
     case Control::Left:
         SelectPrevItem();
+        Hint::Hide();
         result = true;
         break;
 
     case Control::GovLeft:
-        if (Hint::Text())
+        if (Hint::Text())                       // Если подсказка на экране
         {
-            result = ChangeLevelSynch(-20);
+            result = ChangeLevelSynch(-20);     // то делаем попытку изменить уровень синхронизации
         }
         break;
 
     case Control::GovRight:
-        if (Hint::Text())
+        if (Hint::Text())                       // Если подсказка на экране
         {
-            result = ChangeLevelSynch(20);
+            result = ChangeLevelSynch(20);      // то делаем попытку изменить уровень синхронизации
         }
         break;
 

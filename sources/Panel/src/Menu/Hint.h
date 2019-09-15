@@ -13,4 +13,6 @@ public:
     static char *Text();
     /// Возвращает итем, для которого действует подсказка
     static const Item *FromItem();
+    /// Спрятать подсказку
+    static void Hide();
 };
