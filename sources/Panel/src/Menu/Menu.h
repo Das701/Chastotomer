@@ -9,7 +9,5 @@ namespace Menu
 
     void Update();
 
-    char *Hint();
-
     char *ChannelSettings();
 };

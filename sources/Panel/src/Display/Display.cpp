@@ -6,6 +6,7 @@
 #include "Menu/Pages/PageIndication.h"
 #include "Text.h"
 #include "Menu/MenuItems.h"
+#include "Menu/Hint.h"
 #include <cstdlib>
 
 
@@ -189,6 +190,6 @@ static void DrawStatusBar()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawHint()
 {
-    Text(Menu::Hint()).Write(38, 15);
+    Text(Hint::Text()).Write(38, 15);
 }
 

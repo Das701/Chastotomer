@@ -21,23 +21,23 @@ struct Enumeration
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Item
 {
+    friend class Hint;
 public:
+    static const int WIDTH = 35;
+    static const int HEIGHT = 11;
+
     /// Функция отрисовки
     virtual void Draw(int x, int y, bool selected = false) = 0;
     /// Функция обработки нажатия кнопки/поворота ручки
     virtual bool OnControl(const Control &) { return false; };
-    
-    static const int WIDTH = 35;
-    static const int HEIGHT = 11;
-    /// Здесь хранится полная подсказка для последнего использованного итема
-    char* Hint();
+
 protected:
     /// Общая часть подсказки для данного итема
-    char *commonHint;
-    /// Полный текст подсказки для последнего использованного итема
-    static char hint[100];
-    /// Время окончания отображения подсказки
-    static uint timeHideHint;
+    char *hint;
+
+private:
+    /// Создать подсказку для итема
+    virtual void CreateHint(char buffer[100]) const = 0;
 };
 
 
@@ -60,12 +60,12 @@ class Switch : public Item
 {
 public:
 
-    Switch(char *_text, char *_comHint, char **_names, char **_ugo, Enumeration *_state, void(*_onClick)()) :
+    Switch(char *_text, char *_hint, char **_names, char **_ugo, Enumeration *_state, void(*_onClick)()) :
         text(_text), funcOnPress(_onClick), state(_state)
     {
         state->names = _names;
         state->ugo = _ugo;
-        commonHint = _comHint;
+        hint = _hint;
     };
     virtual void Draw(int x, int y, bool selected = false);
     virtual bool OnControl(const Control &control);
@@ -74,8 +74,7 @@ private:
     char        *text;              ///< Надпись на переключателе
     void       (*funcOnPress)();    ///< Эта функция вызывается после изменения состояния переключателя
     Enumeration *state;             ///< Адрес переменной с состоянием переключателя
-
-    void CreateHint();
+    virtual void CreateHint(char buffer[100]) const;
 };
 
 
@@ -101,4 +100,6 @@ private:
     Item **items;
     /// Номер выбранного итема
     int selectedItem;
+
+    virtual void CreateHint(char buffer[100]) const { buffer[0] = 0; };
 };

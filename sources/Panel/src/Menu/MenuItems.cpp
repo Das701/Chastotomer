@@ -4,19 +4,16 @@
 #include "Display/Text.h"
 #include "Utils/Math.h"
 #include "Menu/Pages/PageModes.h"
-#include "stm32f4xx_hal.h"
 #include "Menu/Pages/PageChannelA.h"
 #include "Utils/String.h"
 #include "Settings.h"
+#include "Menu/Hint.h"
 #include <cstring>
 #include <string>
 
 
 using namespace Display::Primitives;
 using namespace Display;
-
-char Item::hint[100];
-uint Item::timeHideHint = 0;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,23 +83,12 @@ bool Page::OnControl(const Control &control)
         break;
 
     case Control::GovLeft:
-        if (PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
-        {
-            set.syncValue += 20;
-            result = true;
-        }
         break;
 
     case Control::GovRight:
-        if (PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
-        {
-            set.syncValue -= 20;
-            result = true;
-        }
         break;
 
     case Control::GovButton: 
-        timeHideHint = HAL_GetTick() + 5000;
         result = SelectedItem()->OnControl(control);
         break;
     }
@@ -146,7 +132,7 @@ bool Switch::OnControl(const Control &control)
             funcOnPress();
         }
 
-        CreateHint();
+        Hint::Create(this);
         
         return true;
     }
@@ -165,16 +151,9 @@ void Switch::Draw(int x, int y, bool selected)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Switch::CreateHint()
+void Switch::CreateHint(char buffer[100]) const
 {
-    std::strcpy(hint, commonHint);
-    std::strcat(hint, " : ");
-    std::strcat(hint, state->ToText());
+    std::strcpy(buffer, hint);
+    std::strcat(buffer, " : ");
+    std::strcat(buffer, state->ToText());
 }
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-char* Item::Hint()
-{
-    return (HAL_GetTick() < timeHideHint) ? hint : "";
-}
-
