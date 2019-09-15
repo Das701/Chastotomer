@@ -18,8 +18,8 @@ LTDC_HandleTypeDef hltdc;
 static void MX_LTDC_Init(void);
 static void MX_GPIO_Init(void);
 
-static int x0 = (320 - 256) / 2;
-static int y0 = (240 - 64) / 2;
+static const int x0 = (320 - 256) / 2; //-V707
+static const int y0 = (240 - 64) / 2; //-V707
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Init()
