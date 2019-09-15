@@ -6,10 +6,11 @@
 #include "Menu/MenuItemsDef.h"
 #include <cstring>
 
+
 using namespace Display::Primitives;
 using namespace Display;
 
-extern Item *items[];
+extern Item *items[7];
 
 
 ChannelInputB    PageChannelB::channelInput(ChannelInputB::Closed);
@@ -97,7 +98,7 @@ DEF_SWITCH_UGO_2(sSync,
     PageChannelB::levelSynch, OnPress_Sync
 );
 
-static Item *items[] =
+static Item *items[7] =
 {
     &sInputChoice,
     &sImpedance,

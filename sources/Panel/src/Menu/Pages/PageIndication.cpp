@@ -5,9 +5,10 @@
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
 
+
 using namespace Display::Primitives;
 using namespace Display;
-extern Item *items[];
+extern Item *items[6];
 
 DisplayTime         PageIndication::displayTime(DisplayTime::_100ms);
 RefGenerator        PageIndication::refGenerator(RefGenerator::Internal);
@@ -70,7 +71,7 @@ DEF_SWITCH_2(sMemoryMode,
     "Вкл", "Выкл", 
     PageIndication::memoryMode, OnPress_MemoryMode);
 
-static Item *items[] =
+static Item *items[6] =
 {
     &sDisplayTime,
     &sRefGenerator,

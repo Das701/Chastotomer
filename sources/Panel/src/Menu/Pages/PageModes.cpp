@@ -6,10 +6,11 @@
 #include "Utils/Math.h"
 #include "Menu/MenuItemsDef.h"
 
+
 using namespace Display::Primitives;
 using namespace Display;
 
-extern Item *items[];
+extern Item *items[7];
 extern Switch sPeriodTimeLabels;
 extern Switch sTimeMeasure;
 extern Switch sNumberPeriods;
@@ -180,7 +181,7 @@ DEF_SWITCH_6(sNumberPeriods,
 
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static Item *items[] =
+static Item *items[7] =
 {
     &sFrequency,
     &sPeriod,

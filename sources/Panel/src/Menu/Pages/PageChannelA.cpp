@@ -9,7 +9,7 @@
 using namespace Display::Primitives;
 using namespace Display;
 
-extern Item *items[];
+extern Item *items[7];
 
 SyncPress       PageChannelA::syncPress(SyncPress::SyncNotPressed);
 ChannelInput    PageChannelA::channelInput(ChannelInput::Closed);
@@ -103,7 +103,7 @@ DEF_SWITCH_UGO_2(sSync,
     PageChannelA::levelSynch, OnPress_Sync
 );
 
-static Item *items[] =
+static Item *items[7] =
 {
     &sInputChoice,
     &sImpedance,

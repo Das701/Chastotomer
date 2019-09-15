@@ -45,7 +45,7 @@ void Button::Draw(int x, int y, bool selected)
     {
         Color::BLACK.SetAsCurrent();
     }
-    Text(text).Write(x, WIDTH, y + 2);
+    Text(text).Write(x, y + 2, WIDTH);
 }
 
 
@@ -71,23 +71,25 @@ void Page::Draw(int x, int y, bool)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool Page::OnControl(const Control &control)
 {
+    bool result = false;
+
     switch (control.value)
     {
     case Control::Right:
         SelectNextItem();
-        return true;
+        result = true;
         break;
 
     case Control::Left:
         SelectPrevItem();
-        return true;
+        result = true;
         break;
 
     case Control::GovLeft:
         if (PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
         {
             set.syncValue += 20;
-            return true;
+            result = true;
         }
         break;
 
@@ -95,17 +97,17 @@ bool Page::OnControl(const Control &control)
         if (PageChannelA::syncPress.value == SyncPress::SyncPressed && Item::Hint() == hint)
         {
             set.syncValue -= 20;
-            return true;
+            result = true;
         }
         break;
 
     case Control::GovButton: 
         timeHideHint = HAL_GetTick() + 5000;
-        return SelectedItem()->OnControl(control);
+        result = SelectedItem()->OnControl(control);
         break;
     }
 
-    return false;
+    return result;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -159,7 +161,7 @@ void Switch::Draw(int x, int y, bool selected)
     {
         Color::BLACK.SetAsCurrent();
     }
-    Text(text).Write(x, WIDTH, y + 2);
+    Text(text).Write(x, y + 2, WIDTH);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

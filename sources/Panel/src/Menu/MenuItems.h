@@ -9,7 +9,7 @@ struct Enumeration
     uint8  value;
     char **names;
     char **ugo;
-    Enumeration(uint8 v) : value(v) {}
+    Enumeration(uint8 v) : value(v), names(nullptr), ugo(nullptr) {}
     operator int() { return (int)value; }
     char *ToText() const { return names[value]; }
     char *UGO() const { return ugo[value]; }

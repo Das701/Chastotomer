@@ -66,7 +66,7 @@ static void Func3()
 
     CalculateCoord(x, y, sizeX, sizeY);
 
-    line.Draw(x, y + 1, Color::WHITE);
+    line.Draw(x, y, Color::WHITE);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,8 +92,6 @@ static void DrawScreen()
     }
     else
     {
-        Rectangle(255, 63).Draw(0, 0, Color::WHITE);
-
         DrawStatusBar();    
             
         DrawTypeMeasure();
@@ -118,10 +116,9 @@ void DrawChannelSettings()
 static void DrawTypeMeasure()
 {
     int x = 0;
-    int y = 0;
     int width = 25; 
-    Text(PageModes::typeMeasure.ToText()).Write(x, width, y + 5);
-    Rectangle(width, 18).Draw(x, y, Color::WHITE);
+    Text(PageModes::typeMeasure.ToText()).Write(x, 5, width);
+    Rectangle(width, 18).Draw(x, 0, Color::WHITE);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -184,7 +181,7 @@ static void DrawStatusBar()
 
     if (toText)
     {
-        Text(toText->ToText()).Write(x, width, y + 4);
+        Text(toText->ToText()).Write(x, y + 4, width, Color::WHITE);
     }
 
     Rectangle(width, 15).Draw(x, y, Color::WHITE);

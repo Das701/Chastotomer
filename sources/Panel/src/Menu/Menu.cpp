@@ -53,7 +53,7 @@ void Menu::Update()
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /// Устанавливает текущий канал в зависимости от нажатой кнопки
-static void SetCurrentChannel(Control &control)
+static void SetCurrentChannel(const Control &control)
 {
     if (control.value >= Control::A && control.value <= Control::D)
     {
