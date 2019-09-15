@@ -4,10 +4,10 @@
 
 Settings set =
 {
+    Channel::A,                         ///< currentChannel
     {
         {1200, -1240}, {1200, -1240}    ///< levelSynch
     },
-    Channel::A,                         ///< currentChannel
     { 
         TypeSynch::TTL, TypeSynch::TTL  ///< typeSynch
     }

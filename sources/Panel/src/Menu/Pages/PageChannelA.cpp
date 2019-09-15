@@ -5,6 +5,7 @@
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
 #include "Settings.h"
+#include "FreqMeter/FreqMeter.h"
 #include <cstring>
 
 using namespace Display::Primitives;
@@ -12,7 +13,7 @@ using namespace Display;
 
 extern Item *items[7];
 
-ChannelInput    PageChannelA::channelInput(ChannelInput::Closed);
+InputCouple     PageChannelA::inputCouple(InputCouple::DC);
 InputImpedance  PageChannelA::inputImpedance(InputImpedance::_1MOmh);
 ModeFilter      PageChannelA::modeFilter(ModeFilter::Off);
 ModeFront       PageChannelA::modeFront(ModeFront::Front);
@@ -20,21 +21,23 @@ Divider         PageChannelA::divider(Divider::_1);
 TypeSynch       PageChannelA::typeSynch(TypeSynch::TTL);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void OnPress_OCI()
+static void OnPress_Couple()
 {
+    FreqMeter::LoadInputCouple();
 }
 
 /// Выбор закрытого(открытого) входа текущего канала
-DEF_SWITCH_UGO_2(sInputChoice,
+DEF_SWITCH_UGO_2(sCouple,
     "\x7C \x7D", "Вход",
     "Открытый вход", "Закрытый вход",
     "\x7C", "\x7D",
-    PageChannelA::channelInput, OnPress_OCI
+    PageChannelA::inputCouple, OnPress_Couple
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Impedance()
 {
+    FreqMeter::LoadImpedance();
 }
 
 /// Установка входного сопротивления текущего канала
@@ -48,6 +51,7 @@ DEF_SWITCH_UGO_2(sImpedance,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Filter()
 {
+    FreqMeter::LoadModeFilter();
 }
 
 /// Включение(отключение) ФНЧ
@@ -61,6 +65,7 @@ DEF_SWITCH_UGO_2(sLowpassFilter,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Front()
 {
+    FreqMeter::LoadModeFront();
 }
 
 /// Выбор фронта синхронизации текущего канала
@@ -72,8 +77,9 @@ DEF_SWITCH_UGO_2(sFront,
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void OnPress_VD()
+static void OnPress_Divider()
 {
+    FreqMeter::LoadDivider();
 }
 
 /// Включение(отключение) входного делителя напряжения
@@ -81,13 +87,14 @@ DEF_SWITCH_UGO_2(sDivider,
     "\x7E\x7F\x7E \x7E\x7F\x8F", "Вкл/откл входного делителя",
     "1:1", "1:10",
     "", "1:10",
-    PageChannelA::divider, OnPress_VD
+    PageChannelA::divider, OnPress_Divider
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Sync()
 {
     TYPE_SYNCH_A = (TypeSynch::E)PageChannelA::typeSynch.value;
+    FreqMeter::LoadTypeSynch();
 }
 
 /// Выбор уровня синхронизации ТТЛ, ЭСЛ
@@ -100,7 +107,7 @@ DEF_SWITCH_UGO_2(sSync,
 
 static Item *items[7] =
 {
-    &sInputChoice,
+    &sCouple,
     &sImpedance,
     &sLowpassFilter,
     &sFront,

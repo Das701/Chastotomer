@@ -3,15 +3,15 @@
 
 
 /// Открытый/закрытый вход
-struct ChannelInput : public Enumeration
+struct InputCouple : public Enumeration
 {
     enum E
     {
-        Open,           ///< Открытый
-        Closed          ///< Закрытый
+        AC,         ///< Открытый
+        DC          ///< Закрытый
     };
 
-    explicit ChannelInput(E v) : Enumeration((uint8)v) {};
+    explicit InputCouple(E v) : Enumeration((uint8)v) {};
 };
 
 /// Входное сопротивление
@@ -79,7 +79,7 @@ class PageChannelA
 {
 public:
     static Page *self;
-    static ChannelInput channelInput;
+    static InputCouple inputCouple;
     static InputImpedance inputImpedance;
     static ModeFilter modeFilter;
     static ModeFront modeFront;

@@ -5,6 +5,7 @@
 #include "Display/Text.h"
 #include "Utils/Math.h"
 #include "Menu/MenuItemsDef.h"
+#include "FreqMeter/FreqMeter.h"
 
 
 using namespace Display::Primitives;
@@ -52,6 +53,8 @@ static void OnPress_Frequency()
     }
 
     PageModes::typeMeasure.value = TypeMeasure::Frequency;
+
+    FreqMeter::LoadModeMeasureFrequency();
 }
 
 /// Выбор режима измерения частоты, отношения частот, "тахометра"
@@ -75,6 +78,8 @@ static void OnPress_Period()
     }
 
     PageModes::typeMeasure.value = TypeMeasure::Period;
+
+    FreqMeter::LoadModeMeasurePeriod();
 }
 
 /// Выбор режима измерения периода
@@ -104,6 +109,8 @@ static void OnPress_Duration()
     }
 
     PageModes::typeMeasure.value = TypeMeasure::Duration;
+
+    FreqMeter::LoadModeMeasureDuration();
 }
 
 /// Выбор режима измерения длительности импульсов, интервалов, коэффициента заполнения, разности фаз
@@ -130,6 +137,8 @@ static void OnPress_CountPulse()
     }
 
     PageModes::typeMeasure.value = TypeMeasure::CountPulse;
+
+    FreqMeter::LoadModeMeasureCountPulse();
 }
 
 /// Выбор режима счёта импульсов
@@ -143,6 +152,7 @@ DEF_SWITCH_3(sCountPulse,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_TimeLabels()
 {
+    FreqMeter::LoadPeriodTimeLabels();
 }
 
 /// Выбор периода меток времени
@@ -156,6 +166,7 @@ DEF_SWITCH_6(sPeriodTimeLabels,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_TimeMeasure()
 {
+    FreqMeter::LoadTimeMeasure();
 }
 
 /// Выбор времени измерения
@@ -169,6 +180,7 @@ DEF_SWITCH_6(sTimeMeasure,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_NumberPeriods()
 {
+    FreqMeter::LoadNumerPeriodsMeasure();
 }
 
 /// Выбор числа усредняемых периодов входного сигнала

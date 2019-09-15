@@ -7,7 +7,7 @@ class PageChannelB
 {
 public:
     static Page *self;
-    static ChannelInput channelInput;
+    static InputCouple inputCouple;
     static InputImpedance inputImpedance;
     static ModeFilter modeFilter;
     static ModeFront modeFront;

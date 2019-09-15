@@ -50,6 +50,7 @@ source_group(Display        FILES                          src/Display/Display_w
                                                ../../Panel/src/Display/Text.cpp
                                                ../../Panel/src/Display/Text.h)
 source_group(Display\\Font  REGULAR_EXPRESSION    ../Panel/src/Display/Font/*)
+source_group(FreqMeter      REGULAR_EXPRESSION    ../Panel/src/FreqMeter/*)
 source_group(Hardware       FILES              ../../Panel/src/Hardware/HAL.cpp
                                                ../../Panel/src/Hardware/HAL.h)
 source_group(Keyboard       FILES              ../../Panel/src/Keyboard/Keyboard.h
@@ -76,6 +77,7 @@ file(GLOB SOURCES   ../../common/_VS_KEIL/HAL/*
                     ../../Panel/src/Display/Text.cpp
                     ../../Panel/src/Display/Text.h
                     ../../Panel/src/Display/Font/*
+                    ../../Panel/src/FreqMeter/*
                     ../../Panel/src/Hardware/HAL.cpp
                     ../../Panel/src/Hardware/HAL.h
                     ../../Panel/src/Keyboard/Keyboard.h

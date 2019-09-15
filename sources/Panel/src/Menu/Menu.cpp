@@ -121,7 +121,7 @@ char *Menu::ChannelSettings()
 
     if(CURRENT_CHANNEL_IS_A)
     {
-        ADD_UGO(PageChannelA::channelInput.UGO());
+        ADD_UGO(PageChannelA::inputCouple.UGO());
         ADD_UGO(PageChannelA::inputImpedance.UGO());
         ADD_UGO(PageChannelA::modeFilter.UGO());
         ADD_UGO(PageChannelA::modeFront.UGO());
@@ -132,7 +132,7 @@ char *Menu::ChannelSettings()
     }
     else if(CURRENT_CHANNEL_IS_B)
     {
-        ADD_UGO(PageChannelB::channelInput.UGO());
+        ADD_UGO(PageChannelB::inputCouple.UGO());
         ADD_UGO(PageChannelB::inputImpedance.UGO());
         ADD_UGO(PageChannelB::modeFilter.UGO());
         ADD_UGO(PageChannelB::modeFront.UGO());
