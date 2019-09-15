@@ -4,6 +4,7 @@
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
+#include "Settings.h"
 #include <cstring>
 
 using namespace Display::Primitives;
@@ -86,13 +87,14 @@ DEF_SWITCH_UGO_2(sDivider,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Sync()
 {
+    TYPE_SYNCH_A = (TypeSynch::E)PageChannelA::typeSynch.value;
 }
 
 /// Выбор уровня синхронизации ТТЛ, ЭСЛ
 DEF_SWITCH_UGO_2(sSync,
     "Синхр", "Выбор уровня сихронизации",
     "ТТЛ", "ЭСЛ",
-    "TTL", "ЭСЛ",
+    "ТТЛ", "ЭСЛ",
     PageChannelA::typeSynch, OnPress_Sync
 );
 
@@ -110,3 +112,5 @@ static Item *items[7] =
 static Page pageChannelA(items);
 
 Page *PageChannelA::self = &pageChannelA;
+
+Switch *PageChannelA::switchTypeSynch = &sSync;

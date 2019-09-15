@@ -3,30 +3,39 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static void Swap(char *ch1, char *ch2)
+{
+    char c = *ch1;
+    *ch1 = *ch2;
+    *ch2 = c;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 char *Int2String(int n, char *buffer)
 {
-    //        if (n < 0) { //turns n positive
-    //               n = (-1 * n);
-    //                u = "-"; //adds '-' on result string
-    //        }
+    char *result = buffer;
 
-    char c;
+    if (n < 0)
+    {
+        buffer[0] = '-';
+        n = -n;
+        result = &buffer[1];
+    }
+
     int i = 0;
 
     do
     {
-        buffer[i++] = n % 10 + '0';
+        result[i++] = n % 10 + '0';
         n -= n % 10;
     } while ((n /= 10) > 0);
 
-    buffer[i] = '\0';
+    result[i] = '\0';
 
     for (int j = 0; j < i; j++)
     {
         i--;
-        c = buffer[j];
-        buffer[j] = buffer[i];
-        buffer[i] = c;
+        Swap(&result[j], &result[i]);
     }
 
     return buffer;

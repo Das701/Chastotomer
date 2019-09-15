@@ -112,3 +112,5 @@ static Item *items[7] =
 static Page pageChannelB(items);
 
 Page *PageChannelB::self = &pageChannelB;
+
+Switch *PageChannelB::switchTypeSynch = &sSync;

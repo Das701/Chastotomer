@@ -85,5 +85,7 @@ public:
     static ModeFront modeFront;
     static Divider divider;
     static TypeSynch typeSynch;
+
+    static Switch *switchTypeSynch;     ///< ”казатель на переключатель типа синхронизации
 };
 

@@ -5,6 +5,7 @@
 #include "Utils/Math.h"
 #include "Menu/Pages/PageModes.h"
 #include "Menu/Pages/PageChannelA.h"
+#include "Menu/Pages/PageChannelB.h"
 #include "Utils/String.h"
 #include "Settings.h"
 #include "Menu/Hint.h"
@@ -66,6 +67,27 @@ void Page::Draw(int x, int y, bool)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static bool ChangeLevelSynch(int delta)
+{
+#define CHANGE_LEVEL(ch, delta)                 \
+    LEVEL_SYNCH(ch) = LEVEL_SYNCH(ch) + delta;  \
+    Hint::Create(Hint::FromItem());             \
+    return true;
+
+    if (CURRENT_CHANNEL_IS_A && Hint::FromItem() == PageChannelA::switchTypeSynch)
+    {
+        CHANGE_LEVEL(Channel::A, delta);
+    }
+
+    if (CURRENT_CHANNEL_IS_B && Hint::FromItem() == PageChannelB::switchTypeSynch)
+    {
+        CHANGE_LEVEL(Channel::B, delta);
+    }
+
+    return false;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool Page::OnControl(const Control &control)
 {
     bool result = false;
@@ -83,9 +105,17 @@ bool Page::OnControl(const Control &control)
         break;
 
     case Control::GovLeft:
+        if (Hint::Text())
+        {
+            result = ChangeLevelSynch(-20);
+        }
         break;
 
     case Control::GovRight:
+        if (Hint::Text())
+        {
+            result = ChangeLevelSynch(20);
+        }
         break;
 
     case Control::GovButton: 
