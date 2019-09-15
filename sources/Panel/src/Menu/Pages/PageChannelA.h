@@ -62,8 +62,8 @@ struct Divider : public Enumeration
     explicit Divider(E v) : Enumeration((uint8)v) {};
 };
 
-/// Выбор уровня синхронизации - ТТЛ или ЭСЛ
-struct LevelSynch : public Enumeration
+/// Выбор типа синхронизации - ТТЛ или ЭСЛ
+struct TypeSynch : public Enumeration
 {
     enum E
     {
@@ -71,7 +71,7 @@ struct LevelSynch : public Enumeration
         ESL             ///< ЭСЛ
     };
 
-    explicit LevelSynch(E v) : Enumeration((uint8)v) {};
+    explicit TypeSynch(E v) : Enumeration((uint8)v) {};
 };
 
 
@@ -84,6 +84,6 @@ public:
     static ModeFilter modeFilter;
     static ModeFront modeFront;
     static Divider divider;
-    static LevelSynch levelSynch;
+    static TypeSynch typeSynch;
 };
 

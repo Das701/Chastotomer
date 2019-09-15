@@ -107,6 +107,8 @@ char *Menu::ChannelSettings()
     std::strcat(settings, " "); \
     std::strcat(settings, ugo);
 
+    char buffer[20];
+
     static char settings[100] = { 0 };
     if(set.currentChannel == Channel::A)
     {
@@ -116,9 +118,8 @@ char *Menu::ChannelSettings()
         ADD_UGO(PageChannelA::modeFilter.UGO());
         ADD_UGO(PageChannelA::modeFront.UGO());
         ADD_UGO(PageChannelA::divider.UGO());
-        ADD_UGO(PageChannelA::levelSynch.UGO());
-        char buffer[20];
-        std::strcat(settings, Int2String(set.syncValue, buffer));
+        ADD_UGO(PageChannelA::typeSynch.UGO());
+        std::strcat(settings, Int2String(LEVEL_SYNCH_A, buffer));
     }
     else if(set.currentChannel == Channel::B)
     {
@@ -128,7 +129,8 @@ char *Menu::ChannelSettings()
         ADD_UGO(PageChannelB::modeFilter.UGO());
         ADD_UGO(PageChannelB::modeFront.UGO());
         ADD_UGO(PageChannelB::divider.UGO());
-        ADD_UGO(PageChannelB::levelSynch.UGO());
+        ADD_UGO(PageChannelB::typeSynch.UGO());
+        std::strcat(settings, Int2String(LEVEL_SYNCH_B, buffer));
     }
     else if(set.currentChannel == Channel::C)
     {

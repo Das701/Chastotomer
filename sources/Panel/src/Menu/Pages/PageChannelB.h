@@ -12,6 +12,6 @@ public:
     static ModeFilter modeFilter;
     static ModeFront modeFront;
     static Divider divider;
-    static LevelSynch levelSynch;
+    static TypeSynch typeSynch;
 };
 

@@ -18,7 +18,7 @@ InputImpedance   PageChannelB::inputImpedance(InputImpedance::_1MOmh);
 ModeFilter       PageChannelB::modeFilter(ModeFilter::Off);
 ModeFront        PageChannelB::modeFront(ModeFront::Front);
 Divider          PageChannelB::divider(Divider::_1);
-LevelSynch       PageChannelB::levelSynch(LevelSynch::TTL);
+TypeSynch        PageChannelB::typeSynch(TypeSynch::TTL);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_OCI()
@@ -95,7 +95,7 @@ DEF_SWITCH_UGO_2(sSync,
     "Синхр", "Выбор уровня сихронизации",
     "ТТЛ", "ЭСЛ",
     "1200mV", "-1240mV",
-    PageChannelB::levelSynch, OnPress_Sync
+    PageChannelB::typeSynch, OnPress_Sync
 );
 
 static Item *items[7] =
