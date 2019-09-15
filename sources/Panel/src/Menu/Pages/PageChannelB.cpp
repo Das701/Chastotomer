@@ -15,8 +15,8 @@ using namespace Display;
 extern Item *items[7];
 
 
-InputCouple      PageChannelB::inputCouple(InputCouple::DC);
-InputImpedance   PageChannelB::inputImpedance(InputImpedance::_1MOmh);
+InputCouple      PageChannelB::couple(InputCouple::DC);
+InputImpedance   PageChannelB::impedance(InputImpedance::_1MOmh);
 ModeFilter       PageChannelB::modeFilter(ModeFilter::Off);
 ModeFront        PageChannelB::modeFront(ModeFront::Front);
 Divider          PageChannelB::divider(Divider::_1);
@@ -33,7 +33,7 @@ DEF_SWITCH_UGO_2(sCouple,
     "\x7C \x7D", "¬ход",
     "ќткрытый вход", "«акрытый вход",
     "\x7C", "\x7D",
-    PageChannelB::inputCouple, OnPress_Couple
+    PageChannelB::couple, OnPress_Couple
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ DEF_SWITCH_UGO_2(sImpedance,
     "Rвх", "¬ходное сопротивление канала",
     "1 ћќм", "50 ќм",
     "1ћќм", "50ќм",
-    PageChannelB::inputImpedance, OnPress_Impedance
+    PageChannelB::impedance, OnPress_Impedance
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
