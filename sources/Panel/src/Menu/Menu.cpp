@@ -9,6 +9,7 @@
 #include "Menu/Pages/PageChannelB.h"
 #include "Menu/Pages/PageChannelC.h"
 #include "Menu/Pages/PageChannelD.h"
+#include "Menu/Hint.h"
 #include "Settings.h"
 #include "Utils/String.h"
 #include <cstring>
@@ -75,6 +76,8 @@ static bool OpenPage(Control control)
         return false;
     }
 
+    Page *oldPage = openedPage;
+
     static Page * const pages[Control::Count] =
     {
 /*  0 */  nullptr,
@@ -93,6 +96,10 @@ static bool OpenPage(Control control)
     if (pages[control.value])
     {
         openedPage = pages[control.value];
+        if (oldPage != openedPage)
+        {
+            Hint::Hide();                   // ѕр€чем подсказку, если отрыта друга€ страница
+        }
         return true;
     }
 
