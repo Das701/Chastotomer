@@ -12,7 +12,7 @@ public:
     /// Возвращает текст подсказки
     static char *Text();
     /// Возвращает итем, для которого действует подсказка
-    static const Item *FromItem();
+    static const Item *UnderItem();
     /// Спрятать подсказку
     static void Hide();
 };

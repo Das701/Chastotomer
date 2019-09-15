@@ -34,7 +34,7 @@ void Menu::Init()
 void Menu::Draw()
 {
     font->SetType(Font::Type::_8);
- 
+
     openedPage->Draw(35, 52);
 }
 
@@ -44,8 +44,8 @@ void Menu::Update()
     while (!Keyboard::Empty())
     {
         Control control = Keyboard::NextControl();
-        
-        if(!openedPage->OnControl(control))
+
+        if (!openedPage->OnControl(control))
         {
             OpenPage(control);
         }
@@ -76,30 +76,27 @@ static bool OpenPage(Control control)
         return false;
     }
 
-    Page *oldPage = openedPage;
-
     static Page * const pages[Control::Count] =
     {
-/*  0 */  nullptr,
-/*  1 */  PageModes::self,
-/*  2 */  PageIndication::self,
-/*  3 */  nullptr, nullptr,
-/*  5 */  PageChannelA::self,
-/*  6 */  PageChannelB::self,
-/*  7 */  PageChannelC::self,
-/*  8 */  PageChannelD::self,
-/*  9 */  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
+        /*  0 */  nullptr,
+        /*  1 */  PageModes::self,
+        /*  2 */  PageIndication::self,
+        /*  3 */  nullptr, nullptr,
+        /*  5 */  PageChannelA::self,
+        /*  6 */  PageChannelB::self,
+        /*  7 */  PageChannelC::self,
+        /*  8 */  PageChannelD::self,
+        /*  9 */  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
     };
 
     SetCurrentChannel(control);
 
-    if (pages[control.value])
+    Page *page = pages[control.value];
+
+    if (page && page != openedPage)
     {
-        openedPage = pages[control.value];
-        if (oldPage != openedPage)
-        {
-            Hint::Hide();                   // ѕр€чем подсказку, если отрыта друга€ страница
-        }
+        openedPage = page;
+        Hint::Hide();
         return true;
     }
 

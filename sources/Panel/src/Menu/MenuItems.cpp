@@ -69,18 +69,21 @@ void Page::Draw(int x, int y, bool)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static bool ChangeLevelSynch(int delta)
 {
-    if (CURRENT_CHANNEL_IS_A && Hint::FromItem() == PageChannelA::switchTypeSynch)
+    if (Hint::Text())
     {
-        LEVEL_SYNCH_A = LEVEL_SYNCH_A + delta;
-        Hint::Create(Hint::FromItem());                 // Продлить время нахождения подсказки на экране
-        return true;
-    }
+        if (CURRENT_CHANNEL_IS_A && Hint::UnderItem() == PageChannelA::switchTypeSynch)
+        {
+            LEVEL_SYNCH_A = LEVEL_SYNCH_A + delta;
+            Hint::Create(Hint::UnderItem());                 // Продлить время нахождения подсказки на экране
+            return true;
+        }
 
-    if (CURRENT_CHANNEL_IS_B && Hint::FromItem() == PageChannelB::switchTypeSynch)
-    {
-        LEVEL_SYNCH_B = LEVEL_SYNCH_B + delta;
-        Hint::Create(Hint::FromItem());                 // Продлить время нахождения подсказки на экране
-        return true;
+        if (CURRENT_CHANNEL_IS_B && Hint::UnderItem() == PageChannelB::switchTypeSynch)
+        {
+            LEVEL_SYNCH_B = LEVEL_SYNCH_B + delta;
+            Hint::Create(Hint::UnderItem());                 // Продлить время нахождения подсказки на экране
+            return true;
+        }
     }
 
     return false;
@@ -106,17 +109,11 @@ bool Page::OnControl(const Control &control)
         break;
 
     case Control::GovLeft:
-        if (Hint::Text())                       // Если подсказка на экране
-        {
-            result = ChangeLevelSynch(-20);     // то делаем попытку изменить уровень синхронизации
-        }
+        result = ChangeLevelSynch(-20);     // Делаем попытку изменить уровень синхронизации
         break;
 
     case Control::GovRight:
-        if (Hint::Text())                       // Если подсказка на экране
-        {
-            result = ChangeLevelSynch(20);      // то делаем попытку изменить уровень синхронизации
-        }
+        result = ChangeLevelSynch(20);      // Делаем попытку изменить уровень синхронизации
         break;
 
     case Control::GovButton: 
@@ -156,11 +153,14 @@ bool Switch::OnControl(const Control &control)
 {
     if (control.action.IsPress() && control.value == Control::GovButton)
     {
-        Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
-
-        if (funcOnPress)
+        if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
         {
-            funcOnPress();
+            Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
+
+            if (funcOnPress)
+            {
+                funcOnPress();
+            }
         }
 
         Hint::Create(this);
