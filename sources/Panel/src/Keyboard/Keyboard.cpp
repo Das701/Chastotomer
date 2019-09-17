@@ -17,7 +17,7 @@ static Control::E controls[NUM_SL][NUM_RL] =
 {
     {Control::GovButton,  Control::Right, Control::GovLeft,    Control::Test,      Control::A},
     {Control::Mode,       Control::None,  Control::GovRight,   Control::None,      Control::B},
-    {Control::Indication, Control::None,  Control::None,       Control::GovButton, Control::C},
+    {Control::Indication, Control::GovRight,  Control::None,       Control::GovButton, Control::C},
     {Control::None,       Control::None,  Control::None,       Control::Test,      Control::D},
     {Control::Left,       Control::None,  Control::Indication, Control::Auto,      Control::None}
 };
