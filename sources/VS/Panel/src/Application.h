@@ -1,5 +1,6 @@
 #pragma once
 #include <wx/wx.h>
+#include "Display/Display.h"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -15,8 +16,8 @@ class Frame : public wxFrame
 {
 public:
 
-    static const int WIDTH = 512;
-    static const int HEIGHT = 128;
+    static const int WIDTH = Display::WIDTH;
+    static const int HEIGHT = Display::HEIGHT;
 
     Frame(const wxString& title);
 

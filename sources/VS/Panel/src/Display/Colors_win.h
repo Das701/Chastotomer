@@ -30,8 +30,8 @@ uint cols[16] =
 {
     0, 0, 0, 0,
     0, 0, 0, 0,
-    0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-    0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
+    0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU,
+    0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU
 };
 
 #define COLOR(x) cols[x];

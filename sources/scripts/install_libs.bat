@@ -1,4 +1,6 @@
-rmdir ../ThirdParty/ /s /q
+cd ..
+rmdir ThirdParty /s /q
+cd scripts
 
 @echo Installation SDL2
 

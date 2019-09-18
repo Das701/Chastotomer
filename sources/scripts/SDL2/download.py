@@ -55,12 +55,20 @@ def GetNameFile(url):
     file_name = ExtractName(soup)
     
     return file_name
+    
+#-----------------------------------------------------------------------------------    
+def SpeedToString(speed):
+    if(speed < 1e3):
+        return str(float('{:.1f}'.format(speed))) + " b/s"
+    elif(speed < 1e6):
+        return str(float('{:.1f}'.format(speed / 1e3))) + " kb/s"
+    return str(float('{:.1f}'.format(speed / 1e6))) + " Mb/s"
 
 #-----------------------------------------------------------------------------------    
 def GetFile(src, dest):
 
     # Сколько загружено байт
-    loaded_size = 0
+    loaded_size = 0.0
     
     # Сюда будем сохранять файл
     zip_file = open(dest, 'wb')
@@ -80,10 +88,8 @@ def GetFile(src, dest):
         zip_file.write(chunk)
         loaded_size += len(chunk)
         percents = StringForPercents(loaded_size / size_file * 100)
-        
-        speed =  float('{:.1f}'.format(loaded_size / (time.monotonic() - time_start) / 1024 / 1024))
-        
-        print("\r" + percents + " : " + str(int(loaded_size / 1024)) + " kb from " + str(int(size_file / 1024)) + " kb " + str(speed) + " MB/s", end = '')
+        speed =  loaded_size / (time.monotonic() - time_start)
+        print("\r" + percents + " : " + str(int(loaded_size / 1024)) + " kb from " + str(int(size_file / 1024)) + " kb " + SpeedToString(speed), end = '')
     
     zip_file.close()
     print()
