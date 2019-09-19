@@ -119,6 +119,23 @@ bool Page::OnControl(const Control &control)
     case Control::GovButton: 
         result = SelectedItem()->OnControl(control);
         break;
+
+    case Control::Count:
+    case Control::None:
+    case Control::Mode:
+    case Control::Indication:
+    case Control::A:
+    case Control::B:
+    case Control::C:
+    case Control::D:
+    case Control::Esc:
+    case Control::Test:
+    case Control::Auto:
+        break;
+
+    default:
+        // никаких действий по умолчанию производить не требуется
+        break;
     }
 
     return result;
@@ -178,7 +195,10 @@ void Switch::Draw(int x, int y, bool selected)
     {
         Color::BLACK.SetAsCurrent();
     }
-    Text(text).Write(x, y + 2, WIDTH);
+
+    int delta = HEIGHT / 2 - 4;
+
+    Text(text).Write(x, y + delta, WIDTH);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

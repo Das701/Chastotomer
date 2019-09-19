@@ -143,13 +143,13 @@ static HANDLE CreateFrame()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void CreateButtons(Frame *frame)
 {
-    int x0 = 37;
+    int x0 = 20;
     int y0 = Frame::HEIGHT + 15;
 
-    int dX = 40;
+    int dX = 10;
     int dY = 5;
 
-    int width = 80;
+    int width = 65;
     int height = 25;
 
     wxSize size(width, height);

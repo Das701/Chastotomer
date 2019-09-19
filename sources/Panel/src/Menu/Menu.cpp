@@ -2,6 +2,7 @@
 #include "Menu.h"
 #include "MenuItems.h"
 #include "Menu/Pages/PageModes.h"
+#include "Display/Display.h"
 #include "Display/Text.h"
 #include "Keyboard/Keyboard.h"
 #include "Menu/Pages/PageIndication.h"
@@ -35,7 +36,7 @@ void Menu::Draw()
 {
     font->SetType(Font::Type::_8);
 
-    openedPage->Draw(0, 240);
+    openedPage->Draw(0, Display::HEIGHT - Item::HEIGHT - 1);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -130,7 +131,8 @@ char *Menu::ChannelSettings()
         ADD_UGO(Int2String(LEVEL_SYNCH_A, buffer));
         std::strcat(settings, "ìÂ");
     }
-    else if(CURRENT_CHANNEL_IS_B)
+    
+    if(CURRENT_CHANNEL_IS_B)
     {
         ADD_UGO(PageChannelB::couple.UGO());
         ADD_UGO(PageChannelB::impedance.UGO());

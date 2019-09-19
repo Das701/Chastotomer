@@ -39,7 +39,7 @@ void Point::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
-    if (x >= 0 && x < Display::GetWidth() && y >= 0 && y < Display::GetHeight())
+    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT)
     {
         *Display::GetPixel(x, y) = Color::GetCurrent().value;
     }
