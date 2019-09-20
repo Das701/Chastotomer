@@ -52,7 +52,7 @@ void Page::Draw(int x, int y, bool)
 {
     if (items)
     {
-        for (int i = 0; items[i] != 0; i++)
+        for (int i = 0; i < 7; i++)
         {
             if (i == selectedItem)
             {
@@ -60,7 +60,12 @@ void Page::Draw(int x, int y, bool)
             }
         
             Rectangle(WIDTH, HEIGHT).Draw(x, y, Color::WHITE);
-            items[i]->Draw(x, y, i == selectedItem);
+
+            if (items[i])
+            {
+                items[i]->Draw(x, y, i == selectedItem);
+            }
+
             x += Item::WIDTH + 2;
         }
     }
@@ -198,7 +203,7 @@ void Switch::Draw(int x, int y, bool selected)
 
     int delta = HEIGHT / 2 - 4;
 
-    Text(text).Write(x, y + delta, WIDTH);
+    Text(text).WriteInRect(x, y, WIDTH, HEIGHT);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
