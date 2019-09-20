@@ -14,6 +14,10 @@ static Switch name(title, hint, n##name, ugo##name, &state, func);
 static char *n##name[] = { name1, name2, name3, nullptr };                                      \
 static Switch name(title, hint, n##name, nullptr, &state, func);
 
+#define DEF_SWITCH_4(name, title, hint, name1, name2, name3, name4, state, func)                \
+static char *n##name[] = { name1, name2, name3, name4, nullptr };                               \
+static Switch name(title, hint, n##name, nullptr, &state, func);
+
 #define DEF_SWITCH_5(name, title, hint, name1, name2, name3, name4, name5, state, func)         \
 static char *n##name[] = { name1, name2, name3, name4, name5, nullptr };                        \
 static Switch name(title, hint, n##name, nullptr, &state, func);
