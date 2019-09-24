@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Text.h"
 #include "Display/Primitives.h"
+#include "Menu/MenuItems.h"
 #include <cstring>
 
 
@@ -46,13 +47,25 @@ void Text::Create(const char *_text)
 int Text::Write(int x, int y, Color color)
 {
     color.SetAsCurrent();
-    
-    char *p = text;
-    
-    while (text && *p)
+
+    if (text)
+    {
+        x = WriteSymbols(text, (int)std::strlen(text), x, y);
+    }
+
+    return x;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+int Text::WriteSymbols(char* start, int num, int x, int y) const
+{
+    char* p = start;
+
+    for (int i = 0; i < num; i++)
     {
         x = WriteSymbol(x, y, (uint8)(*p++)) + 1;
     }
+
     return x;
 }
 
@@ -70,15 +83,167 @@ int Text::Write(int x, int y, int width, Color color)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Text::WriteInRect(int x, int y, int width, int height, Color color)
+void Text::WriteSymbols(char *start, int num, int x, int y, int width, Color color) const
 {
     color.SetAsCurrent();
 
+    int length = Font::GetLengthSymbols(start, num);
 
+    int delta = (width - length) / 2;
+
+    WriteSymbols(start, num, x + delta, y);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-int Text::WriteSymbol(int x, int y, uint8 chr)
+void Text::WriteInCenterRect(int x, int y, int width, int height, Color color)
+{
+    volatile int numWords = NumWords();
+
+    if (numWords == 1)
+    {
+        int dY = (height - Font::GetSize()) / 2;
+        Write(x, y + dY, width, color);
+    }
+    else if (numWords == 2)
+    {
+        char* start = 0;
+        int num = 0;
+
+        GetWord(0, start, num);
+        
+        int dY = (height - Font::GetSize()) / 2 - Font::GetSize() / 2 - 2;
+        WriteSymbols(start, num, x, y + dY, width, color);
+
+        GetWord(1, start, num);
+
+        WriteSymbols(start, num, x, y + dY + 1.5F * Font::GetSize(), width);
+    }
+    else
+    {
+        // остальные варианты пока не трогаем
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/// Пропускает пробелы
+static void SkipSpaces(char** p)
+{
+    while (true)
+    {
+        if (**p == 0)
+        {
+        }
+        else if (**p == ' ')
+        {
+            (*p)++;
+            continue;
+        }
+        else
+        {
+            // остальные варианты не рассматриваем
+        }
+
+        break;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/// Пропускает символы
+static void SkipSymbols(char** p)
+{
+    while (true)
+    {
+        if (**p == 0)
+        {
+        }
+        else if (**p != ' ')
+        {
+            (*p)++;
+            continue;
+        }
+        else
+        {
+            // остальные варианты не рассматриваем
+        }
+
+        break;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+int Text::NumWords() const
+{
+    int result = 0;
+
+    char* p = text;
+
+    bool run = true;
+
+    while (run)
+    {
+        SkipSpaces(&p);
+
+        if (*p == 0)
+        {
+            run = false;
+            continue;
+        }
+
+        result++;
+
+        SkipSymbols(&p);
+
+        if (*p == 0)
+        {
+            run = false;
+            continue;
+        }
+    }
+
+    return result;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Text::GetWord(int numWord, char *(&start), int &num)
+{
+    char *p = text;
+
+    int word = 0;
+
+    while (true) //-V2530
+    {
+        num = 0;
+        start = 0;
+
+        SkipSpaces(&p);
+
+        if (*p == 0)
+        {
+            num = 0;
+            start = 0;
+            break;
+        }
+
+        start = p;
+
+        while (*p && *p != ' ')
+        {
+            num++;
+            p++;
+        }
+
+        if (numWord == word)
+        {
+
+            break;
+        }
+
+        word++;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+int Text::WriteSymbol(int x, int y, uint8 chr) const
 {
     int height = font->height;
     int width = font->GetLengthSymbol((char)chr);

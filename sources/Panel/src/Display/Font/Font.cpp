@@ -10,7 +10,7 @@ const Font *fonts[Font::Type::Number] = {&font5, &font7, &font8};
 const Font *font = &font7;
 
 
-static Font::Type type = Font::Type::_5;
+static Font::Type::E type = Font::Type::_5;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int Font::GetSize()
@@ -21,13 +21,29 @@ int Font::GetSize()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int Font::GetLengthText(const char *text)
 {
-    int retValue = 0;
+    int result = 0;
+
     while (*text)
     {
-        retValue += GetLengthSymbol(*text);
+        result += GetLengthSymbol(*text);
         text++;
     }
-    return retValue;
+
+    return result;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+int Font::GetLengthSymbols(const char *text, int num)
+{
+    int result = 0;
+
+    for (int i = 0; i < num; i++)
+    {
+        result += GetLengthSymbol(*text);
+        text++;
+    }
+
+    return result;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -43,7 +59,7 @@ int Font::GetLengthSymbol(char symbol)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Font::SetType(Type typeFont)
+void Font::SetType(Type::E typeFont)
 {
     type = typeFont;
     font = fonts[type];

@@ -201,9 +201,7 @@ void Switch::Draw(int x, int y, bool selected)
         Color::BLACK.SetAsCurrent();
     }
 
-    int delta = HEIGHT / 2 - 4;
-
-    Text(text).WriteInRect(x, y, WIDTH, HEIGHT);
+    Text(text).WriteInCenterRect(x, y, WIDTH, HEIGHT);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

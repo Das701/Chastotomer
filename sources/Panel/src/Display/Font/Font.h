@@ -21,15 +21,16 @@ struct Font
             Number,
             None
         } value;
-        Type(E v = None) : value(v) {};
+        explicit Type(E v = None) : value(v) {};
         operator uint8() const { return (uint8)value; };
     };
 
     static int GetSize();
     static int GetLengthText(const char *text);
+    static int GetLengthSymbols(const char *text, int num);
     static int GetHeightSymbol(char symbol);
     static int GetLengthSymbol(char symbol);
-    static void SetType(Type typeFont);
+    static void SetType(Type::E typeFont);
     
     int height;
     Symbol symbol[256];
