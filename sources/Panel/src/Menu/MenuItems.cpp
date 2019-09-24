@@ -129,10 +129,8 @@ bool Page::OnControl(const Control &control)
     case Control::None:
     case Control::Mode:
     case Control::Indication:
-    case Control::A:
-    case Control::B:
-    case Control::C:
-    case Control::D:
+    case Control::Channels:
+    case Control::Enter:
     case Control::Esc:
     case Control::Test:
     case Control::Auto:

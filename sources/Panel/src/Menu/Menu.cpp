@@ -13,6 +13,7 @@
 #include "Menu/Hint.h"
 #include "Settings.h"
 #include "Utils/String.h"
+#include "Utils/Math.h"
 #include <cstring>
 
 
@@ -57,15 +58,33 @@ void Menu::Update()
 /// Устанавливает текущий канал в зависимости от нажатой кнопки
 static void SetCurrentChannel(const Control &control)
 {
-    if (control.value >= Control::A && control.value <= Control::D)
+    if (control.value == Control::Channels)
     {
-        static const Channel::E chans[9] =
-        {
-            Channel::Count, Channel::Count, Channel::Count, Channel::Count, Channel::Count,
-            Channel::A, Channel::B, Channel::C, Channel::D
-        };
+        uint8 channel = (uint8)set.currentChannel;
+        Math::CircleIncrease<uint8>(&channel, 0, Channel::Count - 1);
+        set.currentChannel = (Channel::E)channel;
 
-        set.currentChannel = chans[control.value];
+        Page *page = nullptr;
+
+        if (set.currentChannel == Channel::A)
+        {
+            page = PageChannelA::self;
+        }
+        else if (set.currentChannel == Channel::B)
+        {
+            page = PageChannelB::self;
+        }
+        else if (set.currentChannel == Channel::C)
+        {
+            page = PageChannelC::self;
+        }
+        else if (set.currentChannel == Channel::D)
+        {
+            page = PageChannelD::self;
+        }
+
+        openedPage = page;
+        Hint::Hide();
     }
 }
 
@@ -82,12 +101,7 @@ static bool OpenPage(Control control)
         /*  0 */  nullptr,
         /*  1 */  PageModes::self,
         /*  2 */  PageIndication::self,
-        /*  3 */  nullptr, nullptr,
-        /*  5 */  PageChannelA::self,
-        /*  6 */  PageChannelB::self,
-        /*  7 */  PageChannelC::self,
-        /*  8 */  PageChannelD::self,
-        /*  9 */  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
+        /*  3 */  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
     };
 
     SetCurrentChannel(control);

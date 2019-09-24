@@ -11,17 +11,15 @@ struct Control
 /*  2 */   Indication,
 /*  3 */   Left,
 /*  4 */   Right,
-/*  5 */   A,
-/*  6 */   B,
-/*  7 */   C,
-/*  8 */   D,
-/*  9 */   Esc,
-/* 10 */   GovLeft,
-/* 11 */   GovRight,
-/* 12 */   Test,
-/* 13 */   Auto,
-/* 14 */   None,
-/* 15 */   Count
+/*  5 */   Channels,
+/*  6 */   Enter,
+/*  7 */   Esc,
+/*  8 */   GovLeft,
+/*  9 */   GovRight,
+/* 10 */   Test,
+/* 11 */   Auto,
+/* 12 */   None,
+/* 13 */   Count
     } value;
 
     struct Action

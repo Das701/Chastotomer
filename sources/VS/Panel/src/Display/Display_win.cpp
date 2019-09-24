@@ -154,31 +154,27 @@ static void CreateButtons(Frame *frame)
 
     wxSize size(width, height);
 
-    //  нопки каналов
-    Control::E keysCh[4] = { Control::A, Control::B, Control::C, Control::D };
-
     //  нопки режимов
     Control::E keysM[4] = { Control::Mode, Control::Indication, Control::Test, Control::Auto };
 
     // ”правл€ющие кнопки
-    Control::E keysC[4] = { Control::Left, Control::Esc, Control::Right, Control::None };
+    Control::E keysC[4] = { Control::Channels, Control::Left, Control::Esc, Control::Right };
 
     //  нопки регул€тора
-    Control::E keysGov[4] = { Control::GovLeft, Control::GovButton, Control::GovRight, Control::None };
+    Control::E keysGov[4] = { Control::Enter, Control::GovLeft, Control::GovButton, Control::GovRight};
 
     for (int i = 0; i < 4; i++)
     {
-        CreateButton(keysCh[i], frame, { x0 + (width + dX) * i, y0 }, size);
-        CreateButton(keysM[i], frame, { x0 + (width + dX) * i, y0 + height + dY }, size);
-        CreateButton(keysC[i], frame, { x0 + (width + dX) * i, y0 + (height + dY) * 2 + 10 }, size);
-        CreateButton(keysGov[i], frame, { x0 + (width + dX) * i, y0 + (height + dY) * 3 + 20 }, size);
+        CreateButton(keysM[i], frame, { x0 + (width + dX) * i, y0 }, size);
+        CreateButton(keysC[i], frame, { x0 + (width + dX) * i, y0 + height + dY + 10 }, size);
+        CreateButton(keysGov[i], frame, { x0 + (width + dX) * i, y0 + (height + dY) * 2 + 10 }, size);
     }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void SetPositionAndSize(Frame *frame)
 {
-    wxSize size = { Frame::WIDTH + 9, Frame::HEIGHT + 230 };
+    wxSize size = { Frame::WIDTH + 9, Frame::HEIGHT + 200 };
 
     frame->SetSize(size);
     frame->SetMinSize(size);
