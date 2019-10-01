@@ -2,8 +2,14 @@
 #include "PageChannelD.h"
 #include "Menu/MenuItems.h"
 
-static Item *items[] =
+static Item *items[7] =
 {
+    nullptr,
+    nullptr,
+    nullptr,
+    nullptr,
+    nullptr,
+    nullptr,
     nullptr
 };
 

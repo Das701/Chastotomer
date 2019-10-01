@@ -8,7 +8,7 @@
 
 using namespace Display::Primitives;
 using namespace Display;
-extern Item *items[6];
+extern Item *items[7];
 
 DisplayTime         PageIndication::displayTime(DisplayTime::_100ms);
 RefGenerator        PageIndication::refGenerator(RefGenerator::Internal);
@@ -71,13 +71,14 @@ DEF_SWITCH_2(sMemoryMode,
     "Вкл", "Выкл", 
     PageIndication::memoryMode, OnPress_MemoryMode);
 
-static Item *items[6] =
+static Item *items[7] =
 {
     &sDisplayTime,
     &sRefGenerator,
     &sLaunchSource,
     &sCalibration,
     &sMemoryMode,
+    nullptr,
     nullptr
 };
 
