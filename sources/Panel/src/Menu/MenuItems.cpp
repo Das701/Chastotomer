@@ -54,16 +54,18 @@ void Page::Draw(int x, int y, bool)
     {
         for (int i = 0; i < 7; i++)
         {
-            if (i == selectedItem)
-            {
-                Rectangle(WIDTH - 2, HEIGHT - 1).Fill(x + 1, y + 1, Color::_14);
-            }
+            
         
-            Rectangle(WIDTH, HEIGHT).Draw(x, y, Color::WHITE);
+            
 
             if (items[i])
             {
+                if (i == selectedItem)
+                {
+                    Rectangle(WIDTH - 2, HEIGHT - 1).Fill(x + 1, y + 1, Color::_14);
+                }
                 items[i]->Draw(x, y, i == selectedItem);
+                Rectangle(WIDTH, HEIGHT).Draw(x, y, Color::WHITE);
             }
 
             x += Item::WIDTH + 2;

@@ -23,8 +23,8 @@ class Item
 {
     friend class Hint;
 public:
-    static const int WIDTH = 51;
-    static const int HEIGHT = 30;
+    static const int WIDTH = 35;
+    static const int HEIGHT = 20;
 
     /// Функция отрисовки
     virtual void Draw(int x, int y, bool selected = false) = 0;
