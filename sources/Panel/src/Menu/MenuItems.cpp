@@ -124,7 +124,10 @@ bool Page::OnControl(const Control &control)
         break;
 
     case Control::GovButton: 
-        result = SelectedItem()->OnControl(control);
+        if(SelectedItem())
+        {
+            result = SelectedItem()->OnControl(control);
+        }
         break;
 
     case Control::Count:
