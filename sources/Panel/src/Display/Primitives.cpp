@@ -38,10 +38,20 @@ void Rectangle::Fill(int x0, int y0, Color color)
 void Point::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
-
+  
     if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT)
-    {
-        *Display::GetPixel(x, y) = Color::GetCurrent().value;
+    {    
+        static int tempX = x / 2;
+        static uint8 temp = *Display::GetPixel(tempX, y);
+        if(x%2 != 0)
+        {
+            tempX++;
+            *Display::GetPixel(tempX, y) = temp | (Color::GetCurrent().value<<4);
+        }
+        else
+        {
+            *Display::GetPixel(tempX, y) = temp | (Color::GetCurrent().value>>4);
+        }
     }
 }
 
