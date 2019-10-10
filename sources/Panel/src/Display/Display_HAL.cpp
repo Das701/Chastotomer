@@ -59,8 +59,7 @@ void Display::EndScene()
         int x1 = 0;
         for(int x = 0; x < 160; x++)
         {
-            uint8 byte;
-            byte = RGB565_240x160[y][x] << 4;
+            uint8 byte = RGB565_240x160[y][x] << 4;
             front[y][x1] = byte | (byte >> 4);
             x1++;
             byte = RGB565_240x160[y][x] >> 4;

@@ -46,11 +46,11 @@ void Point::Draw(int x, int y, Color color)
         if(x%2 != 0)
         {
             tempX++;
-            *Display::GetPixel(tempX, y) = temp | (Color::GetCurrent().value<<4);
+            *Display::GetPixel(tempX, y) = temp | (Color::GetCurrent().value << 4);
         }
         else
         {
-            *Display::GetPixel(tempX, y) = temp | (Color::GetCurrent().value>>4);
+            *Display::GetPixel(tempX, y) = temp | (Color::GetCurrent().value >> 4);
         }
     }
 }
@@ -60,16 +60,22 @@ void HLine::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
-    uint8 *p = Display::GetPixel(x, y);
-    
-    uint8 *end = p + length;
-    
-    uint8 value = Color::GetCurrent().value;
-    
-    while (p <= end)
+    for(int i = 0; i < length; i++)
     {
-        *p++ = value;
+        Point().Draw(x, y);
+        x++;
     }
+    
+//    uint8 *p = Display::GetPixel(x, y);
+//    
+//    uint8 *end = p + length;
+//    
+//    uint8 value = Color::GetCurrent().value;
+//    
+//    while (p <= end)
+//    {
+//        *p++ = value;
+//    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -77,13 +83,19 @@ void VLine::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
-    uint8 *p = Display::GetPixel(x, y);
-    
-    uint8 value = Color::GetCurrent().value;
-    
-    for (int i = 0; i < length; i++)
+    for(int i = 0; i < length; i++)
     {
-        *p = value;
-        p += 320;
+        Point().Draw(x, y);
+        y++;
     }
+    
+//    uint8 *p = Display::GetPixel(x, y);
+//    
+//    uint8 value = Color::GetCurrent().value;
+//    
+//    for (int i = 0; i < length; i++)
+//    {
+//        *p = value;
+//        p += 320;
+//    }
 }
