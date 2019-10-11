@@ -117,7 +117,7 @@ void DrawChannelSettings()
 static void DrawTypeMeasure()
 {
     int x = 0;
-    int width = 40; 
+    int width = 60; 
     Text(PageModes::typeMeasure.ToText()).Write(x, 5, width);
     Rectangle(width, 20).Draw(x, 0, Color::WHITE);
 }
