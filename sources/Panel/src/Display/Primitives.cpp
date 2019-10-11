@@ -38,19 +38,17 @@ void Rectangle::Fill(int x0, int y0, Color color)
 void Point::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
-  
+
     if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT)
     {    
         static int tempX = x / 2;
-        static uint8 temp = *Display::GetPixel(tempX, y);
         if(x%2 != 0)
         {
-            tempX++;
-            *Display::GetPixel(tempX, y) = temp | (Color::GetCurrent().value << 4);
+            *Display::GetPixel(tempX, y) = *Display::GetPixel(tempX, y) | (Color::GetCurrent().value & 0xF0);
         }
         else
         {
-            *Display::GetPixel(tempX, y) = temp | (Color::GetCurrent().value >> 4);
+            *Display::GetPixel(tempX, y) = *Display::GetPixel(tempX, y) | (Color::GetCurrent().value & 0x0F);
         }
     }
 }
@@ -59,13 +57,12 @@ void Point::Draw(int x, int y, Color color)
 void HLine::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
-
+    
     for(int i = 0; i < length; i++)
     {
         Point().Draw(x, y);
         x++;
     }
-    
 //    uint8 *p = Display::GetPixel(x, y);
 //    
 //    uint8 *end = p + length;
@@ -82,13 +79,12 @@ void HLine::Draw(int x, int y, Color color)
 void VLine::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
-
+    
     for(int i = 0; i < length; i++)
     {
         Point().Draw(x, y);
-        y++;
+        x++;
     }
-    
 //    uint8 *p = Display::GetPixel(x, y);
 //    
 //    uint8 value = Color::GetCurrent().value;

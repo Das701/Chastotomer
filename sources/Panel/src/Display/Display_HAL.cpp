@@ -12,9 +12,7 @@ using namespace Display::Primitives;
 /// Этот буфер отображается на экране
 static uint8 front[240][320];
 /// В этом буфере рисуем
-//static uint8 RGB565_240x320[240][320] = { 0x00000000 };
-
-static uint8 RGB565_240x160[240][160] = { 0x00000000 };
+static uint8 RGB565_240x320[240][320] = { 0x00000000 };
 
 LTDC_HandleTypeDef hltdc;
 static void MX_LTDC_Init(void);
@@ -41,14 +39,13 @@ void Display::Init()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 uint8 *Display::GetPixel(int x, int y)
 {
-    
-    return &RGB565_240x160[y0 + y][x0 + x];
+    return &RGB565_240x320[y0 + y][x0 + x];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::BeginScene(Color color)
 {
-    std::memset(RGB565_240x160, color.value, 240 * 320);
+    std::memset(RGB565_240x320, color.value, 240 * 320);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -59,15 +56,13 @@ void Display::EndScene()
         int x1 = 0;
         for(int x = 0; x < 160; x++)
         {
-            uint8 byte = RGB565_240x160[y][x] << 4;
-            front[y][x1] = byte | (byte >> 4);
+            front[y][x1] = RGB565_240x320[y][x];
             x1++;
-            byte = RGB565_240x160[y][x] >> 4;
-            front[y][x1] = byte | (byte << 4);
+            front[y][x1] = RGB565_240x320[y][x];
             x1++;
         }
     }
-//    std::memcpy(front, RGB565_240x320, 240 * 320);
+    //std::memcpy(front, RGB565_240x320, 240 * 320);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -106,7 +101,7 @@ static void MX_LTDC_Init(void)
     pLayerCfg.Alpha0 = 0xFF;
     pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
     pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
-    pLayerCfg.FBStartAdress = (uint32_t)&(RGB565_240x160[0][0]);
+    pLayerCfg.FBStartAdress = (uint32_t)&(RGB565_240x320[0][0]);
     pLayerCfg.ImageWidth = 320;
     pLayerCfg.ImageHeight = 240;
     pLayerCfg.Backcolor.Blue = 0;
