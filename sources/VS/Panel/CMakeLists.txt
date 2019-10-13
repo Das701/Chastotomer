@@ -8,9 +8,9 @@ include_directories(src/
                     ../../Panel/src/
                     ../../Panel/src/libs/HAL/
                     ../../Panel/src/Hardware/
-                    ../../ThirdParty/wxWidgets/include
-                    ../../ThirdParty/wxWidgets/generated/lib/vc_dll/mswud
-                    ../../ThirdParty/SDL2/SDL2-2.0.10/include/
+                    ../../../../ThirdParty/wxWidgets/include
+                    ../../../../ThirdParty/wxWidgets/generated/lib/vc_dll/mswud
+                    ../../../../ThirdParty/SDL2/SDL2-2.0.10/include/
                     )
                     
 add_definitions(-DSTM32F429xx -DWXUSINGDLL -DUSE_SDL2 -DGUI)
@@ -89,10 +89,9 @@ file(GLOB SOURCES   ../../common/_VS_KEIL/HAL/*
                     
 add_executable(PanelGUI ${SOURCES})
 
-target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
-target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxmsw31ud_core)
-
-target_link_libraries(PanelGUI ../../../ThirdParty/SDL2/SDL2-2.0.10/generated/Debug/SDL2-staticd)
+target_link_libraries(PanelGUI ../../../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
+target_link_libraries(PanelGUI ../../../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxmsw31ud_core)
+target_link_libraries(PanelGUI ../../../../../ThirdParty/SDL2/SDL2-2.0.10/generated/Debug/SDL2-staticd)
 
 target_link_libraries(PanelGUI WinMM.lib)
 target_link_libraries(PanelGUI version.lib)
