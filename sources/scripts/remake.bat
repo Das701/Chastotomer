@@ -1,9 +1,13 @@
 @echo off
 
+cd ..
+rmdir generated /s /q
+cd scripts
+
 cd vs_keil
-call make_build.bat
+call make.bat
 cd..
 
 cd vs_win
-call make_build.bat
+call make.bat
 cd ..
