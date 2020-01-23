@@ -233,14 +233,22 @@ void HAL_FSMC::WriteCommand(uint16 command)
 
 void HAL_FSMC::WriteData(uint16 data)
 {
-    pinCS.Reset();
-    pinD_C.Set();
-    pinWR.Reset();
+    //pinCS.Reset();
+    PORT_CS->BSRR = PIN_CS << 16;
+
+    //pinD_C.Set();
+    PORT_D_C->BSRR = PIN_D_C;
+
+    //pinWR.Reset();
+    PORT_WR->BSRR = PIN_WR << 16;
 
     DataBus::Set(data);
 
-    pinWR.Set();
-    pinCS.Set();
+    //pinWR.Set();
+    PORT_WR->BSRR = PIN_WR;
+
+    //pinCS.Set();
+    PORT_CS->BSRR = PIN_CS;
 }
 
 

@@ -53,7 +53,7 @@ void Display::Init()
     HAL_FSMC::WriteData(0x00);
 
     HAL_FSMC::WriteCommand(0xf0);   // set pixel data interface
-    HAL_FSMC::WriteData(0x00);      // 0x03 for 16bit, 0x00 for 8bit
+    HAL_FSMC::WriteData(0x03);      // 0x03 for 16bit, 0x00 for 8bit
 
     // Set the MN of PLL
     HAL_FSMC::WriteCommand(0xe2);   // Set the PLL
@@ -108,7 +108,7 @@ void Display::Init()
 
         uint16 data = (uint16)std::rand();
 
-        for(int i = 0; i < 272 * 480; i++)
+        for(int i = 0; i < 272 * 400; i++)
         {
             HAL_FSMC::WriteData(data++);
         }
