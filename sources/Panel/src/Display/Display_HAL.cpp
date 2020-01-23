@@ -30,14 +30,18 @@ static uint8 front[HEIGHT_BUFFER][WIDTH_BUFFER];
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Init()
 {
+    HAL_FSMC::Reset();
+    
     HAL_FSMC::WriteCommand(0x01);   // soft reset
     HAL_Delay(10);
     HAL_FSMC::WriteCommand(0xe0);   // set pll
     HAL_FSMC::WriteData(0x01);
-    HAL_Delay(50);
+    HAL_Delay(10);
     HAL_FSMC::WriteCommand(0xe0);   // set pll
     HAL_FSMC::WriteData(0x03);
-    HAL_Delay(5);
+    HAL_Delay(10);
+    
+    HAL_FSMC::WriteCommand(0x29);   // Включить дисплей
 
     HAL_FSMC::WriteCommand(0xb0);   // set lcd mode
     HAL_FSMC::WriteData(0x20);
@@ -49,13 +53,15 @@ void Display::Init()
     HAL_FSMC::WriteData(0x00);
 
     HAL_FSMC::WriteCommand(0xf0);   // set pixel data interface
-    HAL_FSMC::WriteData(0x03);      // 0x03 for 16bit, 0x00 for 8bit
+    HAL_FSMC::WriteData(0x00);      // 0x03 for 16bit, 0x00 for 8bit
 
     // Set the MN of PLL
     HAL_FSMC::WriteCommand(0xe2);   // Set the PLL
     HAL_FSMC::WriteData(0x1d);
     HAL_FSMC::WriteData(0x02);
     HAL_FSMC::WriteData(0x54);
+
+    HAL_Delay(100);
 
     HAL_FSMC::WriteCommand(0xe6);   // set the LSHIFT (pixel clock) frequency
     HAL_FSMC::WriteData(0x01);
@@ -86,35 +92,26 @@ void Display::Init()
 
     while(true)
     {
-        static uint8 bright = 0;
-
-        HAL_FSMC::WriteCommand(0xbc);
-        HAL_FSMC::WriteData(bright++);
-        HAL_FSMC::WriteData(bright++);
-        HAL_FSMC::WriteData(bright++);
+        HAL_FSMC::WriteCommand(0x2a);   // set column address
+        HAL_FSMC::WriteData(0x00);
+        HAL_FSMC::WriteData(0x00);
         HAL_FSMC::WriteData(0x01);
-        HAL_Delay(10);
-    }
+        HAL_FSMC::WriteData(0xdf);
 
+        HAL_FSMC::WriteCommand(0x2b);   // set page address
+        HAL_FSMC::WriteData(0x00);
+        HAL_FSMC::WriteData(0x00);
+        HAL_FSMC::WriteData(0x01);
+        HAL_FSMC::WriteData(0x0f);
 
-    HAL_FSMC::WriteCommand(0x2a);   // set column address
-    HAL_FSMC::WriteData(0x00);
-    HAL_FSMC::WriteData(0x00);
-    HAL_FSMC::WriteData(0x01);
-    HAL_FSMC::WriteData(0xdf);
+        HAL_FSMC::WriteCommand(0x2c);   // Write memory start
 
-    HAL_FSMC::WriteCommand(0x2b);   // set page address
-    HAL_FSMC::WriteData(0x00);
-    HAL_FSMC::WriteData(0x00);
-    HAL_FSMC::WriteData(0x01);
-    HAL_FSMC::WriteData(0x0f);
+        uint16 data = (uint16)std::rand();
 
-    HAL_FSMC::WriteCommand(0x29);   // Включить дисплей
-    HAL_FSMC::WriteCommand(0x2c);   // Write memory start
-
-    for(int i = 0; i < 255 * 0xdf; i++)
-    {
-        HAL_FSMC::WriteData(std::rand() % 255);
+        for(int i = 0; i < 272 * 480; i++)
+        {
+            HAL_FSMC::WriteData(data++);
+        }
     }
 }
 

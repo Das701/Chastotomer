@@ -20,9 +20,17 @@ struct HAL
 struct HAL_FSMC
 {
     static void Init();
-    static void WriteCommand(uint8 command);
-    static void WriteData(uint8 data);
-private:
-    static void SetDataBus(uint8 data);
-    static void SetDataBus(uint16 data);
+    static void Reset();
+    static void WriteCommand(uint16 command);
+    static void WriteData(uint16 data);
+    static uint16 ReadData();
+
+    static uint16 GetData(uint16 address);
+
+public:
+    struct Test
+    {
+        static void Init();
+        static void Run();
+    };
 };

@@ -11,12 +11,15 @@ int main(void)
     HAL::Init();
     Display::Init();
     //Keyboard::Init();
-    Menu::Init();
+    //Menu::Init();
+
+    //HAL_FSMC::Test::Init();
+    //HAL_FSMC::Test::Run();
 
     while (1)
     {
-        Menu::Update();
-        Display::Update();
+        //Menu::Update();
+        //Display::Update();
     }
 }
 
