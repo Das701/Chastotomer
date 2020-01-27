@@ -77,14 +77,12 @@ static void Func3()
 }
 
 
-static void DrawRectangle()
+int width = 20;
+int height = 40;
+
+
+static void DrawRectangle(int x0, int y0)
 {
-    static int x0 = 0;
-    static int y0 = 0;
-
-    int width = 20;
-    int height = 40;
-
     for(int x = x0; x < x0 + width; x++)
     {
         for(int y = y0; y < y0 + height; y++)
@@ -92,13 +90,55 @@ static void DrawRectangle()
             buffer[y][x] = 0xFF;
         }
     }
+}
 
-    x0++;
-    y0++;
 
-    if(y0 > HEIGHT_BUFFER - height)
+static void DrawRectangleTop()
+{
+    static int x = 0;
+
+    DrawRectangle(x++, 0);
+
+    if(x > WIDTH_BUFFER - width)
     {
-        x0 = y0 = 0;
+        x = 0;
+    }
+}
+
+static void DrawRectrangleRight()
+{
+    static int y = 0;
+
+    DrawRectangle(WIDTH_BUFFER - width, y++);
+
+    if(y > HEIGHT_BUFFER - height)
+    {
+        y = 0;
+    }
+}
+
+static void DrawRectangleBottom()
+{
+    static int x = 0;
+
+    DrawRectangle(x++, HEIGHT_BUFFER - height);
+
+    if(x > WIDTH_BUFFER - width)
+    {
+        x = 0;
+    }
+}
+
+
+static void DrawRectangleLeft()
+{
+    static int y = 0;
+
+    DrawRectangle(0, y++);
+
+    if(y > HEIGHT_BUFFER - height)
+    {
+        y = 0;
     }
 }
 
@@ -108,7 +148,10 @@ void Display::Update()
 {
     std::memset(buffer, 0, HEIGHT_BUFFER * WIDTH_BUFFER * sizeof(buffer[0][0]));
 
-    DrawRectangle();
+    DrawRectangleTop();
+    DrawRectrangleRight();
+    DrawRectangleBottom();
+    DrawRectangleLeft();
 
     HAL_FSMC::SendBuffer(buffer[0]);
 }
