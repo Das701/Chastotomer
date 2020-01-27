@@ -150,7 +150,7 @@ void Display::Update()
 
     DrawRectangleTop();
     DrawRectrangleRight();
-    DrawRectangleBottom();
+    //DrawRectangleBottom();
     DrawRectangleLeft();
 
     HAL_FSMC::SendBuffer(buffer[0]);
