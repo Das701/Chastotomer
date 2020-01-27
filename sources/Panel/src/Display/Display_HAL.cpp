@@ -21,11 +21,6 @@
 
 using namespace Display::Primitives;
 
-/// В этом буфере будем рисовать. Ширина равна 256 / 2 потому, что в байте хранятся 2 пикселя с 1 из 16-ти возможных градация каждая.
-#define WIDTH_BUFFER    (240)
-#define HEIGHT_BUFFER   (272)
-static uint8 front[HEIGHT_BUFFER][WIDTH_BUFFER];
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Init()
@@ -90,51 +85,52 @@ void Display::Init()
 
     HAL_FSMC::WriteCommand(0x29);   // Включить дисплей
 
-    while(true)
-    {
-        HAL_FSMC::WriteCommand(0x2a);   // set column address
-        HAL_FSMC::WriteData(0x00);
-        HAL_FSMC::WriteData(0x00);
-        HAL_FSMC::WriteData(0x01);
-        HAL_FSMC::WriteData(0xdf);
-
-        HAL_FSMC::WriteCommand(0x2b);   // set page address
-        HAL_FSMC::WriteData(0x00);
-        HAL_FSMC::WriteData(0x00);
-        HAL_FSMC::WriteData(0x01);
-        HAL_FSMC::WriteData(0x0f);
-
-        HAL_FSMC::WriteCommand(0x2c);   // Write memory start
-
-        //uint16 data = (uint16)std::rand();
-        for(int y = 20; y < 40; y++)
-        {
-            for(int x = 50; x < 100; x++)
-            {
-                front[y][x] = (uint16)std::rand();
-            }
-        }
-
-        for(int y = 272; y > 0; y--)
-        {
-            for(int x = 240; x > 0; x--)
-            {
-                HAL_FSMC::WriteData(front[y][x]);
-            }
-        }
-    }
+//    while(true)
+//    {
+//        HAL_FSMC::WriteCommand(0x2a);   // set column address
+//        HAL_FSMC::WriteData(0x00);
+//        HAL_FSMC::WriteData(0x00);
+//        HAL_FSMC::WriteData(0x01);
+//        HAL_FSMC::WriteData(0xdf);
+//
+//        HAL_FSMC::WriteCommand(0x2b);   // set page address
+//        HAL_FSMC::WriteData(0x00);
+//        HAL_FSMC::WriteData(0x00);
+//        HAL_FSMC::WriteData(0x01);
+//        HAL_FSMC::WriteData(0x0f);
+//
+//        HAL_FSMC::WriteCommand(0x2c);   // Write memory start
+//
+//        //uint16 data = (uint16)std::rand();
+//        for(int y = 20; y < 40; y++)
+//        {
+//            for(int x = 50; x < 100; x++)
+//            {
+//                front[y][x] = (uint16)std::rand();
+//            }
+//        }
+//
+//        for(int y = 272; y > 0; y--)
+//        {
+//            for(int x = 240; x > 0; x--)
+//            {
+//                HAL_FSMC::WriteData(front[y][x]);
+//            }
+//        }
+//    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 uint8 *Display::GetPixel(int x, int y)
 {
-    return &front[y][x];
+    return nullptr;
+//    return &front[y][x];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::BeginScene(Color color)
 {
-    std::memset(front, color.value, WIDTH_BUFFER * HEIGHT_BUFFER);
+//    std::memset(front, color.value, WIDTH_BUFFER * HEIGHT_BUFFER);
 }
 
 void Display::EndScene()

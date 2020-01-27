@@ -1,5 +1,6 @@
 #include "Display.h"
 #include "Primitives.h"
+#include "Hardware/HAL.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/PageModes.h"
 #include "Menu/Pages/PageChannelA.h"
@@ -7,6 +8,7 @@
 #include "Text.h"
 #include "Menu/MenuItems.h"
 #include <cstdlib>
+#include <cstring>
 
 
 using namespace Display::Primitives;
@@ -24,6 +26,11 @@ static void DrawStatusBar();
 static void DrawChannelSettings();
 
 static void DrawScreen();
+
+
+#define WIDTH_BUFFER    (480 / 2)
+#define HEIGHT_BUFFER   272
+static uint8 buffer[HEIGHT_BUFFER][WIDTH_BUFFER];
 
 
 static void CalculateCoord(int &x, int &y, int sizeX, int sizeY)
@@ -69,16 +76,41 @@ static void Func3()
     line.Draw(x, y + 1, Color::WHITE);
 }
 
+
+static void DrawRectangle()
+{
+    static int x0 = 0;
+    static int y0 = 0;
+
+    int width = 20;
+    int height = 40;
+
+    for(int x = x0; x < x0 + width; x++)
+    {
+        for(int y = y0; y < y0 + height; y++)
+        {
+            buffer[y][x] = 0xFF;
+        }
+    }
+
+    x0++;
+    y0++;
+
+    if(y0 > HEIGHT_BUFFER - height)
+    {
+        x0 = y0 = 0;
+    }
+}
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Update()
 {
-    BeginScene(Color::BLACK);
+    std::memset(buffer, 0, HEIGHT_BUFFER * WIDTH_BUFFER * sizeof(buffer[0][0]));
 
-    DrawScreen();
-    
-    Func3();
+    DrawRectangle();
 
-    EndScene();
+    HAL_FSMC::SendBuffer(buffer[0]);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

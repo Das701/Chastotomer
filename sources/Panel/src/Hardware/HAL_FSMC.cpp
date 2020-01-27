@@ -162,9 +162,10 @@ public:
     static void Set(uint16 data);
     /// Читать данные с шины
     static uint16 Read();
-private:
 
     static void InitWrite();
+
+public:
 
     static void InitRead();
 
@@ -246,6 +247,52 @@ void HAL_FSMC::WriteData(uint16 data)
 
     //pinWR.Set();
     PORT_WR->BSRR = PIN_WR;
+
+    //pinCS.Set();
+    PORT_CS->BSRR = PIN_CS;
+}
+
+
+void HAL_FSMC::SendBuffer(uint8 *buffer)
+{
+    HAL_FSMC::WriteCommand(0x2a);   // set column address
+    HAL_FSMC::WriteData(0x00);
+    HAL_FSMC::WriteData(0x00);
+    HAL_FSMC::WriteData(0x01);
+    HAL_FSMC::WriteData(0xdf);
+
+    HAL_FSMC::WriteCommand(0x2b);   // set page address
+    HAL_FSMC::WriteData(0x00);
+    HAL_FSMC::WriteData(0x00);
+    HAL_FSMC::WriteData(0x01);
+    HAL_FSMC::WriteData(0x0f);
+
+    HAL_FSMC::WriteCommand(0x2c);   // Write memory start
+
+    DataBus::InitWrite();
+
+    //pinCS.Reset();
+    PORT_CS->BSRR = PIN_CS << 16;
+
+    for(int i = 0; i < 272 * 480 / 2; i++)
+    {
+        uint16 data = (*buffer == 0) ? 0 : 0xFFFFU;
+
+        //pinD_C.Set();
+        PORT_D_C->BSRR = PIN_D_C;
+
+        //pinWR.Reset();
+        PORT_WR->BSRR = PIN_WR << 16;
+
+
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data;
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8);
+
+        //pinWR.Set();
+        PORT_WR->BSRR = PIN_WR;
+
+        buffer++;
+    }
 
     //pinCS.Set();
     PORT_CS->BSRR = PIN_CS;

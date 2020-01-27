@@ -19,7 +19,7 @@ int main(void)
     while (1)
     {
         //Menu::Update();
-        //Display::Update();
+        Display::Update();
     }
 }
 
