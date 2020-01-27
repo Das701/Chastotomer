@@ -22,8 +22,8 @@
 using namespace Display::Primitives;
 
 /// В этом буфере будем рисовать. Ширина равна 256 / 2 потому, что в байте хранятся 2 пикселя с 1 из 16-ти возможных градация каждая.
-#define WIDTH_BUFFER    (256)
-#define HEIGHT_BUFFER   (64)
+#define WIDTH_BUFFER    (240)
+#define HEIGHT_BUFFER   (272)
 static uint8 front[HEIGHT_BUFFER][WIDTH_BUFFER];
 
 
@@ -41,7 +41,7 @@ void Display::Init()
     HAL_FSMC::WriteData(0x03);
     HAL_Delay(10);
     
-    HAL_FSMC::WriteCommand(0x29);   // Включить дисплей
+    //HAL_FSMC::WriteCommand(0x29);   // Включить дисплей
 
     HAL_FSMC::WriteCommand(0xb0);   // set lcd mode
     HAL_FSMC::WriteData(0x20);
@@ -106,11 +106,21 @@ void Display::Init()
 
         HAL_FSMC::WriteCommand(0x2c);   // Write memory start
 
-        uint16 data = (uint16)std::rand();
-
-        for(int i = 0; i < 272 * 400; i++)
+        //uint16 data = (uint16)std::rand();
+        for(int y = 20; y < 40; y++)
         {
-            HAL_FSMC::WriteData(data++);
+            for(int x = 50; x < 100; x++)
+            {
+                front[y][x] = (uint16)std::rand();
+            }
+        }
+
+        for(int y = 272; y > 0; y--)
+        {
+            for(int x = 240; x > 0; x--)
+            {
+                HAL_FSMC::WriteData(front[y][x]);
+            }
         }
     }
 }
