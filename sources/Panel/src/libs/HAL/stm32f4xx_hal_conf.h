@@ -13,7 +13,7 @@
   * @brief This is the list of modules to be used in the HAL driver 
   */
 #define HAL_MODULE_ENABLED  
-#define HAL_LTDC_MODULE_ENABLED
+//#define HAL_LTDC_MODULE_ENABLED
 #define HAL_TIM_MODULE_ENABLED
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
