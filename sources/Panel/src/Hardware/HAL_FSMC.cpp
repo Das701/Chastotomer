@@ -274,16 +274,15 @@ void HAL_FSMC::SendBuffer(uint8 *buffer)
     //pinCS.Reset();
     PORT_CS->BSRR = PIN_CS << 16;
 
+    //pinD_C.Set();
+    PORT_D_C->BSRR = PIN_D_C;
+
     for(int i = 0; i < 272 * 480 / 2; i++)
     {
         uint16 data = (*buffer == 0) ? 0 : 0xFFFFU;
 
-        //pinD_C.Set();
-        PORT_D_C->BSRR = PIN_D_C;
-
         //pinWR.Reset();
         PORT_WR->BSRR = PIN_WR << 16;
-
 
         GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data;
         GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8);
