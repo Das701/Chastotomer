@@ -55,10 +55,10 @@ static void SetModeLCD(uint16 width, uint16 height)
     HAL_FSMC::WriteCommand(0xb0);
     HAL_FSMC::WriteData(0x20);
     HAL_FSMC::WriteData(0x80);
-    HAL_FSMC::WriteData((uint8)(width >> 8));
-    HAL_FSMC::WriteData((uint8)(width));
-    HAL_FSMC::WriteData((uint8)(height >> 8));
-    HAL_FSMC::WriteData((uint8)(height));
+    HAL_FSMC::WriteData(0x01);
+    HAL_FSMC::WriteData(0xdf);
+    HAL_FSMC::WriteData(0x01);
+    HAL_FSMC::WriteData(0x0f);
     HAL_FSMC::WriteData(0x00);
 }
 
