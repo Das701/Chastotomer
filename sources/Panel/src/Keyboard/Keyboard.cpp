@@ -6,8 +6,8 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define TIME_UPDATE_KEYBOARD 2   ///< Время между опросами клавиатуры
-#define NUM_RL 5
-#define NUM_SL 5
+#define NUM_RL 3
+#define NUM_SL 4
 
 
 static TIM_HandleTypeDef handleTIM4;
@@ -15,11 +15,10 @@ static TIM_HandleTypeDef handleTIM4;
 
 static Control::E controls[NUM_SL][NUM_RL] =
 {
-    {Control::_0,   Control::_1,    Control::_2,     Control::_3,  Control::_4},
-    {Control::_5,   Control::_6,    Control::_7,     Control::_8,  Control::_9},
-    {Control::_F1,  Control::_F2,   Control::_F3,    Control::_F4, Control::_F5},
-    {Control::_ESC, Control::_Left, Control::_Right, Control::_0,  Control::_0},
-    {Control::_0,   Control::_1,    Control::_2,     Control::_3,  Control::_4}
+    {Control::Esc,          Control::Test,    Control::Auto},
+    {Control::Channels,     Control::Mode,     Control::Indication},
+    {Control::Enter,        Control::Left, Control::None},
+    {Control::Right,        Control::None,     Control::None},
 };
 
 /// Очередь сообщений - здесь все события органов управления
@@ -72,7 +71,7 @@ static void Update()
 
             Control control = controls[sl][rl];
 
-            if (control != Control::_NULL)
+            if (control.value != Control::None)
             {
                 if (timePress[rl][sl])                      // Если клавиша находится в нажатом положении
                 {
@@ -136,7 +135,7 @@ void Keyboard::Init()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Set_All_SL(int st)
 {
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 4; i++)
     {
         Set_SL(i, st);
     }
@@ -145,8 +144,8 @@ void Set_All_SL(int st)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Set_SL(int bus, int st)
 {
-    static const GPIO_TypeDef *ports[5]= {GPIOB, GPIOB, GPIOB, GPIOB, GPIOD};
-    static const uint16 pins[5] = {GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15,GPIO_PIN_8};
+    static const GPIO_TypeDef *ports[4]= {GPIOB, GPIOB, GPIOB, GPIOB};
+    static const uint16 pins[4] = {GPIO_PIN_9, GPIO_PIN_8, GPIO_PIN_7, GPIO_PIN_6};
     static const GPIO_PinState state [2] = {GPIO_PIN_RESET, GPIO_PIN_SET};
     
     HAL_GPIO_WritePin((GPIO_TypeDef *)ports[bus], pins[bus], state[st]);
@@ -155,8 +154,8 @@ void Set_SL(int bus, int st)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int Read_RL(int rl)
 {
-    static const GPIO_TypeDef *ports[5] = { GPIOA, GPIOA, GPIOA, GPIOD, GPIOD };
-    static const uint16 pins[5] = { GPIO_PIN_8, GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_13,GPIO_PIN_12 };
+    static const GPIO_TypeDef *ports[3] = { GPIOB, GPIOB, GPIOD };
+    static const uint16 pins[3] = { GPIO_PIN_5, GPIO_PIN_4, GPIO_PIN_2 };
 
     return HAL_GPIO_ReadPin((GPIO_TypeDef *)ports[rl], pins[rl]);
 }
@@ -166,27 +165,27 @@ static void InitPins()
 {
     GPIO_InitTypeDef GPIO_InitStruct = { 0 };
 
-    __HAL_RCC_GPIOA_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
 
-    GPIO_InitStruct.Pin = GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
+    GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_8;
-    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Pin = GPIO_PIN_12 | GPIO_PIN_13;
+    GPIO_InitStruct.Pin = GPIO_PIN_4 | GPIO_PIN_5;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    GPIO_InitStruct.Pin = GPIO_PIN_2;
+    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+    
+//    GPIO_InitStruct.Pin = GPIO_PIN_12;
+//    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -221,8 +220,73 @@ static void InitTimer()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void AddAction(Control control, Control::Action::E action)
 {
+    if (action != Control::Action::Press)
+    {
+        return;
+    }
+
     control.action = action;
     actions[numActions++] = control;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool Keyboard::Empty()
+{
+    return numActions == 0;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Control Keyboard::NextControl()
+{
+    if (Empty())
+    {
+        return Control();
+    }
+
+    Control result = actions[0];
+
+    for (int i = 1; i < numActions; i++)
+    {
+        actions[i - 1] = actions[i];
+    }
+
+    --numActions;
+
+    return result;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const char *Control::Name()
+{
+    static const char *names[] =
+    {
+        "Ручка нажать",
+        "РЕЖИМ",
+        "ИНДИКАЦИЯ",
+        "3",
+        "<-",
+        "->",
+        "6",
+        "7",
+        "8",
+        "9",
+        "A",
+        "B",
+        "C",
+        "D",
+        "F5",
+        "ESC",
+        "Left",
+        "Right",
+        "Ручка влево",
+        "Ручка вправо",
+        "Channel",
+        "ТЕСТ",
+        "АВТО",
+        "NULL"
+    };
+
+    return names[value];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,53 +1,105 @@
 #pragma once
 #include "defines.h"
+#include "Keyboard/Keyboard.h"
 
 
-class Control
+struct Enumeration
 {
-public:
-    static const int WIDTH = 25;
-    static const int HEIGHT = 10;
-    static const int D_X = 2;
-
-    virtual void Draw(int, int) {}
+    /// Текущее состояние перечисления
+    uint8  value;
+    char **names;
+    char **ugo;
+    Enumeration(uint8 v) : value(v), names(nullptr), ugo(nullptr) {}
+    operator int() { return (int)value; }
+    char *ToText() const { return names[value]; }
+    char *UGO() const { return ugo[value]; }
+    int NumStates() const;
+    bool Is(uint8 v) const { return value == v; }
 };
 
 
-class Page : public Control
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Item
+{
+    friend class Hint;
+public:
+    static const int WIDTH = 45;
+    static const int HEIGHT = 30;
+
+    /// Функция отрисовки
+    virtual void Draw(int x, int y, bool selected = false) = 0;
+    /// Функция обработки нажатия кнопки/поворота ручки
+    virtual bool OnControl(const Control &) { return false; };
+
+protected:
+    /// Общая часть подсказки для данного итема
+    char *hint;
+
+private:
+    /// Создать подсказку для итема
+    virtual void CreateHint(char buffer[100]) const = 0;
+};
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Button : public Item
 {
 public:
-    static const int CONTROLS_ON_PAGE = 6;
+    Button(char *_text) : text(_text){};
 
-    virtual void Draw(int x, int y);
-
-    void Init(Control **_controls, pFuncVII funcDrawClosed) { controls = _controls; drawClosed = funcDrawClosed; }
-
-    Page() : controls(nullptr), currentControl(0), currentSubPage(0), closed(true), drawClosed(nullptr), lastIndexed(0) {}
-
-    void Open() { closed = false; };
+    virtual void Draw(int x, int y, bool selected = false);
+    virtual bool OnControl(const Control &control);
     
 private:
-    int NumControls();
-    /// Первый контрол на дисплее
-    Control *FirstOnDisplay();
-    /// Возвращает указатель на следующий контрол
-    Control *NextOnDisplay();
-    /// Последний контрол на дисплее
-    Control *LastOnDisplay();
+    char *text;
+};
 
-    void DrawOpened(int x, int y);
 
-    void DrawClosed(int x, int y);
-    /// Здесь контролы страницы. Последний равен 0.
-    Control **controls;
-    /// Текущий контрол
-    int currentControl;
-    /// Текущая подстраница
-    int currentSubPage;
-    /// Если true, страница закрыта
-    bool closed;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Switch : public Item
+{
+public:
 
-    pFuncVII drawClosed;
-    /// Индекс последнего элемента, возвращённого FirstOnDisplay() или NextOnDisplay()
-    int lastIndexed;
+    Switch(char *_text, char *_hint, char **_names, char **_ugo, Enumeration *_state, void(*_onClick)()) :
+        text(_text), funcOnPress(_onClick), state(_state)
+    {
+        state->names = _names;
+        state->ugo = _ugo;
+        hint = _hint;
+    };
+    virtual void Draw(int x, int y, bool selected = false);
+    virtual bool OnControl(const Control &control);
+
+private:
+    char        *text;              ///< Надпись на переключателе
+    void       (*funcOnPress)();    ///< Эта функция вызывается после изменения состояния переключателя
+    Enumeration *state;             ///< Адрес переменной с состоянием переключателя
+    virtual void CreateHint(char buffer[100]) const;
+};
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Page : public Item
+{
+public:
+    Page(Item **_items = nullptr) : items(_items), selectedItem(0) {};
+
+    virtual void Draw(int x, int y, bool selected = false);
+    virtual bool OnControl(const Control &control);    
+    /// Возвращает указатель на выделенный пункт меню
+    Item *SelectedItem() { return items[selectedItem]; };
+
+private:
+    /// Делает текущим следующий элемент
+    void SelectNextItem();
+    /// Делает текущим предыдущий элемент
+    void SelectPrevItem();
+    /// Возвращает количество итемов на странице
+    int NumItems();
+    /// Указатель на массив элементов меню. Заканчивается нулём.
+    Item **items;
+    /// Номер выбранного итема
+    int selectedItem;
+
+    virtual void CreateHint(char buffer[100]) const { buffer[0] = 0; };
 };

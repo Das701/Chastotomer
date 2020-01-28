@@ -10,13 +10,12 @@ int main(void)
 {
     HAL::Init();
     Display::Init();
-    //Keyboard::Init();
-    //Menu::Init();
-    
+    Keyboard::Init();
+    Menu::Init();
+
     while (1)
     {
-        Display::Update();
-        
+        Menu::Update();
         Display::Update();
     }
 }

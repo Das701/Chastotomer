@@ -21,25 +21,21 @@ struct Font
             Number,
             None
         } value;
-        Type(E v) : value(v) {};
+        explicit Type(E v = None) : value(v) {};
         operator uint8() const { return (uint8)value; };
     };
 
     static int GetSize();
     static int GetLengthText(const char *text);
+    static int GetLengthSymbols(const char *text, int num);
     static int GetHeightSymbol(char symbol);
     static int GetLengthSymbol(char symbol);
-    static void SetType(Type typeFont);
+    static void SetType(Type::E typeFont);
     
     int height;
     Symbol symbol[256];
 };
 
 
+/// Текущий шрифт
 extern const Font *font;
-extern const Font *fonts[Font::Type::Number];
-
-extern const uint8 font5display[3080];
-extern const uint8 font8display[3080];
-extern const uint8 fontUGOdisplay[3080];
-extern const uint8 fontUGO2display[3080];

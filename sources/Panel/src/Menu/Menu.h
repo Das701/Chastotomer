@@ -1,16 +1,13 @@
 #pragma once
 
 
-class Page;
-
-
 namespace Menu
 {
     void Init();
 
+    void Draw();
+
     void Update();
 
-    void Draw(int x, int y);
-
-    Page *CurrentPage();
-}
+    char *ChannelSettings();
+};

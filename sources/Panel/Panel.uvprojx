@@ -10,15 +10,14 @@
       <TargetName>Panel</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pArmCC>5060528::V5.06 update 5 (build 528)::ARMCC</pArmCC>
       <pCCUsed>5060528::V5.06 update 5 (build 528)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F401RETx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.13.0</PackID>
-          <PackURL>http://www.keil.com/pack</PackURL>
+          <PackID>Keil.STM32F4xx_DFP.2.14.0</PackID>
+          <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x18000) IROM(0x08000000,0x80000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -335,7 +334,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--cpp --diag_suppress=1165</MiscControls>
-              <Define>USE_HAL_DRIVER,STM32F401xE,PANEL</Define>
+              <Define>USE_HAL_DRIVER,STM32F401xe</Define>
               <Undefine></Undefine>
               <IncludePath>.\src;.\src\libs\HAL;.\src\Hardware;..\libs\common;..\common\libs\STM32Cube_F4\Drivers\CMSIS\Include;..\common\libs\STM32Cube_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Inc;.\src\libs;..\common</IncludePath>
             </VariousControls>
@@ -442,16 +441,6 @@
               <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_tim_ex.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_hal_tim_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f4xx_hal_dma.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma.h</FilePath>
@@ -462,14 +451,14 @@
               <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c</FilePath>
+              <FileName>stm32f4xx_hal_tim_ex.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_spi.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h</FilePath>
+              <FileName>stm32f4xx_hal_tim_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -512,9 +501,14 @@
               <FilePath>.\src\defines.h</FilePath>
             </File>
             <File>
-              <FileName>mytypes.h</FileName>
+              <FileName>Settings.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Settings.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Settings.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\mytypes.h</FilePath>
+              <FilePath>.\src\Settings.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -532,6 +526,16 @@
               <FilePath>.\src\Display\Display.h</FilePath>
             </File>
             <File>
+              <FileName>Primitives.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Primitives.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Primitives.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Primitives.h</FilePath>
+            </File>
+            <File>
               <FileName>Colors.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Colors.cpp</FilePath>
@@ -540,6 +544,26 @@
               <FileName>Colors.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Colors.h</FilePath>
+            </File>
+            <File>
+              <FileName>Display_HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Display_HAL.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Text.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Text.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Text.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Text.h</FilePath>
+            </File>
+            <File>
+              <FileName>Symbols.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Symbols.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -574,6 +598,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>FreqMeter</GroupName>
+          <Files>
+            <File>
+              <FileName>FreqMeter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FreqMeter\FreqMeter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FreqMeter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FreqMeter\FreqMeter.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
@@ -595,6 +634,11 @@
               <FileName>HAL.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_FSMC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL_FSMC.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -636,20 +680,45 @@
               <FileType>5</FileType>
               <FilePath>.\src\Menu\MenuItems.h</FilePath>
             </File>
+            <File>
+              <FileName>MenuItemsDef.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\MenuItemsDef.h</FilePath>
+            </File>
+            <File>
+              <FileName>Hint.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Hint.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Hint.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Hint.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Menu/Pages</GroupName>
           <Files>
             <File>
-              <FileName>PageChannels.cpp</FileName>
+              <FileName>PageChannelA.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\PageChannels.cpp</FilePath>
+              <FilePath>.\src\Menu\Pages\PageChannelA.cpp</FilePath>
             </File>
             <File>
-              <FileName>PageChannels.h</FileName>
+              <FileName>PageChannelA.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\PageChannels.h</FilePath>
+              <FilePath>.\src\Menu\Pages\PageChannelA.h</FilePath>
+            </File>
+            <File>
+              <FileName>PageChannelB.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageChannelB.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PageChannelB.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\PageChannelB.h</FilePath>
             </File>
             <File>
               <FileName>PageIndication.cpp</FileName>
@@ -672,14 +741,49 @@
               <FilePath>.\src\Menu\Pages\PageModes.h</FilePath>
             </File>
             <File>
-              <FileName>MainPage.cpp</FileName>
+              <FileName>PageChannelC.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\MainPage.cpp</FilePath>
+              <FilePath>.\src\Menu\Pages\PageChannelC.cpp</FilePath>
             </File>
             <File>
-              <FileName>MainPage.h</FileName>
+              <FileName>PageChannelC.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\MainPage.h</FilePath>
+              <FilePath>.\src\Menu\Pages\PageChannelC.h</FilePath>
+            </File>
+            <File>
+              <FileName>PageChannelD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageChannelD.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PageChannelD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\PageChannelD.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Utils</GroupName>
+          <Files>
+            <File>
+              <FileName>String.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\String.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>String.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\String.h</FilePath>
+            </File>
+            <File>
+              <FileName>Math.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Math.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Math.h</FilePath>
             </File>
           </Files>
         </Group>
