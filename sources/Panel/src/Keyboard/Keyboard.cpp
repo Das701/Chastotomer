@@ -9,16 +9,37 @@
 #define NUM_RL 3
 #define NUM_SL 4
 
+#define PIN_SL0  GPIO_PIN_9
+#define PORT_SL0 GPIOB
+
+#define PIN_SL1  GPIO_PIN_8
+#define PORT_SL1 GPIOB
+
+#define PIN_SL2  GPIO_PIN_7
+#define PORT_SL2 GPIOB
+
+#define PIN_SL3  GPIO_PIN_6
+#define PORT_SL3 GPIOB
+
+#define PIN_RL0  GPIO_PIN_5
+#define PORT_RL0 GPIOB
+
+#define PIN_RL1  GPIO_PIN_4
+#define PORT_RL1 GPIOB
+
+#define PIN_RL2  GPIO_PIN_2
+#define PORT_RL2 GPIOD
+
 
 static TIM_HandleTypeDef handleTIM4;
 
 
 static Control::E controls[NUM_SL][NUM_RL] =
 {
-    {Control::Esc,          Control::Test,    Control::Auto},
-    {Control::Channels,     Control::Mode,     Control::Indication},
-    {Control::Enter,        Control::Left, Control::None},
-    {Control::Right,        Control::None,     Control::None},
+    {Control::Esc,       Control::Test,  Control::Auto},
+    {Control::Channels,  Control::Mode,  Control::Indication},
+    {Control::Enter,     Control::Left,  Control::None},
+    {Control::Right,     Control::None,  Control::None},
 };
 
 /// Очередь сообщений - здесь все события органов управления
@@ -61,6 +82,8 @@ static void Update()
 {
     uint time = HAL_GetTick();
 
+    Set_All_SL(1);
+
     for (int sl = 0; sl < NUM_SL; ++sl)
     {
         Set_SL(sl, 0);
@@ -68,6 +91,15 @@ static void Update()
         for (int rl = 0; rl < NUM_RL; ++rl)
         {
             int state = Read_RL(rl);
+
+            if(state == 0)
+            {
+                state = state;
+            }
+            else
+            {
+                state = state;
+            }
 
             Control control = controls[sl][rl];
 
@@ -122,7 +154,7 @@ void Keyboard::Init()
 {
     for (int sl = 0; sl < NUM_SL; ++sl)
     {
-        for (int rl = 0; rl < NUM_SL; ++rl)
+        for (int rl = 0; rl < NUM_RL; ++rl)
         {
             timePress[sl][rl] = 0;
         }
@@ -144,8 +176,8 @@ void Set_All_SL(int st)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Set_SL(int bus, int st)
 {
-    static const GPIO_TypeDef *ports[4]= {GPIOB, GPIOB, GPIOB, GPIOB};
-    static const uint16 pins[4] = {GPIO_PIN_9, GPIO_PIN_8, GPIO_PIN_7, GPIO_PIN_6};
+    static const GPIO_TypeDef *ports[4]= {PORT_SL0, PORT_SL1, PORT_SL2, PORT_SL3};
+    static const uint16 pins[4] =        {PIN_SL0,  PIN_SL1,  PIN_SL2,  PIN_SL3};
     static const GPIO_PinState state [2] = {GPIO_PIN_RESET, GPIO_PIN_SET};
     
     HAL_GPIO_WritePin((GPIO_TypeDef *)ports[bus], pins[bus], state[st]);
@@ -154,8 +186,8 @@ void Set_SL(int bus, int st)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int Read_RL(int rl)
 {
-    static const GPIO_TypeDef *ports[3] = { GPIOB, GPIOB, GPIOD };
-    static const uint16 pins[3] = { GPIO_PIN_5, GPIO_PIN_4, GPIO_PIN_2 };
+    static const GPIO_TypeDef *ports[3] = { PORT_RL0, PORT_RL1, PORT_RL2 };
+    static const uint16 pins[3] =         { PIN_RL0,  PIN_RL1,  PIN_RL2 };
 
     return HAL_GPIO_ReadPin((GPIO_TypeDef *)ports[rl], pins[rl]);
 }
@@ -163,29 +195,24 @@ int Read_RL(int rl)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void InitPins()
 {
-    GPIO_InitTypeDef GPIO_InitStruct = { 0 };
-
     __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOD_CLK_ENABLE();
     __HAL_RCC_GPIOC_CLK_ENABLE();
 
-    GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9;
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+    GPIO_InitTypeDef is =
+    {
+        PIN_SL0 | PIN_SL1 | PIN_SL2 | PIN_SL3 | PIN_RL0 | PIN_RL1,
+        GPIO_MODE_OUTPUT_PP,
+        GPIO_PULLUP
+    };
+    HAL_GPIO_Init(GPIOB, &is);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_4 | GPIO_PIN_5;
-    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+    is.Pin = PIN_RL0 | PIN_RL1;
+    is.Mode = GPIO_MODE_INPUT;
+    HAL_GPIO_Init(GPIOB, &is);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_2;
-    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-    
-//    GPIO_InitStruct.Pin = GPIO_PIN_12;
-//    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+    is.Pin = PIN_RL2;
+    HAL_GPIO_Init(GPIOD, &is);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

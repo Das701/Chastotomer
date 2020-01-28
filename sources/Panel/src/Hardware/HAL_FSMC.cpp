@@ -290,7 +290,7 @@ void HAL_FSMC::SendBuffer(uint8 *buffer)
 
         uint8 hi = (uint8)(val8 >> 4);
 
-        uint16 data = (hi == 0) ? 0 : 0xFFFF;
+        uint16 data = (hi == 0) ? 0U : 0xFFFFU;
 
         //pinWR.Reset();
         PORT_WR->BSRR = PIN_WR << 16;
@@ -303,7 +303,7 @@ void HAL_FSMC::SendBuffer(uint8 *buffer)
 
         uint8 lo = (uint8)(val8 & 0x0F);
 
-        data = (lo == 0) ? 0 : 0xFFFF;
+        data = (lo == 0) ? 0U : 0xFFFFU;
 
         //pinWR.Reset();
         PORT_WR->BSRR = PIN_WR << 16;
