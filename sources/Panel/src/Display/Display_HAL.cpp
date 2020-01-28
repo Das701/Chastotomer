@@ -20,10 +20,52 @@ using namespace Display::Primitives;
 
 using namespace Display::Primitives;
 
-/// В этом буфере будем рисовать. Ширина равна 256 / 2 потому, что в байте хранятся 2 пикселя с 1 из 16-ти возможных градация каждая.
+/// В этом буфере будем рисовать. Ширина равна 480 / 2 потому, что в байте хранятся 2 пикселя с 1 из 16-ти возможных градация каждая.
 #define WIDTH_BUFFER    (240)
 #define HEIGHT_BUFFER   (272)
-static uint8 front[HEIGHT_BUFFER][WIDTH_BUFFER];
+static uint8 buffer[HEIGHT_BUFFER][WIDTH_BUFFER];
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static void SetLShiftFreq(uint freq)
+{
+    HAL_FSMC::WriteCommand(0xe6);   // set the LSHIFT (pixel clock) frequency
+    HAL_FSMC::WriteData((uint8)(freq >> 16));
+    HAL_FSMC::WriteData((uint8)(freq >> 8));
+    HAL_FSMC::WriteData((uint8)(freq));
+}
+
+
+static void SetHorizPeriod(uint16 HT,   // Horizontal total period
+                           uint16 HPS,  // Non-display period between the start of the horizontal sync signal nad the first display data
+                           uint8  HPW,  // Sync pulse width
+                           uint16 LPS,  // Horizontal sync pulse start location
+                           uint16 LPSPP // for serial TFT interfact
+)
+{
+    HAL_FSMC::WriteCommand(0xb4);
+    HAL_FSMC::WriteData((uint8)(HT >> 8));      // 0x020d 525
+    HAL_FSMC::WriteData((uint8)HT);
+    HAL_FSMC::WriteData((uint8)(HPS >> 8));     // 0x0014 20
+    HAL_FSMC::WriteData((uint8)(HPS));
+    HAL_FSMC::WriteData(HPW);                   // 0x05
+    HAL_FSMC::WriteData((uint8)(LPS >> 8));
+    HAL_FSMC::WriteData((uint8)(LPS));
+    HAL_FSMC::WriteData(LPSPP);
+}
+
+
+static void SetModeLCD(uint16 width, uint16 height)
+{
+    HAL_FSMC::WriteCommand(0xb0);
+    HAL_FSMC::WriteData(0x20);
+    HAL_FSMC::WriteData(0x80);
+    HAL_FSMC::WriteData(0x01);
+    HAL_FSMC::WriteData(0xdf);
+    HAL_FSMC::WriteData(0x01);
+    HAL_FSMC::WriteData(0x0f);
+    HAL_FSMC::WriteData(0x00);
+}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,17 +84,13 @@ void Display::Init()
     
     //HAL_FSMC::WriteCommand(0x29);   // Включить дисплей
 
-    HAL_FSMC::WriteCommand(0xb0);   // set lcd mode
-    HAL_FSMC::WriteData(0x20);
-    HAL_FSMC::WriteData(0x80);
-    HAL_FSMC::WriteData(0x01);
-    HAL_FSMC::WriteData(0xdf);
-    HAL_FSMC::WriteData(0x01);
-    HAL_FSMC::WriteData(0x0f);
-    HAL_FSMC::WriteData(0x00);
+    SetModeLCD(480, 272);
 
     HAL_FSMC::WriteCommand(0xf0);   // set pixel data interface
     HAL_FSMC::WriteData(0x03);      // 0x03 for 16bit, 0x00 for 8bit
+    
+    HAL_FSMC::WriteCommand(0x3a);
+    HAL_FSMC::WriteData(0x50);
 
     // Set the MN of PLL
     HAL_FSMC::WriteCommand(0xe2);   // Set the PLL
@@ -62,22 +100,11 @@ void Display::Init()
 
     HAL_Delay(100);
 
-    HAL_FSMC::WriteCommand(0xe6);   // set the LSHIFT (pixel clock) frequency
-    HAL_FSMC::WriteData(0x01);
-    HAL_FSMC::WriteData(0x99);
-    HAL_FSMC::WriteData(0x9a);
+    SetLShiftFreq(0xfffff / 8);
 
-    // Set front porch and back porch
-    HAL_FSMC::WriteCommand(0xb4);   // set hori period
-    HAL_FSMC::WriteData(0x02);
-    HAL_FSMC::WriteData(0x0d);
-    HAL_FSMC::WriteData(0x00);
-    HAL_FSMC::WriteData(0x14);
-    HAL_FSMC::WriteData(0x05);
-    HAL_FSMC::WriteData(0x00);
-    HAL_FSMC::WriteData(0x00);
-    HAL_FSMC::WriteData(0x00);
-
+    
+    SetHorizPeriod(525, 25, 5, 0, 0);
+    
     HAL_FSMC::WriteCommand(0xb6);   // set vert period
     HAL_FSMC::WriteData(0x01);
     HAL_FSMC::WriteData(0x24);
@@ -88,42 +115,21 @@ void Display::Init()
     HAL_FSMC::WriteData(0x00);
 
     HAL_FSMC::WriteCommand(0x29);   // Включить дисплей
-
-    while(true)
-    {
-        HAL_FSMC::WriteCommand(0x2a);   // set column address
-        HAL_FSMC::WriteData(0x00);
-        HAL_FSMC::WriteData(0x00);
-        HAL_FSMC::WriteData(0x01);
-        HAL_FSMC::WriteData(0xdf);
-
-        HAL_FSMC::WriteCommand(0x2b);   // set page address
-        HAL_FSMC::WriteData(0x00);
-        HAL_FSMC::WriteData(0x00);
-        HAL_FSMC::WriteData(0x01);
-        HAL_FSMC::WriteData(0x0f);
-
-        HAL_FSMC::WriteCommand(0x2c);   // Write memory start
-
-        //uint16 data = (uint16)std::rand();
-        for(int y = 20; y < 40; y++)
-        {
-            for(int x = 50; x < 100; x++)
-            {
-                front[y][x] = (uint16)std::rand();
-            }
-        }
-
-        for(int y = 272; y > 0; y--)
-        {
-            for(int x = 480; x > 0; x--)
-            {
-                HAL_FSMC::WriteData(front[y][x]);
-            }
-        }
-    }
+    
+    HAL_FSMC::WriteCommand(0x2a);
+    HAL_FSMC::WriteData(0x00);
+    HAL_FSMC::WriteData(0x00);
+    HAL_FSMC::WriteData(0x01);
+    HAL_FSMC::WriteData(0xdf); // 0..479
+    
+    HAL_FSMC::WriteCommand(0x2b);
+    HAL_FSMC::WriteData(0x00);
+    HAL_FSMC::WriteData(0x00);
+    HAL_FSMC::WriteData(0x01);
+    HAL_FSMC::WriteData(0x0f); //0..271
+    
+    HAL_FSMC::WriteCommand(0x2c);
 }
-
 
 /// Этот буфер отображается на экране
 //static uint8 front[240][320];
@@ -152,26 +158,19 @@ void Display::Init()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 uint8 *Display::GetPixel(int x, int y)
 {
-    return &front[y][x / 2];
+    return &buffer[y][x / 2];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::BeginScene(Color color)
 {
-    std::memset(front, color.value | (color.value << 4), 240 * 320);
+    std::memset(buffer, 0, HEIGHT_BUFFER * WIDTH_BUFFER * sizeof(buffer[0][0]));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display::EndScene()
 {
-    for(int y = 0; y < 240; y++)
-    {
-        for(int x = 0; x < 160; x++)
-        {
-            front[y][x * 2] = (uint8)(front[y][x] >> 4);
-            front[y][x * 2 + 1] = (uint8)(front[y][x] & 0x0F);
-        }
-    }
+    HAL_FSMC::SendBuffer(buffer[0]);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

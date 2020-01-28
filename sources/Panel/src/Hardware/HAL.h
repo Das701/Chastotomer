@@ -25,6 +25,8 @@ struct HAL_FSMC
     static void WriteData(uint16 data);
     static uint16 ReadData();
 
+    static void SendBuffer(uint8 *buffer);
+    
     static uint16 GetData(uint16 address);
 
 public:

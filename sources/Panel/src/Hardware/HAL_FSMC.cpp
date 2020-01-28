@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Hardware/HAL.h"
 #include <stm32f4xx_hal.h>
+#include <cstdlib>
 
 
 #define PIN_BL_E  GPIO_PIN_0
@@ -162,9 +163,10 @@ public:
     static void Set(uint16 data);
     /// Читать данные с шины
     static uint16 Read();
-private:
 
     static void InitWrite();
+
+public:
 
     static void InitRead();
 
@@ -246,6 +248,75 @@ void HAL_FSMC::WriteData(uint16 data)
 
     //pinWR.Set();
     PORT_WR->BSRR = PIN_WR;
+
+    //pinCS.Set();
+    PORT_CS->BSRR = PIN_CS;
+}
+
+
+void WindowSet(unsigned int s_x, unsigned int e_x, unsigned int s_y, unsigned int e_y)
+{
+    HAL_FSMC::WriteCommand(0x2a); //SET page address
+    HAL_FSMC::WriteData((s_x) >> 8); //SET start page address=0
+    HAL_FSMC::WriteData(s_x);
+    HAL_FSMC::WriteData((e_x) >> 8); //SET end page address
+    HAL_FSMC::WriteData(e_x);
+
+    HAL_FSMC::WriteCommand(0x2b); //SET column address
+    HAL_FSMC::WriteData((s_y) >> 8); //SET start column address=0
+    HAL_FSMC::WriteData(s_y);
+    HAL_FSMC::WriteData((e_y) >> 8); //SET end column address
+    HAL_FSMC::WriteData(e_y);
+}
+
+
+void HAL_FSMC::SendBuffer(uint8 *buffer)
+{
+    WindowSet(0, 0x1df, 0x0, 0x10f);
+
+    HAL_FSMC::WriteCommand(0x2c);   // Write memory start
+
+    DataBus::InitWrite();
+
+    //pinCS.Reset();
+    PORT_CS->BSRR = PIN_CS << 16;
+
+    //pinD_C.Set();
+    PORT_D_C->BSRR = PIN_D_C;
+
+    for(int i = 0; i < 272 * 480 / 2; i++)
+    {
+        uint8 val8 = *buffer;
+
+        uint8 hi = (uint8)(val8 >> 4);
+
+        uint16 data = (hi == 0) ? 0 : 0xFFFF;
+
+        //pinWR.Reset();
+        PORT_WR->BSRR = PIN_WR << 16;
+
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data;
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8);
+
+        //pinWR.Set();
+        PORT_WR->BSRR = PIN_WR;
+
+        uint8 lo = (uint8)(val8 & 0x0F);
+
+        data = (lo == 0) ? 0 : 0xFFFF;
+
+        //pinWR.Reset();
+        PORT_WR->BSRR = PIN_WR << 16;
+
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data;
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8);
+
+        //pinWR.Set();
+        PORT_WR->BSRR = PIN_WR;
+
+
+        buffer++;
+    }
 
     //pinCS.Set();
     PORT_CS->BSRR = PIN_CS;

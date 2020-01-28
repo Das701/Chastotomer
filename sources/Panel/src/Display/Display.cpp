@@ -8,7 +8,7 @@
 #include "Menu/MenuItems.h"
 #include "Menu/Hint.h"
 #include <cstdlib>
-
+#include <cstring>
 
 using namespace Display::Primitives;
 using Display::Text;
@@ -25,6 +25,7 @@ static void DrawStatusBar();
 static void DrawChannelSettings();
 
 static void DrawScreen();
+
 
 
 static void CalculateCoord(int &x, int &y, int sizeX, int sizeY)
