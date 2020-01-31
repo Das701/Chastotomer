@@ -16,6 +16,7 @@
 using namespace Display::Primitives;
 using namespace Display;
 
+int info = 0;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int Enumeration::NumStates() const
@@ -107,38 +108,60 @@ bool Page::OnControl(const Control &control)
         SelectNextItem();
         Hint::Hide();
         result = true;
+        info = 1;
         break;
 
     case Control::Left:
         SelectPrevItem();
         Hint::Hide();
         result = true;
+        info = 2;
         break;
 
     case Control::GovLeft:
         result = ChangeLevelSynch(-20);     // Делаем попытку изменить уровень синхронизации
+        info = 3;
         break;
 
     case Control::GovRight:
         result = ChangeLevelSynch(20);      // Делаем попытку изменить уровень синхронизации
+        info = 4;
         break;
 
-    case Control::GovButton: 
+    case Control::Enter: 
         if(SelectedItem())
         {
             result = SelectedItem()->OnControl(control);
         }
+        info = 5;
         break;
 
     case Control::Count:
+        info = 6;
+        break;
     case Control::None:
+        info = 7;
+        break;
     case Control::Mode:
+        info = 8;
+        break;
     case Control::Indication:
+        info = 9;
+        break;
     case Control::Channels:
-    case Control::Enter:
+        info = 10;
+        break;
+    case Control::GovButton:
+        info = 11;
+        break;
     case Control::Esc:
+        info = 12;
+        break;
     case Control::Test:
+        info = 13;
+        break;
     case Control::Auto:
+        info = 14;
         break;
 
     default:
@@ -176,7 +199,7 @@ void Page::SelectPrevItem()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 bool Switch::OnControl(const Control &control)
 {
-    if (control.action.IsPress() && control.value == Control::GovButton)
+    if (control.action.IsPress() && control.value == Control::Enter)
     {
         if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
         {

@@ -26,7 +26,8 @@ static void DrawChannelSettings();
 
 static void DrawScreen();
 
-
+static void DrawInfo();
+extern int info;
 
 static void CalculateCoord(int &x, int &y, int sizeX, int sizeY)
 {
@@ -103,6 +104,8 @@ static void DrawScreen()
         DrawHint();
         
         DrawChannelSettings();
+        
+        DrawInfo();
         
         Menu::Draw();
     }
@@ -194,3 +197,51 @@ static void DrawHint()
     Text(Hint::Text()).Write(77, 12);
 }
 
+static void DrawInfo()
+{
+    switch (info)
+    {
+        case 1:
+            Text("Right").Write(100, 100);
+            break;
+        case 2:
+            Text("Left").Write(100, 100);
+            break;
+        case 3:
+            Text("GovLeft").Write(100, 100);
+            break;
+        case 4:
+            Text("GovLeft").Write(100, 100);
+            break;
+        case 5:
+            Text("Enter").Write(100, 100);
+            break;
+        case 6:
+            Text("Count").Write(100, 100);
+            break;
+        case 7:
+            Text("None").Write(100, 100);
+            break;
+        case 8:
+            Text("Mode").Write(100, 100);
+            break;
+        case 9:
+            Text("Indication").Write(100, 100);
+            break;
+        case 10:
+            Text("Channels").Write(100, 100);
+            break;
+        case 11:
+            Text("GovButton").Write(100, 100);
+            break;
+        case 12:
+            Text("Esc").Write(100, 100);
+            break;
+        case 13:
+            Text("Test").Write(100, 100);
+            break;
+        case 14:
+            Text("Auto").Write(100, 100);
+            break;
+    }
+}
