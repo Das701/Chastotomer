@@ -36,10 +36,10 @@ static TIM_HandleTypeDef handleTIM4;
 
 static Control::E controls[NUM_SL][NUM_RL] =
 {
-    {Control::Esc,       Control::Channels,  Control::Enter},
-    {Control::Right,    Control::Mode,  Control::Left},
-    {Control::Auto,     Control::Indication,  Control::None},
-    {Control::Test,     Control::None,  Control::None},
+    {Control::Esc,       Control::Test,  Control::Auto},
+    {Control::Channels,    Control::Mode,  Control::Indication},
+    {Control::Enter,     Control::Left,  Control::None},
+    {Control::Right,     Control::None,  Control::None},
 };
 
 /// Очередь сообщений - здесь все события органов управления
@@ -105,24 +105,24 @@ static void Update()
 
             if (control.value != Control::None)
             {
-                if (timePress[rl][sl])                      // Если клавиша находится в нажатом положении
+                if (timePress[sl][rl])                      // Если клавиша находится в нажатом положении
                 {
-                    if (time - timePress[rl][sl] > 100)     // Если прошло более 100 мс с момента нажатия
+                    if (time - timePress[sl][rl] > 100)     // Если прошло более 100 мс с момента нажатия
                     {
                         if (!BUTTON_IS_PRESS(state))        // Если сейчас кнопка находится в отжатом состояини
                         {
-                            timePress[rl][sl] = 0;
-                            if (!alreadyLong[rl][sl])
+                            timePress[sl][rl] = 0;
+                            if (!alreadyLong[sl][rl])
                             {
-                                AddAction(controls[rl][sl], Control::Action::Release);
+                                AddAction(controls[sl][rl], Control::Action::Release);
                             }
-                            alreadyLong[rl][sl] = false;
+                            alreadyLong[sl][rl] = false;
                             prevRepeat = 0;
                         }
-                        else if (time - timePress[rl][sl] > 500 && !alreadyLong[rl][sl])
+                        else if (time - timePress[sl][rl] > 500 && !alreadyLong[sl][rl])
                         {
-                            AddAction(controls[rl][sl], Control::Action::Long);
-                            alreadyLong[rl][sl] = true;
+                            AddAction(controls[sl][rl], Control::Action::Long);
+                            alreadyLong[sl][rl] = true;
                         }
                         else
                         {
@@ -130,10 +130,10 @@ static void Update()
                         }
                     }
                 }
-                else if (BUTTON_IS_PRESS(state) && !alreadyLong[rl][sl])
+                else if (BUTTON_IS_PRESS(state) && !alreadyLong[sl][rl])
                 {
-                    timePress[rl][sl] = time;
-                    AddAction(controls[rl][sl], Control::Action::Press);
+                    timePress[sl][rl] = time;
+                    AddAction(controls[sl][rl], Control::Action::Press);
                     prevRepeat = 0;
                 }
                 else
