@@ -43,10 +43,6 @@ void Point::Draw(int x, int y, Color color)
 
     if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT)
     {
-        //for(int i = 0; i < 2; i++)
-        //{
-        //    for(int z = 0; z < 2; z++)
-        //    {
         uint8 *point = Display::GetPixel(x, y);     // Адрес байта, в котором наша точка
         
         if ((x % 2) != 0)
@@ -59,8 +55,6 @@ void Point::Draw(int x, int y, Color color)
             *point &= 0x0F;                         // Очищаем старшую тетраду
             *point |= (color.value << 4) & 0xF0;           // Записываем в старшую тетраду цвет
         }
-        //    }
-        //}
     }
 }
 

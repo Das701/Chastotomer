@@ -76,7 +76,7 @@ int Text::Write(int x, int y, int width, Color color)
 
     int length = Font::GetLengthText(text);
 
-    int delta = (width - length) / 2;
+    int delta = (width - length*2) / 2;
 
     Write(x + delta, y, color);
     return x;
@@ -89,7 +89,7 @@ void Text::WriteSymbols(char *start, int num, int x, int y, int width, Color col
 
     int length = Font::GetLengthSymbols(start, num);
 
-    int delta = (width - length) / 2;
+    int delta = (width - length*2) / 2;
 
     WriteSymbols(start, num, x + delta, y);
 }
@@ -114,7 +114,7 @@ void Text::WriteInCenterRect(int x, int y, int width, int height, Color color)
         int dY = (height - Font::GetSize()) / 2 - Font::GetSize() / 2 - 2;
         WriteSymbols(start, num, x, y + dY, width, color);
 
-        GetWord(1, start, num);
+        GetWord(1, start, num); 
 
         WriteSymbols(start, num, x, y + dY + static_cast<int>(1.5F * Font::GetSize()), width);
     }
@@ -253,17 +253,29 @@ int Text::WriteSymbol(int x, int y, uint8 chr) const
     for (int i = 0; i < height; i++)
     {
         uint8 row = symbol.bytes[i];
-
+        
+        int z = 0;
+        
         for (int j = 0; j < width; j++)
         {
             if (GET_BIT(row, 8 - j))
             {
-                Point().Draw(x + j, y);
+                Point().Draw(x + j + z, y);
+                Point().Draw(x + j + z, y + 1);
+                z++;
+                Point().Draw(x + j + z, y);
+                Point().Draw(x + j + z, y + 1);
+            }
+            else
+            {
+                z++;
+                
             }
         }
 
         y++;
+        y++;
     }
 
-    return x + symbol.width;
+    return x + symbol.width*2;
 }

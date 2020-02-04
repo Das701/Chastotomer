@@ -114,16 +114,16 @@ static void DrawScreen()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawChannelSettings()
 {
-    Text(Menu::ChannelSettings()).Write(77, 2);
+    Text(Menu::ChannelSettings()).Write(102, 2);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawTypeMeasure()
 {
     int x = 0;
-    int width = 75; 
-    Text(PageModes::typeMeasure.ToText()).Write(x, 5, width);
-    Rectangle(width, 20).Draw(x, 0, Color::WHITE);
+    int width = 100; 
+    Text(PageModes::typeMeasure.ToText()).Write(x, 10, width);
+    Rectangle(width, 30).Draw(x, 0, Color::WHITE);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -137,7 +137,7 @@ static void DrawModeMeasure()
         &PageModes::modeMeasureCountPulse
     };
 
-    Text(modes[PageModes::typeMeasure.value]->ToText()).Write(0, 30);
+    Text(modes[PageModes::typeMeasure.value]->ToText()).Write(0, 40);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -180,21 +180,21 @@ static void DrawStatusBar()
 
     const Enumeration *toText = enums[PageModes::typeMeasure][mode->value];
 
-    int y = 208;
+    int y = 210;
     int x = 0;
-    int width = 35;
+    int width = 38;
 
     if (toText)
     {
         Text(toText->ToText()).Write(x, y + 4, width, Color::WHITE);
     }
 
-    Rectangle(width, 20).Draw(x, y, Color::WHITE);
+    Rectangle(width, 30).Draw(x, y, Color::WHITE);
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawHint()
 {
-    Text(Hint::Text()).Write(77, 12);
+    Text(Hint::Text()).Write(102, 12);
 }
 
 static void DrawInfo()

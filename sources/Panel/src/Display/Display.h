@@ -6,7 +6,7 @@
 namespace Display
 {
 	static const int WIDTH = 480;
-	static const int HEIGHT = 240;
+	static const int HEIGHT = 272;
 
     void Init();
 
