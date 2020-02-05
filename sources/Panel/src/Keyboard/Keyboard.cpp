@@ -6,7 +6,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define TIME_UPDATE_KEYBOARD 2   ///< ¬рем€ между опросами клавиатуры
-#define NUM_RL 3
+#define NUM_RL 4
 #define NUM_SL 4
 
 #define PIN_SL0  GPIO_PIN_9
@@ -30,16 +30,19 @@
 #define PIN_RL2  GPIO_PIN_2
 #define PORT_RL2 GPIOD
 
+#define PIN_RL3  GPIO_PIN_15
+#define PORT_RL3 GPIOA
+
 
 static TIM_HandleTypeDef handleTIM4;
 
 
 static Control::E controls[NUM_SL][NUM_RL] =
 {
-    {Control::Esc,       Control::Test,  Control::Auto},
-    {Control::Channels,    Control::Mode,  Control::Indication},
-    {Control::Enter,     Control::Left,  Control::None},
-    {Control::Right,     Control::None,  Control::None},
+    {Control::Esc,          Control::Test,  Control::Auto,          Control::GovButton},
+    {Control::Channels,     Control::Mode,  Control::Indication,    Control::None},
+    {Control::Enter,        Control::Left,  Control::None,          Control::None},
+    {Control::Right,        Control::None,  Control::None,          Control::None},
 };
 
 /// ќчередь сообщений - здесь все событи€ органов управлени€
@@ -186,8 +189,8 @@ void Set_SL(int bus, int st)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int Read_RL(int rl)
 {
-    static const GPIO_TypeDef *ports[3] = { PORT_RL0, PORT_RL1, PORT_RL2 };
-    static const uint16 pins[3] =         { PIN_RL0,  PIN_RL1,  PIN_RL2 };
+    static const GPIO_TypeDef *ports[4] = { PORT_RL0, PORT_RL1, PORT_RL2, PORT_RL3 };
+    static const uint16 pins[4] =         { PIN_RL0,  PIN_RL1,  PIN_RL2, PIN_RL3};
 
     return HAL_GPIO_ReadPin((GPIO_TypeDef *)ports[rl], pins[rl]);
 }
@@ -198,7 +201,8 @@ static void InitPins()
     __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOD_CLK_ENABLE();
     __HAL_RCC_GPIOC_CLK_ENABLE();
-
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    
     GPIO_InitTypeDef is =
     {
         PIN_SL0 | PIN_SL1 | PIN_SL2 | PIN_SL3 | PIN_RL0 | PIN_RL1,
@@ -213,6 +217,9 @@ static void InitPins()
 
     is.Pin = PIN_RL2;
     HAL_GPIO_Init(GPIOD, &is);
+    
+    is.Pin = PIN_RL3;
+    HAL_GPIO_Init(GPIOA, &is);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
