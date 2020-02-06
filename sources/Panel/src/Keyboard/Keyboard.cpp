@@ -33,6 +33,12 @@
 #define PIN_RL3  GPIO_PIN_15
 #define PORT_RL3 GPIOA
 
+#define PIN_ENC1  GPIO_PIN_11
+#define PORT_ENC1 GPIOC
+
+#define PIN_ENC2  GPIO_PIN_10
+#define PORT_ENC2 GPIOC
+
 
 static TIM_HandleTypeDef handleTIM4;
 
@@ -76,6 +82,8 @@ static void InitTimer();
 static void Update();
 /// Добавить действие в буфер
 static void AddAction(Control control, Control::Action::E action);
+/// Обработка ручки
+static void DetectRegulator();
 
 #define BUTTON_IS_PRESS(state) ((state) == 0)
 
@@ -149,9 +157,38 @@ static void Update()
         Set_All_SL(1);
     }
 
+    DetectRegulator();
     Set_All_SL(1);
 }
 
+
+static void DetectRegulator()
+{  
+// Детектируем поворот
+    static bool prevStatesIsOne = false;
+
+    bool stateLeft = HAL_GPIO_ReadPin(PORT_ENC1, PIN_ENC1);
+    bool stateRight = HAL_GPIO_ReadPin(PORT_ENC2, PIN_ENC2);;
+
+    if (stateLeft && stateRight)
+    {
+        prevStatesIsOne = true;
+    }
+    else if (prevStatesIsOne && stateLeft && !stateRight)
+    {
+        AddAction(Control::GovLeft, Control::Action::Press);
+        prevStatesIsOne = false;
+    }
+    else if (prevStatesIsOne && !stateLeft && stateRight)
+    {
+        AddAction(Control::GovRight, Control::Action::Press);
+        prevStatesIsOne = false;
+    }
+    else
+    {
+        // здесь ничего
+    }
+}
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Keyboard::Init()
 {
@@ -189,7 +226,7 @@ void Set_SL(int bus, int st)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int Read_RL(int rl)
 {
-    static const GPIO_TypeDef *ports[4] = { PORT_RL0, PORT_RL1, PORT_RL2, PORT_RL3 };
+    static const GPIO_TypeDef *ports[4] = { PORT_RL0, PORT_RL1, PORT_RL2, PORT_RL3};
     static const uint16 pins[4] =         { PIN_RL0,  PIN_RL1,  PIN_RL2, PIN_RL3};
 
     return HAL_GPIO_ReadPin((GPIO_TypeDef *)ports[rl], pins[rl]);
@@ -220,6 +257,9 @@ static void InitPins()
     
     is.Pin = PIN_RL3;
     HAL_GPIO_Init(GPIOA, &is);
+    
+    is.Pin = PIN_ENC1 | PIN_ENC2;
+    HAL_GPIO_Init(GPIOC, &is);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

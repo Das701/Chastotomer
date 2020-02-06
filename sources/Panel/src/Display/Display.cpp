@@ -180,13 +180,13 @@ static void DrawStatusBar()
 
     const Enumeration *toText = enums[PageModes::typeMeasure][mode->value];
 
-    int y = 210;
+    int y = 65;
     int x = 0;
-    int width = 38;
+    int width = 60;
 
     if (toText)
     {
-        Text(toText->ToText()).Write(x, y + 4, width, Color::WHITE);
+        Text(toText->ToText()).Write(x + 2, y + 7, width, Color::WHITE);
     }
 
     Rectangle(width, 30).Draw(x, y, Color::WHITE);
@@ -211,7 +211,7 @@ static void DrawInfo()
             Text("GovLeft").Write(100, 100);
             break;
         case 4:
-            Text("GovLeft").Write(100, 100);
+            Text("GovRight").Write(100, 100);
             break;
         case 5:
             Text("Enter").Write(100, 100);

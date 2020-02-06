@@ -23,7 +23,7 @@ class Item
 {
     friend class Hint;
 public:
-    static const int WIDTH = 70;
+    static const int WIDTH = 77;
     static const int HEIGHT = 55;
 
     /// Функция отрисовки

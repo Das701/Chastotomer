@@ -111,12 +111,12 @@ void Text::WriteInCenterRect(int x, int y, int width, int height, Color color)
 
         GetWord(0, start, num);
         
-        int dY = (height - Font::GetSize()) / 2 - Font::GetSize() / 2 - 2;
+        int dY = (height - Font::GetSize()) / 2 - Font::GetSize() / 2 - 6;
         WriteSymbols(start, num, x, y + dY, width, color);
 
         GetWord(1, start, num); 
 
-        WriteSymbols(start, num, x, y + dY + static_cast<int>(1.5F * Font::GetSize()), width);
+        WriteSymbols(start, num, x, y + 6 + dY + static_cast<int>(1.5F * Font::GetSize()), width);
     }
     else
     {
