@@ -7,7 +7,7 @@ namespace Menu
 
     void Draw();
 
-    void Update();
+    bool Update();
 
     char *ChannelSettings();
 };

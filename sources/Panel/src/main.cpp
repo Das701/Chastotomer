@@ -16,12 +16,10 @@ int main(void)
     while (1)
     {
         PLIS::Update();
-        Menu::Update();
-        if(Keyboard::Used())
+        if(Menu::Update() == true)
         {
             Display::Update(); 
-            Keyboard::ResetUsed();
-        }
+        }     
     }
 }
 
