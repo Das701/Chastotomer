@@ -105,34 +105,30 @@ bool Page::OnControl(const Control &control)
     switch (control.value)
     {
     case Control::Right:
-        SelectNextItem();
-        Hint::Hide();
-        result = true;
+        result = ChangeLevelSynch(20);      // Делаем попытку изменить уровень синхронизации
         info = 1;
         break;
 
     case Control::Left:
-        SelectPrevItem();
-        Hint::Hide();
-        result = true;
+        result = ChangeLevelSynch(-20);     // Делаем попытку изменить уровень синхронизации
         info = 2;
         break;
 
     case Control::GovLeft:
-        result = ChangeLevelSynch(-20);     // Делаем попытку изменить уровень синхронизации
+        SelectPrevItem();
+        Hint::Hide();
+        result = true;
         info = 3;
         break;
 
     case Control::GovRight:
-        result = ChangeLevelSynch(20);      // Делаем попытку изменить уровень синхронизации
+        SelectNextItem();
+        Hint::Hide();
+        result = true;
         info = 4;
         break;
 
     case Control::Enter: 
-        if(SelectedItem())
-        {
-            result = SelectedItem()->OnControl(control);
-        }
         info = 5;
         break;
 
@@ -152,6 +148,10 @@ bool Page::OnControl(const Control &control)
         info = 10;
         break;
     case Control::GovButton:
+        if(SelectedItem())
+        {
+            result = SelectedItem()->OnControl(control);
+        }
         info = 11;
         break;
     case Control::Esc:
@@ -199,7 +199,7 @@ void Page::SelectPrevItem()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 bool Switch::OnControl(const Control &control)
 {
-    if (control.action.IsPress() && control.value == Control::Enter)
+    if (control.action.IsPress() && control.value == Control::GovButton)
     {
         if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
         {

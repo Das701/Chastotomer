@@ -11,12 +11,17 @@ int main(void)
     HAL::Init();
     Display::Init();
     Keyboard::Init();
-    Menu::Init();
-
+    Menu::Init();   
+        
     while (1)
     {
+        PLIS::Update();
         Menu::Update();
-        Display::Update();
+        if(Keyboard::Used())
+        {
+            Display::Update(); 
+            Keyboard::ResetUsed();
+        }
     }
 }
 

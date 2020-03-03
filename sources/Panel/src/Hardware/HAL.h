@@ -36,3 +36,9 @@ public:
         static void Run();
     };
 };
+
+struct PLIS
+{
+    static void Init();
+    static void Update();
+};

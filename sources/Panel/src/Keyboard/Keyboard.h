@@ -46,4 +46,8 @@ namespace Keyboard
     bool Empty();
     /// Возвращает следующее событие
     Control NextControl();
+    
+    bool Used();
+    void SetUsed();
+    void ResetUsed();
 };

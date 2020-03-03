@@ -57,6 +57,7 @@ static Control actions[MAX_ACTIONS];
 /// Количество уже имеющихся сообщений
 static int numActions = 0;
 
+static bool buttonUsed = false;
 /// Установленное в true значение означает, что сохранять куда-либо информацию о её состоянии нельзя до отпускания (чтобы не было ложных срабатываний типа Long
 static bool alreadyLong[NUM_RL][NUM_SL];
 /// При обнаружении нажатия кнопки сюда записывается время нажатия
@@ -291,6 +292,15 @@ static void InitTimer()
     Set_All_SL(1);
 }
 
+static void Keyboard::SetUsed()
+{
+    buttonUsed = true;
+}
+
+static void Keyboard::ResetUsed()
+{
+    buttonUsed = false;
+}
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void AddAction(Control control, Control::Action::E action)
 {
@@ -301,12 +311,18 @@ static void AddAction(Control control, Control::Action::E action)
 
     control.action = action;
     actions[numActions++] = control;
+    Keyboard::SetUsed();
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool Keyboard::Empty()
 {
     return numActions == 0;
+}
+
+bool Keyboard::Used()
+{
+    return buttonUsed == true;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

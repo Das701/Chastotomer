@@ -11,6 +11,7 @@ void HAL::Init()
     HAL_Init();
     SystemClock_Config();
     HAL_FSMC::Init();
+    PLIS::Init();
 }
 
 void SystemClock_Config(void)
