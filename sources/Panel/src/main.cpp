@@ -3,7 +3,8 @@
 #include "Keyboard/Keyboard.h"
 #include "Display/Display.h"
 #include "Menu/Menu.h"
-
+#include "Display/Text.h"
+using Display::Text;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main(void)
@@ -12,11 +13,17 @@ int main(void)
     Display::Init();
     Keyboard::Init();
     Menu::Init();   
-        
+    Menu::Update();
+    Display::Update();
+    int time = HAL_GetTick();
+    
     while (1)
     {
+        
         PLIS::Update();
-        if(Menu::Update() == true)
+        Menu::Update();
+//        Text(PLIS::GiveData()).Write(120, 120);
+        if(HAL_GetTick() > time + 10)
         {
             Display::Update(); 
         }     

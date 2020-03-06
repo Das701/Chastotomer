@@ -41,4 +41,6 @@ struct PLIS
 {
     static void Init();
     static void Update();
+    static char* GiveData(); 
+    static void WriteCommand(char* command, char* argument);
 };

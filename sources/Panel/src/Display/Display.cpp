@@ -9,6 +9,7 @@
 #include "Menu/Hint.h"
 #include <cstdlib>
 #include <cstring>
+#include "Hardware/HAL.h"
 
 using namespace Display::Primitives;
 using Display::Text;
@@ -27,6 +28,9 @@ static void DrawChannelSettings();
 static void DrawScreen();
 
 static void DrawInfo();
+
+static void DrawData();
+
 extern int info;
 
 static void CalculateCoord(int &x, int &y, int sizeX, int sizeY)
@@ -108,6 +112,8 @@ static void DrawScreen()
         DrawInfo();
         
         Menu::Draw();
+        
+        DrawData();
     }
 }
 
@@ -244,4 +250,9 @@ static void DrawInfo()
             Text("Auto").Write(100, 100);
             break;
     }
+}
+
+static void DrawData()
+{
+    Text(PLIS::GiveData()).Write(120, 120);
 }

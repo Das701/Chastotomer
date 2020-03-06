@@ -30,4 +30,6 @@ namespace FreqMeter
     void LoadDivider();
 
     void LoadTypeSynch();
+    
+    void LoadChannel();
 }
