@@ -59,22 +59,18 @@ void FreqMeter::LoadChannel()
 void FreqMeter::LoadDisplayTime()
 {
     char command[4] = { 1, 0, 1, 1 };
-    ClearArgument();
-    switch (PageIndication::displayTime)
+
+    DEFINE_ARGUMENT;
+
+    if(PageIndication::displayTime == DisplayTime::_1s)
     {
-        case DisplayTime::_100ms:
-            argument[0] = 0;
-            argument[1] = 0;
-            break;
-        case DisplayTime::_1s:
-            argument[0] = 1;
-            argument[1] = 0;
-            break;
-        case DisplayTime::_10s:
-            argument[0] = 0;
-            argument[1] = 1;
-            break;
+        argument[0] = 1;
     }
+    else if(PageIndication::displayTime == DisplayTime::_10s)
+    {
+        argument[1] = 1;
+    }
+
     PLIS::WriteCommand(command, argument);
 }
 
