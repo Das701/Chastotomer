@@ -15,7 +15,7 @@
 #include "Utils/String.h"
 #include "Utils/Math.h"
 #include <cstring>
-
+#include "FreqMeter/FreqMeter.h"
 
 using namespace Display;
 
@@ -71,22 +71,26 @@ static void SetCurrentChannel(const Control &control)
         if (set.currentChannel == Channel::A)
         {
             page = PageChannelA::self;
+            FreqMeter::UsedChannel(1);
         }
         else if (set.currentChannel == Channel::B)
         {
             page = PageChannelB::self;
+            FreqMeter::UsedChannel(2);
         }
         else if (set.currentChannel == Channel::C)
         {
             page = PageChannelC::self;
+            FreqMeter::UsedChannel(3);
         }
         else if (set.currentChannel == Channel::D)
         {
             page = PageChannelD::self;
         }
-
+        
         openedPage = page;
         Hint::Hide();
+        FreqMeter::LoadChannel();
     }
 }
 

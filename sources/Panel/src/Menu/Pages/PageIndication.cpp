@@ -4,7 +4,7 @@
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
-
+#include "FreqMeter/FreqMeter.h"
 
 using namespace Display::Primitives;
 using namespace Display;
@@ -20,6 +20,7 @@ MemoryMode          PageIndication::memoryMode(MemoryMode::On);
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_DisplayTime()
 {
+    FreqMeter::LoadDisplayTime();
 }
 
 /// Выбор времени отображения результата измерения
@@ -31,6 +32,7 @@ DEF_SWITCH_3(sDisplayTime,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_RefGenerator()
 {
+    FreqMeter::LoadRefGenerator();
 }
 
 /// Выбор опорного генератора
@@ -42,6 +44,7 @@ DEF_SWITCH_2(sRefGenerator,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_LaunchSource()
 {
+    FreqMeter::LoadLaunchSource();
 }
 
 /// Выбор источника запуска
@@ -52,6 +55,7 @@ DEF_SWITCH_3(sLaunchSource,
 
 static void OnPress_Calibration()
 {
+    FreqMeter::LoadCalibration();
 }
 
 /// Вход в режим калибровки
@@ -63,6 +67,7 @@ DEF_SWITCH_2(sCalibration,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_MemoryMode()
 {
+    FreqMeter::LoadMemoryMode();
 }
 
 /// Включение(отключение) режима памяти

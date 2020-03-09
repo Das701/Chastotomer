@@ -32,4 +32,16 @@ namespace FreqMeter
     void LoadTypeSynch();
     
     void LoadChannel();
+    
+    void LoadMemoryMode();
+    
+    void LoadCalibration();
+    
+    void LoadLaunchSource();
+    
+    void LoadRefGenerator();
+    
+    void LoadDisplayTime();
+    
+    void UsedChannel(int channelNumber);
 }
