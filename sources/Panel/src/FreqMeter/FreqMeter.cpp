@@ -10,9 +10,12 @@
 #include "Menu/Pages/PageChannelD.h"
 #include "Menu/Hint.h"
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-char argument[6] = { 0, 0, 0, 0, 0, 0 };
+
+static char argument[6] = { 0, 0, 0, 0, 0, 0 };
+
+#define DEFINE_ARGUMENT char argument[6] = {0, 0, 0, 0, 0, 0}
+
 
 int channel = 1;
 
@@ -37,23 +40,18 @@ void ClearArgument()
 void FreqMeter::LoadChannel()
 {
     char command[4] = { 0, 0, 0, 0 };
-    ClearArgument();
-    
-    switch (channel)
+
+    DEFINE_ARGUMENT;
+
+    if(channel == 2)
     {
-        case 1:
-            argument[0] = 0;
-            argument[1] = 0;
-            break;
-        case 2:
-            argument[0] = 0;
-            argument[1] = 1;
-            break;
-        case 3:
-            argument[0] = 1;
-            argument[1] = 0;
-            break;
+        argument[1] = 1;
     }
+    else if(channel == 3)
+    {
+        argument[0] = 1;
+    }
+    
     PLIS::WriteCommand(command, argument);
 }
 
@@ -292,7 +290,7 @@ void FreqMeter::LoadInputCouple()
 {
     char command[4] = { 1, 1, 0, 0 };
     ClearArgument();
-    if((PageChannelA::couple == InputCouple::AC & channel == 1) | (PageChannelB::couple == InputCouple::AC & channel == 2))
+    if((PageChannelA::couple == InputCouple::AC && channel == 1) | (PageChannelB::couple == InputCouple::AC && channel == 2))
     {
         argument[0] = 0;
     }
@@ -308,7 +306,7 @@ void FreqMeter::LoadImpedance()
 {
     char command[4] = { 1, 0, 0, 0 };
     ClearArgument();
-    if((PageChannelA::impedance == InputImpedance::_1MOmh & channel == 1) | (PageChannelB::impedance == InputImpedance::_1MOmh & channel == 2))
+    if((PageChannelA::impedance == InputImpedance::_1MOmh && channel == 1) | (PageChannelB::impedance == InputImpedance::_1MOmh && channel == 2))
     {
         argument[0] = 0;
     }
@@ -324,7 +322,7 @@ void FreqMeter::LoadModeFilter()
 {
     char command[4] = { 1, 0, 1, 0 };
     ClearArgument();
-    if((PageChannelA::modeFilter == ModeFilter::On & channel == 1) | (PageChannelB::modeFilter == ModeFilter::On & channel == 2))
+    if((PageChannelA::modeFilter == ModeFilter::On && channel == 1) | (PageChannelB::modeFilter == ModeFilter::On && channel == 2))
     {
         argument[0] = 0;
     }
@@ -340,7 +338,7 @@ void FreqMeter::LoadModeFront()
 {
     char command[4] = { 0, 0, 1, 0 };
     ClearArgument();
-    if((PageChannelA::modeFront == ModeFront::Front & channel == 1) | (PageChannelB::modeFront == ModeFront::Front & channel == 2))
+    if((PageChannelA::modeFront == ModeFront::Front && channel == 1) | (PageChannelB::modeFront == ModeFront::Front && channel == 2))
     {
         argument[0] = 0;
     }
@@ -356,7 +354,7 @@ void FreqMeter::LoadDivider()
 {
     char command[4] = { 0, 1, 0, 0 };
     ClearArgument();
-    if((PageChannelA::divider == Divider::_1 & channel == 1) | (PageChannelB::divider == Divider::_1 & channel == 2))
+    if((PageChannelA::divider == Divider::_1 && channel == 1) | (PageChannelB::divider == Divider::_1 && channel == 2))
     {
         argument[0] = 0;
     }
@@ -372,7 +370,7 @@ void FreqMeter::LoadTypeSynch()
 {
     char command[4] = { 1, 1, 0, 1 };
     ClearArgument();
-    if((PageChannelA::typeSynch == TypeSynch::TTL & channel == 1) | (PageChannelB::typeSynch == TypeSynch::TTL & channel == 2))
+    if((PageChannelA::typeSynch == TypeSynch::TTL && channel == 1) | (PageChannelB::typeSynch == TypeSynch::TTL && channel == 2))
     {
         argument[0] = 0;
     }
