@@ -42,6 +42,4 @@ namespace FreqMeter
     void LoadRefGenerator();
     
     void LoadDisplayTime();
-    
-    void UsedChannel(int channelNumber);
 }

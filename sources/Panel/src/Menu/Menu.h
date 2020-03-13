@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Menu/MenuItems.h"
 
 namespace Menu
 {
@@ -10,4 +10,8 @@ namespace Menu
     bool Update();
 
     char *ChannelSettings();
+    
+    Page* UsedPage();
+    
+    uint8 UsedChannel();
 };

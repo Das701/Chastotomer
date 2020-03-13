@@ -16,7 +16,7 @@ struct TypeMeasure : public Enumeration
     explicit TypeMeasure(E v) : Enumeration((uint8)v) {};
 };
 
-/// Режим измерения частоты
+/// Режим измерения частоты A
 struct ModeMeasureFrequency : public Enumeration
 {
     enum E
@@ -29,6 +29,34 @@ struct ModeMeasureFrequency : public Enumeration
     };
 
     explicit ModeMeasureFrequency(E v) : Enumeration((uint8)v) {};
+};
+
+/// Режим измерения частоты C
+struct ModeMeasureFrequencyC : public Enumeration
+{
+    enum E
+    {
+        Freq,       ///< Частота
+        CA,         ///< f(C) / f(A)
+        CB,         ///< f(C) / f(B)
+        T_1,        ///< f = 1 / T
+        Tachometer  ///< Тахометр
+    };
+
+    explicit ModeMeasureFrequencyC(E v) : Enumeration((uint8)v) {};
+};
+
+/// Режим измерения частоты B
+struct ModeMeasureFrequencyB : public Enumeration
+{
+    enum E
+    {
+        Freq,       ///< Частота
+        BA,         ///< f(B) / f(A)
+        BC,         ///< f(B) / f(C)
+    };
+
+    explicit ModeMeasureFrequencyB(E v) : Enumeration((uint8)v) {};
 };
 
 /// Режим измерения периода
@@ -131,6 +159,10 @@ public:
     static TypeMeasure typeMeasure;
     /// Режим измерения частоты
     static ModeMeasureFrequency modeMeasureFrequency;
+    /// Режим измерения частоты C
+    static ModeMeasureFrequencyC modeMeasureFrequencyC;
+    /// Режим измерения частоты B
+    static ModeMeasureFrequencyB modeMeasureFrequencyB;
     /// Режим измерения периода
     static ModeMeasurePeriod modeMeasurePeriod;
     /// Режим измерения длительности

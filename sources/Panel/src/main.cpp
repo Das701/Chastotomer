@@ -19,10 +19,8 @@ int main(void)
     
     while (1)
     {
-        
         PLIS::Update();
         Menu::Update();
-//        Text(PLIS::GiveData()).Write(120, 120);
         if(HAL_GetTick() > time + 10)
         {
             Display::Update(); 

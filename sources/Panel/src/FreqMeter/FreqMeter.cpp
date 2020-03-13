@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "FreqMeter.h"
 #include "Menu/MenuItems.h"
+#include "Menu/Menu.h"
 #include "Hardware/HAL.h"
 #include "Menu/Pages/PageModes.h"
 #include "Menu/Pages/PageIndication.h"
@@ -13,15 +14,6 @@
 
 #define DEFINE_ARGUMENT char argument[6] = {0, 0, 0, 0, 0, 0}
 
-
-int channel = 1;
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FreqMeter::UsedChannel(int channelNumber)
-{
-    channel = channelNumber;
-}
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FreqMeter::LoadChannel()
 {
@@ -29,11 +21,11 @@ void FreqMeter::LoadChannel()
 
     DEFINE_ARGUMENT;
 
-    if(channel == 2)
+    if(Menu::UsedPage() == PageChannelB::self)
     {
         argument[1] = 1;
     }
-    else if(channel == 3)
+    else if(Menu::UsedPage() == PageChannelC::self)
     {
         argument[0] = 1;
     }
@@ -243,8 +235,9 @@ void FreqMeter::LoadInputCouple()
 
     DEFINE_ARGUMENT;
 
-    if((PageChannelA::couple == InputCouple::AC && channel == 1) || (PageChannelB::couple == InputCouple::AC && channel == 2))
+    if((PageChannelA::couple == InputCouple::AC && Menu::UsedPage() == PageChannelA::self) || (PageChannelB::couple == InputCouple::AC && Menu::UsedPage() == PageChannelB::self))
     {
+        
     }
     else
     {
@@ -261,7 +254,7 @@ void FreqMeter::LoadImpedance()
     
     DEFINE_ARGUMENT;
 
-    if((PageChannelA::impedance == InputImpedance::_1MOmh && channel == 1) || (PageChannelB::impedance == InputImpedance::_1MOmh && channel == 2))
+    if((PageChannelA::impedance == InputImpedance::_1MOmh && Menu::UsedPage() == PageChannelA::self) || (PageChannelB::impedance == InputImpedance::_1MOmh && Menu::UsedPage() == PageChannelB::self))
     {
     }
     else
@@ -279,7 +272,7 @@ void FreqMeter::LoadModeFilter()
 
     DEFINE_ARGUMENT;
 
-    if((PageChannelA::modeFilter == ModeFilter::On && channel == 1) || (PageChannelB::modeFilter == ModeFilter::On && channel == 2))
+    if((PageChannelA::modeFilter == ModeFilter::On && Menu::UsedPage() == PageChannelA::self) || (PageChannelB::modeFilter == ModeFilter::On && Menu::UsedPage() == PageChannelB::self))
     {
     }
     else
@@ -297,7 +290,7 @@ void FreqMeter::LoadModeFront()
 
     DEFINE_ARGUMENT;
 
-    if((PageChannelA::modeFront == ModeFront::Front && channel == 1) || (PageChannelB::modeFront == ModeFront::Front && channel == 2))
+    if((PageChannelA::modeFront == ModeFront::Front && Menu::UsedPage() == PageChannelA::self) || (PageChannelB::modeFront == ModeFront::Front && Menu::UsedPage() == PageChannelB::self))
     {
     }
     else
@@ -314,7 +307,7 @@ void FreqMeter::LoadDivider()
 
     DEFINE_ARGUMENT;
 
-    if((PageChannelA::divider == Divider::_1 && channel == 1) || (PageChannelB::divider == Divider::_1 && channel == 2))
+    if((PageChannelA::divider == Divider::_1 && Menu::UsedPage() == PageChannelA::self) || (PageChannelB::divider == Divider::_1 && Menu::UsedPage() == PageChannelB::self))
     {
     }
     else
@@ -332,7 +325,7 @@ void FreqMeter::LoadTypeSynch()
 
     DEFINE_ARGUMENT;
 
-    if((PageChannelA::typeSynch == TypeSynch::TTL && channel == 1) || (PageChannelB::typeSynch == TypeSynch::TTL && channel == 2))
+    if((PageChannelA::typeSynch == TypeSynch::TTL && Menu::UsedPage() == PageChannelA::self) || (PageChannelB::typeSynch == TypeSynch::TTL && Menu::UsedPage() == PageChannelB::self))
     {
     }
     else

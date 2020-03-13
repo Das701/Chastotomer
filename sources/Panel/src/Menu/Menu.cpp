@@ -24,7 +24,7 @@ static bool OpenPage(Control control);
 
 /// Текущая отображаемая страница меню
 static Page *openedPage = PageModes::self;
-
+static uint8 usedChannel;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Menu::Init()
@@ -71,28 +71,28 @@ static void SetCurrentChannel(const Control &control)
         if (set.currentChannel == Channel::A)
         {
             page = PageChannelA::self;
-            FreqMeter::UsedChannel(1);
         }
         else if (set.currentChannel == Channel::B)
         {
             page = PageChannelB::self;
-            FreqMeter::UsedChannel(2);
         }
         else if (set.currentChannel == Channel::C)
         {
             page = PageChannelC::self;
-            FreqMeter::UsedChannel(3);
         }
         else if (set.currentChannel == Channel::D)
         {
             page = PageChannelD::self;
         }
         
+        usedChannel = set.currentChannel;
         openedPage = page;
         Hint::Hide();
         FreqMeter::LoadChannel();
     }
 }
+
+
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static bool OpenPage(Control control)
@@ -165,4 +165,14 @@ char *Menu::ChannelSettings()
     }
 
     return settings;
+}
+
+static Page* Menu::UsedPage()
+{
+    return openedPage;
+}
+
+static uint8 Menu::UsedChannel()
+{
+    return usedChannel;
 }

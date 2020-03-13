@@ -6,13 +6,20 @@
 #include "Utils/Math.h"
 #include "Menu/MenuItemsDef.h"
 #include "FreqMeter/FreqMeter.h"
-
+#include "Menu/Menu.h"
+#include "Menu/Pages/PageChannelA.h"
+#include "Menu/Pages/PageChannelB.h"
+#include "Menu/Pages/PageChannelC.h"
+#include "Menu/Pages/PageChannelD.h"
+#include "Settings.h"
 
 using namespace Display::Primitives;
 using namespace Display;
 
 extern Item *items[7];
 extern Switch sModeFrequency;
+extern Switch sModeFrequencyC;
+extern Switch sModeFrequencyB;
 extern Switch sModePeriod;
 extern Switch sModeDuration;
 extern Switch sModeCountPulse;
@@ -23,6 +30,8 @@ extern Switch sNumberPeriods;
 
 TypeMeasure             PageModes::typeMeasure(TypeMeasure::Frequency);
 ModeMeasureFrequency    PageModes::modeMeasureFrequency(ModeMeasureFrequency::Freq);
+ModeMeasureFrequencyC    PageModes::modeMeasureFrequencyC(ModeMeasureFrequencyC::Freq);
+ModeMeasureFrequencyB    PageModes::modeMeasureFrequencyB(ModeMeasureFrequencyB::Freq);
 ModeMeasurePeriod       PageModes::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration     PageModes::modeMeasureDuration(ModeMeasureDuration::Ndt);
 ModeMeasureCountPulse   PageModes::modeMeasureCountPulse(ModeMeasureCountPulse::Manual);
@@ -90,20 +99,50 @@ DEF_SWITCH_4(sTypeMeasure,
 static void OnPress_ModeFrequency()
 {
     ClearItems(2);
-
-    items[1] = &sModeFrequency;
     items[2] = &sPeriodTimeLabels;
-
-    if (PageModes::modeMeasureFrequency == ModeMeasureFrequency::AC || 
-        PageModes::modeMeasureFrequency == ModeMeasureFrequency::T_1)
-    {
-        items[3] = &sNumberPeriods;
+    if(Menu::UsedChannel() == Channel::A)
+    {    
+        items[1] = &sModeFrequency;
+        
+        if (PageModes::modeMeasureFrequency == ModeMeasureFrequency::AC || 
+            PageModes::modeMeasureFrequency == ModeMeasureFrequency::T_1)
+        {
+            items[3] = &sNumberPeriods;
+        }
+        else
+        {
+            items[3] = &sTimeMeasure;
+        }
     }
-    else
+    
+    else if(Menu::UsedChannel() == Channel::C)
     {
-        items[3] = &sTimeMeasure;
+        items[1] = &sModeFrequencyC;
+    
+        if (PageModes::modeMeasureFrequencyC == ModeMeasureFrequencyC::CA || 
+            PageModes::modeMeasureFrequencyC == ModeMeasureFrequencyC::T_1)
+        {
+            items[3] = &sNumberPeriods;
+        }
+        else
+        {
+            items[3] = &sTimeMeasure;
+        }
     }
-
+    else 
+    {
+        items[1] = &sModeFrequencyB;
+    
+        if (PageModes::modeMeasureFrequencyB == ModeMeasureFrequencyB::BA)
+        {
+            items[3] = &sNumberPeriods;
+        }
+        else
+        {
+            items[3] = &sTimeMeasure;
+        }
+    }
+        
     FreqMeter::LoadModeMeasureFrequency();
 }
 
@@ -112,6 +151,18 @@ DEF_SWITCH_5(sModeFrequency,
     "Режим изм.", "Измерение частоты",
     "Частота", "f(A)/f(C)", "f(A)/f(B)", "f=1/T", "Тахометр",
     PageModes::modeMeasureFrequency, OnPress_ModeFrequency);
+
+/// Выбор режима измерения частоты, отношения частот, "тахометра"
+DEF_SWITCH_5(sModeFrequencyC,
+    "Режим изм.", "Измерение частоты",
+    "Частота", "f(C)/f(A)", "f(C)/f(B)", "f=1/T", "Тахометр",
+    PageModes::modeMeasureFrequencyC, OnPress_ModeFrequency);
+
+/// Выбор режима измерения частоты, отношения частот, "тахометра"
+DEF_SWITCH_3(sModeFrequencyB,
+    "Режим изм.", "Измерение частоты",
+    "Частота", "f(B)/f(A)", "f(B)/f(C)",
+    PageModes::modeMeasureFrequencyB, OnPress_ModeFrequency);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_ModePeriod()
