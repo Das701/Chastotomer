@@ -3,6 +3,8 @@
 #include "stm32f4xx_hal.h"
 #include "Keyboard.h"
 
+static int pulseCountRight = 0;
+static int pulseCountLeft = 0;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define TIME_UPDATE_KEYBOARD 2   ///< Время между опросами клавиатуры
@@ -176,13 +178,23 @@ static void DetectRegulator()
     }
     else if (prevStatesIsOne && stateLeft && !stateRight)
     {
-        AddAction(Control::GovLeft, Control::Action::Press);
         prevStatesIsOne = false;
+        pulseCountLeft++;
+        if(pulseCountLeft == 2)
+        {
+            AddAction(Control::GovLeft, Control::Action::Press);
+            pulseCountLeft = 0;
+        }
     }
     else if (prevStatesIsOne && !stateLeft && stateRight)
     {
-        AddAction(Control::GovRight, Control::Action::Press);
         prevStatesIsOne = false;
+        pulseCountRight++;
+        if(pulseCountRight == 2)
+        {
+            AddAction(Control::GovRight, Control::Action::Press);
+            pulseCountRight = 0;
+        }
     }
     else
     {

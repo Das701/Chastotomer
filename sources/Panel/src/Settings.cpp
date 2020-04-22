@@ -6,9 +6,9 @@ Settings set =
 {
     Channel::A,                         ///< currentChannel
     {
-        {1200, -1240}, {1200, -1240}    ///< levelSynch
+        {0, 1200, -1240}, {0, 1200, -1240}    ///< levelSynch
     },
     { 
-        TypeSynch::TTL, TypeSynch::TTL  ///< typeSynch
+        TypeSynch::Manual, TypeSynch::Manual  ///< typeSynch
     }
 };

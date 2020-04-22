@@ -2,6 +2,8 @@
 #include "Menu.h"
 #include "MenuItems.h"
 #include "Menu/Pages/PageModes.h"
+#include "Menu/Pages/PageModesB.h"
+#include "Menu/Pages/PageModesC.h"
 #include "Display/Display.h"
 #include "Display/Text.h"
 #include "Keyboard/Keyboard.h"
@@ -24,12 +26,16 @@ static bool OpenPage(Control control);
 
 /// Текущая отображаемая страница меню
 static Page *openedPage = PageModes::self;
-static uint8 usedChannel;
+
+/// Первое нажатие
+static bool firstPress = false;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Menu::Init()
 {
-    PageModes::Init();
+//    PageModes::Init();
+//    PageModesB::Init();
+//    PageModesC::Init();
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,31 +68,37 @@ static void SetCurrentChannel(const Control &control)
 {
     if (control.value == Control::Channels)
     {
-        uint8 channel = (uint8)set.currentChannel;
-        Math::CircleIncrease<uint8>(&channel, 0, Channel::Count - 1);
-        set.currentChannel = (Channel::E)channel;
-
-        Page *page = nullptr;
-
-        if (set.currentChannel == Channel::A)
+        if(firstPress == false)
         {
-            page = PageChannelA::self;
+            openedPage = PageChannelA::self;
+            firstPress = true;
         }
-        else if (set.currentChannel == Channel::B)
+        else
         {
-            page = PageChannelB::self;
+            uint8 channel = (uint8)set.currentChannel;
+            Math::CircleIncrease<uint8>(&channel, 0, Channel::Count - 1);
+            set.currentChannel = (Channel::E)channel;
+    
+            Page *page = nullptr;
+    
+            if (CURRENT_CHANNEL_IS_A)
+            {
+                page = PageChannelA::self;
+            }
+            else if (CURRENT_CHANNEL_IS_B)
+            {
+                page = PageChannelB::self;
+            }
+            else if (CURRENT_CHANNEL_IS_C)
+            {
+                page = PageChannelC::self;
+            }
+            else if (set.currentChannel == Channel::D)
+            {
+                page = PageChannelD::self;
+            }
+            openedPage = page;
         }
-        else if (set.currentChannel == Channel::C)
-        {
-            page = PageChannelC::self;
-        }
-        else if (set.currentChannel == Channel::D)
-        {
-            page = PageChannelD::self;
-        }
-        
-        usedChannel = set.currentChannel;
-        openedPage = page;
         Hint::Hide();
         FreqMeter::LoadChannel();
     }
@@ -101,11 +113,26 @@ static bool OpenPage(Control control)
     {
         return false;
     }
-
-    static Page * const pages[Control::Count] =
+    
+    Page *pageMode = nullptr;
+    
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        pageMode = PageModes::self;
+    } 
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        pageMode = PageModesB::self;
+    }
+    else if (CURRENT_CHANNEL_IS_C)
+    {
+        pageMode = PageModesC::self;
+    }        
+        
+    Page * const pages[Control::Count] =
     {
         /*  0 */  nullptr,
-        /*  1 */  PageModes::self,
+        /*  1 */  pageMode,
         /*  2 */  PageIndication::self,
         /*  3 */  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
     };
@@ -170,9 +197,4 @@ char *Menu::ChannelSettings()
 static Page* Menu::UsedPage()
 {
     return openedPage;
-}
-
-static uint8 Menu::UsedChannel()
-{
-    return usedChannel;
 }

@@ -1,7 +1,10 @@
 #include "Display.h"
 #include "Primitives.h"
 #include "Menu/Menu.h"
+#include "Settings.h"
 #include "Menu/Pages/PageModes.h"
+#include "Menu/Pages/PageModesB.h"
+#include "Menu/Pages/PageModesC.h"
 #include "Menu/Pages/PageChannelA.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Text.h"
@@ -10,6 +13,7 @@
 #include <cstdlib>
 #include <cstring>
 #include "Hardware/HAL.h"
+#include "FreqMeter/FreqMeter.h"
 
 using namespace Display::Primitives;
 using Display::Text;
@@ -22,6 +26,9 @@ static void DrawModeMeasure();
 static void DrawHint();
 /// Нарисовать статус-бар
 static void DrawStatusBar();
+static void DrawStatusBarA();
+static void DrawStatusBarB();
+static void DrawStatusBarC();
 /// Нарисовать строку настроек текущего канала
 static void DrawChannelSettings();
 
@@ -93,9 +100,9 @@ static void DrawScreen()
 {
     if(PageIndication::calibration.Is(Calibration::Pressed))
     {
-        Text("---Режим Калибровка---").Write(38, 5);
-        Text("Нажмите ЭНК. для сохранения").Write(5, 15);
-        Text("Нажмите любую клавишу для выхода").Write(5, 50);
+        Text("---Режим Калибровка---").Write(40, 20);
+        Text("Нажмите ЭНК. для сохранения").Write(5, 50);
+        Text("Нажмите любую клавишу для выхода").Write(5, 90);
     }
     else
     {
@@ -128,74 +135,72 @@ static void DrawTypeMeasure()
 {
     int x = 0;
     int width = 100; 
-    Text(PageModes::typeMeasure.ToText()).Write(x, 10, width);
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        Text(PageModes::typeMeasure.ToText()).Write(x, 10, width);
+    }
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        Text(PageModesB::typeMeasureB.ToText()).Write(x, 10, width);
+    }
+    else if (CURRENT_CHANNEL_IS_C)
+    {
+        Text(PageModesC::typeMeasureC.ToText()).Write(x, 10, width);
+    }
     Rectangle(width, 30).Draw(x, 0, Color::WHITE);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawModeMeasure()
 {
-    static const Enumeration *modes[4] =
+    if (CURRENT_CHANNEL_IS_A)
     {
-        &PageModes::modeMeasureFrequency,
-        &PageModes::modeMeasurePeriod,
-        &PageModes::modeMeasureDuration,
-        &PageModes::modeMeasureCountPulse
-    };
-
-    Text(modes[PageModes::typeMeasure.value]->ToText()).Write(0, 40);
+        static const Enumeration *modes[4] =
+        {
+            &PageModes::modeMeasureFrequency,
+            &PageModes::modeMeasurePeriod,
+            &PageModes::modeMeasureDuration,
+            &PageModes::modeMeasureCountPulse
+        };
+        Text(modes[PageModes::typeMeasure.value]->ToText()).Write(0, 40);
+    }
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        static const Enumeration *modesB[4] =
+        {
+            &PageModesB::modeMeasureFrequencyB,
+            &PageModesB::modeMeasurePeriodB,
+            &PageModesB::modeMeasureDurationB,
+            &PageModesB::modeMeasureCountPulseB
+        };
+        Text(modesB[PageModesB::typeMeasureB.value]->ToText()).Write(0, 40);
+    }
+    else if (CURRENT_CHANNEL_IS_C)
+    {
+        static const Enumeration *modesC[2] =
+        {
+            &PageModesC::modeMeasureFrequencyC,
+            &PageModesC::modeMeasureCountPulseC
+        };
+        Text(modesC[PageModesC::typeMeasureC.value]->ToText()).Write(0, 40);
+    }    
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawStatusBar()
 {
-    static const Enumeration * const modes[TypeMeasure::Count] =
-    {///            Frequency                         Period                         Duration                         CountPulse
-        &PageModes::modeMeasureFrequency, &PageModes::modeMeasurePeriod, &PageModes::modeMeasureDuration, &PageModes::modeMeasureCountPulse
-    };
-
-    static const Enumeration * const enums[TypeMeasure::Count][6] =
+    if (CURRENT_CHANNEL_IS_A)
     {
-        {   /// ModeMeasureFrequency::
-            &PageModes::timeMeasure,        /// Freq
-            &PageModes::numberPeriods,      /// AC
-            &PageModes::numberPeriods,      /// AB
-            &PageModes::timeMeasure,        /// T_1
-            &PageModes::timeMeasure         /// Tachometer
-        },
-        {   /// ModeMeasurePeriod::
-            &PageModes::numberPeriods,      /// Period
-            &PageModes::timeMeasure         /// F_1
-        },
-        {   /// ModeMeasureDuration::
-            nullptr,                        /// Ndt
-            &PageModes::numberPeriods,      /// Ndt_1
-            nullptr,                        /// Ndt_1ns
-            nullptr,                        /// Interval
-            nullptr,                        /// S_1
-            nullptr                         /// Phase
-        },
-        {   /// ModeMeasureCountPulse::
-            nullptr,                        /// Manual
-            nullptr,                        /// ATC
-            &PageModes::numberPeriods       /// ATC_1
-        }
-    };
-
-    const Enumeration *mode = modes[PageModes::typeMeasure];
-
-    const Enumeration *toText = enums[PageModes::typeMeasure][mode->value];
-
-    int y = 65;
-    int x = 0;
-    int width = 60;
-
-    if (toText)
-    {
-        Text(toText->ToText()).Write(x + 2, y + 7, width, Color::WHITE);
+        DrawStatusBarA();
     }
-
-    Rectangle(width, 30).Draw(x, y, Color::WHITE);
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        DrawStatusBarB();
+    }
+    else if (CURRENT_CHANNEL_IS_C)
+    {
+        DrawStatusBarC();
+    }
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawHint()
@@ -205,6 +210,20 @@ static void DrawHint()
 
 static void DrawInfo()
 {
+    if(PageIndication::memoryMode == MemoryMode::On)
+    {
+        Text("M").Write(430, 100);
+    }
+    if(FreqMeter::TestModeStatus() == true)
+    {
+        Text("Тест").Write(430, 120);
+    }
+    if(PageModes::typeMeasure == TypeMeasure::Period || PageModes::typeMeasure == TypeMeasure::Duration || PageModesB::typeMeasureB == TypeMeasureB::Period || PageModesB::typeMeasureB == TypeMeasureB::Duration)
+    {
+        Text("Метки").Write(430, 140);
+        Text(PageModes::periodTimeLabels.ToText()).Write(430, 160);
+        
+    }
     switch (info)
     {
         case 1:
@@ -255,4 +274,147 @@ static void DrawInfo()
 static void DrawData()
 {
     Text(PLIS::GiveData()).Write(120, 120);
+    Rectangle(320, 90).Draw(70, 100, Color::WHITE);
+}
+
+static void DrawStatusBarA()
+{
+    static const Enumeration * const modes[TypeMeasure::Count] =
+    {///            Frequency                         Period                         Duration                         CountPulse
+        &PageModes::modeMeasureFrequency, &PageModes::modeMeasurePeriod, &PageModes::modeMeasureDuration, &PageModes::modeMeasureCountPulse
+    };
+
+    static const Enumeration * const enums[TypeMeasure::Count][6] =
+    {
+        {   /// ModeMeasureFrequency::
+            &PageModes::timeMeasure,        /// Freq
+            &PageModes::numberPeriods,      /// AC
+            &PageModes::numberPeriods,      /// AB
+            &PageModes::timeMeasure,        /// T_1
+            &PageModes::timeMeasure         /// Tachometer
+        },
+        {   /// ModeMeasurePeriod::
+            &PageModes::numberPeriods,      /// Period
+            &PageModes::timeMeasure         /// F_1
+        },
+        {   /// ModeMeasureDuration::
+            nullptr,                        /// Ndt
+            &PageModes::numberPeriods,      /// Ndt_1
+            nullptr,                        /// Ndt_1ns
+            nullptr,                        /// Interval
+            nullptr,                        /// S_1
+            nullptr                         /// Phase
+        },
+        {   /// ModeMeasureCountPulse::
+            nullptr,                        /// Manual
+            nullptr,                        /// ATC
+            &PageModes::numberPeriods       /// ATC_1
+        }
+    };
+
+    const Enumeration *mode = modes[PageModes::typeMeasure];
+
+    const Enumeration *toText = enums[PageModes::typeMeasure][mode->value];
+    
+    int y = 65;
+    int x = 0;
+    int width = 60;
+
+    if (toText)
+    {
+        Text(toText->ToText()).Write(x + 2, y + 7, width, Color::WHITE);
+    }
+
+    Rectangle(width, 30).Draw(x, y, Color::WHITE);
+}
+
+static void DrawStatusBarB()
+{
+    static const Enumeration * const modesB[TypeMeasureB::Count] =
+    {///            Frequency                         Period                         Duration                         CountPulse
+        &PageModesB::modeMeasureFrequencyB, &PageModesB::modeMeasurePeriodB, &PageModesB::modeMeasureDurationB, &PageModesB::modeMeasureCountPulseB
+    };
+
+    static const Enumeration * const enumsB[TypeMeasureB::Count][6] =
+    {
+        {   /// ModeMeasureFrequency::
+            &PageModes::timeMeasure,        /// Freq
+            &PageModes::numberPeriods,      /// AC
+            &PageModes::numberPeriods,      /// AB
+            &PageModes::timeMeasure,        /// T_1
+            &PageModes::timeMeasure         /// Tachometer
+        },
+        {   /// ModeMeasurePeriod::
+            &PageModes::numberPeriods,      /// Period
+            &PageModes::timeMeasure         /// F_1
+        },
+        {   /// ModeMeasureDuration::
+            nullptr,                          /// Ndt
+            &PageModes::numberPeriods,      /// Ndt_1
+            nullptr,                          /// Ndt_1ns
+            nullptr,                          /// Interval
+            nullptr,                          /// S_1
+            nullptr                           /// Phase
+        },
+        {   /// ModeMeasureCountPulse::
+            nullptr,                          /// Manual
+            nullptr,                          /// ATC
+            &PageModes::numberPeriods       /// ATC_1
+        }
+    };
+
+    const Enumeration *mode = modesB[PageModesB::typeMeasureB];
+
+    const Enumeration *toText = enumsB[PageModesB::typeMeasureB][mode->value];
+
+    int y = 65;
+    int x = 0;
+    int width = 60;
+
+    if (toText)
+    {
+        Text(toText->ToText()).Write(x + 2, y + 7, width, Color::WHITE);
+    }
+
+    Rectangle(width, 30).Draw(x, y, Color::WHITE);
+}
+
+static void DrawStatusBarC()
+{
+    static const Enumeration * const modesC[TypeMeasureC::Count] =
+    {///            Frequency                         CountPulse
+        &PageModesC::modeMeasureFrequencyC, &PageModesC::modeMeasureCountPulseC
+    };
+
+    static const Enumeration * const enumsC[TypeMeasureC::Count][5] =
+    {
+        {   /// ModeMeasureFrequency::
+            &PageModesC::timeMeasureC,        /// Freq
+            &PageModesC::numberPeriodsC,      /// AC
+            &PageModesC::numberPeriodsC,      /// AB
+            &PageModesC::timeMeasureC,        /// T_1
+            &PageModesC::timeMeasureC         /// Tachometer
+        },
+        {   /// ModeMeasureCountPulse::
+            nullptr,                          /// Manual
+            nullptr,                          /// ATC
+            nullptr,  
+            &PageModesC::numberPeriodsC       /// ATC_1
+        }
+    };
+
+    const Enumeration *mode = modesC[PageModesC::typeMeasureC];
+
+    const Enumeration *toText = enumsC[PageModesC::typeMeasureC][mode->value];
+
+    int y = 65;
+    int x = 0;
+    int width = 60;
+
+    if (toText)
+    {
+        Text(toText->ToText()).Write(x + 2, y + 7, width, Color::WHITE);
+    }
+
+    Rectangle(width, 30).Draw(x, y, Color::WHITE);
 }

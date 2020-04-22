@@ -42,4 +42,12 @@ namespace FreqMeter
     void LoadRefGenerator();
     
     void LoadDisplayTime();
+    
+    void LoadTest();
+    
+    void LoadAuto();
+    
+    void LoadMeasure();
+    
+    bool TestModeStatus();
 }

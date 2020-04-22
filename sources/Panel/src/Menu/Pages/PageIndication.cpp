@@ -60,7 +60,7 @@ static void OnPress_Calibration()
 
 /// Вход в режим калибровки
 DEF_SWITCH_2(sCalibration,
-    "Калиб",nullptr,
+    "Калиб", nullptr,
     "Не нажата", "Нажата", 
     PageIndication::calibration, OnPress_Calibration);
 
@@ -73,7 +73,7 @@ static void OnPress_MemoryMode()
 /// Включение(отключение) режима памяти
 DEF_SWITCH_2(sMemoryMode,
     "Пам", "Режим память",
-    "Вкл", "Выкл", 
+    "Выкл", "Вкл", 
     PageIndication::memoryMode, OnPress_MemoryMode);
 
 static Item *items[7] =

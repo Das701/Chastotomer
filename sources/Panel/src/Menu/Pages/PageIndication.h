@@ -40,9 +40,9 @@ struct LaunchSource : public Enumeration
 struct MemoryMode : public Enumeration
 {
     enum E
-    {
-        On,                 ///< Вкл
-        Off                 ///< Выкл
+    { 
+        Off,                ///< Выкл
+        On                  ///< Вкл
     };
 
     explicit MemoryMode(E v) : Enumeration((uint8)v) {};

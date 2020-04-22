@@ -43,4 +43,7 @@ struct PLIS
     static void Update();
     static char* GiveData(); 
     static void WriteCommand(char* command, char* argument);
+    static void WriteData();
+    static void IncreaseN();
+    static void DecreaseN();
 };

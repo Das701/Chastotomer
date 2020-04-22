@@ -15,12 +15,12 @@ using namespace Display;
 extern Item *items[7];
 
 
-InputCouple      PageChannelB::couple(InputCouple::DC);
+InputCouple      PageChannelB::couple(InputCouple::AC);
 InputImpedance   PageChannelB::impedance(InputImpedance::_1MOmh);
 ModeFilter       PageChannelB::modeFilter(ModeFilter::Off);
 ModeFront        PageChannelB::modeFront(ModeFront::Front);
 Divider          PageChannelB::divider(Divider::_1);
-TypeSynch        PageChannelB::typeSynch(TypeSynch::TTL);
+TypeSynch        PageChannelB::typeSynch(TypeSynch::Manual);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_Couple()
@@ -100,10 +100,10 @@ static void OnPress_Sync()
 }
 
 /// Выбор уровня синхронизации ТТЛ, ЭСЛ
-DEF_SWITCH_UGO_2(sSync,
+DEF_SWITCH_UGO_3(sSync,
     "Синхр", "Выбор уровня сихронизации",
-    "ТТЛ", "ЭСЛ",
-    "ТТЛ", "ЭСЛ",
+    "Ручн", "ТТЛ", "ЭСЛ",
+    "Ручн", "ТТЛ", "ЭСЛ",
     PageChannelB::typeSynch, OnPress_Sync
 );
 

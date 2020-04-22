@@ -1,17 +1,18 @@
 #include "defines.h"
 #include "MenuItems.h"
 #include "Display/Primitives.h"
+#include "Hardware/HAL.h"
 #include "Display/Text.h"
 #include "Utils/Math.h"
-#include "Menu/Pages/PageModes.h"
 #include "Menu/Pages/PageChannelA.h"
 #include "Menu/Pages/PageChannelB.h"
+#include "Menu/Pages/PageModes.h"
 #include "Utils/String.h"
 #include "Settings.h"
 #include "Menu/Hint.h"
 #include <cstring>
 #include <string>
-
+#include "FreqMeter/FreqMeter.h"
 
 using namespace Display::Primitives;
 using namespace Display;
@@ -77,24 +78,25 @@ void Page::Draw(int x, int y, bool)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static bool ChangeLevelSynch(int delta)
 {
-    if (Hint::Text())
-    {
-        if (CURRENT_CHANNEL_IS_A && Hint::UnderItem() == PageChannelA::switchTypeSynch)
+//    if (Hint::Text())
+//    {
+        if (CURRENT_CHANNEL_IS_A)  //&& Hint::UnderItem() == PageChannelA::switchTypeSynch
         {
             LEVEL_SYNCH_A = LEVEL_SYNCH_A + delta;
-            Hint::Create(Hint::UnderItem());                 // Продлить время нахождения подсказки на экране
-            return true;
+//            Hint::Create(Hint::UnderItem());                 // Продлить время нахождения подсказки на экране
+//            return true;
         }
 
-        if (CURRENT_CHANNEL_IS_B && Hint::UnderItem() == PageChannelB::switchTypeSynch)
+        if (CURRENT_CHANNEL_IS_B) //&& Hint::UnderItem() == PageChannelB::switchTypeSynch
         {
             LEVEL_SYNCH_B = LEVEL_SYNCH_B + delta;
-            Hint::Create(Hint::UnderItem());                 // Продлить время нахождения подсказки на экране
-            return true;
+//            Hint::Create(Hint::UnderItem());                 // Продлить время нахождения подсказки на экране
+//            return true;
         }
-    }
-
-    return false;
+        
+//    }
+        return true;
+//    return false;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,42 +107,62 @@ bool Page::OnControl(const Control &control)
     switch (control.value)
     {
     case Control::Right:
-        result = ChangeLevelSynch(20);      // Делаем попытку изменить уровень синхронизации
-        if(result == false)
-        {
+//        result = ChangeLevelSynch(20);      // Делаем попытку изменить уровень синхронизации
+//        if(result == false)
+//        {
             SelectNextItem();
             Hint::Hide();
             result = true;
-        }
+//        }
         info = 1;
         break;
 
     case Control::Left:
-        result = ChangeLevelSynch(-20);     // Делаем попытку изменить уровень синхронизации
-        if(result == false)
-        {
+//        result = ChangeLevelSynch(-20);     // Делаем попытку изменить уровень синхронизации
+//        if(result == false)
+//        {
             SelectPrevItem();
             Hint::Hide();
             result = true;
-        }
+//        }
         info = 2;
         break;
 
     case Control::GovLeft:
-        SelectPrevItem();
-        Hint::Hide();
-        result = true;
+//        SelectPrevItem();
+//        Hint::Hide();
+        result = ChangeLevelSynch(-2);     // Делаем попытку изменить уровень синхронизации
+//        if(result == false)
+//        {
+//            SelectPrevItem();
+//            Hint::Hide();
+//            result = true;
+//        }
+//        result = true;
+        PLIS::DecreaseN();
+        PLIS::WriteData();
         info = 3;
         break;
 
     case Control::GovRight:
-        SelectNextItem();
-        Hint::Hide();
-        result = true;
+//        SelectNextItem();
+//        Hint::Hide();
+//        result = true;
+        result = ChangeLevelSynch(2);      // Делаем попытку изменить уровень синхронизации
+//        if(result == false)
+//        {
+//            SelectNextItem();
+//            Hint::Hide();
+//            result = true;
+//        }
+        PLIS::IncreaseN();
+        PLIS::WriteData();
         info = 4;
         break;
 
     case Control::Enter: 
+        PageModes::InterpoleOff();
+        PageModes::DCycleOff();
         if(SelectedItem())
         {
             result = SelectedItem()->OnControl(control);
@@ -155,15 +177,24 @@ bool Page::OnControl(const Control &control)
         info = 7;
         break;
     case Control::Mode:
+        PageModes::InterpoleOff();
+        PageModes::DCycleOff();
+//        FreqMeter::LoadMeasure();
         info = 8;
         break;
     case Control::Indication:
+        PageModes::InterpoleOff();
+        PageModes::DCycleOff();
         info = 9;
         break;
     case Control::Channels:
+        PageModes::InterpoleOff();
+        PageModes::DCycleOff();
         info = 10;
         break;
     case Control::GovButton:
+        PageModes::DCycleOff();
+        PageModes::InterpoleOff();
         if(SelectedItem())
         {
             result = SelectedItem()->OnControl(control);
@@ -171,12 +202,16 @@ bool Page::OnControl(const Control &control)
         info = 11;
         break;
     case Control::Esc:
+        PageModes::InterpoleOff();
+        PageModes::DCycleOff();
         info = 12;
         break;
     case Control::Test:
+        FreqMeter::LoadTest();
         info = 13;
         break;
     case Control::Auto:
+        FreqMeter::LoadAuto();
         info = 14;
         break;
 

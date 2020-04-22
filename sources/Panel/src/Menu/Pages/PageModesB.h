@@ -2,7 +2,7 @@
 #include "Menu/MenuItems.h"
 
 
-struct TypeMeasure : public Enumeration
+struct TypeMeasureB : public Enumeration
 {
     enum E
     {
@@ -13,26 +13,26 @@ struct TypeMeasure : public Enumeration
         Count
     };
 
-    explicit TypeMeasure(E v) : Enumeration((uint8)v) {};
+    explicit TypeMeasureB(E v) : Enumeration((uint8)v) {};
 };
 
 /// Режим измерения частоты
-struct ModeMeasureFrequency : public Enumeration
+struct ModeMeasureFrequencyB : public Enumeration
 {
     enum E
     {
         Freq,       ///< Частота
-        AB,         ///< f(A) / f(C)
-        AC,         ///< f(A) / f(B)
+        BA,         ///< f(B) / f(A)
+        BC,         ///< f(B) / f(C)
         T_1,        ///< f = 1 / T
         Tachometer  ///< Тахометр
     };
 
-    explicit ModeMeasureFrequency(E v) : Enumeration((uint8)v) {};
+    explicit ModeMeasureFrequencyB(E v) : Enumeration((uint8)v) {};
 };
 
 /// Режим измерения периода
-struct ModeMeasurePeriod : public Enumeration
+struct ModeMeasurePeriodB : public Enumeration
 {
     enum E
     {
@@ -40,11 +40,11 @@ struct ModeMeasurePeriod : public Enumeration
         F_1         ///< T = 1 / f
     };
 
-    explicit ModeMeasurePeriod(E v) : Enumeration((uint8)v) {};
+    explicit ModeMeasurePeriodB(E v) : Enumeration((uint8)v) {};
 };
 
 /// Режим измерения длительности
-struct ModeMeasureDuration : public Enumeration
+struct ModeMeasureDurationB : public Enumeration
 {
     enum E
     {
@@ -54,24 +54,24 @@ struct ModeMeasureDuration : public Enumeration
         Dcycle      ///< Скважность
     };
 
-    explicit ModeMeasureDuration(E v) : Enumeration((uint8)v) {};
+    explicit ModeMeasureDurationB(E v) : Enumeration((uint8)v) {};
 };
 
 /// Режим счёта импульсов
-struct ModeMeasureCountPulse : public Enumeration
+struct ModeMeasureCountPulseB : public Enumeration
 {
     enum E
     {
         Manual,     ///< Ручн.
-        ATC,        ///< A(tC)
-        ATB         ///< A(TB)
+        BTA,        ///< B(tA)
+        BTA_1       ///< B(TA)
     };
 
-    explicit ModeMeasureCountPulse(E v) : Enumeration((uint8)v) {};
+    explicit ModeMeasureCountPulseB(E v) : Enumeration((uint8)v) {};
 };
 
 /// Период меток времени
-struct PeriodTimeLabels : public Enumeration
+struct PeriodTimeLabelsB : public Enumeration
 {
     enum E
     {
@@ -83,11 +83,11 @@ struct PeriodTimeLabels : public Enumeration
         T_8         ///< 10-8
     };
 
-    explicit PeriodTimeLabels(E v) : Enumeration((uint8)v) {};
+    explicit PeriodTimeLabelsB(E v) : Enumeration((uint8)v) {};
 };
 
 /// Время счёта
-struct TimeMeasure : public Enumeration
+struct TimeMeasureB : public Enumeration
 {
     enum E
     {
@@ -99,11 +99,11 @@ struct TimeMeasure : public Enumeration
         _100s       ///< 100s
     };
 
-    explicit TimeMeasure(E v) : Enumeration((uint8)v) {};
+    explicit TimeMeasureB(E v) : Enumeration((uint8)v) {};
 };
 
 /// Число периодов
-struct NumberPeriods : public Enumeration
+struct NumberPeriodsB : public Enumeration
 {
     enum E
     {
@@ -115,36 +115,30 @@ struct NumberPeriods : public Enumeration
         _100K     ///< 100K
     };
 
-    explicit NumberPeriods(E v) : Enumeration((uint8)v) {};
+    explicit NumberPeriodsB(E v) : Enumeration((uint8)v) {};
 };
 
 
-class PageModes
+class PageModesB
 {
 public:
     static Page *self;
-    
+
     static void Init();
-    static void InterpoleOn();
-    static void InterpoleOff();
-    static bool InterpoleCheck();
-    static void DCycleOn();
-    static void DCycleOff();
-    static bool DCycleCheck();
     /// Тип измерения
-    static TypeMeasure typeMeasure;
+    static TypeMeasureB typeMeasureB;
     /// Режим измерения частоты
-    static ModeMeasureFrequency modeMeasureFrequency;
+    static ModeMeasureFrequencyB modeMeasureFrequencyB;
     /// Режим измерения периода
-    static ModeMeasurePeriod modeMeasurePeriod;
+    static ModeMeasurePeriodB modeMeasurePeriodB;
     /// Режим измерения длительности
-    static ModeMeasureDuration modeMeasureDuration;
+    static ModeMeasureDurationB modeMeasureDurationB;
     /// Режим счёта импульсов
-    static ModeMeasureCountPulse modeMeasureCountPulse;
+    static ModeMeasureCountPulseB modeMeasureCountPulseB;
     /// Период меток времени
-    static PeriodTimeLabels periodTimeLabels;
+    static PeriodTimeLabelsB periodTimeLabelsB;
     /// Время счета
-    static TimeMeasure timeMeasure;
+    static TimeMeasureB timeMeasureB;
     /// Число периодов измерения
-    static NumberPeriods numberPeriods;
+    static NumberPeriodsB numberPeriodsB;
 };

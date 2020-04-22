@@ -67,6 +67,7 @@ struct TypeSynch : public Enumeration
 {
     enum E
     {
+        Manual,         ///< Ðó÷í
         TTL,            ///< ÒÒË
         ESL             ///< ÝÑË
     };
