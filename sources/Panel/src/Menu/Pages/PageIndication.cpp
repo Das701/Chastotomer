@@ -5,6 +5,7 @@
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
 #include "FreqMeter/FreqMeter.h"
+#include "Hardware/HAL.h"
 
 using namespace Display::Primitives;
 using namespace Display;
@@ -55,6 +56,10 @@ DEF_SWITCH_3(sLaunchSource,
 
 static void OnPress_Calibration()
 {
+    if(PageIndication::calibration == Calibration::Pressed)
+    {
+        PLIS::ReadCalibNumber();
+    }
     FreqMeter::LoadCalibration();
 }
 

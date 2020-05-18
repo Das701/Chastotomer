@@ -7,6 +7,7 @@
 #include "Menu/Pages/PageModes.h"
 #include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageModesC.h"
+#include "Menu/Pages/PageModesD.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/Pages/PageChannelA.h"
 #include "Menu/Pages/PageChannelB.h"
@@ -18,6 +19,7 @@
 #define DEFINE_ARGUMENT char argument[6] = {0, 0, 0, 0, 0, 0}
 
 static bool testMode = false;
+static bool autoMode = false;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FreqMeter::LoadChannel()
@@ -310,32 +312,37 @@ void FreqMeter::LoadTimeMeasure()
     DEFINE_ARGUMENT;
     if((PageModes::timeMeasure == TimeMeasure::_10ms && CURRENT_CHANNEL_IS_A)||
        (PageModesB::timeMeasureB == TimeMeasureB::_10ms && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::timeMeasureC == TimeMeasureC::_10ms && CURRENT_CHANNEL_IS_C))
+       (PageModesC::timeMeasureC == TimeMeasureC::_10ms && CURRENT_CHANNEL_IS_C)||
+       (PageModesD::timeMeasureD == TimeMeasureD::_10ms && CURRENT_CHANNEL_IS_D))
     {
         argument[5] = 1;
     }
     else if((PageModes::timeMeasure == TimeMeasure::_100ms && CURRENT_CHANNEL_IS_A)||
        (PageModesB::timeMeasureB == TimeMeasureB::_100ms && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::timeMeasureC == TimeMeasureC::_100ms && CURRENT_CHANNEL_IS_C))
+       (PageModesC::timeMeasureC == TimeMeasureC::_100ms && CURRENT_CHANNEL_IS_C)||
+       (PageModesD::timeMeasureD == TimeMeasureD::_100ms && CURRENT_CHANNEL_IS_D))
     {
         argument[4] = 1;
     }
     else if((PageModes::timeMeasure == TimeMeasure::_1s && CURRENT_CHANNEL_IS_A)||
        (PageModesB::timeMeasureB == TimeMeasureB::_1s && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::timeMeasureC == TimeMeasureC::_1s && CURRENT_CHANNEL_IS_C))
+       (PageModesC::timeMeasureC == TimeMeasureC::_1s && CURRENT_CHANNEL_IS_C)||
+       (PageModesD::timeMeasureD == TimeMeasureD::_1s && CURRENT_CHANNEL_IS_D))
     {
         argument[5] = 1;
         argument[4] = 1;
     }
     else if((PageModes::timeMeasure == TimeMeasure::_10s && CURRENT_CHANNEL_IS_A)||
        (PageModesB::timeMeasureB == TimeMeasureB::_10s && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::timeMeasureC == TimeMeasureC::_10s && CURRENT_CHANNEL_IS_C))
+       (PageModesC::timeMeasureC == TimeMeasureC::_10s && CURRENT_CHANNEL_IS_C)||
+       (PageModesD::timeMeasureD == TimeMeasureD::_10s && CURRENT_CHANNEL_IS_D))
     {
         argument[3] = 1;
     }
     else if((PageModes::timeMeasure == TimeMeasure::_100s && CURRENT_CHANNEL_IS_A)||
        (PageModesB::timeMeasureB == TimeMeasureB::_100s && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::timeMeasureC == TimeMeasureC::_100s && CURRENT_CHANNEL_IS_C))
+       (PageModesC::timeMeasureC == TimeMeasureC::_100s && CURRENT_CHANNEL_IS_C)||
+       (PageModesD::timeMeasureD == TimeMeasureD::_100s && CURRENT_CHANNEL_IS_D))
     {
         argument[5] = 1;
         argument[3] = 1;
@@ -524,8 +531,23 @@ void FreqMeter::LoadAuto()
 
     argument[5] = 1;
     argument[4] = 1;
-
+    autoMode = true;
     PLIS::WriteCommand(command, argument);
+}
+
+void FreqMeter::UnloadAuto()
+{
+    if(autoMode == true)
+    {
+        char command[4] = { 1, 1, 1, 1 };
+    
+        DEFINE_ARGUMENT;
+    
+        argument[5] = 1;
+        argument[3] = 1;
+        autoMode = false;
+        PLIS::WriteCommand(command, argument);
+    }
 }
 
 void FreqMeter::LoadMeasure()

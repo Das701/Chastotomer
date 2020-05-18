@@ -7,6 +7,8 @@
 #include "Menu/Pages/PageChannelA.h"
 #include "Menu/Pages/PageChannelB.h"
 #include "Menu/Pages/PageModes.h"
+#include "Menu/Pages/PageModesB.h"
+#include "Menu/Pages/PageIndication.h"
 #include "Utils/String.h"
 #include "Settings.h"
 #include "Menu/Hint.h"
@@ -18,6 +20,7 @@ using namespace Display::Primitives;
 using namespace Display;
 
 int info = 0;
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int Enumeration::NumStates() const
@@ -107,31 +110,49 @@ bool Page::OnControl(const Control &control)
     switch (control.value)
     {
     case Control::Right:
-//        result = ChangeLevelSynch(20);      // Делаем попытку изменить уровень синхронизации
-//        if(result == false)
-//        {
+        if(PageIndication::calibration.Is(Calibration::Pressed))
+        {
+            if(SelectedItem())
+            {
+                result = SelectedItem()->OnControl(control);
+            }
+        }
+        else
+        {
             SelectNextItem();
             Hint::Hide();
             result = true;
-//        }
+        }
         info = 1;
         break;
 
     case Control::Left:
-//        result = ChangeLevelSynch(-20);     // Делаем попытку изменить уровень синхронизации
-//        if(result == false)
-//        {
+        if(PageIndication::calibration.Is(Calibration::Pressed))
+        {
+            if(SelectedItem())
+            {
+                result = SelectedItem()->OnControl(control);
+            }
+        }
+        else
+        {
             SelectPrevItem();
             Hint::Hide();
             result = true;
-//        }
+        }
         info = 2;
         break;
 
     case Control::GovLeft:
 //        SelectPrevItem();
 //        Hint::Hide();
+    if(PageIndication::calibration.Is(Calibration::Pressed))
+    {
+    }
+    else
+    {
         result = ChangeLevelSynch(-2);     // Делаем попытку изменить уровень синхронизации
+    }
 //        if(result == false)
 //        {
 //            SelectPrevItem();
@@ -148,7 +169,13 @@ bool Page::OnControl(const Control &control)
 //        SelectNextItem();
 //        Hint::Hide();
 //        result = true;
+    if(PageIndication::calibration.Is(Calibration::Pressed))
+    {
+    }
+    else
+    {
         result = ChangeLevelSynch(2);      // Делаем попытку изменить уровень синхронизации
+    }
 //        if(result == false)
 //        {
 //            SelectNextItem();
@@ -161,8 +188,6 @@ bool Page::OnControl(const Control &control)
         break;
 
     case Control::Enter: 
-        PageModes::InterpoleOff();
-        PageModes::DCycleOff();
         if(SelectedItem())
         {
             result = SelectedItem()->OnControl(control);
@@ -177,24 +202,41 @@ bool Page::OnControl(const Control &control)
         info = 7;
         break;
     case Control::Mode:
-        PageModes::InterpoleOff();
-        PageModes::DCycleOff();
-//        FreqMeter::LoadMeasure();
+        if(PageIndication::calibration.Is(Calibration::Pressed))
+        {
+            if(SelectedItem())
+            {
+                result = SelectedItem()->OnControl(control);
+            }
+        }
         info = 8;
         break;
     case Control::Indication:
-        PageModes::InterpoleOff();
-        PageModes::DCycleOff();
+        if(PageIndication::calibration.Is(Calibration::Pressed))
+        {
+            if(SelectedItem())
+            {
+                result = SelectedItem()->OnControl(control);
+            }
+        }
         info = 9;
         break;
     case Control::Channels:
-        PageModes::InterpoleOff();
-        PageModes::DCycleOff();
+        if(PageIndication::calibration.Is(Calibration::Pressed))
+        {
+            if(SelectedItem())
+            {
+                result = SelectedItem()->OnControl(control);
+            }
+        }
+        else
+        {
+            PageModes::InterpoleOff();
+            PageModes::DCycleOff();
+        }
         info = 10;
         break;
     case Control::GovButton:
-        PageModes::DCycleOff();
-        PageModes::InterpoleOff();
         if(SelectedItem())
         {
             result = SelectedItem()->OnControl(control);
@@ -202,16 +244,55 @@ bool Page::OnControl(const Control &control)
         info = 11;
         break;
     case Control::Esc:
-        PageModes::InterpoleOff();
-        PageModes::DCycleOff();
+        if(PageIndication::calibration.Is(Calibration::Pressed))
+        {
+            if(SelectedItem())
+            {
+                result = SelectedItem()->OnControl(control);
+            }
+        }
+        else
+        {
+            PageModes::InterpoleOff();
+            PageModes::DCycleOff();
+        }
         info = 12;
         break;
     case Control::Test:
-        FreqMeter::LoadTest();
+        if(PageIndication::calibration.Is(Calibration::Pressed))
+        {
+            if(SelectedItem())
+            {
+                result = SelectedItem()->OnControl(control);
+            }
+        }
+        else
+        {
+            if((PageModes::modeMeasureFrequency == ModeMeasureFrequency::AC && CURRENT_CHANNEL_IS_A) ||
+            (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC && CURRENT_CHANNEL_IS_B))
+            {
+            }
+            else
+            {
+                FreqMeter::LoadTest();
+            }
+        }
         info = 13;
         break;
     case Control::Auto:
-        FreqMeter::LoadAuto();
+        if(PageIndication::calibration.Is(Calibration::Pressed))
+        {
+            if(SelectedItem())
+            {
+                result = SelectedItem()->OnControl(control);
+            }
+        }
+        else
+        {
+            PLIS::RefreshAuto();
+            FreqMeter::LoadAuto();
+            PLIS::SwitchAuto();
+        }
         info = 14;
         break;
 
@@ -250,23 +331,44 @@ void Page::SelectPrevItem()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 bool Switch::OnControl(const Control &control)
 {
-    if (control.action.IsPress() && (control.value == Control::GovButton || control.value == Control::Enter))
+    if(PageIndication::calibration.Is(Calibration::Pressed))
     {
-        if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
+        if (control.action.IsPress() && (control.value != Control::GovRight || control.value != Control::GovLeft))
         {
-            Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
-
-            if (funcOnPress)
+            if (Hint::UnderItem() == this)
             {
-                funcOnPress();
+                Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
+    
+                if (funcOnPress)
+                {
+                    funcOnPress();
+                }
             }
+    
+            Hint::Create(this);
+            
+            return true;
         }
-
-        Hint::Create(this);
-        
-        return true;
     }
-
+    else
+    {
+        if (control.action.IsPress() && (control.value == Control::GovButton || control.value == Control::Enter))
+        {
+            if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
+            {
+                Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
+    
+                if (funcOnPress)
+                {
+                    funcOnPress();
+                }
+            }
+    
+            Hint::Create(this);
+            
+            return true;
+        }
+    }
     return false;
 }
 

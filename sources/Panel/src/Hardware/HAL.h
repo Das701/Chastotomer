@@ -46,4 +46,13 @@ struct PLIS
     static void WriteData();
     static void IncreaseN();
     static void DecreaseN();
+    static void SwitchAuto();
+    static bool AutoMode();
+    static char* GiveAuto();
+    static int MidAuto();
+    static int MinAuto();
+    static int MaxAuto();
+    static void RefreshAuto();
+    static int CalibNumber();
+    static void ReadCalibNumber();
 };

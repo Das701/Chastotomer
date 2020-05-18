@@ -2,6 +2,8 @@
 #include "Primitives.h"
 #include "Menu/Menu.h"
 #include "Settings.h"
+#include "Utils/String.h"
+#include "stdio.h"
 #include "Menu/Pages/PageModes.h"
 #include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageModesC.h"
@@ -39,6 +41,9 @@ static void DrawInfo();
 static void DrawData();
 
 extern int info;
+
+static int autoHint = 0;
+static bool autoFlag = false;
 
 static void CalculateCoord(int &x, int &y, int sizeX, int sizeY)
 {
@@ -100,9 +105,12 @@ static void DrawScreen()
 {
     if(PageIndication::calibration.Is(Calibration::Pressed))
     {
+        char buffer[20];
         Text("---Режим Калибровка---").Write(40, 20);
         Text("Нажмите ЭНК. для сохранения").Write(5, 50);
         Text("Нажмите любую клавишу для выхода").Write(5, 90);
+        Int2String(PLIS::CalibNumber(), buffer);
+        Text(buffer).Write(5, 120);
     }
     else
     {
@@ -120,7 +128,7 @@ static void DrawScreen()
         
         Menu::Draw();
         
-        DrawData();
+        DrawData();  
     }
 }
 
@@ -205,7 +213,34 @@ static void DrawStatusBar()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawHint()
 {
-    Text(Hint::Text()).Write(102, 22);
+    if((HAL_GetTick() < (autoHint + 10000)) && autoFlag == true)
+    {
+        Text(PLIS::GiveAuto()).Write(102, 22);
+        FreqMeter::UnloadAuto();
+    }
+    else
+    {
+        if(PLIS::AutoMode())
+        {
+            
+            if((PLIS::MidAuto() != 0) || (PLIS::MaxAuto() != 0) || (PLIS::MinAuto() != 0))
+            {
+                Text(PLIS::GiveAuto()).Write(102, 22);
+                PLIS::SwitchAuto();
+                autoHint = HAL_GetTick();
+                autoFlag = true;
+            }
+            else
+            {
+                Text("Установка уровня синхр.").Write(102, 22);
+            }
+        }
+        else
+        {
+            Text(Hint::Text()).Write(102, 22);
+            autoFlag = false;
+        }
+    }
 }
 
 static void DrawInfo()

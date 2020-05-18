@@ -50,4 +50,6 @@ namespace FreqMeter
     void LoadMeasure();
     
     bool TestModeStatus();
+    
+    void UnloadAuto();
 }

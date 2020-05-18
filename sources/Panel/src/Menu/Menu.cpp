@@ -4,6 +4,7 @@
 #include "Menu/Pages/PageModes.h"
 #include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageModesC.h"
+#include "Menu/Pages/PageModesD.h"
 #include "Display/Display.h"
 #include "Display/Text.h"
 #include "Keyboard/Keyboard.h"
@@ -127,7 +128,11 @@ static bool OpenPage(Control control)
     else if (CURRENT_CHANNEL_IS_C)
     {
         pageMode = PageModesC::self;
-    }        
+    }
+    else if (CURRENT_CHANNEL_IS_D)
+    {
+        pageMode = PageModesD::self;
+    }       
         
     Page * const pages[Control::Count] =
     {

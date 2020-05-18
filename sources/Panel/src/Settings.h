@@ -6,6 +6,7 @@
 #define CURRENT_CHANNEL_IS_A    (CURRENT_CHANNEL == Channel::A)
 #define CURRENT_CHANNEL_IS_B    (CURRENT_CHANNEL == Channel::B)
 #define CURRENT_CHANNEL_IS_C    (CURRENT_CHANNEL == Channel::C)
+#define CURRENT_CHANNEL_IS_D    (CURRENT_CHANNEL == Channel::D)
 
 #define TYPE_SYNCH(ch)          (set.typeSynch[(ch)])
 #define TYPE_SYNCH_A            (TYPE_SYNCH(Channel::A))
