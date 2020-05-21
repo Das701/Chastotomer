@@ -29,16 +29,11 @@ static char minAutoData[7];
 static char maxAutoData[7];
 
 static float decDataA;
-static int decDataB;
-static int decDataAOst;
-static char procDataOst[10] = { 0 };
-static int decDataC;
-static int datA;
-static int zeros;
-static int zerosA;
+static float decDataB;
+static float decDataC;
+static int decDA;
 static char procDataInterpol[30] = { 0 };
 
-static char procDcycle[10] = { 0 };
 static char procDataDcycle[30] = { 0 };
 //static int DACA = 0;
 //static int DACB = 0;
@@ -69,6 +64,7 @@ static char period[32];
 static char duration[32];
 
 static int emptyZeros;
+static int manualZeros = 1;
 
 static float interpol;
 
@@ -129,7 +125,7 @@ static void BinToDec()
             baseB = baseB * 2; 
         }  
     }
-    if(CURRENT_CHANNEL_IS_C)
+    if(CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC != TypeMeasureC::CountPulse))
     {
         decDataA = decDataA*64/100;
     }
@@ -142,8 +138,6 @@ static void CalculationDcycle()
     int base1 = 1; 
     int base2 = 1; 
     int len = 32;  
-    int period1;
-    int duration1;
     for (int i = len - 1; i >= 0; i--) 
     { 
         if (period[i] == 1) 
@@ -168,7 +162,6 @@ static void CalculationDcycle()
 
 static void Calculation()
 {
-    
     int x;
     if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::Frequency)) ||
        (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::Frequency)) ||
@@ -178,69 +171,96 @@ static void Calculation()
         if((CURRENT_CHANNEL_IS_A && (PageModes::modeMeasureFrequency == ModeMeasureFrequency::T_1)) || 
            (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::T_1)))
         {
-            int msF = 10;
-            decDataA = decDataA*10;
+            int msF = 1;
+            int tmet = 1;
+            int n = 1;
+            manualZeros = 10;
+//            decDataA = decDataA*10;
             if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_3)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_3)))
             {
-                msF = msF*1;
+                tmet = tmet*1000;
             }
             else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_4)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_4)))
             {
-                msF = msF*10;
+                tmet = tmet*10000;
+                manualZeros = manualZeros*10;
             }
             else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_5)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_5)))
             {
-                msF = msF*100;
+                tmet = tmet*100000;
+                manualZeros = manualZeros*100;
             }
             else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_6)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_6)))
             {
-                msF = msF*1000;
+                tmet = tmet*1000000;
+                manualZeros = manualZeros*1000;
             }
             else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_7)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_7)))
             {
-                msF = msF*10000;
+                tmet = tmet*10000000;
+                manualZeros = manualZeros*10000;
             }
             else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_8)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_8)))
             {
-                msF = msF*100000;
+                tmet = tmet*100000000;
+                manualZeros = manualZeros*100000;
             }
             if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_1)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_1)))
             {
-                msF = msF*1;
+                n = n*1;
             }
             else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_10)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_10)))
             {
-                msF = msF*10;
+                n = n*10;
+                manualZeros = manualZeros*10;
             }
             else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_100)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_100)))
             {
-                msF = msF*100;
+                n = n*100;
+                manualZeros = manualZeros*100;
             }
             else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_1K)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_1K)))
             {
-                msF = msF*1000;
+                n = n*1000;
+                manualZeros = manualZeros*1000;
             }
             else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_10K)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_10K)))
             {
-                msF = msF*10000;
+                n = n*10000;
+                manualZeros = manualZeros*10000;
             }
             else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_100K)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_100K)))
             {
-                msF = msF*100000;
+                n = n*100000;
+                manualZeros = manualZeros*100000;
+            }
+            decDataA = (float)4/((decDataA/tmet)/n);
+            decDA = decDataA/2;
+            if(decDA < 1000)
+            {
+            }
+            else if(decDA >= 1000 && decDA < 1000000)
+            {
+                decDataA = decDataA/1000;
+            }
+            else if(decDA >= 1000000)
+            {
+                decDataA = decDataA/1000000;
             }
             x = msF;
+            
         }
         else if((CURRENT_CHANNEL_IS_A && (PageModes::modeMeasureFrequency == ModeMeasureFrequency::AB)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BA)))
@@ -332,12 +352,13 @@ static void Calculation()
         }
         if(((decDataA/khz)/2) < 1000)
         {
-            x = khz;
+            x = khz; 
         }
         else
         {
             x = mhz;            
         }
+        decDA = (decDataA/khz)/2;
         if(CURRENT_CHANNEL_IS_C)
         {
             if(decDataA < 10000)
@@ -355,11 +376,19 @@ static void Calculation()
         }
         if(CURRENT_CHANNEL_IS_D)
         {
-            if(decDataA > 40000)
+            if(decDataA*64/1000 < 1000)
             {
-                decDataC = decDataA;
-                mhz = mhz*10;
-                x = mhz;
+                decDataC = (float)decDataA*128/1000;
+                decDA = decDataC;
+                x = 10;
+//                manualZeros = 10;
+            }
+            else
+            {
+                decDataC = (float)decDataA*128/1000;
+                decDA = decDataC;
+                decDataC = decDataC/1000;
+                x = 1000;
             }
         }
         }
@@ -393,37 +422,7 @@ static void Calculation()
             (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::F_1)))
         {
             int sT = 1;
-            if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_3)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_3)))
-            {
-                sT = sT*1;
-            }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_4)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_4)))
-            {
-                sT = sT*1;
-                decDataA = decDataA*10;
-            }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_5)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_5)))
-            {
-                sT = sT*10;
-            }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_6)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_6)))
-            {
-                sT = sT*1000;
-            }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_7)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_7)))
-            {
-                sT = sT*100;
-            }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_8)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_8)))
-            {
-                sT = sT*10000;
-            }
+            
             if((CURRENT_CHANNEL_IS_A && (PageModes::timeMeasure == TimeMeasure::_1ms)) ||
                (CURRENT_CHANNEL_IS_B && (PageModesB::timeMeasureB == TimeMeasureB::_1ms)))
             {
@@ -454,7 +453,9 @@ static void Calculation()
             {
                 sT = sT*100000;
             }
-            x = sT;
+            decDA = decDataA/(2*sT);
+            decDataA = 4/decDataA;
+            x = sT*10;
         }
         else
         {
@@ -513,9 +514,18 @@ static void Calculation()
             x = usT;
         }
     }
-    datA = decDataA/2;
+    
     decDataA = (float)decDataA/(2*x);
+    if(CURRENT_CHANNEL_IS_D)
+    {
+        decDataA = decDataC;
+    }
     emptyZeros = x;
+    if(manualZeros != 1)
+    {
+        emptyZeros = manualZeros;
+        manualZeros = 1;
+    }
 }
 
 static void CalculationInterpole() 
@@ -783,191 +793,208 @@ void PLIS::Update()
 
 char* PLIS::GiveData()
 {
-    if(((PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns && CURRENT_CHANNEL_IS_A) || 
-        (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Ndt_1ns && CURRENT_CHANNEL_IS_B))
-        && PageModes::InterpoleCheck())
+    if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::CountPulse)) ||
+       (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse)) ||
+       (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse)))
     {
-        CalculationInterpole();
-        sprintf(procDataInterpol,"%10.2f",interpol);
-        std::strcat(procDataInterpol, " ns");
-        return procDataInterpol;
-    }
-    else if(((PageModes::modeMeasureDuration == ModeMeasureDuration::Dcycle && CURRENT_CHANNEL_IS_A) || 
-        (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Dcycle && CURRENT_CHANNEL_IS_B))
-        && PageModes::DCycleCheck())
-    {
-        if(((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_8)) ||
-          (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_8))) || 
-          ((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_7)) ||
-          (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_7))) || 
-          ((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_6)) ||
-          (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_6))))
-        {
-            CalculationDcycle();
-            sprintf(procDataDcycle,"%10.2f",dutyCycle);
-            Int2String(dutyCycle, procDataDcycle);
-//            std::strcat(procDataDcycle, " E-3");
-        }
-        return procDataDcycle;
+        BinToDec();
+        sprintf(procData,"%10.0f",decDataA);
+        return procData;
     }
     else
     {
-        BinToDec();
-        Calculation();
-        
-        if(emptyZeros == 1)
+        if(((PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns && CURRENT_CHANNEL_IS_A) || 
+            (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Ndt_1ns && CURRENT_CHANNEL_IS_B))
+            && PageModes::InterpoleCheck())
         {
-            sprintf(procData,"%10.0f",decDataA);
+            CalculationInterpole();
+            sprintf(procDataInterpol,"%10.2f",interpol);
+            std::strcat(procDataInterpol, " ns");
+            return procDataInterpol;
         }
-        else if(emptyZeros == 10)
+        else if(((PageModes::modeMeasureDuration == ModeMeasureDuration::Dcycle && CURRENT_CHANNEL_IS_A) || 
+            (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Dcycle && CURRENT_CHANNEL_IS_B))
+            && PageModes::DCycleCheck())
         {
-            sprintf(procData,"%10.1f",decDataA);
-        }
-        else if(emptyZeros == 100)
-        {
-            sprintf(procData,"%10.2f",decDataA);
-        }
-        else if(emptyZeros == 1000)
-        {
-            sprintf(procData,"%10.3f",decDataA);
-        }
-        else if(emptyZeros == 10000)
-        {
-            sprintf(procData,"%10.4f",decDataA);
-        }
-        else if(emptyZeros == 100000)
-        {
-            sprintf(procData,"%10.5f",decDataA);
-        }
-        else if(emptyZeros == 1000000)
-        {
-            sprintf(procData,"%10.6f",decDataA);
-        }
-        else if(emptyZeros == 10000000)
-        {
-            sprintf(procData,"%10.7f",decDataA);
-        }
-        else if(emptyZeros == 100000000)
-        {
-            sprintf(procData,"%10.8f",decDataA);
-        }
-        else if(emptyZeros == 1000000000)
-        {
-            sprintf(procData,"%10.9f",decDataA);
-        }
-        else
-        {
-            sprintf(procData,"%10.10f",decDataA);
-        }
-        emptyZeros = 1;
-        if(((PageModes::modeMeasureFrequency == ModeMeasureFrequency::AB ||
-            PageModes::modeMeasureFrequency == ModeMeasureFrequency::AC) && CURRENT_CHANNEL_IS_A) ||
-            ((PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BA || 
-            PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC) && CURRENT_CHANNEL_IS_B) ||
-            ((PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CA || 
-            PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB) && CURRENT_CHANNEL_IS_C))
-        {
-        }
-        else
-        {
-            if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::Frequency)) ||
-               (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::Frequency)) ||
-               (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::Frequency))
-               || CURRENT_CHANNEL_IS_D)
+            if(((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_8)) ||
+            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_8))) || 
+            ((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_7)) ||
+            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_7))) || 
+            ((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_6)) ||
+            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_6))))
             {
-                if((CURRENT_CHANNEL_IS_A && (PageModes::modeMeasureFrequency == ModeMeasureFrequency::T_1)) || 
-                (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::T_1)))
-                {
-                    std::strcat(procData, " ms");
-                }
-                else
-                {
-                    if(CURRENT_CHANNEL_IS_C)
-                    {
-                        if(decDataC < 1000)
-                        {
-                            std::strcat(procData, " MHz");
-                        }
-                        else
-                        {
-                            std::strcat(procData, " GHz");
-                        }
-                    }
-                    else if(CURRENT_CHANNEL_IS_D)
-                    {
-                        if(decDataC > 4000)
-                        {
-                            std::strcat(procData, " GHz");
-                        }
-                    }
-                    else
-                    {
-                        if(datA < 1000)
-                        {
-                            std::strcat(procData, " kHz");
-                            
-                        }
-                        else 
-                        {
-                            std::strcat(procData, " MHz");
-                        }
-                    }
-                }
+                CalculationDcycle();
+                sprintf(procDataDcycle,"%10.2f",dutyCycle);
+                Int2String(dutyCycle, procDataDcycle);
+//                std::strcat(procDataDcycle, " E-3");
+            }
+            return procDataDcycle;
+        }
+        else
+        {
+            BinToDec();
+            Calculation();
+            
+            if(emptyZeros == 1)
+            {
+                sprintf(procData,"%10.0f",decDataA);
+            }
+            else if(emptyZeros == 10)
+            {
+                sprintf(procData,"%10.1f",decDataA);
+            }
+            else if(emptyZeros == 100)
+            {
+                sprintf(procData,"%10.2f",decDataA);
+            }
+            else if(emptyZeros == 1000)
+            {
+                sprintf(procData,"%10.3f",decDataA);
+            }
+            else if(emptyZeros == 10000)
+            {
+                sprintf(procData,"%10.4f",decDataA);
+            }
+            else if(emptyZeros == 100000)
+            {
+                sprintf(procData,"%10.5f",decDataA);
+            }
+            else if(emptyZeros == 1000000)
+            {
+                sprintf(procData,"%10.6f",decDataA);
+            }
+            else if(emptyZeros == 10000000)
+            {
+                sprintf(procData,"%10.7f",decDataA);
+            }
+            else if(emptyZeros == 100000000)
+            {
+                sprintf(procData,"%10.8f",decDataA);
+            }
+            else if(emptyZeros == 1000000000)
+            {
+                sprintf(procData,"%10.9f",decDataA);
             }
             else
             {
-                if((CURRENT_CHANNEL_IS_A && ((PageModes::typeMeasure == TypeMeasure::Period)) && (PageModes::modeMeasurePeriod == ModeMeasurePeriod::F_1)) ||
-                (CURRENT_CHANNEL_IS_B && ((PageModesB::typeMeasureB == TypeMeasureB::Period)) && (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::F_1)))
+                sprintf(procData,"%10.10f",decDataA);
+            }
+            emptyZeros = 1;
+            if(((PageModes::modeMeasureFrequency == ModeMeasureFrequency::AB ||
+                PageModes::modeMeasureFrequency == ModeMeasureFrequency::AC) && CURRENT_CHANNEL_IS_A) ||
+                ((PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BA || 
+                PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC) && CURRENT_CHANNEL_IS_B) ||
+                ((PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CA || 
+                PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB) && CURRENT_CHANNEL_IS_C))
+            {
+            }
+            else
+            {
+                if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::Frequency)) ||
+                (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::Frequency)) ||
+                (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::Frequency))
+                || CURRENT_CHANNEL_IS_D)
                 {
-                    if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_3)) ||
-                    (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_3)))
+                    if((CURRENT_CHANNEL_IS_A && (PageModes::modeMeasureFrequency == ModeMeasureFrequency::T_1)) || 
+                    (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::T_1)))
                     {
-                        std::strcat(procData, " ms");
-                    }
-                    else if(((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_5)) ||
-                        (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_5))) || 
-                        ((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_4)) ||
-                        (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_4))) ||
-                        ((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_6)) ||
-                        (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_6))))
-                    {
-                        std::strcat(procData, " us");
-                    }
-                    else if(((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_7)) ||
-                        (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_7))) || 
-                        ((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_8)) ||
-                        (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_8))))
-                    {
-                        std::strcat(procData, " ns");
-                    }
-                }
-                else
-                {
-                if((PageModes::modeMeasureDuration == ModeMeasureDuration::Dcycle && CURRENT_CHANNEL_IS_A) || 
-                (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Dcycle && CURRENT_CHANNEL_IS_B))
-                {
-                    std::strcat(procData, " E-3");
-                }
-                else
-                {
-                    if(((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_5)) ||
-                        (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_5))) || 
-                        ((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_4)) ||
-                        (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_4))) ||
-                        ((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_3)) ||
-                        (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_3))))
-                    {
-                        std::strcat(procData, " ms");
+                        if(decDA < 1000)
+                        {
+                            std::strcat(procData, " Hz");
+                        }
+                        else if(decDA >= 1000 && decDA < 1000000)
+                        {
+                            std::strcat(procData, " kHz");
+                        }
+                        else if(decDA >= 1000000)
+                        {
+                            std::strcat(procData, " MHz");
+                        }
                     }
                     else
                     {
-                        std::strcat(procData, " us");
+                        if(CURRENT_CHANNEL_IS_C)
+                        {
+                            if(decDataC < 10000)
+                            {
+                                std::strcat(procData, " MHz");
+                            }
+                            else
+                            {
+                                std::strcat(procData, " GHz");
+                            }
+                        }
+                        else if(CURRENT_CHANNEL_IS_D)
+                        {
+                            if(decDA > 1000)
+                            {
+                                std::strcat(procData, " GHz");
+                            }
+                            else
+                            {
+                                std::strcat(procData, " MHz");
+                            }
+                        }
+                        else
+                        {
+                            if(decDA < 1000)
+                            {
+                                std::strcat(procData, " kHz");
+                                
+                            }
+                            else 
+                            {
+                                std::strcat(procData, " MHz");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if((CURRENT_CHANNEL_IS_A && ((PageModes::typeMeasure == TypeMeasure::Period)) && (PageModes::modeMeasurePeriod == ModeMeasurePeriod::F_1)) ||
+                    (CURRENT_CHANNEL_IS_B && ((PageModesB::typeMeasureB == TypeMeasureB::Period)) && (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::F_1)))
+                    {
+                        if(decDA >= 1000)
+                        {
+                            std::strcat(procData, " ns");
+                        }
+                        else if(decDA < 1000 && decDA >= 1)
+                        {
+                            std::strcat(procData, " us");
+                        }
+                        else if(decDA < 1)
+                        {
+                            std::strcat(procData, " ms");
+                        }
+                    }
+                    else
+                    {
+                    if((PageModes::modeMeasureDuration == ModeMeasureDuration::Dcycle && CURRENT_CHANNEL_IS_A) || 
+                    (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Dcycle && CURRENT_CHANNEL_IS_B))
+                    {
+                        std::strcat(procData, " E-3");
+                    }
+                    else
+                    {
+                        if(((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_5)) ||
+                            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_5))) || 
+                            ((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_4)) ||
+                            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_4))) ||
+                            ((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_3)) ||
+                            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_3))))
+                        {
+                            std::strcat(procData, " ms");
+                        }
+                        else
+                        {
+                            std::strcat(procData, " us");
+                        }
                     }
                 }
             }
         }
-    }
-        return procData;
+            return procData;
+        }   
     }    
 }
 
@@ -1142,7 +1169,9 @@ char* PLIS::GiveAuto()
 
 void PLIS::ReadCalibNumber()
 {
-    HAL_Delay(1000);
+    while(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) == 0)
+    {
+    }
     if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
     {            
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);

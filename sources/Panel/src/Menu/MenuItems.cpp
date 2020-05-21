@@ -231,8 +231,8 @@ bool Page::OnControl(const Control &control)
         }
         else
         {
-            PageModes::InterpoleOff();
-            PageModes::DCycleOff();
+//            PageModes::InterpoleOff();
+//            PageModes::DCycleOff();
         }
         info = 10;
         break;

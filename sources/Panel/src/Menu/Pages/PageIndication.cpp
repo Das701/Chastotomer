@@ -56,11 +56,11 @@ DEF_SWITCH_3(sLaunchSource,
 
 static void OnPress_Calibration()
 {
+    FreqMeter::LoadCalibration();
     if(PageIndication::calibration == Calibration::Pressed)
     {
         PLIS::ReadCalibNumber();
     }
-    FreqMeter::LoadCalibration();
 }
 
 /// ¬ход в режим калибровки

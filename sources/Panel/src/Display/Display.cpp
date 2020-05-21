@@ -7,6 +7,7 @@
 #include "Menu/Pages/PageModes.h"
 #include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageModesC.h"
+#include "Menu/Pages/PageModesD.h"
 #include "Menu/Pages/PageChannelA.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Text.h"
@@ -31,6 +32,7 @@ static void DrawStatusBar();
 static void DrawStatusBarA();
 static void DrawStatusBarB();
 static void DrawStatusBarC();
+static void DrawStatusBarD();
 /// Нарисовать строку настроек текущего канала
 static void DrawChannelSettings();
 
@@ -155,6 +157,10 @@ static void DrawTypeMeasure()
     {
         Text(PageModesC::typeMeasureC.ToText()).Write(x, 10, width);
     }
+    else if (CURRENT_CHANNEL_IS_D)
+    {
+        Text("Частота").Write(x, 10, width);
+    }
     Rectangle(width, 30).Draw(x, 0, Color::WHITE);
 }
 
@@ -191,7 +197,11 @@ static void DrawModeMeasure()
             &PageModesC::modeMeasureCountPulseC
         };
         Text(modesC[PageModesC::typeMeasureC.value]->ToText()).Write(0, 40);
-    }    
+    }   
+    if (CURRENT_CHANNEL_IS_D)
+    {  
+        Text("Частота").Write(0, 40);
+    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -208,6 +218,10 @@ static void DrawStatusBar()
     else if (CURRENT_CHANNEL_IS_C)
     {
         DrawStatusBarC();
+    }
+    else if (CURRENT_CHANNEL_IS_D)
+    {
+        DrawStatusBarD();
     }
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -325,7 +339,7 @@ static void DrawStatusBarA()
             &PageModes::timeMeasure,        /// Freq
             &PageModes::numberPeriods,      /// AC
             &PageModes::numberPeriods,      /// AB
-            &PageModes::timeMeasure,        /// T_1
+            &PageModes::numberPeriods,        /// T_1
             &PageModes::timeMeasure         /// Tachometer
         },
         {   /// ModeMeasurePeriod::
@@ -376,7 +390,7 @@ static void DrawStatusBarB()
             &PageModes::timeMeasure,        /// Freq
             &PageModes::numberPeriods,      /// AC
             &PageModes::numberPeriods,      /// AB
-            &PageModes::timeMeasure,        /// T_1
+            &PageModes::numberPeriods,        /// T_1
             &PageModes::timeMeasure         /// Tachometer
         },
         {   /// ModeMeasurePeriod::
@@ -427,7 +441,7 @@ static void DrawStatusBarC()
             &PageModesC::timeMeasureC,        /// Freq
             &PageModesC::numberPeriodsC,      /// AC
             &PageModesC::numberPeriodsC,      /// AB
-            &PageModesC::timeMeasureC,        /// T_1
+            &PageModesC::numberPeriodsC,        /// T_1
             &PageModesC::timeMeasureC         /// Tachometer
         },
         {   /// ModeMeasureCountPulse::
@@ -453,3 +467,13 @@ static void DrawStatusBarC()
 
     Rectangle(width, 30).Draw(x, y, Color::WHITE);
 }
+
+static void DrawStatusBarD()
+{
+    int y = 65;
+    int x = 0;
+    int width = 60;
+    Text(PageModesD::timeMeasureD.ToText()).Write(x + 2, y + 7, width, Color::WHITE);
+    Rectangle(width, 30).Draw(x, y, Color::WHITE);
+}
+

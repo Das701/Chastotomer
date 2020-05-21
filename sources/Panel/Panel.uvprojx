@@ -768,6 +768,16 @@
               <FilePath>.\src\Menu\Pages\PageModesC.h</FilePath>
             </File>
             <File>
+              <FileName>PageModesD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageModesD.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PageModesD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\PageModesD.h</FilePath>
+            </File>
+            <File>
               <FileName>PageChannelC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageChannelC.cpp</FilePath>
@@ -786,16 +796,6 @@
               <FileName>PageChannelD.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\PageChannelD.h</FilePath>
-            </File>
-            <File>
-              <FileName>PageModesD.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\PageModesD.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageModesD.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\PageModesD.h</FilePath>
             </File>
           </Files>
         </Group>
