@@ -51,7 +51,8 @@ struct ModeMeasureDurationB : public Enumeration
         Ndt,        ///< ndt
         Ndt_1ns,    ///< ndt_1нс
         Ndt2,       ///< ndt2
-        Dcycle      ///< Скважность
+        Dcycle,     ///< Скважность
+        Phase       ///< Фаза
     };
 
     explicit ModeMeasureDurationB(E v) : Enumeration((uint8)v) {};

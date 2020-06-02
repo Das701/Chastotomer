@@ -221,6 +221,13 @@ void FreqMeter::LoadModeMeasureDuration()
     {
         argument[3] = 1;
     }
+    else if((PageModes::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
+            (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
+    {
+        argument[5] = 1;
+        argument[3] = 1;
+        
+    }
 
     PLIS::WriteCommand(command, argument);
 }

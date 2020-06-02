@@ -24,6 +24,7 @@ extern Switch sNumberPeriods;
 
 static bool interpoleOn = false;
 static bool dCycleOn = false;
+static bool relationOn = false;
 
 TypeMeasure             PageModes::typeMeasure(TypeMeasure::Frequency);
 ModeMeasureFrequency    PageModes::modeMeasureFrequency(ModeMeasureFrequency::Freq);
@@ -76,6 +77,21 @@ bool PageModes::DCycleCheck()
     return dCycleOn == true;
 }
 
+void PageModes::RelationOn()
+{
+    relationOn = true;
+}
+
+void PageModes::RelationOff()
+{
+    relationOn = false;
+}
+
+bool PageModes::RelationCheck()
+{
+    return relationOn == true;
+}
+
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void PageModes::Init()
@@ -125,40 +141,45 @@ DEF_SWITCH_4(sTypeMeasure,
     "Вид изм.", "Выбор измерения",
     "Частота", "Период", "Длит.", "Сч. имп.",
     PageModes::typeMeasure, OnPress_TypeMeasure
-)
+);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_ModeFrequency()
 {
     ClearItems(2);  
-    if (PageModes::modeMeasureFrequency == ModeMeasureFrequency::AC)
+    if (PageModes::modeMeasureFrequency == ModeMeasureFrequency::AC  || 
+        PageModes::modeMeasureFrequency == ModeMeasureFrequency::AB)
     {
         items[1] = &sModeFrequency;
         items[2] = &sTimeMeasure;
         items[3] = nullptr;
+        PageModes::RelationOn();
     }
-    else if(PageModes::modeMeasureFrequency == ModeMeasureFrequency::T_1  || 
-        PageModes::modeMeasureFrequency == ModeMeasureFrequency::AB)
+    else if(PageModes::modeMeasureFrequency == ModeMeasureFrequency::T_1)
     {
         items[2] = &sPeriodTimeLabels;   
         items[1] = &sModeFrequency;
         items[3] = &sNumberPeriods;
+        PageModes::RelationOff();
     }
     else if(PageModes::modeMeasureFrequency == ModeMeasureFrequency::Tachometer)
     {
         items[2] = &sPeriodTimeLabels;   
         items[1] = &sModeFrequency;
         items[3] = nullptr;
+        PageModes::RelationOff();
     }
     else
     {
         items[2] = &sPeriodTimeLabels;   
         items[1] = &sModeFrequency;
         items[3] = &sTimeMeasure;
-    }      
-    FreqMeter::LoadModeMeasureFrequency();
+        PageModes::RelationOff();
+    }
     PageModes::InterpoleOff();
-    PageModes::DCycleOff();
+    PageModes::DCycleOff();   
+    FreqMeter::LoadModeMeasureFrequency();
+
 }
 
 /// Выбор режима измерения частоты, отношения частот, "тахометра"
@@ -188,10 +209,11 @@ static void OnPress_ModePeriod()
     {
         items[2] = &sTimeMeasure;
     }
-
-    FreqMeter::LoadModeMeasurePeriod();
+    PageModes::RelationOff();
     PageModes::InterpoleOff();
     PageModes::DCycleOff();
+    FreqMeter::LoadModeMeasurePeriod();
+
 }
 
 /// Выбор режима измерения периода
@@ -214,24 +236,28 @@ static void OnPress_ModeDuration()
         
         PageModes::DCycleOff();
     }
+    else if ((PageModes::modeMeasureDuration == ModeMeasureDuration::Dcycle) || 
+            (PageModes::modeMeasureDuration == ModeMeasureDuration::Phase))
+    {
+        PageModes::DCycleOn();
+        PageModes::InterpoleOff();
+        items[2] = &sPeriodTimeLabels;
+    }
     else
     {
         items[2] = &sPeriodTimeLabels;
         PageModes::InterpoleOff();
         PageModes::DCycleOff();
     }
-    if (PageModes::modeMeasureDuration == ModeMeasureDuration::Dcycle)
-    {
-        PageModes::DCycleOn();
-        PageModes::InterpoleOff();
-    }
+    
+    PageModes::RelationOff();
     FreqMeter::LoadModeMeasureDuration();
 }
 
 /// Выбор режима измерения длительности импульсов, интервалов, коэффициента заполнения, разности фаз
-DEF_SWITCH_4(sModeDuration,
+DEF_SWITCH_5(sModeDuration,
     "Режим изм.", "Измерение длительности",
-    "ndt", "ndt/1нс", "ndt2", "Скважность",
+    "ndt", "ndt/1нс", "ndt2", "S", "Фаза",
     PageModes::modeMeasureDuration, OnPress_ModeDuration
 );
 
@@ -246,16 +272,17 @@ static void OnPress_ModeCountPulse()
     {
         items[2] = &sNumberPeriods;
     }
-
-    FreqMeter::LoadModeMeasureCountPulse();
+    PageModes::RelationOff();
     PageModes::InterpoleOff();
     PageModes::DCycleOff();
+    FreqMeter::LoadModeMeasureCountPulse();
+
 }
 
 /// Выбор режима счёта импульсов
 DEF_SWITCH_3(sModeCountPulse,
     "Режим изм.", "Счёт числа импульсов",
-    "Ручн.", "А(tC)", "А(TB)",
+    "Ручн.", "А(tB)", "А(TB)",
     PageModes::modeMeasureCountPulse, OnPress_ModeCountPulse
 );
 

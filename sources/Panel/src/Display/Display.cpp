@@ -337,8 +337,8 @@ static void DrawStatusBarA()
     {
         {   /// ModeMeasureFrequency::
             &PageModes::timeMeasure,        /// Freq
-            &PageModes::numberPeriods,      /// AC
-            &PageModes::numberPeriods,      /// AB
+            &PageModes::timeMeasure,        /// AC
+            &PageModes::timeMeasure,      /// AB
             &PageModes::numberPeriods,        /// T_1
             &PageModes::timeMeasure         /// Tachometer
         },
@@ -388,8 +388,8 @@ static void DrawStatusBarB()
     {
         {   /// ModeMeasureFrequency::
             &PageModes::timeMeasure,        /// Freq
-            &PageModes::numberPeriods,      /// AC
-            &PageModes::numberPeriods,      /// AB
+            &PageModes::timeMeasure,      /// AC
+            &PageModes::timeMeasure,      /// AB
             &PageModes::numberPeriods,        /// T_1
             &PageModes::timeMeasure         /// Tachometer
         },
@@ -435,14 +435,12 @@ static void DrawStatusBarC()
         &PageModesC::modeMeasureFrequencyC, &PageModesC::modeMeasureCountPulseC
     };
 
-    static const Enumeration * const enumsC[TypeMeasureC::Count][5] =
+    static const Enumeration * const enumsC[TypeMeasureC::Count][4] =
     {
         {   /// ModeMeasureFrequency::
             &PageModesC::timeMeasureC,        /// Freq
-            &PageModesC::numberPeriodsC,      /// AC
-            &PageModesC::numberPeriodsC,      /// AB
-            &PageModesC::numberPeriodsC,        /// T_1
-            &PageModesC::timeMeasureC         /// Tachometer
+            &PageModesC::numberPeriodsC,      /// CA
+            &PageModesC::numberPeriodsC,      /// CB
         },
         {   /// ModeMeasureCountPulse::
             nullptr,                          /// Manual

@@ -51,7 +51,8 @@ struct ModeMeasureDuration : public Enumeration
         Ndt,        ///< ndt
         Ndt_1ns,    ///< ndt_1нс
         Ndt2,       ///< ndt2
-        Dcycle      ///< Скважность
+        Dcycle,     ///< Скважность
+        Phase       ///< Фаза
     };
 
     explicit ModeMeasureDuration(E v) : Enumeration((uint8)v) {};
@@ -131,6 +132,9 @@ public:
     static void DCycleOn();
     static void DCycleOff();
     static bool DCycleCheck();
+    static void RelationOn();
+    static void RelationOff();
+    static bool RelationCheck();
     /// Тип измерения
     static TypeMeasure typeMeasure;
     /// Режим измерения частоты

@@ -100,34 +100,39 @@ DEF_SWITCH_4(sTypeMeasureB,
 static void OnPress_ModeFrequencyB()
 {
     ClearItems(2);
-    if (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC)
+    if (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC ||
+        PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BA)
     {
         items[1] = &sModeFrequencyB;
         items[2] = &sTimeMeasureB;
         items[3] = nullptr;
+        PageModes::RelationOn();
     }
-    else if (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::T_1 ||
-        PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BA)
+    else if (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::T_1)
     {
         items[2] = &sPeriodTimeLabelsB;   
         items[1] = &sModeFrequencyB;
         items[3] = &sNumberPeriodsB;
+        PageModes::RelationOff();
     }
     else if(PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Tachometer)
     {
         items[2] = &sPeriodTimeLabelsB;   
         items[1] = &sModeFrequencyB;
         items[3] = nullptr;
+        PageModes::RelationOff();
     }
     else
     {
         items[2] = &sPeriodTimeLabelsB;   
         items[1] = &sModeFrequencyB;
         items[3] = &sTimeMeasureB;
-    }      
-    FreqMeter::LoadModeMeasureFrequency();
+        PageModes::RelationOff();
+    }     
     PageModes::InterpoleOff();
-    PageModes::DCycleOff();
+    PageModes::DCycleOff();     
+    FreqMeter::LoadModeMeasureFrequency();
+
 }
 
 /// Выбор режима измерения частоты, отношения частот, "тахометра"
@@ -157,10 +162,11 @@ static void OnPress_ModePeriodB()
     {
         items[2] = &sTimeMeasureB;
     }
-
-    FreqMeter::LoadModeMeasurePeriod();
+    PageModes::RelationOff();
     PageModes::InterpoleOff();
     PageModes::DCycleOff();
+    FreqMeter::LoadModeMeasurePeriod();
+
 }
 
 /// Выбор режима измерения периода
@@ -182,24 +188,28 @@ static void OnPress_ModeDurationB()
         PageModes::InterpoleOn();
         PageModes::DCycleOff();
     }
+    else if ((PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Dcycle) || 
+            (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Phase))
+    {
+        PageModes::DCycleOn();
+        PageModes::InterpoleOff();
+        items[2] = &sPeriodTimeLabelsB;
+    }
     else
     {
         items[2] = &sPeriodTimeLabelsB;
         PageModes::InterpoleOff();
         PageModes::DCycleOff();
     }
-    if (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Dcycle)
-    {
-        PageModes::DCycleOn();
-        PageModes::InterpoleOff();
-    }
+    
+    PageModes::RelationOff();
     FreqMeter::LoadModeMeasureDuration();
 }
 
 /// Выбор режима измерения длительности импульсов, интервалов, коэффициента заполнения, разности фаз
-DEF_SWITCH_4(sModeDurationB,
+DEF_SWITCH_5(sModeDurationB,
     "Режим изм.", "Измерение длительности",
-    "ndt", "ndt/1нс", "ndt2", "Скважность",
+    "ndt", "ndt/1нс", "ndt2", "Скважность", "Фаза",
     PageModesB::modeMeasureDurationB, OnPress_ModeDurationB
 );
 
@@ -214,10 +224,11 @@ static void OnPress_ModeCountPulseB()
     {
         items[2] = &sNumberPeriodsB;
     }
-
-    FreqMeter::LoadModeMeasureCountPulse();
+    PageModes::RelationOff();
     PageModes::InterpoleOff();
     PageModes::DCycleOff();
+    FreqMeter::LoadModeMeasureCountPulse();
+
 }
 
 /// Выбор режима счёта импульсов

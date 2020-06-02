@@ -81,14 +81,17 @@ static void OnPress_ModeFrequencyC()
     items[2] = &sPeriodTimeLabelsC;   
     items[1] = &sModeFrequencyC;
     
-    if (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB)
+    if ((PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB) || (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CA))
     {
         items[3] = &sNumberPeriodsC;
     }
     else
     {
         items[3] = &sTimeMeasureC;
-    }      
+    } 
+    PageModes::RelationOff();
+    PageModes::InterpoleOff();
+    PageModes::DCycleOff();  
     FreqMeter::LoadModeMeasureFrequency();
 }
 
@@ -109,7 +112,9 @@ static void OnPress_ModeCountPulseC()
     {
         items[2] = &sNumberPeriodsC;
     }
-
+    PageModes::RelationOff();
+    PageModes::InterpoleOff();
+    PageModes::DCycleOff();  
     FreqMeter::LoadModeMeasureCountPulse();
 }
 

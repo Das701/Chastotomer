@@ -229,11 +229,6 @@ bool Page::OnControl(const Control &control)
                 result = SelectedItem()->OnControl(control);
             }
         }
-        else
-        {
-//            PageModes::InterpoleOff();
-//            PageModes::DCycleOff();
-        }
         info = 10;
         break;
     case Control::GovButton:
@@ -253,6 +248,7 @@ bool Page::OnControl(const Control &control)
         }
         else
         {
+            PageModes::RelationOff();
             PageModes::InterpoleOff();
             PageModes::DCycleOff();
         }
