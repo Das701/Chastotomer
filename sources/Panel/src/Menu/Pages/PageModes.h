@@ -22,8 +22,8 @@ struct ModeMeasureFrequency : public Enumeration
     enum E
     {
         Freq,       ///< Частота
-        AB,         ///< f(A) / f(C)
-        AC,         ///< f(A) / f(B)
+        AB,         ///< f(A) / f(B)
+        AC,         ///< f(A) / f(C)
         T_1,        ///< f = 1 / T
         Tachometer  ///< Тахометр
     };
@@ -63,7 +63,6 @@ struct ModeMeasureCountPulse : public Enumeration
 {
     enum E
     {
-        Manual,     ///< Ручн.
         ATC,        ///< A(tC)
         ATB         ///< A(TB)
     };
@@ -135,6 +134,7 @@ public:
     static void RelationOn();
     static void RelationOff();
     static bool RelationCheck();
+    static void PressSetup();
     /// Тип измерения
     static TypeMeasure typeMeasure;
     /// Режим измерения частоты

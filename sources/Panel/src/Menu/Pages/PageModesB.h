@@ -63,7 +63,6 @@ struct ModeMeasureCountPulseB : public Enumeration
 {
     enum E
     {
-        Manual,     ///< Ручн.
         BTA,        ///< B(tA)
         BTA_1       ///< B(TA)
     };
@@ -124,8 +123,8 @@ class PageModesB
 {
 public:
     static Page *self;
-
     static void Init();
+    static void PressSetupB();
     /// Тип измерения
     static TypeMeasureB typeMeasureB;
     /// Режим измерения частоты

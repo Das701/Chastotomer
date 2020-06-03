@@ -181,72 +181,60 @@ static void Calculation()
             int n = 1;
             manualZeros = 10;
 //            decDataA = decDataA*10;
-            if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_3)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_3)))
+            if(PageModes::periodTimeLabels == PeriodTimeLabels::T_3)
             {
                 tmet = tmet*1000;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_4)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_4)))
+            else if(PageModes::periodTimeLabels == PeriodTimeLabels::T_4)
             {
                 tmet = tmet*10000;
                 manualZeros = manualZeros*10;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_5)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_5)))
+            else if(PageModes::periodTimeLabels == PeriodTimeLabels::T_5)
             {
                 tmet = tmet*100000;
                 manualZeros = manualZeros*100;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_6)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_6)))
+            else if(PageModes::periodTimeLabels == PeriodTimeLabels::T_6)
             {
                 tmet = tmet*1000000;
                 manualZeros = manualZeros*1000;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_7)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_7)))
+            else if(PageModes::periodTimeLabels == PeriodTimeLabels::T_7)
             {
                 tmet = tmet*10000000;
                 manualZeros = manualZeros*10000;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_8)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_8)))
+            else if(PageModes::periodTimeLabels == PeriodTimeLabels::T_8)
             {
                 tmet = tmet*100000000;
                 manualZeros = manualZeros*100000;
             }
-            if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_1)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_1)))
+            if(PageModes::numberPeriods == NumberPeriods::_1)
             {
                 n = n*1;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_10)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_10)))
+            else if(PageModes::numberPeriods == NumberPeriods::_10)
             {
                 n = n*10;
                 manualZeros = manualZeros*10;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_100)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_100)))
+            else if(PageModes::numberPeriods == NumberPeriods::_100)
             {
                 n = n*100;
                 manualZeros = manualZeros*100;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_1K)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_1K)))
+            else if(PageModes::numberPeriods == NumberPeriods::_1K)
             {
                 n = n*1000;
                 manualZeros = manualZeros*1000;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_10K)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_10K)))
+            else if(PageModes::numberPeriods == NumberPeriods::_10K)
             {
                 n = n*10000;
                 manualZeros = manualZeros*10000;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_100K)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_100K)))
+            else if(PageModes::numberPeriods == NumberPeriods::_100K)
             {
                 n = n*100000;
                 manualZeros = manualZeros*100000;
@@ -270,34 +258,28 @@ static void Calculation()
         else if((CURRENT_CHANNEL_IS_A && (PageModes::modeMeasureFrequency == ModeMeasureFrequency::AB)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BA)))
         {
-            int rel = 1;
-            if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_1)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_1)))
+            int rel = 10;
+            if(PageModes::numberPeriods == NumberPeriods::_1)
             {
                 rel = rel*1;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_10)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_10)))
+            else if(PageModes::numberPeriods == NumberPeriods::_10)
             {
                 rel = rel*10;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_100)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_100)))
+            else if(PageModes::numberPeriods == NumberPeriods::_100)
             {
                 rel = rel*100;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_1K)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_1K)))
+            else if(PageModes::numberPeriods == NumberPeriods::_1K)
             {
                 rel = rel*1000;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_10K)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_10K)))
+            else if(PageModes::numberPeriods == NumberPeriods::_10K)
             {
                 rel = rel*10000;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::numberPeriods == NumberPeriods::_100K)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::numberPeriodsB == NumberPeriodsB::_100K)))
+            else if(PageModes::numberPeriods == NumberPeriods::_100K)
             {
                 rel = rel*100000;
             }
@@ -307,7 +289,7 @@ static void Calculation()
                (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB)))
         {
             decDataA = decDataA*100;
-            int rel = 1;
+            int rel = 10;
             if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriodsC == NumberPeriodsC::_1))
             {
                 rel = rel*1;
@@ -338,33 +320,27 @@ static void Calculation()
             (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC)))
         {
             int sT = 1;
-            if((CURRENT_CHANNEL_IS_A && (PageModes::timeMeasure == TimeMeasure::_1ms)) ||
-               (CURRENT_CHANNEL_IS_B && (PageModesB::timeMeasureB == TimeMeasureB::_1ms)))
+            if(PageModes::timeMeasure == TimeMeasure::_1ms)
             {
                 sT = sT*1;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::timeMeasure == TimeMeasure::_10ms)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::timeMeasureB == TimeMeasureB::_10ms)))
+            else if(PageModes::timeMeasure == TimeMeasure::_10ms)
             {
                 sT = sT*10;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::timeMeasure == TimeMeasure::_100ms)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::timeMeasureB == TimeMeasureB::_100ms)))
+            else if(PageModes::timeMeasure == TimeMeasure::_100ms)
             {
                 sT = sT*100;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::timeMeasure == TimeMeasure::_1s)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::timeMeasureB == TimeMeasureB::_1s)))
+            else if(PageModes::timeMeasure == TimeMeasure::_1s)
             {
                 sT = sT*1000;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::timeMeasure == TimeMeasure::_10s)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::timeMeasureB == TimeMeasureB::_10s)))
+            else if(PageModes::timeMeasure == TimeMeasure::_10s)
             {
                 sT = sT*10000;
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::timeMeasure == TimeMeasure::_100s)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::timeMeasureB == TimeMeasureB::_100s)))
+            else if(PageModes::timeMeasure == TimeMeasure::_100s)
             {
                 sT = sT*100000;
             }
@@ -878,9 +854,10 @@ char* PLIS::GiveData()
        (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse)))
     {
         BinToDec();
+        decDataA = decDataA/2;
         if(CURRENT_CHANNEL_IS_C)
         {
-            decDataA = decDataA*50;
+            decDataA = decDataA*100;
         }
         sprintf(procData,"%10.0f",decDataA);
         return procData;

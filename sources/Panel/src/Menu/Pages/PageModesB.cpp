@@ -31,7 +31,7 @@ TypeMeasureB             PageModesB::typeMeasureB(TypeMeasureB::Frequency);
 ModeMeasureFrequencyB    PageModesB::modeMeasureFrequencyB(ModeMeasureFrequencyB::Freq);
 ModeMeasurePeriodB       PageModesB::modeMeasurePeriodB(ModeMeasurePeriodB::Period);
 ModeMeasureDurationB     PageModesB::modeMeasureDurationB(ModeMeasureDurationB::Ndt);
-ModeMeasureCountPulseB   PageModesB::modeMeasureCountPulseB(ModeMeasureCountPulseB::Manual);
+ModeMeasureCountPulseB   PageModesB::modeMeasureCountPulseB(ModeMeasureCountPulseB::BTA);
 
 PeriodTimeLabelsB        PageModesB::periodTimeLabelsB(PeriodTimeLabelsB::T_8);
 NumberPeriodsB           PageModesB::numberPeriodsB(NumberPeriodsB::_1);
@@ -63,14 +63,36 @@ static void ClearItems(int num)
     }
 }
 
+void PageModesB::PressSetupB()
+{
+    switch (PageModesB::typeMeasureB.value)
+    {
+        case TypeMeasureB::Frequency:
+            items[1] = &sModeFrequencyB;
+            break;
+    
+        case TypeMeasureB::Period:
+            items[1] = &sModePeriodB;
+            break;
+    
+        case TypeMeasureB::Duration:
+            items[1] = &sModeDurationB;
+            break;
+    
+        case TypeMeasureB::CountPulse:
+            items[1] = &sModeCountPulseB;
+            break;
+    }    
+}
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_TypeMeasureB()
 {
         switch (PageModesB::typeMeasureB.value)
         {
         case TypeMeasureB::Frequency:
-            OnPress_ModeFrequencyB();
             PageModes::typeMeasure.value = TypeMeasure::Frequency;
+            OnPress_ModeFrequencyB();
             break;
     
         case TypeMeasureB::Period:
@@ -90,6 +112,7 @@ static void OnPress_TypeMeasureB()
         }        
 }
 
+
 DEF_SWITCH_4(sTypeMeasureB,
     "Вид изм.", "Выбор измерения",
     "Частота", "Период", "Длит.", "Сч. имп.",
@@ -100,8 +123,7 @@ DEF_SWITCH_4(sTypeMeasureB,
 static void OnPress_ModeFrequencyB()
 {
     ClearItems(2);
-    if (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC ||
-        PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BA)
+    if (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC)
     {
         items[1] = &sModeFrequencyB;
         items[2] = &sTimeMeasureB;
@@ -115,9 +137,16 @@ static void OnPress_ModeFrequencyB()
         items[3] = &sNumberPeriodsB;
         PageModes::RelationOff();
     }
-    else if(PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Tachometer)
+    else if(PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BA)
     {
         items[2] = &sPeriodTimeLabelsB;   
+        items[1] = &sModeFrequencyB;
+        items[3] = nullptr;
+        PageModes::RelationOn();
+    }
+    else if(PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Tachometer)
+    {
+        items[2] = &sNumberPeriodsB;   
         items[1] = &sModeFrequencyB;
         items[3] = nullptr;
         PageModes::RelationOff();
@@ -132,7 +161,6 @@ static void OnPress_ModeFrequencyB()
     PageModes::InterpoleOff();
     PageModes::DCycleOff();     
     FreqMeter::LoadModeMeasureFrequency();
-
 }
 
 /// Выбор режима измерения частоты, отношения частот, "тахометра"
@@ -232,9 +260,9 @@ static void OnPress_ModeCountPulseB()
 }
 
 /// Выбор режима счёта импульсов
-DEF_SWITCH_3(sModeCountPulseB,
+DEF_SWITCH_2(sModeCountPulseB,
     "Режим изм.", "Счёт числа импульсов",
-    "Ручн.", "B(tA)", "B(TA)",
+    "B(tA)", "B(TA)",
     PageModesB::modeMeasureCountPulseB, OnPress_ModeCountPulseB
 );
 
@@ -287,31 +315,49 @@ static void OnPress_TimeMeasureB()
             PageModes::timeMeasure.value = TimeMeasure::_1ms;
             PageModesC::timeMeasureC.value = TimeMeasureC::_1ms;
             PageModesD::timeMeasureD.value = TimeMeasureD::_1ms;
+            PageModesB::numberPeriodsB.value = NumberPeriodsB::_1;
+            PageModesC::numberPeriodsC.value = NumberPeriodsC::_1;
+            PageModes::numberPeriods.value = NumberPeriods::_1;
             break;
         case TimeMeasureB::_10ms:
             PageModes::timeMeasure.value = TimeMeasure::_10ms;
             PageModesC::timeMeasureC.value = TimeMeasureC::_10ms;
             PageModesD::timeMeasureD.value = TimeMeasureD::_10ms;
+            PageModesB::numberPeriodsB.value = NumberPeriodsB::_10;
+            PageModesC::numberPeriodsC.value = NumberPeriodsC::_10;
+            PageModes::numberPeriods.value = NumberPeriods::_10;
             break;
         case TimeMeasureB::_100ms:
             PageModes::timeMeasure.value = TimeMeasure::_100ms;
             PageModesC::timeMeasureC.value = TimeMeasureC::_100ms;
             PageModesD::timeMeasureD.value = TimeMeasureD::_100ms;
+            PageModesB::numberPeriodsB.value = NumberPeriodsB::_100;
+            PageModesC::numberPeriodsC.value = NumberPeriodsC::_100;
+            PageModes::numberPeriods.value = NumberPeriods::_100;
             break;
         case TimeMeasureB::_1s:
             PageModes::timeMeasure.value = TimeMeasure::_1s;
             PageModesC::timeMeasureC.value = TimeMeasureC::_1s;
             PageModesD::timeMeasureD.value = TimeMeasureD::_1s;
+            PageModesB::numberPeriodsB.value = NumberPeriodsB::_1K;
+            PageModesC::numberPeriodsC.value = NumberPeriodsC::_1K;
+            PageModes::numberPeriods.value = NumberPeriods::_1K;
             break;
         case TimeMeasureB::_10s:
             PageModes::timeMeasure.value = TimeMeasure::_10s;
             PageModesC::timeMeasureC.value = TimeMeasureC::_10s;
             PageModesD::timeMeasureD.value = TimeMeasureD::_10s;
+            PageModesB::numberPeriodsB.value = NumberPeriodsB::_10K;
+            PageModesC::numberPeriodsC.value = NumberPeriodsC::_10K;
+            PageModes::numberPeriods.value = NumberPeriods::_10K;
             break;
         case TimeMeasureB::_100s:
             PageModes::timeMeasure.value = TimeMeasure::_100s;
             PageModesC::timeMeasureC.value = TimeMeasureC::_100s;
             PageModesD::timeMeasureD.value = TimeMeasureD::_100s;
+            PageModes::numberPeriods.value = NumberPeriods::_100K;
+            PageModesB::numberPeriodsB.value = NumberPeriodsB::_100K;
+            PageModesC::numberPeriodsC.value = NumberPeriodsC::_100K;
             break;
     }
     FreqMeter::LoadTimeMeasure();
@@ -332,26 +378,44 @@ static void OnPress_NumberPeriodsB()
         case NumberPeriodsB::_1:
             PageModes::numberPeriods.value = NumberPeriods::_1;
             PageModesC::numberPeriodsC.value = NumberPeriodsC::_1;
+            PageModesB::timeMeasureB.value = TimeMeasureB::_1ms;
+            PageModesC::timeMeasureC.value = TimeMeasureC::_1ms;
+            PageModes::timeMeasure.value = TimeMeasure::_1ms;
             break;
         case NumberPeriodsB::_10:
             PageModes::numberPeriods.value = NumberPeriods::_10;
             PageModesC::numberPeriodsC.value = NumberPeriodsC::_10;
+            PageModesB::timeMeasureB.value = TimeMeasureB::_10ms;
+            PageModesC::timeMeasureC.value = TimeMeasureC::_10ms;
+            PageModes::timeMeasure.value = TimeMeasure::_10ms;
             break;
         case NumberPeriodsB::_100:
             PageModes::numberPeriods.value = NumberPeriods::_100;
             PageModesC::numberPeriodsC.value = NumberPeriodsC::_100;
+            PageModesB::timeMeasureB.value = TimeMeasureB::_100ms;
+            PageModesC::timeMeasureC.value = TimeMeasureC::_100ms;
+            PageModes::timeMeasure.value = TimeMeasure::_100ms;
             break;
         case NumberPeriodsB::_1K:
             PageModes::numberPeriods.value = NumberPeriods::_1K;
             PageModesC::numberPeriodsC.value = NumberPeriodsC::_1K;
+            PageModesB::timeMeasureB.value = TimeMeasureB::_1s;
+            PageModesC::timeMeasureC.value = TimeMeasureC::_1s;
+            PageModes::timeMeasure.value = TimeMeasure::_1s;
             break;
         case NumberPeriodsB::_10K:
             PageModes::numberPeriods.value = NumberPeriods::_10K;
             PageModesC::numberPeriodsC.value = NumberPeriodsC::_10K;
+            PageModesB::timeMeasureB.value = TimeMeasureB::_10s;
+            PageModesC::timeMeasureC.value = TimeMeasureC::_10s;
+            PageModes::timeMeasure.value = TimeMeasure::_10s;
             break;
         case NumberPeriodsB::_100K:
             PageModes::numberPeriods.value = NumberPeriods::_100K;
             PageModesC::numberPeriodsC.value = NumberPeriodsC::_100K;
+            PageModesB::timeMeasureB.value = TimeMeasureB::_100s;
+            PageModesC::timeMeasureC.value = TimeMeasureC::_100s;
+            PageModes::timeMeasure.value = TimeMeasure::_100s;
             break;
     }
     FreqMeter::LoadNumerPeriodsMeasure();

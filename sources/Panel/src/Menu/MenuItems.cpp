@@ -209,6 +209,14 @@ bool Page::OnControl(const Control &control)
                 result = SelectedItem()->OnControl(control);
             }
         }
+        if(CURRENT_CHANNEL_IS_A)
+        {
+            PageModes::PressSetup();
+        }
+        else if(CURRENT_CHANNEL_IS_B)
+        {
+            PageModesB::PressSetupB();
+        }
         info = 8;
         break;
     case Control::Indication:

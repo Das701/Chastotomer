@@ -337,9 +337,9 @@ static void DrawStatusBarA()
     {
         {   /// ModeMeasureFrequency::
             &PageModes::timeMeasure,        /// Freq
+            &PageModes::numberPeriods,      /// AB
             &PageModes::timeMeasure,        /// AC
-            &PageModes::timeMeasure,      /// AB
-            &PageModes::numberPeriods,        /// T_1
+            &PageModes::numberPeriods,      /// T_1
             &PageModes::timeMeasure         /// Tachometer
         },
         {   /// ModeMeasurePeriod::
@@ -355,7 +355,6 @@ static void DrawStatusBarA()
             nullptr                         /// Phase
         },
         {   /// ModeMeasureCountPulse::
-            nullptr,                        /// Manual
             nullptr,                        /// ATC
             &PageModes::numberPeriods       /// ATC_1
         }
@@ -388,9 +387,9 @@ static void DrawStatusBarB()
     {
         {   /// ModeMeasureFrequency::
             &PageModes::timeMeasure,        /// Freq
-            &PageModes::timeMeasure,      /// AC
-            &PageModes::timeMeasure,      /// AB
-            &PageModes::numberPeriods,        /// T_1
+            &PageModes::numberPeriods,      /// BA
+            &PageModes::timeMeasure,        /// BC
+            &PageModes::numberPeriods,      /// T_1
             &PageModes::timeMeasure         /// Tachometer
         },
         {   /// ModeMeasurePeriod::
@@ -406,7 +405,6 @@ static void DrawStatusBarB()
             nullptr                           /// Phase
         },
         {   /// ModeMeasureCountPulse::
-            nullptr,                          /// Manual
             nullptr,                          /// ATC
             &PageModes::numberPeriods       /// ATC_1
         }
