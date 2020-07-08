@@ -7,7 +7,7 @@ void ERROR_HANDLER();
 struct HAL
 {
     static void Init();
-    
+    static void TestFunk();
     /// Используется для записи в дисплей
     //struct SPI1_
     //{
@@ -42,6 +42,7 @@ struct PLIS
     static void Init();
     static void Update();
     static char* GiveData(); 
+    static char* GiveSpec(); 
     static void WriteCommand(char* command, char* argument);
     static void WriteData();
     static void IncreaseN();

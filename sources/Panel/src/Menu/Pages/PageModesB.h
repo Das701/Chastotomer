@@ -96,7 +96,8 @@ struct TimeMeasureB : public Enumeration
         _100ms,     ///< 100ms
         _1s,        ///< 1s
         _10s,       ///< 10s
-        _100s       ///< 100s
+        _100s,       ///< 100s
+        _1000s
     };
 
     explicit TimeMeasureB(E v) : Enumeration((uint8)v) {};
@@ -112,7 +113,8 @@ struct NumberPeriodsB : public Enumeration
         _100,     ///< 100
         _1K,      ///< 1K
         _10K,     ///< 10K
-        _100K     ///< 100K
+        _100K,     ///< 100K
+        _1000K
     };
 
     explicit NumberPeriodsB(E v) : Enumeration((uint8)v) {};

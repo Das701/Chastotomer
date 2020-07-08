@@ -53,14 +53,19 @@ static void OnPress_TimeMeasureD()
             PageModesC::timeMeasureC.value = TimeMeasureC::_100s;
             PageModes::timeMeasure.value = TimeMeasure::_100s;
             break;
+        case TimeMeasureD::_1000s:
+            PageModesB::timeMeasureB.value = TimeMeasureB::_1000s;
+            PageModesC::timeMeasureC.value = TimeMeasureC::_1000s;
+            PageModes::timeMeasure.value = TimeMeasure::_1000s;
+            break;
     }
     FreqMeter::LoadTimeMeasure();
 }
 
 /// Выбор времени измерения
-DEF_SWITCH_6(sTimeMeasureD,
+DEF_SWITCH_7(sTimeMeasureD,
     "Время", "Время счёта",
-    "1ms", "10ms", "100ms", "1s", "10s", "100s",
+    "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
     PageModesD::timeMeasureD, OnPress_TimeMeasureD
 );
 

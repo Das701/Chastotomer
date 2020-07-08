@@ -25,7 +25,8 @@ struct ModeMeasureFrequency : public Enumeration
         AB,         ///< f(A) / f(B)
         AC,         ///< f(A) / f(C)
         T_1,        ///< f = 1 / T
-        Tachometer  ///< Тахометр
+        Tachometer, ///< Тахометр
+        Comparator
     };
 
     explicit ModeMeasureFrequency(E v) : Enumeration((uint8)v) {};
@@ -96,7 +97,8 @@ struct TimeMeasure : public Enumeration
         _100ms,     ///< 100ms
         _1s,        ///< 1s
         _10s,       ///< 10s
-        _100s       ///< 100s
+        _100s,       ///< 100s
+        _1000s
     };
 
     explicit TimeMeasure(E v) : Enumeration((uint8)v) {};
@@ -112,7 +114,8 @@ struct NumberPeriods : public Enumeration
         _100,     ///< 100
         _1K,      ///< 1K
         _10K,     ///< 10K
-        _100K     ///< 100K
+        _100K,     ///< 100K
+        _1000K
     };
 
     explicit NumberPeriods(E v) : Enumeration((uint8)v) {};

@@ -166,6 +166,11 @@ void FreqMeter::LoadModeMeasureFrequency()
     {
         argument[3] = 1;
     }
+    else if(PageModes::modeMeasureFrequency == ModeMeasureFrequency::Comparator && CURRENT_CHANNEL_IS_A)
+    {
+        argument[3] = 1;
+        argument[5] = 1;
+    }
 
     PLIS::WriteCommand(command, argument);
 }
@@ -352,6 +357,14 @@ void FreqMeter::LoadTimeMeasure()
         argument[5] = 1;
         argument[3] = 1;
     }
+    else if((PageModes::timeMeasure == TimeMeasure::_1000s && CURRENT_CHANNEL_IS_A)||
+       (PageModesB::timeMeasureB == TimeMeasureB::_1000s && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::timeMeasureC == TimeMeasureC::_1000s && CURRENT_CHANNEL_IS_C)||
+       (PageModesD::timeMeasureD == TimeMeasureD::_1000s && CURRENT_CHANNEL_IS_D))
+    {
+        argument[4] = 1;
+        argument[3] = 1;
+    }
 
     PLIS::WriteCommand(command, argument);
 }
@@ -392,6 +405,13 @@ void FreqMeter::LoadNumerPeriodsMeasure()
        (PageModesC::numberPeriodsC == NumberPeriodsC::_100K && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
+        argument[3] = 1;
+    }
+        else if((PageModes::numberPeriods == NumberPeriods::_1000K && CURRENT_CHANNEL_IS_A)||
+       (PageModesB::numberPeriodsB == NumberPeriodsB::_1000K && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::numberPeriodsC == NumberPeriodsC::_1000K && CURRENT_CHANNEL_IS_C))
+    {
+        argument[4] = 1;
         argument[3] = 1;
     }
 

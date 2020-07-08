@@ -6,6 +6,8 @@
 #include <cstdlib>
 #include "Display/Primitives.h"
 
+#include "Display/Font/BigFont1.h"
+
 using namespace Display::Primitives;
 
 
@@ -25,6 +27,12 @@ using namespace Display::Primitives;
 #define HEIGHT_BUFFER   (272)
 static uint8 buffer[HEIGHT_BUFFER][WIDTH_BUFFER];
 
+
+
+void HAL::TestFunk()
+{
+    //FontBig::BigStringMono_print("0123456789", 70, 100, Color::WHITE);
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void SetLShiftFreq(uint freq)

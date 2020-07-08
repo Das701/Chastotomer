@@ -7,6 +7,7 @@
 #include "Settings.h"
 #include "FreqMeter/FreqMeter.h"
 #include <cstring>
+#include "PageModes.h"
 
 using namespace Display::Primitives;
 using namespace Display;

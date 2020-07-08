@@ -17,6 +17,8 @@
 #include <cstring>
 #include "Hardware/HAL.h"
 #include "FreqMeter/FreqMeter.h"
+#include "Display/Font/BigFont1.h"
+
 
 using namespace Display::Primitives;
 using Display::Text;
@@ -131,13 +133,14 @@ static void DrawScreen()
         Menu::Draw();
         
         DrawData();  
+        HAL::TestFunk();
     }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawChannelSettings()
 {
-    Text(Menu::ChannelSettings()).Write(102, 2);
+    Text(Menu::ChannelSettings()).Write(102, 17);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -147,21 +150,21 @@ static void DrawTypeMeasure()
     int width = 100; 
     if (CURRENT_CHANNEL_IS_A)
     {
-        Text(PageModes::typeMeasure.ToText()).Write(x, 10, width);
+        Text(PageModes::typeMeasure.ToText()).Write(x, 25, width);
     }
     else if (CURRENT_CHANNEL_IS_B)
     {
-        Text(PageModesB::typeMeasureB.ToText()).Write(x, 10, width);
+        Text(PageModesB::typeMeasureB.ToText()).Write(x, 25, width);
     }
     else if (CURRENT_CHANNEL_IS_C)
     {
-        Text(PageModesC::typeMeasureC.ToText()).Write(x, 10, width);
+        Text(PageModesC::typeMeasureC.ToText()).Write(x, 25, width);
     }
     else if (CURRENT_CHANNEL_IS_D)
     {
-        Text("Частота").Write(x, 10, width);
+        Text("Частота").Write(x, 25, width);
     }
-    Rectangle(width, 30).Draw(x, 0, Color::WHITE);
+    Rectangle(width, 30).Draw(x, 15, Color::WHITE);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -176,7 +179,7 @@ static void DrawModeMeasure()
             &PageModes::modeMeasureDuration,
             &PageModes::modeMeasureCountPulse
         };
-        Text(modes[PageModes::typeMeasure.value]->ToText()).Write(0, 40);
+        Text(modes[PageModes::typeMeasure.value]->ToText()).Write(0, 55);
     }
     else if (CURRENT_CHANNEL_IS_B)
     {
@@ -187,7 +190,7 @@ static void DrawModeMeasure()
             &PageModesB::modeMeasureDurationB,
             &PageModesB::modeMeasureCountPulseB
         };
-        Text(modesB[PageModesB::typeMeasureB.value]->ToText()).Write(0, 40);
+        Text(modesB[PageModesB::typeMeasureB.value]->ToText()).Write(0, 55);
     }
     else if (CURRENT_CHANNEL_IS_C)
     {
@@ -196,11 +199,11 @@ static void DrawModeMeasure()
             &PageModesC::modeMeasureFrequencyC,
             &PageModesC::modeMeasureCountPulseC
         };
-        Text(modesC[PageModesC::typeMeasureC.value]->ToText()).Write(0, 40);
+        Text(modesC[PageModesC::typeMeasureC.value]->ToText()).Write(0, 55);
     }   
     if (CURRENT_CHANNEL_IS_D)
     {  
-        Text("Частота").Write(0, 40);
+        Text("Частота").Write(0, 55);
     }
 }
 
@@ -229,7 +232,7 @@ static void DrawHint()
 {
     if((HAL_GetTick() < (autoHint + 10000)) && autoFlag == true)
     {
-        Text(PLIS::GiveAuto()).Write(102, 22);
+        Text(PLIS::GiveAuto()).Write(102, 37);
         FreqMeter::UnloadAuto();
     }
     else
@@ -239,19 +242,19 @@ static void DrawHint()
             
             if((PLIS::MidAuto() != 0) || (PLIS::MaxAuto() != 0) || (PLIS::MinAuto() != 0))
             {
-                Text(PLIS::GiveAuto()).Write(102, 22);
+                Text(PLIS::GiveAuto()).Write(102, 37);
                 PLIS::SwitchAuto();
                 autoHint = HAL_GetTick();
                 autoFlag = true;
             }
             else
             {
-                Text("Установка уровня синхр.").Write(102, 22);
+                Text("Установка уровня синхр.").Write(102, 37);
             }
         }
         else
         {
-            Text(Hint::Text()).Write(102, 22);
+            Text(Hint::Text()).Write(102, 37);
             autoFlag = false;
         }
     }
@@ -322,8 +325,9 @@ static void DrawInfo()
 
 static void DrawData()
 {
-    Text(PLIS::GiveData()).Write(120, 120);
-    Rectangle(320, 90).Draw(70, 100, Color::WHITE);
+//    Text(PLIS::GiveData()).Write(120, 120);
+    FontBig::BigStringProp_print(PLIS::GiveData(), 10, 150, Color::WHITE);
+    Text(PLIS::GiveSpec()).Write(344, 170);
 }
 
 static void DrawStatusBarA()
@@ -340,7 +344,8 @@ static void DrawStatusBarA()
             &PageModes::numberPeriods,      /// AB
             &PageModes::timeMeasure,        /// AC
             &PageModes::numberPeriods,      /// T_1
-            &PageModes::timeMeasure         /// Tachometer
+            &PageModes::timeMeasure,        /// Tachometer
+            &PageModes::numberPeriods       /// Comparator
         },
         {   /// ModeMeasurePeriod::
             &PageModes::numberPeriods,      /// Period
@@ -364,7 +369,7 @@ static void DrawStatusBarA()
 
     const Enumeration *toText = enums[PageModes::typeMeasure][mode->value];
     
-    int y = 65;
+    int y = 80;
     int x = 0;
     int width = 60;
 
@@ -414,7 +419,7 @@ static void DrawStatusBarB()
 
     const Enumeration *toText = enumsB[PageModesB::typeMeasureB][mode->value];
 
-    int y = 65;
+    int y = 80;
     int x = 0;
     int width = 60;
 
@@ -452,7 +457,7 @@ static void DrawStatusBarC()
 
     const Enumeration *toText = enumsC[PageModesC::typeMeasureC][mode->value];
 
-    int y = 65;
+    int y = 80;
     int x = 0;
     int width = 60;
 
@@ -466,10 +471,9 @@ static void DrawStatusBarC()
 
 static void DrawStatusBarD()
 {
-    int y = 65;
+    int y = 80;
     int x = 0;
     int width = 60;
     Text(PageModesD::timeMeasureD.ToText()).Write(x + 2, y + 7, width, Color::WHITE);
     Rectangle(width, 30).Draw(x, y, Color::WHITE);
 }
-

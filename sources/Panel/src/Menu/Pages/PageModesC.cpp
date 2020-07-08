@@ -218,14 +218,22 @@ static void OnPress_TimeMeasureC()
             PageModesB::numberPeriodsB.value = NumberPeriodsB::_100K;
             PageModesC::numberPeriodsC.value = NumberPeriodsC::_100K;
             break;
+        case TimeMeasureC::_1000s:
+            PageModesB::timeMeasureB.value = TimeMeasureB::_1000s;
+            PageModes::timeMeasure.value = TimeMeasure::_1000s;
+            PageModesD::timeMeasureD.value = TimeMeasureD::_1000s;
+            PageModes::numberPeriods.value = NumberPeriods::_1000K;
+            PageModesB::numberPeriodsB.value = NumberPeriodsB::_1000K;
+            PageModesC::numberPeriodsC.value = NumberPeriodsC::_1000K;
+            break;
     }
     FreqMeter::LoadTimeMeasure();
 }
 
 /// Выбор времени измерения
-DEF_SWITCH_6(sTimeMeasureC,
+DEF_SWITCH_7(sTimeMeasureC,
     "Время", "Время счёта",
-    "1ms", "10ms", "100ms", "1s", "10s", "100s",
+    "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
     PageModesC::timeMeasureC, OnPress_TimeMeasureC
 );
 
@@ -276,14 +284,21 @@ static void OnPress_NumberPeriodsC()
             PageModesC::timeMeasureC.value = TimeMeasureC::_100s;
             PageModes::timeMeasure.value = TimeMeasure::_100s;
             break;
+        case NumberPeriodsC::_1000K:
+            PageModesB::numberPeriodsB.value = NumberPeriodsB::_1000K;
+            PageModes::numberPeriods.value = NumberPeriods::_1000K;
+            PageModesB::timeMeasureB.value = TimeMeasureB::_1000s;
+            PageModesC::timeMeasureC.value = TimeMeasureC::_1000s;
+            PageModes::timeMeasure.value = TimeMeasure::_1000s;
+            break;
     }
     FreqMeter::LoadNumerPeriodsMeasure();
 }
 
 /// Выбор числа усредняемых периодов входного сигнала
-DEF_SWITCH_6(sNumberPeriodsC,
+DEF_SWITCH_7(sNumberPeriodsC,
     "N", "Число периодов измерения",
-    "1", "10", "100", "1K", "10K", "100K",
+    "1", "10", "100", "1K", "10K", "100K", "1000K",
     PageModesC::numberPeriodsC,
     OnPress_NumberPeriodsC
 );

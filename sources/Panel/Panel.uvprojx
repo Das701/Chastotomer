@@ -597,6 +597,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\font8.inc</FilePath>
             </File>
+            <File>
+              <FileName>BigFont1.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\BigFont1.h</FilePath>
+            </File>
+            <File>
+              <FileName>fonttry2.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\fonttry2.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -728,6 +738,26 @@
               <FilePath>.\src\Menu\Pages\PageChannelB.h</FilePath>
             </File>
             <File>
+              <FileName>PageChannelC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageChannelC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PageChannelC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\PageChannelC.h</FilePath>
+            </File>
+            <File>
+              <FileName>PageChannelD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageChannelD.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PageChannelD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\PageChannelD.h</FilePath>
+            </File>
+            <File>
               <FileName>PageIndication.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageIndication.cpp</FilePath>
@@ -776,26 +806,6 @@
               <FileName>PageModesD.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\PageModesD.h</FilePath>
-            </File>
-            <File>
-              <FileName>PageChannelC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\PageChannelC.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageChannelC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\PageChannelC.h</FilePath>
-            </File>
-            <File>
-              <FileName>PageChannelD.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\PageChannelD.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageChannelD.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\PageChannelD.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -139,7 +139,7 @@ static void OnPress_ModeFrequencyB()
     }
     else if(PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BA)
     {
-        items[2] = &sPeriodTimeLabelsB;   
+        items[2] = &sNumberPeriodsB;   
         items[1] = &sModeFrequencyB;
         items[3] = nullptr;
         PageModes::RelationOn();
@@ -359,14 +359,22 @@ static void OnPress_TimeMeasureB()
             PageModesB::numberPeriodsB.value = NumberPeriodsB::_100K;
             PageModesC::numberPeriodsC.value = NumberPeriodsC::_100K;
             break;
+        case TimeMeasureB::_1000s:
+            PageModes::timeMeasure.value = TimeMeasure::_1000s;
+            PageModesC::timeMeasureC.value = TimeMeasureC::_1000s;
+            PageModesD::timeMeasureD.value = TimeMeasureD::_1000s;
+            PageModes::numberPeriods.value = NumberPeriods::_1000K;
+            PageModesB::numberPeriodsB.value = NumberPeriodsB::_1000K;
+            PageModesC::numberPeriodsC.value = NumberPeriodsC::_1000K;
+            break;
     }
     FreqMeter::LoadTimeMeasure();
 }
 
 /// Выбор времени измерения
-DEF_SWITCH_6(sTimeMeasureB,
+DEF_SWITCH_7(sTimeMeasureB,
     "Время", "Время счёта",
-    "1ms", "10ms", "100ms", "1s", "10s", "100s",
+    "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
     PageModesB::timeMeasureB, OnPress_TimeMeasureB
 );
 
@@ -417,14 +425,21 @@ static void OnPress_NumberPeriodsB()
             PageModesC::timeMeasureC.value = TimeMeasureC::_100s;
             PageModes::timeMeasure.value = TimeMeasure::_100s;
             break;
+        case NumberPeriodsB::_1000K:
+            PageModes::numberPeriods.value = NumberPeriods::_1000K;
+            PageModesC::numberPeriodsC.value = NumberPeriodsC::_1000K;
+            PageModesB::timeMeasureB.value = TimeMeasureB::_1000s;
+            PageModesC::timeMeasureC.value = TimeMeasureC::_1000s;
+            PageModes::timeMeasure.value = TimeMeasure::_1000s;
+            break;
     }
     FreqMeter::LoadNumerPeriodsMeasure();
 }
 
 /// Выбор числа усредняемых периодов входного сигнала
-DEF_SWITCH_6(sNumberPeriodsB,
+DEF_SWITCH_7(sNumberPeriodsB,
     "N", "Число периодов измерения",
-    "1", "10", "100", "1K", "10K", "100K",
+    "1", "10", "100", "1K", "10K", "100K", "1000K",
     PageModesB::numberPeriodsB,
     OnPress_NumberPeriodsB
 );
