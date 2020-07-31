@@ -150,9 +150,17 @@ bool Page::OnControl(const Control &control)
     {
     }
     else
-    {
-        result = ChangeLevelSynch(-2);     // Делаем попытку изменить уровень синхронизации
+    {   
+        if ((PageChannelB::typeSynch == TypeSynch::Holdoff) || (PageChannelA::typeSynch == TypeSynch::Holdoff))
+        {
+            result = ChangeLevelSynch(-1);      // Делаем попытку изменить уровень синхронизации
+        }
+        else
+        {
+            result = ChangeLevelSynch(-2);     // Делаем попытку изменить уровень синхронизации
+        }
     }
+
 //        if(result == false)
 //        {
 //            SelectPrevItem();
@@ -174,7 +182,14 @@ bool Page::OnControl(const Control &control)
     }
     else
     {
-        result = ChangeLevelSynch(2);      // Делаем попытку изменить уровень синхронизации
+        if ((PageChannelB::typeSynch == TypeSynch::Holdoff) || (PageChannelA::typeSynch == TypeSynch::Holdoff))
+        {
+            result = ChangeLevelSynch(1);      // Делаем попытку изменить уровень синхронизации
+        }
+        else
+        {
+            result = ChangeLevelSynch(2);      // Делаем попытку изменить уровень синхронизации
+        }
     }
 //        if(result == false)
 //        {
@@ -217,6 +232,13 @@ bool Page::OnControl(const Control &control)
         {
             PageModesB::PressSetupB();
         }
+        if ((PageChannelB::typeSynch == TypeSynch::Holdoff) || (PageChannelA::typeSynch == TypeSynch::Holdoff))
+        {
+            PageChannelB::typeSynch.value = TypeSynch::Manual;
+            PageChannelA::typeSynch.value = TypeSynch::Manual;
+            PageChannelA::FixPress();
+            PageChannelB::FixPress();
+        }
         info = 8;
         break;
     case Control::Indication:
@@ -227,6 +249,13 @@ bool Page::OnControl(const Control &control)
                 result = SelectedItem()->OnControl(control);
             }
         }
+        if ((PageChannelB::typeSynch == TypeSynch::Holdoff) || (PageChannelA::typeSynch == TypeSynch::Holdoff))
+        {
+            PageChannelB::typeSynch.value = TypeSynch::Manual;
+            PageChannelA::typeSynch.value = TypeSynch::Manual;
+            PageChannelA::FixPress();
+            PageChannelB::FixPress();
+        }
         info = 9;
         break;
     case Control::Channels:
@@ -236,6 +265,13 @@ bool Page::OnControl(const Control &control)
             {
                 result = SelectedItem()->OnControl(control);
             }
+        }
+        if ((PageChannelB::typeSynch == TypeSynch::Holdoff) || (PageChannelA::typeSynch == TypeSynch::Holdoff))
+        {
+            PageChannelB::typeSynch.value = TypeSynch::Manual;
+            PageChannelA::typeSynch.value = TypeSynch::Manual;
+            PageChannelA::FixPress();
+            PageChannelB::FixPress();
         }
         info = 10;
         break;

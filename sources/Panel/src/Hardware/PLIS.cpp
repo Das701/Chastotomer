@@ -873,7 +873,15 @@ char* PLIS::GiveData()
     }
     else
     {
-        if(((PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns && CURRENT_CHANNEL_IS_A) || 
+        if(((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
+            (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B)))
+        {
+            BinToDec();
+            decDataA = decDataA/2;
+            sprintf(procData,"%10.0f",decDataA);
+            return procData;
+        }
+        else if(((PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns && CURRENT_CHANNEL_IS_A) || 
             (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Ndt_1ns && CURRENT_CHANNEL_IS_B))
             && PageModes::InterpoleCheck())
         {
@@ -1009,7 +1017,10 @@ char* PLIS::GiveSpec()
                 ((PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BA || 
                 PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC) && CURRENT_CHANNEL_IS_B) ||
                 ((PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CA || 
-                PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB) && CURRENT_CHANNEL_IS_C))
+                PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB) && CURRENT_CHANNEL_IS_C)
+                || ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Comparator) && CURRENT_CHANNEL_IS_A) 
+                || ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
+                (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B)))
             {
                 std::strcpy(spec, " ");
             }

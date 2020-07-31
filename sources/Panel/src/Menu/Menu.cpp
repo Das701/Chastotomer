@@ -181,7 +181,49 @@ char *Menu::ChannelSettings()
         ADD_UGO(PageChannelA::divider.UGO());
         ADD_UGO(PageChannelA::typeSynch.UGO());
         ADD_UGO(Int2String(LEVEL_SYNCH_A, buffer));
-        std::strcat(settings, "ìÂ");
+        if (PageChannelA::typeSynch == TypeSynch::Manual)
+        {
+            std::strcat(settings, "ìÂ");
+        }
+        else
+        {
+            if((PageModes::periodTimeLabels == PeriodTimeLabels::T_7 && CURRENT_CHANNEL_IS_A)||
+                (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_7 && CURRENT_CHANNEL_IS_B)||
+                (PageModesC::periodTimeLabelsC == PeriodTimeLabelsC::T_7 && CURRENT_CHANNEL_IS_C))
+                {
+                    std::strcat(settings, "x10e-7");
+                }
+                else if((PageModes::periodTimeLabels == PeriodTimeLabels::T_6 && CURRENT_CHANNEL_IS_A)||
+                (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_6 && CURRENT_CHANNEL_IS_B)||
+                (PageModesC::periodTimeLabelsC == PeriodTimeLabelsC::T_6 && CURRENT_CHANNEL_IS_C))
+                {
+                    std::strcat(settings, "x10e-6");
+                }
+                else if((PageModes::periodTimeLabels == PeriodTimeLabels::T_5 && CURRENT_CHANNEL_IS_A)||
+                (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_5 && CURRENT_CHANNEL_IS_B)||
+                (PageModesC::periodTimeLabelsC == PeriodTimeLabelsC::T_5 && CURRENT_CHANNEL_IS_C))
+                {
+                    std::strcat(settings, "x10e-5");
+                }
+                else if((PageModes::periodTimeLabels == PeriodTimeLabels::T_4 && CURRENT_CHANNEL_IS_A)||
+                (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_4 && CURRENT_CHANNEL_IS_B)||
+                (PageModesC::periodTimeLabelsC == PeriodTimeLabelsC::T_4 && CURRENT_CHANNEL_IS_C))
+                {
+                    std::strcat(settings, "x10e-4");
+                }
+                else if((PageModes::periodTimeLabels == PeriodTimeLabels::T_3 && CURRENT_CHANNEL_IS_A)||
+                (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_3 && CURRENT_CHANNEL_IS_B)||
+                (PageModesC::periodTimeLabelsC == PeriodTimeLabelsC::T_3 && CURRENT_CHANNEL_IS_C))
+                {
+                    std::strcat(settings, "x10e-3");
+                }
+                else if((PageModes::periodTimeLabels == PeriodTimeLabels::T_8 && CURRENT_CHANNEL_IS_A)||
+                (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_8 && CURRENT_CHANNEL_IS_B)||
+                (PageModesC::periodTimeLabelsC == PeriodTimeLabelsC::T_8 && CURRENT_CHANNEL_IS_C))
+                {
+                    std::strcat(settings, "x10e-8");
+                }
+        }
     }
     
     if(CURRENT_CHANNEL_IS_B)
@@ -193,7 +235,10 @@ char *Menu::ChannelSettings()
         ADD_UGO(PageChannelB::divider.UGO());
         ADD_UGO(PageChannelB::typeSynch.UGO());
         ADD_UGO(Int2String(LEVEL_SYNCH_B, buffer));
-        std::strcat(settings, "ìÂ");
+        if (PageChannelB::typeSynch == TypeSynch::Manual)
+        {
+            std::strcat(settings, "ìÂ");
+        }
     }
 
     return settings;

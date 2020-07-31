@@ -515,11 +515,7 @@ void FreqMeter::LoadTypeSynch()
 
     DEFINE_ARGUMENT;
 
-    if((PageChannelA::typeSynch == TypeSynch::TTL && CURRENT_CHANNEL_IS_A) || (PageChannelB::typeSynch == TypeSynch::TTL && CURRENT_CHANNEL_IS_B))
-    {
-        argument[4] = 1;
-    }
-    else if((PageChannelA::typeSynch == TypeSynch::ESL && CURRENT_CHANNEL_IS_A) || (PageChannelB::typeSynch == TypeSynch::ESL && CURRENT_CHANNEL_IS_B))
+    if((PageChannelA::typeSynch == TypeSynch::Holdoff && CURRENT_CHANNEL_IS_A) || (PageChannelB::typeSynch == TypeSynch::Holdoff && CURRENT_CHANNEL_IS_B))
     {
         argument[5] = 1;
     }

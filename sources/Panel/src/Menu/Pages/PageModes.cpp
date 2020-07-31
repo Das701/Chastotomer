@@ -202,7 +202,7 @@ static void OnPress_ModeFrequency()
     }
     else if(PageModes::modeMeasureFrequency == ModeMeasureFrequency::Comparator)
     {
-        items[2] = &sNumberPeriods;   
+        items[2] = nullptr;   
         items[1] = &sModeFrequency;
         items[3] = nullptr;
         PageModes::RelationOff();

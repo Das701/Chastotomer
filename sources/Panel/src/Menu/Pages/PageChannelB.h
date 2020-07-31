@@ -1,7 +1,10 @@
 #pragma once
 #include "Menu/MenuItems.h"
 #include "PageChannelA.h"
-
+#include "PageModes.h"
+#include "PageModesB.h"
+#include "PageModesC.h"
+#include "PageModesD.h"
 
 class PageChannelB
 {
@@ -13,7 +16,7 @@ public:
     static ModeFront modeFront;
     static Divider divider;
     static TypeSynch typeSynch;
-
+    static void FixPress();
     static Switch *switchTypeSynch;     ///< ”казатель на переключатель типа синхронизации
 };
 

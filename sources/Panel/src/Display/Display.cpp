@@ -328,6 +328,11 @@ static void DrawData()
 //    Text(PLIS::GiveData()).Write(120, 120);
     FontBig::BigStringProp_print(PLIS::GiveData(), 10, 150, Color::WHITE);
     Text(PLIS::GiveSpec()).Write(344, 170);
+    if(((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
+            (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B)))
+    {
+        Text("60s").Write(2, 87, 60, Color::WHITE);
+    }
 }
 
 static void DrawStatusBarA()
@@ -344,8 +349,8 @@ static void DrawStatusBarA()
             &PageModes::numberPeriods,      /// AB
             &PageModes::timeMeasure,        /// AC
             &PageModes::numberPeriods,      /// T_1
-            &PageModes::timeMeasure,        /// Tachometer
-            &PageModes::numberPeriods       /// Comparator
+            nullptr,                        /// Tachometer
+            nullptr                         /// Comparator
         },
         {   /// ModeMeasurePeriod::
             &PageModes::numberPeriods,      /// Period
@@ -395,7 +400,7 @@ static void DrawStatusBarB()
             &PageModes::numberPeriods,      /// BA
             &PageModes::timeMeasure,        /// BC
             &PageModes::numberPeriods,      /// T_1
-            &PageModes::timeMeasure         /// Tachometer
+            nullptr                         /// Tachometer
         },
         {   /// ModeMeasurePeriod::
             &PageModes::numberPeriods,      /// Period

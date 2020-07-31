@@ -1,6 +1,9 @@
 #pragma once
 #include "Menu/MenuItems.h"
-
+#include "PageModes.h"
+#include "PageModesB.h"
+#include "PageModesC.h"
+#include "PageModesD.h"
 
 /// Открытый/закрытый вход
 struct InputCouple : public Enumeration
@@ -68,8 +71,7 @@ struct TypeSynch : public Enumeration
     enum E
     {
         Manual,         ///< Ручн
-        TTL,            ///< ТТЛ
-        ESL             ///< ЭСЛ
+        Holdoff         ///< Holdoff
     };
 
     explicit TypeSynch(E v) : Enumeration((uint8)v) {};
@@ -86,7 +88,7 @@ public:
     static ModeFront modeFront;
     static Divider divider;
     static TypeSynch typeSynch;
-
+    static void FixPress();
     static Switch *switchTypeSynch;     ///< Указатель на переключатель типа синхронизации
 };
 

@@ -32,7 +32,7 @@ struct Channel
 struct Settings
 {
     Channel::E   currentChannel;                ///< Текущий канал
-    int          levelSynch[Channel::Count][3]; ///< Уровень синхронизации
+    int          levelSynch[Channel::Count][2]; ///< Уровень синхронизации
     TypeSynch::E typeSynch[Channel::Count];     ///< Тип синхронизации для каждого из каналов
 };
 
