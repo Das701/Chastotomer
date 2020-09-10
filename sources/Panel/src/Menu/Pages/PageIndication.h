@@ -73,4 +73,7 @@ public:
     static Calibration calibration;
     /// Включение(отключение) режима памяти
     static MemoryMode memoryMode;
+    static bool OnceLaunch();
+    static void OnceLaunchSwitchTrue();
+    static void OnceLaunchSwitchFalse();
 };

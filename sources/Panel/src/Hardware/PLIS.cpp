@@ -868,6 +868,41 @@ char* PLIS::GiveData()
         {
             decDataA = decDataA*100;
         }
+        if((CURRENT_CHANNEL_IS_A && (PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::ATB)) 
+          || (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::BTA_1))
+          || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTB_1)))
+        {
+            int n = 1;
+            if(PageModes::numberPeriods == NumberPeriods::_1)
+            {
+                n = n*1;
+            }
+            else if(PageModes::numberPeriods == NumberPeriods::_10)
+            {
+                n = n*10;
+            }
+            else if(PageModes::numberPeriods == NumberPeriods::_100)
+            {
+                n = n*100;
+            }
+            else if(PageModes::numberPeriods == NumberPeriods::_1K)
+            {
+                n = n*1000;
+            }
+            else if(PageModes::numberPeriods == NumberPeriods::_10K)
+            {
+                n = n*10000;
+            }
+            else if(PageModes::numberPeriods == NumberPeriods::_100K)
+            {
+                n = n*100000;
+            }
+            else if(PageModes::numberPeriods == NumberPeriods::_1000K)
+            {
+                n = n*1000000;
+            }
+            decDataA = decDataA/n;
+        }
         sprintf(procData,"%10.0f",decDataA);
         return procData;
     }
@@ -1020,7 +1055,8 @@ char* PLIS::GiveSpec()
                 PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB) && CURRENT_CHANNEL_IS_C)
                 || ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Comparator) && CURRENT_CHANNEL_IS_A) 
                 || ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
-                (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B)))
+                (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B))
+                || (PageModes::typeMeasure == TypeMeasure::CountPulse || PageModesB::typeMeasureB == TypeMeasureB::CountPulse || PageModesC::typeMeasureC == TypeMeasureC::CountPulse))
             {
                 std::strcpy(spec, " ");
             }

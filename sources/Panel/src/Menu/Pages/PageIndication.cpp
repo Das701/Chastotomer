@@ -10,6 +10,7 @@
 using namespace Display::Primitives;
 using namespace Display;
 extern Item *items[7];
+static bool onceLaunch = false;
 
 DisplayTime         PageIndication::displayTime(DisplayTime::_100ms);
 RefGenerator        PageIndication::refGenerator(RefGenerator::Internal);
@@ -73,6 +74,21 @@ DEF_SWITCH_2(sCalibration,
 static void OnPress_MemoryMode()
 {
     FreqMeter::LoadMemoryMode();
+}
+
+bool PageIndication::OnceLaunch()
+{
+    return onceLaunch;
+}
+
+void PageIndication::OnceLaunchSwitchTrue()
+{
+        onceLaunch = true;
+}
+
+void PageIndication::OnceLaunchSwitchFalse()
+{
+        onceLaunch = false;
 }
 
 /// Включение(отключение) режима памяти

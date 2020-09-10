@@ -57,12 +57,17 @@ static void ClearItems(int num)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_TypeMeasureC()
 {
+    
         switch (PageModesC::typeMeasureC.value)
         {
         case TypeMeasureC::Frequency:
+            PageModes::typeMeasure.value = TypeMeasure::Frequency;
+            PageModesB::typeMeasureB.value = TypeMeasureB::Frequency;
             OnPress_ModeFrequencyC();
             break;
         case TypeMeasureC::CountPulse:
+            PageModesB::typeMeasureB.value = TypeMeasureB::CountPulse;
+            PageModes::typeMeasure.value = TypeMeasure::CountPulse;
             OnPress_ModeCountPulseC();
             break;
         }        
@@ -107,7 +112,11 @@ static void OnPress_ModeCountPulseC()
     ClearItems(2);
 
     items[1] = &sModeCountPulseC;
-
+    if(PageModesC::modeMeasureCountPulseC.value == ModeMeasureCountPulseC::StartStop)
+    {
+        PageModesB::modeMeasureCountPulseB.value = ModeMeasureCountPulseB::StartStop;
+        PageModes::modeMeasureCountPulse.value = ModeMeasureCountPulse::StartStop;
+    }
     if (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTA_1)
     {
         items[2] = &sNumberPeriodsC;
@@ -119,9 +128,9 @@ static void OnPress_ModeCountPulseC()
 }
 
 /// Выбор режима счёта импульсов
-DEF_SWITCH_4(sModeCountPulseC,
+DEF_SWITCH_5(sModeCountPulseC,
     "Режим изм.", "Счёт числа импульсов",
-    "C(tA)", "C(tB)", "C(TA)", "C(TB)",
+    "C(tA)", "C(tB)", "C(TA)", "C(TB)", "Start/Stop",
     PageModesC::modeMeasureCountPulseC, OnPress_ModeCountPulseC
 );
 

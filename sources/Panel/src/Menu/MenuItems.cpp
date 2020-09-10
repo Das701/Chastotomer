@@ -153,7 +153,10 @@ bool Page::OnControl(const Control &control)
     {   
         if ((PageChannelB::typeSynch == TypeSynch::Holdoff) || (PageChannelA::typeSynch == TypeSynch::Holdoff))
         {
-            result = ChangeLevelSynch(-1);      // Делаем попытку изменить уровень синхронизации
+            if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A > 1)) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B > 1)))  //&& Hint::UnderItem() == PageChannelA::switchTypeSynch
+            {
+                result = ChangeLevelSynch(-1);      // Делаем попытку изменить уровень синхронизации
+            }
         }
         else
         {
@@ -391,9 +394,10 @@ bool Switch::OnControl(const Control &control)
         }
     }
     else
-    {
-        if (control.action.IsPress() && (control.value == Control::GovButton || control.value == Control::Enter))
+    {       
+        if (control.action.IsPress() && (control.value == Control::GovButton))
         {
+
             if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
             {
                 Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
@@ -407,6 +411,39 @@ bool Switch::OnControl(const Control &control)
             Hint::Create(this);
             
             return true;
+        }
+        
+        if (control.action.IsPress() && (control.value == Control::Enter))
+        {
+            
+            if(PageIndication::launchSource == LaunchSource::OneTime)
+            {
+                PageIndication::OnceLaunchSwitchTrue();
+                FreqMeter::LoadOneTime();
+            }
+            else if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::CountPulse) && PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
+                    (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop) ||
+                    (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse) && PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::StartStop))
+            {
+                PageModes::ToggleStartStop();
+                FreqMeter::LoadStartStop();
+            }
+            else
+            {
+            if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
+            {
+                Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
+    
+                if (funcOnPress)
+                {
+                    funcOnPress();
+                }
+            }
+    
+            Hint::Create(this);
+            
+            return true;
+            }
         }
     }
     return false;

@@ -267,6 +267,11 @@ void FreqMeter::LoadModeMeasureCountPulse()
         argument[5] = 1;
         argument[4] = 1;
     }
+    else
+    {
+        argument[0] = 1;
+        argument[1] = 1;
+    }
 
     PLIS::WriteCommand(command, argument);
 }
@@ -583,4 +588,37 @@ void FreqMeter::LoadMeasure()
 bool FreqMeter::TestModeStatus()
 {
     return testMode;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void FreqMeter::LoadOneTime()
+{
+    char command[4] = { 1, 0, 1, 0 };
+
+    DEFINE_ARGUMENT;
+
+    argument[5] = 1;
+    argument[4] = 1;
+
+    PLIS::WriteCommand(command, argument);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void FreqMeter::LoadStartStop()
+{
+    char command[4] = { 1, 0, 1, 0 };
+
+    DEFINE_ARGUMENT;
+    
+    if(PageModes::StartStop() == true)
+    {
+        argument[5] = 1;
+        argument[4] = 1;
+    }
+    else
+    {
+        argument[3] = 1;
+    }
+    
+    PLIS::WriteCommand(command, argument);
 }

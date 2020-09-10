@@ -64,7 +64,8 @@ struct ModeMeasureCountPulseB : public Enumeration
     enum E
     {
         BTA,        ///< B(tA)
-        BTA_1       ///< B(TA)
+        BTA_1,      ///< B(TA)
+        StartStop
     };
 
     explicit ModeMeasureCountPulseB(E v) : Enumeration((uint8)v) {};

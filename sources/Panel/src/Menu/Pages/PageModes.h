@@ -65,7 +65,8 @@ struct ModeMeasureCountPulse : public Enumeration
     enum E
     {
         ATC,        ///< A(tC)
-        ATB         ///< A(TB)
+        ATB,        ///< A(TB)
+        StartStop
     };
 
     explicit ModeMeasureCountPulse(E v) : Enumeration((uint8)v) {};
@@ -138,6 +139,8 @@ public:
     static void RelationOff();
     static bool RelationCheck();
     static void PressSetup();
+    static bool StartStop();
+    static void ToggleStartStop();
     /// Тип измерения
     static TypeMeasure typeMeasure;
     /// Режим измерения частоты

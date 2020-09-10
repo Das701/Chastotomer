@@ -25,6 +25,7 @@ extern Switch sNumberPeriods;
 static bool interpoleOn = false;
 static bool dCycleOn = false;
 static bool relationOn = false;
+static bool startStop = false;
 
 TypeMeasure             PageModes::typeMeasure(TypeMeasure::Frequency);
 ModeMeasureFrequency    PageModes::modeMeasureFrequency(ModeMeasureFrequency::Freq);
@@ -141,6 +142,7 @@ static void OnPress_TypeMeasure()
         {
         case TypeMeasure::Frequency:
             PageModesB::typeMeasureB.value = TypeMeasureB::Frequency;
+            PageModesC::typeMeasureC.value = TypeMeasureC::Frequency;
             OnPress_ModeFrequency();
             break;
     
@@ -156,6 +158,7 @@ static void OnPress_TypeMeasure()
     
         case TypeMeasure::CountPulse:
             PageModesB::typeMeasureB.value = TypeMeasureB::CountPulse;
+            PageModesC::typeMeasureC.value = TypeMeasureC::CountPulse;
             OnPress_ModeCountPulse();
             break;
         }        
@@ -267,7 +270,24 @@ static void OnPress_ModeDuration()
     ClearItems(2);
 
     items[1] = &sModeDuration;
-
+    switch(PageModes::modeMeasureDuration.value)
+    {
+        case ModeMeasureDuration::Ndt:
+            PageModesB::modeMeasureDurationB.value = ModeMeasureDurationB::Ndt;
+            break;
+        case ModeMeasureDuration::Ndt_1ns:
+            PageModesB::modeMeasureDurationB.value = ModeMeasureDurationB::Ndt_1ns;
+            break;
+        case ModeMeasureDuration::Ndt2:
+            PageModesB::modeMeasureDurationB.value = ModeMeasureDurationB::Ndt2;
+            break;
+        case ModeMeasureDuration::Dcycle:
+            PageModesB::modeMeasureDurationB.value = ModeMeasureDurationB::Dcycle;
+            break;
+        case ModeMeasureDuration::Phase:
+            PageModesB::modeMeasureDurationB.value = ModeMeasureDurationB::Phase;
+            break;
+    }
     if (PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns)
     {
         PageModes::InterpoleOn();
@@ -305,7 +325,11 @@ static void OnPress_ModeCountPulse()
     ClearItems(2);
 
     items[1] = &sModeCountPulse;
-
+    if(PageModes::modeMeasureCountPulse.value == ModeMeasureCountPulse::StartStop)
+    {
+        PageModesB::modeMeasureCountPulseB.value = ModeMeasureCountPulseB::StartStop;
+        PageModesC::modeMeasureCountPulseC.value = ModeMeasureCountPulseC::StartStop;
+    }
     if (PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::ATB)
     {
         items[2] = &sNumberPeriods;
@@ -318,9 +342,9 @@ static void OnPress_ModeCountPulse()
 }
 
 /// Выбор режима счёта импульсов
-DEF_SWITCH_2(sModeCountPulse,
+DEF_SWITCH_3(sModeCountPulse,
     "Режим изм.", "Счёт числа импульсов",
-    "А(tB)", "А(TB)",
+    "А(tB)", "А(TB)", "Start/Stop",
     PageModes::modeMeasureCountPulse, OnPress_ModeCountPulse
 );
 
@@ -501,6 +525,23 @@ DEF_SWITCH_7(sNumberPeriods,
     PageModes::numberPeriods,
     OnPress_NumberPeriods
 );
+
+bool PageModes::StartStop()
+{
+    return startStop;
+}
+
+void PageModes::ToggleStartStop()
+{
+    if(startStop == false)
+    {
+        startStop = true;
+    }
+    else
+    {
+        startStop = false;
+    }
+}
 
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -19,7 +19,7 @@
 #include "FreqMeter/FreqMeter.h"
 #include "Display/Font/BigFont1.h"
 
-
+int second = 0;
 using namespace Display::Primitives;
 using Display::Text;
 
@@ -133,7 +133,6 @@ static void DrawScreen()
         Menu::Draw();
         
         DrawData();  
-        HAL::TestFunk();
     }
 }
 
@@ -262,7 +261,12 @@ static void DrawHint()
 
 static void DrawInfo()
 {
-    if(PageIndication::memoryMode == MemoryMode::On)
+    if(PageIndication::memoryMode == MemoryMode::On && 
+        ((CURRENT_CHANNEL_IS_A && ((PageModes::modeMeasureFrequency != ModeMeasureFrequency::Tachometer) && (PageModes::typeMeasure == TypeMeasure::Frequency))) 
+      || (CURRENT_CHANNEL_IS_B && ((PageModesB::modeMeasureFrequencyB != ModeMeasureFrequencyB::Tachometer) && (PageModesB::typeMeasureB == TypeMeasureB::Frequency))) 
+    || (CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::CountPulse) && PageModes::modeMeasureCountPulse != ModeMeasureCountPulse::StartStop) ||
+                    (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB != ModeMeasureCountPulseB::StartStop) ||
+                    (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse) && PageModesC::modeMeasureCountPulseC != ModeMeasureCountPulseC::StartStop)))
     {
         Text("M").Write(430, 100);
     }
@@ -275,6 +279,39 @@ static void DrawInfo()
         Text("ÃÂÚÍË").Write(430, 140);
         Text(PageModes::periodTimeLabels.ToText()).Write(430, 160);
         
+    }
+    if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::CountPulse) && PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
+       (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop) ||
+       (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse) && PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::StartStop))
+    {
+        if(PageModes::StartStop() == true)
+        {
+            Text("Start").Write(430, 60);
+        }
+        else
+        {
+            Text("Stop").Write(430, 60);
+        }
+    }
+    if(PageIndication::launchSource == LaunchSource::OneTime)
+    {
+        if(PageIndication::OnceLaunch() == true)
+        {
+            if(second == 0)
+            {
+                second = HAL_GetTick();
+            }
+            Text("œ”— ").Write(430, 80);
+            if((second + 1000) < HAL_GetTick())
+            {
+                second = 0;
+                PageIndication::OnceLaunchSwitchFalse();
+            }
+        }
+        else
+        {
+            Text(" ").Write(430, 80);
+        }
     }
     switch (info)
     {
@@ -366,7 +403,8 @@ static void DrawStatusBarA()
         },
         {   /// ModeMeasureCountPulse::
             nullptr,                        /// ATC
-            &PageModes::numberPeriods       /// ATC_1
+            &PageModes::numberPeriods,      /// ATC_1
+            nullptr
         }
     };
 
@@ -416,7 +454,8 @@ static void DrawStatusBarB()
         },
         {   /// ModeMeasureCountPulse::
             nullptr,                          /// ATC
-            &PageModes::numberPeriods       /// ATC_1
+            &PageModes::numberPeriods,       /// ATC_1
+            nullptr
         }
     };
 
@@ -443,7 +482,7 @@ static void DrawStatusBarC()
         &PageModesC::modeMeasureFrequencyC, &PageModesC::modeMeasureCountPulseC
     };
 
-    static const Enumeration * const enumsC[TypeMeasureC::Count][4] =
+    static const Enumeration * const enumsC[TypeMeasureC::Count][5] =
     {
         {   /// ModeMeasureFrequency::
             &PageModesC::timeMeasureC,        /// Freq
@@ -454,7 +493,8 @@ static void DrawStatusBarC()
             nullptr,                          /// Manual
             nullptr,                          /// ATC
             nullptr,  
-            &PageModesC::numberPeriodsC       /// ATC_1
+            &PageModesC::numberPeriodsC,       /// ATC_1
+            nullptr
         }
     };
 
