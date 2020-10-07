@@ -332,9 +332,18 @@ bool Page::OnControl(const Control &control)
         }
         else
         {
-            PLIS::RefreshAuto();
-            FreqMeter::LoadAuto();
-            PLIS::SwitchAuto();
+            if(((PageModes::typeMeasure == TypeMeasure::Frequency) && (PageModes::modeMeasureFrequency == ModeMeasureFrequency::Freq) && CURRENT_CHANNEL_IS_A) || 
+                ((PageModesB::typeMeasureB == TypeMeasureB::Frequency) && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Freq) && CURRENT_CHANNEL_IS_B) || 
+                ((PageModesC::typeMeasureC == TypeMeasureC::Frequency) && (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::Freq) && CURRENT_CHANNEL_IS_C) ||
+                ((PageModes::typeMeasure == TypeMeasure::Period) && (PageModes::modeMeasurePeriod == ModeMeasurePeriod::Period) && CURRENT_CHANNEL_IS_A) || 
+                ((PageModesB::typeMeasureB == TypeMeasureB::Period) && (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::Period) && CURRENT_CHANNEL_IS_B) || 
+                ((PageModes::typeMeasure == TypeMeasure::Duration) && (PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt) && CURRENT_CHANNEL_IS_A) || 
+                ((PageModesB::typeMeasureB == TypeMeasureB::Duration) && (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Ndt) && CURRENT_CHANNEL_IS_B))
+            {
+                PLIS::RefreshAuto();
+                FreqMeter::LoadAuto();
+                PLIS::SwitchAuto();
+            }            
         }
         info = 14;
         break;
@@ -422,8 +431,7 @@ bool Switch::OnControl(const Control &control)
                 FreqMeter::LoadOneTime();
             }
             else if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::CountPulse) && PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
-                    (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop) ||
-                    (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse) && PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::StartStop))
+                    (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
             {
                 PageModes::ToggleStartStop();
                 FreqMeter::LoadStartStop();
@@ -464,6 +472,6 @@ void Switch::Draw(int x, int y, bool selected)
 void Switch::CreateHint(char buffer[100]) const
 {
     std::strcpy(buffer, hint);
-    std::strcat(buffer, " : ");
+    std::strcat(buffer, ": ");
     std::strcat(buffer, state->ToText());
 }

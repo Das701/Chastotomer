@@ -55,4 +55,5 @@ struct PLIS
     static void RefreshAuto();
     static int CalibNumber();
     static void ReadCalibNumber();
+    static char* GiveIdent(); 
 };

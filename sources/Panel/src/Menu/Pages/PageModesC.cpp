@@ -112,12 +112,16 @@ static void OnPress_ModeCountPulseC()
     ClearItems(2);
 
     items[1] = &sModeCountPulseC;
-    if(PageModesC::modeMeasureCountPulseC.value == ModeMeasureCountPulseC::StartStop)
-    {
-        PageModesB::modeMeasureCountPulseB.value = ModeMeasureCountPulseB::StartStop;
-        PageModes::modeMeasureCountPulse.value = ModeMeasureCountPulse::StartStop;
-    }
+//    if(PageModesC::modeMeasureCountPulseC.value == ModeMeasureCountPulseC::StartStop)
+//    {
+//        PageModesB::modeMeasureCountPulseB.value = ModeMeasureCountPulseB::StartStop;
+//        PageModes::modeMeasureCountPulse.value = ModeMeasureCountPulse::StartStop;
+//    }
     if (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTA_1)
+    {
+        items[2] = &sNumberPeriodsC;
+    }
+    if (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTB_1)
     {
         items[2] = &sNumberPeriodsC;
     }
@@ -128,9 +132,9 @@ static void OnPress_ModeCountPulseC()
 }
 
 /// Выбор режима счёта импульсов
-DEF_SWITCH_5(sModeCountPulseC,
+DEF_SWITCH_4(sModeCountPulseC,
     "Режим изм.", "Счёт числа импульсов",
-    "C(tA)", "C(tB)", "C(TA)", "C(TB)", "Start/Stop",
+    "C(tA)", "C(tB)", "C(TA)", "C(TB)",
     PageModesC::modeMeasureCountPulseC, OnPress_ModeCountPulseC
 );
 

@@ -21,9 +21,12 @@
 #define    DWT_CONTROL   *(volatile unsigned long *)0xE0001000
 #define    SCB_DEMCR     *(volatile unsigned long *)0xE000EDFC
     
+static int dcycleZeros = 0;
+
 static char dataA [32]; 
 static char dataB [32];
 static char procData[40] = { 0 };
+static char identInfo[10] = { 0 };
 static char autoData[20];
 static char minAutoData[7];
 static char maxAutoData[7];
@@ -43,11 +46,18 @@ static int NA = 0;
 static int NB = 0;
 
 static char encData[10];
-static char ident[3];
+static char ident[4];
 static char timer1[27];
 static int decTimer1;
 static int decCAL1;
 static int decCAL2;
+
+static char binFx[32];
+static char binTizm[16];
+static char binNkal[16];
+static float decFx;
+static float decTizm;
+static float decNkal;
 
 static char CAL1[24];
 static char CAL2[24];
@@ -162,7 +172,19 @@ static void CalculationDcycle()
     }
     else
     {
-        dutyCycle = dutyCycle*1000;
+//        dutyCycle = dutyCycle*1000;
+        if(dutyCycle < 0)
+        {
+            dutyCycle = dutyCycle*(-1);
+        }
+        if(dutyCycle != 0)
+        {
+            while(dutyCycle < 1)
+            {
+                dutyCycle = dutyCycle*10;
+                dcycleZeros++;
+            }
+        }
     }
 }
 
@@ -627,6 +649,49 @@ static void CalculationInterpole()
     interpol = (float)(100*decTimer1)/(decCAL2 - decCAL1);
 }
 
+static void CalculationComparator() 
+{     
+    decFx = 0;
+    decTizm = 0;
+    decNkal = 0; 
+    int base1 = 1; 
+    int base2 = 1; 
+    int base3 = 1; 
+    int len1 = 32;
+    int len2 = 16; 
+    for (int i = len1 - 1; i >= 0; i--) 
+    { 
+        if (binFx[i] == 1) 
+        {
+            decFx += base1;
+        }            
+        base1 = base1 * 2; 
+    }
+    for (int i = len2 - 1; i >= 0; i--) 
+    { 
+        if (binTizm[i] == 1) 
+        {
+            decTizm += base2;
+        }            
+        base2 = base2 * 2; 
+    } 
+    if (binTizm[0] == 1) 
+    {
+        decTizm = decTizm - 65536;
+    }
+    for (int i = len2 - 1; i >= 0; i--) 
+    { 
+        if (binNkal[i] == 1) 
+        {
+            decNkal += base3;
+        }            
+        base3 = base3 * 2; 
+    }   
+//    decFx = decFx/2;
+//    decTizm = decTizm/2;
+//    decNkal = decNkal/2;
+}
+
 static void CalculationAuto() 
 {     
     decMinAuto = 0;
@@ -822,6 +887,47 @@ void PLIS::Update()
                 delay_us(8);
             }
         }
+        else if (CURRENT_CHANNEL_IS_A && ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Comparator) && (PageModes::typeMeasure == TypeMeasure::Frequency))) 
+        {
+            if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
+            {            
+                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+                for(int i = 0; i < 3; i++)
+                {
+                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+                    delay_us(2);
+                    ident[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
+                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+                    delay_us(2);
+                }
+                for(int i = 0; i < 32; i++)
+                {
+                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+                    delay_us(2);
+                    binFx[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
+                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+                    delay_us(2);
+                }
+                for(int i = 0; i < 16; i++)
+                {
+                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+                    delay_us(2);
+                    binTizm[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
+                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+                    delay_us(2);
+                }
+                for(int i = 0; i < 16; i++)
+                {
+                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+                    delay_us(2);
+                    binNkal[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
+                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+                    delay_us(2);
+                }
+                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+                delay_us(8);
+            }
+        }
         else
         {
             if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
@@ -852,7 +958,7 @@ void PLIS::Update()
                 delay_us(8);
             }     
         }
-    }    
+    }
 }
 
 
@@ -870,7 +976,8 @@ char* PLIS::GiveData()
         }
         if((CURRENT_CHANNEL_IS_A && (PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::ATB)) 
           || (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::BTA_1))
-          || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTB_1)))
+          || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTB_1))
+          || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTA_1)))
         {
             int n = 1;
             if(PageModes::numberPeriods == NumberPeriods::_1)
@@ -914,6 +1021,20 @@ char* PLIS::GiveData()
             BinToDec();
             decDataA = decDataA/2;
             sprintf(procData,"%10.0f",decDataA);
+            return procData;
+        }
+        else if (CURRENT_CHANNEL_IS_A && ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Comparator) && (PageModes::typeMeasure == TypeMeasure::Frequency))) 
+        {
+            CalculationComparator();
+            int top = 200;
+            int n = 5000000;
+            float dx = ((decTizm*100)/decNkal);
+//            decFx = decFx - 1;
+            float k = (n - decFx)/n;
+            decDataA = k - (dx/top)/n;
+            decDataA = decDataA*1000000;
+//            decDataA = (float)((decFx*top)/2)/(n*top + ((decTizm*100)/decNkal));
+            sprintf(procData,"%10.3f",decDataA);                
             return procData;
         }
         else if(((PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns && CURRENT_CHANNEL_IS_A) || 
@@ -1029,20 +1150,60 @@ char* PLIS::GiveSpec()
         {
             std::strcpy(spec, " ns");
         }
-        else if(((PageModes::modeMeasureDuration == ModeMeasureDuration::Dcycle && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Dcycle && CURRENT_CHANNEL_IS_B) || 
-            (PageModes::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
-            && PageModes::DCycleCheck())
+        else if(((PageModes::typeMeasure == TypeMeasure::Duration) && (PageModes::modeMeasureDuration == ModeMeasureDuration::Dcycle) && CURRENT_CHANNEL_IS_A) || 
+            ((PageModesB::typeMeasureB == TypeMeasureB::Duration) && (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Dcycle) && CURRENT_CHANNEL_IS_B) || 
+            ((PageModes::typeMeasure == TypeMeasure::Duration) && (PageModes::modeMeasureDuration == ModeMeasureDuration::Phase) && CURRENT_CHANNEL_IS_A) || 
+            ((PageModesB::typeMeasureB == TypeMeasure::Duration) && (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Phase) && CURRENT_CHANNEL_IS_B))
         {
                 if((PageModes::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
                    (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
                 {
                     std::strcpy(spec, " град.");
+//                    std::strcpy(spec, " grad.");
                 }
                 else
                 {   
-                    std::strcpy(spec, " E-3");
+                    if(dcycleZeros == 0)
+                    {
+                        std::strcpy(spec, " E-0");
+                    }
+                    else if(dcycleZeros == 1)
+                    {
+                        std::strcpy(spec, " E-1");
+                    }
+                    else if(dcycleZeros == 2)
+                    {
+                        std::strcpy(spec, " E-2");
+                    }
+                    else if(dcycleZeros == 3)
+                    {
+                        std::strcpy(spec, " E-3");
+                    }
+                    else if(dcycleZeros == 4)
+                    {
+                        std::strcpy(spec, " E-4");
+                    }
+                    else if(dcycleZeros == 5)
+                    {
+                        std::strcpy(spec, " E-5");
+                    }
+                    else if(dcycleZeros == 6)
+                    {
+                        std::strcpy(spec, " E-6");
+                    }
+                    else if(dcycleZeros == 7)
+                    {
+                        std::strcpy(spec, " E-7");
+                    }
+                    else if(dcycleZeros == 8)
+                    {
+                        std::strcpy(spec, " E-8");
+                    }
+                    else
+                    {
+                        std::strcpy(spec, " E-9");
+                    }
+                    dcycleZeros = 0;
                 }
         }
         else
@@ -1053,7 +1214,6 @@ char* PLIS::GiveSpec()
                 PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC) && CURRENT_CHANNEL_IS_B) ||
                 ((PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CA || 
                 PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB) && CURRENT_CHANNEL_IS_C)
-                || ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Comparator) && CURRENT_CHANNEL_IS_A) 
                 || ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
                 (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B))
                 || (PageModes::typeMeasure == TypeMeasure::CountPulse || PageModesB::typeMeasureB == TypeMeasureB::CountPulse || PageModesC::typeMeasureC == TypeMeasureC::CountPulse))
@@ -1082,6 +1242,10 @@ char* PLIS::GiveSpec()
                         {
                             std::strcpy(spec, " MHz");
                         }
+                    }
+                    else if((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Comparator) && CURRENT_CHANNEL_IS_A) 
+                    {
+                        std::strcpy(spec, " E-6");
                     }
                     else
                     {
@@ -1136,13 +1300,6 @@ char* PLIS::GiveSpec()
                     }
                     else
                     {
-                    if((PageModes::modeMeasureDuration == ModeMeasureDuration::Dcycle && CURRENT_CHANNEL_IS_A) || 
-                    (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Dcycle && CURRENT_CHANNEL_IS_B))
-                    {
-                        std::strcpy(spec, " E-3");
-                    }
-                    else
-                    {
                         if(((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_5)) ||
                             (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_5))) || 
                             ((CURRENT_CHANNEL_IS_A && (PageModes::periodTimeLabels == PeriodTimeLabels::T_4)) ||
@@ -1156,8 +1313,32 @@ char* PLIS::GiveSpec()
                         {
                             std::strcpy(spec, " us");
                         }
-                    } } } } }   
+                    } } } }   
             return spec;
+}
+
+char* PLIS::GiveIdent()
+{
+    if(ident[0] == 0)
+    {
+        std::strcpy(identInfo, "0");
+    }
+    else
+    {
+        std::strcpy(identInfo, "1");
+    }
+    for(int i = 1; i < 4; i++)
+    {
+        if(ident[i] == 0)
+        {
+            std::strcat(identInfo, "0");
+        }
+        else
+        {
+            std::strcat(identInfo, "1");
+        }
+    }
+    return identInfo;
 }
 
 

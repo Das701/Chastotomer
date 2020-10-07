@@ -35,8 +35,8 @@ struct ModeMeasureCountPulseC : public Enumeration
         CTA,        ///< C(tA)
         CTB,        ///< C(tB)
         CTA_1,      ///< C(TA)
-        CTB_1,      ///< C(TB)
-        StartStop
+        CTB_1       ///< C(TB)
+//        StartStop
     };
 
     explicit ModeMeasureCountPulseC(E v) : Enumeration((uint8)v) {};

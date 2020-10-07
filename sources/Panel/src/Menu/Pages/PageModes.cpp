@@ -315,7 +315,7 @@ static void OnPress_ModeDuration()
 /// Выбор режима измерения длительности импульсов, интервалов, коэффициента заполнения, разности фаз
 DEF_SWITCH_5(sModeDuration,
     "Режим изм.", "Измерение длительности",
-    "ndt", "ndt/1нс", "ndt2", "S", "Фаза",
+    "ndt", "ndt/1нс", "S-S", "D", "Фаза",
     PageModes::modeMeasureDuration, OnPress_ModeDuration
 );
 
@@ -328,7 +328,7 @@ static void OnPress_ModeCountPulse()
     if(PageModes::modeMeasureCountPulse.value == ModeMeasureCountPulse::StartStop)
     {
         PageModesB::modeMeasureCountPulseB.value = ModeMeasureCountPulseB::StartStop;
-        PageModesC::modeMeasureCountPulseC.value = ModeMeasureCountPulseC::StartStop;
+//        PageModesC::modeMeasureCountPulseC.value = ModeMeasureCountPulseC::StartStop;
     }
     if (PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::ATB)
     {

@@ -18,6 +18,7 @@
 #include "Hardware/HAL.h"
 #include "FreqMeter/FreqMeter.h"
 #include "Display/Font/BigFont1.h"
+#include "Display/Font/FontMid.h"
 
 int second = 0;
 using namespace Display::Primitives;
@@ -259,30 +260,64 @@ static void DrawHint()
     }
 }
 
+static bool xMark = false;
+
 static void DrawInfo()
 {
-    if(PageIndication::memoryMode == MemoryMode::On && 
-        ((CURRENT_CHANNEL_IS_A && ((PageModes::modeMeasureFrequency != ModeMeasureFrequency::Tachometer) && (PageModes::typeMeasure == TypeMeasure::Frequency))) 
-      || (CURRENT_CHANNEL_IS_B && ((PageModesB::modeMeasureFrequencyB != ModeMeasureFrequencyB::Tachometer) && (PageModesB::typeMeasureB == TypeMeasureB::Frequency))) 
-    || (CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::CountPulse) && PageModes::modeMeasureCountPulse != ModeMeasureCountPulse::StartStop) ||
-                    (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB != ModeMeasureCountPulseB::StartStop) ||
-                    (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse) && PageModesC::modeMeasureCountPulseC != ModeMeasureCountPulseC::StartStop)))
+    if(PageIndication::memoryMode == MemoryMode::On)
     {
-        Text("M").Write(430, 100);
+        if(CURRENT_CHANNEL_IS_A && ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Tachometer) && (PageModes::typeMeasure == TypeMeasure::Frequency)))
+        {
+        }
+        else if(CURRENT_CHANNEL_IS_B && ((PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Tachometer) && (PageModesB::typeMeasureB == TypeMeasureB::Frequency)))
+        {
+        }
+        else if(CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::CountPulse) && (PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
+        {
+        }
+        else if(CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && (PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
+        {
+        }
+//        else if(CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse) && (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::StartStop))
+//        {
+//        }
+        else
+        {
+            Text("M").Write(430, 100);
+        } 
     }
+    if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
+    {
+        if(xMark == false)
+        {
+            xMark = true;
+        }
+        else
+        {
+            xMark = false;
+        }
+    }
+    if(xMark == true)
+       {
+           Text("X").Write(430, 180);
+       }
     if(FreqMeter::TestModeStatus() == true)
     {
         Text("Тест").Write(430, 120);
     }
-    if(PageModes::typeMeasure == TypeMeasure::Period || PageModes::typeMeasure == TypeMeasure::Duration || PageModesB::typeMeasureB == TypeMeasureB::Period || PageModesB::typeMeasureB == TypeMeasureB::Duration)
+    if(PageIndication::refGenerator == RefGenerator::External)
+    {
+        Text("Внеш Г").Write(420, 160);
+    }
+    if(PageModes::typeMeasure == TypeMeasure::Period || (PageModes::typeMeasure == TypeMeasure::Duration && PageModes::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns) 
+      || PageModesB::typeMeasureB == TypeMeasureB::Period || (PageModesB::typeMeasureB == TypeMeasureB::Duration && PageModes::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns))
     {
         Text("Метки").Write(430, 140);
         Text(PageModes::periodTimeLabels.ToText()).Write(430, 160);
         
     }
     if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::CountPulse) && PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
-       (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop) ||
-       (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse) && PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::StartStop))
+       (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
     {
         if(PageModes::StartStop() == true)
         {
@@ -364,7 +399,9 @@ static void DrawData()
 {
 //    Text(PLIS::GiveData()).Write(120, 120);
     FontBig::BigStringProp_print(PLIS::GiveData(), 10, 150, Color::WHITE);
-    Text(PLIS::GiveSpec()).Write(344, 170);
+    FontMid::MidStringProp_print(PLIS::GiveSpec(), 344, 170, Color::WHITE);
+//    Text(PLIS::GiveSpec()).Write(344, 170);
+//    Text(PLIS::GiveIdent()).Write(344, 80);
     if(((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
             (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B)))
     {
@@ -395,7 +432,7 @@ static void DrawStatusBarA()
         },
         {   /// ModeMeasureDuration::
             nullptr,                        /// Ndt
-            &PageModes::numberPeriods,      /// Ndt_1
+            nullptr,      /// Ndt_1
             nullptr,                        /// Ndt_1ns
             nullptr,                        /// Interval
             nullptr,                        /// S_1
@@ -446,7 +483,7 @@ static void DrawStatusBarB()
         },
         {   /// ModeMeasureDuration::
             nullptr,                          /// Ndt
-            &PageModes::numberPeriods,      /// Ndt_1
+            nullptr,      /// Ndt_1
             nullptr,                          /// Ndt_1ns
             nullptr,                          /// Interval
             nullptr,                          /// S_1
@@ -492,9 +529,8 @@ static void DrawStatusBarC()
         {   /// ModeMeasureCountPulse::
             nullptr,                          /// Manual
             nullptr,                          /// ATC
-            nullptr,  
-            &PageModesC::numberPeriodsC,       /// ATC_1
-            nullptr
+            &PageModesC::numberPeriodsC,  
+            &PageModesC::numberPeriodsC       /// ATC_1
         }
     };
 
