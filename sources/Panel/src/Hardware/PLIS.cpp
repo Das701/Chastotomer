@@ -1063,26 +1063,26 @@ char* PLIS::GiveData()
                 if((PageModes::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
                    (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
                 {
-                    sprintf(procDataDcycle,"%10.0f",dutyCycle);
+                    sprintf(procDataDcycle,"%10.3f",dutyCycle);
                 }
                 else
                 {   
-                    if(PageModes::periodTimeLabels == PeriodTimeLabels::T_8)
-                    {
-                        sprintf(procDataDcycle,"%10.2f",dutyCycle);
-                    }
-                    else if(PageModes::periodTimeLabels == PeriodTimeLabels::T_7)
-                    {
-                        sprintf(procDataDcycle,"%10.1f",dutyCycle);
-                    }
-                    else if(PageModes::periodTimeLabels == PeriodTimeLabels::T_6)
-                    {
-                        sprintf(procDataDcycle,"%10.0f",dutyCycle);
-                    }
-                    else 
-                    {
-                        sprintf(procDataDcycle,"%10.0f",dutyCycle);
-                    }
+                    //if(PageModes::periodTimeLabels == PeriodTimeLabels::T_8)
+                    //{
+                    //    sprintf(procDataDcycle,"%10.2f",dutyCycle);
+                    //}
+                    //else if(PageModes::periodTimeLabels == PeriodTimeLabels::T_7)
+                    //{
+                    //    sprintf(procDataDcycle,"%10.1f",dutyCycle);
+                    //}
+                    //else if(PageModes::periodTimeLabels == PeriodTimeLabels::T_6)
+                    //{
+                    //    sprintf(procDataDcycle,"%10.0f",dutyCycle);
+                    //}
+                    //else 
+                    //{
+                        sprintf(procDataDcycle,"%10.7f",dutyCycle);
+                    //}
                 }
 //            }
                 return procDataDcycle;
@@ -1158,7 +1158,7 @@ char* PLIS::GiveSpec()
                 if((PageModes::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
                    (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
                 {
-                    std::strcpy(spec, " град.");
+                    std::strcpy(spec, " $");
 //                    std::strcpy(spec, " grad.");
                 }
                 else
@@ -1502,11 +1502,14 @@ char* PLIS::GiveAuto()
     if (CURRENT_CHANNEL_IS_A)
     {
         LEVEL_SYNCH_A = (decMidAuto - 512)*2;
+        NA = decMidAuto - 512;
     }
 
     if (CURRENT_CHANNEL_IS_B) 
     {
         LEVEL_SYNCH_B = (decMidAuto - 512)*2;
+        NB = decMidAuto - 512;
+        
     }
     return autoData;
 }

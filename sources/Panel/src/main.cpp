@@ -16,7 +16,10 @@ int main(void)
     Menu::Update();
     Display::Update();
     int time = HAL_GetTick();
-    
+    while((time + 3000) > HAL_GetTick())
+    {
+        Display::StartScreen();
+    }
     while (1)
     {
         PLIS::Update();

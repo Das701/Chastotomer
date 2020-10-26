@@ -710,6 +710,21 @@ static const uint8_t fontmid_z[] = {
 	3,	fmrx_m12_4,			0
 };
 
+
+static const uint8_t fontmid_degree[] = {		//  °
+		fmrx_s6_3_7,
+		fmrx_s4_7_5,
+		fmrx_s3_9_4,
+		fmrx_s3_3_3_3_4,
+	3,	fmrx_s2_3_5_3_3,
+		fmrx_s3_3_3_3_4,
+		fmrx_s3_9_4,
+		fmrx_s4_7_5,
+		fmrx_s6_3_7,
+	13,	fmrx_s16,		0
+};
+
+
 /*!*****************************************************************************
   @brief	Font Middle-size Array of rowr select
   @param	symbol - character: A, B, G, H, M, V, b, d, k, m, n, s, u, z
@@ -808,6 +823,9 @@ const uint8_t *FontMidArray_select(char symbol)
 		break;
 	case 'z':
 		array = fontmid_z;
+		break;
+    case '$':
+		array = fontmid_degree;
 		break;
 	default:
 		array = fontmid_space;

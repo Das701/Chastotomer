@@ -93,6 +93,13 @@ static void Func3()
     line.Draw(x, y, Color::WHITE);
 }
 
+void Display::StartScreen()
+{   
+    BeginScene(Color::BLACK);
+    Text("OAO ÃÕ»œ», 43-96/2, Cherm V 1.2").Write(40, 100);
+    EndScene();
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Update()
 {
@@ -133,7 +140,10 @@ static void DrawScreen()
         
         Menu::Draw();
         
-        DrawData();  
+        DrawData(); 
+
+//        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+        //delay_us(8);
     }
 }
 
@@ -260,7 +270,7 @@ static void DrawHint()
     }
 }
 
-static bool xMark = false;
+//static bool xMark = false;
 
 static void DrawInfo()
 {
@@ -286,21 +296,21 @@ static void DrawInfo()
             Text("M").Write(430, 100);
         } 
     }
-    if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
-    {
-        if(xMark == false)
-        {
-            xMark = true;
-        }
-        else
-        {
-            xMark = false;
-        }
-    }
-    if(xMark == true)
-       {
-           Text("X").Write(430, 180);
-       }
+//    if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
+//    {
+//        if(xMark == false)
+//        {
+//            xMark = true;
+//        }
+//        else
+//        {
+//            xMark = false;
+//        }
+//    }
+//    if(xMark == true)
+//       {
+//           Text("X").Write(430, 180);
+//       }
     if(FreqMeter::TestModeStatus() == true)
     {
         Text("“ÂÒÚ").Write(430, 120);
