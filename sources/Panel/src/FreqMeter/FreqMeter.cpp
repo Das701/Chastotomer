@@ -381,40 +381,40 @@ void FreqMeter::LoadNumerPeriodsMeasure()
 
     DEFINE_ARGUMENT;
     if((PageModes::numberPeriods == NumberPeriods::_10 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::numberPeriodsB == NumberPeriodsB::_10 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::numberPeriodsC == NumberPeriodsC::_10 && CURRENT_CHANNEL_IS_C))
+       (PageModesB::numberPeriods == NumberPeriods::_10 && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::numberPeriods == NumberPeriods::_10 && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
     }
     else if((PageModes::numberPeriods == NumberPeriods::_100 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::numberPeriodsB == NumberPeriodsB::_100 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::numberPeriodsC == NumberPeriodsC::_100 && CURRENT_CHANNEL_IS_C))
+       (PageModesB::numberPeriods == NumberPeriods::_100 && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::numberPeriods == NumberPeriods::_100 && CURRENT_CHANNEL_IS_C))
     {
         argument[4] = 1;
     }
     else if((PageModes::numberPeriods == NumberPeriods::_1K && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::numberPeriodsB == NumberPeriodsB::_1K && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::numberPeriodsC == NumberPeriodsC::_1K && CURRENT_CHANNEL_IS_C))
+       (PageModesB::numberPeriods == NumberPeriods::_1K && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::numberPeriods == NumberPeriods::_1K && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
         argument[4] = 1;
     }
     else if((PageModes::numberPeriods == NumberPeriods::_10K && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::numberPeriodsB == NumberPeriodsB::_10K && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::numberPeriodsC == NumberPeriodsC::_10K && CURRENT_CHANNEL_IS_C))
+       (PageModesB::numberPeriods == NumberPeriods::_10K && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::numberPeriods == NumberPeriods::_10K && CURRENT_CHANNEL_IS_C))
     {
         argument[3] = 1;
     }
     else if((PageModes::numberPeriods == NumberPeriods::_100K && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::numberPeriodsB == NumberPeriodsB::_100K && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::numberPeriodsC == NumberPeriodsC::_100K && CURRENT_CHANNEL_IS_C))
+       (PageModesB::numberPeriods == NumberPeriods::_100K && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::numberPeriods == NumberPeriods::_100K && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
         argument[3] = 1;
     }
         else if((PageModes::numberPeriods == NumberPeriods::_1000K && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::numberPeriodsB == NumberPeriodsB::_1000K && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::numberPeriodsC == NumberPeriodsC::_1000K && CURRENT_CHANNEL_IS_C))
+       (PageModesB::numberPeriods == NumberPeriods::_1000K && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::numberPeriods == NumberPeriods::_1000K && CURRENT_CHANNEL_IS_C))
     {
         argument[4] = 1;
         argument[3] = 1;

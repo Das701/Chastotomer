@@ -143,8 +143,8 @@ static void OnPress_TimeMeasure()
             PageModesB::timeMeasureB.value = TimeMeasureB::_1ms;
             PageModesC::timeMeasureC.value = TimeMeasureC::_1ms;
             PageModesD::timeMeasureD.value = TimeMeasureD::_1ms;
-            PageModesB::numberPeriodsB.value = NumberPeriodsB::_1;
-            PageModesC::numberPeriodsC.value = NumberPeriodsC::_1;
+            PageModesB::numberPeriods.value = NumberPeriods::_1;
+            PageModesC::numberPeriods.value = NumberPeriods::_1;
             PageModes::numberPeriods.value = NumberPeriods::_1;
             break;
         case TimeMeasure::_10ms:
