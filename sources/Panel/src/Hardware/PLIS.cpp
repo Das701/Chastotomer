@@ -268,7 +268,7 @@ static void Calculation()
                (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB)))
         {
             decDataA = decDataA * 100;
-            x = NumberPeriods::Current().ToAbs();
+            x = PageModesC::numberPeriods.ToAbs();
         }
         else if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC)))

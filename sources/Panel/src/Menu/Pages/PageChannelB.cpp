@@ -143,44 +143,23 @@ static void OnPress_TimeMeasure()
     PageModesC::timeMeasure.value = time;
     PageModesD::timeMeasure.value = time;
 
-    switch (PageModesA::timeMeasure.value)
+    static const uint8 periods[TimeMeasure::Count] =
     {
-        case TimeMeasure::_1ms:
-            PageModesB::numberPeriods.value = NumberPeriods::_1;
-            PageModesC::numberPeriods.value = NumberPeriods::_1;
-            PageModesA::numberPeriods.value = NumberPeriods::_1;
-            break;
-        case TimeMeasure::_10ms:
-            PageModesB::numberPeriods.value = NumberPeriods::_10;
-            PageModesC::numberPeriods.value = NumberPeriods::_10;
-            PageModesA::numberPeriods.value = NumberPeriods::_10;
-            break;
-        case TimeMeasure::_100ms:
-            PageModesB::numberPeriods.value = NumberPeriods::_100;
-            PageModesC::numberPeriods.value = NumberPeriods::_100;
-            PageModesA::numberPeriods.value = NumberPeriods::_100;
-            break;
-        case TimeMeasure::_1s:
-            PageModesB::numberPeriods.value = NumberPeriods::_1K;
-            PageModesC::numberPeriods.value = NumberPeriods::_1K;
-            PageModesA::numberPeriods.value = NumberPeriods::_1K;
-            break;
-        case TimeMeasure::_10s:
-            PageModesB::numberPeriods.value = NumberPeriods::_10K;
-            PageModesC::numberPeriods.value = NumberPeriods::_10K;
-            PageModesA::numberPeriods.value = NumberPeriods::_10K;
-            break;
-        case TimeMeasure::_100s:
-            PageModesA::numberPeriods.value = NumberPeriods::_100K;
-            PageModesB::numberPeriods.value = NumberPeriods::_100K;
-            PageModesC::numberPeriods.value = NumberPeriods::_100K;
-            break;
-        case TimeMeasure::_1000s:
-            PageModesA::numberPeriods.value = NumberPeriods::_1000K;
-            PageModesB::numberPeriods.value = NumberPeriods::_1000K;
-            PageModesC::numberPeriods.value = NumberPeriods::_1000K;
-            break;
-    }
+        NumberPeriods::_1,
+        NumberPeriods::_10,
+        NumberPeriods::_100,
+        NumberPeriods::_1K,
+        NumberPeriods::_10K,
+        NumberPeriods::_100K,
+        NumberPeriods::_1000K
+    };
+
+    uint8 period = periods[PageModesA::timeMeasure.value];
+
+    PageModesA::numberPeriods.value = period;
+    PageModesB::numberPeriods.value = period;
+    PageModesC::numberPeriods.value = period;
+
     FreqMeter::LoadTimeMeasure();
 }
 
