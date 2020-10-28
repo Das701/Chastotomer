@@ -675,17 +675,17 @@
             <File>
               <FileName>fonttry2.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\fonttry2.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>FontMid.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\FontMid.h</FilePath>
+              <FilePath>.\src\Display\Font\fonttry2.cpp</FilePath>
             </File>
             <File>
               <FileName>FontMid.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Font\FontMid.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FontMid.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\FontMid.h</FilePath>
             </File>
           </Files>
         </Group>
