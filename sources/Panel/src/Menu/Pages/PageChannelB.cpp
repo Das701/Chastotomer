@@ -96,33 +96,11 @@ DEF_SWITCH_UGO_2(sDivider,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_TimeLabels()
 {
-    switch (PageModesA::periodTimeLabels.value)
-    {
-        case PeriodTimeLabels::T_3:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_3;
-            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_3;
-            break;
-        case PeriodTimeLabels::T_4:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_4;
-            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_4;
-            break;
-        case PeriodTimeLabels::T_5:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_5;
-            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_5;
-            break;
-        case PeriodTimeLabels::T_6:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_6;
-            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_6;
-            break;
-        case PeriodTimeLabels::T_7:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_7;
-            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_7;
-            break;
-        case PeriodTimeLabels::T_8:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_8;
-            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_8;
-            break;
-    }
+    uint8 period = PageModesA::periodTimeLabels.value;
+
+    PageModesB::periodTimeLabels.value = period;
+    PageModesC::periodTimeLabels.value = period;
+
     FreqMeter::LoadPeriodTimeLabels();
 }
 
