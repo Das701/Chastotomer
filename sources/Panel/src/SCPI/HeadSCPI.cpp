@@ -9,8 +9,9 @@ static pCHAR FuncReset(pCHAR);
 
 const StructSCPI SCPI::head[] =
 {
-    SCPI_LEAF("*IDN?",            FuncIDN),
-    SCPI_LEAF("*RST",             FuncReset),
+    SCPI_LEAF("*IDN?",  FuncIDN),
+    SCPI_LEAF("*RST",   FuncReset),
+    SCPI_NODE(":INPUT", SCPI::input),
     SCPI_EMPTY()
 };
 
