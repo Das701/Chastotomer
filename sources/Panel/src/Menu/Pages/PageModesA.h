@@ -103,10 +103,12 @@ struct TimeMeasure : public Enumeration
         _1s,        ///< 1s
         _10s,       ///< 10s
         _100s,       ///< 100s
-        _1000s
+        _1000s,
+        Count
     };
 
     explicit TimeMeasure(E v) : Enumeration((uint8)v) {};
+    int ToMS() const;
 };
 
 /// Число периодов

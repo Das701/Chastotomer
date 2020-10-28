@@ -302,35 +302,8 @@ static void Calculation()
         else if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC)))
         {
-            int sT = 1;
-            if(PageModesA::timeMeasure == TimeMeasure::_1ms)
-            {
-                sT = sT*1;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_10ms)
-            {
-                sT = sT*10;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_100ms)
-            {
-                sT = sT*100;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_1s)
-            {
-                sT = sT*1000;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_10s)
-            {
-                sT = sT*10000;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_100s)
-            {
-                sT = sT*100000;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_1000s)
-            {
-                sT = sT*1000000;
-            }
+            int sT = PageModesA::timeMeasure.ToMS();
+
             decDataA = decDataA/decDataB;
             decDataA = decDataA/32;
             manualZeros = 1000000;

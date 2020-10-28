@@ -570,3 +570,14 @@ int NumberPeriods::ToAbs() const
     
     return abs[value];
 }
+
+
+int TimeMeasure::ToMS() const
+{
+    static const int time[Count] =
+    {
+        1, 10, 100, 1000, 10000, 100000, 1000000
+    };
+
+    return time[value];
+}
