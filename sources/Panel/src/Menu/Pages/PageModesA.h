@@ -129,7 +129,7 @@ struct NumberPeriods : public Enumeration
 };
 
 
-class PageModes
+class PageModesA
 {
 public:
     static Page *self;

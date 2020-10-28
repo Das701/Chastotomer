@@ -252,7 +252,7 @@ bool Page::OnControl(const Control &control)
         }
         if(CURRENT_CHANNEL_IS_A)
         {
-            PageModes::PressSetup();
+            PageModesA::PressSetup();
         }
         else if(CURRENT_CHANNEL_IS_B)
         {
@@ -318,9 +318,9 @@ bool Page::OnControl(const Control &control)
         }
         else
         {
-            PageModes::RelationOff();
-            PageModes::InterpoleOff();
-            PageModes::DCycleOff();
+            PageModesA::RelationOff();
+            PageModesA::InterpoleOff();
+            PageModesA::DCycleOff();
         }
         info = 12;
         break;
@@ -334,7 +334,7 @@ bool Page::OnControl(const Control &control)
         }
         else
         {
-            if((PageModes::modeMeasureFrequency == ModeMeasureFrequency::AC && CURRENT_CHANNEL_IS_A) ||
+            if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC && CURRENT_CHANNEL_IS_A) ||
             (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC && CURRENT_CHANNEL_IS_B))
             {
             }
@@ -355,12 +355,12 @@ bool Page::OnControl(const Control &control)
         }
         else
         {
-            if((PageModes::typeMeasure.IsFrequency() && (PageModes::modeMeasureFrequency == ModeMeasureFrequency::Freq) && CURRENT_CHANNEL_IS_A) || 
+            if((PageModesA::typeMeasure.IsFrequency() && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Freq) && CURRENT_CHANNEL_IS_A) || 
                 ((PageModesB::typeMeasure == TypeMeasureB::Frequency) && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Freq) && CURRENT_CHANNEL_IS_B) || 
                 ((PageModesC::typeMeasureC == TypeMeasureC::Frequency) && (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::Freq) && CURRENT_CHANNEL_IS_C) ||
-                (PageModes::typeMeasure.IsPeriod() && (PageModes::modeMeasurePeriod == ModeMeasurePeriod::Period) && CURRENT_CHANNEL_IS_A) || 
+                (PageModesA::typeMeasure.IsPeriod() && (PageModesA::modeMeasurePeriod == ModeMeasurePeriod::Period) && CURRENT_CHANNEL_IS_A) || 
                 ((PageModesB::typeMeasure == TypeMeasureB::Period) && (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::Period) && CURRENT_CHANNEL_IS_B) || 
-                (PageModes::typeMeasure.IsDuration() && (PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt) && CURRENT_CHANNEL_IS_A) || 
+                (PageModesA::typeMeasure.IsDuration() && (PageModesA::modeMeasureDuration == ModeMeasureDuration::Ndt) && CURRENT_CHANNEL_IS_A) || 
                 ((PageModesB::typeMeasure == TypeMeasureB::Duration) && (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Ndt) && CURRENT_CHANNEL_IS_B))
             {
                 PLIS::RefreshAuto();
@@ -453,10 +453,10 @@ bool Switch::OnControl(const Control &control)
                 PageIndication::OnceLaunchSwitchTrue();
                 FreqMeter::LoadOneTime();
             }
-            else if((CURRENT_CHANNEL_IS_A && PageModes::typeMeasure.IsCountPulse() && PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
+            else if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
                     (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasure == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
             {
-                PageModes::ToggleStartStop();
+                PageModesA::ToggleStartStop();
                 FreqMeter::LoadStartStop();
             }
             else
