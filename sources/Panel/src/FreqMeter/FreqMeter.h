@@ -20,8 +20,6 @@ namespace FreqMeter
     /// Загрузка входного сопротивления по текущему каналу
     void LoadImpedance();
 
-    void LoadModeFilter();
-
     void LoadModeFront();
 
     void LoadDivider();

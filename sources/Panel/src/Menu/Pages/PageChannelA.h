@@ -19,18 +19,6 @@ struct InputImpedance : public Enumeration
     explicit InputImpedance(E v) : Enumeration((uint8)v) {};
 };
 
-/// ФНЧ
-struct ModeFilter : public Enumeration
-{
-    enum E
-    {
-        On,             ///< Включен
-        Off             ///< Выключен
-    };
-
-    explicit ModeFilter(E v) : Enumeration((uint8)v) {};
-};
-
 /// Фронт синхронизации
 struct ModeFront : public Enumeration
 {

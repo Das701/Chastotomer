@@ -63,3 +63,48 @@ void InputCouple::Set(InputCouple::E v)
         Load();
     }
 }
+
+
+void ModeFilter::Load()
+{
+    char command[4] = { 0, 1, 0, 1 };
+
+    DEFINE_ARGUMENT;
+
+    if(Current() == ModeFilter::Off)
+    {
+        argument[5] = 1;
+    }
+
+    PLIS::WriteCommand(command, argument);
+}
+
+
+ModeFilter::E ModeFilter::Current()
+{
+    if(CURRENT_CHANNEL_IS_A)
+    {
+        return (ModeFilter::E)PageChannelA::modeFilter.value;
+    }
+    else if(CURRENT_CHANNEL_IS_B)
+    {
+        return (ModeFilter::E)PageChannelB::modeFilter.value;
+    }
+    
+    return ModeFilter::On;
+}
+
+
+void ModeFilter::Set(ModeFilter::E v)
+{
+    if(CURRENT_CHANNEL_IS_A)
+    {
+        PageChannelA::modeFilter.value = v;
+        Load();
+    }
+    else if(CURRENT_CHANNEL_IS_B)
+    {
+        PageChannelB::modeFilter.value = v;
+        Load();
+    }
+}

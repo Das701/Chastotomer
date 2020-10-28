@@ -46,6 +46,22 @@ struct InputCouple : public Enumeration
 };
 
 
+/// ФНЧ
+struct ModeFilter : public Enumeration
+{
+    enum E
+    {
+        On,             ///< Включен
+        Off             ///< Выключен
+    };
+
+    explicit ModeFilter(E v) : Enumeration((uint8)v) {};
+    static void Load();
+    static E Current();
+    static void Set(E v);
+};
+
+
 /// Выбор типа синхронизации - ТТЛ или ЭСЛ
 struct TypeSynch : public Enumeration
 {

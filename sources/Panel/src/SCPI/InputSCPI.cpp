@@ -20,24 +20,31 @@ const StructSCPI SCPI::input[] =
 };
 
 
-static pString coupling[] =
-{
-    " AC",
-    " DC",
-    ""
-};
-
-
 static pCHAR FuncCoupling(pCHAR buffer)
 {
+    static pString coupling[] =
+    {
+        " AC",
+        " DC",
+        ""
+    };
+
     SCPI_REQUEST(SCPI::SendAnswer(coupling[InputCouple::Current()]));
     SCPI_PROCESS_ARRAY(coupling, InputCouple::Set((InputCouple::E)i));
 }
 
 
-static pCHAR FuncFilter(pCHAR)
+static pCHAR FuncFilter(pCHAR buffer)
 {
-    return 0;
+    static pString filter[] =
+    {
+        " ON",
+        " OFF",
+        ""
+    };
+
+    SCPI_REQUEST(SCPI::SendAnswer(filter[ModeFilter::Current()]));
+    SCPI_PROCESS_ARRAY(filter, ModeFilter::Set((ModeFilter::E)i));
 }
 
 

@@ -443,24 +443,6 @@ void FreqMeter::LoadImpedance()
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FreqMeter::LoadModeFilter()
-{
-    char command[4] = { 0, 1, 0, 1 };
-
-    DEFINE_ARGUMENT;
-
-    if((PageChannelA::modeFilter == ModeFilter::On && CURRENT_CHANNEL_IS_A) || (PageChannelB::modeFilter == ModeFilter::On && CURRENT_CHANNEL_IS_B))
-    {
-    }
-    else
-    {
-        argument[5] = 1;
-    }
-
-    PLIS::WriteCommand(command, argument);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FreqMeter::LoadModeFront()
 {
     char command[4] = { 0, 1, 0, 0 };
