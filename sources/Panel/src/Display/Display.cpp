@@ -533,7 +533,7 @@ static void DrawStatusBarC()
     static const Enumeration * const enumsC[TypeMeasureC::Count][5] =
     {
         {   /// ModeMeasureFrequency::
-            &PageModesC::timeMeasureC,        /// Freq
+            &PageModesC::timeMeasure,        /// Freq
             &PageModesC::numberPeriods,       /// CA
             &PageModesC::numberPeriods,       /// CB
         },

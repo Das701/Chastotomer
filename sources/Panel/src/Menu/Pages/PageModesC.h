@@ -59,22 +59,6 @@ struct PeriodTimeLabelsC : public Enumeration
     explicit PeriodTimeLabelsC(E v) : Enumeration((uint8)v) {};
 };
 
-/// Время счёта
-struct TimeMeasureC : public Enumeration
-{
-    enum E
-    {
-        _1ms,       ///< 1ms
-        _10ms,      ///< 10ms
-        _100ms,     ///< 100ms
-        _1s,        ///< 1s
-        _10s,       ///< 10s
-        _100s,       ///< 100s
-        _1000s
-    };
-
-    explicit TimeMeasureC(E v) : Enumeration((uint8)v) {};
-};
 
 class PageModesC
 {
@@ -91,7 +75,7 @@ public:
     /// Период меток времени
     static PeriodTimeLabelsC periodTimeLabelsC;
     /// Время счета
-    static TimeMeasureC timeMeasureC;
+    static TimeMeasure timeMeasure;
     /// Число периодов измерения
     static NumberPeriods numberPeriods;
 };
