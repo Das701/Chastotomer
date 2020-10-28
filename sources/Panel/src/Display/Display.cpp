@@ -169,7 +169,7 @@ static void DrawTypeMeasure()
     }
     else if (CURRENT_CHANNEL_IS_C)
     {
-        Text(PageModesC::typeMeasureC.ToText()).Write(x, 25, width);
+        Text(PageModesC::typeMeasure.ToText()).Write(x, 25, width);
     }
     else if (CURRENT_CHANNEL_IS_D)
     {
@@ -210,7 +210,7 @@ static void DrawModeMeasure()
             &PageModesC::modeMeasureFrequencyC,
             &PageModesC::modeMeasureCountPulseC
         };
-        Text(modesC[PageModesC::typeMeasureC.value]->ToText()).Write(0, 55);
+        Text(modesC[PageModesC::typeMeasure.value]->ToText()).Write(0, 55);
     }   
     if (CURRENT_CHANNEL_IS_D)
     {  
@@ -289,7 +289,7 @@ static void DrawInfo()
         else if(CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && (PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
         {
         }
-//        else if(CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse) && (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::StartStop))
+//        else if(CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasure == TypeMeasureC::CountPulse) && (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::StartStop))
 //        {
 //        }
         else
@@ -545,9 +545,9 @@ static void DrawStatusBarC()
         }
     };
 
-    const Enumeration *mode = modesC[PageModesC::typeMeasureC];
+    const Enumeration *mode = modesC[PageModesC::typeMeasure];
 
-    const Enumeration *toText = enumsC[PageModesC::typeMeasureC][mode->value];
+    const Enumeration *toText = enumsC[PageModesC::typeMeasure][mode->value];
 
     int y = 80;
     int x = 0;

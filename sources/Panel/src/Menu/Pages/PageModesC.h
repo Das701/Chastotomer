@@ -51,7 +51,7 @@ public:
 
     static void Init();
     /// Тип измерения
-    static TypeMeasureC typeMeasureC;
+    static TypeMeasureC typeMeasure;
     /// Режим измерения частоты
     static ModeMeasureFrequencyC modeMeasureFrequencyC;
     /// Режим счёта импульсов

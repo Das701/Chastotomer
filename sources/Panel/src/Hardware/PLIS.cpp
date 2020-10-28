@@ -192,7 +192,7 @@ static void Calculation()
     int x = 0;
     if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency()) ||
        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsFrequency()) ||
-       (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::Frequency))
+       (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasure == TypeMeasureC::Frequency))
        || CURRENT_CHANNEL_IS_D)
     {
         if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::T_1)) || 
@@ -727,7 +727,7 @@ char* PLIS::GiveData()
 {
     if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse()) ||
        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse()) ||
-       (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse)))
+       (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasure == TypeMeasureC::CountPulse)))
     {
         BinToDec();
         decDataA = decDataA/2;
@@ -948,7 +948,7 @@ char* PLIS::GiveSpec()
                 PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB) && CURRENT_CHANNEL_IS_C)
                 || ((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
                 (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B))
-                || (PageModesA::typeMeasure.IsCountPulse() || PageModesB::typeMeasure.IsCountPulse() || PageModesC::typeMeasureC == TypeMeasureC::CountPulse))
+                || (PageModesA::typeMeasure.IsCountPulse() || PageModesB::typeMeasure.IsCountPulse() || PageModesC::typeMeasure == TypeMeasureC::CountPulse))
             {
                 std::strcpy(spec, " ");
             }
@@ -956,7 +956,7 @@ char* PLIS::GiveSpec()
             {
                 if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency()) ||
                 (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsFrequency()) ||
-                (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::Frequency))
+                (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasure == TypeMeasureC::Frequency))
                 || CURRENT_CHANNEL_IS_D)
                 {
                     if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::T_1)) || 

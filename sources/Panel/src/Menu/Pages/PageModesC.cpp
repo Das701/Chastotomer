@@ -25,7 +25,7 @@ extern Switch sTimeMeasureC;
 extern Switch sNumberPeriodsC;
 
 
-TypeMeasureC             PageModesC::typeMeasureC(TypeMeasureC::Frequency);
+TypeMeasureC             PageModesC::typeMeasure(TypeMeasureC::Frequency);
 ModeMeasureFrequencyC    PageModesC::modeMeasureFrequencyC(ModeMeasureFrequencyC::Freq);
 ModeMeasureCountPulseC   PageModesC::modeMeasureCountPulseC(ModeMeasureCountPulseC::CTA);
 PeriodTimeLabels         PageModesC::periodTimeLabels(PeriodTimeLabels::T_8);
@@ -58,7 +58,7 @@ static void ClearItems(int num)
 static void OnPress_TypeMeasureC()
 {
     
-        switch (PageModesC::typeMeasureC.value)
+        switch (PageModesC::typeMeasure.value)
         {
         case TypeMeasureC::Frequency:
             PageModesA::typeMeasure.value = TypeMeasureA::Frequency;
@@ -76,7 +76,7 @@ static void OnPress_TypeMeasureC()
 DEF_SWITCH_2(sTypeMeasureC,
     "Вид изм.", "Выбор измерения",
     "Частота", "Сч. имп.",
-    PageModesC::typeMeasureC, OnPress_TypeMeasureC
+    PageModesC::typeMeasure, OnPress_TypeMeasureC
 )
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
