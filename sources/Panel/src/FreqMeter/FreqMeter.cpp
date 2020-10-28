@@ -284,33 +284,33 @@ void FreqMeter::LoadPeriodTimeLabels()
     DEFINE_ARGUMENT;
 
     if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_7 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_7 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::periodTimeLabelsC == PeriodTimeLabelsC::T_7 && CURRENT_CHANNEL_IS_C))
+       (PageModesB::periodTimeLabels == PeriodTimeLabels::T_7 && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::periodTimeLabels == PeriodTimeLabels::T_7 && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
     }
     else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_6 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_6 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::periodTimeLabelsC == PeriodTimeLabelsC::T_6 && CURRENT_CHANNEL_IS_C))
+       (PageModesB::periodTimeLabels == PeriodTimeLabels::T_6 && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::periodTimeLabels == PeriodTimeLabels::T_6 && CURRENT_CHANNEL_IS_C))
     {
         argument[4] = 1;
     }
     else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_5 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_5 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::periodTimeLabelsC == PeriodTimeLabelsC::T_5 && CURRENT_CHANNEL_IS_C))
+       (PageModesB::periodTimeLabels == PeriodTimeLabels::T_5 && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::periodTimeLabels == PeriodTimeLabels::T_5 && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
         argument[4] = 1;
     }
     else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_4 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_4 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::periodTimeLabelsC == PeriodTimeLabelsC::T_4 && CURRENT_CHANNEL_IS_C))
+       (PageModesB::periodTimeLabels == PeriodTimeLabels::T_4 && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::periodTimeLabels == PeriodTimeLabels::T_4 && CURRENT_CHANNEL_IS_C))
     {
         argument[3] = 1;
     }
     else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_3 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_3 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::periodTimeLabelsC == PeriodTimeLabelsC::T_3 && CURRENT_CHANNEL_IS_C))
+       (PageModesB::periodTimeLabels == PeriodTimeLabels::T_3 && CURRENT_CHANNEL_IS_B)||
+       (PageModesC::periodTimeLabels == PeriodTimeLabels::T_3 && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
         argument[3] = 1;

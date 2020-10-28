@@ -818,11 +818,11 @@ char* PLIS::GiveData()
             && PageModesA::DCycleCheck())
         {
 //            if(((CURRENT_CHANNEL_IS_A && (PageModesA::periodTimeLabels == PeriodTimeLabels::T_8)) ||
-//            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_8))) || 
+//            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabels == PeriodTimeLabels::T_8))) || 
 //            ((CURRENT_CHANNEL_IS_A && (PageModesA::periodTimeLabels == PeriodTimeLabels::T_7)) ||
-//            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_7))) || 
+//            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabels == PeriodTimeLabels::T_7))) || 
 //            ((CURRENT_CHANNEL_IS_A && (PageModesA::periodTimeLabels == PeriodTimeLabels::T_6)) ||
-//            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_6))))
+//            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabels == PeriodTimeLabels::T_6))))
 //            {
                 CalculationDcycle();
 //                Int2String(dutyCycle, procDataDcycle);
@@ -1067,11 +1067,11 @@ char* PLIS::GiveSpec()
                     else
                     {
                         if(((CURRENT_CHANNEL_IS_A && (PageModesA::periodTimeLabels == PeriodTimeLabels::T_5)) ||
-                            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_5))) || 
+                            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabels == PeriodTimeLabels::T_5))) || 
                             ((CURRENT_CHANNEL_IS_A && (PageModesA::periodTimeLabels == PeriodTimeLabels::T_4)) ||
-                            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_4))) ||
+                            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabels == PeriodTimeLabels::T_4))) ||
                             ((CURRENT_CHANNEL_IS_A && (PageModesA::periodTimeLabels == PeriodTimeLabels::T_3)) ||
-                            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabelsB == PeriodTimeLabelsB::T_3))))
+                            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabels == PeriodTimeLabels::T_3))))
                         {
                             std::strcpy(spec, " ms");
                         }

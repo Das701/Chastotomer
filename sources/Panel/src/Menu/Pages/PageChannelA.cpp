@@ -98,28 +98,28 @@ static void OnPress_TimeLabels()
     switch (PageModesA::periodTimeLabels.value)
     {
         case PeriodTimeLabels::T_3:
-            PageModesB::periodTimeLabelsB.value = PeriodTimeLabelsB::T_3;
-            PageModesC::periodTimeLabelsC.value = PeriodTimeLabelsC::T_3;
+            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_3;
+            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_3;
             break;
         case PeriodTimeLabels::T_4:
-            PageModesB::periodTimeLabelsB.value = PeriodTimeLabelsB::T_4;
-            PageModesC::periodTimeLabelsC.value = PeriodTimeLabelsC::T_4;
+            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_4;
+            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_4;
             break;
         case PeriodTimeLabels::T_5:
-            PageModesB::periodTimeLabelsB.value = PeriodTimeLabelsB::T_5;
-            PageModesC::periodTimeLabelsC.value = PeriodTimeLabelsC::T_5;
+            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_5;
+            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_5;
             break;
         case PeriodTimeLabels::T_6:
-            PageModesB::periodTimeLabelsB.value = PeriodTimeLabelsB::T_6;
-            PageModesC::periodTimeLabelsC.value = PeriodTimeLabelsC::T_6;
+            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_6;
+            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_6;
             break;
         case PeriodTimeLabels::T_7:
-            PageModesB::periodTimeLabelsB.value = PeriodTimeLabelsB::T_7;
-            PageModesC::periodTimeLabelsC.value = PeriodTimeLabelsC::T_7;
+            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_7;
+            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_7;
             break;
         case PeriodTimeLabels::T_8:
-            PageModesB::periodTimeLabelsB.value = PeriodTimeLabelsB::T_8;
-            PageModesC::periodTimeLabelsC.value = PeriodTimeLabelsC::T_8;
+            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_8;
+            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_8;
             break;
     }
     FreqMeter::LoadPeriodTimeLabels();

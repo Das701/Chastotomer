@@ -33,7 +33,7 @@ ModeMeasurePeriodB       PageModesB::modeMeasurePeriodB(ModeMeasurePeriodB::Peri
 ModeMeasureDurationB     PageModesB::modeMeasureDurationB(ModeMeasureDurationB::Ndt);
 ModeMeasureCountPulseB   PageModesB::modeMeasureCountPulseB(ModeMeasureCountPulseB::BTA);
 
-PeriodTimeLabelsB        PageModesB::periodTimeLabelsB(PeriodTimeLabelsB::T_8);
+PeriodTimeLabels         PageModesB::periodTimeLabels(PeriodTimeLabels::T_8);
 NumberPeriods            PageModesB::numberPeriods(NumberPeriods::_1);
 TimeMeasure              PageModesB::timeMeasure(TimeMeasure::_1ms);
 
@@ -293,31 +293,31 @@ DEF_SWITCH_3(sModeCountPulseB,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_TimeLabelsB()
 {
-    switch (PageModesB::periodTimeLabelsB.value)
+    switch (PageModesB::periodTimeLabels.value)
     {
-        case PeriodTimeLabelsB::T_3:
+        case PeriodTimeLabels::T_3:
             PageModesA::periodTimeLabels.value = PeriodTimeLabels::T_3;
-            PageModesC::periodTimeLabelsC.value = PeriodTimeLabelsC::T_3;
+            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_3;
             break;
-        case PeriodTimeLabelsB::T_4:
+        case PeriodTimeLabels::T_4:
             PageModesA::periodTimeLabels.value = PeriodTimeLabels::T_4;
-            PageModesC::periodTimeLabelsC.value = PeriodTimeLabelsC::T_4;
+            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_4;
             break;
-        case PeriodTimeLabelsB::T_5:
+        case PeriodTimeLabels::T_5:
             PageModesA::periodTimeLabels.value = PeriodTimeLabels::T_5;
-            PageModesC::periodTimeLabelsC.value = PeriodTimeLabelsC::T_5;
+            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_5;
             break;
-        case PeriodTimeLabelsB::T_6:
+        case PeriodTimeLabels::T_6:
             PageModesA::periodTimeLabels.value = PeriodTimeLabels::T_6;
-            PageModesC::periodTimeLabelsC.value = PeriodTimeLabelsC::T_6;
+            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_6;
             break;
-        case PeriodTimeLabelsB::T_7:
+        case PeriodTimeLabels::T_7:
             PageModesA::periodTimeLabels.value = PeriodTimeLabels::T_7;
-            PageModesC::periodTimeLabelsC.value = PeriodTimeLabelsC::T_7;
+            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_7;
             break;
-        case PeriodTimeLabelsB::T_8:
+        case PeriodTimeLabels::T_8:
             PageModesA::periodTimeLabels.value = PeriodTimeLabels::T_8;
-            PageModesC::periodTimeLabelsC.value = PeriodTimeLabelsC::T_8;
+            PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_8;
             break;
     }
     FreqMeter::LoadPeriodTimeLabels();
@@ -327,7 +327,7 @@ static void OnPress_TimeLabelsB()
 DEF_SWITCH_6(sPeriodTimeLabelsB,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    PageModesB::periodTimeLabelsB,  OnPress_TimeLabelsB
+    PageModesB::periodTimeLabels,  OnPress_TimeLabelsB
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

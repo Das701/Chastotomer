@@ -71,22 +71,6 @@ struct ModeMeasureCountPulseB : public Enumeration
     explicit ModeMeasureCountPulseB(E v) : Enumeration((uint8)v) {};
 };
 
-/// Период меток времени
-struct PeriodTimeLabelsB : public Enumeration
-{
-    enum E
-    {
-        T_3,        ///< 10-3
-        T_4,        ///< 10-4
-        T_5,        ///< 10-5
-        T_6,        ///< 10-6
-        T_7,        ///< 10-7
-        T_8         ///< 10-8
-    };
-
-    explicit PeriodTimeLabelsB(E v) : Enumeration((uint8)v) {};
-};
-
 
 class PageModesB
 {
@@ -105,7 +89,7 @@ public:
     /// Режим счёта импульсов
     static ModeMeasureCountPulseB modeMeasureCountPulseB;
     /// Период меток времени
-    static PeriodTimeLabelsB periodTimeLabelsB;
+    static PeriodTimeLabels periodTimeLabels;
     /// Время счета
     static TimeMeasure timeMeasure;
     /// Число периодов измерения
