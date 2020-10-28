@@ -277,13 +277,13 @@ static void DrawInfo()
 {
     if(PageIndication::memoryMode == MemoryMode::On)
     {
-        if(CURRENT_CHANNEL_IS_A && ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Tachometer) && (PageModes::typeMeasure == TypeMeasure::Frequency)))
+        if(CURRENT_CHANNEL_IS_A && ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Tachometer) && (PageModes::typeMeasure == TypeMeasureA::Frequency)))
         {
         }
         else if(CURRENT_CHANNEL_IS_B && ((PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Tachometer) && (PageModesB::typeMeasureB == TypeMeasureB::Frequency)))
         {
         }
-        else if(CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::CountPulse) && (PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
+        else if(CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasureA::CountPulse) && (PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
         {
         }
         else if(CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && (PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
@@ -320,14 +320,14 @@ static void DrawInfo()
     {
         Text("Внеш Г").Write(420, 160);
     }
-    if(PageModes::typeMeasure == TypeMeasure::Period || (PageModes::typeMeasure == TypeMeasure::Duration && PageModes::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns) 
+    if(PageModes::typeMeasure == TypeMeasureA::Period || (PageModes::typeMeasure == TypeMeasureA::Duration && PageModes::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns) 
       || PageModesB::typeMeasureB == TypeMeasureB::Period || (PageModesB::typeMeasureB == TypeMeasureB::Duration && PageModes::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns))
     {
         Text("Метки").Write(430, 140);
         Text(PageModes::periodTimeLabels.ToText()).Write(430, 160);
         
     }
-    if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::CountPulse) && PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
+    if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasureA::CountPulse) && PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
        (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
     {
         if(PageModes::StartStop() == true)
@@ -422,12 +422,12 @@ static void DrawData()
 
 static void DrawStatusBarA()
 {
-    static const Enumeration * const modes[TypeMeasure::Count] =
+    static const Enumeration * const modes[TypeMeasureA::Count] =
     {///            Frequency                         Period                         Duration                         CountPulse
         &PageModes::modeMeasureFrequency, &PageModes::modeMeasurePeriod, &PageModes::modeMeasureDuration, &PageModes::modeMeasureCountPulse
     };
 
-    static const Enumeration * const enums[TypeMeasure::Count][6] =
+    static const Enumeration * const enums[TypeMeasureA::Count][6] =
     {
         {   /// ModeMeasureFrequency::
             &PageModes::timeMeasure,        /// Freq

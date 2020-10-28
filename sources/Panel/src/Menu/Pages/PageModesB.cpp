@@ -91,23 +91,23 @@ static void OnPress_TypeMeasureB()
         switch (PageModesB::typeMeasureB.value)
         {
         case TypeMeasureB::Frequency:
-            PageModes::typeMeasure.value = TypeMeasure::Frequency;
+            PageModes::typeMeasure.value = TypeMeasureA::Frequency;
             PageModesC::typeMeasureC.value = TypeMeasureC::Frequency;
             OnPress_ModeFrequencyB();
             break;
     
         case TypeMeasureB::Period:
-            PageModes::typeMeasure.value = TypeMeasure::Period;
+            PageModes::typeMeasure.value = TypeMeasureA::Period;
             OnPress_ModePeriodB();
             break;
     
         case TypeMeasureB::Duration:
-            PageModes::typeMeasure.value = TypeMeasure::Duration;
+            PageModes::typeMeasure.value = TypeMeasureA::Duration;
             OnPress_ModeDurationB();
             break;
     
         case TypeMeasureB::CountPulse:
-            PageModes::typeMeasure.value = TypeMeasure::CountPulse;
+            PageModes::typeMeasure.value = TypeMeasureA::CountPulse;
             PageModesC::typeMeasureC.value = TypeMeasureC::CountPulse;
             OnPress_ModeCountPulseB();
             break;

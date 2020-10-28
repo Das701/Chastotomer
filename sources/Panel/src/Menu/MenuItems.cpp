@@ -355,12 +355,12 @@ bool Page::OnControl(const Control &control)
         }
         else
         {
-            if(((PageModes::typeMeasure == TypeMeasure::Frequency) && (PageModes::modeMeasureFrequency == ModeMeasureFrequency::Freq) && CURRENT_CHANNEL_IS_A) || 
+            if(((PageModes::typeMeasure == TypeMeasureA::Frequency) && (PageModes::modeMeasureFrequency == ModeMeasureFrequency::Freq) && CURRENT_CHANNEL_IS_A) || 
                 ((PageModesB::typeMeasureB == TypeMeasureB::Frequency) && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Freq) && CURRENT_CHANNEL_IS_B) || 
                 ((PageModesC::typeMeasureC == TypeMeasureC::Frequency) && (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::Freq) && CURRENT_CHANNEL_IS_C) ||
-                ((PageModes::typeMeasure == TypeMeasure::Period) && (PageModes::modeMeasurePeriod == ModeMeasurePeriod::Period) && CURRENT_CHANNEL_IS_A) || 
+                ((PageModes::typeMeasure == TypeMeasureA::Period) && (PageModes::modeMeasurePeriod == ModeMeasurePeriod::Period) && CURRENT_CHANNEL_IS_A) || 
                 ((PageModesB::typeMeasureB == TypeMeasureB::Period) && (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::Period) && CURRENT_CHANNEL_IS_B) || 
-                ((PageModes::typeMeasure == TypeMeasure::Duration) && (PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt) && CURRENT_CHANNEL_IS_A) || 
+                ((PageModes::typeMeasure == TypeMeasureA::Duration) && (PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt) && CURRENT_CHANNEL_IS_A) || 
                 ((PageModesB::typeMeasureB == TypeMeasureB::Duration) && (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Ndt) && CURRENT_CHANNEL_IS_B))
             {
                 PLIS::RefreshAuto();
@@ -453,7 +453,7 @@ bool Switch::OnControl(const Control &control)
                 PageIndication::OnceLaunchSwitchTrue();
                 FreqMeter::LoadOneTime();
             }
-            else if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::CountPulse) && PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
+            else if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasureA::CountPulse) && PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
                     (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
             {
                 PageModes::ToggleStartStop();
