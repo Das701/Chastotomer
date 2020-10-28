@@ -821,7 +821,12 @@ uint32_t FontBig::BigSymbol_print(uint8_t symbol, int x, int y, Color color)
 	uint32_t code;
     uint8_t *endMem = (uint8_t *)(0x807FFFF);
     
-	while (code = *index++) {
+    while(true) {
+        code = *index++;
+        if(code == 0)
+        {
+            break;
+        }
         if (index == endMem) break;
 		if (code >= BIGSTART_INDEX) {
 			if (!same)  same = 1;						// new row -> one row

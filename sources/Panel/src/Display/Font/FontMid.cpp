@@ -896,7 +896,12 @@ uint32_t FontMid::MidSymbol_print(uint8_t symbol, int x, int y, Color color)
 	uint32_t row;										// row of pixels
 	uint32_t code;
 
-	while (code = *index++) {
+    while(true) {
+        code = *index++;
+        if(code == 0)
+        {
+            break;
+        }
 		if (code >= FONTMID_STARTINDEX) {
 			if (!same)  same = 1;						// new row -> one row
 			row = FontMidRow[code - FONTMID_STARTINDEX];
