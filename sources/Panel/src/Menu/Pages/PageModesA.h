@@ -94,7 +94,10 @@ struct PeriodTimeLabels : public Enumeration
     // Возвращает PeriodTimeLabels для текущего канала
     static PeriodTimeLabels &Current();
     int ToZeros() const;
+    bool IsT_3() const { return (value == T_3); }
+    bool IsT_4() const { return (value == T_4); }
     bool IsT_5() const { return (value == T_5); }
+    bool IsT_6() const { return (value == T_6); }
     bool IsT_7() const { return (value == T_7); }
     bool IsT_8() const { return (value == T_8); }
 };

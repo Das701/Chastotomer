@@ -348,20 +348,14 @@ static void Calculation()
         else
         {
             int usT = 1;
-            if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_6) ||
-               (PageModesA::periodTimeLabels == PeriodTimeLabels::T_3))
+
+            if(PageModesA::periodTimeLabels.IsT_7() || PageModesA::periodTimeLabels.IsT_4())
             {
-                usT = usT*1;
+                usT = usT * 10;
             }
-            else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_7) ||
-                    (PageModesA::periodTimeLabels == PeriodTimeLabels::T_4))
+            else if(PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
             {
-                usT = usT*10;
-            }
-            else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_8) ||
-                    (PageModesA::periodTimeLabels == PeriodTimeLabels::T_5))
-            {
-                usT = usT*100;
+                usT = usT * 100;
             }
             
             x = usT * PageModesA::numberPeriods.ToAbs();
