@@ -892,36 +892,7 @@ char* PLIS::GiveData()
           || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTB_1))
           || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTA_1)))
         {
-            int n = 1;
-            if(PageModes::numberPeriods == NumberPeriods::_1)
-            {
-                n = n*1;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_10)
-            {
-                n = n*10;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_100)
-            {
-                n = n*100;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_1K)
-            {
-                n = n*1000;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_10K)
-            {
-                n = n*10000;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_100K)
-            {
-                n = n*100000;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_1000K)
-            {
-                n = n*1000000;
-            }
-            decDataA = decDataA/n;
+            decDataA /= PageModes::numberPeriods.ToAbs();
         }
         std::sprintf(procData,"%10.0f",decDataA);
         return procData;
