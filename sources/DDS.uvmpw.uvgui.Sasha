@@ -1793,9 +1793,9 @@
       </Doc>
       <Doc>
         <Name>&lt;1&gt;.\src\Hardware\PLIS.cpp</Name>
-        <ColumnNumber>13</ColumnNumber>
+        <ColumnNumber>0</ColumnNumber>
         <TopLine>877</TopLine>
-        <CurrentLine>901</CurrentLine>
+        <CurrentLine>895</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

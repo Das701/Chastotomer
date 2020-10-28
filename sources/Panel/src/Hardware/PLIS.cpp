@@ -267,37 +267,8 @@ static void Calculation()
         else if(CURRENT_CHANNEL_IS_C && ((PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CA) ||
                (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB)))
         {
-            decDataA = decDataA*100;
-            int rel = 1;
-            if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_1))
-            {
-                rel = rel*1;
-            }
-            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_10))
-            {
-                rel = rel*10;
-            }
-            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_100))
-            {
-                rel = rel*100;
-            }
-            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_1K))
-            {
-                rel = rel*1000;
-            }
-            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_10K))
-            {
-                rel = rel*10000;
-            }
-            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_100K))
-            {
-                rel = rel*100000;
-            }
-            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_1000K))
-            {
-                rel = rel*1000000;
-            }
-            x = rel;
+            decDataA = decDataA * 100;
+            x = NumberPeriods::Current().ToAbs();
         }
         else if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC)) ||
             (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC)))
