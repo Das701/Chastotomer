@@ -28,7 +28,7 @@ static bool dCycleOn = false;
 static bool relationOn = false;
 static bool startStop = false;
 
-TypeMeasureA             PageModesA::typeMeasure(TypeMeasureA::Frequency);
+TypeMeasureA            PageModesA::typeMeasure(TypeMeasureA::Frequency);
 ModeMeasureFrequency    PageModesA::modeMeasureFrequency(ModeMeasureFrequency::Freq);
 ModeMeasurePeriod       PageModesA::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration     PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
@@ -585,4 +585,19 @@ TimeMeasure &TimeMeasure::Current()
     }
 
     return PageModesD::timeMeasure;
+}
+
+
+NumberPeriods &NumberPeriods::Current()
+{
+    NumberPeriods &result = PageModesA::numberPeriods;
+
+    switch (CURRENT_CHANNEL)
+    {
+    case Channel::A:    result = PageModesA::numberPeriods; break;
+    case Channel::B:    result = PageModesB::numberPeriods; break;
+    case Channel::C:    result = PageModesC::numberPeriods; break;
+    }
+
+    return result;
 }

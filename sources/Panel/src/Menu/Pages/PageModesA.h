@@ -131,6 +131,8 @@ struct NumberPeriods : public Enumeration
 
     explicit NumberPeriods(E v) : Enumeration((uint8)v) {};
     int ToAbs() const;
+    // Возвращает NumberPeriods для текущего канала
+    static NumberPeriods &Current();
 };
 
 

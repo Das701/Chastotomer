@@ -348,44 +348,18 @@ void FreqMeter::LoadNumerPeriodsMeasure()
     char command[4] = { 1, 0, 0, 0 };
 
     DEFINE_ARGUMENT;
-    if((PageModesA::numberPeriods == NumberPeriods::_10 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::numberPeriods == NumberPeriods::_10 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::numberPeriods == NumberPeriods::_10 && CURRENT_CHANNEL_IS_C))
+
+    switch (NumberPeriods::Current().value)
     {
-        argument[5] = 1;
-    }
-    else if((PageModesA::numberPeriods == NumberPeriods::_100 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::numberPeriods == NumberPeriods::_100 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::numberPeriods == NumberPeriods::_100 && CURRENT_CHANNEL_IS_C))
-    {
-        argument[4] = 1;
-    }
-    else if((PageModesA::numberPeriods == NumberPeriods::_1K && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::numberPeriods == NumberPeriods::_1K && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::numberPeriods == NumberPeriods::_1K && CURRENT_CHANNEL_IS_C))
-    {
-        argument[5] = 1;
-        argument[4] = 1;
-    }
-    else if((PageModesA::numberPeriods == NumberPeriods::_10K && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::numberPeriods == NumberPeriods::_10K && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::numberPeriods == NumberPeriods::_10K && CURRENT_CHANNEL_IS_C))
-    {
-        argument[3] = 1;
-    }
-    else if((PageModesA::numberPeriods == NumberPeriods::_100K && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::numberPeriods == NumberPeriods::_100K && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::numberPeriods == NumberPeriods::_100K && CURRENT_CHANNEL_IS_C))
-    {
-        argument[5] = 1;
-        argument[3] = 1;
-    }
-        else if((PageModesA::numberPeriods == NumberPeriods::_1000K && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::numberPeriods == NumberPeriods::_1000K && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::numberPeriods == NumberPeriods::_1000K && CURRENT_CHANNEL_IS_C))
-    {
-        argument[4] = 1;
-        argument[3] = 1;
+    case NumberPeriods::_10:    argument[5] = 1;    break;
+    case NumberPeriods::_100:   argument[4] = 1;    break;
+    case NumberPeriods::_1K:    argument[5] = 1;
+                                argument[4] = 1;    break;
+    case NumberPeriods::_10K:   argument[3] = 1;    break;
+    case NumberPeriods::_100K:  argument[5] = 1;
+                                argument[3] = 1;    break;
+    case NumberPeriods::_1000K: argument[4] = 1;
+                                argument[3] = 1;    break;
     }
 
     PLIS::WriteCommand(command, argument);
