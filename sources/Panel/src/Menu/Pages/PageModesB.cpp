@@ -333,60 +333,45 @@ DEF_SWITCH_6(sPeriodTimeLabelsB,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_TimeMeasureB()
 {
+    uint8 time = PageModesB::timeMeasure.value;
+
+    PageModesA::timeMeasure.value = time;
+    PageModesC::timeMeasure.value = time;
+    PageModesD::timeMeasure.value = time;
+
     switch (PageModesB::timeMeasure.value)
     {
         case TimeMeasure::_1ms:
-            PageModesA::timeMeasure.value = TimeMeasure::_1ms;
-            PageModesC::timeMeasure.value = TimeMeasure::_1ms;
-            PageModesD::timeMeasure.value = TimeMeasure::_1ms;
             PageModesB::numberPeriods.value = NumberPeriods::_1;
             PageModesC::numberPeriods.value = NumberPeriods::_1;
             PageModesA::numberPeriods.value = NumberPeriods::_1;
             break;
         case TimeMeasure::_10ms:
-            PageModesA::timeMeasure.value = TimeMeasure::_10ms;
-            PageModesC::timeMeasure.value = TimeMeasure::_10ms;
-            PageModesD::timeMeasure.value = TimeMeasure::_10ms;
             PageModesB::numberPeriods.value = NumberPeriods::_10;
             PageModesC::numberPeriods.value = NumberPeriods::_10;
             PageModesA::numberPeriods.value = NumberPeriods::_10;
             break;
         case TimeMeasure::_100ms:
-            PageModesA::timeMeasure.value = TimeMeasure::_100ms;
-            PageModesC::timeMeasure.value = TimeMeasure::_100ms;
-            PageModesD::timeMeasure.value = TimeMeasure::_100ms;
             PageModesB::numberPeriods.value = NumberPeriods::_100;
             PageModesC::numberPeriods.value = NumberPeriods::_100;
             PageModesA::numberPeriods.value = NumberPeriods::_100;
             break;
         case TimeMeasure::_1s:
-            PageModesA::timeMeasure.value = TimeMeasure::_1s;
-            PageModesC::timeMeasure.value = TimeMeasure::_1s;
-            PageModesD::timeMeasure.value = TimeMeasure::_1s;
             PageModesB::numberPeriods.value = NumberPeriods::_1K;
             PageModesC::numberPeriods.value = NumberPeriods::_1K;
             PageModesA::numberPeriods.value = NumberPeriods::_1K;
             break;
         case TimeMeasure::_10s:
-            PageModesA::timeMeasure.value = TimeMeasure::_10s;
-            PageModesC::timeMeasure.value = TimeMeasure::_10s;
-            PageModesD::timeMeasure.value = TimeMeasure::_10s;
             PageModesB::numberPeriods.value = NumberPeriods::_10K;
             PageModesC::numberPeriods.value = NumberPeriods::_10K;
             PageModesA::numberPeriods.value = NumberPeriods::_10K;
             break;
         case TimeMeasure::_100s:
-            PageModesA::timeMeasure.value = TimeMeasure::_100s;
-            PageModesC::timeMeasure.value = TimeMeasure::_100s;
-            PageModesD::timeMeasure.value = TimeMeasure::_100s;
             PageModesA::numberPeriods.value = NumberPeriods::_100K;
             PageModesB::numberPeriods.value = NumberPeriods::_100K;
             PageModesC::numberPeriods.value = NumberPeriods::_100K;
             break;
         case TimeMeasure::_1000s:
-            PageModesA::timeMeasure.value = TimeMeasure::_1000s;
-            PageModesC::timeMeasure.value = TimeMeasure::_1000s;
-            PageModesD::timeMeasure.value = TimeMeasure::_1000s;
             PageModesA::numberPeriods.value = NumberPeriods::_1000K;
             PageModesB::numberPeriods.value = NumberPeriods::_1000K;
             PageModesC::numberPeriods.value = NumberPeriods::_1000K;
