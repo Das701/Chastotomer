@@ -16,8 +16,8 @@
         <TargetCommonOption>
           <Device>STM32F401RETx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.11.0</PackID>
-          <PackURL>http://www.keil.com/pack</PackURL>
+          <PackID>Keil.STM32F4xx_DFP.2.15.0</PackID>
+          <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x18000) IROM(0x08000000,0x80000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -338,7 +338,7 @@
               <MiscControls>--cpp --diag_suppress=1165</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F401xe</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\src\libs\HAL;.\src\Hardware;..\libs\common;..\common\libs\STM32Cube_F4\Drivers\CMSIS\Include;..\common\libs\STM32Cube_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Inc;.\src\libs;..\common</IncludePath>
+              <IncludePath>.\src;.\src\libs\HAL;.\src\Hardware;..\libs\common;..\common\libs\STM32Cube_F4\Drivers\CMSIS\Include;..\common\libs\STM32Cube_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\common\libs\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;.\src\libs;..\common;.\src\libs\USBD;..\common\libs\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -462,6 +462,21 @@
               <FileType>1</FileType>
               <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f4xx_hal_pcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_pcd_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pcd_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_ll_usb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\libs\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_usb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -486,6 +501,61 @@
               <FileName>stm32f4xx_hal_conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\HAL\stm32f4xx_hal_conf.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>libs/USBD</GroupName>
+          <Files>
+            <File>
+              <FileName>usbd_cdc_interface.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\libs\USBD\usbd_cdc_interface.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_cdc_interface.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\libs\USBD\usbd_cdc_interface.h</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_conf.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\libs\USBD\usbd_conf.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\libs\USBD\usbd_conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_core.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\libs\USBD\usbd_core.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_desc.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\libs\USBD\usbd_desc.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_desc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\libs\USBD\usbd_desc.h</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_cdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\libs\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src\usbd_cdc.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_ctlreq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\libs\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ctlreq.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_ioreq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\libs\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -666,6 +736,16 @@
               <FileName>PLIS.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\PLIS.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>VCP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\VCP.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>VCP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\VCP.h</FilePath>
             </File>
           </Files>
         </Group>
