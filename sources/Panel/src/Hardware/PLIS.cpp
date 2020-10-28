@@ -1032,12 +1032,9 @@ char* PLIS::GiveSpec()
                     }
                     else
                     {
-                        if(((CURRENT_CHANNEL_IS_A && (PageModesA::periodTimeLabels == PeriodTimeLabels::T_5)) ||
-                            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabels == PeriodTimeLabels::T_5))) || 
-                            ((CURRENT_CHANNEL_IS_A && (PageModesA::periodTimeLabels == PeriodTimeLabels::T_4)) ||
-                            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabels == PeriodTimeLabels::T_4))) ||
-                            ((CURRENT_CHANNEL_IS_A && (PageModesA::periodTimeLabels == PeriodTimeLabels::T_3)) ||
-                            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabels == PeriodTimeLabels::T_3))))
+                        PeriodTimeLabels &current = PeriodTimeLabels::Current();
+
+                        if(current.IsT_3() || current.IsT_4() || current.IsT_5())
                         {
                             std::strcpy(spec, " ms");
                         }
