@@ -444,7 +444,7 @@ static void OnPress_NumberPeriods()
         TimeMeasure::_1000s
     };
 
-    uint8 time = times[PageModesA::timeMeasure.value];
+    uint8 time = times[PageModesA::numberPeriods.value];
 
     PageModesA::timeMeasure.value = time;
     PageModesB::timeMeasure.value = time;
