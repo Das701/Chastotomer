@@ -15,8 +15,9 @@
 #include "Menu/Pages/PageChannelD.h"
 #include "Menu/Hint.h"
 #include "Settings.h"
-#include "Utils/String.h"
 #include "Utils/Math.h"
+#include "Utils/String.h"
+#include "Utils/StringUtils.h"
 #include <cstring>
 #include "FreqMeter/FreqMeter.h"
 
@@ -180,7 +181,7 @@ char *Menu::ChannelSettings()
         ADD_UGO(PageChannelA::modeFront.UGO());
         ADD_UGO(PageChannelA::divider.UGO());
         ADD_UGO(PageChannelA::typeSynch.UGO());
-        ADD_UGO(Int2String(LEVEL_SYNCH_A, buffer));
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH_A, buffer));
         if (PageChannelA::typeSynch == TypeSynch::Manual)
         {
             std::strcat(settings, "ìÂ");
@@ -234,7 +235,7 @@ char *Menu::ChannelSettings()
         ADD_UGO(PageChannelB::modeFront.UGO());
         ADD_UGO(PageChannelB::divider.UGO());
         ADD_UGO(PageChannelB::typeSynch.UGO());
-        ADD_UGO(Int2String(LEVEL_SYNCH_B, buffer));
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH_B, buffer));
         if (PageChannelB::typeSynch == TypeSynch::Manual)
         {
             std::strcat(settings, "ìÂ");

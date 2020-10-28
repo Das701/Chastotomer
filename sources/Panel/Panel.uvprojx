@@ -904,14 +904,14 @@
               <FilePath>.\src\SCPI\HeadSCPI.cpp</FilePath>
             </File>
             <File>
-              <FileName>SCPI.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
-            </File>
-            <File>
               <FileName>SCPI.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\SCPI\SCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>SCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -919,34 +919,9 @@
           <GroupName>Utils</GroupName>
           <Files>
             <File>
-              <FileName>String.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\String.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>String.h</FileName>
+              <FileName>Buffer.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\String.h</FilePath>
-            </File>
-            <File>
-              <FileName>Math.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Math.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Math.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Math.h</FilePath>
-            </File>
-            <File>
-              <FileName>StringUtils.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\StringUtils.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>StringUtils.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\StringUtils.h</FilePath>
+              <FilePath>.\src\Utils\Buffer.h</FilePath>
             </File>
             <File>
               <FileName>Buffer.cpp</FileName>
@@ -954,19 +929,19 @@
               <FilePath>.\src\Utils\Buffer.cpp</FilePath>
             </File>
             <File>
-              <FileName>Buffer.h</FileName>
+              <FileName>Math.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\Buffer.h</FilePath>
+              <FilePath>.\src\Utils\Math.h</FilePath>
             </File>
             <File>
-              <FileName>Values.cpp</FileName>
+              <FileName>Math.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Utils\Values.cpp</FilePath>
+              <FilePath>.\src\Utils\Math.cpp</FilePath>
             </File>
             <File>
-              <FileName>Values.h</FileName>
+              <FileName>Stack.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\Values.h</FilePath>
+              <FilePath>.\src\Utils\Stack.h</FilePath>
             </File>
             <File>
               <FileName>Stack.cpp</FileName>
@@ -974,9 +949,34 @@
               <FilePath>.\src\Utils\Stack.cpp</FilePath>
             </File>
             <File>
-              <FileName>Stack.h</FileName>
+              <FileName>String.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\Stack.h</FilePath>
+              <FilePath>.\src\Utils\String.h</FilePath>
+            </File>
+            <File>
+              <FileName>String.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\String.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StringUtils.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\StringUtils.h</FilePath>
+            </File>
+            <File>
+              <FileName>StringUtils.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\StringUtils.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Values.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Values.h</FilePath>
+            </File>
+            <File>
+              <FileName>Values.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Values.cpp</FilePath>
             </File>
           </Files>
         </Group>

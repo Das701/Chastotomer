@@ -3,9 +3,6 @@
 #include "Utils/String.h"
 
 
-char *Int2String(int n, char *buffer);
-
-
 struct TypeConversionString
 {
     enum E

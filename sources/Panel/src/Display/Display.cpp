@@ -13,12 +13,13 @@
 #include "Text.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Hint.h"
-#include <cstdlib>
-#include <cstring>
 #include "Hardware/HAL.h"
 #include "FreqMeter/FreqMeter.h"
 #include "Display/Font/BigFont1.h"
 #include "Display/Font/FontMid.h"
+#include "Utils/StringUtils.h"
+#include <cstdlib>
+#include <cstring>
 
 int second = 0;
 using namespace Display::Primitives;
@@ -121,7 +122,7 @@ static void DrawScreen()
         Text("---Режим Калибровка---").Write(40, 20);
         Text("Нажмите ЭНК. для сохранения").Write(5, 50);
         Text("Нажмите любую клавишу для выхода").Write(5, 90);
-        Int2String(PLIS::CalibNumber(), buffer);
+        SU::Int2String(PLIS::CalibNumber(), buffer);
         Text(buffer).Write(5, 120);
     }
     else

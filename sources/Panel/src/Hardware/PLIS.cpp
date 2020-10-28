@@ -1,13 +1,8 @@
 #include "defines.h"
-#include "stm32f4xx_hal.h"
-#include "Hardware/HAL.h"
-#include "Utils/String.h"
-#include "Menu/Menu.h"
 #include "Settings.h"
-#include <cstring>
-#include <string.h>
-#include <math.h>
-#include "stdio.h"
+#include "Hardware/HAL.h"
+#include "Menu/Hint.h"
+#include "Menu/Menu.h"
 #include "Menu/Pages/PageChannelA.h"
 #include "Menu/Pages/PageChannelB.h"
 #include "Menu/Pages/PageModes.h"
@@ -15,7 +10,11 @@
 #include "Menu/Pages/PageModesC.h"
 #include "Menu/Pages/PageModesD.h"
 #include "Menu/Pages/PageIndication.h"
-#include "Menu/Hint.h"
+#include "Utils/StringUtils.h"
+#include <cstring>
+#include <cstdio>
+#include <stm32f4xx_hal.h>
+
 
 #define    DWT_CYCCNT    *(volatile unsigned long *)0xE0001004
 #define    DWT_CONTROL   *(volatile unsigned long *)0xE0001000
@@ -1010,7 +1009,7 @@ char* PLIS::GiveData()
             }
             decDataA = decDataA/n;
         }
-        sprintf(procData,"%10.0f",decDataA);
+        std::sprintf(procData,"%10.0f",decDataA);
         return procData;
     }
     else
@@ -1020,7 +1019,7 @@ char* PLIS::GiveData()
         {
             BinToDec();
             decDataA = decDataA/2;
-            sprintf(procData,"%10.0f",decDataA);
+            std::sprintf(procData,"%10.0f",decDataA);
             return procData;
         }
         else if (CURRENT_CHANNEL_IS_A && ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Comparator) && (PageModes::typeMeasure == TypeMeasure::Frequency))) 
@@ -1034,7 +1033,7 @@ char* PLIS::GiveData()
             decDataA = k - (dx/top)/n;
             decDataA = decDataA*1000000;
 //            decDataA = (float)((decFx*top)/2)/(n*top + ((decTizm*100)/decNkal));
-            sprintf(procData,"%10.3f",decDataA);                
+            std::sprintf(procData,"%10.3f",decDataA);                
             return procData;
         }
         else if(((PageModes::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns && CURRENT_CHANNEL_IS_A) || 
@@ -1042,7 +1041,7 @@ char* PLIS::GiveData()
             && PageModes::InterpoleCheck())
         {
             CalculationInterpole();
-            sprintf(procDataInterpol,"%10.2f",interpol);
+            std::sprintf(procDataInterpol,"%10.2f",interpol);
             return procDataInterpol;
         }
         else if(((PageModes::modeMeasureDuration == ModeMeasureDuration::Dcycle && CURRENT_CHANNEL_IS_A) || 
@@ -1063,7 +1062,7 @@ char* PLIS::GiveData()
                 if((PageModes::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
                    (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
                 {
-                    sprintf(procDataDcycle,"%10.3f",dutyCycle);
+                    std::sprintf(procDataDcycle,"%10.3f",dutyCycle);
                 }
                 else
                 {   
@@ -1081,7 +1080,7 @@ char* PLIS::GiveData()
                     //}
                     //else 
                     //{
-                        sprintf(procDataDcycle,"%10.7f",dutyCycle);
+                    std::sprintf(procDataDcycle,"%10.7f",dutyCycle);
                     //}
                 }
 //            }
@@ -1094,47 +1093,47 @@ char* PLIS::GiveData()
             
             if(emptyZeros == 1)
             {
-                sprintf(procData,"%10.0f",decDataA);
+                std::sprintf(procData,"%10.0f",decDataA);
             }
             else if(emptyZeros == 10)
             {
-                sprintf(procData,"%10.1f",decDataA);
+                std::sprintf(procData,"%10.1f",decDataA);
             }
             else if(emptyZeros == 100)
             {
-                sprintf(procData,"%10.2f",decDataA);
+                std::sprintf(procData,"%10.2f",decDataA);
             }
             else if(emptyZeros == 1000)
             {
-                sprintf(procData,"%10.3f",decDataA);
+                std::sprintf(procData,"%10.3f",decDataA);
             }
             else if(emptyZeros == 10000)
             {
-                sprintf(procData,"%10.4f",decDataA);
+                std::sprintf(procData,"%10.4f",decDataA);
             }
             else if(emptyZeros == 100000)
             {
-                sprintf(procData,"%10.5f",decDataA);
+                std::sprintf(procData,"%10.5f",decDataA);
             }
             else if(emptyZeros == 1000000)
             {
-                sprintf(procData,"%10.6f",decDataA);
+                std::sprintf(procData,"%10.6f",decDataA);
             }
             else if(emptyZeros == 10000000)
             {
-                sprintf(procData,"%10.7f",decDataA);
+                std::sprintf(procData,"%10.7f",decDataA);
             }
             else if(emptyZeros == 100000000)
             {
-                sprintf(procData,"%10.8f",decDataA);
+                std::sprintf(procData,"%10.8f",decDataA);
             }
             else if(emptyZeros == 1000000000)
             {
-                sprintf(procData,"%10.9f",decDataA);
+                std::sprintf(procData,"%10.9f",decDataA);
             }
             else
             {
-                sprintf(procData,"%10.10f",decDataA);
+                std::sprintf(procData,"%10.10f",decDataA);
             }
             emptyZeros = 1;
             }
@@ -1493,8 +1492,8 @@ void PLIS::RefreshAuto()
 char* PLIS::GiveAuto()
 {
     CalculationAuto();
-    Int2String((decMinAuto - 512)*2, minAutoData);
-    Int2String((decMaxAuto - 512)*2, maxAutoData);
+    SU::Int2String((decMinAuto - 512)*2, minAutoData);
+    SU::Int2String((decMaxAuto - 512)*2, maxAutoData);
     std::strcpy(autoData, "Макс ");
     std::strcat(autoData, maxAutoData);
     std::strcat(autoData, " Мин ");

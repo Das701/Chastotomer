@@ -11,45 +11,6 @@
 const char * const String::_ERROR = "---.---";
 
 
-static void Swap(char *ch1, char *ch2)
-{
-    char c = *ch1;
-    *ch1 = *ch2;
-    *ch2 = c;
-}
-
-
-char *Int2String(int n, char *buffer)
-{
-    char *result = buffer;
-
-    if (n < 0)
-    {
-        buffer[0] = '-';
-        n = -n;
-        result = &buffer[1];
-    }
-
-    int i = 0;
-
-    do
-    {
-        result[i++] = n % 10 + '0';
-        n -= n % 10;
-    } while ((n /= 10) > 0);
-
-    result[i] = '\0';
-
-    for (int j = 0; j < i; j++)
-    {
-        i--;
-        Swap(&result[j], &result[i]);
-    }
-
-    return buffer;
-}
-
-
 String::String() : buffer(nullptr)
 {
     Set(TypeConversionString::None, "");
