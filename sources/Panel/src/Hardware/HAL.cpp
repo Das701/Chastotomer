@@ -1,5 +1,6 @@
-#include "HAL.h"
-#include "stm32f4xx_hal.h"
+#include "Hardware/HAL.h"
+#include "Hardware/VCP.h"
+#include <stm32f4xx_hal.h>
 
 
 static void SystemClock_Config(void);
@@ -7,64 +8,24 @@ static void SystemClock_Config(void);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void HAL::Init()
-{
-        __GPIOA_CLK_ENABLE();
-    __USB_OTG_FS_CLK_ENABLE();
-    __HAL_RCC_USB_OTG_FS_CLK_ENABLE();
-    __SYSCFG_CLK_ENABLE();
-
-    GPIO_InitTypeDef isGPIO =
-    {
-        GPIO_PIN_11 | GPIO_PIN_12,
-        GPIO_MODE_AF_PP,
-        GPIO_NOPULL,
-        GPIO_SPEED_FREQ_VERY_HIGH,
-        GPIO_AF10_OTG_FS
-    };
-
-    HAL_GPIO_Init(GPIOA, &isGPIO);
-
-    isGPIO.Pin = GPIO_PIN_9;
-    isGPIO.Mode = GPIO_MODE_INPUT;
-    isGPIO.Pull = GPIO_NOPULL;
-
-    HAL_GPIO_Init(GPIOA, &isGPIO);
-
-    HAL_NVIC_SetPriority(OTG_FS_IRQn, 0, 0);
-
-    HAL_NVIC_EnableIRQ(OTG_FS_IRQn);
-    
+{  
     HAL_Init();
     SystemClock_Config();
     HAL_FSMC::Init();
     PLIS::Init();
+//    VCP::Init();
 }
 
 void SystemClock_Config(void)
 {
- 
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
     RCC_OscInitTypeDef RCC_OscInitStruct;
 
-    /* Enable Power Control clock */
     __HAL_RCC_PWR_CLK_ENABLE();
-    
-    /* The voltage scaling allows optimizing the power 
-
-consumption when the device is 
-       clocked below the maximum system frequency, to update 
-
-the voltage scaling value 
-       regarding system frequency refer to product datasheet.  
-
-*/
     __HAL_PWR_VOLTAGESCALING_CONFIG
 
-(PWR_REGULATOR_VOLTAGE_SCALE2);
+    (PWR_REGULATOR_VOLTAGE_SCALE2);
     
-    /* Enable HSI Oscillator and activate PLL with HSI as 
-
-source */
     RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
     RCC_OscInitStruct.HSIState = RCC_HSI_ON;
     RCC_OscInitStruct.HSICalibrationValue = 0x10;
@@ -76,27 +37,17 @@ source */
     RCC_OscInitStruct.PLL.PLLQ = 7;
     if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
     {
-      ERROR_HANDLER();
+//      ERROR_HANDLER();
     }
     
-    /* Select PLL as system clock source and configure the 
-
-HCLK, PCLK1 and PCLK2 
-       clocks dividers */
-    RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | 
-
-RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | 
-
-RCC_CLOCKTYPE_PCLK2);
+    RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
     RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
     RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;  
     RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;  
-    if(HAL_RCC_ClockConfig(&RCC_ClkInitStruct, 
-
-FLASH_LATENCY_2) != HAL_OK)
+    if(HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
     {
-      ERROR_HANDLER();
+//      ERROR_HANDLER();
     }
 }
 
