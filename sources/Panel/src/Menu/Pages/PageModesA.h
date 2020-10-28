@@ -61,6 +61,12 @@ struct ModeMeasureDuration : public Enumeration
     };
 
     explicit ModeMeasureDuration(E v) : Enumeration((uint8)v) {};
+
+    bool Is_Ndt() const     { return (value == Ndt); }
+    bool Is_Ndt_1ns() const { return (value == Ndt_1ns); }
+    bool Is_Ndt2() const    { return (value == Ndt2); }
+    bool Is_Dcycle() const  { return (value == Dcycle); }
+    bool Is_Phase() const   { return (value == Phase); }
 };
 
 /// Режим счёта импульсов

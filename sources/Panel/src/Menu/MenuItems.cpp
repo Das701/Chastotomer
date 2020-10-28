@@ -360,7 +360,7 @@ bool Page::OnControl(const Control &control)
                 ((PageModesC::typeMeasure == TypeMeasureC::Frequency) && (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::Freq) && CURRENT_CHANNEL_IS_C) ||
                 (PageModesA::typeMeasure.IsPeriod() && (PageModesA::modeMeasurePeriod == ModeMeasurePeriod::Period) && CURRENT_CHANNEL_IS_A) || 
                 (PageModesB::typeMeasure.IsPeriod() && (PageModesB::modeMeasurePeriod == ModeMeasurePeriodB::Period) && CURRENT_CHANNEL_IS_B) || 
-                (PageModesA::typeMeasure.IsDuration() && (PageModesA::modeMeasureDuration == ModeMeasureDuration::Ndt) && CURRENT_CHANNEL_IS_A) || 
+                (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_A) || 
                 (PageModesB::typeMeasure.IsDuration() && (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Ndt) && CURRENT_CHANNEL_IS_B))
             {
                 PLIS::RefreshAuto();

@@ -289,14 +289,13 @@ static void OnPress_ModeDuration()
             PageModesB::modeMeasureDuration.value = ModeMeasureDurationB::Phase;
             break;
     }
-    if (PageModesA::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns)
+    if (PageModesA::modeMeasureDuration.Is_Ndt_1ns())
     {
         PageModesA::InterpoleOn();
         
         PageModesA::DCycleOff();
     }
-    else if ((PageModesA::modeMeasureDuration == ModeMeasureDuration::Dcycle) || 
-            (PageModesA::modeMeasureDuration == ModeMeasureDuration::Phase))
+    else if (PageModesA::modeMeasureDuration.Is_Dcycle() || PageModesA::modeMeasureDuration.Is_Phase())
     {
         PageModesA::DCycleOn();
         PageModesA::InterpoleOff();

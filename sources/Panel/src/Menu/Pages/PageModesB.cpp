@@ -215,29 +215,18 @@ static void OnPress_ModeDurationB()
 
     switch(PageModesB::modeMeasureDuration.value)
     {
-        case ModeMeasureDurationB::Ndt:
-            PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt;
-            break;
-        case ModeMeasureDurationB::Ndt_1ns:
-            PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt_1ns;
-            break;
-        case ModeMeasureDurationB::Ndt2:
-            PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt2;
-            break;
-        case ModeMeasureDurationB::Dcycle:
-            PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Dcycle;
-            break;
-        case ModeMeasureDurationB::Phase:
-            PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Phase;
-            break;
+        case ModeMeasureDurationB::Ndt:         PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt;       break;
+        case ModeMeasureDurationB::Ndt_1ns:     PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt_1ns;   break;
+        case ModeMeasureDurationB::Ndt2:        PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt2;      break;
+        case ModeMeasureDurationB::Dcycle:      PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Dcycle;    break;
+        case ModeMeasureDurationB::Phase:       PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Phase;     break;
     }
     if (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Ndt_1ns)
     {
         PageModesA::InterpoleOn();
         PageModesA::DCycleOff();
     }
-    else if ((PageModesB::modeMeasureDuration == ModeMeasureDurationB::Dcycle) || 
-            (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Phase))
+    else if ((PageModesB::modeMeasureDuration == ModeMeasureDurationB::Dcycle) || (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Phase))
     {
         PageModesA::DCycleOn();
         PageModesA::InterpoleOff();

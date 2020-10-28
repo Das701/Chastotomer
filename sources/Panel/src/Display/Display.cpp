@@ -289,44 +289,30 @@ static void DrawInfo()
         else if(CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::StartStop))
         {
         }
-//        else if(CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasure == TypeMeasureC::CountPulse) && (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::StartStop))
-//        {
-//        }
         else
         {
             Text("M").Write(430, 100);
         } 
     }
-//    if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
-//    {
-//        if(xMark == false)
-//        {
-//            xMark = true;
-//        }
-//        else
-//        {
-//            xMark = false;
-//        }
-//    }
-//    if(xMark == true)
-//       {
-//           Text("X").Write(430, 180);
-//       }
+
     if(FreqMeter::TestModeStatus() == true)
     {
         Text("Тест").Write(430, 120);
     }
+
     if(PageIndication::refGenerator == RefGenerator::External)
     {
         Text("Внеш Г").Write(420, 160);
     }
-    if(PageModesA::typeMeasure.IsPeriod() || (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns) 
-      || PageModesB::typeMeasure.IsPeriod() || (PageModesB::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns))
+
+    if(PageModesA::typeMeasure.IsPeriod() || (PageModesA::typeMeasure.IsDuration() && !PageModesA::modeMeasureDuration.Is_Ndt_1ns()) 
+      || PageModesB::typeMeasure.IsPeriod() || (PageModesB::typeMeasure.IsDuration() && !PageModesA::modeMeasureDuration.Is_Ndt_1ns()))
     {
         Text("Метки").Write(430, 140);
         Text(PageModesA::periodTimeLabels.ToText()).Write(430, 160);
         
     }
+
     if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::StartStop))
     {
@@ -339,6 +325,7 @@ static void DrawInfo()
             Text("Stop").Write(430, 60);
         }
     }
+
     if(PageIndication::launchSource == LaunchSource::OneTime)
     {
         if(PageIndication::OnceLaunch() == true)
@@ -359,6 +346,7 @@ static void DrawInfo()
             Text(" ").Write(430, 80);
         }
     }
+
     switch (info)
     {
         case 1:

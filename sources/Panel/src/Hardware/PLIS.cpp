@@ -164,7 +164,7 @@ static void CalculationDcycle()
         base2 = base2 * 2; 
     }   
     dutyCycle = (float)decDuration/decPeriod;
-    if((PageModesA::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
+    if((PageModesA::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_A) || 
        (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
     {
         dutyCycle = dutyCycle*360;
@@ -575,7 +575,7 @@ void PLIS::Update()
     }
     else
     {
-        if(((PageModesA::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns && CURRENT_CHANNEL_IS_A) || 
+        if(((PageModesA::modeMeasureDuration.Is_Ndt_1ns() && CURRENT_CHANNEL_IS_A) || 
                 (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Ndt_1ns && CURRENT_CHANNEL_IS_B))
                 && PageModesA::InterpoleCheck())
         {
@@ -619,9 +619,9 @@ void PLIS::Update()
                 
             }  
         }
-        else if(((PageModesA::modeMeasureDuration == ModeMeasureDuration::Dcycle && CURRENT_CHANNEL_IS_A) || 
+        else if(((PageModesA::modeMeasureDuration.Is_Dcycle() && CURRENT_CHANNEL_IS_A) || 
                 (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Dcycle && CURRENT_CHANNEL_IS_B) || 
-                (PageModesA::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
+                (PageModesA::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_A) || 
                 (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
                 && PageModesA::DCycleCheck())
         {
@@ -769,7 +769,7 @@ char* PLIS::GiveData()
             std::sprintf(procData,"%10.3f",decDataA);                
             return procData;
         }
-        else if(((PageModesA::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns && CURRENT_CHANNEL_IS_A) || 
+        else if(((PageModesA::modeMeasureDuration.Is_Ndt_1ns() && CURRENT_CHANNEL_IS_A) || 
             (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Ndt_1ns && CURRENT_CHANNEL_IS_B))
             && PageModesA::InterpoleCheck())
         {
@@ -777,46 +777,22 @@ char* PLIS::GiveData()
             std::sprintf(procDataInterpol,"%10.2f",interpol);
             return procDataInterpol;
         }
-        else if(((PageModesA::modeMeasureDuration == ModeMeasureDuration::Dcycle && CURRENT_CHANNEL_IS_A) || 
+        else if(((PageModesA::modeMeasureDuration.Is_Dcycle() && CURRENT_CHANNEL_IS_A) || 
             (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Dcycle && CURRENT_CHANNEL_IS_B) || 
-            (PageModesA::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
+            (PageModesA::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_A) || 
             (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
             && PageModesA::DCycleCheck())
         {
-//            if(((CURRENT_CHANNEL_IS_A && (PageModesA::periodTimeLabels == PeriodTimeLabels::T_8)) ||
-//            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabels == PeriodTimeLabels::T_8))) || 
-//            ((CURRENT_CHANNEL_IS_A && (PageModesA::periodTimeLabels == PeriodTimeLabels::T_7)) ||
-//            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabels == PeriodTimeLabels::T_7))) || 
-//            ((CURRENT_CHANNEL_IS_A && (PageModesA::periodTimeLabels == PeriodTimeLabels::T_6)) ||
-//            (CURRENT_CHANNEL_IS_B && (PageModesB::periodTimeLabels == PeriodTimeLabels::T_6))))
-//            {
                 CalculationDcycle();
-//                Int2String(dutyCycle, procDataDcycle);
-                if((PageModesA::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
+                if((PageModesA::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_A) || 
                    (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
                 {
                     std::sprintf(procDataDcycle,"%10.3f",dutyCycle);
                 }
                 else
                 {   
-                    //if(PageModesA::periodTimeLabels == PeriodTimeLabels::T_8)
-                    //{
-                    //    sprintf(procDataDcycle,"%10.2f",dutyCycle);
-                    //}
-                    //else if(PageModesA::periodTimeLabels == PeriodTimeLabels::T_7)
-                    //{
-                    //    sprintf(procDataDcycle,"%10.1f",dutyCycle);
-                    //}
-                    //else if(PageModesA::periodTimeLabels == PeriodTimeLabels::T_6)
-                    //{
-                    //    sprintf(procDataDcycle,"%10.0f",dutyCycle);
-                    //}
-                    //else 
-                    //{
                     std::sprintf(procDataDcycle,"%10.7f",dutyCycle);
-                    //}
                 }
-//            }
                 return procDataDcycle;
         }
         else
@@ -876,18 +852,18 @@ char* PLIS::GiveData()
 
 char* PLIS::GiveSpec()
 {
-        if(((PageModesA::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns && CURRENT_CHANNEL_IS_A) || 
+        if(((PageModesA::modeMeasureDuration.Is_Ndt_1ns() && CURRENT_CHANNEL_IS_A) || 
             (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Ndt_1ns && CURRENT_CHANNEL_IS_B))
             && PageModesA::InterpoleCheck())
         {
             std::strcpy(spec, " ns");
         }
-        else if((PageModesA::typeMeasure.IsDuration() && (PageModesA::modeMeasureDuration == ModeMeasureDuration::Dcycle) && CURRENT_CHANNEL_IS_A) || 
+        else if((PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Dcycle() && CURRENT_CHANNEL_IS_A) || 
             (PageModesB::typeMeasure.IsDuration() && (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Dcycle) && CURRENT_CHANNEL_IS_B) || 
-            (PageModesA::typeMeasure.IsDuration() && (PageModesA::modeMeasureDuration == ModeMeasureDuration::Phase) && CURRENT_CHANNEL_IS_A) || 
+            (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_A) || 
             (PageModesB::typeMeasure.IsDuration() && (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Phase) && CURRENT_CHANNEL_IS_B))
         {
-                if((PageModesA::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
+                if((PageModesA::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_A) || 
                    (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
                 {
                     std::strcpy(spec, " $");
