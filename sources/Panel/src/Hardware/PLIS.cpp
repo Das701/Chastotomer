@@ -235,40 +235,10 @@ static void Calculation()
                 tmet = tmet*100000000;
                 manualZeros = manualZeros*100000;
             }
-            if(PageModes::numberPeriods == NumberPeriods::_1)
-            {
-                n = n*1;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_10)
-            {
-                n = n*10;
-                manualZeros = manualZeros*10;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_100)
-            {
-                n = n*100;
-                manualZeros = manualZeros*100;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_1K)
-            {
-                n = n*1000;
-                manualZeros = manualZeros*1000;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_10K)
-            {
-                n = n*10000;
-                manualZeros = manualZeros*10000;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_100K)
-            {
-                n = n*100000;
-                manualZeros = manualZeros*100000;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_1000K)
-            {
-                n = n*1000000;
-                manualZeros = manualZeros*1000000;
-            }
+            
+            n *= PageModes::numberPeriods.ToAbs();
+            manualZeros *= PageModes::numberPeriods.ToAbs();
+           
             test1 = (double)decDataA/tmet;
             test2 = test1/n;
             test3 = 4/test2;
