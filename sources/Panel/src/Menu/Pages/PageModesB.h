@@ -85,13 +85,13 @@ public:
     /// Тип измерения
     static TypeMeasureB typeMeasure;
     /// Режим измерения частоты
-    static ModeMeasureFrequencyB modeMeasureFrequencyB;
+    static ModeMeasureFrequencyB modeMeasureFrequency;
     /// Режим измерения периода
-    static ModeMeasurePeriodB modeMeasurePeriodB;
+    static ModeMeasurePeriodB modeMeasurePeriod;
     /// Режим измерения длительности
-    static ModeMeasureDurationB modeMeasureDurationB;
+    static ModeMeasureDurationB modeMeasureDuration;
     /// Режим счёта импульсов
-    static ModeMeasureCountPulseB modeMeasureCountPulseB;
+    static ModeMeasureCountPulseB modeMeasureCountPulse;
     /// Период меток времени
     static PeriodTimeLabels periodTimeLabels;
     /// Время счета

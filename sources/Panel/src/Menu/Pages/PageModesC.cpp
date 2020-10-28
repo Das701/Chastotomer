@@ -26,8 +26,8 @@ extern Switch sNumberPeriodsC;
 
 
 TypeMeasureC             PageModesC::typeMeasure(TypeMeasureC::Frequency);
-ModeMeasureFrequencyC    PageModesC::modeMeasureFrequencyC(ModeMeasureFrequencyC::Freq);
-ModeMeasureCountPulseC   PageModesC::modeMeasureCountPulseC(ModeMeasureCountPulseC::CTA);
+ModeMeasureFrequencyC    PageModesC::modeMeasureFrequency(ModeMeasureFrequencyC::Freq);
+ModeMeasureCountPulseC   PageModesC::modeMeasureCountPulse(ModeMeasureCountPulseC::CTA);
 PeriodTimeLabels         PageModesC::periodTimeLabels(PeriodTimeLabels::T_8);
 NumberPeriods            PageModesC::numberPeriods(NumberPeriods::_1);
 TimeMeasure              PageModesC::timeMeasure(TimeMeasure::_1ms);
@@ -86,7 +86,7 @@ static void OnPress_ModeFrequencyC()
     items[2] = &sPeriodTimeLabelsC;   
     items[1] = &sModeFrequencyC;
     
-    if ((PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB) || (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CA))
+    if ((PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CB) || (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CA))
     {
         items[3] = &sNumberPeriodsC;
     }
@@ -104,7 +104,7 @@ static void OnPress_ModeFrequencyC()
 DEF_SWITCH_3(sModeFrequencyC,
     "Режим изм.", "Измерение частоты",
     "Частота", "f(C )/f(A)", "f(C )/f(B)",
-    PageModesC::modeMeasureFrequencyC, OnPress_ModeFrequencyC);
+    PageModesC::modeMeasureFrequency, OnPress_ModeFrequencyC);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_ModeCountPulseC()
@@ -112,16 +112,16 @@ static void OnPress_ModeCountPulseC()
     ClearItems(2);
 
     items[1] = &sModeCountPulseC;
-//    if(PageModesC::modeMeasureCountPulseC.value == ModeMeasureCountPulseC::StartStop)
+//    if(PageModesC::modeMeasureCountPulse.value == ModeMeasureCountPulseC::StartStop)
 //    {
-//        PageModesB::modeMeasureCountPulseB.value = ModeMeasureCountPulseB::StartStop;
+//        PageModesB::modeMeasureCountPulse.value = ModeMeasureCountPulseB::StartStop;
 //        PageModesA::modeMeasureCountPulse.value = ModeMeasureCountPulse::StartStop;
 //    }
-    if (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTA_1)
+    if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA_1)
     {
         items[2] = &sNumberPeriodsC;
     }
-    if (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTB_1)
+    if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB_1)
     {
         items[2] = &sNumberPeriodsC;
     }
@@ -135,7 +135,7 @@ static void OnPress_ModeCountPulseC()
 DEF_SWITCH_4(sModeCountPulseC,
     "Режим изм.", "Счёт числа импульсов",
     "C(tA)", "C(tB)", "C(TA)", "C(TB)",
-    PageModesC::modeMeasureCountPulseC, OnPress_ModeCountPulseC
+    PageModesC::modeMeasureCountPulse, OnPress_ModeCountPulseC
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

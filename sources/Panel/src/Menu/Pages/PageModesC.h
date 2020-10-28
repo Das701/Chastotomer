@@ -53,9 +53,9 @@ public:
     /// Тип измерения
     static TypeMeasureC typeMeasure;
     /// Режим измерения частоты
-    static ModeMeasureFrequencyC modeMeasureFrequencyC;
+    static ModeMeasureFrequencyC modeMeasureFrequency;
     /// Режим счёта импульсов
-    static ModeMeasureCountPulseC modeMeasureCountPulseC;
+    static ModeMeasureCountPulseC modeMeasureCountPulse;
     /// Период меток времени
     static PeriodTimeLabels periodTimeLabels;
     /// Время счета

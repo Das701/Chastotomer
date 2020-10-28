@@ -139,30 +139,30 @@ void FreqMeter::LoadModeMeasureFrequency()
     DEFINE_ARGUMENT;
 
     if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Freq && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Freq && CURRENT_CHANNEL_IS_B) || 
-       (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::Freq && CURRENT_CHANNEL_IS_C))
+       (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::Freq && CURRENT_CHANNEL_IS_B) || 
+       (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::Freq && CURRENT_CHANNEL_IS_C))
     {
     }
     else if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AB && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BA && CURRENT_CHANNEL_IS_B) || 
-            (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CA && CURRENT_CHANNEL_IS_C))
+            (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BA && CURRENT_CHANNEL_IS_B) || 
+            (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CA && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
     }
     else if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::BC && CURRENT_CHANNEL_IS_B) || 
-            (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB && CURRENT_CHANNEL_IS_C))
+            (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BC && CURRENT_CHANNEL_IS_B) || 
+            (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CB && CURRENT_CHANNEL_IS_C))
     {
         argument[4] = 1;
     }
     else if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::T_1 && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::T_1 && CURRENT_CHANNEL_IS_B))
+            (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::T_1 && CURRENT_CHANNEL_IS_B))
     {
         argument[5] = 1;
         argument[4] = 1;
     }
     else if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Tachometer && CURRENT_CHANNEL_IS_B))
+            (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::Tachometer && CURRENT_CHANNEL_IS_B))
     {
         argument[3] = 1;
     }
@@ -185,11 +185,11 @@ void FreqMeter::LoadModeMeasurePeriod()
     argument[1] = 1;
     
     if((PageModesA::modeMeasurePeriod == ModeMeasurePeriod::Period && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::Period && CURRENT_CHANNEL_IS_B))
+       (PageModesB::modeMeasurePeriod == ModeMeasurePeriodB::Period && CURRENT_CHANNEL_IS_B))
     {
     }
     else if((PageModesA::modeMeasurePeriod == ModeMeasurePeriod::F_1 && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::F_1 && CURRENT_CHANNEL_IS_B))
+            (PageModesB::modeMeasurePeriod == ModeMeasurePeriodB::F_1 && CURRENT_CHANNEL_IS_B))
     {
         argument[5] = 1;
     }
@@ -207,27 +207,27 @@ void FreqMeter::LoadModeMeasureDuration()
     argument[0] = 1;
     
     if((PageModesA::modeMeasureDuration == ModeMeasureDuration::Ndt && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Ndt && CURRENT_CHANNEL_IS_B))
+       (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Ndt && CURRENT_CHANNEL_IS_B))
     {
     }
     else if((PageModesA::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Ndt_1ns && CURRENT_CHANNEL_IS_B))
+            (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Ndt_1ns && CURRENT_CHANNEL_IS_B))
     {
         argument[4] = 1;
     }
     else if((PageModesA::modeMeasureDuration == ModeMeasureDuration::Ndt2 && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Ndt2 && CURRENT_CHANNEL_IS_B))
+            (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Ndt2 && CURRENT_CHANNEL_IS_B))
     {
         argument[5] = 1;
         argument[4] = 1;
     }
     else if((PageModesA::modeMeasureDuration == ModeMeasureDuration::Dcycle && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Dcycle && CURRENT_CHANNEL_IS_B))
+            (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Dcycle && CURRENT_CHANNEL_IS_B))
     {
         argument[3] = 1;
     }
     else if((PageModesA::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
+            (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
     {
         argument[5] = 1;
         argument[3] = 1;
@@ -247,22 +247,22 @@ void FreqMeter::LoadModeMeasureCountPulse()
     argument[1] = 1;
     argument[0] = 1;
 
-    if((PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTA) && CURRENT_CHANNEL_IS_C)
+    if((PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA) && CURRENT_CHANNEL_IS_C)
     {
     }
     else if((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::ATC && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::BTA && CURRENT_CHANNEL_IS_B) || 
-       (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTB && CURRENT_CHANNEL_IS_C))
+       (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA && CURRENT_CHANNEL_IS_B) || 
+       (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
     }
     else if((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::ATB && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::BTA_1 && CURRENT_CHANNEL_IS_B) || 
-       (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTA_1 && CURRENT_CHANNEL_IS_C))
+       (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA_1 && CURRENT_CHANNEL_IS_B) || 
+       (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA_1 && CURRENT_CHANNEL_IS_C))
     {
         argument[4] = 1;
     }
-    else if(PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::CTB_1 && CURRENT_CHANNEL_IS_C)
+    else if(PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB_1 && CURRENT_CHANNEL_IS_C)
     {
         argument[5] = 1;
         argument[4] = 1;

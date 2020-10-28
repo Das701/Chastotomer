@@ -196,10 +196,10 @@ static void DrawModeMeasure()
     {
         static const Enumeration *modesB[4] =
         {
-            &PageModesB::modeMeasureFrequencyB,
-            &PageModesB::modeMeasurePeriodB,
-            &PageModesB::modeMeasureDurationB,
-            &PageModesB::modeMeasureCountPulseB
+            &PageModesB::modeMeasureFrequency,
+            &PageModesB::modeMeasurePeriod,
+            &PageModesB::modeMeasureDuration,
+            &PageModesB::modeMeasureCountPulse
         };
         Text(modesB[PageModesB::typeMeasure.value]->ToText()).Write(0, 55);
     }
@@ -207,8 +207,8 @@ static void DrawModeMeasure()
     {
         static const Enumeration *modesC[2] =
         {
-            &PageModesC::modeMeasureFrequencyC,
-            &PageModesC::modeMeasureCountPulseC
+            &PageModesC::modeMeasureFrequency,
+            &PageModesC::modeMeasureCountPulse
         };
         Text(modesC[PageModesC::typeMeasure.value]->ToText()).Write(0, 55);
     }   
@@ -280,16 +280,16 @@ static void DrawInfo()
         if(CURRENT_CHANNEL_IS_A && ((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer) && (PageModesA::typeMeasure.IsFrequency())))
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && ((PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Tachometer) && PageModesB::typeMeasure.IsFrequency()))
+        else if(CURRENT_CHANNEL_IS_B && ((PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::Tachometer) && PageModesB::typeMeasure.IsFrequency()))
         {
         }
         else if(CURRENT_CHANNEL_IS_A && (PageModesA::typeMeasure.IsCountPulse()) && (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && (PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
+        else if(CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::StartStop))
         {
         }
-//        else if(CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasure == TypeMeasureC::CountPulse) && (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::StartStop))
+//        else if(CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasure == TypeMeasureC::CountPulse) && (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::StartStop))
 //        {
 //        }
         else
@@ -328,7 +328,7 @@ static void DrawInfo()
         
     }
     if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
-       (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
+       (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::StartStop))
     {
         if(PageModesA::StartStop() == true)
         {
@@ -414,7 +414,7 @@ static void DrawData()
 //    Text(PLIS::GiveSpec()).Write(344, 170);
 //    Text(PLIS::GiveIdent()).Write(344, 80);
     if(((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B)))
+            (PageModesB::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B)))
     {
         Text("60s").Write(2, 87, 60, Color::WHITE);
     }
@@ -476,7 +476,7 @@ static void DrawStatusBarB()
 {
     static const Enumeration * const modesB[TypeMeasureB::Count] =
     {///            Frequency                         Period                         Duration                         CountPulse
-        &PageModesB::modeMeasureFrequencyB, &PageModesB::modeMeasurePeriodB, &PageModesB::modeMeasureDurationB, &PageModesB::modeMeasureCountPulseB
+        &PageModesB::modeMeasureFrequency, &PageModesB::modeMeasurePeriod, &PageModesB::modeMeasureDuration, &PageModesB::modeMeasureCountPulse
     };
 
     static const Enumeration * const enumsB[TypeMeasureB::Count][6] =
@@ -527,7 +527,7 @@ static void DrawStatusBarC()
 {
     static const Enumeration * const modesC[TypeMeasureC::Count] =
     {///            Frequency                         CountPulse
-        &PageModesC::modeMeasureFrequencyC, &PageModesC::modeMeasureCountPulseC
+        &PageModesC::modeMeasureFrequency, &PageModesC::modeMeasureCountPulse
     };
 
     static const Enumeration * const enumsC[TypeMeasureC::Count][5] =

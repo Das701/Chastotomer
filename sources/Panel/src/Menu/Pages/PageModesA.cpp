@@ -274,19 +274,19 @@ static void OnPress_ModeDuration()
     switch(PageModesA::modeMeasureDuration.value)
     {
         case ModeMeasureDuration::Ndt:
-            PageModesB::modeMeasureDurationB.value = ModeMeasureDurationB::Ndt;
+            PageModesB::modeMeasureDuration.value = ModeMeasureDurationB::Ndt;
             break;
         case ModeMeasureDuration::Ndt_1ns:
-            PageModesB::modeMeasureDurationB.value = ModeMeasureDurationB::Ndt_1ns;
+            PageModesB::modeMeasureDuration.value = ModeMeasureDurationB::Ndt_1ns;
             break;
         case ModeMeasureDuration::Ndt2:
-            PageModesB::modeMeasureDurationB.value = ModeMeasureDurationB::Ndt2;
+            PageModesB::modeMeasureDuration.value = ModeMeasureDurationB::Ndt2;
             break;
         case ModeMeasureDuration::Dcycle:
-            PageModesB::modeMeasureDurationB.value = ModeMeasureDurationB::Dcycle;
+            PageModesB::modeMeasureDuration.value = ModeMeasureDurationB::Dcycle;
             break;
         case ModeMeasureDuration::Phase:
-            PageModesB::modeMeasureDurationB.value = ModeMeasureDurationB::Phase;
+            PageModesB::modeMeasureDuration.value = ModeMeasureDurationB::Phase;
             break;
     }
     if (PageModesA::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns)
@@ -328,8 +328,8 @@ static void OnPress_ModeCountPulse()
     items[1] = &sModeCountPulse;
     if(PageModesA::modeMeasureCountPulse.value == ModeMeasureCountPulse::StartStop)
     {
-        PageModesB::modeMeasureCountPulseB.value = ModeMeasureCountPulseB::StartStop;
-//        PageModesC::modeMeasureCountPulseC.value = ModeMeasureCountPulseC::StartStop;
+        PageModesB::modeMeasureCountPulse.value = ModeMeasureCountPulseB::StartStop;
+//        PageModesC::modeMeasureCountPulse.value = ModeMeasureCountPulseC::StartStop;
     }
     if (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::ATB)
     {
