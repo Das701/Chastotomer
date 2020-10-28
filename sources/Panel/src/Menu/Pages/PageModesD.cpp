@@ -24,37 +24,37 @@ static void OnPress_TimeMeasureD()
     switch (PageModesD::timeMeasureD.value)
     {
         case TimeMeasureD::_1ms:
-            PageModesB::timeMeasureB.value = TimeMeasureB::_1ms;
+            PageModesB::timeMeasure.value = TimeMeasure::_1ms;
             PageModesC::timeMeasureC.value = TimeMeasureC::_1ms;
             PageModesA::timeMeasure.value = TimeMeasure::_1ms;
             break;
         case TimeMeasureD::_10ms:
-            PageModesB::timeMeasureB.value = TimeMeasureB::_10ms;
+            PageModesB::timeMeasure.value = TimeMeasure::_10ms;
             PageModesC::timeMeasureC.value = TimeMeasureC::_10ms;
             PageModesA::timeMeasure.value = TimeMeasure::_10ms;
             break;
         case TimeMeasureD::_100ms:
-            PageModesB::timeMeasureB.value = TimeMeasureB::_100ms;
+            PageModesB::timeMeasure.value = TimeMeasure::_100ms;
             PageModesC::timeMeasureC.value = TimeMeasureC::_100ms;
             PageModesA::timeMeasure.value = TimeMeasure::_100ms;
             break;
         case TimeMeasureD::_1s:
-            PageModesB::timeMeasureB.value = TimeMeasureB::_1s;
+            PageModesB::timeMeasure.value = TimeMeasure::_1s;
             PageModesC::timeMeasureC.value = TimeMeasureC::_1s;
             PageModesA::timeMeasure.value = TimeMeasure::_1s;
             break;
         case TimeMeasureD::_10s:
-            PageModesB::timeMeasureB.value = TimeMeasureB::_10s;
+            PageModesB::timeMeasure.value = TimeMeasure::_10s;
             PageModesC::timeMeasureC.value = TimeMeasureC::_10s;
             PageModesA::timeMeasure.value = TimeMeasure::_10s;
             break;
         case TimeMeasureD::_100s:
-            PageModesB::timeMeasureB.value = TimeMeasureB::_100s;
+            PageModesB::timeMeasure.value = TimeMeasure::_100s;
             PageModesC::timeMeasureC.value = TimeMeasureC::_100s;
             PageModesA::timeMeasure.value = TimeMeasure::_100s;
             break;
         case TimeMeasureD::_1000s:
-            PageModesB::timeMeasureB.value = TimeMeasureB::_1000s;
+            PageModesB::timeMeasure.value = TimeMeasure::_1000s;
             PageModesC::timeMeasureC.value = TimeMeasureC::_1000s;
             PageModesA::timeMeasure.value = TimeMeasure::_1000s;
             break;
