@@ -13,7 +13,7 @@ void HAL::Init()
     SystemClock_Config();
     HAL_FSMC::Init();
     PLIS::Init();
-//    VCP::Init();
+    VCP::Init();
 }
 
 void SystemClock_Config(void)

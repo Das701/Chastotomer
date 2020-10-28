@@ -708,16 +708,6 @@
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
-              <FileName>stm32f4xx_it.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\stm32f4xx_it.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_it.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\stm32f4xx_it.h</FilePath>
-            </File>
-            <File>
               <FileName>HAL.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL.cpp</FilePath>
@@ -746,6 +736,11 @@
               <FileName>VCP.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\VCP.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_it.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\stm32f4xx_it.cpp</FilePath>
             </File>
           </Files>
         </Group>

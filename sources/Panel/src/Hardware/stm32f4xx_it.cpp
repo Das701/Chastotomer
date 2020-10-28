@@ -1,6 +1,10 @@
 #include "Hardware/VCP.h"
-#include <stm32f4xx_it.h>
 #include <stm32f4xx_hal.h>
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
 void NMI_Handler(void)
@@ -61,3 +65,8 @@ void OTG_FS_IRQHandler()
 {
     HAL_PCD_IRQHandler(&VCP::handlePCD);
 }
+
+
+#ifdef __cplusplus
+}
+#endif
