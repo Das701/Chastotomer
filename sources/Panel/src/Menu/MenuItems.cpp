@@ -356,12 +356,12 @@ bool Page::OnControl(const Control &control)
         else
         {
             if((PageModesA::typeMeasure.IsFrequency() && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Freq) && CURRENT_CHANNEL_IS_A) || 
-                ((PageModesB::typeMeasure == TypeMeasureB::Frequency) && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Freq) && CURRENT_CHANNEL_IS_B) || 
+                (PageModesB::typeMeasure.IsFrequency() && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Freq) && CURRENT_CHANNEL_IS_B) || 
                 ((PageModesC::typeMeasureC == TypeMeasureC::Frequency) && (PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::Freq) && CURRENT_CHANNEL_IS_C) ||
                 (PageModesA::typeMeasure.IsPeriod() && (PageModesA::modeMeasurePeriod == ModeMeasurePeriod::Period) && CURRENT_CHANNEL_IS_A) || 
-                ((PageModesB::typeMeasure == TypeMeasureB::Period) && (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::Period) && CURRENT_CHANNEL_IS_B) || 
+                (PageModesB::typeMeasure.IsPeriod() && (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::Period) && CURRENT_CHANNEL_IS_B) || 
                 (PageModesA::typeMeasure.IsDuration() && (PageModesA::modeMeasureDuration == ModeMeasureDuration::Ndt) && CURRENT_CHANNEL_IS_A) || 
-                ((PageModesB::typeMeasure == TypeMeasureB::Duration) && (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Ndt) && CURRENT_CHANNEL_IS_B))
+                (PageModesB::typeMeasure.IsDuration() && (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Ndt) && CURRENT_CHANNEL_IS_B))
             {
                 PLIS::RefreshAuto();
                 FreqMeter::LoadAuto();
@@ -454,7 +454,7 @@ bool Switch::OnControl(const Control &control)
                 FreqMeter::LoadOneTime();
             }
             else if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
-                    (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasure == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
+                    (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
             {
                 PageModesA::ToggleStartStop();
                 FreqMeter::LoadStartStop();

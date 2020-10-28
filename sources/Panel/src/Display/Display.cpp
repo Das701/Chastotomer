@@ -280,13 +280,13 @@ static void DrawInfo()
         if(CURRENT_CHANNEL_IS_A && ((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer) && (PageModesA::typeMeasure.IsFrequency())))
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && ((PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Tachometer) && (PageModesB::typeMeasure == TypeMeasureB::Frequency)))
+        else if(CURRENT_CHANNEL_IS_B && ((PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Tachometer) && PageModesB::typeMeasure.IsFrequency()))
         {
         }
         else if(CURRENT_CHANNEL_IS_A && (PageModesA::typeMeasure.IsCountPulse()) && (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasure == TypeMeasureB::CountPulse) && (PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
+        else if(CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && (PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
         {
         }
 //        else if(CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse) && (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::StartStop))
@@ -321,14 +321,14 @@ static void DrawInfo()
         Text("Внеш Г").Write(420, 160);
     }
     if(PageModesA::typeMeasure.IsPeriod() || (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns) 
-      || PageModesB::typeMeasure == TypeMeasureB::Period || (PageModesB::typeMeasure == TypeMeasureB::Duration && PageModesA::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns))
+      || PageModesB::typeMeasure.IsPeriod() || (PageModesB::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns))
     {
         Text("Метки").Write(430, 140);
         Text(PageModesA::periodTimeLabels.ToText()).Write(430, 160);
         
     }
-    if((CURRENT_CHANNEL_IS_A && (PageModesA::typeMeasure.IsCountPulse()) && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
-       (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasure == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
+    if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
+       (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
     {
         if(PageModesA::StartStop() == true)
         {

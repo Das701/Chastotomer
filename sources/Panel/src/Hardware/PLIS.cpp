@@ -190,8 +190,8 @@ static void CalculationDcycle()
 static void Calculation()
 {
     int x = 0;
-    if((CURRENT_CHANNEL_IS_A && (PageModesA::typeMeasure.IsFrequency())) ||
-       (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasure == TypeMeasureB::Frequency)) ||
+    if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency()) ||
+       (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsFrequency()) ||
        (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::Frequency))
        || CURRENT_CHANNEL_IS_D)
     {
@@ -305,8 +305,8 @@ static void Calculation()
             }
         }
     }
-    else if((CURRENT_CHANNEL_IS_A && (PageModesA::typeMeasure.IsDuration())) ||
-       (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasure == TypeMeasureB::Duration)))
+    else if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsDuration()) ||
+       (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsDuration()))
     {
         int us = 1;
         
@@ -321,8 +321,8 @@ static void Calculation()
 
         x = us;
     }
-    else if((CURRENT_CHANNEL_IS_A && (PageModesA::typeMeasure.IsPeriod())) ||
-       (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasure == TypeMeasureB::Period)))
+    else if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod()) ||
+       (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod()))
     {
         if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasurePeriod == ModeMeasurePeriod::F_1)) || 
             (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::F_1)))
@@ -726,7 +726,7 @@ void PLIS::Update()
 char* PLIS::GiveData()
 {
     if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse()) ||
-       (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasure == TypeMeasureB::CountPulse)) ||
+       (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse()) ||
        (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse)))
     {
         BinToDec();
@@ -883,9 +883,9 @@ char* PLIS::GiveSpec()
             std::strcpy(spec, " ns");
         }
         else if((PageModesA::typeMeasure.IsDuration() && (PageModesA::modeMeasureDuration == ModeMeasureDuration::Dcycle) && CURRENT_CHANNEL_IS_A) || 
-            ((PageModesB::typeMeasure == TypeMeasureB::Duration) && (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Dcycle) && CURRENT_CHANNEL_IS_B) || 
+            (PageModesB::typeMeasure.IsDuration() && (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Dcycle) && CURRENT_CHANNEL_IS_B) || 
             (PageModesA::typeMeasure.IsDuration() && (PageModesA::modeMeasureDuration == ModeMeasureDuration::Phase) && CURRENT_CHANNEL_IS_A) || 
-            ((PageModesB::typeMeasure == TypeMeasureA::Duration) && (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Phase) && CURRENT_CHANNEL_IS_B))
+            (PageModesB::typeMeasure.IsDuration() && (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Phase) && CURRENT_CHANNEL_IS_B))
         {
                 if((PageModesA::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_A) || 
                    (PageModesB::modeMeasureDurationB == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
@@ -948,14 +948,14 @@ char* PLIS::GiveSpec()
                 PageModesC::modeMeasureFrequencyC == ModeMeasureFrequencyC::CB) && CURRENT_CHANNEL_IS_C)
                 || ((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
                 (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B))
-                || (PageModesA::typeMeasure.IsCountPulse() || PageModesB::typeMeasure == TypeMeasureB::CountPulse || PageModesC::typeMeasureC == TypeMeasureC::CountPulse))
+                || (PageModesA::typeMeasure.IsCountPulse() || PageModesB::typeMeasure.IsCountPulse() || PageModesC::typeMeasureC == TypeMeasureC::CountPulse))
             {
                 std::strcpy(spec, " ");
             }
             else
             {
                 if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency()) ||
-                (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasure == TypeMeasureB::Frequency)) ||
+                (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsFrequency()) ||
                 (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::Frequency))
                 || CURRENT_CHANNEL_IS_D)
                 {
@@ -1015,7 +1015,7 @@ char* PLIS::GiveSpec()
                 else
                 {
                     if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod() && (PageModesA::modeMeasurePeriod == ModeMeasurePeriod::F_1)) ||
-                    (CURRENT_CHANNEL_IS_B && ((PageModesB::typeMeasure == TypeMeasureB::Period)) && (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::F_1)))
+                    (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod() && (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::F_1)))
                     {
                         if(decDA >= 1000)
                         {

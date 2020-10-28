@@ -14,6 +14,10 @@ struct TypeMeasureB : public Enumeration
     };
 
     explicit TypeMeasureB(E v) : Enumeration((uint8)v) {};
+    bool IsFrequency() const  { return (value == Frequency); }
+    bool IsPeriod() const     { return (value == Period); }
+    bool IsDuration() const   { return (value == Duration); }
+    bool IsCountPulse() const { return (value == CountPulse); }
 };
 
 /// Режим измерения частоты
