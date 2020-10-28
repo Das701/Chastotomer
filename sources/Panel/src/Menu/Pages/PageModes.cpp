@@ -563,7 +563,7 @@ Page *PageModes::self = &pageModes;
 
 int NumberPeriods::ToAbs() const
 {
-    static const int abs[Count] 
+    static const int abs[Count] =
     {
         1, 10, 100, 1000, 10000, 100000, 1000000
     };

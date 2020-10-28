@@ -509,35 +509,8 @@ static void Calculation()
             {
                 usT = usT*100;
             }
-            if(PageModes::numberPeriods == NumberPeriods::_1)
-            {
-                usT = usT*1;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_10)
-            {
-                usT = usT*10;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_100)
-            {
-                usT = usT*100;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_1K)
-            {
-                usT = usT*1000;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_10K)
-            {
-                usT = usT*10000;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_100K)
-            {
-                usT = usT*100000;
-            }
-            else if(PageModes::numberPeriods == NumberPeriods::_1000K)
-            {
-                usT = usT*1000000;
-            }
-            x = usT;
+            
+            x = usT * PageModes::numberPeriods.ToAbs();
         }
     }
     if(CURRENT_CHANNEL_IS_D)
