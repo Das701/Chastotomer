@@ -1,8 +1,7 @@
-#ifndef WIN32
 #include "defines.h"
 #include "Hardware/VCP.h"
+#include "SCPI/SCPI.h"
 #include <usbd_cdc.h>
-#endif
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -110,19 +109,11 @@ static int8_t CDC_Itf_Control (uint8 cmd, uint8* pbuf, uint16)
     return (USBD_OK);
 }
 
-static uint8 newbuff[100] = {0};
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 static int8_t CDC_Itf_Receive(uint8 *buffer, uint *length)
 {
-//    VCP::SendDataSynch(buffer, *length);
+    SCPI::AppendNewData(reinterpret_cast<const char *>(buffer), *reinterpret_cast<int *>(length));
     
     USBD_CDC_ReceivePacket(&VCP::handleUSBD);
-    std::memcpy(newbuff, buffer, *length);
-    return (USBD_OK);
-}
 
-uint8 * VCP::BuffRx()
-{
-    return newbuff;
+    return (USBD_OK);
 }

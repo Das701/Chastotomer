@@ -120,7 +120,7 @@ void VCP::SendDataSynch(const void *_buffer, uint size)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void VCP::SendStringAsynch(char *data)
+void VCP::SendStringAsynch(const char *data)
 {
     SendDataAsynch((uint8 *)data, std::strlen(data));
 }

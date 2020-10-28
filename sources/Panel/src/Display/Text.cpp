@@ -258,7 +258,7 @@ int Text::WriteSymbol(int x, int y, uint8 chr) const
         
         for (int j = 0; j < width; j++)
         {
-            if (GET_BIT(row, 8 - j))
+            if (_GET_BIT(row, 8 - j))
             {
                 Point().Draw(x + j + z, y);
                 Point().Draw(x + j + z, y + 1);

@@ -3,13 +3,6 @@
 #include <usbd_def.h>
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/** @defgroup VCP
- *  @brief Virtual Com Port
- *  @{
- */
- 
 #define VCP_FLUSH()                       VCP::Flush()
 #define VCP_SEND_DATA_SYNCH(buffer, size) VCP::SendDataSynch(buffer, size)
 #define CONNECTED_TO_USB                  VCP::connectedToUSB
@@ -27,7 +20,7 @@ public:
 
     static void SendDataSynch(const void *data, uint size = 0);
     /// Передаётся строка без завершающего нуля
-    static void SendStringAsynch(char *data);
+    static void SendStringAsynch(const char *data);
     /// Передаётся строка без завершающего нуля
     static void SendStringSynch(char *data);
     /// Эта строка передаётся с завершающими символами \\r\\n
@@ -47,14 +40,6 @@ public:
 
     static bool cableUSBisConnected;
     
-    static uint8 * BuffRx();
-    
-
 private:
     static bool PrevSendingComplete();
 };
-
-
-
-/** @}
- */

@@ -896,6 +896,26 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>SCPI</GroupName>
+          <Files>
+            <File>
+              <FileName>HeadSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\HeadSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\SCPI.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Utils</GroupName>
           <Files>
             <File>
@@ -918,6 +938,46 @@
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Math.h</FilePath>
             </File>
+            <File>
+              <FileName>StringUtils.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\StringUtils.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StringUtils.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\StringUtils.h</FilePath>
+            </File>
+            <File>
+              <FileName>Buffer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Buffer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Buffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Buffer.h</FilePath>
+            </File>
+            <File>
+              <FileName>Values.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Values.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Values.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Values.h</FilePath>
+            </File>
+            <File>
+              <FileName>Stack.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Stack.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Stack.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Stack.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -929,5 +989,14 @@
     <components/>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>Panel</LayName>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>

@@ -1,10 +1,12 @@
-#include "stm32f4xx_hal.h"
+#include "Display/Display.h"
+#include "Display/Text.h"
 #include "Hardware/HAL.h"
 #include "Hardware/VCP.h"
 #include "Keyboard/Keyboard.h"
-#include "Display/Display.h"
 #include "Menu/Menu.h"
-#include "Display/Text.h"
+#include "SCPI/SCPI.h"
+#include <stm32f4xx_hal.h>
+
 using Display::Text;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +31,8 @@ int main(void)
         if(HAL_GetTick() > time + 10)
         {
             Display::Update(); 
-        }     
+        }
+        SCPI::Update();
     }
 }
 
