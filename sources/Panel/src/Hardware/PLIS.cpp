@@ -309,17 +309,16 @@ static void Calculation()
        (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasure == TypeMeasureB::Duration)))
     {
         int us = 1;
-        if(PageModesA::periodTimeLabels == PeriodTimeLabels::T_6)
+        
+        if(PageModesA::periodTimeLabels.IsT_7())
         {
-        } 
-        else if(PageModesA::periodTimeLabels == PeriodTimeLabels::T_7)
+            us = us * 10;
+        }
+        else if(PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
         {
-            us = us*10;
-        } 
-        else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_8) || (PageModesA::periodTimeLabels == PeriodTimeLabels::T_5))
-        {
-            us = us*100;
-        } 
+            us = us * 100;
+        }
+
         x = us;
     }
     else if((CURRENT_CHANNEL_IS_A && (PageModesA::typeMeasure.IsPeriod())) ||
