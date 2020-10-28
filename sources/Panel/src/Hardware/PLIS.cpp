@@ -318,43 +318,9 @@ static void Calculation()
         }
         else
         {
-            int mhz = 1000;
-            int khz = 1;
-            if(PageModesA::timeMeasure == TimeMeasure::_1ms)
-            {
-                mhz = mhz*1;
-                khz = khz*1;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_10ms)
-            {
-                mhz = mhz*10;
-                khz = khz*10;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_100ms)
-            {
-                mhz = mhz*100;
-                khz = khz*100;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_1s)
-            {
-                mhz = mhz*1000;
-                khz = khz*1000;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_10s)
-            {
-                mhz = mhz*10000;
-                khz = khz*10000;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_100s)
-            {
-                mhz = mhz*100000;
-                khz = khz*100000;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_1000s)
-            {
-                mhz = mhz*1000000;
-                khz = khz*1000000;
-            }
+            int mhz = 1000 * PageModesA::timeMeasure.ToMS();
+            int khz = PageModesA::timeMeasure.ToMS();
+            
             if(((decDataA/khz)/2) < 1000)
             {
                 x = khz; 
