@@ -57,8 +57,9 @@ struct ModeFilter : public Enumeration
 
     explicit ModeFilter(E v) : Enumeration((uint8)v) {};
     static void Load();
-    static E Current();
+    static ModeFilter& Current();
     static void Set(E v);
+    bool IsOff() { return (value == ModeFilter::Off); }
 };
 
 

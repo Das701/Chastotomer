@@ -71,7 +71,7 @@ void ModeFilter::Load()
 
     DEFINE_ARGUMENT;
 
-    if(Current() == ModeFilter::Off)
+    if(Current().IsOff())
     {
         argument[5] = 1;
     }
@@ -80,18 +80,20 @@ void ModeFilter::Load()
 }
 
 
-ModeFilter::E ModeFilter::Current()
+ModeFilter &ModeFilter::Current()
 {
     if(CURRENT_CHANNEL_IS_A)
     {
-        return (ModeFilter::E)PageChannelA::modeFilter.value;
+        return PageChannelA::modeFilter;
     }
     else if(CURRENT_CHANNEL_IS_B)
     {
-        return (ModeFilter::E)PageChannelB::modeFilter.value;
+        return PageChannelB::modeFilter;
     }
     
-    return ModeFilter::On;
+    static ModeFilter mode(ModeFilter::Off);
+    
+    return mode;
 }
 
 
