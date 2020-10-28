@@ -17,9 +17,6 @@ namespace FreqMeter
     void LoadTimeMeasure();
     /// Загрузка числа периодов измерения
     void LoadNumerPeriodsMeasure();
-
-    /// Загрузка связи по текущему каналу
-    void LoadInputCouple();
     /// Загрузка входного сопротивления по текущему каналу
     void LoadImpedance();
 

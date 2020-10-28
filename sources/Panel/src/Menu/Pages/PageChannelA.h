@@ -4,18 +4,8 @@
 #include "PageModesB.h"
 #include "PageModesC.h"
 #include "PageModesD.h"
+#include "Settings.h"
 
-/// Открытый/закрытый вход
-struct InputCouple : public Enumeration
-{
-    enum E
-    {
-        AC,         ///< Открытый
-        DC          ///< Закрытый
-    };
-
-    explicit InputCouple(E v) : Enumeration((uint8)v) {};
-};
 
 /// Входное сопротивление
 struct InputImpedance : public Enumeration
@@ -64,19 +54,6 @@ struct Divider : public Enumeration
 
     explicit Divider(E v) : Enumeration((uint8)v) {};
 };
-
-/// Выбор типа синхронизации - ТТЛ или ЭСЛ
-struct TypeSynch : public Enumeration
-{
-    enum E
-    {
-        Manual,         ///< Ручн
-        Holdoff         ///< Holdoff
-    };
-
-    explicit TypeSynch(E v) : Enumeration((uint8)v) {};
-};
-
 
 class PageChannelA
 {

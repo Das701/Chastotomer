@@ -918,6 +918,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\InputSCPI.cpp</FilePath>
             </File>
+            <File>
+              <FileName>SCPI.txt</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\SCPI.txt</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Settings.h"
 #include "SCPI/SCPI.h"
 #include "Utils/String.h"
 
@@ -19,21 +20,18 @@ const StructSCPI SCPI::input[] =
 };
 
 
-//static pString coupling[] =
-//{
-//    " AC",
-//    " DC",
-//    ""
-//};
+static pString coupling[] =
+{
+    " AC",
+    " DC",
+    ""
+};
 
 
 static pCHAR FuncCoupling(pCHAR buffer)
 {
-    SCPI_PROLOG(buffer);
-    
-    SCPI::SendAnswer(String("COUPLIING").c_str());
-    
-    SCPI_EPILOG(buffer);
+    SCPI_REQUEST(SCPI::SendAnswer(coupling[InputCouple::Current()]));
+    SCPI_PROCESS_ARRAY(coupling, InputCouple::Set((InputCouple::E)i));
 }
 
 

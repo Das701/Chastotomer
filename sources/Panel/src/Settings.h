@@ -1,5 +1,6 @@
 #pragma once
-#include "Menu/Pages/PageChannelA.h"
+#include "Menu/MenuItems.h"
+//#include "Menu/Pages/PageChannelA.h"
 
 
 #define CURRENT_CHANNEL         (set.currentChannel)
@@ -28,6 +29,35 @@ struct Channel
         Count
     };
 };
+
+/// Открытый/закрытый вход
+struct InputCouple : public Enumeration
+{
+    enum E
+    {
+        AC,         ///< Открытый
+        DC          ///< Закрытый
+    };
+
+    explicit InputCouple(E v) : Enumeration((uint8)v) {};
+    static void Load();
+    static E Current();
+    static void Set(E v);
+};
+
+
+/// Выбор типа синхронизации - ТТЛ или ЭСЛ
+struct TypeSynch : public Enumeration
+{
+    enum E
+    {
+        Manual,         ///< Ручн
+        Holdoff         ///< Holdoff
+    };
+
+    explicit TypeSynch(E v) : Enumeration((uint8)v) {};
+};
+
 
 struct Settings
 {

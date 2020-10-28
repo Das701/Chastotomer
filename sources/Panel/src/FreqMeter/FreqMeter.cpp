@@ -423,24 +423,6 @@ void FreqMeter::LoadNumerPeriodsMeasure()
     PLIS::WriteCommand(command, argument);
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FreqMeter::LoadInputCouple()
-{
-    char command[4] = { 0, 0, 1, 1 };
-
-    DEFINE_ARGUMENT;
-
-    if((PageChannelA::couple == InputCouple::AC && CURRENT_CHANNEL_IS_A) || (PageChannelB::couple == InputCouple::AC && CURRENT_CHANNEL_IS_B))
-    {
-        
-    }
-    else
-    {
-        argument[5] = 1;
-    }
-
-    PLIS::WriteCommand(command, argument);
-}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FreqMeter::LoadImpedance()

@@ -1,5 +1,8 @@
 #include "defines.h"
 #include "Settings.h"
+#include "Hardware/HAL.h"
+#include "Menu/Pages/PageChannelA.h"
+#include "Menu/Pages/PageChannelB.h"
 
 
 Settings set =
@@ -12,3 +15,51 @@ Settings set =
         TypeSynch::Manual, TypeSynch::Manual  ///< typeSynch
     }
 };
+
+
+#define DEFINE_ARGUMENT char argument[6] = {0, 0, 0, 0, 0, 0}
+
+
+void InputCouple::Load()
+{
+    char command[4] = { 0, 0, 1, 1 };
+
+    DEFINE_ARGUMENT;
+
+    if(Current() == InputCouple::DC)
+    {
+        argument[5] = 1;
+    }
+
+    PLIS::WriteCommand(command, argument);
+}
+
+
+InputCouple::E InputCouple::Current()
+{
+    if(CURRENT_CHANNEL_IS_A)
+    {
+        return (InputCouple::E)PageChannelA::couple.value;
+    }
+    else if(CURRENT_CHANNEL_IS_B)
+    {
+        return (InputCouple::E)PageChannelB::couple.value;
+    }
+    
+    return InputCouple::AC;
+}
+
+
+void InputCouple::Set(InputCouple::E v)
+{
+    if(CURRENT_CHANNEL_IS_A)
+    {
+        PageChannelA::couple.value = v;
+        Load();
+    }
+    else if(CURRENT_CHANNEL_IS_B)
+    {
+        PageChannelB::couple.value = v;
+        Load();
+    }
+}
