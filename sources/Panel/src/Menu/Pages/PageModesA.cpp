@@ -565,3 +565,19 @@ PeriodTimeLabels &PeriodTimeLabels::Current()
 
     return result;
 }
+
+
+int PeriodTimeLabels::ToZeros() const
+{
+    static const int zeros[Count] =
+    {
+        1000,
+        10000,
+        100000,
+        1000000,
+        10000000,
+        100000000
+    };
+
+    return zeros[value];
+}

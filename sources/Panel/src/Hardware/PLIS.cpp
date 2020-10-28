@@ -199,43 +199,16 @@ static void Calculation()
            (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::T_1)))
         {
 //            int msF = 1;
-            int tmet = 1;
             int n = 1;
             manualZeros = 10;
             double test1;
             double test2;
             double test3;
 //            decDataA = decDataA*10;
-            if(PageModesA::periodTimeLabels == PeriodTimeLabels::T_3)
-            {
-                tmet = tmet*1000;
-            }
-            else if(PageModesA::periodTimeLabels == PeriodTimeLabels::T_4)
-            {
-                tmet = tmet*10000;
-                manualZeros = manualZeros*10;
-            }
-            else if(PageModesA::periodTimeLabels == PeriodTimeLabels::T_5)
-            {
-                tmet = tmet*100000;
-                manualZeros = manualZeros*100;
-            }
-            else if(PageModesA::periodTimeLabels == PeriodTimeLabels::T_6)
-            {
-                tmet = tmet*1000000;
-                manualZeros = manualZeros*1000;
-            }
-            else if(PageModesA::periodTimeLabels == PeriodTimeLabels::T_7)
-            {
-                tmet = tmet*10000000;
-                manualZeros = manualZeros*10000;
-            }
-            else if(PageModesA::periodTimeLabels == PeriodTimeLabels::T_8)
-            {
-                tmet = tmet*100000000;
-                manualZeros = manualZeros*100000;
-            }
-            
+
+            int tmet = PageModesA::periodTimeLabels.ToZeros();
+            manualZeros *= PageModesA::periodTimeLabels.ToZeros() / 1000;
+
             n *= PageModesA::numberPeriods.ToAbs();
             manualZeros *= PageModesA::numberPeriods.ToAbs();
            

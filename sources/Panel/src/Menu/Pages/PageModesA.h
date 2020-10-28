@@ -86,12 +86,14 @@ struct PeriodTimeLabels : public Enumeration
         T_5,        ///< 10-5
         T_6,        ///< 10-6
         T_7,        ///< 10-7
-        T_8         ///< 10-8
+        T_8,        ///< 10-8
+        Count
     };
 
     explicit PeriodTimeLabels(E v) : Enumeration((uint8)v) {};
     // Возвращает PeriodTimeLabels для текущего канала
     static PeriodTimeLabels &Current();
+    int ToZeros() const;
 };
 
 /// Время счёта
