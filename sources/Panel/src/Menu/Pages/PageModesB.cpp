@@ -27,7 +27,7 @@ extern Switch sTimeMeasureB;
 extern Switch sNumberPeriodsB;
 
 
-TypeMeasureB             PageModesB::typeMeasureB(TypeMeasureB::Frequency);
+TypeMeasureB             PageModesB::typeMeasure(TypeMeasureB::Frequency);
 ModeMeasureFrequencyB    PageModesB::modeMeasureFrequencyB(ModeMeasureFrequencyB::Freq);
 ModeMeasurePeriodB       PageModesB::modeMeasurePeriodB(ModeMeasurePeriodB::Period);
 ModeMeasureDurationB     PageModesB::modeMeasureDurationB(ModeMeasureDurationB::Ndt);
@@ -65,7 +65,7 @@ static void ClearItems(int num)
 
 void PageModesB::PressSetupB()
 {
-    switch (PageModesB::typeMeasureB.value)
+    switch (PageModesB::typeMeasure.value)
     {
         case TypeMeasureB::Frequency:
             items[1] = &sModeFrequencyB;
@@ -88,7 +88,7 @@ void PageModesB::PressSetupB()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_TypeMeasureB()
 {
-        switch (PageModesB::typeMeasureB.value)
+        switch (PageModesB::typeMeasure.value)
         {
         case TypeMeasureB::Frequency:
             PageModes::typeMeasure.value = TypeMeasureA::Frequency;
@@ -118,7 +118,7 @@ static void OnPress_TypeMeasureB()
 DEF_SWITCH_4(sTypeMeasureB,
     "Вид изм.", "Выбор измерения",
     "Частота", "Период", "Длит.", "Сч. имп.",
-    PageModesB::typeMeasureB, OnPress_TypeMeasureB
+    PageModesB::typeMeasure, OnPress_TypeMeasureB
 )
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

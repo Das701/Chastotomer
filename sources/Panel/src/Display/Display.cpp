@@ -165,7 +165,7 @@ static void DrawTypeMeasure()
     }
     else if (CURRENT_CHANNEL_IS_B)
     {
-        Text(PageModesB::typeMeasureB.ToText()).Write(x, 25, width);
+        Text(PageModesB::typeMeasure.ToText()).Write(x, 25, width);
     }
     else if (CURRENT_CHANNEL_IS_C)
     {
@@ -201,7 +201,7 @@ static void DrawModeMeasure()
             &PageModesB::modeMeasureDurationB,
             &PageModesB::modeMeasureCountPulseB
         };
-        Text(modesB[PageModesB::typeMeasureB.value]->ToText()).Write(0, 55);
+        Text(modesB[PageModesB::typeMeasure.value]->ToText()).Write(0, 55);
     }
     else if (CURRENT_CHANNEL_IS_C)
     {
@@ -277,16 +277,16 @@ static void DrawInfo()
 {
     if(PageIndication::memoryMode == MemoryMode::On)
     {
-        if(CURRENT_CHANNEL_IS_A && ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Tachometer) && (PageModes::typeMeasure == TypeMeasureA::Frequency)))
+        if(CURRENT_CHANNEL_IS_A && ((PageModes::modeMeasureFrequency == ModeMeasureFrequency::Tachometer) && (PageModes::typeMeasure.IsFrequency())))
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && ((PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Tachometer) && (PageModesB::typeMeasureB == TypeMeasureB::Frequency)))
+        else if(CURRENT_CHANNEL_IS_B && ((PageModesB::modeMeasureFrequencyB == ModeMeasureFrequencyB::Tachometer) && (PageModesB::typeMeasure == TypeMeasureB::Frequency)))
         {
         }
-        else if(CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasureA::CountPulse) && (PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
+        else if(CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure.IsCountPulse()) && (PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && (PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
+        else if(CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasure == TypeMeasureB::CountPulse) && (PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
         {
         }
 //        else if(CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::CountPulse) && (PageModesC::modeMeasureCountPulseC == ModeMeasureCountPulseC::StartStop))
@@ -320,15 +320,15 @@ static void DrawInfo()
     {
         Text("Внеш Г").Write(420, 160);
     }
-    if(PageModes::typeMeasure == TypeMeasureA::Period || (PageModes::typeMeasure == TypeMeasureA::Duration && PageModes::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns) 
-      || PageModesB::typeMeasureB == TypeMeasureB::Period || (PageModesB::typeMeasureB == TypeMeasureB::Duration && PageModes::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns))
+    if(PageModes::typeMeasure.IsPeriod() || (PageModes::typeMeasure.IsDuration() && PageModes::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns) 
+      || PageModesB::typeMeasure == TypeMeasureB::Period || (PageModesB::typeMeasure == TypeMeasureB::Duration && PageModes::modeMeasureDuration != ModeMeasureDuration::Ndt_1ns))
     {
         Text("Метки").Write(430, 140);
         Text(PageModes::periodTimeLabels.ToText()).Write(430, 160);
         
     }
-    if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasureA::CountPulse) && PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
-       (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
+    if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure.IsCountPulse()) && PageModes::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
+       (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasure == TypeMeasureB::CountPulse) && PageModesB::modeMeasureCountPulseB == ModeMeasureCountPulseB::StartStop))
     {
         if(PageModes::StartStop() == true)
         {
@@ -507,9 +507,9 @@ static void DrawStatusBarB()
         }
     };
 
-    const Enumeration *mode = modesB[PageModesB::typeMeasureB];
+    const Enumeration *mode = modesB[PageModesB::typeMeasure];
 
-    const Enumeration *toText = enumsB[PageModesB::typeMeasureB][mode->value];
+    const Enumeration *toText = enumsB[PageModesB::typeMeasure][mode->value];
 
     int y = 80;
     int x = 0;

@@ -112,7 +112,7 @@ public:
     static void Init();
     static void PressSetupB();
     /// Тип измерения
-    static TypeMeasureB typeMeasureB;
+    static TypeMeasureB typeMeasure;
     /// Режим измерения частоты
     static ModeMeasureFrequencyB modeMeasureFrequencyB;
     /// Режим измерения периода
