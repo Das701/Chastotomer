@@ -384,36 +384,8 @@ static void Calculation()
         if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasurePeriod == ModeMeasurePeriod::F_1)) || 
             (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasurePeriodB == ModeMeasurePeriodB::F_1)))
         {
-            int sT = 1;
+            int sT = PageModesA::timeMeasure.ToMS();
             
-            if(PageModesA::timeMeasure == TimeMeasure::_1ms)
-            {
-                sT = sT*1;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_10ms)
-            {
-                sT = sT*10;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_100ms)
-            {
-                sT = sT*100;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_1s)
-            {
-                sT = sT*1000;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_10s)
-            {
-                sT = sT*10000;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_100s)
-            {
-                sT = sT*100000;
-            }
-            else if(PageModesA::timeMeasure == TimeMeasure::_1000s)
-            {
-                sT = sT*1000000;
-            }
             decDA = decDataA/(2*sT);
             decDataA = 4/decDataA;
             if(decDA >= 1000)
