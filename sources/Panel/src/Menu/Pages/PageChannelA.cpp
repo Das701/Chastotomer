@@ -98,7 +98,7 @@ static void OnPress_TimeLabels()
     switch (PageModesA::periodTimeLabels.value)
     {
         case PeriodTimeLabels::T_3:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_3;
+            PageModesB::periodTimeLabels.value  = PeriodTimeLabels::T_3;
             PageModesC::periodTimeLabels.value = PeriodTimeLabels::T_3;
             break;
         case PeriodTimeLabels::T_4:

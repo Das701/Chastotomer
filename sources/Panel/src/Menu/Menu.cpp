@@ -215,42 +215,15 @@ char *Menu::ChannelSettings()
         }
         else
         {
-            if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_7 && CURRENT_CHANNEL_IS_A)||
-                (PageModesB::periodTimeLabels == PeriodTimeLabels::T_7 && CURRENT_CHANNEL_IS_B)||
-                (PageModesC::periodTimeLabels == PeriodTimeLabels::T_7 && CURRENT_CHANNEL_IS_C))
-                {
-                    std::strcat(settings, "x10-7");
-                }
-                else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_6 && CURRENT_CHANNEL_IS_A)||
-                (PageModesB::periodTimeLabels == PeriodTimeLabels::T_6 && CURRENT_CHANNEL_IS_B)||
-                (PageModesC::periodTimeLabels == PeriodTimeLabels::T_6 && CURRENT_CHANNEL_IS_C))
-                {
-                    std::strcat(settings, "x10-6");
-                }
-                else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_5 && CURRENT_CHANNEL_IS_A)||
-                (PageModesB::periodTimeLabels == PeriodTimeLabels::T_5 && CURRENT_CHANNEL_IS_B)||
-                (PageModesC::periodTimeLabels == PeriodTimeLabels::T_5 && CURRENT_CHANNEL_IS_C))
-                {
-                    std::strcat(settings, "x10-5");
-                }
-                else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_4 && CURRENT_CHANNEL_IS_A)||
-                (PageModesB::periodTimeLabels == PeriodTimeLabels::T_4 && CURRENT_CHANNEL_IS_B)||
-                (PageModesC::periodTimeLabels == PeriodTimeLabels::T_4 && CURRENT_CHANNEL_IS_C))
-                {
-                    std::strcat(settings, "x10-4");
-                }
-                else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_3 && CURRENT_CHANNEL_IS_A)||
-                (PageModesB::periodTimeLabels == PeriodTimeLabels::T_3 && CURRENT_CHANNEL_IS_B)||
-                (PageModesC::periodTimeLabels == PeriodTimeLabels::T_3 && CURRENT_CHANNEL_IS_C))
-                {
-                    std::strcat(settings, "x10-3");
-                }
-                else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_8 && CURRENT_CHANNEL_IS_A)||
-                (PageModesB::periodTimeLabels == PeriodTimeLabels::T_8 && CURRENT_CHANNEL_IS_B)||
-                (PageModesC::periodTimeLabels == PeriodTimeLabels::T_8 && CURRENT_CHANNEL_IS_C))
-                {
-                    std::strcat(settings, "x10-8");
-                }
+            switch (PeriodTimeLabels::Current().value)
+            {
+            case PeriodTimeLabels::T_3:     std::strcat(settings, "x10-3");     break;
+            case PeriodTimeLabels::T_4:     std::strcat(settings, "x10-4");     break;
+            case PeriodTimeLabels::T_5:     std::strcat(settings, "x10-5");     break;
+            case PeriodTimeLabels::T_6:     std::strcat(settings, "x10-6");     break;
+            case PeriodTimeLabels::T_7:     std::strcat(settings, "x10-7");     break;
+            case PeriodTimeLabels::T_8:     std::strcat(settings, "x10-8");     break;
+            }
         }
     }
 
