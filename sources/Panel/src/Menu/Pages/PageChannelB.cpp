@@ -142,7 +142,7 @@ static void OnPress_TimeMeasure()
         case TimeMeasure::_1ms:
             PageModesB::timeMeasure.value = TimeMeasure::_1ms;
             PageModesC::timeMeasure.value = TimeMeasure::_1ms;
-            PageModesD::timeMeasureD.value = TimeMeasureD::_1ms;
+            PageModesD::timeMeasure.value = TimeMeasure::_1ms;
             PageModesB::numberPeriods.value = NumberPeriods::_1;
             PageModesC::numberPeriods.value = NumberPeriods::_1;
             PageModesA::numberPeriods.value = NumberPeriods::_1;
@@ -150,7 +150,7 @@ static void OnPress_TimeMeasure()
         case TimeMeasure::_10ms:
             PageModesB::timeMeasure.value = TimeMeasure::_10ms;
             PageModesC::timeMeasure.value = TimeMeasure::_10ms;
-            PageModesD::timeMeasureD.value = TimeMeasureD::_10ms;
+            PageModesD::timeMeasure.value = TimeMeasure::_10ms;
             PageModesB::numberPeriods.value = NumberPeriods::_10;
             PageModesC::numberPeriods.value = NumberPeriods::_10;
             PageModesA::numberPeriods.value = NumberPeriods::_10;
@@ -158,7 +158,7 @@ static void OnPress_TimeMeasure()
         case TimeMeasure::_100ms:
             PageModesB::timeMeasure.value = TimeMeasure::_100ms;
             PageModesC::timeMeasure.value = TimeMeasure::_100ms;
-            PageModesD::timeMeasureD.value = TimeMeasureD::_100ms;
+            PageModesD::timeMeasure.value = TimeMeasure::_100ms;
             PageModesB::numberPeriods.value = NumberPeriods::_100;
             PageModesC::numberPeriods.value = NumberPeriods::_100;
             PageModesA::numberPeriods.value = NumberPeriods::_100;
@@ -166,7 +166,7 @@ static void OnPress_TimeMeasure()
         case TimeMeasure::_1s:
             PageModesB::timeMeasure.value = TimeMeasure::_1s;
             PageModesC::timeMeasure.value = TimeMeasure::_1s;
-            PageModesD::timeMeasureD.value = TimeMeasureD::_1s;
+            PageModesD::timeMeasure.value = TimeMeasure::_1s;
             PageModesB::numberPeriods.value = NumberPeriods::_1K;
             PageModesC::numberPeriods.value = NumberPeriods::_1K;
             PageModesA::numberPeriods.value = NumberPeriods::_1K;
@@ -174,7 +174,7 @@ static void OnPress_TimeMeasure()
         case TimeMeasure::_10s:
             PageModesB::timeMeasure.value = TimeMeasure::_10s;
             PageModesC::timeMeasure.value = TimeMeasure::_10s;
-            PageModesD::timeMeasureD.value = TimeMeasureD::_10s;
+            PageModesD::timeMeasure.value = TimeMeasure::_10s;
             PageModesB::numberPeriods.value = NumberPeriods::_10K;
             PageModesC::numberPeriods.value = NumberPeriods::_10K;
             PageModesA::numberPeriods.value = NumberPeriods::_10K;
@@ -182,7 +182,7 @@ static void OnPress_TimeMeasure()
         case TimeMeasure::_100s:
             PageModesB::timeMeasure.value = TimeMeasure::_100s;
             PageModesC::timeMeasure.value = TimeMeasure::_100s;
-            PageModesD::timeMeasureD.value = TimeMeasureD::_100s;
+            PageModesD::timeMeasure.value = TimeMeasure::_100s;
             PageModesA::numberPeriods.value = NumberPeriods::_100K;
             PageModesB::numberPeriods.value = NumberPeriods::_100K;
             PageModesC::numberPeriods.value = NumberPeriods::_100K;
@@ -190,7 +190,7 @@ static void OnPress_TimeMeasure()
         case TimeMeasure::_1000s:
             PageModesB::timeMeasure.value = TimeMeasure::_1000s;
             PageModesC::timeMeasure.value = TimeMeasure::_1000s;
-            PageModesD::timeMeasureD.value = TimeMeasureD::_1000s;
+            PageModesD::timeMeasure.value = TimeMeasure::_1000s;
             PageModesA::numberPeriods.value = NumberPeriods::_1000K;
             PageModesB::numberPeriods.value = NumberPeriods::_1000K;
             PageModesC::numberPeriods.value = NumberPeriods::_1000K;

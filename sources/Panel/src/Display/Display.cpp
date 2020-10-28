@@ -566,6 +566,6 @@ static void DrawStatusBarD()
     int y = 80;
     int x = 0;
     int width = 60;
-    Text(PageModesD::timeMeasureD.ToText()).Write(x + 2, y + 7, width, Color::WHITE);
+    Text(PageModesD::timeMeasure.ToText()).Write(x + 2, y + 7, width, Color::WHITE);
     Rectangle(width, 30).Draw(x, y, Color::WHITE);
 }
