@@ -4,7 +4,7 @@
 #include "Menu/Menu.h"
 #include "Hardware/HAL.h"
 #include "Settings.h"
-#include "Menu/Pages/PageModes.h"
+#include "Menu/Pages/PageModesA.h"
 #include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageModesC.h"
 #include "Menu/Pages/PageModesD.h"

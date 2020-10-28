@@ -6,7 +6,7 @@
 #include "Utils/Math.h"
 #include "Menu/Pages/PageChannelA.h"
 #include "Menu/Pages/PageChannelB.h"
-#include "Menu/Pages/PageModes.h"
+#include "Menu/Pages/PageModesA.h"
 #include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Utils/String.h"

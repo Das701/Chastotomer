@@ -4,10 +4,10 @@
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
+#include "Menu/Pages/PageModesA.h"
 #include "Settings.h"
 #include "FreqMeter/FreqMeter.h"
 #include <cstring>
-#include "PageModes.h"
 
 using namespace Display::Primitives;
 using namespace Display;

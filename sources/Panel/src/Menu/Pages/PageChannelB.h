@@ -1,10 +1,10 @@
 #pragma once
 #include "Menu/MenuItems.h"
 #include "PageChannelA.h"
-#include "PageModes.h"
-#include "PageModesB.h"
-#include "PageModesC.h"
-#include "PageModesD.h"
+#include "Menu/Pages/PageModesA.h"
+#include "Menu/Pages/PageModesB.h"
+#include "Menu/Pages/PageModesC.h"
+#include "Menu/Pages/PageModesD.h"
 
 class PageChannelB
 {

@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "Menu.h"
 #include "MenuItems.h"
-#include "Menu/Pages/PageModes.h"
+#include "Menu/Pages/PageModesA.h"
 #include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageModesC.h"
 #include "Menu/Pages/PageModesD.h"
