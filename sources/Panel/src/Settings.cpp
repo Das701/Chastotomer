@@ -26,7 +26,7 @@ void InputCouple::Load()
 
     DEFINE_ARGUMENT;
 
-    if(Current() == InputCouple::DC)
+    if(Current().IsDC())
     {
         argument[5] = 1;
     }
@@ -35,18 +35,20 @@ void InputCouple::Load()
 }
 
 
-InputCouple::E InputCouple::Current()
+InputCouple &InputCouple::Current()
 {
     if(CURRENT_CHANNEL_IS_A)
     {
-        return (InputCouple::E)PageChannelA::couple.value;
+        return PageChannelA::couple;
     }
     else if(CURRENT_CHANNEL_IS_B)
     {
-        return (InputCouple::E)PageChannelB::couple.value;
+        return PageChannelB::couple;
     }
     
-    return InputCouple::AC;
+    static InputCouple couple(InputCouple::AC);
+    
+    return couple;
 }
 
 

@@ -41,8 +41,9 @@ struct InputCouple : public Enumeration
 
     explicit InputCouple(E v) : Enumeration((uint8)v) {};
     static void Load();
-    static E Current();
+    static InputCouple &Current();
     static void Set(E v);
+    bool IsDC() const { return (value == InputCouple::DC); }
 };
 
 
@@ -59,7 +60,7 @@ struct ModeFilter : public Enumeration
     static void Load();
     static ModeFilter& Current();
     static void Set(E v);
-    bool IsOff() { return (value == ModeFilter::Off); }
+    bool IsOff() const { return (value == ModeFilter::Off); }
 };
 
 
