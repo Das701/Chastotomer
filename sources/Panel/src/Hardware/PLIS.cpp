@@ -189,7 +189,7 @@ static void CalculationDcycle()
 
 static void Calculation()
 {
-    int x;
+    int x = 0;
     if((CURRENT_CHANNEL_IS_A && (PageModes::typeMeasure == TypeMeasure::Frequency)) ||
        (CURRENT_CHANNEL_IS_B && (PageModesB::typeMeasureB == TypeMeasureB::Frequency)) ||
        (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasureC == TypeMeasureC::Frequency))
@@ -269,31 +269,31 @@ static void Calculation()
         {
             decDataA = decDataA*100;
             int rel = 1;
-            if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriodsC == NumberPeriodsC::_1))
+            if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_1))
             {
                 rel = rel*1;
             }
-            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriodsC == NumberPeriodsC::_10))
+            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_10))
             {
                 rel = rel*10;
             }
-            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriodsC == NumberPeriodsC::_100))
+            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_100))
             {
                 rel = rel*100;
             }
-            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriodsC == NumberPeriodsC::_1K))
+            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_1K))
             {
                 rel = rel*1000;
             }
-            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriodsC == NumberPeriodsC::_10K))
+            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_10K))
             {
                 rel = rel*10000;
             }
-            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriodsC == NumberPeriodsC::_100K))
+            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_100K))
             {
                 rel = rel*100000;
             }
-            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriodsC == NumberPeriodsC::_1000K))
+            else if(CURRENT_CHANNEL_IS_C && (PageModesC::numberPeriods == NumberPeriods::_1000K))
             {
                 rel = rel*1000000;
             }

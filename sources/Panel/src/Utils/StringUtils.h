@@ -52,7 +52,7 @@ public:
 };
 
 
-#ifndef GUI
+#ifndef WIN32
 
 int strcpy_s(char *dest, uint dest_size, const char *src);
 

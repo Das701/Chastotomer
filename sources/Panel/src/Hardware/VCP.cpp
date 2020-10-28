@@ -5,6 +5,7 @@
 #include "usbd_desc.h"
 #include <cstdarg>
 #include <cstdio>
+#include <cstring>
 
 namespace Math
 {

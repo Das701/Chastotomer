@@ -534,14 +534,14 @@ static void DrawStatusBarC()
     {
         {   /// ModeMeasureFrequency::
             &PageModesC::timeMeasureC,        /// Freq
-            &PageModesC::numberPeriodsC,      /// CA
-            &PageModesC::numberPeriodsC,      /// CB
+            &PageModesC::numberPeriods,       /// CA
+            &PageModesC::numberPeriods,       /// CB
         },
         {   /// ModeMeasureCountPulse::
             nullptr,                          /// Manual
             nullptr,                          /// ATC
-            &PageModesC::numberPeriodsC,  
-            &PageModesC::numberPeriodsC       /// ATC_1
+            &PageModesC::numberPeriods,  
+            &PageModesC::numberPeriods       /// ATC_1
         }
     };
 
