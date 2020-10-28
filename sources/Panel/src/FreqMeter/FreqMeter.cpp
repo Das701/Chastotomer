@@ -283,37 +283,15 @@ void FreqMeter::LoadPeriodTimeLabels()
 
     DEFINE_ARGUMENT;
 
-    if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_7 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::periodTimeLabels == PeriodTimeLabels::T_7 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::periodTimeLabels == PeriodTimeLabels::T_7 && CURRENT_CHANNEL_IS_C))
+    switch (PeriodTimeLabels::Current().value)
     {
-        argument[5] = 1;
-    }
-    else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_6 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::periodTimeLabels == PeriodTimeLabels::T_6 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::periodTimeLabels == PeriodTimeLabels::T_6 && CURRENT_CHANNEL_IS_C))
-    {
-        argument[4] = 1;
-    }
-    else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_5 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::periodTimeLabels == PeriodTimeLabels::T_5 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::periodTimeLabels == PeriodTimeLabels::T_5 && CURRENT_CHANNEL_IS_C))
-    {
-        argument[5] = 1;
-        argument[4] = 1;
-    }
-    else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_4 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::periodTimeLabels == PeriodTimeLabels::T_4 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::periodTimeLabels == PeriodTimeLabels::T_4 && CURRENT_CHANNEL_IS_C))
-    {
-        argument[3] = 1;
-    }
-    else if((PageModesA::periodTimeLabels == PeriodTimeLabels::T_3 && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::periodTimeLabels == PeriodTimeLabels::T_3 && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::periodTimeLabels == PeriodTimeLabels::T_3 && CURRENT_CHANNEL_IS_C))
-    {
-        argument[5] = 1;
-        argument[3] = 1;
+    case PeriodTimeLabels::T_7:     argument[5] = 1;    break;
+    case PeriodTimeLabels::T_6:     argument[4] = 1;    break;
+    case PeriodTimeLabels::T_5:     argument[5] = 1;
+                                    argument[4] = 1;    break;
+    case PeriodTimeLabels::T_4:     argument[3] = 1;    break;
+    case PeriodTimeLabels::T_3:     argument[5] = 1;
+                                    argument[3] = 1;    break;
     }
 
     PLIS::WriteCommand(command, argument);

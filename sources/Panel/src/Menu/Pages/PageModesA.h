@@ -90,6 +90,8 @@ struct PeriodTimeLabels : public Enumeration
     };
 
     explicit PeriodTimeLabels(E v) : Enumeration((uint8)v) {};
+    // Возвращает PeriodTimeLabels для текущего канала
+    static PeriodTimeLabels &Current();
 };
 
 /// Время счёта

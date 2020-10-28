@@ -550,3 +550,18 @@ NumberPeriods &NumberPeriods::Current()
 
     return result;
 }
+
+
+PeriodTimeLabels &PeriodTimeLabels::Current()
+{
+    PeriodTimeLabels &result = PageModesA::periodTimeLabels;
+
+    switch (CURRENT_CHANNEL)
+    {
+    case Channel::A:    result = PageModesA::periodTimeLabels; break;
+    case Channel::B:    result = PageModesB::periodTimeLabels; break;
+    case Channel::C:    result = PageModesC::periodTimeLabels; break;
+    }
+
+    return result;
+}
