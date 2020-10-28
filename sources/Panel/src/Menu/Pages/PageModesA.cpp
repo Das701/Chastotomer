@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Settings.h"
 #include "Menu/Pages/PageModesA.h"
 #include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageModesC.h"
@@ -565,4 +566,23 @@ int TimeMeasure::ToMS() const
     };
 
     return time[value];
+}
+
+
+TimeMeasure &TimeMeasure::Current()
+{
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        return PageModesA::timeMeasure;
+    }
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        return PageModesB::timeMeasure;
+    }
+    else if (CURRENT_CHANNEL_IS_C)
+    {
+        return PageModesC::timeMeasure;
+    }
+
+    return PageModesD::timeMeasure;
 }

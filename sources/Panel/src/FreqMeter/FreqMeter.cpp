@@ -325,50 +325,18 @@ void FreqMeter::LoadTimeMeasure()
     char command[4] = { 1, 0, 0, 0 };
 
     DEFINE_ARGUMENT;
-    if((PageModesA::timeMeasure == TimeMeasure::_10ms && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::timeMeasure == TimeMeasure::_10ms && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::timeMeasure == TimeMeasure::_10ms && CURRENT_CHANNEL_IS_C)||
-       (PageModesD::timeMeasure == TimeMeasure::_10ms && CURRENT_CHANNEL_IS_D))
+
+    switch (TimeMeasure::Current().value)
     {
-        argument[5] = 1;
-    }
-    else if((PageModesA::timeMeasure == TimeMeasure::_100ms && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::timeMeasure == TimeMeasure::_100ms && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::timeMeasure == TimeMeasure::_100ms && CURRENT_CHANNEL_IS_C)||
-       (PageModesD::timeMeasure == TimeMeasure::_100ms && CURRENT_CHANNEL_IS_D))
-    {
-        argument[4] = 1;
-    }
-    else if((PageModesA::timeMeasure == TimeMeasure::_1s && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::timeMeasure == TimeMeasure::_1s && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::timeMeasure == TimeMeasure::_1s && CURRENT_CHANNEL_IS_C)||
-       (PageModesD::timeMeasure == TimeMeasure::_1s && CURRENT_CHANNEL_IS_D))
-    {
-        argument[5] = 1;
-        argument[4] = 1;
-    }
-    else if((PageModesA::timeMeasure == TimeMeasure::_10s && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::timeMeasure == TimeMeasure::_10s && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::timeMeasure == TimeMeasure::_10s && CURRENT_CHANNEL_IS_C)||
-       (PageModesD::timeMeasure == TimeMeasure::_10s && CURRENT_CHANNEL_IS_D))
-    {
-        argument[3] = 1;
-    }
-    else if((PageModesA::timeMeasure == TimeMeasure::_100s && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::timeMeasure == TimeMeasure::_100s && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::timeMeasure == TimeMeasure::_100s && CURRENT_CHANNEL_IS_C)||
-       (PageModesD::timeMeasure == TimeMeasure::_100s && CURRENT_CHANNEL_IS_D))
-    {
-        argument[5] = 1;
-        argument[3] = 1;
-    }
-    else if((PageModesA::timeMeasure == TimeMeasure::_1000s && CURRENT_CHANNEL_IS_A)||
-       (PageModesB::timeMeasure == TimeMeasure::_1000s && CURRENT_CHANNEL_IS_B)||
-       (PageModesC::timeMeasure == TimeMeasure::_1000s && CURRENT_CHANNEL_IS_C)||
-       (PageModesD::timeMeasure == TimeMeasure::_1000s && CURRENT_CHANNEL_IS_D))
-    {
-        argument[4] = 1;
-        argument[3] = 1;
+    case TimeMeasure::_10ms:    argument[5] = 1;  break;
+    case TimeMeasure::_100ms:   argument[4] = 1;  break;
+    case TimeMeasure::_1s:      argument[4] = 1;
+                                argument[5] = 1;  break;
+    case TimeMeasure::_10s:     argument[3] = 1;  break;
+    case TimeMeasure::_100s:    argument[3] = 1;
+                                argument[5] = 1;  break;
+    case TimeMeasure::_1000s:   argument[3] = 1;
+                                argument[4] = 1;  break;
     }
 
     PLIS::WriteCommand(command, argument);
