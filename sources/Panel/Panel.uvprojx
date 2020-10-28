@@ -489,9 +489,9 @@
               <FilePath>.\src\libs\CMSIS\system_stm32f4xx.c</FilePath>
             </File>
             <File>
-              <FileName>startup_stm32f401xe.s</FileName>
+              <FileName>startup_stm32f437xx.s</FileName>
               <FileType>2</FileType>
-              <FilePath>.\src\libs\CMSIS\startup_stm32f401xe.s</FilePath>
+              <FilePath>.\src\libs\CMSIS\startup_stm32f437xx.s</FilePath>
             </File>
           </Files>
         </Group>
