@@ -1,5 +1,6 @@
 #include "stm32f4xx_hal.h"
 #include "Hardware/HAL.h"
+#include "Hardware/VCP.h"
 #include "Keyboard/Keyboard.h"
 #include "Display/Display.h"
 #include "Menu/Menu.h"
@@ -15,6 +16,7 @@ int main(void)
     Menu::Init();   
     Menu::Update();
     Display::Update();
+    VCP::Init();
     int time = HAL_GetTick();
     while((time + 3000) > HAL_GetTick())
     {
