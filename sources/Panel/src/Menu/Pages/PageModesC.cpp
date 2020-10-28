@@ -141,33 +141,11 @@ DEF_SWITCH_4(sModeCountPulseC,
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_TimeLabelsC()
 {
-    switch (PageModesC::periodTimeLabels.value)
-    {
-        case PeriodTimeLabels::T_3:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_3;
-            PageModesA::periodTimeLabels.value = PeriodTimeLabels::T_3;
-            break;
-        case PeriodTimeLabels::T_4:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_4;
-            PageModesA::periodTimeLabels.value = PeriodTimeLabels::T_4;
-            break;
-        case PeriodTimeLabels::T_5:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_5;
-            PageModesA::periodTimeLabels.value = PeriodTimeLabels::T_5;
-            break;
-        case PeriodTimeLabels::T_6:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_6;
-            PageModesA::periodTimeLabels.value = PeriodTimeLabels::T_6;
-            break;
-        case PeriodTimeLabels::T_7:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_7;
-            PageModesA::periodTimeLabels.value = PeriodTimeLabels::T_7;
-            break;
-        case PeriodTimeLabels::T_8:
-            PageModesB::periodTimeLabels.value = PeriodTimeLabels::T_8;
-            PageModesA::periodTimeLabels.value = PeriodTimeLabels::T_8;
-            break;
-    }
+    uint8 period = PageModesC::periodTimeLabels.value;
+
+    PageModesA::periodTimeLabels.value = period;
+    PageModesB::periodTimeLabels.value = period;
+
     FreqMeter::LoadPeriodTimeLabels();
 }
 
