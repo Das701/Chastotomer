@@ -30,7 +30,7 @@ struct StructSCPI
 };
 
 
-#define SCPI_NODE(key, strct)   {key, strct,   nullptr, nullptr, nullptr}
+#define SCPI_NODE(key, strct)   {key, strct,   nullptr}
 #define SCPI_LEAF(key, func) {key, nullptr, func}
 #define SCPI_EMPTY() {""}
 
