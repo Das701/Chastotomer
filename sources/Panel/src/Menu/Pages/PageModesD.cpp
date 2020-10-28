@@ -18,47 +18,15 @@ extern Switch sTimeMeasureD;
 
 TimeMeasure  PageModesD::timeMeasure(TimeMeasure::_1ms);
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_TimeMeasureD()
 {
-    switch (PageModesD::timeMeasure.value)
-    {
-        case TimeMeasure::_1ms:
-            PageModesB::timeMeasure.value = TimeMeasure::_1ms;
-            PageModesC::timeMeasure.value = TimeMeasure::_1ms;
-            PageModesA::timeMeasure.value = TimeMeasure::_1ms;
-            break;
-        case TimeMeasure::_10ms:
-            PageModesB::timeMeasure.value = TimeMeasure::_10ms;
-            PageModesC::timeMeasure.value = TimeMeasure::_10ms;
-            PageModesA::timeMeasure.value = TimeMeasure::_10ms;
-            break;
-        case TimeMeasure::_100ms:
-            PageModesB::timeMeasure.value = TimeMeasure::_100ms;
-            PageModesC::timeMeasure.value = TimeMeasure::_100ms;
-            PageModesA::timeMeasure.value = TimeMeasure::_100ms;
-            break;
-        case TimeMeasure::_1s:
-            PageModesB::timeMeasure.value = TimeMeasure::_1s;
-            PageModesC::timeMeasure.value = TimeMeasure::_1s;
-            PageModesA::timeMeasure.value = TimeMeasure::_1s;
-            break;
-        case TimeMeasure::_10s:
-            PageModesB::timeMeasure.value = TimeMeasure::_10s;
-            PageModesC::timeMeasure.value = TimeMeasure::_10s;
-            PageModesA::timeMeasure.value = TimeMeasure::_10s;
-            break;
-        case TimeMeasure::_100s:
-            PageModesB::timeMeasure.value = TimeMeasure::_100s;
-            PageModesC::timeMeasure.value = TimeMeasure::_100s;
-            PageModesA::timeMeasure.value = TimeMeasure::_100s;
-            break;
-        case TimeMeasure::_1000s:
-            PageModesB::timeMeasure.value = TimeMeasure::_1000s;
-            PageModesC::timeMeasure.value = TimeMeasure::_1000s;
-            PageModesA::timeMeasure.value = TimeMeasure::_1000s;
-            break;
-    }
+    uint8 time = PageModesD::timeMeasure.value;
+
+    PageModesA::timeMeasure.value = time;
+    PageModesB::timeMeasure.value = time;
+    PageModesC::timeMeasure.value = time;
+
     FreqMeter::LoadTimeMeasure();
 }
 
@@ -69,7 +37,7 @@ DEF_SWITCH_7(sTimeMeasureD,
     PageModesD::timeMeasure, OnPress_TimeMeasureD
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static Item *items[7] =
 {
     &sTimeMeasureD,
