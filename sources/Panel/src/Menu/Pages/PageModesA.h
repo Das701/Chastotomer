@@ -21,7 +21,7 @@ struct TypeMeasureA : public Enumeration
 };
 
 /// Режим измерения частоты
-struct ModeMeasureFrequency : public Enumeration
+struct ModeMeasureFrequencyA : public Enumeration
 {
     enum E
     {
@@ -33,7 +33,7 @@ struct ModeMeasureFrequency : public Enumeration
         Comparator
     };
 
-    explicit ModeMeasureFrequency(E v) : Enumeration((uint8)v) {};
+    explicit ModeMeasureFrequencyA(E v) : Enumeration((uint8)v) {};
 
     bool IsFrequency()  const { return (value == Freq); }
     bool IsAB()         const { return (value == AB); }
@@ -186,7 +186,7 @@ public:
     /// Тип измерения
     static TypeMeasureA typeMeasure;
     /// Режим измерения частоты
-    static ModeMeasureFrequency modeMeasureFrequency;
+    static ModeMeasureFrequencyA modeMeasureFrequency;
     /// Режим измерения периода
     static ModeMeasurePeriod modeMeasurePeriod;
     /// Режим измерения длительности
