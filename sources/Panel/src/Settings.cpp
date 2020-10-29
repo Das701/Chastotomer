@@ -1,8 +1,7 @@
 #include "defines.h"
 #include "Settings.h"
 #include "Hardware/HAL.h"
-#include "Menu/Pages/PageChannelA.h"
-#include "Menu/Pages/PageChannelB.h"
+#include "Menu/Pages/Pages.h"
 
 
 Settings set =

@@ -8,7 +8,7 @@
 #include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageModesC.h"
 #include "Menu/Pages/PageModesD.h"
-#include "Menu/Pages/PageChannelA.h"
+#include "Menu/Pages/Pages.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Text.h"
 #include "Menu/MenuItems.h"

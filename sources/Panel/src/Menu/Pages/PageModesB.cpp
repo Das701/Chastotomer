@@ -9,10 +9,7 @@
 #include "Utils/Math.h"
 #include "Menu/MenuItemsDef.h"
 #include "FreqMeter/FreqMeter.h"
-#include "Menu/Pages/PageChannelA.h"
-#include "Menu/Pages/PageChannelB.h"
-#include "Menu/Pages/PageChannelC.h"
-#include "Menu/Pages/PageChannelD.h"
+#include "Menu/Pages/Pages.h"
 
 using namespace Display::Primitives;
 using namespace Display;

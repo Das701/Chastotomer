@@ -19,8 +19,12 @@ struct InputImpedance : public Enumeration
     explicit InputImpedance(E v) : Enumeration((uint8)v) {};
 
     static InputImpedance &Current();
-    bool Is_1MOhm() const { return (value == _1MOmh); }
-    bool Is_50Ohm() const { return (value == _50Omh); }
+    bool Is_1MOhm() const {
+        return (value == _1MOmh);
+    }
+    bool Is_50Ohm() const {
+        return (value == _50Omh);
+    }
 };
 
 /// Фронт синхронизации
@@ -34,7 +38,9 @@ struct ModeFront : public Enumeration
 
     explicit ModeFront(E v) : Enumeration((uint8)v) {};
     static ModeFront &Current();
-    bool IsFront() const { return (value == Front); }
+    bool IsFront() const {
+        return (value == Front);
+    }
 };
 
 /// Делитель напряжения
@@ -48,7 +54,9 @@ struct Divider : public Enumeration
 
     explicit Divider(E v) : Enumeration((uint8)v) {};
     static Divider &Current();
-    bool Is1() const { return (value == _1); }
+    bool Is1() const {
+        return (value == _1);
+    }
 };
 
 class PageChannelA
@@ -65,3 +73,30 @@ public:
     static Switch *switchTypeSynch;     // Указатель на переключатель типа синхронизации
 };
 
+
+class PageChannelB
+{
+public:
+    static Page *self;
+    static InputCouple couple;
+    static InputImpedance impedance;
+    static ModeFilter modeFilter;
+    static ModeFront modeFront;
+    static Divider divider;
+    static TypeSynch typeSynch;
+    static void FixPress();
+    static Switch *switchTypeSynch;     // Указатель на переключатель типа синхронизации
+};
+
+
+class PageChannelC
+{
+public:
+    static Page *self;
+};
+
+class PageChannelD
+{
+public:
+    static Page *self;
+};

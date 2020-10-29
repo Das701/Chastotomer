@@ -1,6 +1,5 @@
 #include "defines.h"
-#include "Menu/Pages/PageChannelA.h"
-#include "Menu/Pages/PageChannelB.h"
+#include "Menu/Pages/Pages.h"
 #include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"

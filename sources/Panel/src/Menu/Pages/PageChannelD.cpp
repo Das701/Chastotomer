@@ -1,6 +1,7 @@
 #include "defines.h"
-#include "PageChannelD.h"
 #include "Menu/MenuItems.h"
+#include "Menu/Pages/Pages.h"
+
 
 static Item *items[7] =
 {

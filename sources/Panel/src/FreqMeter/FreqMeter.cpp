@@ -9,10 +9,7 @@
 #include "Menu/Pages/PageModesC.h"
 #include "Menu/Pages/PageModesD.h"
 #include "Menu/Pages/PageIndication.h"
-#include "Menu/Pages/PageChannelA.h"
-#include "Menu/Pages/PageChannelB.h"
-#include "Menu/Pages/PageChannelC.h"
-#include "Menu/Pages/PageChannelD.h"
+#include "Menu/Pages/Pages.h"
 #include "Menu/Hint.h"
 
 
