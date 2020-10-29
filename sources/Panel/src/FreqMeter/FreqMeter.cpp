@@ -184,12 +184,7 @@ void FreqMeter::LoadModeMeasurePeriod()
 
     argument[1] = 1;
     
-    if((PageModesA::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasurePeriod == ModeMeasurePeriod::Period && CURRENT_CHANNEL_IS_B))
-    {
-    }
-    else if((PageModesA::modeMeasurePeriod == ModeMeasurePeriod::F_1 && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasurePeriod == ModeMeasurePeriod::F_1 && CURRENT_CHANNEL_IS_B))
+    if(ModeMeasurePeriod::Current().IsF_1())
     {
         argument[5] = 1;
     }

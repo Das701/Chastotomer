@@ -56,6 +56,7 @@ struct ModeMeasurePeriod : public Enumeration
 
     bool IsPeriod() const { return (value == Period); }
     bool IsF_1()    const { return (value == F_1); }
+    static ModeMeasurePeriod &Current();
 };
 
 /// Режим измерения длительности

@@ -558,3 +558,16 @@ int PeriodTimeLabels::ToZeros() const
 
     return zeros[value];
 }
+
+
+ModeMeasurePeriod &ModeMeasurePeriod::Current()
+{
+    ModeMeasurePeriod &result = PageModesA::modeMeasurePeriod;
+
+    if (CURRENT_CHANNEL_IS_B)
+    {
+        result = PageModesB::modeMeasurePeriod;
+    }
+
+    return result;
+}
