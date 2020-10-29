@@ -31,7 +31,7 @@ TypeMeasureAB            PageModesB::typeMeasure(TypeMeasureAB::Frequency);
 ModeMeasureFrequencyB    PageModesB::modeMeasureFrequency(ModeMeasureFrequencyB::Freq);
 ModeMeasurePeriod        PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration      PageModesB::modeMeasureDuration(ModeMeasureDuration::Ndt);
-ModeMeasureCountPulseB   PageModesB::modeMeasureCountPulse(ModeMeasureCountPulseB::BTA);
+ModeMeasureCountPulseB   PageModesB::modeMeasureCountPulse(ModeMeasureCountPulseB::BtA);
 
 PeriodTimeLabels         PageModesB::periodTimeLabels(PeriodTimeLabels::T_8);
 NumberPeriods            PageModesB::numberPeriods(NumberPeriods::_1);

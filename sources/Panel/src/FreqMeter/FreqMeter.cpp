@@ -237,8 +237,8 @@ void FreqMeter::LoadModeMeasureCountPulse()
     if((PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA) && CURRENT_CHANNEL_IS_C)
     {
     }
-    else if((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::ATC && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA && CURRENT_CHANNEL_IS_B) || 
+    else if((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::AtC && CURRENT_CHANNEL_IS_A) || 
+       (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BtA && CURRENT_CHANNEL_IS_B) || 
        (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;

@@ -27,7 +27,7 @@ struct ModeMeasureCountPulseB : public Enumeration
 {
     enum E
     {
-        BTA,        // B(tA)
+        BtA,        // B(tA)
         BTA_1,      // B(TA)
         StartStop
     };
