@@ -120,8 +120,8 @@ static void BinToDec()
         }            
         baseA = baseA * 2; 
     }  
-    if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC) || 
-       (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BC))
+    if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAC()) || 
+       (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBC()))
     {
         decDataB = 0;
         int baseB = 1; 
@@ -195,8 +195,8 @@ static void Calculation()
        (CURRENT_CHANNEL_IS_C && PageModesC::typeMeasure.IsFrequency()) ||
         CURRENT_CHANNEL_IS_D)
     {
-        if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::T_1)) || 
-           (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::T_1)))
+        if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsT_1()) || 
+           (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsT_1()))
         {
 //            int msF = 1;
             int n = 1;
@@ -232,19 +232,18 @@ static void Calculation()
             x = 1;
             
         }
-        else if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AB)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BA)))
+        else if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAB()) ||
+            (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBA()))
         {           
             x = PageModesA::numberPeriods.ToAbs();
         }
-        else if(CURRENT_CHANNEL_IS_C && ((PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CA) ||
-               (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CB)))
+        else if(CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureFrequency.IsCA() || PageModesC::modeMeasureFrequency.IsCB()))
         {
             decDataA = decDataA * 100;
             x = PageModesC::numberPeriods.ToAbs();
         }
-        else if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC)) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BC)))
+        else if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAC()) ||
+            (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBC()))
         {
             int sT = PageModesA::timeMeasure.ToMS();
 
@@ -648,7 +647,7 @@ void PLIS::Update()
                 delay_us(8);
             }
         }
-        else if (CURRENT_CHANNEL_IS_A && ((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Comparator) && PageModesA::typeMeasure.IsFrequency())) 
+        else if (CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsComparator() && PageModesA::typeMeasure.IsFrequency())) 
         {
             if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
             {            
@@ -702,8 +701,8 @@ void PLIS::Update()
                     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
                     delay_us(2);
                 }
-                if(((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC) || 
-                (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BC))
+                if(((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAC()) || 
+                    (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBC()))
                 && PageModesA::RelationCheck())
                 {
                     for(int i = 0; i < 32; i++)
@@ -747,15 +746,15 @@ char* PLIS::GiveData()
     }
     else
     {
-        if(((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B)))
+        if(((PageModesA::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_A) || 
+            (PageModesB::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_B)))
         {
             BinToDec();
             decDataA = decDataA/2;
             std::sprintf(procData,"%10.0f",decDataA);
             return procData;
         }
-        else if (CURRENT_CHANNEL_IS_A && ((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Comparator) && PageModesA::typeMeasure.IsFrequency())) 
+        else if (CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsComparator() && PageModesA::typeMeasure.IsFrequency())) 
         {
             CalculationComparator();
             int top = 200;
@@ -916,10 +915,10 @@ char* PLIS::GiveSpec()
         }
         else
         {
-            if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AB || PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC)) ||
-                (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BA || PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BC)) ||
-                (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CA || PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CB)) ||
-                ((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer)) || (CURRENT_CHANNEL_IS_B &&(PageModesB::modeMeasureFrequency == ModeMeasureFrequency::Tachometer))) ||
+            if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsAB() || PageModesA::modeMeasureFrequency.IsAC())) ||
+                (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency.IsBA() || PageModesB::modeMeasureFrequency.IsBC())) ||
+                (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureFrequency.IsCA() || PageModesC::modeMeasureFrequency.IsCB())) ||
+                ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) || (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsTachometer())) ||
                 (PageModesA::typeMeasure.IsCountPulse() || PageModesB::typeMeasure.IsCountPulse() || PageModesC::typeMeasure.IsCountPulse()))
             {
                 std::strcpy(spec, " ");
@@ -931,8 +930,8 @@ char* PLIS::GiveSpec()
                     (CURRENT_CHANNEL_IS_C && PageModesC::typeMeasure.IsFrequency()) ||
                     CURRENT_CHANNEL_IS_D)
                 {
-                    if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::T_1)) || 
-                    (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::T_1)))
+                    if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsT_1()) || 
+                        (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsT_1()))
                     {
                         if(decDA < 1000)
                         {
@@ -947,7 +946,7 @@ char* PLIS::GiveSpec()
                             std::strcpy(spec, " MHz");
                         }
                     }
-                    else if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Comparator) && CURRENT_CHANNEL_IS_A) 
+                    else if(PageModesA::modeMeasureFrequency.IsComparator() && CURRENT_CHANNEL_IS_A) 
                     {
                         std::strcpy(spec, " E-6");
                     }

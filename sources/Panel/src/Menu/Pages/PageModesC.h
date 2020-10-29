@@ -29,6 +29,9 @@ struct ModeMeasureFrequencyC : public Enumeration
     };
 
     explicit ModeMeasureFrequencyC(E v) : Enumeration((uint8)v) {};
+    bool IsFrequency() const { return (value == Freq); }
+    bool IsCA()        const { return (value == CA); }
+    bool IsCB()        const { return (value == CB); }
 };
 
 /// Режим счёта импульсов

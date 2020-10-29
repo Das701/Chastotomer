@@ -334,8 +334,8 @@ bool Page::OnControl(const Control &control)
         }
         else
         {
-            if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC && CURRENT_CHANNEL_IS_A) ||
-            (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BC && CURRENT_CHANNEL_IS_B))
+            if((PageModesA::modeMeasureFrequency.IsAC() && CURRENT_CHANNEL_IS_A) ||
+                (PageModesB::modeMeasureFrequency.IsBC() && CURRENT_CHANNEL_IS_B))
             {
             }
             else
@@ -355,9 +355,9 @@ bool Page::OnControl(const Control &control)
         }
         else
         {
-            if((PageModesA::typeMeasure.IsFrequency() && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Freq) && CURRENT_CHANNEL_IS_A) || 
-                (PageModesB::typeMeasure.IsFrequency() && (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::Freq) && CURRENT_CHANNEL_IS_B) || 
-                (PageModesC::typeMeasure.IsFrequency() && (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::Freq) && CURRENT_CHANNEL_IS_C) ||
+            if((PageModesA::typeMeasure.IsFrequency() && PageModesA::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) || 
+                (PageModesB::typeMeasure.IsFrequency() && PageModesB::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) || 
+                (PageModesC::typeMeasure.IsFrequency() && PageModesC::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
                 (PageModesA::typeMeasure.IsPeriod() && (PageModesA::modeMeasurePeriod == ModeMeasurePeriod::Period) && CURRENT_CHANNEL_IS_A) || 
                 (PageModesB::typeMeasure.IsPeriod() && (PageModesB::modeMeasurePeriod == ModeMeasurePeriodB::Period) && CURRENT_CHANNEL_IS_B) || 
                 (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_A) || 

@@ -277,7 +277,7 @@ static void DrawInfo()
 {
     if(PageIndication::memoryMode == MemoryMode::On)
     {
-        if(CURRENT_CHANNEL_IS_A && ((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer) && (PageModesA::typeMeasure.IsFrequency())))
+        if(CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsTachometer() && (PageModesA::typeMeasure.IsFrequency())))
         {
         }
         else if(CURRENT_CHANNEL_IS_B && ((PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::Tachometer) && PageModesB::typeMeasure.IsFrequency()))
@@ -401,8 +401,8 @@ static void DrawData()
     FontMid::MidStringProp_print(PLIS::GiveSpec(), 344, 170, Color::WHITE);
 //    Text(PLIS::GiveSpec()).Write(344, 170);
 //    Text(PLIS::GiveIdent()).Write(344, 80);
-    if(((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B)))
+    if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) ||
+        (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsTachometer()))
     {
         Text("60s").Write(2, 87, 60, Color::WHITE);
     }

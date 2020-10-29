@@ -176,35 +176,35 @@ DEF_SWITCH_4(sTypeMeasure,
 static void OnPress_ModeFrequency()
 {
     ClearItems(2);  
-    if (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC)
+    if (PageModesA::modeMeasureFrequency.IsAC())
     {
         items[1] = &sModeFrequency;
         items[2] = &sTimeMeasure;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
-    else if(PageModesA::modeMeasureFrequency == ModeMeasureFrequency::T_1)
+    else if(PageModesA::modeMeasureFrequency.IsT_1())
     {
         items[2] = &sPeriodTimeLabels;   
         items[1] = &sModeFrequency;
         items[3] = &sNumberPeriods;
         PageModesA::RelationOff();
     }
-    else if(PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer)
+    else if(PageModesA::modeMeasureFrequency.IsTachometer())
     {
         items[2] = &sPeriodTimeLabels;   
         items[1] = &sModeFrequency;
         items[3] = nullptr;
         PageModesA::RelationOff();
     }
-    else if(PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AB)
+    else if(PageModesA::modeMeasureFrequency.IsAB())
     {
         items[2] = &sNumberPeriods;   
         items[1] = &sModeFrequency;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
-    else if(PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Comparator)
+    else if(PageModesA::modeMeasureFrequency.IsComparator())
     {
         items[2] = nullptr;   
         items[1] = &sModeFrequency;

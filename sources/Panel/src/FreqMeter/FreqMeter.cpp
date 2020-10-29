@@ -138,35 +138,35 @@ void FreqMeter::LoadModeMeasureFrequency()
 
     DEFINE_ARGUMENT;
 
-    if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Freq && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::Freq && CURRENT_CHANNEL_IS_B) || 
-       (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::Freq && CURRENT_CHANNEL_IS_C))
+    if((PageModesA::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) || 
+       (PageModesB::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) || 
+       (PageModesC::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C))
     {
     }
-    else if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AB && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BA && CURRENT_CHANNEL_IS_B) || 
-            (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CA && CURRENT_CHANNEL_IS_C))
+    else if((PageModesA::modeMeasureFrequency.IsAB() && CURRENT_CHANNEL_IS_A) || 
+            (PageModesB::modeMeasureFrequency.IsBA() && CURRENT_CHANNEL_IS_B) || 
+            (PageModesC::modeMeasureFrequency.IsCA() && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
     }
-    else if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BC && CURRENT_CHANNEL_IS_B) || 
-            (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CB && CURRENT_CHANNEL_IS_C))
+    else if((PageModesA::modeMeasureFrequency.IsAC() && CURRENT_CHANNEL_IS_A) || 
+            (PageModesB::modeMeasureFrequency.IsBC() && CURRENT_CHANNEL_IS_B) || 
+            (PageModesC::modeMeasureFrequency.IsCB() && CURRENT_CHANNEL_IS_C))
     {
         argument[4] = 1;
     }
-    else if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::T_1 && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::T_1 && CURRENT_CHANNEL_IS_B))
+    else if((PageModesA::modeMeasureFrequency.IsT_1() && CURRENT_CHANNEL_IS_A) || 
+            (PageModesB::modeMeasureFrequency.IsT_1() && CURRENT_CHANNEL_IS_B))
     {
         argument[5] = 1;
         argument[4] = 1;
     }
-    else if((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::Tachometer && CURRENT_CHANNEL_IS_B))
+    else if((PageModesA::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_A) || 
+            (PageModesB::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_B))
     {
         argument[3] = 1;
     }
-    else if(PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Comparator && CURRENT_CHANNEL_IS_A)
+    else if(PageModesA::modeMeasureFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
     {
         argument[3] = 1;
         argument[5] = 1;

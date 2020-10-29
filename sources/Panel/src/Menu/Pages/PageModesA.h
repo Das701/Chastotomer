@@ -34,6 +34,13 @@ struct ModeMeasureFrequency : public Enumeration
     };
 
     explicit ModeMeasureFrequency(E v) : Enumeration((uint8)v) {};
+
+    bool IsFrequency()  const { return (value == Freq); }
+    bool IsAB()         const { return (value == AB); }
+    bool IsAC()         const { return (value == AC); }
+    bool IsT_1()        const { return (value == T_1); }
+    bool IsTachometer() const { return (value == Tachometer); }
+    bool IsComparator() const { return (value == Comparator); }
 };
 
 /// Режим измерения периода
