@@ -2,6 +2,18 @@
 #include "Menu/MenuItems.h"
 
 
+struct CurrentTypeMeasure
+{
+    static bool IsFrequency();
+};
+
+struct CurrentModeMeasureFrequency
+{
+    static bool IsT_1();
+    static bool Is_AC_or_BC();
+};
+
+
 struct TypeMeasureAB : public Enumeration
 {
     enum E

@@ -112,6 +112,7 @@ static void BinToDec()
     int len = 32; 
     decDataA = 0; 
     int baseA = 1; 
+
     for (int i = len - 1; i >= 0; i--) 
     { 
         if (dataA[i] == 1) 
@@ -119,12 +120,13 @@ static void BinToDec()
             decDataA += baseA;
         }            
         baseA = baseA * 2; 
-    }  
-    if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAC()) || 
-       (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBC()))
+    }
+
+    if(CurrentModeMeasureFrequency::Is_AC_or_BC())
     {
         decDataB = 0;
         int baseB = 1; 
+
         for (int i = len - 1; i >= 0; i--) 
         { 
             if (dataB[i] == 1) 
@@ -134,6 +136,7 @@ static void BinToDec()
             baseB = baseB * 2; 
         }  
     }
+
     if(CURRENT_CHANNEL_IS_C)
     {
         decDataA = decDataA*64/100;
@@ -190,21 +193,15 @@ static void CalculationDcycle()
 static void Calculation()
 {
     int x = 0;
-    if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency()) ||
-       (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsFrequency()) ||
-       (CURRENT_CHANNEL_IS_C && PageModesC::typeMeasure.IsFrequency()) ||
-        CURRENT_CHANNEL_IS_D)
+    if(CurrentTypeMeasure::IsFrequency())
     {
-        if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsT_1()) || 
-           (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsT_1()))
+        if(CurrentModeMeasureFrequency::IsT_1())
         {
-//            int msF = 1;
             int n = 1;
             manualZeros = 10;
             double test1;
             double test2;
             double test3;
-//            decDataA = decDataA*10;
 
             int tmet = PageModesA::periodTimeLabels.ToZeros();
             manualZeros *= PageModesA::periodTimeLabels.ToZeros() / 1000;
@@ -215,9 +212,9 @@ static void Calculation()
             test1 = (double)decDataA/tmet;
             test2 = test1/n;
             test3 = 4/test2;
-            //decDataA = (float)4/((decDataA/tmet)/n);
             decDataA = (float)test3;
             decDA = decDataA/2;
+
             if(decDA < 1000)
             {
             }
@@ -229,8 +226,8 @@ static void Calculation()
             {
                 decDataA = decDataA/1000000;
             }
+
             x = 1;
-            
         }
         else if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAB()) ||
             (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBA()))

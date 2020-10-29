@@ -569,3 +569,26 @@ ModeMeasureDuration &ModeMeasureDuration::Current()
 
     return result;
 }
+
+
+bool CurrentTypeMeasure::IsFrequency()
+{
+    return ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency()) ||
+        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsFrequency()) ||
+        (CURRENT_CHANNEL_IS_C && PageModesC::typeMeasure.IsFrequency()) ||
+        CURRENT_CHANNEL_IS_D);
+}
+
+
+bool CurrentModeMeasureFrequency::IsT_1()
+{
+    return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsT_1()) ||
+        (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsT_1()));
+}
+
+
+bool CurrentModeMeasureFrequency::Is_AC_or_BC()
+{
+    return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAC()) ||
+        (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBC()));
+}
