@@ -7,7 +7,7 @@ void ERROR_HANDLER();
 struct HAL
 {
     static void Init();
-    /// Используется для записи в дисплей
+    // Используется для записи в дисплей
     //struct SPI1_
     //{
         //static void Init();

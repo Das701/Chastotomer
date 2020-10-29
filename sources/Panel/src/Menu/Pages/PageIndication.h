@@ -63,15 +63,15 @@ class PageIndication
 {
 public:
     static Page *self;
-    /// Время отображения результата измерения
+    // Время отображения результата измерения
     static DisplayTime displayTime;
-    /// Выбор опорного генератора
+    // Выбор опорного генератора
     static RefGenerator refGenerator;
-    /// Выбор источника запуска
+    // Выбор источника запуска
     static LaunchSource launchSource;
-    /// Выбор источника запуска
+    // Выбор источника запуска
     static Calibration calibration;
-    /// Включение(отключение) режима памяти
+    // Включение(отключение) режима памяти
     static MemoryMode memoryMode;
     static bool OnceLaunch();
     static void OnceLaunchSwitchTrue();

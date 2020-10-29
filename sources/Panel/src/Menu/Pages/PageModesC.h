@@ -56,16 +56,16 @@ public:
     static Page *self;
 
     static void Init();
-    /// Тип измерения
+    // Тип измерения
     static TypeMeasureC typeMeasure;
-    /// Режим измерения частоты
+    // Режим измерения частоты
     static ModeMeasureFrequencyC modeMeasureFrequency;
-    /// Режим счёта импульсов
+    // Режим счёта импульсов
     static ModeMeasureCountPulseC modeMeasureCountPulse;
-    /// Период меток времени
+    // Период меток времени
     static PeriodTimeLabels periodTimeLabels;
-    /// Время счета
+    // Время счета
     static TimeMeasure timeMeasure;
-    /// Число периодов измерения
+    // Число периодов измерения
     static NumberPeriods numberPeriods;
 };

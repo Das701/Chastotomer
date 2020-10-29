@@ -183,20 +183,20 @@ public:
     static void PressSetup();
     static bool StartStop();
     static void ToggleStartStop();
-    /// Тип измерения
+    // Тип измерения
     static TypeMeasureAB typeMeasure;
-    /// Режим измерения частоты
+    // Режим измерения частоты
     static ModeMeasureFrequencyA modeMeasureFrequency;
-    /// Режим измерения периода
+    // Режим измерения периода
     static ModeMeasurePeriod modeMeasurePeriod;
-    /// Режим измерения длительности
+    // Режим измерения длительности
     static ModeMeasureDuration modeMeasureDuration;
-    /// Режим счёта импульсов
+    // Режим счёта импульсов
     static ModeMeasureCountPulseA modeMeasureCountPulse;
-    /// Период меток времени
+    // Период меток времени
     static PeriodTimeLabels periodTimeLabels;
-    /// Время счета
+    // Время счета
     static TimeMeasure timeMeasure;
-    /// Число периодов измерения
+    // Число периодов измерения
     static NumberPeriods numberPeriods;
 };

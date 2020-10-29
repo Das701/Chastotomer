@@ -5,7 +5,7 @@
 
 struct Enumeration
 {
-    /// Текущее состояние перечисления
+    // Текущее состояние перечисления
     uint8  value;
     char **names;
     char **ugo;
@@ -26,17 +26,17 @@ public:
     static const int WIDTH = 77;
     static const int HEIGHT = 55;
 
-    /// Функция отрисовки
+    // Функция отрисовки
     virtual void Draw(int x, int y, bool selected = false) = 0;
-    /// Функция обработки нажатия кнопки/поворота ручки
+    // Функция обработки нажатия кнопки/поворота ручки
     virtual bool OnControl(const Control &) { return false; };
 
 protected:
-    /// Общая часть подсказки для данного итема
+    // Общая часть подсказки для данного итема
     char *hint;
 
 private:
-    /// Создать подсказку для итема
+    // Создать подсказку для итема
     virtual void CreateHint(char buffer[100]) const = 0;
 };
 
@@ -86,19 +86,19 @@ public:
 
     virtual void Draw(int x, int y, bool selected = false);
     virtual bool OnControl(const Control &control);    
-    /// Возвращает указатель на выделенный пункт меню
+    // Возвращает указатель на выделенный пункт меню
     Item *SelectedItem() { return items[selectedItem]; };
 
 private:
-    /// Делает текущим следующий элемент
+    // Делает текущим следующий элемент
     void SelectNextItem();
-    /// Делает текущим предыдущий элемент
+    // Делает текущим предыдущий элемент
     void SelectPrevItem();
-    /// Возвращает количество итемов на странице
+    // Возвращает количество итемов на странице
     int NumItems();
-    /// Указатель на массив элементов меню. Заканчивается нулём.
+    // Указатель на массив элементов меню. Заканчивается нулём.
     Item **items;
-    /// Номер выбранного итема
+    // Номер выбранного итема
     int selectedItem;
 
     virtual void CreateHint(char buffer[100]) const { buffer[0] = 0; };

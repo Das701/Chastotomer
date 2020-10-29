@@ -159,9 +159,9 @@ struct DataBus
 {
 public:
     static void Init();
-    /// Установить данные на шину
+    // Установить данные на шину
     static void Set(uint16 data);
-    /// Читать данные с шины
+    // Читать данные с шины
     static uint16 Read();
 
     static void InitWrite();

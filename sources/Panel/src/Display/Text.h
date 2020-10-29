@@ -19,13 +19,13 @@ namespace Display
 
         void Create(const char *text);
         int WriteSymbol(int x, int y, uint8 symbol) const;
-        /// Возвращает количество слов в строке
+        // Возвращает количество слов в строке
         int NumWords() const;
-        /// Возвращает информацию о слове numWord
+        // Возвращает информацию о слове numWord
         void GetWord(int numWord, char *(&start), int &num);
-        /// Нарисовать num символов, начиная с адреса start
+        // Нарисовать num символов, начиная с адреса start
         int WriteSymbols(char *start, int num, int x, int y) const;
-        /// Нарисовать num символов, начиная с адреса старт, в поле шириной width символов
+        // Нарисовать num символов, начиная с адреса старт, в поле шириной width символов
         void WriteSymbols(char *start, int num, int x, int y, int width, Color color = Color::Number) const;
     };
 }

@@ -8,6 +8,6 @@ class PageModesD
 public:
     static Page *self;
 
-    /// Время счета
+    // Время счета
     static TimeMeasure timeMeasure;
 };
