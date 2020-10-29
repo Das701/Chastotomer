@@ -289,7 +289,7 @@ DEF_SWITCH_6(sPeriodTimeLabelsB,
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-static void OnPress_TimeMeasureB()
+static void OnPress_TimeMeasure()
 {
     uint8 time = PageModesB::timeMeasure.value;
 
@@ -321,7 +321,7 @@ static void OnPress_TimeMeasureB()
 DEF_SWITCH_7(sTimeMeasureB,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
-    PageModesB::timeMeasure, OnPress_TimeMeasureB
+    PageModesB::timeMeasure, OnPress_TimeMeasure
 );
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

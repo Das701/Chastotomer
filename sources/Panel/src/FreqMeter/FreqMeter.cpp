@@ -272,10 +272,10 @@ void FreqMeter::LoadPeriodTimeLabels()
     case PeriodTimeLabels::T_7:     argument[5] = 1;    break;
     case PeriodTimeLabels::T_6:     argument[4] = 1;    break;
     case PeriodTimeLabels::T_5:     argument[5] = 1;
-        argument[4] = 1;    break;
+                                    argument[4] = 1;    break;
     case PeriodTimeLabels::T_4:     argument[3] = 1;    break;
     case PeriodTimeLabels::T_3:     argument[5] = 1;
-        argument[3] = 1;    break;
+                                    argument[3] = 1;    break;
     }
 
     PLIS::WriteCommand(command, argument);
@@ -293,12 +293,12 @@ void FreqMeter::LoadTimeMeasure()
     case TimeMeasure::_10ms:    argument[5] = 1;  break;
     case TimeMeasure::_100ms:   argument[4] = 1;  break;
     case TimeMeasure::_1s:      argument[4] = 1;
-        argument[5] = 1;  break;
+                                argument[5] = 1;  break;
     case TimeMeasure::_10s:     argument[3] = 1;  break;
     case TimeMeasure::_100s:    argument[3] = 1;
-        argument[5] = 1;  break;
+                                argument[5] = 1;  break;
     case TimeMeasure::_1000s:   argument[3] = 1;
-        argument[4] = 1;  break;
+                                argument[4] = 1;  break;
     }
 
     PLIS::WriteCommand(command, argument);
@@ -316,12 +316,12 @@ void FreqMeter::LoadNumerPeriodsMeasure()
     case NumberPeriods::_10:    argument[5] = 1;    break;
     case NumberPeriods::_100:   argument[4] = 1;    break;
     case NumberPeriods::_1K:    argument[5] = 1;
-        argument[4] = 1;    break;
+                                argument[4] = 1;    break;
     case NumberPeriods::_10K:   argument[3] = 1;    break;
     case NumberPeriods::_100K:  argument[5] = 1;
-        argument[3] = 1;    break;
+                                argument[3] = 1;    break;
     case NumberPeriods::_1000K: argument[4] = 1;
-        argument[3] = 1;    break;
+                                argument[3] = 1;    break;
     }
 
     PLIS::WriteCommand(command, argument);
