@@ -642,33 +642,26 @@ void PLIS::Update()
         }
         else
         {
-            if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
-            {            
+            if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
+            {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
-                for(int i = 0; i < 32; i++)
+
+                for (int i = 0; i < 32; i++)
                 {
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                    delay_us(2);
-                    dataA[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-                    delay_us(2);
+                    READ_PIN_B14(dataA[i]);
                 }
-                if(((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAC()) || 
-                    (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBC()))
-                && PageModesA::RelationCheck())
+
+                if(CurrentModeMeasureFrequency::Is_AC_or_BC() && PageModesA::RelationCheck())
                 {
-                    for(int i = 0; i < 32; i++)
+                    for (int i = 0; i < 32; i++)
                     {
-                        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                        delay_us(2);
-                        dataB[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
-                        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-                        delay_us(2);
+                        READ_PIN_B14(dataB[i]);
                     }
                 }
+
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
                 delay_us(8);
-            }     
+            }
         }
     }
 }

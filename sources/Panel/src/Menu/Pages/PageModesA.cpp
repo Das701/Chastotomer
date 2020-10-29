@@ -99,9 +99,6 @@ bool PageModesA::RelationCheck()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void PageModesA::Init()
 {
-//    FreqMeter::LoadModeMeasureFrequency();
-//    FreqMeter::LoadPeriodTimeLabels();
-//    FreqMeter::LoadTimeMeasure();
 }
 
 void PageModesA::PressSetup()
