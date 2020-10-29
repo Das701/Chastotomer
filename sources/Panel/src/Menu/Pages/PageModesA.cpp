@@ -580,6 +580,20 @@ bool CurrentTypeMeasure::IsFrequency()
 }
 
 
+bool CurrentTypeMeasure::IsPeriod()
+{
+    return ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod()) ||
+        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod()));
+}
+
+
+bool CurrentTypeMeasure::IsDuration()
+{
+    return ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsDuration()) ||
+        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsDuration()));
+}
+
+
 bool CurrentModeMeasureFrequency::IsT_1()
 {
     return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsT_1()) ||
@@ -591,4 +605,17 @@ bool CurrentModeMeasureFrequency::Is_AC_or_BC()
 {
     return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAC()) ||
         (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBC()));
+}
+
+
+bool CurrentModeMeasureFrequency::Is_AB_or_BA()
+{
+    return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAB()) ||
+        (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBA()));
+}
+
+
+bool CurrentModeMeasureFrequency::Is_CA_or_CB()
+{
+    return (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureFrequency.IsCA() || PageModesC::modeMeasureFrequency.IsCB()));
 }

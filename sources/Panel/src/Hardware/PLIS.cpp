@@ -88,12 +88,12 @@ static int NAC = 0;
 
 void DWT_Init(void)
 {
-        //разрешаем использовать счётчик
-        SCB_DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-         //обнуляем значение счётного регистра
-	DWT_CYCCNT  = 0;
-         //запускаем счётчик
-	DWT_CONTROL |= DWT_CTRL_CYCCNTENA_Msk; 
+    //разрешаем использовать счётчик
+    SCB_DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    //обнуляем значение счётного регистра
+    DWT_CYCCNT = 0;
+    //запускаем счётчик
+    DWT_CONTROL |= DWT_CTRL_CYCCNTENA_Msk;
 }
 
 static __inline uint32_t delta(uint32_t t0, uint32_t t1)
@@ -103,7 +103,7 @@ static __inline uint32_t delta(uint32_t t0, uint32_t t1)
 void delay_us(uint32_t us)
 {
       uint32_t t0 =  DWT->CYCCNT;
-      uint32_t us_count_tic =  us * (SystemCoreClock/1000000);
+      uint32_t us_count_tic =  us * (SystemCoreClock / 1000000);
       while (delta(t0, DWT->CYCCNT) < us_count_tic) ;
 }
 
@@ -139,7 +139,7 @@ static void BinToDec()
 
     if(CURRENT_CHANNEL_IS_C)
     {
-        decDataA = decDataA*64/100;
+        decDataA = decDataA * 64 / 100;
     }
 }
 
@@ -174,7 +174,6 @@ static void CalculationDcycle()
     }
     else
     {
-//        dutyCycle = dutyCycle*1000;
         if(dutyCycle < 0)
         {
             dutyCycle = dutyCycle*(-1);
@@ -183,7 +182,7 @@ static void CalculationDcycle()
         {
             while(dutyCycle < 1)
             {
-                dutyCycle = dutyCycle*10;
+                dutyCycle = dutyCycle * 10;
                 dcycleZeros++;
             }
         }
@@ -209,59 +208,51 @@ static void Calculation()
             n *= PageModesA::numberPeriods.ToAbs();
             manualZeros *= PageModesA::numberPeriods.ToAbs();
            
-            test1 = (double)decDataA/tmet;
-            test2 = test1/n;
-            test3 = 4/test2;
+            test1 = (double)decDataA / tmet;
+            test2 = test1 / n;
+            test3 = 4 / test2;
             decDataA = (float)test3;
-            decDA = decDataA/2;
+            decDA = decDataA / 2;
 
             if(decDA < 1000)
             {
             }
             else if(decDA >= 1000 && decDA < 1000000)
             {
-                decDataA = decDataA/1000;
+                decDataA = decDataA / 1000;
             }
             else if(decDA >= 1000000)
             {
-                decDataA = decDataA/1000000;
+                decDataA = decDataA / 1000000;
             }
 
             x = 1;
         }
-        else if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAB()) ||
-            (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBA()))
+        else if(CurrentModeMeasureFrequency::Is_AB_or_BA())
         {           
             x = PageModesA::numberPeriods.ToAbs();
         }
-        else if(CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureFrequency.IsCA() || PageModesC::modeMeasureFrequency.IsCB()))
+        else if(CurrentModeMeasureFrequency::Is_CA_or_CB())
         {
             decDataA = decDataA * 100;
             x = PageModesC::numberPeriods.ToAbs();
         }
-        else if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAC()) ||
-            (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBC()))
+        else if(CurrentModeMeasureFrequency::Is_AC_or_BC())
         {
             int sT = PageModesA::timeMeasure.ToMS();
 
-            decDataA = decDataA/decDataB;
-            decDataA = decDataA/32;
+            decDataA = decDataA / decDataB;
+            decDataA = decDataA / 32;
             manualZeros = 1000000;
-            manualZeros = manualZeros*sT;
+            manualZeros = manualZeros * sT;
             x = 1;
-//            decDA = decDataB;
-//            int i = 1;
-//            while(decDA > 0)
-//            {
-//                decDA = decDA/10;
-//            }
         }
         else
         {
             int mhz = 1000 * PageModesA::timeMeasure.ToMS();
             int khz = PageModesA::timeMeasure.ToMS();
             
-            if(((decDataA/khz)/2) < 1000)
+            if(((decDataA / khz) / 2) < 1000)
             {
                 x = khz; 
             }
@@ -269,40 +260,39 @@ static void Calculation()
             {
                 x = mhz;            
             }
-            decDA = (decDataA/khz)/2;
+            decDA = (decDataA / khz) / 2;
             if(CURRENT_CHANNEL_IS_C)
             {
                 if(decDataA < 10000)
                 {
                     decDataC = decDataA;               
-                    khz = khz*10;
+                    khz = khz * 10;
                     x = khz;
                 }
                 else
                 {
                     decDataC = decDataA;
-                    mhz = mhz*10;
+                    mhz = mhz * 10;
                     x = mhz;
                 }
             }
             if(CURRENT_CHANNEL_IS_D)
             {
-                if(decDataA*64/(1000*khz) > 19000)
+                if(decDataA * 64 / (1000 * khz) > 19000)
                 {
                     decDataC = 0;
                     x = khz;
                 }
                 else
                 {
-                    decDataC = (float)decDataA*64/1000;
+                    decDataC = (float)decDataA * 64 / 1000;
                     x = mhz;
                 }
                 decDA = decDataC;
             }
         }
     }
-    else if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsDuration()) ||
-            (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsDuration()))
+    else if(CurrentTypeMeasure::IsDuration())
     {
         int us = 1;
         
@@ -317,28 +307,27 @@ static void Calculation()
 
         x = us;
     }
-    else if ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod()) ||
-            (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod()))
+    else if(CurrentTypeMeasure::IsPeriod())
     {
         if(ModeMeasurePeriod::Current().IsF_1())
         {
             int sT = PageModesA::timeMeasure.ToMS();
             
-            decDA = decDataA/(2*sT);
-            decDataA = 4/decDataA;
+            decDA = decDataA / (2 * sT);
+            decDataA = 4 / decDataA;
             if(decDA >= 1000)
             {
-                decDataA = decDataA*10000000*sT*sT;
+                decDataA = decDataA * 10000000 * sT * sT;
             }  
             else if(decDA <= 1)
             {
-                decDataA = decDataA*10*sT*sT;
+                decDataA = decDataA * 10 * sT * sT;
             }
             else
             {
-                decDataA = decDataA*10000*sT*sT;
+                decDataA = decDataA * 10000 * sT * sT;
             }
-            x = sT*10;
+            x = sT * 10;
         }
         else
         {
@@ -358,10 +347,11 @@ static void Calculation()
     }
     if(CURRENT_CHANNEL_IS_D)
     {
-        decDataA = decDataC*2;
+        decDataA = decDataC * 2;
     }
-    decDataA = (float)decDataA/(2*x);
+    decDataA = (float)decDataA / (2 * x);
     emptyZeros = x;
+
     if(manualZeros != 1)
     {
         emptyZeros = manualZeros;

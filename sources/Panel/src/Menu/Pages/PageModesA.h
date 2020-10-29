@@ -5,12 +5,16 @@
 struct CurrentTypeMeasure
 {
     static bool IsFrequency();
+    static bool IsPeriod();
+    static bool IsDuration();
 };
 
 struct CurrentModeMeasureFrequency
 {
     static bool IsT_1();
     static bool Is_AC_or_BC();
+    static bool Is_AB_or_BA();
+    static bool Is_CA_or_CB();
 };
 
 
