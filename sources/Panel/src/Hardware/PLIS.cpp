@@ -1149,48 +1149,47 @@ char *PLIS::GiveAuto()
 
 void PLIS::ReadCalibNumber()
 {
-    while(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) == 0)
+    while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) == 0)
     {
     }
-    if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
-    {            
+
+    if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
+    {
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
-        for(int i = 0; i < 3; i++)
+
+        for (int i = 0; i < 3; i++)
         {
-            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-            delay_us(2);
-            ident[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
-            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-            delay_us(2);
+            READ_PIN_B14(ident[i]);
         }
-        for(int i = 0; i < 10; i++)
+
+        for (int i = 0; i < 10; i++)
         {
-            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-            delay_us(2);
-            calibBin[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
-            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-            delay_us(2);
+            READ_PIN_B14(calibBin[i]);
         }
+
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
         delay_us(8);
     }
-    int len = 10; 
-    calibNumber = 0; 
-    int base = 1; 
-    for (int i = len - 1; i >= 0; i--) 
-    { 
-        if (calibBin[i] == 1) 
+
+    int len = 10;
+    calibNumber = 0;
+    int base = 1;
+
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (calibBin[i] == 1)
         {
             calibNumber += base;
-        }            
-        base = base * 2; 
-    }  
+        }
+        base = base * 2;
+    }
 }
 
 
 void PLIS::WriteData()
 {
     int negative = 1024;
+
     if(PageIndication::calibration.Is(Calibration::Pressed))
     {
         if(calibNumber + NAC < 0)
@@ -1227,6 +1226,7 @@ void PLIS::WriteData()
             }
         }
     }
+
     if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == 0)
     {
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
@@ -1238,26 +1238,19 @@ void PLIS::WriteData()
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
         delay_us(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-//        delay_us(2);
+
         for(int i = 9; i > -1; i--)
         {
             if (encData[i] == 1)
             {
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
-                delay_us(2);
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                delay_us(2);
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+                WRITE_COMMAND_1();
             }
             else
             {
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
-                delay_us(2);
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                delay_us(2);
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+                WRITE_COMMAND_0();
             }
         }
+
         delay_us(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
         delay_us(2);
