@@ -192,8 +192,8 @@ static void Calculation()
     int x = 0;
     if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency()) ||
        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsFrequency()) ||
-       (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasure == TypeMeasureC::Frequency))
-       || CURRENT_CHANNEL_IS_D)
+       (CURRENT_CHANNEL_IS_C && PageModesC::typeMeasure.IsFrequency()) ||
+        CURRENT_CHANNEL_IS_D)
     {
         if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::T_1)) || 
            (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::T_1)))
@@ -727,7 +727,7 @@ char* PLIS::GiveData()
 {
     if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse()) ||
        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse()) ||
-       (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasure == TypeMeasureC::CountPulse)))
+       (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasure.IsCountPulse())))
     {
         BinToDec();
         decDataA = decDataA/2;
@@ -916,15 +916,11 @@ char* PLIS::GiveSpec()
         }
         else
         {
-            if(((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AB ||
-                PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC) && CURRENT_CHANNEL_IS_A) ||
-                ((PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BA || 
-                PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BC) && CURRENT_CHANNEL_IS_B) ||
-                ((PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CA || 
-                PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CB) && CURRENT_CHANNEL_IS_C)
-                || ((PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_A) || 
-                (PageModesB::modeMeasureFrequency == ModeMeasureFrequency::Tachometer && CURRENT_CHANNEL_IS_B))
-                || (PageModesA::typeMeasure.IsCountPulse() || PageModesB::typeMeasure.IsCountPulse() || PageModesC::typeMeasure == TypeMeasureC::CountPulse))
+            if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AB || PageModesA::modeMeasureFrequency == ModeMeasureFrequency::AC)) ||
+                (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BA || PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BC)) ||
+                (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CA || PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CB)) ||
+                ((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::Tachometer)) || (CURRENT_CHANNEL_IS_B &&(PageModesB::modeMeasureFrequency == ModeMeasureFrequency::Tachometer))) ||
+                (PageModesA::typeMeasure.IsCountPulse() || PageModesB::typeMeasure.IsCountPulse() || PageModesC::typeMeasure.IsCountPulse()))
             {
                 std::strcpy(spec, " ");
             }

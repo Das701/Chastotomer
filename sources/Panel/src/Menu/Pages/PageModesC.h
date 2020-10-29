@@ -13,6 +13,9 @@ struct TypeMeasureC : public Enumeration
     };
 
     explicit TypeMeasureC(E v) : Enumeration((uint8)v) {};
+
+    bool IsFrequency() const  { return (value == Frequency); }
+    bool IsCountPulse() const { return (value == CountPulse); }
 };
 
 /// Режим измерения частоты
