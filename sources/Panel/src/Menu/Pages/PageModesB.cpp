@@ -29,7 +29,7 @@ extern Switch sNumberPeriodsB;
 
 TypeMeasureB             PageModesB::typeMeasure(TypeMeasureB::Frequency);
 ModeMeasureFrequencyB    PageModesB::modeMeasureFrequency(ModeMeasureFrequencyB::Freq);
-ModeMeasurePeriodB       PageModesB::modeMeasurePeriod(ModeMeasurePeriodB::Period);
+ModeMeasurePeriod        PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDurationB     PageModesB::modeMeasureDuration(ModeMeasureDurationB::Ndt);
 ModeMeasureCountPulseB   PageModesB::modeMeasureCountPulse(ModeMeasureCountPulseB::BTA);
 
@@ -178,12 +178,12 @@ static void OnPress_ModePeriodB()
 
     items[1] = &sModePeriodB;
 
-    if (PageModesB::modeMeasurePeriod == ModeMeasurePeriodB::Period)
+    if (PageModesB::modeMeasurePeriod == ModeMeasurePeriod::Period)
     {
         items[2] = &sPeriodTimeLabelsB;
         items[3] = &sNumberPeriodsB;
     }
-    else if (PageModesB::modeMeasurePeriod == ModeMeasurePeriodB::F_1)
+    else if (PageModesB::modeMeasurePeriod == ModeMeasurePeriod::F_1)
     {
         items[2] = &sPeriodTimeLabelsB;
         items[3] = &sTimeMeasureB;

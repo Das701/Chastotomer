@@ -53,6 +53,9 @@ struct ModeMeasurePeriod : public Enumeration
     };
 
     explicit ModeMeasurePeriod(E v) : Enumeration((uint8)v) {};
+
+    bool IsPeriod() const { return (value == Period); }
+    bool IsF_1()    const { return (value == F_1); }
 };
 
 /// Режим измерения длительности
