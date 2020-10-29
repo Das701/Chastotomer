@@ -17,6 +17,10 @@ struct InputImpedance : public Enumeration
     };
 
     explicit InputImpedance(E v) : Enumeration((uint8)v) {};
+
+    static InputImpedance &Current();
+    bool Is_1MOhm() const { return (value == _1MOmh); }
+    bool Is_50Ohm() const { return (value == _50Omh); }
 };
 
 /// Фронт синхронизации

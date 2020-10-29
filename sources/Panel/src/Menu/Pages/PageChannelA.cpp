@@ -1,5 +1,6 @@
 #include "defines.h"
-#include "PageChannelA.h"
+#include "Menu/Pages/PageChannelA.h"
+#include "Menu/Pages/PageChannelB.h"
 #include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
@@ -200,4 +201,10 @@ Switch *PageChannelA::switchTypeSynch = &sSync;
 void PageChannelA::FixPress()
 {
     OnPress_Sync();
+}
+
+
+InputImpedance &InputImpedance::Current()
+{
+    return CURRENT_CHANNEL_IS_A ? PageChannelA::impedance : PageChannelB::impedance;
 }

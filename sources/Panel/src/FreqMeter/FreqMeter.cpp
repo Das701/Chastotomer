@@ -338,10 +338,7 @@ void FreqMeter::LoadImpedance()
     
     DEFINE_ARGUMENT;
 
-    if((PageChannelA::impedance == InputImpedance::_1MOmh && CURRENT_CHANNEL_IS_A) || (PageChannelB::impedance == InputImpedance::_1MOmh && CURRENT_CHANNEL_IS_B))
-    {
-    }
-    else
+    if (InputImpedance::Current().Is_50Ohm())
     {
         argument[5] = 1;
     }
