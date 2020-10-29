@@ -283,7 +283,7 @@ static void DrawInfo()
         else if(CURRENT_CHANNEL_IS_B && ((PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::Tachometer) && PageModesB::typeMeasure.IsFrequency()))
         {
         }
-        else if(CURRENT_CHANNEL_IS_A && (PageModesA::typeMeasure.IsCountPulse()) && (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
+        else if(CURRENT_CHANNEL_IS_A && (PageModesA::typeMeasure.IsCountPulse()) && (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::StartStop))
         {
         }
         else if(CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::StartStop))
@@ -313,7 +313,7 @@ static void DrawInfo()
         
     }
 
-    if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
+    if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::StartStop) ||
        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::StartStop))
     {
         if(PageModesA::StartStop() == true)
@@ -437,7 +437,7 @@ static void DrawStatusBarA()
             nullptr,                        /// S_1
             nullptr                         /// Phase
         },
-        {   /// ModeMeasureCountPulse::
+        {   /// ModeMeasureCountPulseA::
             nullptr,                        /// ATC
             &PageModesA::numberPeriods,      /// ATC_1
             nullptr
@@ -488,7 +488,7 @@ static void DrawStatusBarB()
             nullptr,                          /// S_1
             nullptr                           /// Phase
         },
-        {   /// ModeMeasureCountPulse::
+        {   /// ModeMeasureCountPulseA::
             nullptr,                          /// ATC
             &PageModesA::numberPeriods,       /// ATC_1
             nullptr
@@ -525,7 +525,7 @@ static void DrawStatusBarC()
             &PageModesC::numberPeriods,       /// CA
             &PageModesC::numberPeriods,       /// CB
         },
-        {   /// ModeMeasureCountPulse::
+        {   /// ModeMeasureCountPulseA::
             nullptr,                          /// Manual
             nullptr,                          /// ATC
             &PageModesC::numberPeriods,  

@@ -32,7 +32,7 @@ TypeMeasureA            PageModesA::typeMeasure(TypeMeasureA::Frequency);
 ModeMeasureFrequencyA   PageModesA::modeMeasureFrequency(ModeMeasureFrequencyA::Freq);
 ModeMeasurePeriod       PageModesA::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration     PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
-ModeMeasureCountPulse   PageModesA::modeMeasureCountPulse(ModeMeasureCountPulse::ATC);
+ModeMeasureCountPulseA  PageModesA::modeMeasureCountPulse(ModeMeasureCountPulseA::ATC);
 
 PeriodTimeLabels        PageModesA::periodTimeLabels(PeriodTimeLabels::T_8);
 NumberPeriods           PageModesA::numberPeriods(NumberPeriods::_1);
@@ -310,12 +310,12 @@ static void OnPress_ModeCountPulse()
     ClearItems(2);
 
     items[1] = &sModeCountPulse;
-    if(PageModesA::modeMeasureCountPulse.value == ModeMeasureCountPulse::StartStop)
+    if(PageModesA::modeMeasureCountPulse.value == ModeMeasureCountPulseA::StartStop)
     {
         PageModesB::modeMeasureCountPulse.value = ModeMeasureCountPulseB::StartStop;
 //        PageModesC::modeMeasureCountPulse.value = ModeMeasureCountPulseC::StartStop;
     }
-    if (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::ATB)
+    if (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::ATB)
     {
         items[2] = &sNumberPeriods;
     }

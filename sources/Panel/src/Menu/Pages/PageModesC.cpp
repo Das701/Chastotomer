@@ -115,7 +115,7 @@ static void OnPress_ModeCountPulseC()
 //    if(PageModesC::modeMeasureCountPulse.value == ModeMeasureCountPulseC::StartStop)
 //    {
 //        PageModesB::modeMeasureCountPulse.value = ModeMeasureCountPulseB::StartStop;
-//        PageModesA::modeMeasureCountPulse.value = ModeMeasureCountPulse::StartStop;
+//        PageModesA::modeMeasureCountPulse.value = ModeMeasureCountPulseA::StartStop;
 //    }
     if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA_1)
     {
