@@ -320,11 +320,10 @@ static void Calculation()
 
         x = us;
     }
-    else if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod()) ||
-        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod()))
+    else if ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod()) ||
+            (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod()))
     {
-        if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasurePeriod == ModeMeasurePeriod::F_1)) || 
-            (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasurePeriod == ModeMeasurePeriod::F_1)))
+        if(ModeMeasurePeriod::Current().IsF_1())
         {
             int sT = PageModesA::timeMeasure.ToMS();
             
@@ -985,8 +984,8 @@ char* PLIS::GiveSpec()
                 }
                 else
                 {
-                    if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod() && (PageModesA::modeMeasurePeriod == ModeMeasurePeriod::F_1)) ||
-                    (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod() && (PageModesB::modeMeasurePeriod == ModeMeasurePeriod::F_1)))
+                    if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsF_1()) ||
+                        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsF_1()))
                     {
                         if(decDA >= 1000)
                         {

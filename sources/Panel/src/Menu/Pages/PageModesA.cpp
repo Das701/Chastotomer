@@ -237,12 +237,12 @@ static void OnPress_ModePeriod()
 
     items[1] = &sModePeriod;
 
-    if (PageModesA::modeMeasurePeriod == ModeMeasurePeriod::Period)
+    if (PageModesA::modeMeasurePeriod.IsPeriod())
     {
         items[2] = &sPeriodTimeLabels;
         items[3] = &sNumberPeriods;
     }
-    else if (PageModesA::modeMeasurePeriod == ModeMeasurePeriod::F_1)
+    else if (PageModesA::modeMeasurePeriod.IsF_1())
     {
         items[2] = &sPeriodTimeLabels;
         items[3] = &sTimeMeasure;
