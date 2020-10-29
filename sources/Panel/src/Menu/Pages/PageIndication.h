@@ -38,6 +38,8 @@ struct LaunchSource : public Enumeration
     };
 
     explicit LaunchSource(E v) : Enumeration((uint8)v) {};
+    bool IsExternal() const { return (value == External); }
+    bool IsOneTime() const  { return (value == OneTime); }
 };
 
 struct MemoryMode : public Enumeration
@@ -49,6 +51,7 @@ struct MemoryMode : public Enumeration
     };
 
     explicit MemoryMode(E v) : Enumeration((uint8)v) {};
+    bool IsOn() const { return (value == On); }
 };
 
 struct Calibration : public Enumeration
@@ -60,6 +63,7 @@ struct Calibration : public Enumeration
     };
 
     explicit Calibration(E v) : Enumeration((uint8)v) {};
+    bool IsPressed() const { return (value == Pressed); }
 };
 
 class PageIndication

@@ -83,11 +83,11 @@ void FreqMeter::LoadLaunchSource()
 
     DEFINE_ARGUMENT;
 
-    if (PageIndication::launchSource == LaunchSource::External)
+    if (PageIndication::launchSource.IsExternal())
     {
         argument[5] = 1;
     }
-    else if (PageIndication::launchSource == LaunchSource::OneTime)
+    else if (PageIndication::launchSource.IsOneTime())
     {
         argument[4] = 1;
     }
@@ -102,7 +102,7 @@ void FreqMeter::LoadCalibration()
 
     DEFINE_ARGUMENT;
 
-    if (PageIndication::calibration == Calibration::Pressed)
+    if (PageIndication::calibration.IsPressed())
     {
         argument[4] = 1;
     }
@@ -121,7 +121,7 @@ void FreqMeter::LoadMemoryMode()
 
     DEFINE_ARGUMENT;
 
-    if (PageIndication::memoryMode == MemoryMode::On)
+    if (PageIndication::memoryMode.IsOn())
     {
         argument[5] = 1;
     }
