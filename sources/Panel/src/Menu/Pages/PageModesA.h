@@ -2,7 +2,7 @@
 #include "Menu/MenuItems.h"
 
 
-struct TypeMeasureA : public Enumeration
+struct TypeMeasureAB : public Enumeration
 {
     enum E
     {
@@ -13,7 +13,7 @@ struct TypeMeasureA : public Enumeration
         Count
     };
 
-    explicit TypeMeasureA(E v) : Enumeration((uint8)v) {};
+    explicit TypeMeasureAB(E v) : Enumeration((uint8)v) {};
     bool IsFrequency() const  { return (value == Frequency); }
     bool IsCountPulse() const { return (value == CountPulse); }
     bool IsPeriod() const     { return (value == Period); }
@@ -184,7 +184,7 @@ public:
     static bool StartStop();
     static void ToggleStartStop();
     /// Тип измерения
-    static TypeMeasureA typeMeasure;
+    static TypeMeasureAB typeMeasure;
     /// Режим измерения частоты
     static ModeMeasureFrequencyA modeMeasureFrequency;
     /// Режим измерения периода

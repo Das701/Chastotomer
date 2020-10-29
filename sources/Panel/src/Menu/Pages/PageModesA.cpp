@@ -28,7 +28,7 @@ static bool dCycleOn = false;
 static bool relationOn = false;
 static bool startStop = false;
 
-TypeMeasureA            PageModesA::typeMeasure(TypeMeasureA::Frequency);
+TypeMeasureAB           PageModesA::typeMeasure(TypeMeasureAB::Frequency);
 ModeMeasureFrequencyA   PageModesA::modeMeasureFrequency(ModeMeasureFrequencyA::Freq);
 ModeMeasurePeriod       PageModesA::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration     PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
@@ -108,19 +108,19 @@ void PageModesA::PressSetup()
 {
     switch (PageModesA::typeMeasure.value)
     {
-        case TypeMeasureA::Frequency:
+        case TypeMeasureAB::Frequency:
             items[1] = &sModeFrequency;
             break;
     
-        case TypeMeasureA::Period:
+        case TypeMeasureAB::Period:
             items[1] = &sModePeriod;
             break;
     
-        case TypeMeasureA::Duration:
+        case TypeMeasureAB::Duration:
             items[1] = &sModeDuration;
             break;
     
-        case TypeMeasureA::CountPulse:
+        case TypeMeasureAB::CountPulse:
             items[1] = &sModeCountPulse;
             break;
     }  
@@ -141,24 +141,24 @@ static void OnPress_TypeMeasure()
 {
         switch (PageModesA::typeMeasure.value)
         {
-        case TypeMeasureA::Frequency:
-            PageModesB::typeMeasure.value = TypeMeasureB::Frequency;
+        case TypeMeasureAB::Frequency:
+            PageModesB::typeMeasure.value = TypeMeasureAB::Frequency;
             PageModesC::typeMeasure.value = TypeMeasureC::Frequency;
             OnPress_ModeFrequency();
             break;
     
-        case TypeMeasureA::Period:
-            PageModesB::typeMeasure.value = TypeMeasureB::Period;
+        case TypeMeasureAB::Period:
+            PageModesB::typeMeasure.value = TypeMeasureAB::Period;
             OnPress_ModePeriod();
             break;
     
-        case TypeMeasureA::Duration:
-            PageModesB::typeMeasure.value = TypeMeasureB::Duration;
+        case TypeMeasureAB::Duration:
+            PageModesB::typeMeasure.value = TypeMeasureAB::Duration;
             OnPress_ModeDuration();
             break;
     
-        case TypeMeasureA::CountPulse:
-            PageModesB::typeMeasure.value = TypeMeasureB::CountPulse;
+        case TypeMeasureAB::CountPulse:
+            PageModesB::typeMeasure.value = TypeMeasureAB::CountPulse;
             PageModesC::typeMeasure.value = TypeMeasureC::CountPulse;
             OnPress_ModeCountPulse();
             break;

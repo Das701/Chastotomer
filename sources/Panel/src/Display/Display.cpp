@@ -410,12 +410,12 @@ static void DrawData()
 
 static void DrawStatusBarA()
 {
-    static const Enumeration * const modes[TypeMeasureA::Count] =
+    static const Enumeration * const modes[TypeMeasureAB::Count] =
     {///            Frequency                         Period                         Duration                         CountPulse
         &PageModesA::modeMeasureFrequency, &PageModesA::modeMeasurePeriod, &PageModesA::modeMeasureDuration, &PageModesA::modeMeasureCountPulse
     };
 
-    static const Enumeration * const enums[TypeMeasureA::Count][6] =
+    static const Enumeration * const enums[TypeMeasureAB::Count][6] =
     {
         {   /// ModeMeasureFrequency::
             &PageModesA::timeMeasure,        /// Freq
@@ -462,12 +462,12 @@ static void DrawStatusBarA()
 
 static void DrawStatusBarB()
 {
-    static const Enumeration * const modesB[TypeMeasureB::Count] =
+    static const Enumeration * const modesB[TypeMeasureAB::Count] =
     {///            Frequency                         Period                         Duration                         CountPulse
         &PageModesB::modeMeasureFrequency, &PageModesB::modeMeasurePeriod, &PageModesB::modeMeasureDuration, &PageModesB::modeMeasureCountPulse
     };
 
-    static const Enumeration * const enumsB[TypeMeasureB::Count][6] =
+    static const Enumeration * const enumsB[TypeMeasureAB::Count][6] =
     {
         {   /// ModeMeasureFrequency::
             &PageModesA::timeMeasure,        /// Freq

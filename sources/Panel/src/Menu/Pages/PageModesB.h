@@ -2,24 +2,6 @@
 #include "Menu/MenuItems.h"
 
 
-struct TypeMeasureB : public Enumeration
-{
-    enum E
-    {
-        Frequency,      ///< Измерение частоты
-        Period,         ///< Измерение периода
-        Duration,       ///< Измерение длительности
-        CountPulse,     ///< Подсчёт импульсов
-        Count
-    };
-
-    explicit TypeMeasureB(E v) : Enumeration((uint8)v) {};
-    bool IsFrequency() const  { return (value == Frequency); }
-    bool IsPeriod() const     { return (value == Period); }
-    bool IsDuration() const   { return (value == Duration); }
-    bool IsCountPulse() const { return (value == CountPulse); }
-};
-
 /// Режим измерения частоты
 struct ModeMeasureFrequencyB : public Enumeration
 {
@@ -61,7 +43,7 @@ public:
     static void Init();
     static void PressSetupB();
     /// Тип измерения
-    static TypeMeasureB typeMeasure;
+    static TypeMeasureAB typeMeasure;
     /// Режим измерения частоты
     static ModeMeasureFrequencyB modeMeasureFrequency;
     /// Режим измерения периода
