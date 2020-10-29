@@ -19,6 +19,12 @@ struct CurrentModeMeasureFrequency
 };
 
 
+struct CurrentModeMeasureCountPulse
+{
+    static bool IsBig_T();
+};
+
+
 struct TypeMeasureAB : public Enumeration
 {
     enum E
