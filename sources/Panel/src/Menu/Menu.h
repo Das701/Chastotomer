@@ -12,6 +12,4 @@ namespace Menu
     char *ChannelSettings();
     
     Page* UsedPage();
-    
-    uint8 UsedChannel();
 };

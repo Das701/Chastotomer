@@ -49,11 +49,11 @@ void FreqMeter::LoadDisplayTime()
 
     DEFINE_ARGUMENT;
 
-    if (PageIndication::displayTime == DisplayTime::_1s)
+    if (PageIndication::displayTime.Is_1s())
     {
         argument[5] = 1;
     }
-    else if (PageIndication::displayTime == DisplayTime::_10s)
+    else if (PageIndication::displayTime.Is_10s())
     {
         argument[4] = 1;
     }
@@ -68,7 +68,7 @@ void FreqMeter::LoadRefGenerator()
 
     DEFINE_ARGUMENT;
 
-    if (PageIndication::refGenerator != RefGenerator::Internal)
+    if (PageIndication::refGenerator.IsExternal())
     {
         argument[5] = 1;
     }

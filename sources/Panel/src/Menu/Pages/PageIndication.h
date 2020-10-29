@@ -12,6 +12,8 @@ struct DisplayTime : public Enumeration
     };
 
     explicit DisplayTime(E v) : Enumeration((uint8)v) {};
+    bool Is_1s() const {  return (value == _1s); }
+    bool Is_10s() const { return (value == _10s); }
 };
 
 struct RefGenerator : public Enumeration
@@ -23,6 +25,7 @@ struct RefGenerator : public Enumeration
     };
 
     explicit RefGenerator(E v) : Enumeration((uint8)v) {};
+    bool IsExternal() const { return (value == External); }
 };
 
 struct LaunchSource : public Enumeration
