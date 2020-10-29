@@ -173,7 +173,7 @@ static void OnPress_TimeMeasure()
         NumberPeriods::_1000K
     };
 
-    uint8 period = periods[PageModesC::timeMeasure.value];
+    uint8 period = periods[time];
 
     PageModesA::numberPeriods.value = period;
     PageModesB::numberPeriods.value = period;
