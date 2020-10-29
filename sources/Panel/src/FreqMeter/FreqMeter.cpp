@@ -25,20 +25,20 @@ void FreqMeter::LoadChannel()
 
     DEFINE_ARGUMENT;
 
-    if(Menu::UsedPage() == PageChannelB::self)
+    if (Menu::UsedPage() == PageChannelB::self)
     {
         argument[4] = 1;
     }
-    else if(Menu::UsedPage() == PageChannelC::self)
+    else if (Menu::UsedPage() == PageChannelC::self)
     {
         argument[5] = 1;
     }
-    else if(Menu::UsedPage() == PageChannelD::self)
+    else if (Menu::UsedPage() == PageChannelD::self)
     {
         argument[5] = 1;
         argument[4] = 1;
     }
-    
+
     PLIS::WriteCommand(command, argument);
 }
 
@@ -49,11 +49,11 @@ void FreqMeter::LoadDisplayTime()
 
     DEFINE_ARGUMENT;
 
-    if(PageIndication::displayTime == DisplayTime::_1s)
+    if (PageIndication::displayTime == DisplayTime::_1s)
     {
         argument[5] = 1;
     }
-    else if(PageIndication::displayTime == DisplayTime::_10s)
+    else if (PageIndication::displayTime == DisplayTime::_10s)
     {
         argument[4] = 1;
     }
@@ -68,7 +68,7 @@ void FreqMeter::LoadRefGenerator()
 
     DEFINE_ARGUMENT;
 
-    if(PageIndication::refGenerator != RefGenerator::Internal)
+    if (PageIndication::refGenerator != RefGenerator::Internal)
     {
         argument[5] = 1;
     }
@@ -83,11 +83,11 @@ void FreqMeter::LoadLaunchSource()
 
     DEFINE_ARGUMENT;
 
-    if(PageIndication::launchSource == LaunchSource::External)
+    if (PageIndication::launchSource == LaunchSource::External)
     {
         argument[5] = 1;
     }
-    else if(PageIndication::launchSource == LaunchSource::OneTime)
+    else if (PageIndication::launchSource == LaunchSource::OneTime)
     {
         argument[4] = 1;
     }
@@ -101,8 +101,8 @@ void FreqMeter::LoadCalibration()
     char command[4] = { 1, 1, 1, 1 };
 
     DEFINE_ARGUMENT;
-    
-    if(PageIndication::calibration == Calibration::Pressed)
+
+    if (PageIndication::calibration == Calibration::Pressed)
     {
         argument[4] = 1;
     }
@@ -110,7 +110,7 @@ void FreqMeter::LoadCalibration()
     {
         argument[3] = 1;
     }
-    
+
     PLIS::WriteCommand(command, argument);
 }
 
@@ -121,7 +121,7 @@ void FreqMeter::LoadMemoryMode()
 
     DEFINE_ARGUMENT;
 
-    if(PageIndication::memoryMode == MemoryMode::On)
+    if (PageIndication::memoryMode == MemoryMode::On)
     {
         argument[5] = 1;
     }
@@ -135,35 +135,35 @@ void FreqMeter::LoadModeMeasureFrequency()
 
     DEFINE_ARGUMENT;
 
-    if((PageModesA::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) || 
-       (PageModesC::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C))
+    if ((PageModesA::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
+        (PageModesC::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C))
     {
     }
-    else if((PageModesA::modeMeasureFrequency.IsAB() && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequency.IsBA() && CURRENT_CHANNEL_IS_B) || 
-            (PageModesC::modeMeasureFrequency.IsCA() && CURRENT_CHANNEL_IS_C))
+    else if ((PageModesA::modeMeasureFrequency.IsAB() && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::modeMeasureFrequency.IsBA() && CURRENT_CHANNEL_IS_B) ||
+        (PageModesC::modeMeasureFrequency.IsCA() && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
     }
-    else if((PageModesA::modeMeasureFrequency.IsAC() && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequency.IsBC() && CURRENT_CHANNEL_IS_B) || 
-            (PageModesC::modeMeasureFrequency.IsCB() && CURRENT_CHANNEL_IS_C))
+    else if ((PageModesA::modeMeasureFrequency.IsAC() && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::modeMeasureFrequency.IsBC() && CURRENT_CHANNEL_IS_B) ||
+        (PageModesC::modeMeasureFrequency.IsCB() && CURRENT_CHANNEL_IS_C))
     {
         argument[4] = 1;
     }
-    else if((PageModesA::modeMeasureFrequency.IsT_1() && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequency.IsT_1() && CURRENT_CHANNEL_IS_B))
+    else if ((PageModesA::modeMeasureFrequency.IsT_1() && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::modeMeasureFrequency.IsT_1() && CURRENT_CHANNEL_IS_B))
     {
         argument[5] = 1;
         argument[4] = 1;
     }
-    else if((PageModesA::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_B))
+    else if ((PageModesA::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_B))
     {
         argument[3] = 1;
     }
-    else if(PageModesA::modeMeasureFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
+    else if (PageModesA::modeMeasureFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
     {
         argument[3] = 1;
         argument[5] = 1;
@@ -180,8 +180,8 @@ void FreqMeter::LoadModeMeasurePeriod()
     DEFINE_ARGUMENT;
 
     argument[1] = 1;
-    
-    if(ModeMeasurePeriod::Current().IsF_1())
+
+    if (ModeMeasurePeriod::Current().IsF_1())
     {
         argument[5] = 1;
     }
@@ -197,25 +197,25 @@ void FreqMeter::LoadModeMeasureDuration()
     DEFINE_ARGUMENT;
 
     argument[0] = 1;
-    
-    if(ModeMeasureDuration::Current().Is_Ndt_1ns())
+
+    if (ModeMeasureDuration::Current().Is_Ndt_1ns())
     {
         argument[4] = 1;
     }
-    else if(ModeMeasureDuration::Current().Is_Ndt2())
+    else if (ModeMeasureDuration::Current().Is_Ndt2())
     {
         argument[5] = 1;
         argument[4] = 1;
     }
-    else if(ModeMeasureDuration::Current().Is_Dcycle())
+    else if (ModeMeasureDuration::Current().Is_Dcycle())
     {
         argument[3] = 1;
     }
-    else if(ModeMeasureDuration::Current().Is_Phase())
+    else if (ModeMeasureDuration::Current().Is_Phase())
     {
         argument[5] = 1;
         argument[3] = 1;
-        
+
     }
 
     PLIS::WriteCommand(command, argument);
@@ -227,26 +227,26 @@ void FreqMeter::LoadModeMeasureCountPulse()
     char command[4] = { 0, 1, 1, 0 };
 
     DEFINE_ARGUMENT;
-    
+
     argument[1] = 1;
     argument[0] = 1;
 
-    if((PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CtA) && CURRENT_CHANNEL_IS_C)
+    if ((PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CtA) && CURRENT_CHANNEL_IS_C)
     {
     }
-    else if((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::AtC && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BtA && CURRENT_CHANNEL_IS_B) || 
-       (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CtB && CURRENT_CHANNEL_IS_C))
+    else if ((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::AtC && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BtA && CURRENT_CHANNEL_IS_B) ||
+        (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CtB && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
     }
-    else if((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::ATB && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA && CURRENT_CHANNEL_IS_B) || 
-       (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA && CURRENT_CHANNEL_IS_C))
+    else if ((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::ATB && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA && CURRENT_CHANNEL_IS_B) ||
+        (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA && CURRENT_CHANNEL_IS_C))
     {
         argument[4] = 1;
     }
-    else if(PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB && CURRENT_CHANNEL_IS_C)
+    else if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB && CURRENT_CHANNEL_IS_C)
     {
         argument[5] = 1;
         argument[4] = 1;
@@ -272,10 +272,10 @@ void FreqMeter::LoadPeriodTimeLabels()
     case PeriodTimeLabels::T_7:     argument[5] = 1;    break;
     case PeriodTimeLabels::T_6:     argument[4] = 1;    break;
     case PeriodTimeLabels::T_5:     argument[5] = 1;
-                                    argument[4] = 1;    break;
+        argument[4] = 1;    break;
     case PeriodTimeLabels::T_4:     argument[3] = 1;    break;
     case PeriodTimeLabels::T_3:     argument[5] = 1;
-                                    argument[3] = 1;    break;
+        argument[3] = 1;    break;
     }
 
     PLIS::WriteCommand(command, argument);
@@ -293,12 +293,12 @@ void FreqMeter::LoadTimeMeasure()
     case TimeMeasure::_10ms:    argument[5] = 1;  break;
     case TimeMeasure::_100ms:   argument[4] = 1;  break;
     case TimeMeasure::_1s:      argument[4] = 1;
-                                argument[5] = 1;  break;
+        argument[5] = 1;  break;
     case TimeMeasure::_10s:     argument[3] = 1;  break;
     case TimeMeasure::_100s:    argument[3] = 1;
-                                argument[5] = 1;  break;
+        argument[5] = 1;  break;
     case TimeMeasure::_1000s:   argument[3] = 1;
-                                argument[4] = 1;  break;
+        argument[4] = 1;  break;
     }
 
     PLIS::WriteCommand(command, argument);
@@ -316,12 +316,12 @@ void FreqMeter::LoadNumerPeriodsMeasure()
     case NumberPeriods::_10:    argument[5] = 1;    break;
     case NumberPeriods::_100:   argument[4] = 1;    break;
     case NumberPeriods::_1K:    argument[5] = 1;
-                                argument[4] = 1;    break;
+        argument[4] = 1;    break;
     case NumberPeriods::_10K:   argument[3] = 1;    break;
     case NumberPeriods::_100K:  argument[5] = 1;
-                                argument[3] = 1;    break;
+        argument[3] = 1;    break;
     case NumberPeriods::_1000K: argument[4] = 1;
-                                argument[3] = 1;    break;
+        argument[3] = 1;    break;
     }
 
     PLIS::WriteCommand(command, argument);
@@ -332,7 +332,7 @@ void FreqMeter::LoadNumerPeriodsMeasure()
 void FreqMeter::LoadImpedance()
 {
     char command[4] = { 0, 0, 0, 1 };
-    
+
     DEFINE_ARGUMENT;
 
     if (InputImpedance::Current().Is_50Ohm())
@@ -350,7 +350,7 @@ void FreqMeter::LoadModeFront()
 
     DEFINE_ARGUMENT;
 
-    if(!ModeFront::Current().IsFront())
+    if (!ModeFront::Current().IsFront())
     {
         argument[5] = 1;
     }
@@ -365,7 +365,7 @@ void FreqMeter::LoadDivider()
 
     DEFINE_ARGUMENT;
 
-    if(!Divider::Current().Is1())
+    if (!Divider::Current().Is1())
     {
         argument[5] = 1;
     }
@@ -380,12 +380,12 @@ void FreqMeter::LoadTypeSynch()
 
     DEFINE_ARGUMENT;
 
-    if((PageChannelA::typeSynch == TypeSynch::Holdoff && CURRENT_CHANNEL_IS_A) || (PageChannelB::typeSynch == TypeSynch::Holdoff && CURRENT_CHANNEL_IS_B))
+    if ((PageChannelA::typeSynch == TypeSynch::Holdoff && CURRENT_CHANNEL_IS_A) || (PageChannelB::typeSynch == TypeSynch::Holdoff && CURRENT_CHANNEL_IS_B))
     {
         argument[5] = 1;
     }
     else
-    {   
+    {
     }
 
     PLIS::WriteCommand(command, argument);
@@ -397,12 +397,12 @@ void FreqMeter::LoadTest()
 
     DEFINE_ARGUMENT;
 
-    if(testMode == false)
+    if (testMode == false)
     {
         argument[5] = 1;
         testMode = true;
     }
-    else 
+    else
     {
         testMode = false;
     }
@@ -423,12 +423,12 @@ void FreqMeter::LoadAuto()
 
 void FreqMeter::UnloadAuto()
 {
-    if(autoMode == true)
+    if (autoMode == true)
     {
         char command[4] = { 1, 1, 1, 1 };
-    
+
         DEFINE_ARGUMENT;
-    
+
         argument[5] = 1;
         argument[3] = 1;
         autoMode = false;
@@ -441,7 +441,7 @@ void FreqMeter::LoadMeasure()
     char command[4] = { 1, 1, 1, 1 };
 
     DEFINE_ARGUMENT;
-    
+
     PLIS::WriteCommand(command, argument);
 }
 
@@ -469,8 +469,8 @@ void FreqMeter::LoadStartStop()
     char command[4] = { 1, 0, 1, 0 };
 
     DEFINE_ARGUMENT;
-    
-    if(PageModesA::StartStop() == true)
+
+    if (PageModesA::StartStop() == true)
     {
         argument[5] = 1;
         argument[4] = 1;
@@ -479,6 +479,6 @@ void FreqMeter::LoadStartStop()
     {
         argument[3] = 1;
     }
-    
+
     PLIS::WriteCommand(command, argument);
 }

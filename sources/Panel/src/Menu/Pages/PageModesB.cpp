@@ -64,51 +64,51 @@ void PageModesB::PressSetupB()
 {
     switch (PageModesB::typeMeasure.value)
     {
-        case TypeMeasureAB::Frequency:
-            items[1] = &sModeFrequencyB;
-            break;
-    
-        case TypeMeasureAB::Period:
-            items[1] = &sModePeriodB;
-            break;
-    
-        case TypeMeasureAB::Duration:
-            items[1] = &sModeDurationB;
-            break;
-    
-        case TypeMeasureAB::CountPulse:
-            items[1] = &sModeCountPulseB;
-            break;
-    }    
+    case TypeMeasureAB::Frequency:
+        items[1] = &sModeFrequencyB;
+        break;
+
+    case TypeMeasureAB::Period:
+        items[1] = &sModePeriodB;
+        break;
+
+    case TypeMeasureAB::Duration:
+        items[1] = &sModeDurationB;
+        break;
+
+    case TypeMeasureAB::CountPulse:
+        items[1] = &sModeCountPulseB;
+        break;
+    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPress_TypeMeasureB()
 {
-        switch (PageModesB::typeMeasure.value)
-        {
-        case TypeMeasureAB::Frequency:
-            PageModesA::typeMeasure.value = TypeMeasureAB::Frequency;
-            PageModesC::typeMeasure.value = TypeMeasureC::Frequency;
-            OnPress_ModeFrequencyB();
-            break;
-    
-        case TypeMeasureAB::Period:
-            PageModesA::typeMeasure.value = TypeMeasureAB::Period;
-            OnPress_ModePeriodB();
-            break;
-    
-        case TypeMeasureAB::Duration:
-            PageModesA::typeMeasure.value = TypeMeasureAB::Duration;
-            OnPress_ModeDurationB();
-            break;
-    
-        case TypeMeasureAB::CountPulse:
-            PageModesA::typeMeasure.value = TypeMeasureAB::CountPulse;
-            PageModesC::typeMeasure.value = TypeMeasureC::CountPulse;
-            OnPress_ModeCountPulseB();
-            break;
-        }        
+    switch (PageModesB::typeMeasure.value)
+    {
+    case TypeMeasureAB::Frequency:
+        PageModesA::typeMeasure.value = TypeMeasureAB::Frequency;
+        PageModesC::typeMeasure.value = TypeMeasureC::Frequency;
+        OnPress_ModeFrequencyB();
+        break;
+
+    case TypeMeasureAB::Period:
+        PageModesA::typeMeasure.value = TypeMeasureAB::Period;
+        OnPress_ModePeriodB();
+        break;
+
+    case TypeMeasureAB::Duration:
+        PageModesA::typeMeasure.value = TypeMeasureAB::Duration;
+        OnPress_ModeDurationB();
+        break;
+
+    case TypeMeasureAB::CountPulse:
+        PageModesA::typeMeasure.value = TypeMeasureAB::CountPulse;
+        PageModesC::typeMeasure.value = TypeMeasureC::CountPulse;
+        OnPress_ModeCountPulseB();
+        break;
+    }
 }
 
 
