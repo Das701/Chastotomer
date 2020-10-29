@@ -40,21 +40,6 @@ struct ModeMeasureFrequencyB : public Enumeration
     bool IsTachometer() const { return (value == Tachometer); }
 };
 
-/// Режим измерения длительности
-struct ModeMeasureDurationB : public Enumeration
-{
-    enum E
-    {
-        Ndt,        ///< ndt
-        Ndt_1ns,    ///< ndt_1нс
-        Ndt2,       ///< ndt2
-        Dcycle,     ///< Скважность
-        Phase       ///< Фаза
-    };
-
-    explicit ModeMeasureDurationB(E v) : Enumeration((uint8)v) {};
-};
-
 /// Режим счёта импульсов
 struct ModeMeasureCountPulseB : public Enumeration
 {
@@ -82,7 +67,7 @@ public:
     /// Режим измерения периода
     static ModeMeasurePeriod modeMeasurePeriod;
     /// Режим измерения длительности
-    static ModeMeasureDurationB modeMeasureDuration;
+    static ModeMeasureDuration modeMeasureDuration;
     /// Режим счёта импульсов
     static ModeMeasureCountPulseB modeMeasureCountPulse;
     /// Период меток времени

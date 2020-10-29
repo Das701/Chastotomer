@@ -274,19 +274,19 @@ static void OnPress_ModeDuration()
     switch(PageModesA::modeMeasureDuration.value)
     {
         case ModeMeasureDuration::Ndt:
-            PageModesB::modeMeasureDuration.value = ModeMeasureDurationB::Ndt;
+            PageModesB::modeMeasureDuration.value = ModeMeasureDuration::Ndt;
             break;
         case ModeMeasureDuration::Ndt_1ns:
-            PageModesB::modeMeasureDuration.value = ModeMeasureDurationB::Ndt_1ns;
+            PageModesB::modeMeasureDuration.value = ModeMeasureDuration::Ndt_1ns;
             break;
         case ModeMeasureDuration::Ndt2:
-            PageModesB::modeMeasureDuration.value = ModeMeasureDurationB::Ndt2;
+            PageModesB::modeMeasureDuration.value = ModeMeasureDuration::Ndt2;
             break;
         case ModeMeasureDuration::Dcycle:
-            PageModesB::modeMeasureDuration.value = ModeMeasureDurationB::Dcycle;
+            PageModesB::modeMeasureDuration.value = ModeMeasureDuration::Dcycle;
             break;
         case ModeMeasureDuration::Phase:
-            PageModesB::modeMeasureDuration.value = ModeMeasureDurationB::Phase;
+            PageModesB::modeMeasureDuration.value = ModeMeasureDuration::Phase;
             break;
     }
     if (PageModesA::modeMeasureDuration.Is_Ndt_1ns())

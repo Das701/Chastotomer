@@ -30,7 +30,7 @@ extern Switch sNumberPeriodsB;
 TypeMeasureB             PageModesB::typeMeasure(TypeMeasureB::Frequency);
 ModeMeasureFrequencyB    PageModesB::modeMeasureFrequency(ModeMeasureFrequencyB::Freq);
 ModeMeasurePeriod        PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
-ModeMeasureDurationB     PageModesB::modeMeasureDuration(ModeMeasureDurationB::Ndt);
+ModeMeasureDuration      PageModesB::modeMeasureDuration(ModeMeasureDuration::Ndt);
 ModeMeasureCountPulseB   PageModesB::modeMeasureCountPulse(ModeMeasureCountPulseB::BTA);
 
 PeriodTimeLabels         PageModesB::periodTimeLabels(PeriodTimeLabels::T_8);
@@ -215,18 +215,18 @@ static void OnPress_ModeDurationB()
 
     switch(PageModesB::modeMeasureDuration.value)
     {
-        case ModeMeasureDurationB::Ndt:         PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt;       break;
-        case ModeMeasureDurationB::Ndt_1ns:     PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt_1ns;   break;
-        case ModeMeasureDurationB::Ndt2:        PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt2;      break;
-        case ModeMeasureDurationB::Dcycle:      PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Dcycle;    break;
-        case ModeMeasureDurationB::Phase:       PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Phase;     break;
+        case ModeMeasureDuration::Ndt:         PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt;       break;
+        case ModeMeasureDuration::Ndt_1ns:     PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt_1ns;   break;
+        case ModeMeasureDuration::Ndt2:        PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt2;      break;
+        case ModeMeasureDuration::Dcycle:      PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Dcycle;    break;
+        case ModeMeasureDuration::Phase:       PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Phase;     break;
     }
-    if (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Ndt_1ns)
+    if (PageModesB::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns)
     {
         PageModesA::InterpoleOn();
         PageModesA::DCycleOff();
     }
-    else if ((PageModesB::modeMeasureDuration == ModeMeasureDurationB::Dcycle) || (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Phase))
+    else if ((PageModesB::modeMeasureDuration == ModeMeasureDuration::Dcycle) || (PageModesB::modeMeasureDuration == ModeMeasureDuration::Phase))
     {
         PageModesA::DCycleOn();
         PageModesA::InterpoleOff();

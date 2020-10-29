@@ -202,27 +202,27 @@ void FreqMeter::LoadModeMeasureDuration()
     argument[0] = 1;
     
     if((PageModesA::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Ndt && CURRENT_CHANNEL_IS_B))
+       (PageModesB::modeMeasureDuration == ModeMeasureDuration::Ndt && CURRENT_CHANNEL_IS_B))
     {
     }
     else if((PageModesA::modeMeasureDuration.Is_Ndt_1ns() && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Ndt_1ns && CURRENT_CHANNEL_IS_B))
+            (PageModesB::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns && CURRENT_CHANNEL_IS_B))
     {
         argument[4] = 1;
     }
     else if((PageModesA::modeMeasureDuration.Is_Ndt2() && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Ndt2 && CURRENT_CHANNEL_IS_B))
+            (PageModesB::modeMeasureDuration == ModeMeasureDuration::Ndt2 && CURRENT_CHANNEL_IS_B))
     {
         argument[5] = 1;
         argument[4] = 1;
     }
     else if((PageModesA::modeMeasureDuration.Is_Dcycle() && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Dcycle && CURRENT_CHANNEL_IS_B))
+            (PageModesB::modeMeasureDuration == ModeMeasureDuration::Dcycle && CURRENT_CHANNEL_IS_B))
     {
         argument[3] = 1;
     }
     else if((PageModesA::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureDuration == ModeMeasureDurationB::Phase && CURRENT_CHANNEL_IS_B))
+            (PageModesB::modeMeasureDuration == ModeMeasureDuration::Phase && CURRENT_CHANNEL_IS_B))
     {
         argument[5] = 1;
         argument[3] = 1;
