@@ -361,7 +361,7 @@ bool Page::OnControl(const Control &control)
                 (PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) || 
                 (PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) || 
                 (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_A) || 
-                (PageModesB::typeMeasure.IsDuration() && (PageModesB::modeMeasureDuration == ModeMeasureDuration::Ndt) && CURRENT_CHANNEL_IS_B))
+                (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_B))
             {
                 PLIS::RefreshAuto();
                 FreqMeter::LoadAuto();

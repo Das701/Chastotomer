@@ -271,24 +271,9 @@ static void OnPress_ModeDuration()
     ClearItems(2);
 
     items[1] = &sModeDuration;
-    switch(PageModesA::modeMeasureDuration.value)
-    {
-        case ModeMeasureDuration::Ndt:
-            PageModesB::modeMeasureDuration.value = ModeMeasureDuration::Ndt;
-            break;
-        case ModeMeasureDuration::Ndt_1ns:
-            PageModesB::modeMeasureDuration.value = ModeMeasureDuration::Ndt_1ns;
-            break;
-        case ModeMeasureDuration::Ndt2:
-            PageModesB::modeMeasureDuration.value = ModeMeasureDuration::Ndt2;
-            break;
-        case ModeMeasureDuration::Dcycle:
-            PageModesB::modeMeasureDuration.value = ModeMeasureDuration::Dcycle;
-            break;
-        case ModeMeasureDuration::Phase:
-            PageModesB::modeMeasureDuration.value = ModeMeasureDuration::Phase;
-            break;
-    }
+    
+    PageModesB::modeMeasureDuration.value = PageModesA::modeMeasureDuration.value;
+    
     if (PageModesA::modeMeasureDuration.Is_Ndt_1ns())
     {
         PageModesA::InterpoleOn();
@@ -567,6 +552,19 @@ ModeMeasurePeriod &ModeMeasurePeriod::Current()
     if (CURRENT_CHANNEL_IS_B)
     {
         result = PageModesB::modeMeasurePeriod;
+    }
+
+    return result;
+}
+
+
+ModeMeasureDuration &ModeMeasureDuration::Current()
+{
+    ModeMeasureDuration &result = PageModesA::modeMeasureDuration;
+
+    if (CURRENT_CHANNEL_IS_B)
+    {
+        result = PageModesB::modeMeasureDuration;
     }
 
     return result;

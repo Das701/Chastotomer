@@ -213,20 +213,14 @@ static void OnPress_ModeDurationB()
 
     items[1] = &sModeDurationB;
 
-    switch(PageModesB::modeMeasureDuration.value)
-    {
-        case ModeMeasureDuration::Ndt:         PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt;       break;
-        case ModeMeasureDuration::Ndt_1ns:     PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt_1ns;   break;
-        case ModeMeasureDuration::Ndt2:        PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Ndt2;      break;
-        case ModeMeasureDuration::Dcycle:      PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Dcycle;    break;
-        case ModeMeasureDuration::Phase:       PageModesA::modeMeasureDuration.value = ModeMeasureDuration::Phase;     break;
-    }
-    if (PageModesB::modeMeasureDuration == ModeMeasureDuration::Ndt_1ns)
+    PageModesA::modeMeasureDuration.value = PageModesB::modeMeasureDuration.value;
+    
+    if (PageModesB::modeMeasureDuration.Is_Ndt_1ns())
     {
         PageModesA::InterpoleOn();
         PageModesA::DCycleOff();
     }
-    else if ((PageModesB::modeMeasureDuration == ModeMeasureDuration::Dcycle) || (PageModesB::modeMeasureDuration == ModeMeasureDuration::Phase))
+    else if (PageModesB::modeMeasureDuration.Is_Dcycle() || PageModesB::modeMeasureDuration.Is_Phase())
     {
         PageModesA::DCycleOn();
         PageModesA::InterpoleOff();

@@ -78,6 +78,8 @@ struct ModeMeasureDuration : public Enumeration
     bool Is_Ndt2() const    { return (value == Ndt2); }
     bool Is_Dcycle() const  { return (value == Dcycle); }
     bool Is_Phase() const   { return (value == Phase); }
+
+    static ModeMeasureDuration &Current();
 };
 
 /// Режим счёта импульсов
