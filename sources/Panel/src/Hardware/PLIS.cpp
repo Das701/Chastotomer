@@ -694,7 +694,7 @@ char* PLIS::GiveData()
         {
             BinToDec();
             decDataA = decDataA / 2;
-            std::sprintf(procData,"%10.0f",decDataA);
+            std::sprintf(procData, "%10.0f", decDataA);
 
             return procData;
         }
@@ -703,86 +703,88 @@ char* PLIS::GiveData()
             CalculationComparator();
             int top = 200;
             int n = 5000000;
-            float dx = ((decTizm*100)/decNkal);
-            float k = (n - decFx)/n;
-            decDataA = k - (dx/top)/n;
-            decDataA = decDataA*1000000;
-            std::sprintf(procData,"%10.3f",decDataA);                
+            float dx = ((decTizm * 100) / decNkal);
+            float k = (n - decFx) / n;
+            decDataA = k - (dx / top) / n;
+            decDataA = decDataA * 1000000;
+            std::sprintf(procData, "%10.3f", decDataA);
 
             return procData;
         }
         else if(ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpoleCheck())
         {
             CalculationInterpole();
-            std::sprintf(procDataInterpol,"%10.2f",interpol);
+            std::sprintf(procDataInterpol, "%10.2f", interpol);
             return procDataInterpol;
         }
         else if((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && PageModesA::DCycleCheck())
         {
-                CalculationDcycle();
-                if(ModeMeasureDuration::Current().Is_Phase())
-                {
-                    std::sprintf(procDataDcycle,"%10.3f",dutyCycle);
-                }
-                else
-                {   
-                    std::sprintf(procDataDcycle,"%10.7f",dutyCycle);
-                }
-                return procDataDcycle;
+            CalculationDcycle();
+
+            if (ModeMeasureDuration::Current().Is_Phase())
+            {
+                std::sprintf(procDataDcycle, "%10.3f", dutyCycle);
+            }
+            else
+            {
+                std::sprintf(procDataDcycle, "%10.7f", dutyCycle);
+            }
+
+            return procDataDcycle;
         }
         else
         {
             BinToDec();
             Calculation();
-            
-            if(emptyZeros == 1)
+
+            if (emptyZeros == 1)
             {
-                std::sprintf(procData,"%10.0f",decDataA);
+                std::sprintf(procData, "%10.0f", decDataA);
             }
-            else if(emptyZeros == 10)
+            else if (emptyZeros == 10)
             {
-                std::sprintf(procData,"%10.1f",decDataA);
+                std::sprintf(procData, "%10.1f", decDataA);
             }
-            else if(emptyZeros == 100)
+            else if (emptyZeros == 100)
             {
-                std::sprintf(procData,"%10.2f",decDataA);
+                std::sprintf(procData, "%10.2f", decDataA);
             }
-            else if(emptyZeros == 1000)
+            else if (emptyZeros == 1000)
             {
-                std::sprintf(procData,"%10.3f",decDataA);
+                std::sprintf(procData, "%10.3f", decDataA);
             }
-            else if(emptyZeros == 10000)
+            else if (emptyZeros == 10000)
             {
-                std::sprintf(procData,"%10.4f",decDataA);
+                std::sprintf(procData, "%10.4f", decDataA);
             }
-            else if(emptyZeros == 100000)
+            else if (emptyZeros == 100000)
             {
-                std::sprintf(procData,"%10.5f",decDataA);
+                std::sprintf(procData, "%10.5f", decDataA);
             }
-            else if(emptyZeros == 1000000)
+            else if (emptyZeros == 1000000)
             {
-                std::sprintf(procData,"%10.6f",decDataA);
+                std::sprintf(procData, "%10.6f", decDataA);
             }
-            else if(emptyZeros == 10000000)
+            else if (emptyZeros == 10000000)
             {
-                std::sprintf(procData,"%10.7f",decDataA);
+                std::sprintf(procData, "%10.7f", decDataA);
             }
-            else if(emptyZeros == 100000000)
+            else if (emptyZeros == 100000000)
             {
-                std::sprintf(procData,"%10.8f",decDataA);
+                std::sprintf(procData, "%10.8f", decDataA);
             }
-            else if(emptyZeros == 1000000000)
+            else if (emptyZeros == 1000000000)
             {
-                std::sprintf(procData,"%10.9f",decDataA);
+                std::sprintf(procData, "%10.9f", decDataA);
             }
             else
             {
-                std::sprintf(procData,"%10.10f",decDataA);
+                std::sprintf(procData, "%10.10f", decDataA);
             }
             emptyZeros = 1;
-            }
-            return procData;
-        }       
+        }
+        return procData;
+    }
 }
 
 char* PLIS::GiveSpec()
