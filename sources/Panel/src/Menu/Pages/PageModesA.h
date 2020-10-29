@@ -12,6 +12,7 @@ struct CurrentTypeMeasure
 
 struct CurrentModeMeasureFrequency
 {
+    static bool IsTachometer();
     static bool IsT_1();
     static bool Is_AC_or_BC();
     static bool Is_AB_or_BA();

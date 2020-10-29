@@ -599,6 +599,13 @@ bool CurrentTypeMeasure::IsCountPulse()
 }
 
 
+bool CurrentModeMeasureFrequency::IsTachometer()
+{
+    return (((PageModesA::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_B)));
+}
+
+
 bool CurrentModeMeasureFrequency::IsT_1()
 {
     return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsT_1()) ||

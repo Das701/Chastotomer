@@ -690,12 +690,12 @@ char* PLIS::GiveData()
     }
     else
     {
-        if(((PageModesA::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_A) || 
-            (PageModesB::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_B)))
+        if(CurrentModeMeasureFrequency::IsTachometer())
         {
             BinToDec();
-            decDataA = decDataA/2;
+            decDataA = decDataA / 2;
             std::sprintf(procData,"%10.0f",decDataA);
+
             return procData;
         }
         else if (CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsComparator() && PageModesA::typeMeasure.IsFrequency())) 
@@ -704,12 +704,11 @@ char* PLIS::GiveData()
             int top = 200;
             int n = 5000000;
             float dx = ((decTizm*100)/decNkal);
-//            decFx = decFx - 1;
             float k = (n - decFx)/n;
             decDataA = k - (dx/top)/n;
             decDataA = decDataA*1000000;
-//            decDataA = (float)((decFx*top)/2)/(n*top + ((decTizm*100)/decNkal));
             std::sprintf(procData,"%10.3f",decDataA);                
+
             return procData;
         }
         else if(ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpoleCheck())
