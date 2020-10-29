@@ -7,6 +7,7 @@ struct CurrentTypeMeasure
     static bool IsFrequency();
     static bool IsPeriod();
     static bool IsDuration();
+    static bool IsCountPulse();
 };
 
 struct CurrentModeMeasureFrequency

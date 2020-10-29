@@ -591,6 +591,14 @@ bool CurrentTypeMeasure::IsDuration()
 }
 
 
+bool CurrentTypeMeasure::IsCountPulse()
+{
+    return ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse()) ||
+        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse()) ||
+        (CURRENT_CHANNEL_IS_C && PageModesC::typeMeasure.IsCountPulse()));
+}
+
+
 bool CurrentModeMeasureFrequency::IsT_1()
 {
     return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsT_1()) ||

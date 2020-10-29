@@ -669,16 +669,16 @@ void PLIS::Update()
 
 char* PLIS::GiveData()
 {
-    if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse()) ||
-       (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse()) ||
-       (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasure.IsCountPulse())))
+    if(CurrentTypeMeasure::IsCountPulse())
     {
         BinToDec();
-        decDataA = decDataA/2;
+        decDataA = decDataA / 2;
+
         if(CURRENT_CHANNEL_IS_C)
         {
-            decDataA = decDataA*100;
+            decDataA = decDataA * 100;
         }
+
         if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::ATB)) 
           || (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA_1))
           || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB_1))
@@ -686,7 +686,9 @@ char* PLIS::GiveData()
         {
             decDataA /= PageModesA::numberPeriods.ToAbs();
         }
-        std::sprintf(procData,"%10.0f",decDataA);
+
+        std::sprintf(procData, "%10.0f", decDataA);
+
         return procData;
     }
     else
