@@ -208,3 +208,9 @@ InputImpedance &InputImpedance::Current()
 {
     return CURRENT_CHANNEL_IS_A ? PageChannelA::impedance : PageChannelB::impedance;
 }
+
+
+ModeFront &ModeFront::Current()
+{
+    return CURRENT_CHANNEL_IS_A ? PageChannelA::modeFront : PageChannelB::modeFront;
+}

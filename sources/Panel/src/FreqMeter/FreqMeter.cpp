@@ -353,13 +353,11 @@ void FreqMeter::LoadModeFront()
 
     DEFINE_ARGUMENT;
 
-    if((PageChannelA::modeFront == ModeFront::Front && CURRENT_CHANNEL_IS_A) || (PageChannelB::modeFront == ModeFront::Front && CURRENT_CHANNEL_IS_B))
-    {
-    }
-    else
+    if(!ModeFront::Current().IsFront())
     {
         argument[5] = 1;
     }
+
     PLIS::WriteCommand(command, argument);
 }
 

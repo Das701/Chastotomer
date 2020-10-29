@@ -33,6 +33,8 @@ struct ModeFront : public Enumeration
     };
 
     explicit ModeFront(E v) : Enumeration((uint8)v) {};
+    static ModeFront &Current();
+    bool IsFront() const { return (value == Front); }
 };
 
 /// Делитель напряжения
