@@ -368,10 +368,7 @@ void FreqMeter::LoadDivider()
 
     DEFINE_ARGUMENT;
 
-    if((PageChannelA::divider == Divider::_1 && CURRENT_CHANNEL_IS_A) || (PageChannelB::divider == Divider::_1 && CURRENT_CHANNEL_IS_B))
-    {
-    }
-    else
+    if(!Divider::Current().Is1())
     {
         argument[5] = 1;
     }

@@ -47,6 +47,8 @@ struct Divider : public Enumeration
     };
 
     explicit Divider(E v) : Enumeration((uint8)v) {};
+    static Divider &Current();
+    bool Is1() const { return (value == _1); }
 };
 
 class PageChannelA

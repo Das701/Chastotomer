@@ -214,3 +214,9 @@ ModeFront &ModeFront::Current()
 {
     return CURRENT_CHANNEL_IS_A ? PageChannelA::modeFront : PageChannelB::modeFront;
 }
+
+
+Divider &Divider::Current()
+{
+    return CURRENT_CHANNEL_IS_A ? PageChannelA::divider : PageChannelB::divider;
+}
