@@ -17,6 +17,6 @@ public:
     static Divider divider;
     static TypeSynch typeSynch;
     static void FixPress();
-    static Switch *switchTypeSynch;     ///< ”казатель на переключатель типа синхронизации
+    static Switch *switchTypeSynch;     // ”казатель на переключатель типа синхронизации
 };
 

@@ -6,10 +6,10 @@ struct TypeMeasureAB : public Enumeration
 {
     enum E
     {
-        Frequency,      ///< Измерение частоты
-        Period,         ///< Измерение периода
-        Duration,       ///< Измерение длительности
-        CountPulse,     ///< Подсчёт импульсов
+        Frequency,      // Измерение частоты
+        Period,         // Измерение периода
+        Duration,       // Измерение длительности
+        CountPulse,     // Подсчёт импульсов
         Count
     };
 
@@ -25,11 +25,11 @@ struct ModeMeasureFrequencyA : public Enumeration
 {
     enum E
     {
-        Freq,       ///< Частота
-        AB,         ///< f(A) / f(B)
-        AC,         ///< f(A) / f(C)
-        T_1,        ///< f = 1 / T
-        Tachometer, ///< Тахометр
+        Freq,       // Частота
+        AB,         // f(A) / f(B)
+        AC,         // f(A) / f(C)
+        T_1,        // f = 1 / T
+        Tachometer, // Тахометр
         Comparator
     };
 
@@ -48,8 +48,8 @@ struct ModeMeasurePeriod : public Enumeration
 {
     enum E
     {
-        Period,     ///< Период
-        F_1         ///< T = 1 / f
+        Period,     // Период
+        F_1         // T = 1 / f
     };
 
     explicit ModeMeasurePeriod(E v) : Enumeration((uint8)v) {};
@@ -64,11 +64,11 @@ struct ModeMeasureDuration : public Enumeration
 {
     enum E
     {
-        Ndt,        ///< ndt
-        Ndt_1ns,    ///< ndt_1нс
-        Ndt2,       ///< ndt2
-        Dcycle,     ///< Скважность
-        Phase       ///< Фаза
+        Ndt,        // ndt
+        Ndt_1ns,    // ndt_1нс
+        Ndt2,       // ndt2
+        Dcycle,     // Скважность
+        Phase       // Фаза
     };
 
     explicit ModeMeasureDuration(E v) : Enumeration((uint8)v) {};
@@ -87,8 +87,8 @@ struct ModeMeasureCountPulseA : public Enumeration
 {
     enum E
     {
-        ATC,        ///< A(tC)
-        ATB,        ///< A(TB)
+        ATC,        // A(tC)
+        ATB,        // A(TB)
         StartStop
     };
 
@@ -100,12 +100,12 @@ struct PeriodTimeLabels : public Enumeration
 {
     enum E
     {
-        T_3,        ///< 10-3
-        T_4,        ///< 10-4
-        T_5,        ///< 10-5
-        T_6,        ///< 10-6
-        T_7,        ///< 10-7
-        T_8,        ///< 10-8
+        T_3,        // 10-3
+        T_4,        // 10-4
+        T_5,        // 10-5
+        T_6,        // 10-6
+        T_7,        // 10-7
+        T_8,        // 10-8
         Count
     };
 
@@ -126,12 +126,12 @@ struct TimeMeasure : public Enumeration
 {
     enum E
     {
-        _1ms,       ///< 1ms
-        _10ms,      ///< 10ms
-        _100ms,     ///< 100ms
-        _1s,        ///< 1s
-        _10s,       ///< 10s
-        _100s,       ///< 100s
+        _1ms,       // 1ms
+        _10ms,      // 10ms
+        _100ms,     // 100ms
+        _1s,        // 1s
+        _10s,       // 10s
+        _100s,       // 100s
         _1000s,
         Count
     };
@@ -148,12 +148,12 @@ struct NumberPeriods : public Enumeration
 {
     enum E
     {
-        _1,         ///< 1
-        _10,        ///< 10
-        _100,       ///< 100
-        _1K,        ///< 1K
-        _10K,       ///< 10K
-        _100K,      ///< 100K
+        _1,         // 1
+        _10,        // 10
+        _100,       // 100
+        _1K,        // 1K
+        _10K,       // 10K
+        _100K,      // 100K
         _1000K,
         Count
     };

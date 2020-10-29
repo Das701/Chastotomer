@@ -12,8 +12,8 @@ struct InputImpedance : public Enumeration
 {
     enum E
     {
-        _1MOmh,         ///< 1 ћќм
-        _50Omh          ///< 50 ќм
+        _1MOmh,         // 1 ћќм
+        _50Omh          // 50 ќм
     };
 
     explicit InputImpedance(E v) : Enumeration((uint8)v) {};
@@ -28,8 +28,8 @@ struct ModeFront : public Enumeration
 {
     enum E
     {
-        Front,          ///< ‘ронт
-        Slice           ///< —рез
+        Front,          // ‘ронт
+        Slice           // —рез
     };
 
     explicit ModeFront(E v) : Enumeration((uint8)v) {};
@@ -40,8 +40,8 @@ struct Divider : public Enumeration
 {
     enum E
     {
-        _1,           ///< 1:1
-        _10           ///< 1:10
+        _1,           // 1:1
+        _10           // 1:10
     };
 
     explicit Divider(E v) : Enumeration((uint8)v) {};
@@ -58,6 +58,6 @@ public:
     static Divider divider;
     static TypeSynch typeSynch;
     static void FixPress();
-    static Switch *switchTypeSynch;     ///< ”казатель на переключатель типа синхронизации
+    static Switch *switchTypeSynch;     // ”казатель на переключатель типа синхронизации
 };
 

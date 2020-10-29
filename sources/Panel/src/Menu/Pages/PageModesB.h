@@ -7,11 +7,11 @@ struct ModeMeasureFrequencyB : public Enumeration
 {
     enum E
     {
-        Freq,       ///< Частота
-        BA,         ///< f(B) / f(A)
-        BC,         ///< f(B) / f(C)
-        T_1,        ///< f = 1 / T
-        Tachometer  ///< Тахометр
+        Freq,       // Частота
+        BA,         // f(B) / f(A)
+        BC,         // f(B) / f(C)
+        T_1,        // f = 1 / T
+        Tachometer  // Тахометр
     };
 
     explicit ModeMeasureFrequencyB(E v) : Enumeration((uint8)v) {};
@@ -27,8 +27,8 @@ struct ModeMeasureCountPulseB : public Enumeration
 {
     enum E
     {
-        BTA,        ///< B(tA)
-        BTA_1,      ///< B(TA)
+        BTA,        // B(tA)
+        BTA_1,      // B(TA)
         StartStop
     };
 

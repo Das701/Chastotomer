@@ -71,9 +71,9 @@ public:
     virtual bool OnControl(const Control &control);
 
 private:
-    char        *text;              ///< Надпись на переключателе
-    void       (*funcOnPress)();    ///< Эта функция вызывается после изменения состояния переключателя
-    Enumeration *state;             ///< Адрес переменной с состоянием переключателя
+    char        *text;              // Надпись на переключателе
+    void       (*funcOnPress)();    // Эта функция вызывается после изменения состояния переключателя
+    Enumeration *state;             // Адрес переменной с состоянием переключателя
     virtual void CreateHint(char buffer[100]) const;
 };
 

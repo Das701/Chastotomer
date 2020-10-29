@@ -7,8 +7,8 @@ struct TypeMeasureC : public Enumeration
 {
     enum E
     {
-        Frequency,      ///< Измерение частоты
-        CountPulse,     ///< Подсчёт импульсов
+        Frequency,      // Измерение частоты
+        CountPulse,     // Подсчёт импульсов
         Count
     };
 
@@ -23,9 +23,9 @@ struct ModeMeasureFrequencyC : public Enumeration
 {
     enum E
     {
-        Freq,       ///< Частота
-        CA,         ///< f(C) / f(A)
-        CB          ///< f(C) / f(B)
+        Freq,       // Частота
+        CA,         // f(C) / f(A)
+        CB          // f(C) / f(B)
     };
 
     explicit ModeMeasureFrequencyC(E v) : Enumeration((uint8)v) {};
@@ -39,10 +39,10 @@ struct ModeMeasureCountPulseC : public Enumeration
 {
     enum E
     {
-        CTA,        ///< C(tA)
-        CTB,        ///< C(tB)
-        CTA_1,      ///< C(TA)
-        CTB_1       ///< C(TB)
+        CTA,        // C(tA)
+        CTB,        // C(tB)
+        CTA_1,      // C(TA)
+        CTB_1       // C(TB)
 //        StartStop
     };
 

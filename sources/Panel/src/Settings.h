@@ -35,8 +35,8 @@ struct InputCouple : public Enumeration
 {
     enum E
     {
-        AC,         ///< Открытый
-        DC          ///< Закрытый
+        AC,         // Открытый
+        DC          // Закрытый
     };
 
     explicit InputCouple(E v) : Enumeration((uint8)v) {};
@@ -52,8 +52,8 @@ struct ModeFilter : public Enumeration
 {
     enum E
     {
-        On,             ///< Включен
-        Off             ///< Выключен
+        On,             // Включен
+        Off             // Выключен
     };
 
     explicit ModeFilter(E v) : Enumeration((uint8)v) {};
@@ -69,8 +69,8 @@ struct TypeSynch : public Enumeration
 {
     enum E
     {
-        Manual,         ///< Ручн
-        Holdoff         ///< Holdoff
+        Manual,         // Ручн
+        Holdoff         // Holdoff
     };
 
     explicit TypeSynch(E v) : Enumeration((uint8)v) {};
@@ -79,9 +79,9 @@ struct TypeSynch : public Enumeration
 
 struct Settings
 {
-    Channel::E   currentChannel;                ///< Текущий канал
-    int          levelSynch[Channel::Count][2]; ///< Уровень синхронизации
-    TypeSynch::E typeSynch[Channel::Count];     ///< Тип синхронизации для каждого из каналов
+    Channel::E   currentChannel;                // Текущий канал
+    int          levelSynch[Channel::Count][2]; // Уровень синхронизации
+    TypeSynch::E typeSynch[Channel::Count];     // Тип синхронизации для каждого из каналов
 };
 
 extern Settings set;
