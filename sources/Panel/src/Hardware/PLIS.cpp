@@ -680,9 +680,9 @@ char* PLIS::GiveData()
         }
 
         if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::ATB)) 
-          || (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA_1))
-          || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB_1))
-          || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA_1)))
+          || (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA))
+          || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB))
+          || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA)))
         {
             decDataA /= PageModesA::numberPeriods.ToAbs();
         }

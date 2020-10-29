@@ -234,22 +234,22 @@ void FreqMeter::LoadModeMeasureCountPulse()
     argument[1] = 1;
     argument[0] = 1;
 
-    if((PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA) && CURRENT_CHANNEL_IS_C)
+    if((PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CtA) && CURRENT_CHANNEL_IS_C)
     {
     }
     else if((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::AtC && CURRENT_CHANNEL_IS_A) || 
        (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BtA && CURRENT_CHANNEL_IS_B) || 
-       (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB && CURRENT_CHANNEL_IS_C))
+       (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CtB && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
     }
     else if((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::ATB && CURRENT_CHANNEL_IS_A) || 
-       (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA_1 && CURRENT_CHANNEL_IS_B) || 
-       (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA_1 && CURRENT_CHANNEL_IS_C))
+       (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA && CURRENT_CHANNEL_IS_B) || 
+       (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA && CURRENT_CHANNEL_IS_C))
     {
         argument[4] = 1;
     }
-    else if(PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB_1 && CURRENT_CHANNEL_IS_C)
+    else if(PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB && CURRENT_CHANNEL_IS_C)
     {
         argument[5] = 1;
         argument[4] = 1;

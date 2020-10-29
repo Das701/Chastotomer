@@ -39,10 +39,10 @@ struct ModeMeasureCountPulseC : public Enumeration
 {
     enum E
     {
-        CTA,        // C(tA)
-        CTB,        // C(tB)
-        CTA_1,      // C(TA)
-        CTB_1       // C(TB)
+        CtA,      // C(tA)
+        CtB,      // C(tB)
+        CTA,      // C(TA)
+        CTB       // C(TB)
 //        StartStop
     };
 

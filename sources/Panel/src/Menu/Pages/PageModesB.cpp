@@ -255,7 +255,7 @@ static void OnPress_ModeCountPulseB()
         PageModesA::modeMeasureCountPulse.value = ModeMeasureCountPulseA::StartStop;
 //        PageModesC::modeMeasureCountPulse.value = ModeMeasureCountPulseC::StartStop;
     }
-    if (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA_1)
+    if (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA)
     {
         items[2] = &sNumberPeriodsB;
     }

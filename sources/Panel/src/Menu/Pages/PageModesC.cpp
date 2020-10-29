@@ -27,7 +27,7 @@ extern Switch sNumberPeriodsC;
 
 TypeMeasureC             PageModesC::typeMeasure(TypeMeasureC::Frequency);
 ModeMeasureFrequencyC    PageModesC::modeMeasureFrequency(ModeMeasureFrequencyC::Freq);
-ModeMeasureCountPulseC   PageModesC::modeMeasureCountPulse(ModeMeasureCountPulseC::CTA);
+ModeMeasureCountPulseC   PageModesC::modeMeasureCountPulse(ModeMeasureCountPulseC::CtA);
 PeriodTimeLabels         PageModesC::periodTimeLabels(PeriodTimeLabels::T_8);
 NumberPeriods            PageModesC::numberPeriods(NumberPeriods::_1);
 TimeMeasure              PageModesC::timeMeasure(TimeMeasure::_1ms);
@@ -117,11 +117,11 @@ static void OnPress_ModeCountPulseC()
 //        PageModesB::modeMeasureCountPulse.value = ModeMeasureCountPulseB::StartStop;
 //        PageModesA::modeMeasureCountPulse.value = ModeMeasureCountPulseA::StartStop;
 //    }
-    if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA_1)
+    if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA)
     {
         items[2] = &sNumberPeriodsC;
     }
-    if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB_1)
+    if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB)
     {
         items[2] = &sNumberPeriodsC;
     }
