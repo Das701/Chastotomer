@@ -19,7 +19,16 @@
 #define    DWT_CYCCNT    *(volatile unsigned long *)0xE0001004
 #define    DWT_CONTROL   *(volatile unsigned long *)0xE0001000
 #define    SCB_DEMCR     *(volatile unsigned long *)0xE000EDFC
-    
+
+
+#define READ_PIN_B14(x)  \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);        \
+    delay_us(2);                                                \
+    ident[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);            \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);      \
+    delay_us(2);
+
+
 static int dcycleZeros = 0;
 
 static char dataA [32]; 
@@ -38,8 +47,6 @@ static char procDataInterpol[30] = { 0 };
 static char spec[10] = { 0 };
 
 static char procDataDcycle[30] = { 0 };
-//static int DACA = 0;
-//static int DACB = 0;
 
 static int NA = 0;
 static int NB = 0;
@@ -404,7 +411,8 @@ static void CalculationComparator()
     int base2 = 1; 
     int base3 = 1; 
     int len1 = 32;
-    int len2 = 16; 
+    int len2 = 16;
+
     for (int i = len1 - 1; i >= 0; i--) 
     { 
         if (binFx[i] == 1) 
@@ -413,6 +421,7 @@ static void CalculationComparator()
         }            
         base1 = base1 * 2; 
     }
+
     for (int i = len2 - 1; i >= 0; i--) 
     { 
         if (binTizm[i] == 1) 
@@ -421,10 +430,12 @@ static void CalculationComparator()
         }            
         base2 = base2 * 2; 
     } 
+
     if (binTizm[0] == 1) 
     {
         decTizm = decTizm - 65536;
     }
+
     for (int i = len2 - 1; i >= 0; i--) 
     { 
         if (binNkal[i] == 1) 
@@ -433,9 +444,6 @@ static void CalculationComparator()
         }            
         base3 = base3 * 2; 
     }   
-//    decFx = decFx/2;
-//    decTizm = decTizm/2;
-//    decNkal = decNkal/2;
 }
 
 static void CalculationAuto() 
@@ -446,7 +454,8 @@ static void CalculationAuto()
     int base1 = 1; 
     int base2 = 1; 
     int base3 = 1; 
-    int len = 10;   
+    int len = 10;
+
     for (int i = len - 1; i >= 0; i--) 
     { 
         if (minAuto[i] == 1) 
@@ -455,6 +464,7 @@ static void CalculationAuto()
         }            
         base1 = base1 * 2; 
     }
+
     for (int i = len - 1; i >= 0; i--) 
     { 
         if (midAuto[i] == 1) 
@@ -463,6 +473,7 @@ static void CalculationAuto()
         }            
         base2 = base2 * 2; 
     } 
+
     for (int i = len - 1; i >= 0; i--) 
     { 
         if (maxAuto[i] == 1) 
@@ -478,7 +489,7 @@ void DecToBin(int dec, char* bin)
     int x = dec;
     for(int i = 0; i < 10; i++)
     {
-        if(x%2 != 0)
+        if(x % 2 != 0)
         {
             bin[i] = 1;
         }
@@ -486,7 +497,7 @@ void DecToBin(int dec, char* bin)
         {
             bin[i] = 0;
         }
-        x = x/2;
+        x = x / 2;
     }   
 }
 
@@ -524,11 +535,7 @@ void PLIS::Update()
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
                 for(int i = 0; i < 3; i++)
                 {
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                    delay_us(2);
-                    ident[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-                    delay_us(2);
+                    READ_PIN_B14(ident[i]);
                 }
                 for(int i = 0; i < 10; i++)
                 {
