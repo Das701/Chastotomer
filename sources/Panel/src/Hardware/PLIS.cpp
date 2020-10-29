@@ -24,7 +24,7 @@
 #define READ_PIN_B14(x)  \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);        \
     delay_us(2);                                                \
-    ident[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);            \
+    x = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);                   \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);      \
     delay_us(2);
 
@@ -531,83 +531,64 @@ void PLIS::Update()
     if(autoMode == true)
     {
         if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
-            {            
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
-                for(int i = 0; i < 3; i++)
-                {
-                    READ_PIN_B14(ident[i]);
-                }
-                for(int i = 0; i < 10; i++)
-                {
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                    delay_us(2);
-                    minAuto[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-                    delay_us(2);
-                }
-                for(int i = 0; i < 10; i++)
-                {
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                    delay_us(2);
-                    midAuto[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-                    delay_us(2);
-                }
-                for(int i = 0; i < 10; i++)
-                {
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                    delay_us(2);
-                    maxAuto[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-                    delay_us(2);
-                }
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
-                delay_us(8);
+        {
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+
+            for (int i = 0; i < 3; i++)
+            {
+                READ_PIN_B14(ident[i]);
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                READ_PIN_B14(minAuto[i]);
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                READ_PIN_B14(midAuto[i]);
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                READ_PIN_B14(maxAuto[i]);
+            }
+
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+            delay_us(8);
         }
     }
     else
     {
-        if(ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpoleCheck())
+        if (ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpoleCheck())
         {
-            if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
-            {            
+            if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
+            {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
-                for(int i = 0; i < 3; i++)
+
+                for (int i = 0; i < 3; i++)
                 {
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                    delay_us(2);
-                    ident[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-                    delay_us(2);
+                    READ_PIN_B14(ident[i]);
                 }
-                for(int i = 0; i < 24; i++)
+
+                for (int i = 0; i < 24; i++)
                 {
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                    delay_us(2);
-                    timer1[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-                    delay_us(2);
+                    READ_PIN_B14(timer1[i]);
                 }
-                for(int i = 0; i < 24; i++)
+
+                for (int i = 0; i < 24; i++)
                 {
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                    delay_us(2);
-                    CAL1[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-                    delay_us(2);
+                    READ_PIN_B14(CAL1[i]);
                 }
-                for(int i = 0; i < 24; i++)
+
+                for (int i = 0; i < 24; i++)
                 {
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                    delay_us(2);
-                    CAL2[i] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-                    delay_us(2);
+                    READ_PIN_B14(CAL2[i]);
                 }
+
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
                 delay_us(8);
-                
-            }  
+            }
         }
         else if((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && PageModesA::DCycleCheck())
         {
