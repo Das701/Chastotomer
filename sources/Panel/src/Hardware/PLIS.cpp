@@ -927,9 +927,9 @@ char* PLIS::GiveSpec()
             else
             {
                 if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency()) ||
-                (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsFrequency()) ||
-                (CURRENT_CHANNEL_IS_C && (PageModesC::typeMeasure == TypeMeasureC::Frequency))
-                || CURRENT_CHANNEL_IS_D)
+                    (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsFrequency()) ||
+                    (CURRENT_CHANNEL_IS_C && PageModesC::typeMeasure.IsFrequency()) ||
+                    CURRENT_CHANNEL_IS_D)
                 {
                     if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency == ModeMeasureFrequency::T_1)) || 
                     (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::T_1)))
