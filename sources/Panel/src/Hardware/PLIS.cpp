@@ -28,6 +28,19 @@
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);      \
     delay_us(2);
 
+#define WRITE_COMMAND_1()   \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);    \
+    delay_us(2);                                            \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);    \
+    delay_us(2);                                            \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+
+#define WRITE_COMMAND_0() \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);  \
+    delay_us(2);                                            \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);    \
+    delay_us(2);                                            \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
 static int dcycleZeros = 0;
 
@@ -801,7 +814,6 @@ char* PLIS::GiveSpec()
                 if(ModeMeasureDuration::Current().Is_Phase())
                 {
                     std::strcpy(spec, " $");
-//                    std::strcpy(spec, " grad.");
                 }
                 else
                 {   
@@ -860,13 +872,9 @@ char* PLIS::GiveSpec()
             }
             else
             {
-                if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency()) ||
-                    (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsFrequency()) ||
-                    (CURRENT_CHANNEL_IS_C && PageModesC::typeMeasure.IsFrequency()) ||
-                    CURRENT_CHANNEL_IS_D)
+                if(CurrentTypeMeasure::IsFrequency())
                 {
-                    if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsT_1()) || 
-                        (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsT_1()))
+                    if(CurrentModeMeasureFrequency::IsT_1())
                     {
                         if(decDA < 1000)
                         {
@@ -887,9 +895,9 @@ char* PLIS::GiveSpec()
                     }
                     else
                     {
-                        if(CURRENT_CHANNEL_IS_C)
+                        if (CURRENT_CHANNEL_IS_C)
                         {
-                            if(decDataC/2 < 10000)
+                            if (decDataC / 2 < 10000)
                             {
                                 std::strcpy(spec, " MHz");
                             }
@@ -898,7 +906,7 @@ char* PLIS::GiveSpec()
                                 std::strcpy(spec, " GHz");
                             }
                         }
-                        else if(CURRENT_CHANNEL_IS_D)
+                        else if (CURRENT_CHANNEL_IS_D)
                         {
                             {
                                 std::strcpy(spec, " GHz");
@@ -906,12 +914,12 @@ char* PLIS::GiveSpec()
                         }
                         else
                         {
-                            if(decDA < 1000)
+                            if (decDA < 1000)
                             {
                                 std::strcpy(spec, " kHz");
-                                
+
                             }
-                            else 
+                            else
                             {
                                 std::strcpy(spec, " MHz");
                             }
@@ -952,9 +960,9 @@ char* PLIS::GiveSpec()
             return spec;
 }
 
-char* PLIS::GiveIdent()
+char *PLIS::GiveIdent()
 {
-    if(ident[0] == 0)
+    if (ident[0] == 0)
     {
         std::strcpy(identInfo, "0");
     }
@@ -962,9 +970,10 @@ char* PLIS::GiveIdent()
     {
         std::strcpy(identInfo, "1");
     }
-    for(int i = 1; i < 4; i++)
+
+    for (int i = 1; i < 4; i++)
     {
-        if(ident[i] == 0)
+        if (ident[i] == 0)
         {
             std::strcat(identInfo, "0");
         }
@@ -973,13 +982,14 @@ char* PLIS::GiveIdent()
             std::strcat(identInfo, "1");
         }
     }
+
     return identInfo;
 }
 
 
-void PLIS::WriteCommand(char* command, char* argument)
+void PLIS::WriteCommand(char *command, char *argument)
 {
-    if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == 0)
+    if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == 0)
     {
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
@@ -990,45 +1000,31 @@ void PLIS::WriteCommand(char* command, char* argument)
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
         delay_us(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-//        delay_us(2);
-        for(int i = 0; i < 4; i++)
+
+        for (int i = 0; i < 4; i++)
         {
             if (command[i] == 1)
             {
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
-                delay_us(2);
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                delay_us(2);
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+                WRITE_COMMAND_1();
             }
             else
             {
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
-                delay_us(2);
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                delay_us(2);
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+                WRITE_COMMAND_0();
             }
         }
-        for(int i = 0; i < 6; i++)
+
+        for (int i = 0; i < 6; i++)
         {
             if (argument[i] == 1)
             {
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
-                delay_us(2);
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                delay_us(2);
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+                WRITE_COMMAND_1();
             }
             else
             {
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
-                delay_us(2);
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-                delay_us(2);
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+                WRITE_COMMAND_0();
             }
         }
+
         delay_us(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
         delay_us(2);
@@ -1125,27 +1121,29 @@ void PLIS::RefreshAuto()
     }
 }
 
-char* PLIS::GiveAuto()
+char *PLIS::GiveAuto()
 {
     CalculationAuto();
-    SU::Int2String((decMinAuto - 512)*2, minAutoData);
-    SU::Int2String((decMaxAuto - 512)*2, maxAutoData);
+    SU::Int2String((decMinAuto - 512) * 2, minAutoData);
+    SU::Int2String((decMaxAuto - 512) * 2, maxAutoData);
     std::strcpy(autoData, "Макс ");
     std::strcat(autoData, maxAutoData);
     std::strcat(autoData, " Мин ");
     std::strcat(autoData, minAutoData);
+ 
     if (CURRENT_CHANNEL_IS_A)
     {
-        LEVEL_SYNCH_A = (decMidAuto - 512)*2;
+        LEVEL_SYNCH_A = (decMidAuto - 512) * 2;
         NA = decMidAuto - 512;
     }
 
-    if (CURRENT_CHANNEL_IS_B) 
+    if (CURRENT_CHANNEL_IS_B)
     {
-        LEVEL_SYNCH_B = (decMidAuto - 512)*2;
+        LEVEL_SYNCH_B = (decMidAuto - 512) * 2;
         NB = decMidAuto - 512;
-        
+
     }
+
     return autoData;
 }
 
