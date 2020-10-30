@@ -116,7 +116,7 @@ void Text::WriteInCenterRect(int x, int y, int width, int height, Color color)
 
         GetWord(1, start, num); 
 
-        WriteSymbols(start, num, x, y + 6 + dY + static_cast<int>(1.5F * Font::GetSize()), width);
+        WriteSymbols(start, num, x, y + 6 + dY + static_cast<int>(1.5F * (float)Font::GetSize()), width);
     }
     else
     {

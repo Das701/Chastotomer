@@ -28,7 +28,7 @@ add_compile_options(/wd4996)    # This function or variable may be unsafe
 add_compile_options(/wd5027)    # move assignment operator was implicitly defined as deleted
 add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
 add_compile_options(/wd5204)    # 'type-name': class has virtual functions, but its trivial destructor is not virtual; instances of objects derived from this class may not be destructed correctly
-add_compile_options(/wd5219)    # implicit conversion from 'type1' to 'type2', possible loss of data
+#add_compile_options(/wd5219)    # implicit conversion from 'type1' to 'type2', possible loss of data
 
 
 file(GLOB SRC          src/*.h src/*.cpp)

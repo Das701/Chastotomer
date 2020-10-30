@@ -136,7 +136,7 @@ static void BinToDec()
     { 
         if (dataA[i] == 1) 
         {
-            decDataA += baseA;
+            decDataA += (float)baseA;
         }            
         baseA = baseA * 2; 
     }
@@ -150,7 +150,7 @@ static void BinToDec()
         { 
             if (dataB[i] == 1) 
             {
-                decDataB += baseB;
+                decDataB += (float)baseB;
             }            
             baseB = baseB * 2; 
         }  
@@ -185,7 +185,7 @@ static void CalculationDcycle()
         }            
         base2 = base2 * 2; 
     }   
-    dutyCycle = (float)decDuration/decPeriod;
+    dutyCycle = (float)decDuration / (float)decPeriod;
 
     if(ModeMeasureDuration::Current().Is_Phase())
     {
@@ -271,7 +271,7 @@ static void Calculation()
             int mhz = 1000 * PageModesA::timeMeasure.ToMS();
             int khz = PageModesA::timeMeasure.ToMS();
             
-            if(((decDataA / khz) / 2) < 1000)
+            if(((decDataA / (float)khz) / 2.0F) < 1000.0F)
             {
                 x = khz; 
             }
@@ -279,7 +279,7 @@ static void Calculation()
             {
                 x = mhz;            
             }
-            decDA = (int)((decDataA / khz) / 2.0F);
+            decDA = (int)((decDataA / (float)khz) / 2.0F);
             if(CURRENT_CHANNEL_IS_C)
             {
                 if(decDataA < 10000)
@@ -297,7 +297,7 @@ static void Calculation()
             }
             if(CURRENT_CHANNEL_IS_D)
             {
-                if(decDataA * 64 / (1000 * khz) > 19000)
+                if(decDataA * 64.0F / (1000.0F * (float)khz) > 19000.0F)
                 {
                     decDataC = 0;
                     x = khz;
@@ -332,19 +332,19 @@ static void Calculation()
         {
             int sT = PageModesA::timeMeasure.ToMS();
             
-            decDA = (int)(decDataA / (2 * sT));
+            decDA = (int)(decDataA / (2.0F * (float)sT));
             decDataA = 4 / decDataA;
             if(decDA >= 1000)
             {
-                decDataA = decDataA * 10000000 * sT * sT;
+                decDataA = decDataA * 10000000 * (float)sT * (float)sT;
             }  
             else if(decDA <= 1)
             {
-                decDataA = decDataA * 10 * sT * sT;
+                decDataA = decDataA * 10 * (float)sT * (float)sT;
             }
             else
             {
-                decDataA = decDataA * 10000 * sT * sT;
+                decDataA = decDataA * 10000 * (float)sT * (float)sT;
             }
             x = sT * 10;
         }
@@ -368,7 +368,7 @@ static void Calculation()
     {
         decDataA = decDataC * 2;
     }
-    decDataA = (float)decDataA / (2 * x);
+    decDataA = (float)decDataA / (2.0F * (float)x);
     emptyZeros = x;
 
     if(manualZeros != 1)
@@ -411,7 +411,7 @@ static void CalculationInterpole()
         }            
         base3 = base3 * 2; 
     }     
-    interpol = (float)(100*decTimer1)/(decCAL2 - decCAL1);
+    interpol = (float)(100 * decTimer1) / (decCAL2 - decCAL1);
 }
 
 static void CalculationComparator() 
@@ -429,7 +429,7 @@ static void CalculationComparator()
     { 
         if (binFx[i] == 1) 
         {
-            decFx += base1;
+            decFx += (float)base1;
         }            
         base1 = base1 * 2; 
     }
@@ -438,7 +438,7 @@ static void CalculationComparator()
     { 
         if (binTizm[i] == 1) 
         {
-            decTizm += base2;
+            decTizm += (float)base2;
         }            
         base2 = base2 * 2; 
     } 
@@ -452,7 +452,7 @@ static void CalculationComparator()
     { 
         if (binNkal[i] == 1) 
         {
-            decNkal += base3;
+            decNkal += (float)base3;
         }            
         base3 = base3 * 2; 
     }   
