@@ -15,7 +15,7 @@ include_directories( src
                      ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
                     )
 
-add_definitions(-DSTM32F429xx)
+add_definitions(-DSTM32F401xE)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
@@ -31,6 +31,8 @@ add_compile_options(/wd5204)    # 'type-name': class has virtual functions, but 
 add_compile_options(/wd5219)    # implicit conversion from 'type1' to 'type2', possible loss of data
 
 
+file(GLOB HAL          ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Inc/*.h
+                       ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Src/*.c)
 file(GLOB SRC          src/*.h src/*.cpp)
 file(GLOB DISPLAY      src/Display/*.h src/Display/*.cpp)
 file(GLOB DISPLAY_FONT src/Display/Font/*)
@@ -39,13 +41,17 @@ file(GLOB HARDWARE     src/Hardware/*.h src/Hardware/*.cpp)
 file(GLOB KEYBOARD     src/Keyboard/*.h src/Keyboard/*.cpp)
 file(GLOB LIBS_CMSIS   src/libs/CMSIS/*)
 file(GLOB LIBS_HAL     src/libs/HAL/*)
-file(GLOB LIBS_USBD    src/libs/USBD/*)
+file(GLOB LIBS_USBD    src/libs/USBD/*
+                       ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
+                       ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
+                       ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c)
 file(GLOB MENU         src/Menu/*.h src/Menu/*cpp)
 file(GLOB MENU_PAGES   src/Menu/Pages/*)
 file(GLOB SCPI         src/SPCI/*)
 file(GLOB UTILS        src/Utils/*)
 
 
+source_group(HAL            FILES ${HAL})
 source_group(src            FILES ${SRC})
 source_group(Display        FILES ${DISPLAY})
 source_group(Display\\Font  FILES ${DISPLAY_FONT})
@@ -61,7 +67,10 @@ source_group(SCPI           FILES ${SCPI})
 source_group(Utils          FILES ${UTILS})
 
 
-set_source_files_properties(${LIBS_CMSIS}
+set_source_files_properties(${LIBS_CMSIS} ${HAL}
+                            ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
+                            ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
+                            ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-add_library(Panel ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${FREQMETER} ${HARDWARE} ${KEYBOARD} ${LIBS_CMSIS} ${LIBS_HAL} ${LIBS_USBD} ${MENU} ${MENU_PAGES} ${SCPI} ${UTILS})
+add_library(Panel ${HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${FREQMETER} ${HARDWARE} ${KEYBOARD} ${LIBS_CMSIS} ${LIBS_HAL} ${LIBS_USBD} ${MENU} ${MENU_PAGES} ${SCPI} ${UTILS})
