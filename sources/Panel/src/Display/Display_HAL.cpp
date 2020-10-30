@@ -1,12 +1,10 @@
 #include "defines.h"
-#include "stm32f4xx_hal.h"
-#include "Display.h"
+#include "Display/Display.h"
+#include "Display/Primitives.h"
 #include "Hardware/HAL.h"
 #include <cstring>
 #include <cstdlib>
-#include "Display/Primitives.h"
-
-#include "Display/Font/BigFont1.h"
+#include <stm32f4xx_hal.h>
 
 using namespace Display::Primitives;
 

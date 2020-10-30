@@ -3,7 +3,7 @@
 #include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
-#include "Display/Font/BigFont1.h"
+#include "Display/Font/FontBig.h"
 #include "Display/Font/FontMid.h"
 #include "FreqMeter/FreqMeter.h"
 #include "Hardware/HAL.h"

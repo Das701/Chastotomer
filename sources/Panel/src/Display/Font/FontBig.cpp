@@ -16,8 +16,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-	//#include "Application.h"
-#include "Display/Font/BigFont1.h"
+#include "Display/Font/FontBig.h"
 #include "Display/Primitives.h"
 #include "Display/Display.h"
 using namespace Display::Primitives;

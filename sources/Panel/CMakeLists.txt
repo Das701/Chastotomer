@@ -47,7 +47,7 @@ file(GLOB LIBS_USBD    src/libs/USBD/*
                        ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c)
 file(GLOB MENU         src/Menu/*.h src/Menu/*cpp)
 file(GLOB MENU_PAGES   src/Menu/Pages/*)
-file(GLOB SCPI         src/SPCI/*)
+file(GLOB SCPI         src/SCPI/*)
 file(GLOB UTILS        src/Utils/*)
 
 

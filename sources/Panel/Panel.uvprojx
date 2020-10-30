@@ -669,16 +669,6 @@
               <FilePath>.\src\Display\Font\font8.inc</FilePath>
             </File>
             <File>
-              <FileName>BigFont1.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\BigFont1.h</FilePath>
-            </File>
-            <File>
-              <FileName>fonttry2.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Font\fonttry2.cpp</FilePath>
-            </File>
-            <File>
               <FileName>FontMid.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Font\FontMid.cpp</FilePath>
@@ -687,6 +677,16 @@
               <FileName>FontMid.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\FontMid.h</FilePath>
+            </File>
+            <File>
+              <FileName>FontBig.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Font\FontBig.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FontBig.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\FontBig.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -739,9 +739,9 @@
               <FilePath>.\src\Hardware\VCP.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_it.cpp</FileName>
+              <FileName>HAL_IT.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\stm32f4xx_it.cpp</FilePath>
+              <FilePath>.\src\Hardware\HAL_IT.cpp</FilePath>
             </File>
           </Files>
         </Group>

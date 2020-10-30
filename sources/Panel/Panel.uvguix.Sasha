@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>C:\My\work\Chastotomer\sources\Panel\src\Menu\Pages</LastAddFilePath>
+    <LastAddFilePath>C:\My\work\Chastotomer\sources\Panel\src\Display\Font</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool>
@@ -22,7 +22,7 @@
     <View>
       <WinId>38003</WinId>
       <ViewName>Registers</ViewName>
-      <TableColWidths>189 121</TableColWidths>
+      <TableColWidths>189 113</TableColWidths>
     </View>
     <View>
       <WinId>346</WinId>
@@ -108,10 +108,10 @@
         <yPos>-1</yPos>
       </MaxPosition>
       <NormalPosition>
-        <Top>132</Top>
-        <Left>132</Left>
-        <Right>2052</Right>
-        <Bottom>1194</Bottom>
+        <Top>201</Top>
+        <Left>652</Left>
+        <Right>1890</Right>
+        <Bottom>1263</Bottom>
       </NormalPosition>
     </WindowPosition>
     <MDIClientArea>
