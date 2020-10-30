@@ -1,9 +1,5 @@
-#ifndef WIN32
-#include "defines.h"
-#include "usbd_core.h"
 #include "usbd_desc.h"
-#include "usbd_conf.h"
-#endif
+#include "usbd_ctlreq.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/

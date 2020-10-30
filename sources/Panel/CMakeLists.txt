@@ -52,30 +52,37 @@ add_compile_options(/wd5204)
 add_compile_options(/wd5219)
 
 
-source_group(src            REGULAR_EXPRESSION src/*)
-source_group(Display        REGULAR_EXPRESSION src/Display/*)
-source_group(Display\\Font  REGULAR_EXPRESSION src/Display/Font/*)
-source_group(FreqMeter      REGULAR_EXPRESSION src/FreqMeter/*)
-source_group(Hardware       REGULAR_EXPRESSION src/Hardware/*)
-source_group(Keyboard       REGULAR_EXPRESSION src/Keyboard/*)
-source_group(libs\\CMSIS    REGULAR_EXPRESSION src/libs/CMSIS/*)
-source_group(libs\\HAL      REGULAR_EXPRESSION src/libs/HAL/*)
-source_group(Menu           REGULAR_EXPRESSION src/Menu/*)
-source_group(Menu\\Pages    REGULAR_EXPRESSION src/Menu/Pages/*)
-source_group(Utils          REGULAR_EXPRESSION src/Utils/*)
+file(GLOB SRC          src/*.h src/*.cpp)
+file(GLOB DISPLAY      src/Display/*.h src/Display/*.cpp)
+file(GLOB DISPLAY_FONT src/Display/Font/*)
+file(GLOB FREQMETER    src/FreqMeter/*.h src/FreqMeter/*.cpp)
+file(GLOB HARDWARE     src/Hardware/*.h src/Hardware/*.cpp)
+file(GLOB KEYBOARD     src/Keyboard/*.h src/Keyboard/*.cpp)
+file(GLOB LIBS_CMSIS   src/libs/CMSIS/*)
+file(GLOB LIBS_HAL     src/libs/HAL/*)
+file(GLOB LIBS_USBD    src/libs/USBD/*)
+file(GLOB MENU         src/Menu/*.h src/Menu/*cpp)
+file(GLOB MENU_PAGES   src/Menu/Pages/*)
+file(GLOB SCPI         src/SPCI/*)
+file(GLOB UTILS        src/Utils/*)
 
-file(GLOB SOURCES   src/*
-                    src/Display/*
-                    src/Display/Font/*
-                    src/FreqMeter/*
-                    src/Hardware/*
-                    src/Keyboard/*
-                    src/Interface/*
-                    src/libs/CMSIS/startup_stm32f429xx.s
-                    src/libs/HAL/*
-                    src/Menu/*
-                    src/Menu/Pages/*
-                    src/Utils/*
-                    )
 
-add_library(Panel ${SOURCES})
+source_group(src            FILES ${SRC})
+source_group(Display        FILES ${DISPLAY})
+source_group(Display\\Font  FILES ${DISPLAY_FONT})
+source_group(FreqMeter      FILES ${FREQMETER})
+source_group(Hardware       FILES ${HARDWARE}})
+source_group(Keyboard       FILES ${KEYBOARD})
+source_group(libs\\CMSIS    FILES ${LIBS_CMSIS})
+source_group(libs\\HAL      FILES ${LIBS_HAL})
+source_group(libs\\USBD     FILES ${LIBS_USBD})
+source_group(Menu           FILES ${MENU})
+source_group(Menu\\Pages    FILES ${MENU_PAGES})
+source_group(SCPI           FILES ${SCPI})
+source_group(Utils          FILES ${UTILS})
+
+
+set_source_files_properties(${LIBS_CMSIS}
+                            PROPERTIES HEADER_FILE_ONLY TRUE)
+
+add_library(Panel ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${FREQMETER} ${HARDWARE} ${KEYBOARD} ${LIBS_CMSIS} ${LIBS_HAL} ${LIBS_USBD} ${MENU} ${MENU_PAGES} ${SCPI} ${UTILS})
