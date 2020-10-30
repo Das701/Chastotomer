@@ -23,7 +23,7 @@
 #define READ_PIN_B14(x)  \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);        \
     delay_us(2);                                                \
-    x = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);                   \
+    x = (char)HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);             \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);      \
     delay_us(2);
 
@@ -231,7 +231,7 @@ static void Calculation()
             test2 = test1 / n;
             test3 = 4 / test2;
             decDataA = (float)test3;
-            decDA = decDataA / 2;
+            decDA = (int)(decDataA / 2.0F);
 
             if(decDA < 1000)
             {
@@ -279,7 +279,7 @@ static void Calculation()
             {
                 x = mhz;            
             }
-            decDA = (decDataA / khz) / 2;
+            decDA = (int)((decDataA / khz) / 2.0F);
             if(CURRENT_CHANNEL_IS_C)
             {
                 if(decDataA < 10000)
@@ -307,7 +307,7 @@ static void Calculation()
                     decDataC = (float)decDataA * 64 / 1000;
                     x = mhz;
                 }
-                decDA = decDataC;
+                decDA = (int)decDataC;
             }
         }
     }
@@ -332,7 +332,7 @@ static void Calculation()
         {
             int sT = PageModesA::timeMeasure.ToMS();
             
-            decDA = decDataA / (2 * sT);
+            decDA = (int)(decDataA / (2 * sT));
             decDataA = 4 / decDataA;
             if(decDA >= 1000)
             {

@@ -505,6 +505,8 @@ NumberPeriods &NumberPeriods::Current()
     case Channel::A:    result = PageModesA::numberPeriods; break;
     case Channel::B:    result = PageModesB::numberPeriods; break;
     case Channel::C:    result = PageModesC::numberPeriods; break;
+    case Channel::D:
+    case Channel::Count:                                    break;
     }
 
     return result;
@@ -517,9 +519,10 @@ PeriodTimeLabels &PeriodTimeLabels::Current()
 
     switch (CURRENT_CHANNEL)
     {
-    case Channel::A:    result = PageModesA::periodTimeLabels; break;
-    case Channel::B:    result = PageModesB::periodTimeLabels; break;
-    case Channel::C:    result = PageModesC::periodTimeLabels; break;
+    case Channel::A:    result = PageModesA::periodTimeLabels;  break;
+    case Channel::B:    result = PageModesB::periodTimeLabels;  break;
+    case Channel::C:    result = PageModesC::periodTimeLabels;  break;
+    case Channel::D: case Channel::Count:                       break;
     }
 
     return result;

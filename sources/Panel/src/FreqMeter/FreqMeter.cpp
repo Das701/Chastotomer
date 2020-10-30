@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "FreqMeter.h"
+#include "FreqMeter/FreqMeter.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
 #include "Hardware/HAL.h"

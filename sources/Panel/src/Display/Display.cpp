@@ -96,7 +96,7 @@ static void Func3()
 
 void Display::StartScreen()
 {   
-    BeginScene(Color::BLACK);
+    BeginScene();
     Text("OAO ÃÕ»œ», 43-96/2, Cherm V 1.2").Write(40, 100);
     EndScene();
 }
@@ -104,7 +104,7 @@ void Display::StartScreen()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Display::Update()
 {
-    BeginScene(Color::BLACK);
+    BeginScene();
 
     DrawScreen();
     
@@ -241,7 +241,7 @@ static void DrawStatusBar()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawHint()
 {
-    if((HAL_GetTick() < (autoHint + 10000)) && autoFlag == true)
+    if((HAL_GetTick() < (uint)(autoHint + 10000)) && autoFlag == true)
     {
         Text(PLIS::GiveAuto()).Write(102, 37);
         FreqMeter::UnloadAuto();
@@ -255,7 +255,7 @@ static void DrawHint()
             {
                 Text(PLIS::GiveAuto()).Write(102, 37);
                 PLIS::SwitchAuto();
-                autoHint = HAL_GetTick();
+                autoHint = (int)HAL_GetTick();
                 autoFlag = true;
             }
             else
@@ -332,10 +332,10 @@ static void DrawInfo()
         {
             if(second == 0)
             {
-                second = HAL_GetTick();
+                second = (int)HAL_GetTick();
             }
             Text("œ”— ").Write(430, 80);
-            if((second + 1000) < HAL_GetTick())
+            if((second + 1000) < (int)HAL_GetTick())
             {
                 second = 0;
                 PageIndication::OnceLaunchSwitchFalse();

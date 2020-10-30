@@ -742,7 +742,7 @@ static const uint16_t BigCharOffs[] = {
 void FontBig::BigStringProp_print(char *text, int x, int y, Color color)
 {
 	while (*text) {
-		uint32_t space = BigSymbol_print(*text, x, y, color);
+		uint32_t space = BigSymbol_print((uint8)*text, x, y, color);
 		x += space;
 		text++;
 	}
@@ -841,7 +841,7 @@ uint32_t FontBig::BigSymbol_print(uint8_t symbol, int x, int y, Color color)
 			uint32_t rowshift = row;					// row for shift
 			for (uint32_t i = 0; i < 32; i++) {
 				uint32_t pixel = rowshift & 0x80000000;
-				if (pixel)  Point().Draw(x + i, y, color);
+				if (pixel)  Point().Draw((int)(x + i), y, color);
 				if (pixel && i > width)  width = i;
 				rowshift <<= 1;
 			}

@@ -169,8 +169,8 @@ static void DetectRegulator()
 // Детектируем поворот
     static bool prevStatesIsOne = false;
 
-    bool stateLeft = HAL_GPIO_ReadPin(PORT_ENC1, PIN_ENC1);
-    bool stateRight = HAL_GPIO_ReadPin(PORT_ENC2, PIN_ENC2);;
+    bool stateLeft = (HAL_GPIO_ReadPin(PORT_ENC1, PIN_ENC1) == GPIO_PIN_SET);
+    bool stateRight = (HAL_GPIO_ReadPin(PORT_ENC2, PIN_ENC2) == GPIO_PIN_SET);
 
     if (stateLeft && stateRight)
     {

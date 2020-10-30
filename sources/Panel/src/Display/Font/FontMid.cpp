@@ -887,7 +887,7 @@ const uint8_t *FontMidArray_select(char symbol)
   */
 uint32_t FontMid::MidSymbol_print(uint8_t symbol, int x, int y, Color color)
 {
-	const uint8_t *index = FontMidArray_select(symbol);	// first row index
+	const uint8_t *index = FontMidArray_select((char)symbol);	// first row index
 
 	uint32_t width = 0;
 	if (symbol == ' ') width = FONTMID_SPACEWIDTH;			// space width
@@ -915,7 +915,7 @@ uint32_t FontMid::MidSymbol_print(uint8_t symbol, int x, int y, Color color)
 			uint32_t rowshift = row;					// row for shift
 			for (uint32_t i = 0; i < 16; i++) {
 				uint32_t pixel = rowshift & 0x8000;
-                if (pixel)  Point().Draw(x + i, y, color);
+                if (pixel)  Point().Draw((int)(x + i), y, color);
 				if (pixel && i > width)  width = i;
 				rowshift <<= 1;
 				if (!rowshift)  break;
@@ -952,7 +952,7 @@ uint32_t FontMid::MidSymbol_print(uint8_t symbol, int x, int y, Color color)
 void FontMid::MidStringProp_print(char *text, int x, int y, Color color)
 {
 	while (*text) {
-		uint32_t space = MidSymbol_print(*text, x, y, color);
+		uint32_t space = MidSymbol_print((uint8)*text, x, y, color);
 		x += space;
 		text++;
 	}

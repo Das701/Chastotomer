@@ -19,7 +19,7 @@ int main(void)
     Menu::Update();
     Display::Update();
     VCP::Init();
-    int time = HAL_GetTick();
+    uint time = HAL_GetTick();
     while((time + 3000) > HAL_GetTick())
     {
         Display::StartScreen();

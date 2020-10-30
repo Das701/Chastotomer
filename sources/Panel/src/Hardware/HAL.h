@@ -21,7 +21,7 @@ struct HAL_FSMC
     static void Init();
     static void Reset();
     static void WriteCommand(uint16 command);
-    static void WriteData(uint16 data);
+    static void WriteData(uint data);
     static uint16 ReadData();
 
     static void SendBuffer(uint8 *buffer);

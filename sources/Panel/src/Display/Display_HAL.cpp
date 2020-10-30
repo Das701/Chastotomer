@@ -59,7 +59,7 @@ static void SetHorizPeriod(uint16 HT,   // Horizontal total period
 }
 
 
-static void SetModeLCD(uint16 width, uint16 height)
+static void SetModeLCD()
 {
     HAL_FSMC::WriteCommand(0xb0);
     HAL_FSMC::WriteData(0x20);
@@ -88,7 +88,7 @@ void Display::Init()
     
     //HAL_FSMC::WriteCommand(0x29);   // ¬ключить дисплей
 
-    SetModeLCD(480, 272);
+    SetModeLCD();
 
     HAL_FSMC::WriteCommand(0xf0);   // set pixel data interface
     HAL_FSMC::WriteData(0x03);      // 0x03 for 16bit, 0x00 for 8bit
@@ -142,7 +142,7 @@ uint8 *Display::GetPixel(int x, int y)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Display::BeginScene(Color color)
+void Display::BeginScene()
 {
     std::memset(buffer, 0, HEIGHT_BUFFER * WIDTH_BUFFER * sizeof(buffer[0][0]));
 }

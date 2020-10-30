@@ -227,7 +227,7 @@ char *Menu::ChannelSettings()
     return settings;
 }
 
-static Page* Menu::UsedPage()
+Page* Menu::UsedPage()
 {
     return openedPage;
 }

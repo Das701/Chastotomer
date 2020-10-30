@@ -55,12 +55,12 @@ void InputCouple::Set(InputCouple::E v)
 {
     if(CURRENT_CHANNEL_IS_A)
     {
-        PageChannelA::couple.value = v;
+        PageChannelA::couple.value = (uint8)v;
         Load();
     }
     else if(CURRENT_CHANNEL_IS_B)
     {
-        PageChannelB::couple.value = v;
+        PageChannelB::couple.value = (uint8)v;
         Load();
     }
 }
@@ -102,12 +102,12 @@ void ModeFilter::Set(ModeFilter::E v)
 {
     if(CURRENT_CHANNEL_IS_A)
     {
-        PageChannelA::modeFilter.value = v;
+        PageChannelA::modeFilter.value = (uint8)v;
         Load();
     }
     else if(CURRENT_CHANNEL_IS_B)
     {
-        PageChannelB::modeFilter.value = v;
+        PageChannelB::modeFilter.value = (uint8)v;
         Load();
     }
 }
