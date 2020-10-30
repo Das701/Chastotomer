@@ -4,7 +4,6 @@ project (Panel)
 
 include_directories( src
                      src/libs/HAL
-                     src/Hardware
                      src/libs/USBD
                      ../common/_VS_KEIL/CMSIS
                      ../common/_VS/std_includes
@@ -37,7 +36,7 @@ file(GLOB SRC          src/*.h src/*.cpp)
 file(GLOB DISPLAY      src/Display/*.h src/Display/*.cpp)
 file(GLOB DISPLAY_FONT src/Display/Font/*)
 file(GLOB FREQMETER    src/FreqMeter/*.h src/FreqMeter/*.cpp)
-file(GLOB HARDWARE     src/Hardware/*.h src/Hardware/*.cpp)
+file(GLOB HARDWARE     src/Hardware/*h src/Hardware/*cpp)
 file(GLOB KEYBOARD     src/Keyboard/*.h src/Keyboard/*.cpp)
 file(GLOB LIBS_CMSIS   src/libs/CMSIS/*)
 file(GLOB LIBS_HAL     src/libs/HAL/*)
@@ -45,7 +44,7 @@ file(GLOB LIBS_USBD    src/libs/USBD/*
                        ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
                        ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
                        ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c)
-file(GLOB MENU         src/Menu/*.h src/Menu/*cpp)
+file(GLOB MENU         src/Menu/*.h src/Menu/*.cpp)
 file(GLOB MENU_PAGES   src/Menu/Pages/*)
 file(GLOB SCPI         src/SCPI/*)
 file(GLOB UTILS        src/Utils/*)
@@ -56,7 +55,7 @@ source_group(src            FILES ${SRC})
 source_group(Display        FILES ${DISPLAY})
 source_group(Display\\Font  FILES ${DISPLAY_FONT})
 source_group(FreqMeter      FILES ${FREQMETER})
-source_group(Hardware       FILES ${HARDWARE}})
+source_group(Hardware       FILES ${HARDWARE})
 source_group(Keyboard       FILES ${KEYBOARD})
 source_group(libs\\CMSIS    FILES ${LIBS_CMSIS})
 source_group(libs\\HAL      FILES ${LIBS_HAL})

@@ -1,7 +1,8 @@
 #include "defines.h"
-#include "HAL.h"
-#include "stm32f4xx_hal.h"
+#include "Hardware/HAL.h"
 #include "Keyboard.h"
+#include <stm32f4xx_hal.h>
+
 
 static int pulseCountRight = 0;
 static int pulseCountLeft = 0;
