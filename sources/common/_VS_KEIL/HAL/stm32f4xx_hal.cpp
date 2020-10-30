@@ -3,7 +3,6 @@
 #ifdef USE_SDL2
 #pragma warning(push)
 #pragma warning(disable:4668)
-#include <SDL_timer.h>
 #pragma warning(pop)
 #endif
 
@@ -12,7 +11,8 @@
 uint32_t HAL_GetTick()
 {
 #ifdef USE_SDL2
-    return SDL_GetTicks();
+    return 0;
+//    return SDL_GetTicks();
 #else
     return 0;
 #endif

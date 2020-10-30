@@ -8,4 +8,4 @@ sources/Panel/Objects/*
 sources/Panel/Listings/*
 sources/Panel/DebugConfig/*
 sources/generated/*
-sources/ThirdParty/*
+sources/ThirdParty/wxWidgets/generated/*

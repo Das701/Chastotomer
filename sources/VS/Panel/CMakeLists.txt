@@ -8,9 +8,8 @@ include_directories(src/
                     ../../Panel/src/
                     ../../Panel/src/libs/HAL/
                     ../../Panel/src/Hardware/
-                    ../../../../ThirdParty/wxWidgets/include
-                    ../../../../ThirdParty/wxWidgets/generated/lib/vc_dll/mswud
-                    ../../../../ThirdParty/SDL2/SDL2-2.0.10/include/
+                    ../../ThirdParty/wxWidgets/include
+                    ../../ThirdParty/wxWidgets/generated/lib/vc_dll/mswud
                     )
                     
 add_definitions(-DSTM32F429xx -DWXUSINGDLL -DUSE_SDL2 -DGUI)
@@ -31,63 +30,47 @@ add_compile_options(/wd5026)    # 'xxx': move constructor was implicitly defined
 add_compile_options(/wd5027)    # 'xxx': move assignment operator was implicitly defined as deleted
 add_compile_options(/wd5039)    # 'xxx': pointer or reference to potentially throwing function passed to extern C function under -EHc.
 add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
+add_compile_options(/wd5204)
 
-source_group(_VS\\HAL       REGULAR_EXPRESSION ../common/_VS_KEIL/HAL/*)
-source_group(src            FILES              ../../Panel/src/defines.h
-                                               ../../Panel/src/Settings.cpp
-                                               ../../Panel/src/Settings.h
-                                                           src/Application.cpp
-                                                           src/Application.h
-                                                           src/main_win.cpp
-                                                           src/stdafx.h)
-source_group(Display        FILES                          src/Display/Display_win.cpp
-                                                           src/Display/Colors_win.h
-                                               ../../Panel/src/Display/Colors.h
-                                               ../../Panel/src/Display/Display.cpp
-                                               ../../Panel/src/Display/Display.h
-                                               ../../Panel/src/Display/Primitives.h
-                                                           src/Display/Primitives_win.h
-                                               ../../Panel/src/Display/Text.cpp
-                                               ../../Panel/src/Display/Text.h)
-source_group(Display\\Font  REGULAR_EXPRESSION    ../Panel/src/Display/Font/*)
-source_group(FreqMeter      REGULAR_EXPRESSION    ../Panel/src/FreqMeter/*)
-source_group(Hardware       FILES              ../../Panel/src/Hardware/HAL.cpp
-                                               ../../Panel/src/Hardware/HAL.h)
-source_group(Keyboard       FILES              ../../Panel/src/Keyboard/Keyboard.h
-                                                           src/Keyboard/Keyboard.cpp)
-source_group(Menu           REGULAR_EXPRESSION    ../Panel/src/Menu/*)
-source_group(Menu\\Pages    REGULAR_EXPRESSION    ../Panel/src/Menu/Pages/*)
-source_group(Utils          REGULAR_EXPRESSION    ../Panel/src/Utils/*)
+file(GLOB VS_HAL           ../../common/_VS_KEIL/HAL/*)
+file(GLOB SRC              ../../Panel/src/defines.h
+                           ../../Panel/src/Settings.cpp
+                           ../../Panel/src/Settings.h
+                                       src/Application.cpp
+                                       src/Application.h
+                                       src/main_win.cpp
+                                       src/stdafx.h)
+file(GLOB DISPLAY                      src/Display/Display_win.cpp
+                                       src/Display/Colors_win.h
+                           ../../Panel/src/Display/Colors.h
+                           ../../Panel/src/Display/Display.cpp
+                           ../../Panel/src/Display/Display.h
+                           ../../Panel/src/Display/Primitives.h
+                                       src/Display/Primitives_win.h
+                           ../../Panel/src/Display/Text.cpp
+                           ../../Panel/src/Display/Text.h)
+file(GLOB DISPLAY_FONT     ../../Panel/src/Display/Font/*)
+file(GLOB FREQMETER        ../../Panel/src/FreqMeter/*)
+file(GLOB HARDWARE         ../../Panel/src/Hardware/HAL.cpp
+                           ../../Panel/src/Hardware/HAL.h)
+file(GLOB KEYBOARD         ../../Panel/src/Keyboard/Keyboard.h
+                                       src/Keyboard/Keyboard.cpp)
+file(GLOB MENU             ../../Panel/src/Menu/*)
+file(GLOB MENU_PAGES       ../../Panel/src/Menu/Pages/*)
+file(GLOB UTILS            ../../Panel/src/Utils/*)
 
-file(GLOB SOURCES   ../../common/_VS_KEIL/HAL/*
-                    ../../Panel/src/defines.h
-                    ../../Panel/src/Settings.cpp
-                    ../../Panel/src/Settings.h
-                                src/Application.cpp
-                                src/Application.h
-                                src/main_win.cpp                   
-                                src/stdafx.h
-                                src/Display/Display_win.cpp
-                                src/Display/Colors_win.h
-                    ../../Panel/src/Display/Colors.h
-                    ../../Panel/src/Display/Display.cpp
-                    ../../Panel/src/Display/Display.h
-                    ../../Panel/src/Display/Primitives.h
-                                src/Display/Primitives_win.h
-                    ../../Panel/src/Display/Text.cpp
-                    ../../Panel/src/Display/Text.h
-                    ../../Panel/src/Display/Font/*
-                    ../../Panel/src/FreqMeter/*
-                    ../../Panel/src/Hardware/HAL.cpp
-                    ../../Panel/src/Hardware/HAL.h
-                    ../../Panel/src/Keyboard/Keyboard.h
-                                src/Keyboard/Keyboard.cpp
-                    ../../Panel/src/Menu/*
-                    ../../Panel/src/Menu/Pages/*
-                    ../../Panel/src/Utils/*
-                    )
+source_group(_VS\\HAL      FILES ${VS_HAL})
+source_group(src           FILES ${SRC})
+source_group(Display       FILES ${DISPLAY})
+source_group(Display\\Font FILES ${DISPLAY_FONT})
+source_group(FreqMeter     FILES ${FREQMETER})
+source_group(Hardware      FILES ${HARDWARE})
+source_group(Keyboard      FILES ${KEYBOARD})
+source_group(Menu          FILES ${MENU})
+source_group(Menu\\Pages   FILES ${MENU_PAGES})
+source_group(Utils         FILES ${UTILS})
                     
-add_executable(PanelGUI ${SOURCES})
+add_executable(PanelGUI ${VS_HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${FREQMETER} ${HARDWARE} ${KEYBOARD} ${MENU} ${MENU_PAGES} ${UTILS})
 
 target_link_libraries(PanelGUI ../../../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
 target_link_libraries(PanelGUI ../../../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxmsw31ud_core)
