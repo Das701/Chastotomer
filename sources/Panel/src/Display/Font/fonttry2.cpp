@@ -798,57 +798,82 @@ void FontBig::BigStringProp_print(char *text, int x, int y, Color color)
 	  */
 uint32_t FontBig::BigSymbol_print(uint8_t symbol, int x, int y, Color color)
 {
-	//	assert(0x30 <= symbol && symbol <= 0x39);
-	bool falsecheck = false;
-	uint32_t ezspace = ' ';
-	if (0x28 <= symbol && symbol <= 0x39)
-	{
-		falsecheck = false;
-	}
-	else
-	{
-		falsecheck = true;
-	}
-	if (falsecheck == true) return ezspace;
-	uint16_t offs = BigCharOffs[symbol - ' '];				// offset in BigCharIndx
-	const uint8_t *index = (uint8_t *)&BigCharIndx + offs;	// first row index
+    //	assert(0x30 <= symbol && symbol <= 0x39);
+    bool falsecheck = false;
+    if (0x28 <= symbol && symbol <= 0x39)
+    {
+        falsecheck = false;
+    }
+    else
+    {
+        falsecheck = true;
+    }
 
-	uint32_t width = 0;
-	if (symbol == ' ') width = BIGSPACE_WIDTH;			// space width
+    if (falsecheck)
+    {
+        static const uint32_t ezspace = ' ';
+        return ezspace;
+    }
+    uint16_t offs = BigCharOffs[symbol - ' '];				// offset in BigCharIndx
+    const uint8_t *index = (uint8_t *)&BigCharIndx + offs;	// first row index
 
-	uint32_t same = 0;									// number of the same rows
-	uint32_t row;										// row of pixels
-	uint32_t code;
-	uint8_t *endMem = (uint8_t *)(0x807FFFF);
+    uint32_t width = 0;
+    if (symbol == ' ')
+    {
+        width = BIGSPACE_WIDTH;			// space width
+    }
 
-	while (true) {
-		code = *index++;
-		if (code == 0)
-		{
-			break;
-		}
-		if (index == endMem) break;
-		if (code >= BIGSTART_INDEX) {
-			if (!same)  same = 1;						// new row -> one row
-			row = BigCharRow[code - BIGSTART_INDEX];
-		}
-		else {
-			same = code;								// multi-rows
-			continue;
-		}
+    uint32_t same = 0;									// number of the same rows
+    uint32_t row;										// row of pixels
+    uint32_t code;
+    uint8_t *endMem = (uint8_t *)(0x807FFFF); //-V566
 
-		for (; same; same--) {
-			uint32_t rowshift = row;					// row for shift
-			for (uint32_t i = 0; i < 32; i++) {
-				uint32_t pixel = rowshift & 0x80000000;
-				if (pixel)  Point().Draw((int)(x + i), y, color);
-				if (pixel && i > width)  width = i;
-				rowshift <<= 1;
+    while (true) { //-V2530
+        code = *index++;
+
+        if (code == 0)
+        {
+            break;
+        }
+
+        if (index == endMem)
+        {
+            break;
+        }
+
+        if (code >= BIGSTART_INDEX) {
+
+			if (same == 0)
+			{
+				same = 1;						// new row -> one row
 			}
-			y++;
-		}
-	}
-	return width + BIGGAP_WIDTH;
+
+            row = BigCharRow[code - BIGSTART_INDEX];
+        }
+        else {
+            same = code;								// multi-rows
+            continue;
+        }
+
+        for (; same; same--) {
+            uint32_t rowshift = row;					// row for shift
+
+            for (uint32_t i = 0; i < 32; i++) {
+                uint32_t pixel = rowshift & 0x80000000U;
+				if (pixel)
+				{
+					Point().Draw((int)(x + i), y, color);
+				}
+				if ((pixel != 0) && i > width)
+				{
+					width = i;
+				}
+                rowshift <<= 1;
+            }
+            y++;
+        }
+    }
+    return width + BIGGAP_WIDTH;
 }
 
 
