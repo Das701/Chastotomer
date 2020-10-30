@@ -61,8 +61,8 @@ static char spec[10] = { 0 };
 
 static char procDataDcycle[30] = { 0 };
 
-static int NA = 0;
-static int NB = 0;
+static int NA = 0; //-V707
+static int NB = 0; //-V707
 
 static char encData[10];
 static char ident[4];
@@ -109,11 +109,11 @@ static int NAC = 0;
 void DWT_Init(void)
 {
     //разрешаем использовать счётчик
-    SCB_DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    SCB_DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; //-V2523
     //обнуляем значение счётного регистра
-    DWT_CYCCNT = 0;
+    DWT_CYCCNT = 0; //-V2523
     //запускаем счётчик
-    DWT_CONTROL |= DWT_CTRL_CYCCNTENA_Msk;
+    DWT_CONTROL |= DWT_CTRL_CYCCNTENA_Msk; //-V2523
 }
 
 static __inline uint32_t delta(uint32_t t0, uint32_t t1)
@@ -124,7 +124,9 @@ void delay_us(uint32_t us)
 {
       uint32_t t0 =  DWT->CYCCNT;
       uint32_t us_count_tic =  us * (SystemCoreClock / 1000000);
-      while (delta(t0, DWT->CYCCNT) < us_count_tic) ;
+      while (delta(t0, DWT->CYCCNT) < us_count_tic) //-V712
+      {
+      };
 }
 
 static void BinToDec() 
@@ -198,7 +200,7 @@ static void CalculationDcycle()
         {
             dutyCycle = dutyCycle*(-1);
         }
-        if(dutyCycle != 0)
+        if(dutyCycle != 0.0F) //-V2550 //-V550
         {
             while(dutyCycle < 1)
             {
@@ -237,11 +239,11 @@ static void Calculation()
             if(decDA < 1000)
             {
             }
-            else if(decDA >= 1000 && decDA < 1000000)
+            else if(decDA < 1000000)
             {
                 decDataA = decDataA / 1000;
             }
-            else if(decDA >= 1000000)
+            else
             {
                 decDataA = decDataA / 1000000;
             }
@@ -314,18 +316,18 @@ static void Calculation()
     }
     else if(CurrentTypeMeasure::IsDuration())
     {
-        int us = 1;
-        
         if(PageModesA::periodTimeLabels.IsT_7())
         {
-            us = us * 10;
+            x = 10;
         }
         else if(PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
         {
-            us = us * 100;
+            x = 100;
         }
-
-        x = us;
+        else
+        {
+            x = 1;
+        }
     }
     else if(CurrentTypeMeasure::IsPeriod())
     {
