@@ -2,4 +2,4 @@
 
 call build.bat
 
-call run.bat
+call edit.bat

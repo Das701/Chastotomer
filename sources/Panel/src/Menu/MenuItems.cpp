@@ -1,19 +1,17 @@
 #include "defines.h"
-#include "MenuItems.h"
-#include "Display/Primitives.h"
-#include "Hardware/HAL.h"
-#include "Display/Text.h"
-#include "Utils/Math.h"
-#include "Menu/Pages/Pages.h"
-#include "Menu/Pages/PageModesA.h"
-#include "Menu/Pages/PageModesB.h"
-#include "Menu/Pages/PageIndication.h"
-#include "Utils/String.h"
 #include "Settings.h"
-#include "Menu/Hint.h"
-#include <cstring>
-#include <string>
+#include "Display/Display.h"
+#include "Display/Primitives.h"
+#include "Display/Text.h"
 #include "FreqMeter/FreqMeter.h"
+#include "Hardware/PLIS.h"
+#include "Menu/Hint.h"
+#include "Menu/MenuItems.h"
+#include "Menu/Pages/Pages.h"
+#include "Menu/Pages/PageIndication.h"
+#include "Utils/Math.h"
+#include <cstring>
+
 
 using namespace Display::Primitives;
 using namespace Display;

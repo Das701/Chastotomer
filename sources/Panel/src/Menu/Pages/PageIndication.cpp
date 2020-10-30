@@ -1,11 +1,11 @@
 #include "defines.h"
-#include "PageIndication.h"
-#include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
-#include "Menu/MenuItemsDef.h"
 #include "FreqMeter/FreqMeter.h"
-#include "Hardware/HAL.h"
+#include "Hardware/PLIS.h"
+#include "Menu/MenuItems.h"
+#include "Menu/Pages/PageIndication.h"
+#include "Menu/MenuItemsDef.h"
 
 using namespace Display::Primitives;
 using namespace Display;
