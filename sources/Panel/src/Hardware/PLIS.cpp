@@ -337,7 +337,8 @@ static void Calculation()
             
             decDA = (int)(decDataA / (2.0F * (float)sT));
             decDataA = 4 / decDataA;
-            if(decDA >= 1000)
+
+            if(decDA >= 1000) //-V1051
             {
                 decDataA = decDataA * 10000000 * (float)sT * (float)sT;
             }  
@@ -349,6 +350,7 @@ static void Calculation()
             {
                 decDataA = decDataA * 10000 * (float)sT * (float)sT;
             }
+
             x = sT * 10;
         }
         else
@@ -357,11 +359,11 @@ static void Calculation()
 
             if(PageModesA::periodTimeLabels.IsT_7() || PageModesA::periodTimeLabels.IsT_4())
             {
-                usT = usT * 10;
+                usT *= 10;
             }
             else if(PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
             {
-                usT = usT * 100;
+                usT *= 100;
             }
             
             x = usT * PageModesA::numberPeriods.ToAbs();
@@ -374,7 +376,7 @@ static void Calculation()
     decDataA = (float)decDataA / (2.0F * (float)x);
     emptyZeros = x;
 
-    if(manualZeros != 1)
+    if(manualZeros != 1) //-V1051
     {
         emptyZeros = manualZeros;
         manualZeros = 1;
@@ -802,7 +804,7 @@ char* PLIS::GiveData()
     }
 }
 
-char* PLIS::GiveSpec()
+char* PLIS::GiveSpec() //-V2008
 {
         if(PageModesA::InterpoleCheck() && ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
@@ -882,11 +884,11 @@ char* PLIS::GiveSpec()
                         {
                             std::strcpy(spec, " Hz");
                         }
-                        else if(decDA >= 1000 && decDA < 1000000)
+                        else if(decDA < 1000000)
                         {
                             std::strcpy(spec, " kHz");
                         }
-                        else if(decDA >= 1000000)
+                        else
                         {
                             std::strcpy(spec, " MHz");
                         }
@@ -989,7 +991,7 @@ char *PLIS::GiveIdent()
 }
 
 
-void PLIS::WriteCommand(char *command, char *argument)
+void PLIS::WriteCommand(const char *command, const char *argument)
 {
     if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == 0)
     {
@@ -997,7 +999,7 @@ void PLIS::WriteCommand(char *command, char *argument)
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
         delay_us(2);
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET); //-V525
         delay_us(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
         delay_us(2);
@@ -1028,7 +1030,7 @@ void PLIS::WriteCommand(char *command, char *argument)
         }
 
         delay_us(2);
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //-V525
         delay_us(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         delay_us(2);
@@ -1235,7 +1237,7 @@ void PLIS::WriteData()
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
         delay_us(2);
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET); //-V525
         delay_us(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
         delay_us(2);
@@ -1254,7 +1256,7 @@ void PLIS::WriteData()
         }
 
         delay_us(2);
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //-V525
         delay_us(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         delay_us(2);

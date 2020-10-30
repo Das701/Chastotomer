@@ -99,5 +99,5 @@ namespace SCPI
 namespace SCPI
 {
     extern const StructSCPI head[];         //-V2504
-    extern const StructSCPI input[];
+    extern const StructSCPI input[]; //-V2504
 }

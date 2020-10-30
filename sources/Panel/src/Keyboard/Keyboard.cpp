@@ -105,15 +105,6 @@ static void Update()
         {
             int state = Read_RL(rl);
 
-            if(state == 0)
-            {
-                state = state;
-            }
-            else
-            {
-                state = state;
-            }
-
             Control control = controls[sl][rl];
 
             if (control.value != Control::None)
@@ -393,7 +384,7 @@ extern "C" {
 #endif
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) //-V2009
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) //-V2009 //-V2558
 {
     if (htim == &handleTIM4)
     {

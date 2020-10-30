@@ -100,7 +100,7 @@ static bool ChangeLevelSynch(int delta)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool Page::OnControl(const Control &control)
+bool Page::OnControl(const Control &control) //-V2008
 {
     bool result = false;
 
@@ -405,7 +405,7 @@ bool Switch::OnControl(const Control &control)
 {
     if(PageIndication::calibration.Is(Calibration::Pressed))
     {
-        if (control.action.IsPress() && (control.value != Control::GovRight || control.value != Control::GovLeft))
+        if (control.action.IsPress() && (control.value != Control::GovRight || control.value != Control::GovLeft)) //-V560
         {
             if (Hint::UnderItem() == this)
             {

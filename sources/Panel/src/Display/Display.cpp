@@ -451,15 +451,14 @@ static void DrawStatusBarA()
     const Enumeration *toText = enums[PageModesA::typeMeasure][mode->value];
     
     int y = 80;
-    int x = 0;
     int width = 60;
 
     if (toText)
     {
-        Text(toText->ToText()).Write(x + 2, y + 7, width, Color::WHITE);
+        Text(toText->ToText()).Write(2, y + 7, width, Color::WHITE);
     }
 
-    Rectangle(width, 30).Draw(x, y, Color::WHITE);
+    Rectangle(width, 30).Draw(0, y, Color::WHITE);
 }
 
 static void DrawStatusBarB()
@@ -502,15 +501,14 @@ static void DrawStatusBarB()
     const Enumeration *toText = enumsB[PageModesB::typeMeasure][mode->value];
 
     int y = 80;
-    int x = 0;
     int width = 60;
 
     if (toText)
     {
-        Text(toText->ToText()).Write(x + 2, y + 7, width, Color::WHITE);
+        Text(toText->ToText()).Write(2, y + 7, width, Color::WHITE);
     }
 
-    Rectangle(width, 30).Draw(x, y, Color::WHITE);
+    Rectangle(width, 30).Draw(0, y, Color::WHITE);
 }
 
 static void DrawStatusBarC()
@@ -540,22 +538,20 @@ static void DrawStatusBarC()
     const Enumeration *toText = enumsC[PageModesC::typeMeasure][mode->value];
 
     int y = 80;
-    int x = 0;
     int width = 60;
 
     if (toText)
     {
-        Text(toText->ToText()).Write(x + 2, y + 7, width, Color::WHITE);
+        Text(toText->ToText()).Write(2, y + 7, width, Color::WHITE);
     }
 
-    Rectangle(width, 30).Draw(x, y, Color::WHITE);
+    Rectangle(width, 30).Draw(0, y, Color::WHITE);
 }
 
 static void DrawStatusBarD()
 {
     int y = 80;
-    int x = 0;
     int width = 60;
-    Text(PageModesD::timeMeasure.ToText()).Write(x + 2, y + 7, width, Color::WHITE);
-    Rectangle(width, 30).Draw(x, y, Color::WHITE);
+    Text(PageModesD::timeMeasure.ToText()).Write(2, y + 7, width, Color::WHITE);
+    Rectangle(width, 30).Draw(0, y, Color::WHITE);
 }

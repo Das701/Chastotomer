@@ -56,7 +56,7 @@ bool Menu::Update()
         {
             OpenPage(control);
         }
-        return true;
+        return true; //-V612
     }
     return false;
 }

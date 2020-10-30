@@ -32,7 +32,6 @@ void HAL::Init()
     
     __GPIOA_CLK_ENABLE();
     __USB_OTG_FS_CLK_ENABLE();
-    __HAL_RCC_USB_OTG_FS_CLK_ENABLE();
     __SYSCFG_CLK_ENABLE();
 
     GPIO_InitTypeDef isGPIO =
