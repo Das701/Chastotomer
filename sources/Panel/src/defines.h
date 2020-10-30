@@ -12,7 +12,7 @@ typedef void(*pFuncVII)(int, int);
 
 
 #ifndef WIN32
-#define nullptr 0
+#define nullptr 0 //-V1059
 #endif
 
 #define _bitset(bits)                               \

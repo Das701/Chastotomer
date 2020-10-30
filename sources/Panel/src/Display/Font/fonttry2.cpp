@@ -1,22 +1,22 @@
 /*!*****************************************************************************
   @file		BigFont.c
   @author	VicKo
-  @brief	
+  @brief
   @date		2020
   @note		STM401RET6, SSD1936, WF43QTIBEDBND
   ******************************************************************************/
-/*
-  Character code: (num,) inx, (num,) inx ... 0
-	inx - index in CharRow array (BIGSTART_INDEX + ...) to position in array)
-	num - number of rows (1, 2 ... BIGSTART_INDEX-1) with the same index in array
-	0 	- end of character code
-	assert:		http://www.keil.com/support/man/docs/armlib/armlib_chr1358938924063.htm
-  */
+  /*
+	Character code: (num,) inx, (num,) inx ... 0
+	  inx - index in CharRow array (BIGSTART_INDEX + ...) to position in array)
+	  num - number of rows (1, 2 ... BIGSTART_INDEX-1) with the same index in array
+	  0 	- end of character code
+	  assert:		http://www.keil.com/support/man/docs/armlib/armlib_chr1358938924063.htm
+	*/
 
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-//#include "Application.h"
+	//#include "Application.h"
 #include "Display/Font/BigFont1.h"
 #include "Display/Primitives.h"
 #include "Display/Display.h"
@@ -723,22 +723,22 @@ static const uint16_t BigCharOffs[] = {
   @param	foreground - palette for foreground (lower byte)
   @return
   */
-//void FontBig::BigStringMono_print(char *text, int x, int y, Color color)
-//{
-//	while (*text) {
-//		BigSymbol_print(*text, x, y, color);
-//		x += BIGCHAR_WIDTH;
-//		text++;
-//	}
-//}
+  //void FontBig::BigStringMono_print(char *text, int x, int y, Color color)
+  //{
+  //	while (*text) {
+  //		BigSymbol_print(*text, x, y, color);
+  //		x += BIGCHAR_WIDTH;
+  //		text++;
+  //	}
+  //}
 
-/*!*****************************************************************************
-  @brief	Big Text String Proportional space print without Background Padding
-  @param	text - pointer to text string
-  @param	display - pointer to top left corner in LCD buffer memory
-  @param	foreground - palette for foreground (lower byte)
-  @return
-  */
+  /*!*****************************************************************************
+	@brief	Big Text String Proportional space print without Background Padding
+	@param	text - pointer to text string
+	@param	display - pointer to top left corner in LCD buffer memory
+	@param	foreground - palette for foreground (lower byte)
+	@return
+	*/
 void FontBig::BigStringProp_print(char *text, int x, int y, Color color)
 {
 	while (*text) {
@@ -757,59 +757,59 @@ void FontBig::BigStringProp_print(char *text, int x, int y, Color color)
   @param	background - palette for background (lower byte)
   @return
   */
-//void FontBig::BigStringMonoPad_print(char *text, uint8_t *display, 
-//							uint32_t foreground, uint32_t background)
-//{
-//	while (*text) {
-//		BigSymbolPad_print(*text, display, foreground, background);
-//		display += BIGCHAR_WIDTH;
-//		text++;
-//	}
-//}
+  //void FontBig::BigStringMonoPad_print(char *text, uint8_t *display, 
+  //							uint32_t foreground, uint32_t background)
+  //{
+  //	while (*text) {
+  //		BigSymbolPad_print(*text, display, foreground, background);
+  //		display += BIGCHAR_WIDTH;
+  //		text++;
+  //	}
+  //}
 
 
-/*!*****************************************************************************
-  @brief	Big Text String Proportional space print with Background Padding
-  @param	text - pointer to text string
-  @param	display - pointer to top left corner in LCD buffer memory
-  @param	foreground - palette for foreground (lower byte)
-  @param	background - palette for background (lower byte)
-  @return
-  */
-//void FontBig::BigStringPropPad_print(char *text, uint8_t *display, 
-//							uint32_t foreground, uint32_t background)
-//{
-//	while (*text) {
-//		uint32_t space = BigSymbolPad_print(*text, display, foreground, background);
-//		display += space;
-//		text++;
-//	}
-//}
+  /*!*****************************************************************************
+	@brief	Big Text String Proportional space print with Background Padding
+	@param	text - pointer to text string
+	@param	display - pointer to top left corner in LCD buffer memory
+	@param	foreground - palette for foreground (lower byte)
+	@param	background - palette for background (lower byte)
+	@return
+	*/
+	//void FontBig::BigStringPropPad_print(char *text, uint8_t *display, 
+	//							uint32_t foreground, uint32_t background)
+	//{
+	//	while (*text) {
+	//		uint32_t space = BigSymbolPad_print(*text, display, foreground, background);
+	//		display += space;
+	//		text++;
+	//	}
+	//}
 
 
 
 
-/*!*****************************************************************************
-  @brief	Big Symbol print without background padding
-  @param	symbol - character
-  @param	display - pointer to top left corner in LCD buffer memory
-  @param	foreground - palette for foreground (lower byte)
-  @return	width of symbol in pixels (for proportional string printing)
-  */
+	/*!*****************************************************************************
+	  @brief	Big Symbol print without background padding
+	  @param	symbol - character
+	  @param	display - pointer to top left corner in LCD buffer memory
+	  @param	foreground - palette for foreground (lower byte)
+	  @return	width of symbol in pixels (for proportional string printing)
+	  */
 uint32_t FontBig::BigSymbol_print(uint8_t symbol, int x, int y, Color color)
 {
-//	assert(0x30 <= symbol && symbol <= 0x39);
-    bool falsecheck = false;
-    uint32_t ezspace = ' ';
-    if(0x28 <= symbol && symbol <= 0x39)
-    {
-        falsecheck = false;
-    }
-    else
-    {
-        falsecheck = true;
-    }
-    if (falsecheck == true) return ezspace;
+	//	assert(0x30 <= symbol && symbol <= 0x39);
+	bool falsecheck = false;
+	uint32_t ezspace = ' ';
+	if (0x28 <= symbol && symbol <= 0x39)
+	{
+		falsecheck = false;
+	}
+	else
+	{
+		falsecheck = true;
+	}
+	if (falsecheck == true) return ezspace;
 	uint16_t offs = BigCharOffs[symbol - ' '];				// offset in BigCharIndx
 	const uint8_t *index = (uint8_t *)&BigCharIndx + offs;	// first row index
 
@@ -819,15 +819,15 @@ uint32_t FontBig::BigSymbol_print(uint8_t symbol, int x, int y, Color color)
 	uint32_t same = 0;									// number of the same rows
 	uint32_t row;										// row of pixels
 	uint32_t code;
-    uint8_t *endMem = (uint8_t *)(0x807FFFF);
-    
-    while(true) {
-        code = *index++;
-        if(code == 0)
-        {
-            break;
-        }
-        if (index == endMem) break;
+	uint8_t *endMem = (uint8_t *)(0x807FFFF);
+
+	while (true) {
+		code = *index++;
+		if (code == 0)
+		{
+			break;
+		}
+		if (index == endMem) break;
 		if (code >= BIGSTART_INDEX) {
 			if (!same)  same = 1;						// new row -> one row
 			row = BigCharRow[code - BIGSTART_INDEX];
@@ -836,8 +836,8 @@ uint32_t FontBig::BigSymbol_print(uint8_t symbol, int x, int y, Color color)
 			same = code;								// multi-rows
 			continue;
 		}
- 
-		for ( ; same ; same-- ) {
+
+		for (; same; same--) {
 			uint32_t rowshift = row;					// row for shift
 			for (uint32_t i = 0; i < 32; i++) {
 				uint32_t pixel = rowshift & 0x80000000;
@@ -860,40 +860,40 @@ uint32_t FontBig::BigSymbol_print(uint8_t symbol, int x, int y, Color color)
   @param	background - palette for background (lower byte)
   @return	width of symbol in pixels (for proportional string printing)
   */
-//uint32_t FontBig::BigSymbolPad_print(uint8_t symbol, volatile uint8_t *display, 
-//						  uint32_t foreground, uint32_t background)
-//{
-//	assert(0x20 <= symbol && symbol <= 0x3F);
-//	uint16_t offs = BigCharOffs[symbol - ' '];				// offset in BigCharIndx
-//	const uint8_t *index = (uint8_t *)&BigCharIndx + offs;	// first row index
-//
-//	uint32_t width = 0;
-//	if (symbol == ' ') width = BIGSPACE_WIDTH;			// space width
-//
-//	uint32_t same = 0;									// number of the same rows
-//	uint32_t row;										// row of pixels
-//	uint32_t code;
-//
-//	while (code = *index++) {
-//		if (code >= BIGSTART_INDEX) {
-//			if (!same)  same = 1;						// new row -> one row
-//			row = BigCharRow[code - BIGSTART_INDEX];
-//		}
-//		else {
-//			same = code;								// multi-rows
-//			continue;
-//		}
-//		
-//		for ( ; same; same-- ) {
-//			uint32_t rowshift = row;					// row for shift
-//			for (uint32_t i = 0; i < 32; i++) {
-//				uint32_t pixel = rowshift & 0x80000000;
-//				*(display + i) =  pixel ? foreground : background;
-//				if (pixel && i > width)  width = i;
-//				rowshift <<= 1;
-//			}
-//			display += DISPLAY_WIDTH;
-//		}
-//	}
-//	return width + BIGGAP_WIDTH;
-//}
+  //uint32_t FontBig::BigSymbolPad_print(uint8_t symbol, volatile uint8_t *display, 
+  //						  uint32_t foreground, uint32_t background)
+  //{
+  //	assert(0x20 <= symbol && symbol <= 0x3F);
+  //	uint16_t offs = BigCharOffs[symbol - ' '];				// offset in BigCharIndx
+  //	const uint8_t *index = (uint8_t *)&BigCharIndx + offs;	// first row index
+  //
+  //	uint32_t width = 0;
+  //	if (symbol == ' ') width = BIGSPACE_WIDTH;			// space width
+  //
+  //	uint32_t same = 0;									// number of the same rows
+  //	uint32_t row;										// row of pixels
+  //	uint32_t code;
+  //
+  //	while (code = *index++) {
+  //		if (code >= BIGSTART_INDEX) {
+  //			if (!same)  same = 1;						// new row -> one row
+  //			row = BigCharRow[code - BIGSTART_INDEX];
+  //		}
+  //		else {
+  //			same = code;								// multi-rows
+  //			continue;
+  //		}
+  //		
+  //		for ( ; same; same-- ) {
+  //			uint32_t rowshift = row;					// row for shift
+  //			for (uint32_t i = 0; i < 32; i++) {
+  //				uint32_t pixel = rowshift & 0x80000000;
+  //				*(display + i) =  pixel ? foreground : background;
+  //				if (pixel && i > width)  width = i;
+  //				rowshift <<= 1;
+  //			}
+  //			display += DISPLAY_WIDTH;
+  //		}
+  //	}
+  //	return width + BIGGAP_WIDTH;
+  //}

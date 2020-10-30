@@ -226,7 +226,7 @@ void Text::GetWord(int numWord, char *(&start), int &num)
 
         start = p;
 
-        while (*p && *p != ' ')
+        while ((*p != 0) && *p != ' ')
         {
             num++;
             p++;

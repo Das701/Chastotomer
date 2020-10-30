@@ -251,11 +251,6 @@ void FreqMeter::LoadModeMeasureCountPulse()
         argument[5] = 1;
         argument[4] = 1;
     }
-    else
-    {
-        argument[0] = 1;
-        argument[1] = 1;
-    }
 
     PLIS::WriteCommand(command, argument);
 }
