@@ -1,11 +1,11 @@
 #include "defines.h"
+#include "FreqMeter.h"
+#include "Settings.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Pages/Pages.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
-#include "FreqMeter/FreqMeter.h"
-#include "Settings.h"
 #include <cstring>
 
 

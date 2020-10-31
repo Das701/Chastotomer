@@ -17,8 +17,6 @@
                                                       0 bits for subpriority */
 
 
-#ifndef GUI
-
 extern "C"
 {
     void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t SubPriority);
@@ -29,5 +27,3 @@ extern "C"
     void HAL_SYSTICK_CLKSourceConfig(uint32_t CLKSource);
     void HAL_NVIC_SetPriorityGrouping(uint32_t PriorityGroup);
 }
-
-#endif

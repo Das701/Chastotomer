@@ -35,7 +35,6 @@ file(GLOB HAL          ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/
 file(GLOB SRC          src/*.h src/*.cpp)
 file(GLOB DISPLAY      src/Display/*.h src/Display/*.cpp)
 file(GLOB DISPLAY_FONT src/Display/Font/*)
-file(GLOB FREQMETER    src/FreqMeter/*.h src/FreqMeter/*.cpp)
 file(GLOB HARDWARE     src/Hardware/*.h src/Hardware/*.cpp)
 file(GLOB HARDWARE_HAL src/Hardware/HAL/*)
 file(GLOB KEYBOARD     src/Keyboard/*.h src/Keyboard/*.cpp)
@@ -55,7 +54,6 @@ source_group(HAL            FILES ${HAL})
 source_group(src            FILES ${SRC})
 source_group(Display        FILES ${DISPLAY})
 source_group(Display\\Font  FILES ${DISPLAY_FONT})
-source_group(FreqMeter      FILES ${FREQMETER})
 source_group(Hardware       FILES ${HARDWARE})
 source_group(Hardware\\HAL  FILES ${HARDWARE_HAL})
 source_group(Keyboard       FILES ${KEYBOARD})
@@ -74,4 +72,4 @@ set_source_files_properties(${LIBS_CMSIS} ${HAL}
                             ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-add_library(Panel ${HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${FREQMETER} ${HARDWARE} ${HARDWARE_HAL} ${KEYBOARD} ${LIBS_CMSIS} ${LIBS_HAL} ${LIBS_USBD} ${MENU} ${MENU_PAGES} ${SCPI} ${UTILS})
+add_library(Panel ${HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${HARDWARE_HAL} ${KEYBOARD} ${LIBS_CMSIS} ${LIBS_HAL} ${LIBS_USBD} ${MENU} ${MENU_PAGES} ${SCPI} ${UTILS})

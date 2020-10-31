@@ -1,6 +1,6 @@
 #include "defines.h"
+#include "FreqMeter.h"
 #include "Settings.h"
-#include "FreqMeter/FreqMeter.h"
 #include "Hardware/PLIS.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"

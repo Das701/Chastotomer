@@ -1,6 +1,5 @@
-#include "stdafx.h"
 #include "defines.h"
-#include "Hardware/HAL.h"
+#include "Hardware/HAL/HAL.h"
 #include "Display/Display.h"
 #include "Keyboard/Keyboard.h"
 #include "Menu/Menu.h"

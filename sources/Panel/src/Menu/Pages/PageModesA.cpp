@@ -1,15 +1,15 @@
 #include "defines.h"
+#include "FreqMeter.h"
 #include "Settings.h"
+#include "Display/Primitives.h"
+#include "Display/Text.h"
+#include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/PageModesA.h"
 #include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageModesC.h"
 #include "Menu/Pages/PageModesD.h"
 #include "Menu/MenuItems.h"
-#include "Display/Primitives.h"
-#include "Display/Text.h"
 #include "Utils/Math.h"
-#include "Menu/MenuItemsDef.h"
-#include "FreqMeter/FreqMeter.h"
 
 using namespace Display::Primitives;
 using namespace Display;

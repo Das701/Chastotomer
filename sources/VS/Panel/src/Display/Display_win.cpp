@@ -16,7 +16,6 @@
 #define uchar   unsigned char
 #define pString const char * const
 
-#include <SDL.h>
 #include <wx/display.h>
 #pragma warning(pop)
 

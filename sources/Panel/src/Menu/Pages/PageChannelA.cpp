@@ -1,12 +1,12 @@
 #include "defines.h"
+#include "FreqMeter.h"
+#include "Settings.h"
 #include "Menu/Pages/Pages.h"
 #include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/PageModesA.h"
-#include "Settings.h"
-#include "FreqMeter/FreqMeter.h"
 #include <cstring>
 
 using namespace Display::Primitives;

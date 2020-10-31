@@ -34,29 +34,25 @@ add_compile_options(/wd5204)    # 'xxx': class has virtual functions, but its tr
 
 file(GLOB VS_HAL           ../../common/_VS_KEIL/HAL/*)
 file(GLOB SRC              ../../Panel/src/defines.h
-                           ../../Panel/src/Settings.cpp
-                           ../../Panel/src/Settings.h
-                                       src/Application.cpp
-                                       src/Application.h
+                           ../../Panel/src/Settings.*
+                                       src/Application.*
                                        src/main_win.cpp
                                        src/stdafx.h)
 file(GLOB DISPLAY                      src/Display/Display_win.cpp
                                        src/Display/Colors_win.h
                            ../../Panel/src/Display/Colors.h
-                           ../../Panel/src/Display/Display.cpp
-                           ../../Panel/src/Display/Display.h
+                           ../../Panel/src/Display/Display.*
                            ../../Panel/src/Display/Primitives.h
                                        src/Display/Primitives_win.h
-                           ../../Panel/src/Display/Text.cpp
-                           ../../Panel/src/Display/Text.h)
+                           ../../Panel/src/Display/Text.*)
 file(GLOB DISPLAY_FONT     ../../Panel/src/Display/Font/*)
 file(GLOB FREQMETER        ../../Panel/src/FreqMeter/*)
-file(GLOB HARDWARE         ../../Panel/src/Hardware/HAL.cpp
-                           ../../Panel/src/Hardware/HAL.h)
+file(GLOB HARDWARE_HAL     ../../Panel/src/Hardware/HAL/HAL.*)
 file(GLOB KEYBOARD         ../../Panel/src/Keyboard/Keyboard.h
                                        src/Keyboard/Keyboard.cpp)
 file(GLOB MENU             ../../Panel/src/Menu/*)
 file(GLOB MENU_PAGES       ../../Panel/src/Menu/Pages/*)
+file(GLOB SCPI             ../../Panel/src/SCPI/*)
 file(GLOB UTILS            ../../Panel/src/Utils/*)
 
 source_group(_VS\\HAL      FILES ${VS_HAL})
@@ -64,13 +60,14 @@ source_group(src           FILES ${SRC})
 source_group(Display       FILES ${DISPLAY})
 source_group(Display\\Font FILES ${DISPLAY_FONT})
 source_group(FreqMeter     FILES ${FREQMETER})
-source_group(Hardware      FILES ${HARDWARE})
+source_group(Hardware\\HAL FILES ${HARDWARE_HAL})
 source_group(Keyboard      FILES ${KEYBOARD})
 source_group(Menu          FILES ${MENU})
 source_group(Menu\\Pages   FILES ${MENU_PAGES})
+source_group(SCPI          FILES ${SCPI})
 source_group(Utils         FILES ${UTILS})
                     
-add_executable(PanelGUI ${VS_HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${FREQMETER} ${HARDWARE} ${KEYBOARD} ${MENU} ${MENU_PAGES} ${UTILS})
+add_executable(PanelGUI ${VS_HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${FREQMETER} ${HARDWARE_HAL} ${KEYBOARD} ${MENU} ${MENU_PAGES} ${SCPI} ${UTILS})
 
 target_link_libraries(PanelGUI ../../../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
 target_link_libraries(PanelGUI ../../../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxmsw31ud_core)

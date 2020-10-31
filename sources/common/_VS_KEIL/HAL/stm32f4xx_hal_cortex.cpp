@@ -1,5 +1,4 @@
-#include "stdafx.h"
-#include "stm32f4xx_hal_cortex.h"
+#include <stm32f4xx_hal_cortex.h>
 
 
 extern "C"

@@ -93,6 +93,8 @@
 #define RCC_RTCCLKSOURCE_HSE_DIV30       0x001E0300U
 #define RCC_RTCCLKSOURCE_HSE_DIV31       0x001F0300U
 
+#define RCC_PLLP_DIV4                  0x00000004U
+
 
 typedef struct
 {
