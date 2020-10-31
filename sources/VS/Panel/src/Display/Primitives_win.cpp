@@ -2,7 +2,15 @@
 #include "Display/Primitives.h"
 
 
+#pragma warning(push, 0)
+#include <wx/wx.h>
+#pragma warning(pop)
+
+
 using namespace Display::Primitives;
+
+
+extern wxMemoryDC memDC;
 
 
 Rectangle::Rectangle(int _width, int _height) : width(_width), height(_height)
