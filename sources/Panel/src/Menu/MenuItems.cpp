@@ -73,7 +73,12 @@ int Page::WidthItem(int num) const
         return Display::WIDTH - 2;
     }
 
-    return (Display::WIDTH - 1) / NumItems();
+    if (num < NumItems() - 1)
+    {
+        return (Display::WIDTH - 1) / NumItems();
+    }
+
+    return Display::WIDTH - WidthItem(0) * (NumItems() - 1) - 1;
 }
 
 
