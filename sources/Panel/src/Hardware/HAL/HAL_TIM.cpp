@@ -42,7 +42,6 @@ void HAL_TIM::DelayUS(uint timeUS)
 #ifdef GUI
     timeUS = timeUS;
 #else
-    static uint SystemCoreClock = 10;
     uint32_t t0 = DWT->CYCCNT;
     uint32_t us_count_tic = timeUS * (SystemCoreClock / 1000000);
     while (delta(t0, DWT->CYCCNT) < us_count_tic) //-V712
