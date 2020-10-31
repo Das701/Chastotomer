@@ -8,7 +8,7 @@ class GovernorGUI : public wxPanel
 {
 public:
     // code - код ручки
-    GovernorGUI(wxWindow *parent, const wxPoint &position, int code);
+    GovernorGUI(wxWindow *parent, const wxPoint &position);
 
 private:
     static const int radius = 32;
@@ -55,8 +55,6 @@ private:
     float angleDiscrete = 0.0F; // Отображаемый угол поворота ручки (у учётом градаций переключения)
 
     wxTimer timer;
-
-    int keyCode;
     
     bool needEventPress = true; // Если true, то при отпускании мыши нужно посылать событие нажатия ручки
 };
