@@ -104,12 +104,6 @@ static int calibNumber = 0;
 static int NAC = 0;
 
 
-static __inline uint32_t delta(uint32_t t0, uint32_t t1)
-{
-    return (t1 - t0); 
-}
-
-
 static void BinToDec() 
 { 
     int len = 32; 

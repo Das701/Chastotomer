@@ -31,6 +31,12 @@ void HAL_TIM::DelayMS(uint timeMS)
 }
 
 
+static __inline uint32_t delta(uint32_t t0, uint32_t t1)
+{
+    return (t1 - t0); 
+}
+
+
 void HAL_TIM::DelayUS(uint timeUS)
 {
 #ifdef GUI
