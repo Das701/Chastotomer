@@ -125,6 +125,10 @@ static HANDLE CreateFrame()
 
 	wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
 
+    screen = new Screen(frame);
+
+    sizer->Add(screen);
+
 	wxButton *button = new wxButton(frame, wxID_ANY, "", { 10, 10 }, { Frame::WIDTH, Frame::HEIGHT });
 	button->SetMaxSize({ Frame::WIDTH, Frame::HEIGHT });
 
