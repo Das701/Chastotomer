@@ -103,5 +103,6 @@ private:
 
     virtual void CreateHint(char buffer[100]) const { buffer[0] = 0; };
 
-    int WidtItem() const;
+    // Возвращает ширину элемента меню с номером num
+    int WidthItem(int num) const;
 };

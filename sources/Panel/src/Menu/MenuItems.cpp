@@ -56,21 +56,25 @@ void Page::Draw(int x, int y, bool)
     {
         if (i == selectedItem)
         {
-            Rectangle(WIDTH - 2, HEIGHT - 1).Fill(x + 1, y + 1, Color::_14);
+            Rectangle(WidthItem(i), HEIGHT - 1).Fill(x + 1, y + 1, Color::_14);
         }
         items[i]->Draw(x, y, i == selectedItem);
-        Rectangle(WIDTH, HEIGHT).Draw(x, y, Color::WHITE);
+        Rectangle(WidthItem(i), HEIGHT).Draw(x, y, Color::WHITE);
 
-        x += Item::WIDTH + 2;
+        x += WidthItem(i);
     }
 }
 
 
-int Page::WidtItem() const
+int Page::WidthItem(int num) const
 {
-    return Display::WIDTH / NumItems();
-}
+    if (NumItems() == 1)
+    {
+        return Display::WIDTH - 2;
+    }
 
+    return (Display::WIDTH - 1) / NumItems();
+}
 
 
 static bool ChangeLevelSynch(int delta)
