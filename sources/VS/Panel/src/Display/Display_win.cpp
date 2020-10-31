@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Display/Display.h"
 #include "Display/Primitives.h"
+#include "GUI/GovernorGUI.h"
 #include "Keyboard/Keyboard.h"
 
 #pragma warning(push, 0)
@@ -31,11 +32,15 @@
 
 // Здесь хранятся указатели на кнопки
 static wxButton *buttons[Control::Count] = { nullptr };
+
+static GovernorGUI *governor = nullptr;
+
 // Цвета
 static uint colors[256];
 
 static bool needStartTimerLong = false;
 static bool needStopTimerLong = false;
+
 // Здесь имя нажатой кнопки
 static Control::E pressedKey = Control::None;
 
@@ -165,6 +170,8 @@ static void CreateButtons(Frame *frame)
         CreateButton(keysC[i], frame, { x0 + (width + dX) * i, y0 + height + dY + 10 }, size);
         CreateButton(keysGov[i], frame, { x0 + (width + dX) * i, y0 + (height + dY) * 2 + 10 }, size);
     }
+
+    governor = new GovernorGUI(frame, { 100, 350 });
 }
 
 
