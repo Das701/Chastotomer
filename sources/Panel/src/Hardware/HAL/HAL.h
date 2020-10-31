@@ -61,6 +61,5 @@ private:
 
     static void Flush(uint8 *buffer, int size);
 
-    //static void SendDataSynch(const void *buffer, uint size);
     static void SendDataSynch(int sizeBuffer, uint sizeSend, uint8 *buffSend, char *buffer);
 };

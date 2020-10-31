@@ -144,8 +144,8 @@ static void CreateFrame()
 
 static void CreateButtons(Frame *frame)
 {
-    int x0 = 20;
-    int y0 = Frame::HEIGHT + 15;
+    int x0 = 500;
+    int y0 = 15;
 
     int dX = 10;
     int dY = 5;
@@ -162,7 +162,7 @@ static void CreateButtons(Frame *frame)
     Control::E keysC[4] = { Control::Channels, Control::Left, Control::Esc, Control::Right };
 
     // Кнопки регулятора
-    Control::E keysGov[4] = { Control::Enter, Control::GovLeft, Control::GovButton, Control::GovRight};
+    Control::E keysGov[4] = { Control::Enter, Control::None, Control::None, Control::None};
 
     for (int i = 0; i < 4; i++)
     {
@@ -171,17 +171,17 @@ static void CreateButtons(Frame *frame)
         CreateButton(keysGov[i], frame, { x0 + (width + dX) * i, y0 + (height + dY) * 2 + 10 }, size);
     }
 
-    governor = new GovernorGUI(frame, { 100, 350 });
+    governor = new GovernorGUI(frame, { 700, 150 });
 }
 
 
 static void SetPositionAndSize(Frame *frame)
 {
-    wxSize size = { Frame::WIDTH + 9, Frame::HEIGHT + 200 };
+    wxSize size = { Display::WIDTH + 330, Display::HEIGHT };
 
-    frame->SetSize(size);
-    frame->SetMinSize(size);
-    frame->SetMaxSize(size);
+    frame->SetClientSize(size);
+    frame->SetMinClientSize(size);
+    frame->SetMaxClientSize(size);
 
     wxRect rect = GetMaxDisplay();
 

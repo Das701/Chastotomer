@@ -52,7 +52,6 @@ void HAL_USBD::Flush(uint8 *buffer, int size)
 }
 
 
-//void HAL_USBD::SendDataSynch(const void *buffer, uint size)
 void HAL_USBD::SendDataSynch(int sizeBuffer, uint sizeSend, uint8 *buffSend, char *buffer)
 {
     volatile USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData;

@@ -16,9 +16,6 @@ class Frame : public wxFrame
 {
 public:
 
-    static const int WIDTH = Display::WIDTH;
-    static const int HEIGHT = Display::HEIGHT;
-
     Frame(const wxString& title);
 
     void OnSize(wxCommandEvent& event);

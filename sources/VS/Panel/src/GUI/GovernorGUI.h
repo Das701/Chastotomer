@@ -10,7 +10,7 @@ public:
     GovernorGUI(wxWindow *parent, const wxPoint &position);
 
 private:
-    const int radius = 20;
+    const int radius = 30;
     // Угол поворота ручки
     float angle = 0.0F;
     // Через столько градусов переключается ручка

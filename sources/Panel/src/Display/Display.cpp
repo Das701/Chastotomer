@@ -110,7 +110,7 @@ void Display::Update()
 
     DrawScreen();
     
-    Func3();
+//    Func3();
 
     EndScene();
 }
