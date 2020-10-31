@@ -53,48 +53,48 @@ extern int info;
 static int autoHint = 0;
 static bool autoFlag = false;
 
-static void CalculateCoord(int &x, int &y, int sizeX, int sizeY)
-{
-    static int deltaX = 1;
-    static int deltaY = 0;
+//static void CalculateCoord(int &x, int &y, int sizeX, int sizeY)
+//{
+//    static int deltaX = 1;
+//    static int deltaY = 0;
+//
+//    x += deltaX;
+//    y += deltaY;
+//
+//    if (x < 0)
+//    {
+//        x = 0;
+//        deltaX = -deltaX;
+//    }
+//    if (y < 0)
+//    {
+//        y = 0;
+//        deltaY = 1;
+//    }
+//    if (x + sizeX > 250)
+//    {
+//        deltaX = -deltaX;
+//    }
+//    if (y + sizeY > 60)
+//    {
+//        deltaY = -1;
+//    }
+//}
 
-    x += deltaX;
-    y += deltaY;
-
-    if (x < 0)
-    {
-        x = 0;
-        deltaX = -deltaX;
-    }
-    if (y < 0)
-    {
-        y = 0;
-        deltaY = 1;
-    }
-    if (x + sizeX > 250)
-    {
-        deltaX = -deltaX;
-    }
-    if (y + sizeY > 60)
-    {
-        deltaY = -1;
-    }
-}
-
-static void Func3()
-{
-    static int x = 0;
-    static int y = 0;
-
-    int sizeX = 8;
-    int sizeY = 3;
-
-    static HLine line(sizeX);
-
-    CalculateCoord(x, y, sizeX, sizeY);
-
-    line.Draw(x, y, Color::WHITE);
-}
+//static void Func3()
+//{
+//    static int x = 0;
+//    static int y = 0;
+//
+//    int sizeX = 8;
+//    int sizeY = 3;
+//
+//    static HLine line(sizeX);
+//
+//    CalculateCoord(x, y, sizeX, sizeY);
+//
+//    line.Draw(x, y, Color::WHITE);
+//}
 
 void Display::StartScreen()
 {   

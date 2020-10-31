@@ -4,9 +4,12 @@
 #include "Keyboard/Keyboard.h"
 
 
-GovernorGUI::GovernorGUI(wxWindow *parent, const wxPoint &position) : wxPanel(parent, wxID_ANY, position), timer(this, 1)
+const float GovernorGUI::stepDegree = 60.0F;
+
+
+GovernorGUI::GovernorGUI(wxWindow *parent, const wxPoint &position, int code) : wxPanel(parent, wxID_ANY, position), timer(this, 1), keyCode(code)
 {
-    angle = static_cast<float>(rand());
+    angleDiscrete = ((float)(std::rand() % 100) - 100.0F) * stepDegree;
 
     cursor = { false, {0, 0}, 0 };
 
@@ -32,8 +35,8 @@ void GovernorGUI::OnPaint(wxPaintEvent &)
 
     float r = static_cast<float>(radius) * 0.6F;
 
-    float x = static_cast<float>(radius) + Sin(static_cast<int>(angle) * stepAngle) * r;
-    float y = static_cast<float>(radius) + Cos(static_cast<int>(angle) * stepAngle) * r;
+    float x = static_cast<float>(radius) + Sin(angleDiscrete) * r;
+    float y = static_cast<float>(radius) + Cos(angleDiscrete) * r;
 
     dc.DrawCircle(static_cast<int>(x), static_cast<int>(y), radius / 5);
 }
@@ -70,15 +73,15 @@ bool GovernorGUI::MouseOnGovernor(wxMouseEvent &event) //-V2009
 }
 
 
-float GovernorGUI::Sin(int grad)
+float GovernorGUI::Sin(float degree)
 {
-    return sinf(static_cast<float>(grad) * 3.1415926F / 180.0F);
+    return sinf(static_cast<float>(degree) * 3.1415926F / 180.0F);
 }
 
 
-float GovernorGUI::Cos(int grad)
+float GovernorGUI::Cos(float degree)
 {
-    return cosf(static_cast<float>(grad) * 3.1415926F / 180.0F);
+    return cosf(static_cast<float>(degree) * 3.1415926F / 180.0F);
 }
 
 
@@ -92,15 +95,32 @@ void GovernorGUI::OnTimer(wxTimerEvent &)
 
         if(delta != 0)
         {
-            angle += 0.1F * static_cast<float>(delta);
+            angleFull += (float)(delta * 3);
 
-            wxCommandEvent event(wxEVT_LEFT_DOWN, delta > 0 ? Control::GovLeft : Control::GovRight);
-            
-            Frame::Self()->OnDown(event);
+            if (angleFull <= -60.0F)
+            {
+                FuncChange(-1);
+                angleFull += stepDegree;
+                angleDiscrete -= stepDegree;
+                Refresh();
+            }
 
-            Refresh();
+            if (angleFull >= 60.0F)
+            {
+                FuncChange(1);
+                angleFull -= stepDegree;
+                angleDiscrete += stepDegree;
+                Refresh();
+            }
         }
     }
+}
+
+
+void GovernorGUI::FuncChange(int delta)
+{
+    wxCommandEvent event(wxEVT_LEFT_DOWN, delta < 0 ? Control::GovRight : Control::GovLeft);
+    Frame::Self()->OnDown(event);
 }
 
 

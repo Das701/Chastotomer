@@ -171,7 +171,7 @@ static void CreateButtons(Frame *frame)
         CreateButton(keysGov[i], frame, { x0 + (width + dX) * i, y0 + (height + dY) * 2 + 10 }, size);
     }
 
-    governor = new GovernorGUI(frame, { 700, 150 });
+    governor = new GovernorGUI(frame, { 700, 150 }, 0);
 }
 
 
