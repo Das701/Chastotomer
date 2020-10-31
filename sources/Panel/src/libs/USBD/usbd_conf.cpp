@@ -121,28 +121,30 @@ USBD_StatusTypeDef  USBD_LL_Init (USBD_HandleTypeDef *pdev)
   
     if(pdev->id == VCP::DEVICE_FS)
     {
-        // Link The driver to the stack
-        VCP::handlePCD.pData = pdev;
-        pdev->pData = &VCP::handlePCD;
+        PCD_HandleTypeDef *hPCD = (PCD_HandleTypeDef *)VCP::handlePCD;
 
-        VCP::handlePCD.Instance = USB_OTG_FS;
-        VCP::handlePCD.Init.dev_endpoints = 4;
-        VCP::handlePCD.Init.speed = PCD_SPEED_FULL;
-        VCP::handlePCD.Init.dma_enable = DISABLE;
-        VCP::handlePCD.Init.ep0_mps = DEP0CTL_MPS_64;
-        VCP::handlePCD.Init.phy_itface = PCD_PHY_EMBEDDED;
-        VCP::handlePCD.Init.Sof_enable = DISABLE;
-        VCP::handlePCD.Init.low_power_enable = DISABLE;
-        VCP::handlePCD.Init.lpm_enable = DISABLE;
-        VCP::handlePCD.Init.vbus_sensing_enable = ENABLE;
-        VCP::handlePCD.Init.use_dedicated_ep1 = DISABLE;
+        // Link The driver to the stack
+        hPCD->pData = pdev;
+        pdev->pData = hPCD;
+
+        hPCD->Instance = USB_OTG_FS;
+        hPCD->Init.dev_endpoints = 4;
+        hPCD->Init.speed = PCD_SPEED_FULL;
+        hPCD->Init.dma_enable = DISABLE;
+        hPCD->Init.ep0_mps = DEP0CTL_MPS_64;
+        hPCD->Init.phy_itface = PCD_PHY_EMBEDDED;
+        hPCD->Init.Sof_enable = DISABLE;
+        hPCD->Init.low_power_enable = DISABLE;
+        hPCD->Init.lpm_enable = DISABLE;
+        hPCD->Init.vbus_sensing_enable = ENABLE;
+        hPCD->Init.use_dedicated_ep1 = DISABLE;
     
         // Initialize LL Driver
-        HAL_PCD_Init(&VCP::handlePCD);
+        HAL_PCD_Init(hPCD);
     
-        HAL_PCDEx_SetRxFiFo(&VCP::handlePCD, 0x80);
-        HAL_PCDEx_SetTxFiFo(&VCP::handlePCD, 0, 0x40);
-        HAL_PCDEx_SetTxFiFo(&VCP::handlePCD, 1, 0x80); 
+        HAL_PCDEx_SetRxFiFo(hPCD, 0x80);
+        HAL_PCDEx_SetTxFiFo(hPCD, 0, 0x40);
+        HAL_PCDEx_SetTxFiFo(hPCD, 1, 0x80); 
     }
 
     return USBD_OK;

@@ -1,8 +1,7 @@
-#include "usbd_desc.h"
-#include "usbd_cdc_interface.h"
 #include "defines.h"
 #include "Hardware/VCP.h"
-#include "usbd_desc.h"
+#include "libs/USBD/usbd_cdc_interface.h"
+#include "libs/USBD/usbd_desc.h"
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
@@ -21,25 +20,29 @@ T Min(T x1, T x2)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-USBD_HandleTypeDef VCP::handleUSBD;
-PCD_HandleTypeDef  VCP::handlePCD;
-bool               VCP::cableUSBisConnected = false;
-bool               VCP::connectedToUSB = false;
+static USBD_HandleTypeDef hUSBD;
+static PCD_HandleTypeDef hPCD;
+
+void *VCP::handleUSBD = &hUSBD;
+void *VCP::handlePCD = &hPCD;
+
+bool VCP::cableUSBisConnected = false;
+bool VCP::connectedToUSB = false;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void VCP::Init()
 {
-    USBD_Init(&handleUSBD, &VCP_Desc, DEVICE_FS);
-    USBD_RegisterClass(&handleUSBD, &USBD_CDC);
-    USBD_CDC_RegisterInterface(&handleUSBD, &USBD_CDC_fops);
-    USBD_Start(&handleUSBD);
+    USBD_Init(&hUSBD, &VCP_Desc, DEVICE_FS);
+    USBD_RegisterClass(&hUSBD, &USBD_CDC);
+    USBD_CDC_RegisterInterface(&hUSBD, &USBD_CDC_fops);
+    USBD_Start(&hUSBD);
 } 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 bool VCP::PrevSendingComplete()
 {
-    USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)handleUSBD.pClassData;
+    USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData;
     return pCDC->TxState == 0;
 }
 
@@ -53,8 +56,8 @@ void VCP::SendDataAsynch(const uint8 *buffer, uint size)
     while (!PrevSendingComplete())  {};
     std::memcpy(trBuf, buffer, (uint)size);
 
-    USBD_CDC_SetTxBuffer(&handleUSBD, trBuf, (uint16)size);
-    USBD_CDC_TransmitPacket(&handleUSBD);
+    USBD_CDC_SetTxBuffer(&hUSBD, trBuf, (uint16)size);
+    USBD_CDC_TransmitPacket(&hUSBD);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -69,12 +72,12 @@ void VCP::Flush()
 {
     if (sizeBuffer)
     {
-        volatile USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)handleUSBD.pClassData;
+        volatile USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData;
 
         while (pCDC->TxState == 1) {}; //-V712
 
-        USBD_CDC_SetTxBuffer(&handleUSBD, buffSend, (uint16)sizeBuffer);
-        USBD_CDC_TransmitPacket(&handleUSBD);
+        USBD_CDC_SetTxBuffer(&hUSBD, buffSend, (uint16)sizeBuffer);
+        USBD_CDC_TransmitPacket(&hUSBD);
 
         while (pCDC->TxState == 1) {}; //-V654 //-V712
     }
@@ -92,7 +95,7 @@ void VCP::SendDataSynch(const void *_buffer, uint size)
             size = std::strlen(buffer);
         }
 
-        volatile USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)handleUSBD.pClassData;
+        volatile USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData;
     
         do 
         {
@@ -104,8 +107,8 @@ void VCP::SendDataSynch(const void *_buffer, uint size)
                 while (pCDC->TxState == 1) {}; //-V712
 
                 std::memcpy(buffSend + sizeBuffer, (void *)buffer, (uint)reqBytes);
-                USBD_CDC_SetTxBuffer(&handleUSBD, buffSend, SIZE_BUFFER_VCP);
-                USBD_CDC_TransmitPacket(&handleUSBD);
+                USBD_CDC_SetTxBuffer(&hUSBD, buffSend, SIZE_BUFFER_VCP);
+                USBD_CDC_TransmitPacket(&hUSBD);
                 size -= reqBytes;
                 buffer += reqBytes;
                 sizeBuffer = 0;

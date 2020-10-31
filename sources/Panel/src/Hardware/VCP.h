@@ -1,6 +1,5 @@
 #pragma once
 #include "defines.h"
-#include <usbd_def.h>
 
 
 #define VCP_FLUSH()                       VCP::Flush()
@@ -32,9 +31,11 @@ public:
 
     static void Flush();
 
-    static USBD_HandleTypeDef handleUSBD;
+    // USBD_HandleTypeDef
+    static void *handleUSBD;
 
-    static PCD_HandleTypeDef handlePCD;
+    // PCD_HandleTypeDef
+    static  void *handlePCD;
 
     static bool connectedToUSB;
 
