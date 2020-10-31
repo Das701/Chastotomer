@@ -1,9 +1,9 @@
 #include "defines.h"
 #include "Display/Display.h"
+#include "Display/Primitives.h"
 #include "Keyboard/Keyboard.h"
 
-#pragma warning(push)
-#pragma warning(disable:4365 4459 4668)
+#pragma warning(push, 0)
 #undef CRC
 #include "Application.h"
 
@@ -29,94 +29,94 @@
 #undef pString
 
 
-SDL_Renderer *renderer = nullptr;
-static SDL_Window *window = nullptr;
-static SDL_Texture *texture = nullptr;
-
-/// Здесь хранятся указатели на кнопки
-static wxButton *buttons[Control::E::Count] = { nullptr };
-/// Цвета
+// Здесь хранятся указатели на кнопки
+static wxButton *buttons[Control::Count] = { nullptr };
+// Цвета
 static uint colors[256];
 
 static bool needStartTimerLong = false;
 static bool needStopTimerLong = false;
-/// Здесь имя нажатой кнопки
+// Здесь имя нажатой кнопки
 static Control::E pressedKey = Control::None;
 
+// Контекст рисования
+static wxMemoryDC memDC;
 
-/// Создаёт окно приложения. Возвращает хэндл виджета для отрисовки
+static wxBitmap bitmap(Display::WIDTH, Display::HEIGHT);
+
+
+// Создаёт окно приложения. Возвращает хэндл виджета для отрисовки
 static HANDLE CreateFrame();
-/// Установить размер и оптимальную позицию для окна приложения
+// Установить размер и оптимальную позицию для окна приложения
 static void SetPositionAndSize(Frame *frame);
-/// Получить разрешение максимального имеющегося в системе монитора
+// Получить разрешение максимального имеющегося в системе монитора
 static wxRect GetMaxDisplay();
-/// Создаёт все кнопки
+// Создаёт все кнопки
 static void CreateButtons(Frame *frame);
-/// Создаёт одну кнопку
+// Создаёт одну кнопку
 static void CreateButton(Control::E key, Frame *frame, const wxPoint &pos, const wxSize &size);
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Screen : public wxPanel
+{
+public:
+    Screen(wxWindow *parent) : wxPanel(parent, 320)
+    {
+        SetMinSize({ 320, 240 });
+        SetDoubleBuffered(true);
+        Bind(wxEVT_PAINT, &Screen::OnPaint, this);
+    }
+
+    void OnPaint(wxPaintEvent &)
+    {
+        wxPaintDC dc(this);
+        dc.DrawBitmap(bitmap, 0, 0);
+    }
+};
+
+
+static Screen *screen = nullptr;
+
+
+
 void Display::Init()
 {
-	HANDLE handle = CreateFrame();
-
-	window = SDL_CreateWindowFrom(handle);
-
-	if (window == nullptr)
-	{
-		std::cout << "SDL_CreateWindowFrom() Error: " << SDL_GetError() << std::endl;
-	}
-	else
-	{
-		std::cout << "Create SDL window is ok" << std::endl;
-	}
-
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    CreateFrame();
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Display::BeginScene(Color color)
+
+void Display::BeginScene()
 {
-	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_RENDERER_ACCELERATED, Display::WIDTH, Display::HEIGHT);
-
-	SDL_SetRenderTarget(renderer, texture);
-	color.SetAsCurrent();
-	SDL_RenderClear(renderer);
+    memDC.SelectObject(bitmap);
+    wxBrush brush({ 0, 0, 0 }, wxTRANSPARENT);
+    memDC.SetBrush(brush);
+    Primitives::Rectangle(320, 240).Fill(0, 0, Color::BLACK);
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::EndScene()
 {
-	SDL_SetRenderTarget(renderer, NULL);
-
-	SDL_Rect rect = { 0, 0, Frame::WIDTH, Frame::HEIGHT };
-
-	if (texture)
-	{
-		SDL_RenderCopy(renderer, texture, NULL, &rect); //-V2001
-	}
-
-	SDL_RenderPresent(renderer);
+    memDC.SelectObject(wxNullBitmap);
+    screen->Refresh();
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint8 *Display::GetPixel(int, int)
 {
     return 0;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Frame::OnTimerLong(wxTimerEvent&)
 {
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Frame::HandlerEvents()
 {
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static HANDLE CreateFrame()
 {
 	Frame *frame = new Frame("");
@@ -139,7 +139,7 @@ static HANDLE CreateFrame()
 	return button->GetHandle();
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void CreateButtons(Frame *frame)
 {
     int x0 = 20;
@@ -170,7 +170,7 @@ static void CreateButtons(Frame *frame)
     }
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void SetPositionAndSize(Frame *frame)
 {
     wxSize size = { Frame::WIDTH + 9, Frame::HEIGHT + 200 };
@@ -184,7 +184,7 @@ static void SetPositionAndSize(Frame *frame)
     frame->SetPosition({ rect.width / 2 - size.GetWidth() / 2, rect.height / 2 - size.GetHeight() / 2 });
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void CreateButton(Control::E key, Frame *frame, const wxPoint &pos, const wxSize &size)
 {
     if (key == Control::None)
@@ -200,7 +200,7 @@ static void CreateButton(Control::E key, Frame *frame, const wxPoint &pos, const
     buttons[key] = button;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static wxRect GetMaxDisplay()
 {
     wxRect result = { 0, 0, 0, 0 };

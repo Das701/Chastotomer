@@ -7,7 +7,7 @@
 #include "Settings.h"
 
 
-/// Входное сопротивление
+// Входное сопротивление
 struct InputImpedance : public Enumeration
 {
     enum E
@@ -23,7 +23,7 @@ struct InputImpedance : public Enumeration
     bool Is_50Ohm() const { return (value == _50Omh); }
 };
 
-/// Фронт синхронизации
+// Фронт синхронизации
 struct ModeFront : public Enumeration
 {
     enum E
@@ -37,7 +37,7 @@ struct ModeFront : public Enumeration
     bool IsFront() const { return (value == Front); }
 };
 
-/// Делитель напряжения
+// Делитель напряжения
 struct Divider : public Enumeration
 {
     enum E

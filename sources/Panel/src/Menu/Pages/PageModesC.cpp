@@ -27,7 +27,7 @@ PeriodTimeLabels         PageModesC::periodTimeLabels(PeriodTimeLabels::T_8);
 NumberPeriods            PageModesC::numberPeriods(NumberPeriods::_1);
 TimeMeasure              PageModesC::timeMeasure(TimeMeasure::_1ms);
 
-/// Очистить массив указателей на итемы, начиная с i-го итема
+// Очистить массив указателей на итемы, начиная с i-го итема
 static void ClearItems(int i);
 
 static void OnPress_ModeFrequencyC();
@@ -95,7 +95,7 @@ static void OnPress_ModeFrequencyC()
     FreqMeter::LoadModeMeasureFrequency();
 }
 
-/// Выбор режима измерения частоты, отношения частот, "тахометра"
+// Выбор режима измерения частоты, отношения частот, "тахометра"
 DEF_SWITCH_3(sModeFrequencyC,
     "Режим изм.", "Измерение частоты",
     "Частота", "f(C )/f(A)", "f(C )/f(B)",
@@ -126,7 +126,7 @@ static void OnPress_ModeCountPulseC()
     FreqMeter::LoadModeMeasureCountPulse();
 }
 
-/// Выбор режима счёта импульсов
+// Выбор режима счёта импульсов
 DEF_SWITCH_4(sModeCountPulseC,
     "Режим изм.", "Счёт числа импульсов",
     "C(tA)", "C(tB)", "C(TA)", "C(TB)",
@@ -144,7 +144,7 @@ static void OnPress_TimeLabelsC()
     FreqMeter::LoadPeriodTimeLabels();
 }
 
-/// Выбор периода меток времени
+// Выбор периода меток времени
 DEF_SWITCH_6(sPeriodTimeLabelsC,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
@@ -180,7 +180,7 @@ static void OnPress_TimeMeasure()
     FreqMeter::LoadTimeMeasure();
 }
 
-/// Выбор времени измерения
+// Выбор времени измерения
 DEF_SWITCH_7(sTimeMeasureC,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
@@ -215,7 +215,7 @@ static void OnPress_NumberPeriodsC()
     FreqMeter::LoadNumerPeriodsMeasure();
 }
 
-/// Выбор числа усредняемых периодов входного сигнала
+// Выбор числа усредняемых периодов входного сигнала
 DEF_SWITCH_7(sNumberPeriodsC,
     "N", "Число периодов измерения",
     "1", "10", "100", "1K", "10K", "100K", "1000K",

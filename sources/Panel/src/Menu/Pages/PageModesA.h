@@ -44,7 +44,7 @@ struct TypeMeasureAB : public Enumeration
     bool IsDuration() const   { return (value == Duration); }
 };
 
-/// Режим измерения частоты
+// Режим измерения частоты
 struct ModeMeasureFrequencyA : public Enumeration
 {
     enum E
@@ -67,7 +67,7 @@ struct ModeMeasureFrequencyA : public Enumeration
     bool IsComparator() const { return (value == Comparator); }
 };
 
-/// Режим измерения периода
+// Режим измерения периода
 struct ModeMeasurePeriod : public Enumeration
 {
     enum E
@@ -83,7 +83,7 @@ struct ModeMeasurePeriod : public Enumeration
     static ModeMeasurePeriod &Current();
 };
 
-/// Режим измерения длительности
+// Режим измерения длительности
 struct ModeMeasureDuration : public Enumeration
 {
     enum E
@@ -106,7 +106,7 @@ struct ModeMeasureDuration : public Enumeration
     static ModeMeasureDuration &Current();
 };
 
-/// Режим счёта импульсов
+// Режим счёта импульсов
 struct ModeMeasureCountPulseA : public Enumeration
 {
     enum E
@@ -119,7 +119,7 @@ struct ModeMeasureCountPulseA : public Enumeration
     explicit ModeMeasureCountPulseA(E v) : Enumeration((uint8)v) {};
 };
 
-/// Период меток времени
+// Период меток времени
 struct PeriodTimeLabels : public Enumeration
 {
     enum E
@@ -145,7 +145,7 @@ struct PeriodTimeLabels : public Enumeration
     bool IsT_8() const { return (value == T_8); }
 };
 
-/// Время счёта
+// Время счёта
 struct TimeMeasure : public Enumeration
 {
     enum E
@@ -167,7 +167,7 @@ struct TimeMeasure : public Enumeration
     static TimeMeasure &Current();
 };
 
-/// Число периодов
+// Число периодов
 struct NumberPeriods : public Enumeration
 {
     enum E

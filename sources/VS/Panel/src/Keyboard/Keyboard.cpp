@@ -1,32 +1,26 @@
 #include "defines.h"
 #include "Keyboard/Keyboard.h"
-
-#pragma warning(push)
-#pragma warning(disable:4365 4668)
-
 #include "Application.h"
 
-#pragma warning(pop)
 
-/// Очередь сообщений - здесь все события органов управления
+// Очередь сообщений - здесь все события органов управления
 #define MAX_ACTIONS 100
 static Control actions[MAX_ACTIONS];
-/// Количество уже имеющихся сообщений
+// Количество уже имеющихся сообщений
 static int numActions = 0;
 
 static bool needStartTimerLong = false;
 
 static bool needStopTimerLong = false;
-/// Здесь имя нажатой кнопки
+// Здесь имя нажатой кнопки
 static Control::E pressedKey = Control::None;
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Keyboard::Init()
 {
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void AddAction(Control control, Control::Action::E action)
 {
     if (action != Control::Action::Press)
@@ -38,7 +32,7 @@ static void AddAction(Control control, Control::Action::E action)
     actions[numActions++] = control;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Frame::OnDown(wxCommandEvent &event)
 {
     Control::E key = (Control::E)event.GetId();
@@ -53,7 +47,7 @@ void Frame::OnDown(wxCommandEvent &event)
     pressedKey = key;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Frame::OnUp(wxCommandEvent &event)
 {
     Control::E key = (Control::E)event.GetId();
@@ -68,13 +62,13 @@ void Frame::OnUp(wxCommandEvent &event)
     pressedKey = Control::None;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Keyboard::Empty()
 {
     return numActions == 0;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Control Keyboard::NextControl()
 {
     if (Empty())
@@ -94,7 +88,7 @@ Control Keyboard::NextControl()
     return result;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char *Control::Name()
 {
     static const char *names[Control::E::Count] =

@@ -12,7 +12,7 @@ include_directories(src/
                     ../../ThirdParty/wxWidgets/generated/lib/vc_dll/mswud
                     )
                     
-add_definitions(-DSTM32F429xx -DWXUSINGDLL -DUSE_SDL2 -DGUI)
+add_definitions(-DSTM32F429xx -DWXUSINGDLL -DGUI)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
@@ -47,7 +47,8 @@ file(GLOB DISPLAY                      src/Display/Display_win.cpp
                            ../../Panel/src/Display/Text.*)
 file(GLOB DISPLAY_FONT     ../../Panel/src/Display/Font/*)
 file(GLOB FREQMETER        ../../Panel/src/FreqMeter/*)
-file(GLOB HARDWARE_HAL     ../../Panel/src/Hardware/HAL/HAL.*)
+file(GLOB HARDWARE_HAL     ../../Panel/src/Hardware/HAL/HAL.*
+                           ../../Panel/src/Hardware/HAL/HAL_TIM.cpp)
 file(GLOB KEYBOARD         ../../Panel/src/Keyboard/Keyboard.h
                                        src/Keyboard/Keyboard.cpp)
 file(GLOB MENU             ../../Panel/src/Menu/*)

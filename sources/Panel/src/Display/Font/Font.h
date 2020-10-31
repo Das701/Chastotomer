@@ -37,5 +37,5 @@ struct Font
 };
 
 
-/// Текущий шрифт
+// Текущий шрифт
 extern const Font *font;

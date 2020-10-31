@@ -18,7 +18,7 @@ struct TypeMeasureC : public Enumeration
     bool IsCountPulse() const { return (value == CountPulse); }
 };
 
-/// Режим измерения частоты
+// Режим измерения частоты
 struct ModeMeasureFrequencyC : public Enumeration
 {
     enum E
@@ -34,7 +34,7 @@ struct ModeMeasureFrequencyC : public Enumeration
     bool IsCB()        const { return (value == CB); }
 };
 
-/// Режим счёта импульсов
+// Режим счёта импульсов
 struct ModeMeasureCountPulseC : public Enumeration
 {
     enum E

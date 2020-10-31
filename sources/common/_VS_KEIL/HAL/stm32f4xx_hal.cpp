@@ -1,18 +1,13 @@
 #include "defines.h"
-#include "stm32f4xx_hal.h"
-#ifdef USE_SDL2
-#pragma warning(push)
-#pragma warning(disable:4668)
-#pragma warning(pop)
-#endif
+#include <stm32f4xx_hal.h>
+#include <ctime>
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 uint32_t HAL_GetTick()
 {
-#ifdef USE_SDL2
-    return 0;
-//    return SDL_GetTicks();
+#ifdef GUI
+    return (uint)clock();
 #else
     return 0;
 #endif

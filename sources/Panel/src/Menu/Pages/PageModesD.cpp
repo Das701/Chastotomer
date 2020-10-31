@@ -31,7 +31,7 @@ static void OnPress_TimeMeasure()
     FreqMeter::LoadTimeMeasure();
 }
 
-/// Выбор времени измерения
+// Выбор времени измерения
 DEF_SWITCH_7(sTimeMeasureD,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",

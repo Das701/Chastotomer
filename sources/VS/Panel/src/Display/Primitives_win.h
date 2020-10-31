@@ -5,42 +5,43 @@
 using namespace Display::Primitives;
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Rectangle::Rectangle(int _width, int _height) : width(_width), height(_height)
 {
 
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Rectangle::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
-    SDL_Rect rect = { x, y, width + 1, height + 1 };
-    SDL_RenderDrawRect(renderer, &rect);
+    memDC.DrawRectangle({ x, y, width + 1, height + 1 });
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Rectangle::Fill(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
-    SDL_Rect rect = { x, y, width + 1, height + 1 };
-    SDL_RenderFillRect(renderer, &rect);
+    wxBrush brush = memDC.GetBrush();
+    wxPen pen = memDC.GetPen();
+    memDC.SetBrush(wxBrush(pen.GetColour()));
+    memDC.DrawRectangle({ x, y, width + 1, height + 1 });
+    memDC.SetBrush(brush);
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HLine::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
-    SDL_RenderDrawLine(renderer, x, y, x + length, y);
+    memDC.DrawLine({ x, y }, { x + length, y });
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Point::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
-    SDL_RenderDrawPoint(renderer, x, y);
+    memDC.DrawPoint({ x, y });
 }

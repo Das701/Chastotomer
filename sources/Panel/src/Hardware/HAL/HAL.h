@@ -4,6 +4,8 @@
 
 void ERROR_HANDLER();
 
+#define TIME_MS   HAL_TIM::TimeMS()
+
 
 struct HAL
 {
@@ -31,3 +33,10 @@ public:
     };
 };
 
+
+struct HAL_TIM
+{
+    static uint TimeMS();
+
+    static void Delay(uint timeMS);
+};

@@ -34,22 +34,26 @@ uint cols[16] =
     0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU
 };
 
+
 #define COLOR(x) cols[x];
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Color::SetAsCurrent()
 {
     if (value < 16)
     {
         uint val = COLOR(value);
-        uint8 blue = (uint8)val;
-        uint8 green = (uint8)(val >> 8);
-        uint8 red = (uint8)(val >> 16);
-        SDL_SetRenderDrawColor(renderer, red, green, blue, 0x00);
+        uint8 b = (uint8)val;
+        uint8 g = (uint8)(val >> 8);
+        uint8 r = (uint8)(val >> 16);
+
+        wxColour colorDraw = wxColour(r, g, b);
+
+        memDC.SetPen(wxPen(colorDraw));
     }
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Color Color::GetCurrent()
 {
     return current;

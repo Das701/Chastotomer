@@ -27,19 +27,19 @@ int second = 0;
 using namespace Display::Primitives;
 using Display::Text;
 
-/// Нарисовать тип измерения
+// Нарисовать тип измерения
 static void DrawTypeMeasure();
-/// Нарисовать режим измерения
+// Нарисовать режим измерения
 static void DrawModeMeasure();
-/// Нарисовать подсказку
+// Нарисовать подсказку
 static void DrawHint();
-/// Нарисовать статус-бар
+// Нарисовать статус-бар
 static void DrawStatusBar();
 static void DrawStatusBarA();
 static void DrawStatusBarB();
 static void DrawStatusBarC();
 static void DrawStatusBarD();
-/// Нарисовать строку настроек текущего канала
+// Нарисовать строку настроек текущего канала
 static void DrawChannelSettings();
 
 static void DrawScreen();
@@ -413,7 +413,7 @@ static void DrawData()
 static void DrawStatusBarA()
 {
     static const Enumeration * const modes[TypeMeasureAB::Count] =
-    {///            Frequency                         Period                         Duration                         CountPulse
+    {//            Frequency                         Period                         Duration                         CountPulse
         &PageModesA::modeMeasureFrequency, &PageModesA::modeMeasurePeriod, &PageModesA::modeMeasureDuration, &PageModesA::modeMeasureCountPulse
     };
 
@@ -464,7 +464,7 @@ static void DrawStatusBarA()
 static void DrawStatusBarB()
 {
     static const Enumeration * const modesB[TypeMeasureAB::Count] =
-    {///            Frequency                         Period                         Duration                         CountPulse
+    {//            Frequency                         Period                         Duration                         CountPulse
         &PageModesB::modeMeasureFrequency, &PageModesB::modeMeasurePeriod, &PageModesB::modeMeasureDuration, &PageModesB::modeMeasureCountPulse
     };
 
@@ -514,7 +514,7 @@ static void DrawStatusBarB()
 static void DrawStatusBarC()
 {
     static const Enumeration * const modesC[TypeMeasureC::Count] =
-    {///            Frequency                         CountPulse
+    {//            Frequency                         CountPulse
         &PageModesC::modeMeasureFrequency, &PageModesC::modeMeasureCountPulse
     };
 

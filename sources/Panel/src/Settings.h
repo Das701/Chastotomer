@@ -30,7 +30,7 @@ struct Channel
     };
 };
 
-/// Открытый/закрытый вход
+// Открытый/закрытый вход
 struct InputCouple : public Enumeration
 {
     enum E
@@ -47,7 +47,7 @@ struct InputCouple : public Enumeration
 };
 
 
-/// ФНЧ
+// ФНЧ
 struct ModeFilter : public Enumeration
 {
     enum E
@@ -64,7 +64,7 @@ struct ModeFilter : public Enumeration
 };
 
 
-/// Выбор типа синхронизации - ТТЛ или ЭСЛ
+// Выбор типа синхронизации - ТТЛ или ЭСЛ
 struct TypeSynch : public Enumeration
 {
     enum E

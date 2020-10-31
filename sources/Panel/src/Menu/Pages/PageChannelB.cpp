@@ -29,7 +29,7 @@ static void OnPress_Couple()
     InputCouple::Load();
 }
 
-/// Выбор закрытого(открытого) входа текущего канала
+// Выбор закрытого(открытого) входа текущего канала
 DEF_SWITCH_UGO_2(sCouple,
     "\x7C \x7D", "Вход",
     "Открытый вход", "Закрытый вход",
@@ -43,7 +43,7 @@ static void OnPress_Impedance()
     FreqMeter::LoadImpedance();
 }
 
-/// Установка входного сопротивления текущего канала
+// Установка входного сопротивления текущего канала
 DEF_SWITCH_UGO_2(sImpedance,
     "Rвх", "Входное сопротивление канала",
     "1 МОм", "50 Ом",
@@ -57,7 +57,7 @@ static void OnPress_Filter()
     ModeFilter::Load();
 }
 
-/// Включение(отключение) ФНЧ
+// Включение(отключение) ФНЧ
 DEF_SWITCH_UGO_2(sLowpassFilter,
     "ФНЧ", "Включение/отключение фильтра НЧ",
     "Откл.", "Вкл.",
@@ -71,7 +71,7 @@ static void OnPress_Front()
     FreqMeter::LoadModeFront();
 }
 
-/// Выбор фронта синхронизации текущего канала
+// Выбор фронта синхронизации текущего канала
 DEF_SWITCH_UGO_2(sFront,
     "\x8D \x8E", "Выбор типа синхронизации",
     "Фронт", "Срез",
@@ -85,7 +85,7 @@ static void OnPress_Divider()
     FreqMeter::LoadDivider();
 }
 
-/// Включение(отключение) входного делителя напряжения
+// Включение(отключение) входного делителя напряжения
 DEF_SWITCH_UGO_2(sDivider,
     "\x7E\x7F\x7E \x7E\x7F\x8F", "Вкл/откл входного делителя",
     "1:1", "1:10",
@@ -104,7 +104,7 @@ static void OnPress_TimeLabels()
     FreqMeter::LoadPeriodTimeLabels();
 }
 
-/// Выбор периода меток времени
+// Выбор периода меток времени
 DEF_SWITCH_6(sPeriodTimeLabels,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
@@ -141,7 +141,7 @@ static void OnPress_TimeMeasure()
     FreqMeter::LoadTimeMeasure();
 }
 
-/// Выбор времени измерения
+// Выбор времени измерения
 DEF_SWITCH_7(sTimeMeasure,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
@@ -175,7 +175,7 @@ static void OnPress_Sync()
     
 }
 
-/// Выбор уровня синхронизации ТТЛ, ЭСЛ
+// Выбор уровня синхронизации ТТЛ, ЭСЛ
 DEF_SWITCH_UGO_2(sSync,
     "Синхр", "Выбор уровня сихронизации",
     "Ручн", "Holdoff",

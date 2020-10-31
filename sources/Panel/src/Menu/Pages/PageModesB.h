@@ -2,7 +2,7 @@
 #include "Menu/MenuItems.h"
 
 
-/// Режим измерения частоты
+// Режим измерения частоты
 struct ModeMeasureFrequencyB : public Enumeration
 {
     enum E
@@ -22,7 +22,7 @@ struct ModeMeasureFrequencyB : public Enumeration
     bool IsTachometer() const { return (value == Tachometer); }
 };
 
-/// Режим счёта импульсов
+// Режим счёта импульсов
 struct ModeMeasureCountPulseB : public Enumeration
 {
     enum E

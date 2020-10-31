@@ -25,7 +25,7 @@ static void OnPress_DisplayTime()
     FreqMeter::LoadDisplayTime();
 }
 
-/// Выбор времени отображения результата измерения
+// Выбор времени отображения результата измерения
 DEF_SWITCH_3(sDisplayTime,
     "Т-ИНД", "Время индикации",
     "0.1s.", "1s.", "10s.",
@@ -37,7 +37,7 @@ static void OnPress_RefGenerator()
     FreqMeter::LoadRefGenerator();
 }
 
-/// Выбор опорного генератора
+// Выбор опорного генератора
 DEF_SWITCH_2(sRefGenerator,
     "ОГ", "Выбор опорного генератора",
     "Внутренний", "Внешний", 
@@ -49,7 +49,7 @@ static void OnPress_LaunchSource()
     FreqMeter::LoadLaunchSource();
 }
 
-/// Выбор источника запуска
+// Выбор источника запуска
 DEF_SWITCH_3(sLaunchSource,
     "ЗАП", "Выбор источника запуска",
     "Внутренний", "Внешний", "Однократный",
@@ -64,7 +64,7 @@ static void OnPress_Calibration()
     }
 }
 
-/// Вход в режим калибровки
+// Вход в режим калибровки
 DEF_SWITCH_2(sCalibration,
     "Калиб", nullptr,
     "Не нажата", "Нажата", 
@@ -91,7 +91,7 @@ void PageIndication::OnceLaunchSwitchFalse()
         onceLaunch = false;
 }
 
-/// Включение(отключение) режима памяти
+// Включение(отключение) режима памяти
 DEF_SWITCH_2(sMemoryMode,
     "Пам", "Режим память",
     "Выкл", "Вкл", 

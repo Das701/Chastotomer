@@ -395,7 +395,7 @@ int Integer::operator [](int n)
         val /= 10;
     }
 
-    float rest = val - static_cast<int>(val / 10.0F) * 10.0F;
+    float rest = (float)val - ((float)val / 10.0F) * 10.0F;
 
     return static_cast<int>(rest);
 }

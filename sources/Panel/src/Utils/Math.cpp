@@ -56,7 +56,7 @@ float Math::RoundFloat(float value, int numDigits)
     if (digsInInt < numDigits)  // Подстрахуемся
     {
         int pow = Pow10(numDigits - digsInInt);
-        absValue = (static_cast<int>(absValue * pow + 0.5F)) / static_cast<float>(pow);
+        absValue = (absValue * (float)pow + 0.5F) / static_cast<float>(pow);
     }
 
     return value > 0.0F ? absValue : -absValue;
