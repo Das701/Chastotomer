@@ -709,19 +709,9 @@
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
-              <FileName>HAL.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL.h</FileName>
+              <FileName>PLIS.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_FSMC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL_FSMC.cpp</FilePath>
+              <FilePath>.\src\Hardware\PLIS.h</FilePath>
             </File>
             <File>
               <FileName>PLIS.cpp</FileName>
@@ -729,19 +719,39 @@
               <FilePath>.\src\Hardware\PLIS.cpp</FilePath>
             </File>
             <File>
-              <FileName>VCP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\VCP.cpp</FilePath>
-            </File>
-            <File>
               <FileName>VCP.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\VCP.h</FilePath>
             </File>
             <File>
+              <FileName>VCP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\VCP.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/HAL</GroupName>
+          <Files>
+            <File>
+              <FileName>HAL.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_FSMC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_FSMC.cpp</FilePath>
+            </File>
+            <File>
               <FileName>HAL_IT.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL_IT.cpp</FilePath>
+              <FilePath>.\src\Hardware\HAL\HAL_IT.cpp</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "Settings.h"
-#include "Hardware/HAL.h"
 #include "Hardware/PLIS.h"
+#include "Hardware/HAL/HAL.h"
 #include "Menu/Hint.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/Pages.h"

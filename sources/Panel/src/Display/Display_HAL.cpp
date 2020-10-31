@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "Display/Display.h"
 #include "Display/Primitives.h"
-#include "Hardware/HAL.h"
+#include "Hardware/HAL/HAL.h"
 #include <cstring>
 #include <cstdlib>
 #include <stm32f4xx_hal.h>
