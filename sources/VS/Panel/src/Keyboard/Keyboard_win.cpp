@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "Keyboard/Keyboard.h"
-#include "Application.h"
+#include "Application_win.h"
 
 
 // Очередь сообщений - здесь все события органов управления

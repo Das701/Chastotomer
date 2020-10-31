@@ -37,7 +37,7 @@ file(GLOB VS_HAL           ../../common/_VS_KEIL/HAL/*)
 file(GLOB SRC              ../../Panel/src/defines.h
                            ../../Panel/src/FreqMeter.*
                            ../../Panel/src/Settings.*
-                                       src/Application.*
+                                       src/Application_win.*
                                        src/main_win.cpp)
 file(GLOB DISPLAY                      src/Display/Display_win.cpp
                                        src/Display/Colors_win.cpp
