@@ -17,6 +17,7 @@ GovernorGUI::GovernorGUI(wxWindow *parent, const wxPoint &position, int code) : 
     SetDoubleBuffered(true);
     Bind(wxEVT_PAINT, &GovernorGUI::OnPaint, this);
     Bind(wxEVT_LEFT_DOWN, &GovernorGUI::OnMouseLeftDown, this);
+    Bind(wxEVT_LEFT_UP, &GovernorGUI::OnMouseLeftUp, this);
     Bind(wxEVT_MOTION, &GovernorGUI::OnMouseMove, this);
     Bind(wxEVT_TIMER, &GovernorGUI::OnTimer, this);
 
@@ -46,10 +47,23 @@ void GovernorGUI::OnMouseLeftDown(wxMouseEvent &event)
 {
     if(MouseOnGovernor(event))
     {
+        needEventPress = true;
+
         ::SetCursor(LoadCursor(NULL, IDC_HAND));
 
         cursor.OnPressLeftButton();
     }
+}
+
+
+void GovernorGUI::OnMouseLeftUp(wxMouseEvent &)
+{
+    if (needEventPress)
+    {
+        FuncPress();
+    }
+
+    needEventPress = false;
 }
 
 
@@ -95,11 +109,13 @@ void GovernorGUI::OnTimer(wxTimerEvent &)
 
         if(delta != 0)
         {
+            needEventPress = false;
+
             angleFull += (float)(delta * 3);
 
             if (angleFull <= -60.0F)
             {
-                FuncChange(-1);
+                FuncRotate(-1);
                 angleFull += stepDegree;
                 angleDiscrete -= stepDegree;
                 Refresh();
@@ -107,7 +123,7 @@ void GovernorGUI::OnTimer(wxTimerEvent &)
 
             if (angleFull >= 60.0F)
             {
-                FuncChange(1);
+                FuncRotate(1);
                 angleFull -= stepDegree;
                 angleDiscrete += stepDegree;
                 Refresh();
@@ -117,9 +133,16 @@ void GovernorGUI::OnTimer(wxTimerEvent &)
 }
 
 
-void GovernorGUI::FuncChange(int delta)
+void GovernorGUI::FuncRotate(int delta)
 {
     wxCommandEvent event(wxEVT_LEFT_DOWN, delta < 0 ? Control::GovRight : Control::GovLeft);
+    Frame::Self()->OnDown(event);
+}
+
+
+void GovernorGUI::FuncPress()
+{
+    wxCommandEvent event(wxEVT_LEFT_DOWN, Control::GovButton);
     Frame::Self()->OnDown(event);
 }
 

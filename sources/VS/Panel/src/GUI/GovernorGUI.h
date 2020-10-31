@@ -16,6 +16,7 @@ private:
     
     void OnPaint(wxPaintEvent &);
     void OnMouseLeftDown(wxMouseEvent &);
+    void OnMouseLeftUp(wxMouseEvent &);
     void OnMouseMove(wxMouseEvent &);
     void OnTimer(wxTimerEvent &);
 
@@ -29,7 +30,10 @@ private:
     float Cos(float);
 
     // Эта фунция вызывается при переключении ручки в следующую/предыдущую позицию
-    void FuncChange(int delta);
+    void FuncRotate(int delta);
+
+    // Эта функция вызываетс при нажатии ручки
+    void FuncPress();
 
     struct StructCursor
     {
@@ -53,4 +57,6 @@ private:
     wxTimer timer;
 
     int keyCode;
+    
+    bool needEventPress = true; // Если true, то при отпускании мыши нужно посылать событие нажатия ручки
 };
