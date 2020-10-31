@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>C:\My\work\Chastotomer\sources\Panel\src</LastAddFilePath>
+    <LastAddFilePath>C:\My\work\Chastotomer\sources\common\libs\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>
@@ -90,8 +90,8 @@
     <sActiveDebugView></sActiveDebugView>
     <WindowPosition>
       <length>44</length>
-      <flags>0</flags>
-      <showCmd>1</showCmd>
+      <flags>2</flags>
+      <showCmd>3</showCmd>
       <MinPosition>
         <xPos>-1</xPos>
         <yPos>-1</yPos>

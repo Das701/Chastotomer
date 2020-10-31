@@ -8,7 +8,7 @@ include_directories(src/
                     ../../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/
                     ../../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Inc/
                     ../../Panel/src/
-                    ../../Panel/src/libs/HAL/
+                    ../../Panel/src/Hardware/HAL/
                     ../../Panel/src/Hardware/
                     ../../ThirdParty/wxWidgets/include
                     ../../ThirdParty/wxWidgets/generated/lib/vc_dll/mswud)

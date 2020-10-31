@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "Hardware/VCP.h"
-#include "libs/USBD/usbd_cdc_interface.h"
-#include "libs/USBD/usbd_desc.h"
+#include "Hardware/USBD/usbd_cdc_interface.h"
+#include "Hardware/USBD/usbd_desc.h"
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
