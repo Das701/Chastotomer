@@ -24,13 +24,6 @@ struct HAL_FSMC
     static void SendBuffer(uint8 *buffer);
     
     static uint16 GetData(uint16 address);
-
-public:
-    struct Test
-    {
-        static void Init();
-        static void Run();
-    };
 };
 
 

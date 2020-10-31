@@ -1,6 +1,6 @@
 #include "defines.h"
-#include "Text.h"
 #include "Display/Primitives.h"
+#include "Display/Text.h"
 #include "Menu/MenuItems.h"
 #include <cstring>
 
