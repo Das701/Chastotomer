@@ -96,7 +96,7 @@ bool PageModesA::RelationCheck()
 
 
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void PageModesA::Init()
 {
 }
@@ -124,7 +124,7 @@ void PageModesA::PressSetup()
     
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void ClearItems(int num)
 {
     for (int i = num; i < 7; i++)
@@ -133,7 +133,7 @@ static void ClearItems(int num)
     }
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_TypeMeasure()
 {
         switch (PageModesA::typeMeasure.value)
@@ -169,7 +169,7 @@ DEF_SWITCH_4(sTypeMeasure,
     PageModesA::typeMeasure, OnPress_TypeMeasure
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_ModeFrequency()
 {
     ClearItems(2);  
@@ -227,7 +227,7 @@ DEF_SWITCH_6(sModeFrequency,
     "Частота", "f(A)/f(B)", "f(A)/f(C )", "f=1/T", "Тахометр", "Компаратор",
     PageModesA::modeMeasureFrequency, OnPress_ModeFrequency);
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_ModePeriod()
 {
     ClearItems(2);
@@ -262,7 +262,7 @@ DEF_SWITCH_2(sModePeriod,
     PageModesA::modeMeasurePeriod, OnPress_ModePeriod
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_ModeDuration()
 {
     ClearItems(2);
@@ -301,7 +301,7 @@ DEF_SWITCH_5(sModeDuration,
     PageModesA::modeMeasureDuration, OnPress_ModeDuration
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_ModeCountPulse()
 {
     ClearItems(2);
@@ -330,7 +330,7 @@ DEF_SWITCH_3(sModeCountPulse,
     PageModesA::modeMeasureCountPulse, OnPress_ModeCountPulse
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_TimeLabels()
 {
     uint8 period = PageModesA::periodTimeLabels.value;
@@ -348,7 +348,7 @@ DEF_SWITCH_6(sPeriodTimeLabels,
     PageModesA::periodTimeLabels,  OnPress_TimeLabels
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_TimeMeasure()
 {
     uint8 time = PageModesA::timeMeasure.value;
@@ -384,7 +384,7 @@ DEF_SWITCH_7(sTimeMeasure,
     PageModesA::timeMeasure, OnPress_TimeMeasure
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_NumberPeriods()
 {
     uint8 period = PageModesA::numberPeriods.value;
@@ -438,7 +438,7 @@ void PageModesA::ToggleStartStop()
 }
 
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static Item *items[7] =
 {
     &sTypeMeasure,

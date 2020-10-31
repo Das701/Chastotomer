@@ -19,7 +19,7 @@ Calibration         PageIndication::calibration(Calibration::Unpressed);
 MemoryMode          PageIndication::memoryMode(MemoryMode::On);
 
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_DisplayTime()
 {
     FreqMeter::LoadDisplayTime();
@@ -31,7 +31,7 @@ DEF_SWITCH_3(sDisplayTime,
     "0.1s.", "1s.", "10s.",
     PageIndication::displayTime, OnPress_DisplayTime);
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_RefGenerator()
 {
     FreqMeter::LoadRefGenerator();
@@ -43,7 +43,7 @@ DEF_SWITCH_2(sRefGenerator,
     "Внутренний", "Внешний", 
     PageIndication::refGenerator, OnPress_RefGenerator);
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_LaunchSource()
 {
     FreqMeter::LoadLaunchSource();
@@ -70,7 +70,7 @@ DEF_SWITCH_2(sCalibration,
     "Не нажата", "Нажата", 
     PageIndication::calibration, OnPress_Calibration);
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_MemoryMode()
 {
     FreqMeter::LoadMemoryMode();

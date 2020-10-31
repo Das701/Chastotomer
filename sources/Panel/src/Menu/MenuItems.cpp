@@ -19,7 +19,7 @@ using namespace Display;
 int info = 0;
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int Enumeration::NumStates() const
 {
     int result = 0;
@@ -32,13 +32,13 @@ int Enumeration::NumStates() const
     return result;
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 bool Button::OnControl(const Control &)
 {
     return true;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Button::Draw(int x, int y, bool selected)
 {
     if (selected)
@@ -49,33 +49,30 @@ void Button::Draw(int x, int y, bool selected)
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Page::Draw(int x, int y, bool)
 {
-    if (items)
+    for (int i = 0; i < NumItems(); i++)
     {
-        for (int i = 0; i < 7; i++)
+        if (i == selectedItem)
         {
-            
-        
-            
-
-            if (items[i])
-            {
-                if (i == selectedItem)
-                {
-                    Rectangle(WIDTH - 2, HEIGHT - 1).Fill(x + 1, y + 1, Color::_14);
-                }
-                items[i]->Draw(x, y, i == selectedItem);
-                Rectangle(WIDTH, HEIGHT).Draw(x, y, Color::WHITE);
-            }
-
-            x += Item::WIDTH + 2;
+            Rectangle(WIDTH - 2, HEIGHT - 1).Fill(x + 1, y + 1, Color::_14);
         }
+        items[i]->Draw(x, y, i == selectedItem);
+        Rectangle(WIDTH, HEIGHT).Draw(x, y, Color::WHITE);
+
+        x += Item::WIDTH + 2;
     }
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+int Page::WidtItem() const
+{
+    return Display::WIDTH / NumItems();
+}
+
+
+
 static bool ChangeLevelSynch(int delta)
 {
 //    if (Hint::Text())
@@ -99,7 +96,7 @@ static bool ChangeLevelSynch(int delta)
 //    return false;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Page::OnControl(const Control &control) //-V2008
 {
     bool result = false;
@@ -376,8 +373,8 @@ bool Page::OnControl(const Control &control) //-V2008
     return result;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-int Page::NumItems()
+
+int Page::NumItems() const
 {
     int i = 0;
     while(items[i] != 0)
@@ -387,20 +384,20 @@ int Page::NumItems()
     return i;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Page::SelectNextItem()
 {
     Math::CircleIncrease<int>(&selectedItem, 0, NumItems() - 1);
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Page::SelectPrevItem()
 {
     Math::CircleDecrease<int>(&selectedItem, 0, NumItems() - 1);
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 bool Switch::OnControl(const Control &control)
 {
     if(PageIndication::calibration.Is(Calibration::Pressed))
@@ -477,7 +474,7 @@ bool Switch::OnControl(const Control &control)
     return false;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Switch::Draw(int x, int y, bool selected)
 {
     if(selected)
@@ -488,7 +485,7 @@ void Switch::Draw(int x, int y, bool selected)
     Text(text).WriteInCenterRect(x, y, WIDTH, HEIGHT);
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Switch::CreateHint(char buffer[100]) const
 {
     std::strcpy(buffer, hint);

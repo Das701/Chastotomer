@@ -45,12 +45,12 @@ static void OnPress_ModeDurationB();
 static void OnPress_ModeCountPulseB();
 
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void PageModesB::Init()
 {
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void ClearItems(int num)
 {
     for (int i = num; i < 7; i++)
@@ -81,7 +81,7 @@ void PageModesB::PressSetupB()
     }
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_TypeMeasureB()
 {
     switch (PageModesB::typeMeasure.value)
@@ -117,7 +117,7 @@ DEF_SWITCH_4(sTypeMeasureB,
     PageModesB::typeMeasure, OnPress_TypeMeasureB
 )
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_ModeFrequencyB()
 {
     ClearItems(2);
@@ -167,7 +167,7 @@ DEF_SWITCH_5(sModeFrequencyB,
     "Частота", "f(B)/f(A)", "f(B)/f(C )", "f=1/T", "Тахометр",
     PageModesB::modeMeasureFrequency, OnPress_ModeFrequencyB);
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_ModePeriodB()
 {
     ClearItems(2);
@@ -202,7 +202,7 @@ DEF_SWITCH_2(sModePeriodB,
     PageModesB::modeMeasurePeriod, OnPress_ModePeriodB
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_ModeDurationB()
 {
     ClearItems(2);
@@ -240,7 +240,7 @@ DEF_SWITCH_5(sModeDurationB,
     PageModesB::modeMeasureDuration, OnPress_ModeDurationB
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_ModeCountPulseB()
 {
     ClearItems(2);
@@ -269,7 +269,7 @@ DEF_SWITCH_3(sModeCountPulseB,
     PageModesB::modeMeasureCountPulse, OnPress_ModeCountPulseB
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_TimeLabelsB()
 {
     uint8 period = PageModesB::periodTimeLabels.value;
@@ -287,7 +287,7 @@ DEF_SWITCH_6(sPeriodTimeLabelsB,
     PageModesB::periodTimeLabels,  OnPress_TimeLabelsB
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_TimeMeasure()
 {
     uint8 time = PageModesB::timeMeasure.value;
@@ -323,7 +323,7 @@ DEF_SWITCH_7(sTimeMeasureB,
     PageModesB::timeMeasure, OnPress_TimeMeasure
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_NumberPeriodsB()
 {
     uint8 period = PageModesB::numberPeriods.value;
@@ -360,7 +360,7 @@ DEF_SWITCH_7(sNumberPeriodsB,
 );
 
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static Item *items[7] =
 {
     &sTypeMeasureB,

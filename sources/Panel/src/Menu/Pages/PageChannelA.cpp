@@ -22,7 +22,7 @@ ModeFront       PageChannelA::modeFront(ModeFront::Front);
 Divider         PageChannelA::divider(Divider::_1);
 TypeSynch       PageChannelA::typeSynch(TypeSynch::Manual);
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_Couple()
 {
     InputCouple::Load();
@@ -36,7 +36,7 @@ DEF_SWITCH_UGO_2(sCouple,
     PageChannelA::couple, OnPress_Couple
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_Impedance()
 {
     FreqMeter::LoadImpedance();
@@ -50,7 +50,7 @@ DEF_SWITCH_UGO_2(sImpedance,
     PageChannelA::impedance, OnPress_Impedance
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_Filter()
 {
     ModeFilter::Load();
@@ -64,7 +64,7 @@ DEF_SWITCH_UGO_2(sLowpassFilter,
     PageChannelA::modeFilter, OnPress_Filter
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_Front()
 {
     FreqMeter::LoadModeFront();
@@ -78,7 +78,7 @@ DEF_SWITCH_UGO_2(sFront,
     PageChannelA::modeFront, OnPress_Front
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_Divider()
 {
     FreqMeter::LoadDivider();
@@ -92,7 +92,7 @@ DEF_SWITCH_UGO_2(sDivider,
     PageChannelA::divider, OnPress_Divider
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_TimeLabels()
 {
     uint8 period = PageModesA::periodTimeLabels.value;
@@ -110,7 +110,7 @@ DEF_SWITCH_6(sPeriodTimeLabels,
     PageModesA::periodTimeLabels,  OnPress_TimeLabels
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_TimeMeasure()
 {
     uint8 time = PageModesA::timeMeasure.value;
@@ -146,7 +146,7 @@ DEF_SWITCH_7(sTimeMeasure,
     PageModesA::timeMeasure, OnPress_TimeMeasure
 );
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnPress_Sync()
 {
     if (PageChannelA::typeSynch == TypeSynch::Holdoff)
