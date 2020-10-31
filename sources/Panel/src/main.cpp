@@ -6,7 +6,6 @@
 #include "Keyboard/Keyboard.h"
 #include "Menu/Menu.h"
 #include "SCPI/SCPI.h"
-#include <stm32f4xx_hal.h>
 
 
 using Display::Text;
@@ -22,8 +21,8 @@ int main(void)
     Menu::Update();
     Display::Update();
     VCP::Init();
-    uint time = HAL_GetTick();
-    while((time + 3000) > HAL_GetTick())
+    uint time = TIME_MS;
+    while((time + 3000) > TIME_MS)
     {
         Display::StartScreen();
     }
@@ -31,7 +30,7 @@ int main(void)
     {
         PLIS::Update();
         Menu::Update();
-        if(HAL_GetTick() > time + 10)
+        if(TIME_MS > time + 10)
         {
             Display::Update(); 
         }

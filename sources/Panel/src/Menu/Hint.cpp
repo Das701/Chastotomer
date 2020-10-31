@@ -1,7 +1,7 @@
 #include "defines.h"
-#include "Hint.h"
+#include "Hardware/HAL/HAL.h"
+#include "Menu/Hint.h"
 #include "Menu/MenuItems.h"
-#include <stm32f4xx_hal.h>
 #include <cstring>
 
 
@@ -17,13 +17,13 @@ void Hint::Create(const Item *i)
 {
     item = i;
     item->CreateHint(hint);
-    timeHideHint = HAL_GetTick() + 5000;
+    timeHideHint = TIME_MS + 5000;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 char *Hint::Text()
 {
-    return HAL_GetTick() <  timeHideHint ? hint : "";
+    return TIME_MS <  timeHideHint ? hint : "";
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -37,5 +37,5 @@ void Hint::Hide()
 {
     hint[0] = 0;
     item = nullptr;
-    timeHideHint = HAL_GetTick() - 1;
+    timeHideHint = TIME_MS - 1;
 }
