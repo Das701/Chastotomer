@@ -1,8 +1,7 @@
 #include "defines.h"
+#include "Application_win.h"
 #include "GUI/GovernorGUI.h"
-
-
-//#define SHOW_NAME_FUNC()   std::cout << __FUNCTION__ << std::endl
+#include "Keyboard/Keyboard.h"
 
 
 GovernorGUI::GovernorGUI(wxWindow *parent, const wxPoint &position) : wxPanel(parent, wxID_ANY, position), timer(this, 1)
@@ -94,6 +93,10 @@ void GovernorGUI::OnTimer(wxTimerEvent &)
         if(delta != 0)
         {
             angle += 0.1F * static_cast<float>(delta);
+
+            wxCommandEvent event(wxEVT_LEFT_DOWN, delta > 0 ? Control::GovLeft : Control::GovRight);
+            
+            Frame::Self()->OnDown(event);
 
             Refresh();
         }

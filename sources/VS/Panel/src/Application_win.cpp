@@ -33,6 +33,10 @@ wxIMPLEMENT_APP_NO_MAIN(Application);
 
 
 
+Frame *Frame::self = nullptr;
+
+
+
 int main(int argc, char **argv)
 {
     setlocale(LC_ALL, "Russian");
@@ -82,6 +86,14 @@ Frame::Frame(const wxString& title)
     timer.Start(0);
 
     timerLongPress.SetOwner(this, TIMER_LONG_ID);
+
+    self = this;
+}
+
+
+Frame *Frame::Self()
+{
+    return self;
 }
 
 

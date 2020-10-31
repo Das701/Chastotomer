@@ -24,6 +24,8 @@ public:
     void OnTimer(wxTimerEvent& event);
     void OnTimerLong(wxTimerEvent& event);
 
+    static Frame *Self();
+
 private:
     wxTimer timer;
     // Таймер для "длинного нажатия" кнопок
@@ -37,4 +39,6 @@ private:
 public:
     void OnDown(wxCommandEvent &event);
     void OnUp(wxCommandEvent &event);
+
+    static Frame *self;
 };
