@@ -3,7 +3,16 @@
 #include "Display/Colors.h"
 #include "Display/Primitives.h"
 
+#pragma warning(push, 0)
+#undef CRC
+#include <wx/wx.h>
+#pragma warning(pop)
+
 using namespace Display::Primitives;
+
+
+extern wxMemoryDC memDC;
+
 
 Color Color::BLACK(0);
 Color Color::_1(1);

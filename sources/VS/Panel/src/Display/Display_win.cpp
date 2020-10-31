@@ -40,7 +40,7 @@ static bool needStopTimerLong = false;
 static Control::E pressedKey = Control::None;
 
 // Контекст рисования
-static wxMemoryDC memDC;
+wxMemoryDC memDC;
 
 static wxBitmap bitmap(Display::WIDTH, Display::HEIGHT);
 
@@ -222,5 +222,3 @@ static wxRect GetMaxDisplay()
 
 
 #include "Primitives_win.h"
-
-#include "Colors_win.h"
