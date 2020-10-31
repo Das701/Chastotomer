@@ -70,9 +70,8 @@ source_group(Utils         FILES ${UTILS})
                     
 add_executable(PanelGUI ${VS_HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${FREQMETER} ${HARDWARE_HAL} ${KEYBOARD} ${MENU} ${MENU_PAGES} ${SCPI} ${UTILS})
 
-target_link_libraries(PanelGUI ../../../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
-target_link_libraries(PanelGUI ../../../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxmsw31ud_core)
-target_link_libraries(PanelGUI ../../../../../ThirdParty/SDL2/SDL2-2.0.10/generated/Debug/SDL2-staticd)
+target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
+target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxmsw31ud_core)
 
 target_link_libraries(PanelGUI WinMM.lib)
 target_link_libraries(PanelGUI version.lib)
