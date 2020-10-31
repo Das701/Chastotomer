@@ -4,7 +4,7 @@
 #include "Hardware/HAL/HAL.h"
 #include <cstring>
 #include <cstdlib>
-#include <stm32f4xx_hal.h>
+
 
 using namespace Display::Primitives;
 
@@ -76,13 +76,13 @@ void Display::Init()
     HAL_FSMC::Reset();
     
     HAL_FSMC::WriteCommand(0x01);   // soft reset
-    HAL_Delay(10);
+    HAL_TIM::Delay(10);
     HAL_FSMC::WriteCommand(0xe0);   // set pll
     HAL_FSMC::WriteData(0x01);
-    HAL_Delay(10);
+    HAL_TIM::Delay(10);
     HAL_FSMC::WriteCommand(0xe0);   // set pll
     HAL_FSMC::WriteData(0x03);
-    HAL_Delay(10);
+    HAL_TIM::Delay(10);
     
     //HAL_FSMC::WriteCommand(0x29);   // ¬ключить дисплей
 
@@ -100,7 +100,7 @@ void Display::Init()
     HAL_FSMC::WriteData(0x02);
     HAL_FSMC::WriteData(0x54);
 
-    HAL_Delay(100);
+    HAL_TIM::Delay(100);
 
     SetLShiftFreq(0xfffff / 8);
 

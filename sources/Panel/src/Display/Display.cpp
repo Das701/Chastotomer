@@ -243,7 +243,7 @@ static void DrawStatusBar()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawHint()
 {
-    if((HAL_GetTick() < (uint)(autoHint + 10000)) && autoFlag == true)
+    if((TIME_MS < (uint)(autoHint + 10000)) && autoFlag == true)
     {
         Text(PLIS::GiveAuto()).Write(102, 37);
         FreqMeter::UnloadAuto();
@@ -257,7 +257,7 @@ static void DrawHint()
             {
                 Text(PLIS::GiveAuto()).Write(102, 37);
                 PLIS::SwitchAuto();
-                autoHint = (int)HAL_GetTick();
+                autoHint = (int)TIME_MS;
                 autoFlag = true;
             }
             else
@@ -334,10 +334,10 @@ static void DrawInfo()
         {
             if(second == 0)
             {
-                second = (int)HAL_GetTick();
+                second = (int)TIME_MS;
             }
             Text("осяй").Write(430, 80);
-            if((second + 1000) < (int)HAL_GetTick())
+            if((second + 1000) < (int)TIME_MS)
             {
                 second = 0;
                 PageIndication::OnceLaunchSwitchFalse();
