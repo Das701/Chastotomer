@@ -15,30 +15,28 @@
 #include <cstdio>
 #include <stm32f4xx_hal.h>
 
-#ifdef GUI
-static uint SystemCoreClock = 10;
-#endif
+
 
 
 #define READ_PIN_B14(x)  \
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);        \
-    delay_us(2);                                                \
-    x = (char)HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);             \
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);      \
-    delay_us(2);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);    \
+    HAL_TIM::DelayUS(2);                                    \
+    x = (char)HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);         \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);  \
+    HAL_TIM::DelayUS(2);
 
 #define WRITE_COMMAND_1()   \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);    \
-    delay_us(2);                                            \
+    HAL_TIM::DelayUS(2);                                    \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);    \
-    delay_us(2);                                            \
+    HAL_TIM::DelayUS(2);                                    \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
 #define WRITE_COMMAND_0() \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);  \
-    delay_us(2);                                            \
+    HAL_TIM::DelayUS(2);                                    \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);    \
-    delay_us(2);                                            \
+    HAL_TIM::DelayUS(2);                                    \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
 static int dcycleZeros = 0;
@@ -109,16 +107,6 @@ static int NAC = 0;
 static __inline uint32_t delta(uint32_t t0, uint32_t t1)
 {
     return (t1 - t0); 
-}
-
-
-void delay_us(uint32_t us)
-{
-      uint32_t t0 =  DWT->CYCCNT;
-      uint32_t us_count_tic =  us * (SystemCoreClock / 1000000);
-      while (delta(t0, DWT->CYCCNT) < us_count_tic) //-V712
-      {
-      };
 }
 
 
@@ -567,7 +555,7 @@ void PLIS::Update()
             }
 
             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
-            delay_us(8);
+            HAL_TIM::DelayUS(8);
         }
     }
     else
@@ -599,7 +587,7 @@ void PLIS::Update()
                 }
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
-                delay_us(8);
+                HAL_TIM::DelayUS(8);
             }
         }
         else if((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && PageModesA::DCycleCheck())
@@ -619,7 +607,7 @@ void PLIS::Update()
                 }
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
-                delay_us(8);
+                HAL_TIM::DelayUS(8);
             }
         }
         else if (CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsComparator() && PageModesA::typeMeasure.IsFrequency())) 
@@ -649,7 +637,7 @@ void PLIS::Update()
                 }
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
-                delay_us(8);
+                HAL_TIM::DelayUS(8);
             }
         }
         else
@@ -672,7 +660,7 @@ void PLIS::Update()
                 }
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
-                delay_us(8);
+                HAL_TIM::DelayUS(8);
             }
         }
     }
@@ -993,11 +981,11 @@ void PLIS::WriteCommand(const char *command, const char *argument)
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET); //-V525
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
         for (int i = 0; i < 4; i++)
@@ -1024,14 +1012,14 @@ void PLIS::WriteCommand(const char *command, const char *argument)
             }
         }
 
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //-V525
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
     }
@@ -1167,7 +1155,7 @@ void PLIS::ReadCalibNumber()
         }
 
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
-        delay_us(8);
+        HAL_TIM::DelayUS(8);
     }
 
     int len = 10;
@@ -1231,11 +1219,11 @@ void PLIS::WriteData()
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET); //-V525
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
         for(int i = 9; i > -1; i--)
@@ -1250,14 +1238,14 @@ void PLIS::WriteData()
             }
         }
 
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //-V525
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-        delay_us(2);
+        HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
     }

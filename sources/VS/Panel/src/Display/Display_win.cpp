@@ -46,7 +46,7 @@ static wxBitmap bitmap(Display::WIDTH, Display::HEIGHT);
 
 
 // Создаёт окно приложения. Возвращает хэндл виджета для отрисовки
-static HANDLE CreateFrame();
+static void CreateFrame();
 // Установить размер и оптимальную позицию для окна приложения
 static void SetPositionAndSize(Frame *frame);
 // Получить разрешение максимального имеющегося в системе монитора
@@ -62,7 +62,7 @@ class Screen : public wxPanel
 public:
     Screen(wxWindow *parent) : wxPanel(parent, 320)
     {
-        SetMinSize({ 320, 240 });
+        SetMinSize({ Display::WIDTH, Display::HEIGHT });
         SetDoubleBuffered(true);
         Bind(wxEVT_PAINT, &Screen::OnPaint, this);
     }
@@ -90,7 +90,7 @@ void Display::BeginScene()
     memDC.SelectObject(bitmap);
     wxBrush brush({ 0, 0, 0 }, wxTRANSPARENT);
     memDC.SetBrush(brush);
-    Primitives::Rectangle(320, 240).Fill(0, 0, Color::BLACK);
+    Primitives::Rectangle(Display::WIDTH, Display::HEIGHT).Fill(0, 0, Color::BLACK);
 }
 
 
@@ -117,7 +117,7 @@ void Frame::HandlerEvents()
 }
 
 
-static HANDLE CreateFrame()
+static void CreateFrame()
 {
 	Frame *frame = new Frame("");
 
@@ -129,18 +129,11 @@ static HANDLE CreateFrame()
 
     sizer->Add(screen);
 
-	wxButton *button = new wxButton(frame, wxID_ANY, "", { 10, 10 }, { Frame::WIDTH, Frame::HEIGHT });
-	button->SetMaxSize({ Frame::WIDTH, Frame::HEIGHT });
-
-	sizer->Add(button);
-
 	frame->SetSizer(sizer);
 
 	CreateButtons(frame);
 
 	frame->Show(true);
-
-	return button->GetHandle();
 }
 
 

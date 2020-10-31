@@ -61,7 +61,7 @@ void HAL::Init()
     SystemClock_Config();
 
     HAL_FSMC::Init();
-    HAL_DWT::Init();
+    HAL_TIM::Init();
 }
 
 
@@ -98,23 +98,6 @@ void SystemClock_Config(void)
     {
         HAL::ERROR_HANDLER();
     }
-}
-
-
-void HAL_DWT::Init()
-{
-#define    DWT_CYCCNT    *(volatile unsigned long *)0xE0001004
-#define    DWT_CONTROL   *(volatile unsigned long *)0xE0001000
-#define    SCB_DEMCR     *(volatile unsigned long *)0xE000EDFC
-
-#ifndef GUI
-    //разрешаем использовать счётчик
-    SCB_DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; //-V2523
-    //обнуляем значение счётного регистра
-    DWT_CYCCNT = 0; //-V2523
-    //запускаем счётчик
-    DWT_CONTROL |= DWT_CTRL_CYCCNTENA_Msk; //-V2523
-#endif
 }
 
 

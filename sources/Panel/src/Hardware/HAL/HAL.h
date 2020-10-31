@@ -12,12 +12,6 @@ struct HAL
 };
 
 
-struct HAL_DWT
-{
-    static void Init();
-};
-
-
 struct HAL_FSMC
 {
     static void Init();
@@ -41,9 +35,13 @@ struct HAL_PCD
 
 struct HAL_TIM
 {
+    static void Init();
+
     static uint TimeMS();
 
-    static void Delay(uint timeMS);
+    static void DelayMS(uint timeMS);
+
+    static void DelayUS(uint timeUS);
 };
 
 
