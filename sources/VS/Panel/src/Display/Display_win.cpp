@@ -219,6 +219,3 @@ static wxRect GetMaxDisplay()
 
     return result;
 }
-
-
-#include "Primitives_win.h"
