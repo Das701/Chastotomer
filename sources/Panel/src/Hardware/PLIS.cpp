@@ -392,6 +392,7 @@ static void CalculationInterpole()
     int base2 = 1; 
     int base3 = 1; 
     int len = 24;   
+
     for (int i = len - 1; i >= 0; i--) 
     { 
         if (timer1[i] == 1) 
@@ -400,6 +401,7 @@ static void CalculationInterpole()
         }            
         base1 = base1 * 2; 
     }
+
     for (int i = len - 1; i >= 0; i--) 
     { 
         if (CAL1[i] == 1) 
@@ -408,6 +410,7 @@ static void CalculationInterpole()
         }            
         base2 = base2 * 2; 
     } 
+
     for (int i = len - 1; i >= 0; i--) 
     { 
         if (CAL2[i] == 1) 
@@ -415,8 +418,9 @@ static void CalculationInterpole()
             decCAL2 += base3;
         }            
         base3 = base3 * 2; 
-    }     
-    interpol = (float)(100 * decTimer1) / (decCAL2 - decCAL1);
+    }
+
+    interpol = (float)(100 * decTimer1) / (float)(decCAL2 - decCAL1);
 }
 
 static void CalculationComparator() 
