@@ -15,6 +15,10 @@
 #include <cstdio>
 #include <stm32f4xx_hal.h>
 
+#ifdef GUI
+static uint SystemCoreClock = 10;
+#endif
+
 
 #define    DWT_CYCCNT    *(volatile unsigned long *)0xE0001004
 #define    DWT_CONTROL   *(volatile unsigned long *)0xE0001000
@@ -702,7 +706,7 @@ char* PLIS::GiveData()
 
         if(CurrentModeMeasureCountPulse::IsBig_T())
         {
-            decDataA /= PageModesA::numberPeriods.ToAbs();
+            decDataA /= (float)PageModesA::numberPeriods.ToAbs();
         }
 
         std::sprintf(procData, "%10.0f", decDataA);
@@ -722,8 +726,8 @@ char* PLIS::GiveData()
         else if (CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsComparator() && PageModesA::typeMeasure.IsFrequency())) 
         {
             CalculationComparator();
-            int top = 200;
-            int n = 5000000;
+            float top = 200.0F;
+            float n = 5000000.0F;
             float dx = ((decTizm * 100) / decNkal);
             float k = (n - decFx) / n;
             decDataA = k - (dx / top) / n;

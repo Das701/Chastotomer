@@ -11,8 +11,7 @@ include_directories(src/
                     ../../Panel/src/libs/HAL/
                     ../../Panel/src/Hardware/
                     ../../ThirdParty/wxWidgets/include
-                    ../../ThirdParty/wxWidgets/generated/lib/vc_dll/mswud
-                    )
+                    ../../ThirdParty/wxWidgets/generated/lib/vc_dll/mswud)
                     
 add_definitions(-DSTM32F429xx -DWXUSINGDLL -DGUI)
 
@@ -39,8 +38,7 @@ file(GLOB SRC              ../../Panel/src/defines.h
                            ../../Panel/src/FreqMeter.*
                            ../../Panel/src/Settings.*
                                        src/Application.*
-                                       src/main_win.cpp
-                                       src/stdafx.h)
+                                       src/main_win.cpp)
 file(GLOB DISPLAY                      src/Display/Display_win.cpp
                                        src/Display/Colors_win.cpp
                            ../../Panel/src/Display/Colors.h
@@ -50,9 +48,11 @@ file(GLOB DISPLAY                      src/Display/Display_win.cpp
                            ../../Panel/src/Display/Text.*)
 file(GLOB DISPLAY_FONT     ../../Panel/src/Display/Font/*)
 file(GLOB FREQMETER        ../../Panel/src/FreqMeter/*)
-file(GLOB HARDWARE         ../../Panel/src/Hardware/*.h
-                           ../../Panel/src/Hardware/*.cpp)
+file(GLOB HARDWARE         ../../Panel/src/Hardware/PLIS.*
+                           ../../Panel/src/Hardware/VCP.h
+                                       src/Hardware/VCP_win.cpp)
 file(GLOB HARDWARE_HAL     ../../Panel/src/Hardware/HAL/HAL.*
+                           ../../Panel/src/Hardware/HAL/HAL_FSMC.cpp
                            ../../Panel/src/Hardware/HAL/HAL_TIM.cpp)
 file(GLOB KEYBOARD         ../../Panel/src/Keyboard/Keyboard.h
                                        src/Keyboard/Keyboard_win.cpp)
@@ -73,7 +73,7 @@ source_group(Menu          FILES ${MENU})
 source_group(Menu\\Pages   FILES ${MENU_PAGES})
 source_group(SCPI          FILES ${SCPI})
 source_group(Utils         FILES ${UTILS})
-                    
+
 add_executable(PanelGUI ${VS_HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${FREQMETER} ${HARDWARE_HAL} ${KEYBOARD} ${MENU} ${MENU_PAGES} ${SCPI} ${UTILS})
 
 target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
