@@ -1,7 +1,8 @@
 #include "defines.h"
 #include "usbd_core.h"
-#include <stm32f4xx_hal.h>
 #include "Hardware/VCP.h"
+#include "Hardware/HAL/HAL.h"
+#include <stm32f4xx_hal.h>
 
 
 /*******************************************************************************
@@ -119,9 +120,9 @@ USBD_StatusTypeDef  USBD_LL_Init (USBD_HandleTypeDef *pdev)
 { 
     NVIC_SetPriority (SysTick_IRQn, 0);  
   
-    if(pdev->id == VCP::DEVICE_FS)
+    if(pdev->id == 0)
     {
-        PCD_HandleTypeDef *hPCD = (PCD_HandleTypeDef *)VCP::handlePCD;
+        PCD_HandleTypeDef *hPCD = (PCD_HandleTypeDef *)HAL_PCD::handle;
 
         // Link The driver to the stack
         hPCD->pData = pdev;

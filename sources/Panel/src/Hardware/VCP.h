@@ -7,10 +7,12 @@
 #define CONNECTED_TO_USB                  VCP::connectedToUSB
 #define CABLE_USB_IS_CONNECTED            VCP::cableUSBisConnected
 
+
+#define SIZE_BUFFER_VCP 256
+
 class VCP
 {
 public:
-    static const int DEVICE_FS = 0;
 
     // Инициализация
     static void Init();
@@ -31,16 +33,7 @@ public:
 
     static void Flush();
 
-    // USBD_HandleTypeDef
-    static void *handleUSBD;
-
-    // PCD_HandleTypeDef
-    static  void *handlePCD;
-
     static bool connectedToUSB;
 
     static bool cableUSBisConnected;
-    
-private:
-    static bool PrevSendingComplete();
 };

@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Hardware/VCP.h"
+#include "Hardware/HAL/HAL.h"
 #include "SCPI/SCPI.h"
 #include <usbd_cdc.h>
 
@@ -35,7 +36,7 @@ USBD_CDC_ItfTypeDef USBD_CDC_fops =
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static int8_t CDC_Itf_Init()
 {
-    USBD_CDC_SetRxBuffer((USBD_HandleTypeDef *)VCP::handleUSBD, UserRxBuffer);
+    USBD_CDC_SetRxBuffer((USBD_HandleTypeDef *)HAL_USBD::handle, UserRxBuffer);
     return (USBD_OK);
 }
 
@@ -113,7 +114,7 @@ static int8_t CDC_Itf_Receive(uint8 *buffer, uint *length) //-V2009 //-V2558
 {
     SCPI::AppendNewData(reinterpret_cast<const char *>(buffer), *reinterpret_cast<int *>(length));
     
-    USBD_CDC_ReceivePacket((USBD_HandleTypeDef *)VCP::handleUSBD);
+    USBD_CDC_ReceivePacket((USBD_HandleTypeDef *)HAL_USBD::handle);
 
     return (USBD_OK);
 }

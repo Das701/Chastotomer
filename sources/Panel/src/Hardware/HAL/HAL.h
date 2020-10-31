@@ -27,9 +27,37 @@ struct HAL_FSMC
 };
 
 
+struct HAL_PCD
+{
+    // PCD_HandleTypeDef
+    static void *handle;
+};
+
+
 struct HAL_TIM
 {
     static uint TimeMS();
 
     static void Delay(uint timeMS);
+};
+
+
+struct HAL_USBD
+{
+    // USBD_HandleTypeDef
+    static void *handle;
+
+private:
+    friend class VCP;
+
+    static void Init();
+
+    static bool PrevSendingComplete();
+
+    static void SetBufferTX(uint8 *buffer, uint size);
+
+    static void Flush(uint8 *buffer, int size);
+
+    //static void SendDataSynch(const void *buffer, uint size);
+    static void SendDataSynch(int sizeBuffer, uint sizeSend, uint8 *buffSend, char *buffer);
 };

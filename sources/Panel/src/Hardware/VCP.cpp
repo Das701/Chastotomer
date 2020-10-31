@@ -1,90 +1,50 @@
 #include "defines.h"
 #include "Hardware/VCP.h"
-#include "Hardware/USBD/usbd_cdc_interface.h"
-#include "Hardware/USBD/usbd_desc.h"
+#include "Hardware/HAL/HAL.h"
+#include "Utils/Math.h"
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
 
-namespace Math
-{
-template<class T>
-T Min(T x1, T x2)
-{
-    return (x1 < x2) ? x1 : x2;
-}
-
-}
-
-#define LIMITATION(var, min, max)           if(var < (min)) { (var) = (min); } else if(var > (max)) { var = (max); };
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static USBD_HandleTypeDef hUSBD;
-static PCD_HandleTypeDef hPCD;
-
-void *VCP::handleUSBD = &hUSBD;
-void *VCP::handlePCD = &hPCD;
 
 bool VCP::cableUSBisConnected = false;
 bool VCP::connectedToUSB = false;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void VCP::Init()
 {
-    USBD_Init(&hUSBD, &VCP_Desc, DEVICE_FS);
-    USBD_RegisterClass(&hUSBD, &USBD_CDC);
-    USBD_CDC_RegisterInterface(&hUSBD, &USBD_CDC_fops);
-    USBD_Start(&hUSBD);
+    HAL_USBD::Init();
 } 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-bool VCP::PrevSendingComplete()
-{
-    USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData;
-    return pCDC->TxState == 0;
-}
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 void VCP::SendDataAsynch(const uint8 *buffer, uint size)
 {
 #define SIZE_BUFFER 64U
     static uint8 trBuf[SIZE_BUFFER];
 
     size = Math::Min(size, SIZE_BUFFER);
-    while (!PrevSendingComplete())  {};
+    while (!HAL_USBD::PrevSendingComplete())  {};
     std::memcpy(trBuf, buffer, (uint)size);
 
-    USBD_CDC_SetTxBuffer(&hUSBD, trBuf, (uint16)size);
-    USBD_CDC_TransmitPacket(&hUSBD);
+    HAL_USBD::SetBufferTX(trBuf, size);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-#define SIZE_BUFFER_VCP 256     // \todo если поставить размер буфера 512, то на ТЕ207 глюки
+
 static uint8 buffSend[SIZE_BUFFER_VCP];
 static int sizeBuffer = 0;
-//static uint8 buffReceive[SIZE_BUFFER_VCP];
-//static int sizeBufferRx = 0;
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void VCP::Flush()
 {
     if (sizeBuffer)
     {
-        volatile USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData;
-
-        while (pCDC->TxState == 1) {}; //-V712
-
-        USBD_CDC_SetTxBuffer(&hUSBD, buffSend, (uint16)sizeBuffer);
-        USBD_CDC_TransmitPacket(&hUSBD);
-
-        while (pCDC->TxState == 1) {}; //-V654 //-V712
+        HAL_USBD::Flush(buffSend, sizeBuffer);
     }
+
     sizeBuffer = 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void VCP::SendDataSynch(const void *_buffer, uint size)
 {
     if (CONNECTED_TO_USB)
@@ -95,47 +55,23 @@ void VCP::SendDataSynch(const void *_buffer, uint size)
             size = std::strlen(buffer);
         }
 
-        volatile USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData;
-    
-        do 
-        {
-            if (sizeBuffer + size > SIZE_BUFFER_VCP)
-            {
-                int reqBytes = SIZE_BUFFER_VCP - sizeBuffer;
-                LIMITATION(reqBytes, 0, (int)size); //-V2516
-
-                while (pCDC->TxState == 1) {}; //-V712
-
-                std::memcpy(buffSend + sizeBuffer, (void *)buffer, (uint)reqBytes);
-                USBD_CDC_SetTxBuffer(&hUSBD, buffSend, SIZE_BUFFER_VCP);
-                USBD_CDC_TransmitPacket(&hUSBD);
-                size -= reqBytes;
-                buffer += reqBytes;
-                sizeBuffer = 0;
-            }
-            else
-            {
-                std::memcpy(buffSend + sizeBuffer, (void *)buffer, (uint)size);
-                sizeBuffer += size;
-                size = 0;
-            }
-        } while (size);
+        HAL_USBD::SendDataSynch(sizeBuffer, size, buffSend, buffer);
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void VCP::SendStringAsynch(const char *data)
 {
     SendDataAsynch((uint8 *)data, std::strlen(data));
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void VCP::SendStringSynch(char *data)
 {
     SendDataSynch((uint8 *)data, std::strlen(data));
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void VCP::SendFormatStringAsynch(char *format, ...)
 {
     if (CONNECTED_TO_USB)
@@ -150,7 +86,7 @@ void VCP::SendFormatStringAsynch(char *format, ...)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void VCP::SendFormatStringSynch(char *format, ...)
 {
     char buffer[200];
@@ -162,9 +98,8 @@ void VCP::SendFormatStringSynch(char *format, ...)
     SendDataSynch((uint8 *)buffer, std::strlen(buffer));
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void VCP::SendByte(uint8 byte)
 {
     SendDataSynch(&byte, 1);
 }
-

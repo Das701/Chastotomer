@@ -689,6 +689,11 @@
               <FilePath>.\src\Hardware\HAL\HAL_TIM.cpp</FilePath>
             </File>
             <File>
+              <FileName>HAL_USBD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_USBD.cpp</FilePath>
+            </File>
+            <File>
               <FileName>stm32f4xx_hal_conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\stm32f4xx_hal_conf.h</FilePath>

@@ -4,10 +4,13 @@
 #include <stm32f4xx_hal.h>
 
 
+static PCD_HandleTypeDef hPCD;
+void *HAL_PCD::handle = &hPCD;
+
+
 static void SystemClock_Config(void);
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void HAL::Init()
 {
     HAL_Init();
@@ -56,9 +59,11 @@ void HAL::Init()
     HAL_NVIC_EnableIRQ(OTG_FS_IRQn);
     
     SystemClock_Config();
+
     HAL_FSMC::Init();
     PLIS::Init();
 }
+
 
 void SystemClock_Config(void)
 {
@@ -120,7 +125,6 @@ name and line number,
 #endif /* USE_FULL_ASSERT */
 
 
-//------------------------------------------------------------
 void ERROR_HANDLER(void)
 {
     *((int*)((void*)0)) = 0;
