@@ -36,6 +36,7 @@ add_compile_options(/wd5204)    # 'xxx': class has virtual functions, but its tr
 
 file(GLOB VS_HAL           ../../common/_VS_KEIL/HAL/*)
 file(GLOB SRC              ../../Panel/src/defines.h
+                           ../../Panel/src/FreqMeter.*
                            ../../Panel/src/Settings.*
                                        src/Application.*
                                        src/main_win.cpp
