@@ -284,12 +284,12 @@ static void InitTimer()
 
     if (HAL_TIM_Base_Init(&handleTIM4) != HAL_OK)
     {
-        ERROR_HANDLER();
+        HAL::ERROR_HANDLER();
     }
 
     if (HAL_TIM_Base_Start_IT(&handleTIM4) != HAL_OK)
     {
-        ERROR_HANDLER();
+        HAL::ERROR_HANDLER();
     }
 
     Set_All_SL(1);

@@ -2,12 +2,17 @@
 #include "defines.h"
 
 
-void ERROR_HANDLER();
-
 #define TIME_MS   HAL_TIM::TimeMS()
 
 
 struct HAL
+{
+    static void Init();
+    static void ERROR_HANDLER();
+};
+
+
+struct HAL_DWT
 {
     static void Init();
 };

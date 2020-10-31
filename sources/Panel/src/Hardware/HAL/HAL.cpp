@@ -61,7 +61,7 @@ void HAL::Init()
     SystemClock_Config();
 
     HAL_FSMC::Init();
-    PLIS::Init();
+    HAL_DWT::Init();
 }
 
 
@@ -86,7 +86,7 @@ void SystemClock_Config(void)
     RCC_OscInitStruct.PLL.PLLQ = 7;
     if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
     {
-//      ERROR_HANDLER();
+        HAL::ERROR_HANDLER();
     }
     
     RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
@@ -96,36 +96,29 @@ void SystemClock_Config(void)
     RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;  
     if(HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
     {
-//      ERROR_HANDLER();
+        HAL::ERROR_HANDLER();
     }
 }
 
 
-#ifdef  USE_FULL_ASSERT
-/**
-  * @brief  Reports the name of the source file and the source 
-
-line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
-void assert_failed(uint8_t *file, uint32_t line)
+void HAL_DWT::Init()
 {
-    /* USER CODE BEGIN 6 */
-    /* User can add his own implementation to report the file 
+#define    DWT_CYCCNT    *(volatile unsigned long *)0xE0001004
+#define    DWT_CONTROL   *(volatile unsigned long *)0xE0001000
+#define    SCB_DEMCR     *(volatile unsigned long *)0xE000EDFC
 
-name and line number,
-       tex: printf("Wrong parameters value: file %s on line 
-
-%d\r\n", file, line) */
-       /* USER CODE END 6 */
+#ifndef GUI
+    //разрешаем использовать счётчик
+    SCB_DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; //-V2523
+    //обнуляем значение счётного регистра
+    DWT_CYCCNT = 0; //-V2523
+    //запускаем счётчик
+    DWT_CONTROL |= DWT_CTRL_CYCCNTENA_Msk; //-V2523
+#endif
 }
-#endif /* USE_FULL_ASSERT */
 
 
-void ERROR_HANDLER(void)
+void HAL::ERROR_HANDLER()
 {
     *((int*)((void*)0)) = 0;
 }

@@ -20,11 +20,6 @@ static uint SystemCoreClock = 10;
 #endif
 
 
-#define    DWT_CYCCNT    *(volatile unsigned long *)0xE0001004
-#define    DWT_CONTROL   *(volatile unsigned long *)0xE0001000
-#define    SCB_DEMCR     *(volatile unsigned long *)0xE000EDFC
-
-
 #define READ_PIN_B14(x)  \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);        \
     delay_us(2);                                                \
@@ -110,20 +105,13 @@ static char calibBin[10];
 static int calibNumber = 0;
 static int NAC = 0;
 
-void DWT_Init(void)
-{
-    //разрешаем использовать счётчик
-    SCB_DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; //-V2523
-    //обнуляем значение счётного регистра
-    DWT_CYCCNT = 0; //-V2523
-    //запускаем счётчик
-    DWT_CONTROL |= DWT_CTRL_CYCCNTENA_Msk; //-V2523
-}
 
 static __inline uint32_t delta(uint32_t t0, uint32_t t1)
 {
     return (t1 - t0); 
 }
+
+
 void delay_us(uint32_t us)
 {
       uint32_t t0 =  DWT->CYCCNT;
@@ -132,6 +120,7 @@ void delay_us(uint32_t us)
       {
       };
 }
+
 
 static void BinToDec() 
 { 
@@ -529,8 +518,6 @@ void DecToBin(int dec, char* bin)
 
 void PLIS::Init()
 {
-    DWT_Init();
-    
     __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOC_CLK_ENABLE();
     

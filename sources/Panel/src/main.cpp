@@ -11,10 +11,10 @@
 using Display::Text;
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main(void)
 {
     HAL::Init();
+    PLIS::Init();
     Display::Init();
     Keyboard::Init();
     Menu::Init();   
@@ -22,18 +22,22 @@ int main(void)
     Display::Update();
     VCP::Init();
     uint time = TIME_MS;
+
     while((time + 3000) > TIME_MS)
     {
         Display::StartScreen();
     }
+
     while (1)
     {
         PLIS::Update();
         Menu::Update();
+
         if(TIME_MS > time + 10)
         {
             Display::Update(); 
         }
+
         SCPI::Update();
     }
 }
