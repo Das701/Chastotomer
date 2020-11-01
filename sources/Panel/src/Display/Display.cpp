@@ -32,7 +32,7 @@ static void DrawTypeMeasure();
 // Нарисовать режим измерения
 static void DrawModeMeasure();
 // Нарисовать подсказку
-//static void DrawHint();
+static void DrawHint();
 // Нарисовать статус-бар
 static void DrawStatusBar();
 static void DrawStatusBarA();
@@ -50,8 +50,8 @@ static void DrawData();
 
 extern int info;
 
-//static int autoHint = 0;
-//static bool autoFlag = false;
+static int autoHint = 0;
+static bool autoFlag = false;
 
 //static void CalculateCoord(int &x, int &y, int sizeX, int sizeY)
 //{
@@ -135,7 +135,7 @@ static void DrawScreen()
         
         DrawModeMeasure();
         
-//        DrawHint();
+        DrawHint();
         
         DrawChannelSettings();
         
@@ -241,37 +241,37 @@ static void DrawStatusBar()
     }
 }
 
-//static void DrawHint()
-//{
-//    if((TIME_MS < (uint)(autoHint + 10000)) && autoFlag == true)
-//    {
-//        Text(PLIS::GiveAuto()).Write(102, 37);
-//        FreqMeter::UnloadAuto();
-//    }
-//    else
-//    {
-//        if(PLIS::AutoMode())
-//        {
-//            
-//            if((PLIS::MidAuto() != 0) || (PLIS::MaxAuto() != 0) || (PLIS::MinAuto() != 0))
-//            {
-//                Text(PLIS::GiveAuto()).Write(102, 37);
-//                PLIS::SwitchAuto();
-//                autoHint = (int)TIME_MS;
-//                autoFlag = true;
-//            }
-//            else
-//            {
-//                Text("Установка уровня синхр.").Write(102, 37);
-//            }
-//        }
-//        else
-//        {
-//            Text(Hint::Text()).Write(102, 37);
-//            autoFlag = false;
-//        }
-//    }
-//}
+static void DrawHint()
+{
+    if((TIME_MS < (uint)(autoHint + 10000)) && autoFlag == true)
+    {
+        Text(PLIS::GiveAuto()).Write(102, 37);
+        FreqMeter::UnloadAuto();
+    }
+    else
+    {
+        if(PLIS::AutoMode())
+        {
+            
+            if((PLIS::MidAuto() != 0) || (PLIS::MaxAuto() != 0) || (PLIS::MinAuto() != 0))
+            {
+                Text(PLIS::GiveAuto()).Write(102, 37);
+                PLIS::SwitchAuto();
+                autoHint = (int)TIME_MS;
+                autoFlag = true;
+            }
+            else
+            {
+                Text("Установка уровня синхр.").Write(102, 37);
+            }
+        }
+        else
+        {
+            Text(Hint::Text()).Write(102, 37);
+            autoFlag = false;
+        }
+    }
+}
 
 //static bool xMark = false;
 
