@@ -58,7 +58,9 @@ file(GLOB HARDWARE_HAL     ../../Panel/src/Hardware/HAL/HAL.*
                            ../../Panel/src/Hardware/HAL/HAL_TIM.cpp)
 file(GLOB KEYBOARD         ../../Panel/src/Keyboard/Keyboard.h
                                        src/Keyboard/Keyboard_win.cpp)
-file(GLOB MENU             ../../Panel/src/Menu/*)
+file(GLOB MENU             ../../Panel/src/Menu/*.h
+                           ../../Panel/src/Menu/*.cpp
+                           ../../Panel/src/Menu/*.txt)
 file(GLOB MENU_PAGES       ../../Panel/src/Menu/Pages/*)
 file(GLOB SCPI             ../../Panel/src/SCPI/*)
 file(GLOB UTILS            ../../Panel/src/Utils/*)
