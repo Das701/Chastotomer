@@ -173,7 +173,22 @@ DEF_SWITCH_4(sTypeMeasure,
 static void OnPress_ModeFrequency()
 {
     ClearItems(2);  
-    if (PageModesA::modeMeasureFrequency.IsAC())
+
+    if (PageModesA::modeMeasureFrequency.IsFrequency())
+    {
+        items[1] = &sModeFrequency;
+        items[2] = &sPeriodTimeLabels;
+        items[3] = &sTimeMeasure;
+        PageModesA::RelationOff();
+    }
+    else if (PageModesA::modeMeasureFrequency.IsAB())
+    {
+        items[1] = &sModeFrequency;
+        items[2] = &sNumberPeriods;
+        items[3] = nullptr;
+        PageModesA::RelationOn();
+    }
+    else if (PageModesA::modeMeasureFrequency.IsAC())
     {
         items[1] = &sModeFrequency;
         items[2] = &sTimeMeasure;
@@ -182,39 +197,26 @@ static void OnPress_ModeFrequency()
     }
     else if(PageModesA::modeMeasureFrequency.IsT_1())
     {
-        items[2] = &sPeriodTimeLabels;   
         items[1] = &sModeFrequency;
+        items[2] = &sPeriodTimeLabels;   
         items[3] = &sNumberPeriods;
         PageModesA::RelationOff();
     }
     else if(PageModesA::modeMeasureFrequency.IsTachometer())
     {
-        items[2] = &sPeriodTimeLabels;   
         items[1] = &sModeFrequency;
+        items[2] = &sPeriodTimeLabels;   
         items[3] = nullptr;
         PageModesA::RelationOff();
-    }
-    else if(PageModesA::modeMeasureFrequency.IsAB())
-    {
-        items[2] = &sNumberPeriods;   
-        items[1] = &sModeFrequency;
-        items[3] = nullptr;
-        PageModesA::RelationOn();
     }
     else if(PageModesA::modeMeasureFrequency.IsComparator())
     {
-        items[2] = nullptr;   
         items[1] = &sModeFrequency;
+        items[2] = nullptr;   
         items[3] = nullptr;
         PageModesA::RelationOff();
     }
-    else
-    {
-        items[2] = &sPeriodTimeLabels;   
-        items[1] = &sModeFrequency;
-        items[3] = &sTimeMeasure;
-        PageModesA::RelationOff();
-    }
+
     PageModesA::InterpoleOff();
     PageModesA::DCycleOff();   
     FreqMeter::LoadModeMeasureFrequency();
