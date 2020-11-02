@@ -131,49 +131,30 @@ bool Page::OnControl(const Control &control) //-V2008
         break;
 
     case Control::GovLeft:
+
         if (PageIndication::calibration.Is(Calibration::Pressed))
         {
         }
-        else
+        else if(CURRENT_CHANNEL_IS_A_OR_B)
         {
-            if (((PageChannelB::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_B) || ((PageChannelA::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_A))
-            {
-                if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A > 1)) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B > 1)))
-                {
-                    result = ChangeLevelSynch(-1);      // Делаем попытку изменить уровень синхронизации
-                }
-            }
-            else
-            {
-                if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A > (-800))) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B > (-800))))
-                {
-                    result = ChangeLevelSynch(-2);     // Делаем попытку изменить уровень синхронизации
-                }
-            }
+            result = ChangeLevelSynch(-2);
         }
+
         PLIS::DecreaseN();
         PLIS::WriteData();
         info = 3;
         break;
 
     case Control::GovRight:
+
         if (PageIndication::calibration.Is(Calibration::Pressed))
         {
         }
-        else
+        else if(CURRENT_CHANNEL_IS_A_OR_B)
         {
-            if (((PageChannelB::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_B) || ((PageChannelA::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_A))
-            {
-                result = ChangeLevelSynch(1);           // Делаем попытку изменить уровень синхронизации
-            }
-            else
-            {
-                if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A < 800)) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B < 800)))
-                {
-                    result = ChangeLevelSynch(2);       // Делаем попытку изменить уровень синхронизации
-                }
-            }
+            result = ChangeLevelSynch(2);
         }
+
         PLIS::IncreaseN();
         PLIS::WriteData();
         info = 4;

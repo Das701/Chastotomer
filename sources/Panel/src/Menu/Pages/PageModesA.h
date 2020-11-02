@@ -189,6 +189,13 @@ struct NumberPeriods : public Enumeration
 };
 
 
+// Здесь функции общие для всех страниц режимов каналов
+struct PageModes
+{
+    static void ResetModesMeasures();
+};
+
+
 class PageModesA
 {
 public:
@@ -207,20 +214,16 @@ public:
     static void PressSetup();
     static bool StartStop();
     static void ToggleStartStop();
-    // Тип измерения
-    static TypeMeasureAB typeMeasure;
-    // Режим измерения частоты
-    static ModeMeasureFrequencyA modeMeasureFrequency;
-    // Режим измерения периода
-    static ModeMeasurePeriod modeMeasurePeriod;
-    // Режим измерения длительности
-    static ModeMeasureDuration modeMeasureDuration;
-    // Режим счёта импульсов
-    static ModeMeasureCountPulseA modeMeasureCountPulse;
-    // Период меток времени
-    static PeriodTimeLabels periodTimeLabels;
-    // Время счета
-    static TimeMeasure timeMeasure;
-    // Число периодов измерения
-    static NumberPeriods numberPeriods;
+
+    // Сброс режима измерения
+    static void ResetModesMeasures();
+    
+    static TypeMeasureAB            typeMeasure;                // Тип измерения
+    static ModeMeasureFrequencyA    modeMeasureFrequency;       // Режим измерения частоты
+    static ModeMeasurePeriod        modeMeasurePeriod;          // Режим измерения периода
+    static ModeMeasureDuration      modeMeasureDuration;        // Режим измерения длительности
+    static ModeMeasureCountPulseA   modeMeasureCountPulse;      // Режим счёта импульсов
+    static PeriodTimeLabels         periodTimeLabels;           // Период меток времени
+    static TimeMeasure              timeMeasure;                // Время счета
+    static NumberPeriods            numberPeriods;              // Число периодов измерения
 };

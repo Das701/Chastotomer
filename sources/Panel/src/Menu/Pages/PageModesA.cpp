@@ -105,23 +105,23 @@ void PageModesA::PressSetup()
 {
     switch (PageModesA::typeMeasure.value)
     {
-        case TypeMeasureAB::Frequency:
-            items[1] = &sModeFrequency;
-            break;
-    
-        case TypeMeasureAB::Period:
-            items[1] = &sModePeriod;
-            break;
-    
-        case TypeMeasureAB::Duration:
-            items[1] = &sModeDuration;
-            break;
-    
-        case TypeMeasureAB::CountPulse:
-            items[1] = &sModeCountPulse;
-            break;
-    }  
-    
+    case TypeMeasureAB::Frequency:
+        items[1] = &sModeFrequency;
+        break;
+
+    case TypeMeasureAB::Period:
+        items[1] = &sModePeriod;
+        break;
+
+    case TypeMeasureAB::Duration:
+        items[1] = &sModeDuration;
+        break;
+
+    case TypeMeasureAB::CountPulse:
+        items[1] = &sModeCountPulse;
+        break;
+    }
+
 }
 
 
@@ -136,30 +136,32 @@ static void ClearItems(int num)
 
 static void OnPress_TypeMeasure()
 {
-        switch (PageModesA::typeMeasure.value)
-        {
-        case TypeMeasureAB::Frequency:
-            PageModesB::typeMeasure.value = TypeMeasureAB::Frequency;
-            PageModesC::typeMeasure.value = TypeMeasureC::Frequency;
-            OnPress_ModeFrequency();
-            break;
-    
-        case TypeMeasureAB::Period:
-            PageModesB::typeMeasure.value = TypeMeasureAB::Period;
-            OnPress_ModePeriod();
-            break;
-    
-        case TypeMeasureAB::Duration:
-            PageModesB::typeMeasure.value = TypeMeasureAB::Duration;
-            OnPress_ModeDuration();
-            break;
-    
-        case TypeMeasureAB::CountPulse:
-            PageModesB::typeMeasure.value = TypeMeasureAB::CountPulse;
-            PageModesC::typeMeasure.value = TypeMeasureC::CountPulse;
-            OnPress_ModeCountPulse();
-            break;
-        }        
+    PageModes::ResetModesMeasures();
+
+    switch (PageModesA::typeMeasure.value)
+    {
+    case TypeMeasureAB::Frequency:
+        PageModesB::typeMeasure.value = TypeMeasureAB::Frequency;
+        PageModesC::typeMeasure.value = TypeMeasureC::Frequency;
+        OnPress_ModeFrequency();
+        break;
+
+    case TypeMeasureAB::Period:
+        PageModesB::typeMeasure.value = TypeMeasureAB::Period;
+        OnPress_ModePeriod();
+        break;
+
+    case TypeMeasureAB::Duration:
+        PageModesB::typeMeasure.value = TypeMeasureAB::Duration;
+        OnPress_ModeDuration();
+        break;
+
+    case TypeMeasureAB::CountPulse:
+        PageModesB::typeMeasure.value = TypeMeasureAB::CountPulse;
+        PageModesC::typeMeasure.value = TypeMeasureC::CountPulse;
+        OnPress_ModeCountPulse();
+        break;
+    }
 }
 
 
@@ -172,7 +174,7 @@ DEF_SWITCH_4(sTypeMeasure,
 
 static void OnPress_ModeFrequency()
 {
-    ClearItems(2);  
+    ClearItems(2);
 
     if (PageModesA::modeMeasureFrequency.IsFrequency())
     {
@@ -195,30 +197,30 @@ static void OnPress_ModeFrequency()
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
-    else if(PageModesA::modeMeasureFrequency.IsT_1())
+    else if (PageModesA::modeMeasureFrequency.IsT_1())
     {
         items[1] = &sModeFrequency;
-        items[2] = &sPeriodTimeLabels;   
+        items[2] = &sPeriodTimeLabels;
         items[3] = &sNumberPeriods;
         PageModesA::RelationOff();
     }
-    else if(PageModesA::modeMeasureFrequency.IsTachometer())
+    else if (PageModesA::modeMeasureFrequency.IsTachometer())
     {
         items[1] = &sModeFrequency;
-        items[2] = &sPeriodTimeLabels;   
+        items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
         PageModesA::RelationOff();
     }
-    else if(PageModesA::modeMeasureFrequency.IsComparator())
+    else if (PageModesA::modeMeasureFrequency.IsComparator())
     {
         items[1] = &sModeFrequency;
-        items[2] = nullptr;   
+        items[2] = nullptr;
         items[3] = nullptr;
         PageModesA::RelationOff();
     }
 
     PageModesA::InterpoleOff();
-    PageModesA::DCycleOff();   
+    PageModesA::DCycleOff();
     FreqMeter::LoadModeMeasureFrequency();
 
 }
@@ -270,13 +272,13 @@ static void OnPress_ModeDuration()
     ClearItems(2);
 
     items[1] = &sModeDuration;
-    
+
     PageModesB::modeMeasureDuration.value = PageModesA::modeMeasureDuration.value;
-    
+
     if (PageModesA::modeMeasureDuration.Is_Ndt_1ns())
     {
         PageModesA::InterpoleOn();
-        
+
         PageModesA::DCycleOff();
     }
     else if (PageModesA::modeMeasureDuration.Is_Dcycle() || PageModesA::modeMeasureDuration.Is_Phase())
@@ -291,7 +293,7 @@ static void OnPress_ModeDuration()
         PageModesA::InterpoleOff();
         PageModesA::DCycleOff();
     }
-    
+
     PageModesA::RelationOff();
     FreqMeter::LoadModeMeasureDuration();
 }
@@ -309,10 +311,10 @@ static void OnPress_ModeCountPulse()
     ClearItems(2);
 
     items[1] = &sModeCountPulse;
-    if(PageModesA::modeMeasureCountPulse.value == ModeMeasureCountPulseA::StartStop)
+    if (PageModesA::modeMeasureCountPulse.value == ModeMeasureCountPulseA::StartStop)
     {
         PageModesB::modeMeasureCountPulse.value = ModeMeasureCountPulseB::StartStop;
-//        PageModesC::modeMeasureCountPulse.value = ModeMeasureCountPulseC::StartStop;
+        //        PageModesC::modeMeasureCountPulse.value = ModeMeasureCountPulseC::StartStop;
     }
     if (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::ATB)
     {
@@ -347,7 +349,7 @@ static void OnPress_TimeLabels()
 DEF_SWITCH_6(sPeriodTimeLabels,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    PageModesA::periodTimeLabels,  OnPress_TimeLabels
+    PageModesA::periodTimeLabels, OnPress_TimeLabels
 );
 
 
@@ -429,7 +431,7 @@ bool PageModesA::StartStop()
 
 void PageModesA::ToggleStartStop()
 {
-    if(startStop == false)
+    if (startStop == false)
     {
         startStop = true;
     }
@@ -463,7 +465,7 @@ int NumberPeriods::ToAbs() const
     {
         1, 10, 100, 1000, 10000, 100000, 1000000
     };
-    
+
     return abs[value];
 }
 
@@ -645,3 +647,10 @@ bool CurrentModeMeasureCountPulse::IsBig_T()
         || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB))
         || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA)));
 }
+
+
+void PageModes::ResetModesMeasures()
+{
+    //PageModesA::ResetModesMeasures();
+}
+

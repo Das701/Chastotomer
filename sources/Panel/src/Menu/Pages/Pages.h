@@ -52,9 +52,9 @@ struct Divider : public Enumeration
     int ToAbs() const { return Is1() ? 1 : 10; }
 };
 
-class PageChannelA
+
+struct PageChannelA
 {
-public:
     static Page *self;
     static InputCouple couple;
     static InputImpedance impedance;
@@ -67,9 +67,8 @@ public:
 };
 
 
-class PageChannelB
+struct PageChannelB
 {
-public:
     static Page *self;
     static InputCouple couple;
     static InputImpedance impedance;
@@ -82,14 +81,12 @@ public:
 };
 
 
-class PageChannelC
+struct PageChannelC
 {
-public:
     static Page *self;
 };
 
-class PageChannelD
+struct PageChannelD
 {
-public:
     static Page *self;
 };
