@@ -14,7 +14,7 @@ using namespace Display::Primitives;
 using namespace Display;
 
 extern Item *items[7];
-extern Switch sModeFrequency;
+extern Switch sModeFrequency;       
 extern Switch sModePeriod;
 extern Switch sModeDuration;
 extern Switch sModeCountPulse;
@@ -108,9 +108,10 @@ DEF_SWITCH_4(sTypeMeasure,
 
 void PageModesB::OnChanged_ModeFrequency()
 {
+    items[1] = &sModeFrequency;
+
     if (PageModesB::modeMeasureFrequency.IsFrequency())
     {
-        items[1] = &sModeFrequency;
         items[2] = &sPeriodTimeLabels;
         items[3] = &sTimeMeasure;
         items[4] = nullptr;
@@ -118,21 +119,18 @@ void PageModesB::OnChanged_ModeFrequency()
     }
     else if (PageModesB::modeMeasureFrequency.IsBA())
     {
-        items[1] = &sModeFrequency;
         items[2] = &sNumberPeriods;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
     else if (PageModesB::modeMeasureFrequency.IsBC())
     {
-        items[1] = &sModeFrequency;
         items[2] = &sTimeMeasure;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
     else if (PageModesB::modeMeasureFrequency.IsT_1())
     {
-        items[1] = &sModeFrequency;
         items[2] = &sPeriodTimeLabels;
         items[3] = &sNumberPeriods;
         items[4] = nullptr;
@@ -140,8 +138,7 @@ void PageModesB::OnChanged_ModeFrequency()
     }
     else if(PageModesB::modeMeasureFrequency.IsTachometer())
     {
-        items[1] = &sModeFrequency;
-        items[2] = &sNumberPeriods;   
+        items[2] = &sPeriodTimeLabels;   
         items[3] = nullptr;
         PageModesA::RelationOff();
     }
@@ -264,7 +261,7 @@ void PageModesB::OnChanged_ModeCountPulse()
 // Выбор режима счёта импульсов
 DEF_SWITCH_3(sModeCountPulse,
     "Режим изм.", "Счёт числа импульсов",
-    "B(tA)", "B(TA)", "Start/Stop",
+    "B(tA)", "B(TA)", "Старт/Стоп",
     PageModesB::modeMeasureCountPulse, PageModesB::OnChanged_ModeCountPulse
 );
 

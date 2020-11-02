@@ -318,14 +318,7 @@ static void DrawInfo()
     if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::StartStop) ||
        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::StartStop))
     {
-        if(PageModesA::StartStop() == true)
-        {
-            Text("Start").Write(430, 60);
-        }
-        else
-        {
-            Text("Stop").Write(430, 60);
-        }
+        Text(PageModesA::StartStop() ? "Старт" : "Стоп").Write(430, 60);
     }
 
     if(PageIndication::launchSource == LaunchSource::OneTime)
