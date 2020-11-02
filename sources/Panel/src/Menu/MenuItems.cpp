@@ -164,13 +164,13 @@ bool Page::OnControl(const Control &control) //-V2008
         {
             if (((PageChannelB::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_B) || ((PageChannelA::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_A))
             {
-                result = ChangeLevelSynch(1);      // Делаем попытку изменить уровень синхронизации
+                result = ChangeLevelSynch(1);           // Делаем попытку изменить уровень синхронизации
             }
             else
             {
-                if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A < 800)) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B < 800)))  //&& Hint::UnderItem() == PageChannelA::switchTypeSynch
+                if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A < 800)) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B < 800)))
                 {
-                    result = ChangeLevelSynch(2);      // Делаем попытку изменить уровень синхронизации
+                    result = ChangeLevelSynch(2);       // Делаем попытку изменить уровень синхронизации
                 }
             }
         }
