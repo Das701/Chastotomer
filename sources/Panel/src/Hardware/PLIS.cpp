@@ -731,50 +731,12 @@ char* PLIS::GiveData()
             BinToDec();
             Calculation();
 
-            if (emptyZeros == 1)
-            {
-                std::sprintf(procData, "%10.0f", decDataA);
-            }
-            else if (emptyZeros == 10)
-            {
-                std::sprintf(procData, "%10.1f", decDataA);
-            }
-            else if (emptyZeros == 100)
-            {
-                std::sprintf(procData, "%10.2f", decDataA);
-            }
-            else if (emptyZeros == 1000)
-            {
-                std::sprintf(procData, "%10.3f", decDataA);
-            }
-            else if (emptyZeros == 10000)
-            {
-                std::sprintf(procData, "%10.4f", decDataA);
-            }
-            else if (emptyZeros == 100000)
-            {
-                std::sprintf(procData, "%10.5f", decDataA);
-            }
-            else if (emptyZeros == 1000000)
-            {
-                std::sprintf(procData, "%10.6f", decDataA);
-            }
-            else if (emptyZeros == 10000000)
-            {
-                std::sprintf(procData, "%10.7f", decDataA);
-            }
-            else if (emptyZeros == 100000000)
-            {
-                std::sprintf(procData, "%10.8f", decDataA);
-            }
-            else if (emptyZeros == 1000000000)
-            {
-                std::sprintf(procData, "%10.9f", decDataA);
-            }
-            else
-            {
-                std::sprintf(procData, "%10.10f", decDataA);
-            }
+            char format[10];
+            std::strcpy(format, "%10.0f");
+            format[4] = (char)((emptyZeros / 10) | 0x30);
+
+            std::sprintf(procData, format, decDataA);
+
             emptyZeros = 1;
         }
         return procData;

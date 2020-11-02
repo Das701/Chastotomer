@@ -391,12 +391,9 @@ static void DrawInfo()
 
 static void DrawData()
 {
-//    Text(PLIS::GiveData()).Write(120, 120);
     FontBig::BigStringProp_print(PLIS::GiveData(), 10, 150, Color::WHITE);
     FontMid::MidStringProp_print(PLIS::GiveSpec(), 344, 170, Color::WHITE);
-//    Text(PLIS::GiveSpec()).Write(344, 170);
-//    Text(PLIS::GiveIdent()).Write(344, 80);
-    if((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) ||
+    if ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) ||
         (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsTachometer()))
     {
         Text("60s").Write(2, 87, 60, Color::WHITE);
