@@ -68,17 +68,26 @@ void Page::Draw(int x, int y, bool)
 
 int Page::WidthItem(int num) const
 {
-    if (NumItems() == 1)
+    int result = ((num % 2) == 0) ? ((Display::WIDTH - 1) / 6) : (Display::WIDTH / 6);
+
+    if (num == 5)
     {
-        return Display::WIDTH - 2;
+        result += 2;
     }
 
-    if (num < NumItems() - 1)
-    {
-        return (Display::WIDTH - 1) / NumItems();
-    }
+    return result;
 
-    return Display::WIDTH - WidthItem(0) * (NumItems() - 1) - 1;
+//    if (NumItems() == 1)
+//    {
+//        return Display::WIDTH - 2;
+//    }
+//
+//    if (num < NumItems() - 1)
+//    {
+//        return (Display::WIDTH - 1) / NumItems();
+//    }
+//
+//    return Display::WIDTH - WidthItem(0) * (NumItems() - 1) - 1;
 }
 
 
