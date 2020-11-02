@@ -97,9 +97,9 @@ bool Page::OnControl(const Control &control) //-V2008
     switch (control.value)
     {
     case Control::Right:
-        if(PageIndication::calibration.Is(Calibration::Pressed))
+        if (PageIndication::calibration.Is(Calibration::Pressed))
         {
-            if(SelectedItem())
+            if (SelectedItem())
             {
                 result = SelectedItem()->OnControl(control);
             }
@@ -114,9 +114,9 @@ bool Page::OnControl(const Control &control) //-V2008
         break;
 
     case Control::Left:
-        if(PageIndication::calibration.Is(Calibration::Pressed))
+        if (PageIndication::calibration.Is(Calibration::Pressed))
         {
-            if(SelectedItem())
+            if (SelectedItem())
             {
                 result = SelectedItem()->OnControl(control);
             }
@@ -131,56 +131,56 @@ bool Page::OnControl(const Control &control) //-V2008
         break;
 
     case Control::GovLeft:
-    if(PageIndication::calibration.Is(Calibration::Pressed))
-    {
-    }
-    else
-    {   
-        if (((PageChannelB::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_B) || ((PageChannelA::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_A))
+        if (PageIndication::calibration.Is(Calibration::Pressed))
         {
-            if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A > 1)) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B > 1)))
-            {
-                result = ChangeLevelSynch(-1);      // Делаем попытку изменить уровень синхронизации
-            }
         }
         else
         {
-            if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A > (-800))) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B > (-800))))
+            if (((PageChannelB::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_B) || ((PageChannelA::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_A))
             {
-                result = ChangeLevelSynch(-2);     // Делаем попытку изменить уровень синхронизации
+                if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A > 1)) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B > 1)))
+                {
+                    result = ChangeLevelSynch(-1);      // Делаем попытку изменить уровень синхронизации
+                }
+            }
+            else
+            {
+                if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A > (-800))) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B > (-800))))
+                {
+                    result = ChangeLevelSynch(-2);     // Делаем попытку изменить уровень синхронизации
+                }
             }
         }
-    }
         PLIS::DecreaseN();
         PLIS::WriteData();
         info = 3;
         break;
 
     case Control::GovRight:
-    if(PageIndication::calibration.Is(Calibration::Pressed))
-    {
-    }
-    else
-    {
-        if (((PageChannelB::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_B) || ((PageChannelA::typeSynch == TypeSynch::Holdoff)&& CURRENT_CHANNEL_IS_A))
+        if (PageIndication::calibration.Is(Calibration::Pressed))
         {
-            result = ChangeLevelSynch(1);      // Делаем попытку изменить уровень синхронизации
         }
         else
         {
-            if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A < 800)) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B < 800)))  //&& Hint::UnderItem() == PageChannelA::switchTypeSynch
+            if (((PageChannelB::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_B) || ((PageChannelA::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_A))
             {
-                result = ChangeLevelSynch(2);      // Делаем попытку изменить уровень синхронизации
+                result = ChangeLevelSynch(1);      // Делаем попытку изменить уровень синхронизации
+            }
+            else
+            {
+                if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A < 800)) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B < 800)))  //&& Hint::UnderItem() == PageChannelA::switchTypeSynch
+                {
+                    result = ChangeLevelSynch(2);      // Делаем попытку изменить уровень синхронизации
+                }
             }
         }
-    }
         PLIS::IncreaseN();
         PLIS::WriteData();
         info = 4;
         break;
 
-    case Control::Enter: 
-        if(SelectedItem())
+    case Control::Enter:
+        if (SelectedItem())
         {
             result = SelectedItem()->OnControl(control);
         }
@@ -194,27 +194,27 @@ bool Page::OnControl(const Control &control) //-V2008
         info = 7;
         break;
     case Control::Mode:
-        if(PageIndication::calibration.Is(Calibration::Pressed))
+        if (PageIndication::calibration.Is(Calibration::Pressed))
         {
-            if(SelectedItem())
+            if (SelectedItem())
             {
                 result = SelectedItem()->OnControl(control);
             }
         }
-        if(CURRENT_CHANNEL_IS_A)
+        if (CURRENT_CHANNEL_IS_A)
         {
             PageModesA::PressSetup();
         }
-        else if(CURRENT_CHANNEL_IS_B)
+        else if (CURRENT_CHANNEL_IS_B)
         {
             PageModesB::PressSetupB();
         }
         info = 8;
         break;
     case Control::Indication:
-        if(PageIndication::calibration.Is(Calibration::Pressed))
+        if (PageIndication::calibration.Is(Calibration::Pressed))
         {
-            if(SelectedItem())
+            if (SelectedItem())
             {
                 result = SelectedItem()->OnControl(control);
             }
@@ -222,9 +222,9 @@ bool Page::OnControl(const Control &control) //-V2008
         info = 9;
         break;
     case Control::Channels:
-        if(PageIndication::calibration.Is(Calibration::Pressed))
+        if (PageIndication::calibration.Is(Calibration::Pressed))
         {
-            if(SelectedItem())
+            if (SelectedItem())
             {
                 result = SelectedItem()->OnControl(control);
             }
@@ -232,16 +232,16 @@ bool Page::OnControl(const Control &control) //-V2008
         info = 10;
         break;
     case Control::GovButton:
-        if(SelectedItem())
+        if (SelectedItem())
         {
             result = SelectedItem()->OnControl(control);
         }
         info = 11;
         break;
     case Control::Esc:
-        if(PageIndication::calibration.Is(Calibration::Pressed))
+        if (PageIndication::calibration.Is(Calibration::Pressed))
         {
-            if(SelectedItem())
+            if (SelectedItem())
             {
                 result = SelectedItem()->OnControl(control);
             }
@@ -255,16 +255,16 @@ bool Page::OnControl(const Control &control) //-V2008
         info = 12;
         break;
     case Control::Test:
-        if(PageIndication::calibration.Is(Calibration::Pressed))
+        if (PageIndication::calibration.Is(Calibration::Pressed))
         {
-            if(SelectedItem())
+            if (SelectedItem())
             {
                 result = SelectedItem()->OnControl(control);
             }
         }
         else
         {
-            if((PageModesA::modeMeasureFrequency.IsAC() && CURRENT_CHANNEL_IS_A) ||
+            if ((PageModesA::modeMeasureFrequency.IsAC() && CURRENT_CHANNEL_IS_A) ||
                 (PageModesB::modeMeasureFrequency.IsBC() && CURRENT_CHANNEL_IS_B))
             {
             }
@@ -276,27 +276,27 @@ bool Page::OnControl(const Control &control) //-V2008
         info = 13;
         break;
     case Control::Auto:
-        if(PageIndication::calibration.Is(Calibration::Pressed))
+        if (PageIndication::calibration.Is(Calibration::Pressed))
         {
-            if(SelectedItem())
+            if (SelectedItem())
             {
                 result = SelectedItem()->OnControl(control);
             }
         }
         else
         {
-            if((PageModesA::typeMeasure.IsFrequency() && PageModesA::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) || 
-                (PageModesB::typeMeasure.IsFrequency() && PageModesB::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) || 
+            if ((PageModesA::typeMeasure.IsFrequency() && PageModesA::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
+                (PageModesB::typeMeasure.IsFrequency() && PageModesB::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
                 (PageModesC::typeMeasure.IsFrequency() && PageModesC::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
-                (PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) || 
-                (PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) || 
-                (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_A) || 
+                (PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
+                (PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
+                (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_A) ||
                 (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_B))
             {
                 PLIS::RefreshAuto();
                 FreqMeter::LoadAuto();
                 PLIS::SwitchAuto();
-            }            
+            }
         }
         info = 14;
         break;
@@ -313,7 +313,7 @@ bool Page::OnControl(const Control &control) //-V2008
 int Page::NumItems() const
 {
     int i = 0;
-    while(items[i] != 0)
+    while (items[i] != 0)
     {
         i++;
     }
@@ -336,74 +336,74 @@ void Page::SelectPrevItem()
 
 bool Switch::OnControl(const Control &control)
 {
-    if(PageIndication::calibration.Is(Calibration::Pressed))
+    if (PageIndication::calibration.Is(Calibration::Pressed))
     {
         if (control.action.IsPress() && (control.value != Control::GovRight || control.value != Control::GovLeft)) //-V560
         {
             if (Hint::UnderItem() == this)
             {
                 Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
-    
+
                 if (funcOnPress)
                 {
                     funcOnPress();
                 }
             }
-    
+
             Hint::Create(this);
-            
+
             return true;
         }
     }
     else
-    {       
+    {
         if (control.action.IsPress() && (control.value == Control::GovButton))
         {
 
             if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
             {
                 Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
-    
+
                 if (funcOnPress)
                 {
                     funcOnPress();
                 }
             }
-    
+
             Hint::Create(this);
-            
+
             return true;
         }
-        
+
         if (control.action.IsPress() && (control.value == Control::Enter))
         {
-            
-            if(PageIndication::launchSource == LaunchSource::OneTime)
+
+            if (PageIndication::launchSource == LaunchSource::OneTime)
             {
                 PageIndication::OnceLaunchSwitchTrue();
                 FreqMeter::LoadOneTime();
             }
-            else if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::StartStop) ||
-                    (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::StartStop))
+            else if ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::StartStop) ||
+                (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::StartStop))
             {
                 PageModesA::ToggleStartStop();
                 FreqMeter::LoadStartStop();
             }
             else
             {
-            if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
-            {
-                Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
-    
-                if (funcOnPress)
+                if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
                 {
-                    funcOnPress();
+                    Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
+
+                    if (funcOnPress)
+                    {
+                        funcOnPress();
+                    }
                 }
-            }
-    
-            Hint::Create(this);
-            
-            return true;
+
+                Hint::Create(this);
+
+                return true;
             }
         }
     }
@@ -413,7 +413,7 @@ bool Switch::OnControl(const Control &control)
 
 void Switch::Draw(int x, int y, bool selected)
 {
-    if(selected)
+    if (selected)
     {
         Color::BLACK.SetAsCurrent();
     }
