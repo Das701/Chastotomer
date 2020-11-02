@@ -87,13 +87,16 @@ static void SetCurrentChannel(const Control &control)
             {
                 page = PageChannelC::self;
             }
-            else if (set.currentChannel == Channel::D)
+            else if (CURRENT_CHANNEL_IS_D)
             {
                 page = PageChannelD::self;
             }
+
             openedPage = page;
         }
+
         Hint::Hide();
+
         FreqMeter::LoadChannel();
     }
 }

@@ -303,7 +303,7 @@ bool Page::OnControl(const Control &control) //-V2008
 int Page::NumItems() const
 {
     int i = 0;
-    while (items[i] != 0)
+    while (items[i] != nullptr)
     {
         i++;
     }

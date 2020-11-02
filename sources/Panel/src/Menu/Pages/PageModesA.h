@@ -192,13 +192,13 @@ struct NumberPeriods : public Enumeration
 // Здесь функции общие для всех страниц режимов каналов
 struct PageModes
 {
-    static void ResetModesMeasures();
+    // Сброс режима текущего измерения
+    static void ResetModeCurrentMeasure();
 };
 
 
-class PageModesA
+struct PageModesA
 {
-public:
     static Page *self;
     
     static void Init();
@@ -216,7 +216,16 @@ public:
     static void ToggleStartStop();
 
     // Сброс режима измерения
-    static void ResetModesMeasures();
+    static void ResetModeCurrentMeasure();
+
+    // Вызывается при измеенении вида измерения
+    static void OnChanged_TypeMeasure();
+
+    // Вызываются при изменении режимов измерения
+    static void OnChanged_ModeFrequency();
+    static void OnChanged_ModePeriod();
+    static void OnChanged_ModeDuration();
+    static void OnChanged_ModeCountPulse();
     
     static TypeMeasureAB            typeMeasure;                // Тип измерения
     static ModeMeasureFrequencyA    modeMeasureFrequency;       // Режим измерения частоты

@@ -36,26 +36,31 @@ struct ModeMeasureCountPulseB : public Enumeration
 };
 
 
-class PageModesB
+struct PageModesB
 {
-public:
     static Page *self;
+
     static void Init();
     static void PressSetupB();
-    // Тип измерения
-    static TypeMeasureAB typeMeasure;
-    // Режим измерения частоты
-    static ModeMeasureFrequencyB modeMeasureFrequency;
-    // Режим измерения периода
-    static ModeMeasurePeriod modeMeasurePeriod;
-    // Режим измерения длительности
-    static ModeMeasureDuration modeMeasureDuration;
-    // Режим счёта импульсов
-    static ModeMeasureCountPulseB modeMeasureCountPulse;
-    // Период меток времени
-    static PeriodTimeLabels periodTimeLabels;
-    // Время счета
-    static TimeMeasure timeMeasure;
-    // Число периодов измерения
-    static NumberPeriods numberPeriods;
+
+    // Сброс режима измерения
+    static void ResetModeCurrentMeasure();
+
+    // Вызывается при измеенении вида измерения
+    static void OnChanged_TypeMeasure();
+
+    // Вызываются при изменении режимов измерения
+    static void OnChanged_ModeFrequency();
+    static void OnChanged_ModePeriod();
+    static void OnChanged_ModeDuration();
+    static void OnChanged_ModeCountPulse();
+    
+    static TypeMeasureAB          typeMeasure;           // Тип измерения
+    static ModeMeasureFrequencyB  modeMeasureFrequency;  // Режим измерения частоты
+    static ModeMeasurePeriod      modeMeasurePeriod;     // Режим измерения периода
+    static ModeMeasureDuration    modeMeasureDuration;   // Режим измерения длительности
+    static ModeMeasureCountPulseB modeMeasureCountPulse; // Режим счёта импульсов
+    static PeriodTimeLabels       periodTimeLabels;      // Период меток времени
+    static TimeMeasure            timeMeasure;           // Время счета
+    static NumberPeriods          numberPeriods;         // Число периодов измерения
 };

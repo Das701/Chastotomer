@@ -43,29 +43,32 @@ struct ModeMeasureCountPulseC : public Enumeration
         CtB,      // C(tB)
         CTA,      // C(TA)
         CTB       // C(TB)
-//        StartStop
     };
 
     explicit ModeMeasureCountPulseC(E v) : Enumeration((uint8)v) {};
 };
 
 
-class PageModesC
+struct PageModesC
 {
-public:
     static Page *self;
 
     static void Init();
-    // Тип измерения
-    static TypeMeasureC typeMeasure;
-    // Режим измерения частоты
-    static ModeMeasureFrequencyC modeMeasureFrequency;
-    // Режим счёта импульсов
-    static ModeMeasureCountPulseC modeMeasureCountPulse;
-    // Период меток времени
-    static PeriodTimeLabels periodTimeLabels;
-    // Время счета
-    static TimeMeasure timeMeasure;
-    // Число периодов измерения
-    static NumberPeriods numberPeriods;
+
+    // Сброс режима измерения
+    static void ResetModeCurrentMeasure();
+
+    // Вызывается при измеенении вида измерения
+    static void OnChanged_TypeMeasure();
+
+    // Вызываются при изменении режимов измерения
+    static void OnChanged_ModeFrequency();
+    static void OnChanged_ModeCountPulse();
+    
+    static TypeMeasureC           typeMeasure;           // Тип измерения
+    static ModeMeasureFrequencyC  modeMeasureFrequency;  // Режим измерения частоты
+    static ModeMeasureCountPulseC modeMeasureCountPulse; // Режим счёта импульсов
+    static PeriodTimeLabels       periodTimeLabels;      // Период меток времени
+    static TimeMeasure            timeMeasure;           // Время счета
+    static NumberPeriods          numberPeriods;         // Число периодов измерения
 };
