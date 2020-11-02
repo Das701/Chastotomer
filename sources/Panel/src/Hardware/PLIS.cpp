@@ -759,47 +759,10 @@ char* PLIS::GiveSpec() //-V2008
                     std::strcpy(spec, " $");
                 }
                 else
-                {   
-                    if(dcycleZeros == 0)
-                    {
-                        std::strcpy(spec, " E-0");
-                    }
-                    else if(dcycleZeros == 1)
-                    {
-                        std::strcpy(spec, " E-1");
-                    }
-                    else if(dcycleZeros == 2)
-                    {
-                        std::strcpy(spec, " E-2");
-                    }
-                    else if(dcycleZeros == 3)
-                    {
-                        std::strcpy(spec, " E-3");
-                    }
-                    else if(dcycleZeros == 4)
-                    {
-                        std::strcpy(spec, " E-4");
-                    }
-                    else if(dcycleZeros == 5)
-                    {
-                        std::strcpy(spec, " E-5");
-                    }
-                    else if(dcycleZeros == 6)
-                    {
-                        std::strcpy(spec, " E-6");
-                    }
-                    else if(dcycleZeros == 7)
-                    {
-                        std::strcpy(spec, " E-7");
-                    }
-                    else if(dcycleZeros == 8)
-                    {
-                        std::strcpy(spec, " E-8");
-                    }
-                    else
-                    {
-                        std::strcpy(spec, " E-9");
-                    }
+                {
+                    std::strcpy(spec, " E-0");
+                    spec[3] = (char)(dcycleZeros | 0x30);
+
                     dcycleZeros = 0;
                 }
         }
