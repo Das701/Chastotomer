@@ -731,11 +731,19 @@ char* FPGA::GiveData()
             BinToDec();
             Calculation();
 
-            char format[10];
-            std::strcpy(format, "%10.0f");
-            format[4] = (char)((emptyZeros / 10) | 0x30);
+            int pow = emptyZeros / 10;
 
-            std::sprintf(procData, format, decDataA);
+            if (pow < 10)
+            {
+                char format[10];
+                std::strcpy(format, "%10.0f");
+                format[4] = (char)(pow | 0x30);
+                std::sprintf(procData, format, decDataA);
+            }
+            else
+            {
+                std::sprintf(procData, "%10.10f", decDataA);
+            }
 
             emptyZeros = 1;
         }
