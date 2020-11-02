@@ -29,6 +29,16 @@ struct Channel
     };
 };
 
+
+struct LevelSynch
+{
+    static const int MIN = -1000;
+    static const int MAX = 1000;
+
+    static void Change(Channel::E ch, int delta);
+};
+
+
 // Открытый/закрытый вход
 struct InputCouple : public Enumeration
 {

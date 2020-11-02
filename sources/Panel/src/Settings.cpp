@@ -2,6 +2,7 @@
 #include "Settings.h"
 #include "Hardware/PLIS.h"
 #include "Menu/Pages/Pages.h"
+#include "Utils/Math.h"
 
 
 Settings set =
@@ -110,4 +111,12 @@ void ModeFilter::Set(ModeFilter::E v)
         PageChannelB::modeFilter.value = (uint8)v;
         Load();
     }
+}
+
+
+void LevelSynch::Change(Channel::E ch, int delta)
+{
+    LEVEL_SYNCH(ch) += delta * Divider::Current().ToAbs();
+
+    LIMITATION(LEVEL_SYNCH(ch), MIN, MAX);
 }

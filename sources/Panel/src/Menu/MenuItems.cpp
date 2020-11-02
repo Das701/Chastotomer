@@ -84,25 +84,9 @@ int Page::WidthItem(int num) const
 
 static bool ChangeLevelSynch(int delta)
 {
-//    if (Hint::Text())
-//    {
-        if (CURRENT_CHANNEL_IS_A)  //&& Hint::UnderItem() == PageChannelA::switchTypeSynch
-        {
-            LEVEL_SYNCH_A = LEVEL_SYNCH_A + delta;
-//            Hint::Create(Hint::UnderItem());                 // Продлить время нахождения подсказки на экране
-//            return true;
-        }
+    LevelSynch::Change(CURRENT_CHANNEL, delta);
 
-        if (CURRENT_CHANNEL_IS_B) //&& Hint::UnderItem() == PageChannelB::switchTypeSynch
-        {
-            LEVEL_SYNCH_B = LEVEL_SYNCH_B + delta;
-//            Hint::Create(Hint::UnderItem());                 // Продлить время нахождения подсказки на экране
-//            return true;
-        }
-        
-//    }
-        return true;
-//    return false;
+    return true;
 }
 
 
@@ -147,54 +131,32 @@ bool Page::OnControl(const Control &control) //-V2008
         break;
 
     case Control::GovLeft:
-//        SelectPrevItem();
-//        Hint::Hide();
     if(PageIndication::calibration.Is(Calibration::Pressed))
     {
     }
     else
     {   
-        if (((PageChannelB::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_B) || ((PageChannelA::typeSynch == TypeSynch::Holdoff)&& CURRENT_CHANNEL_IS_A))
+        if (((PageChannelB::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_B) || ((PageChannelA::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_A))
         {
-            if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A > 1)) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B > 1)))  //&& Hint::UnderItem() == PageChannelA::switchTypeSynch
+            if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A > 1)) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B > 1)))
             {
                 result = ChangeLevelSynch(-1);      // Делаем попытку изменить уровень синхронизации
-                //if(CURRENT_CHANNEL_IS_A)
-                //{
-                //    LEVEL_SYNCH_B = LEVEL_SYNCH_A;
-                //}
-                //else if(CURRENT_CHANNEL_IS_B)
-                //{
-                //    LEVEL_SYNCH_A = LEVEL_SYNCH_B;
-                //}
-                
             }
         }
         else
         {
-            if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A > (-800))) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B > (-800))))  //&& Hint::UnderItem() == PageChannelA::switchTypeSynch
+            if ((CURRENT_CHANNEL_IS_A && (LEVEL_SYNCH_A > (-800))) || (CURRENT_CHANNEL_IS_B && (LEVEL_SYNCH_B > (-800))))
             {
                 result = ChangeLevelSynch(-2);     // Делаем попытку изменить уровень синхронизации
             }
         }
     }
-
-//        if(result == false)
-//        {
-//            SelectPrevItem();
-//            Hint::Hide();
-//            result = true;
-//        }
-//        result = true;
         PLIS::DecreaseN();
         PLIS::WriteData();
         info = 3;
         break;
 
     case Control::GovRight:
-//        SelectNextItem();
-//        Hint::Hide();
-//        result = true;
     if(PageIndication::calibration.Is(Calibration::Pressed))
     {
     }
@@ -203,14 +165,6 @@ bool Page::OnControl(const Control &control) //-V2008
         if (((PageChannelB::typeSynch == TypeSynch::Holdoff) && CURRENT_CHANNEL_IS_B) || ((PageChannelA::typeSynch == TypeSynch::Holdoff)&& CURRENT_CHANNEL_IS_A))
         {
             result = ChangeLevelSynch(1);      // Делаем попытку изменить уровень синхронизации
-                //if(CURRENT_CHANNEL_IS_A)
-                //{
-                //    LEVEL_SYNCH_B = LEVEL_SYNCH_A;
-                //}
-                //else if(CURRENT_CHANNEL_IS_B)
-                //{
-                //    LEVEL_SYNCH_A = LEVEL_SYNCH_B;
-                //}
         }
         else
         {
@@ -220,12 +174,6 @@ bool Page::OnControl(const Control &control) //-V2008
             }
         }
     }
-//        if(result == false)
-//        {
-//            SelectNextItem();
-//            Hint::Hide();
-//            result = true;
-//        }
         PLIS::IncreaseN();
         PLIS::WriteData();
         info = 4;
@@ -261,13 +209,6 @@ bool Page::OnControl(const Control &control) //-V2008
         {
             PageModesB::PressSetupB();
         }
-        //if ((PageChannelB::typeSynch == TypeSynch::Holdoff) || (PageChannelA::typeSynch == TypeSynch::Holdoff))
-        //{
-        //    PageChannelB::typeSynch.value = TypeSynch::Manual;
-        //    PageChannelA::typeSynch.value = TypeSynch::Manual;
-        //    PageChannelA::FixPress();
-        //    PageChannelB::FixPress();
-        //}
         info = 8;
         break;
     case Control::Indication:
@@ -278,13 +219,6 @@ bool Page::OnControl(const Control &control) //-V2008
                 result = SelectedItem()->OnControl(control);
             }
         }
-        //if ((PageChannelB::typeSynch == TypeSynch::Holdoff) || (PageChannelA::typeSynch == TypeSynch::Holdoff))
-        //{
-        //    PageChannelB::typeSynch.value = TypeSynch::Manual;
-        //    PageChannelA::typeSynch.value = TypeSynch::Manual;
-        //    PageChannelA::FixPress();
-        //    PageChannelB::FixPress();
-        //}
         info = 9;
         break;
     case Control::Channels:
@@ -295,13 +229,6 @@ bool Page::OnControl(const Control &control) //-V2008
                 result = SelectedItem()->OnControl(control);
             }
         }
-        //if ((PageChannelB::typeSynch == TypeSynch::Holdoff) || (PageChannelA::typeSynch == TypeSynch::Holdoff))
-        //{
-        //    PageChannelB::typeSynch.value = TypeSynch::Manual;
-        //    PageChannelA::typeSynch.value = TypeSynch::Manual;
-        //    PageChannelA::FixPress();
-        //    PageChannelB::FixPress();
-        //}
         info = 10;
         break;
     case Control::GovButton:
