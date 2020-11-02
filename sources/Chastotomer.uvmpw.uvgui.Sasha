@@ -1793,9 +1793,9 @@
       </Doc>
       <Doc>
         <Name>&lt;1&gt;.\src\main.cpp</Name>
-        <ColumnNumber>22</ColumnNumber>
+        <ColumnNumber>0</ColumnNumber>
         <TopLine>1</TopLine>
-        <CurrentLine>22</CurrentLine>
+        <CurrentLine>16</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

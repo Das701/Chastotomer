@@ -2,7 +2,7 @@
 #include "FreqMeter.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
-#include "Hardware/PLIS.h"
+#include "Hardware/FPGA.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/MenuItemsDef.h"
@@ -60,7 +60,7 @@ static void OnPress_Calibration()
     FreqMeter::LoadCalibration();
     if(PageIndication::calibration == Calibration::Pressed)
     {
-        PLIS::ReadCalibNumber();
+        FPGA::ReadCalibNumber();
     }
 }
 

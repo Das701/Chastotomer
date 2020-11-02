@@ -624,14 +624,14 @@
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
-              <FileName>PLIS.h</FileName>
+              <FileName>FPGA.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Hardware\PLIS.h</FilePath>
+              <FilePath>.\src\Hardware\FPGA.h</FilePath>
             </File>
             <File>
-              <FileName>PLIS.cpp</FileName>
+              <FileName>FPGA.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\PLIS.cpp</FilePath>
+              <FilePath>.\src\Hardware\FPGA.cpp</FilePath>
             </File>
             <File>
               <FileName>VCP.h</FileName>

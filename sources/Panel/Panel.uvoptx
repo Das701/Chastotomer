@@ -763,7 +763,7 @@
 
   <Group>
     <GroupName>Hardware</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -774,8 +774,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Hardware\PLIS.h</PathWithFileName>
-      <FilenameWithoutPath>PLIS.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\Hardware\FPGA.h</PathWithFileName>
+      <FilenameWithoutPath>FPGA.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -786,8 +786,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Hardware\PLIS.cpp</PathWithFileName>
-      <FilenameWithoutPath>PLIS.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\Hardware\FPGA.cpp</PathWithFileName>
+      <FilenameWithoutPath>FPGA.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

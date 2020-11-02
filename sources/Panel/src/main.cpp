@@ -1,6 +1,6 @@
 #include "Display/Display.h"
 #include "Display/Text.h"
-#include "Hardware/PLIS.h"
+#include "Hardware/FPGA.h"
 #include "Hardware/VCP.h"
 #include "Hardware/HAL/HAL.h"
 #include "Keyboard/Keyboard.h"
@@ -14,7 +14,7 @@ using Display::Text;
 int main(void)
 {
     HAL::Init();
-    PLIS::Init();
+    FPGA::Init();
     Display::Init();
     Keyboard::Init();
     Menu::Init();   
@@ -30,7 +30,7 @@ int main(void)
 
     while (1)
     {
-        PLIS::Update();
+        FPGA::Update();
         Menu::Update();
 
         if(TIME_MS > time + 10)

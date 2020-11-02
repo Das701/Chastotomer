@@ -1,6 +1,6 @@
 #pragma once
 
-struct PLIS
+struct FPGA
 {
     static void Init();
     static void Update();

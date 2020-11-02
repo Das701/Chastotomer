@@ -50,7 +50,7 @@ file(GLOB DISPLAY                      src/Display/Display_win.cpp
 file(GLOB DISPLAY_FONT     ../../Panel/src/Display/Font/*)
 file(GLOB FREQMETER        ../../Panel/src/FreqMeter/*)
 file(GLOB GUI                          src/GUI/*)
-file(GLOB HARDWARE         ../../Panel/src/Hardware/PLIS.*
+file(GLOB HARDWARE         ../../Panel/src/Hardware/FPGA.*
                            ../../Panel/src/Hardware/VCP.h
                                        src/Hardware/VCP_win.cpp)
 file(GLOB HARDWARE_HAL     ../../Panel/src/Hardware/HAL/HAL.*

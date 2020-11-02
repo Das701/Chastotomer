@@ -4,7 +4,7 @@
 #include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
-#include "Hardware/PLIS.h"
+#include "Hardware/FPGA.h"
 #include "Menu/Hint.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Pages/Pages.h"
@@ -149,8 +149,8 @@ bool Page::OnControl(const Control &control) //-V2008
             result = ChangeLevelSynch(-2);
         }
 
-        PLIS::DecreaseN();
-        PLIS::WriteData();
+        FPGA::DecreaseN();
+        FPGA::WriteData();
         info = 3;
         break;
 
@@ -164,8 +164,8 @@ bool Page::OnControl(const Control &control) //-V2008
             result = ChangeLevelSynch(2);
         }
 
-        PLIS::IncreaseN();
-        PLIS::WriteData();
+        FPGA::IncreaseN();
+        FPGA::WriteData();
         info = 4;
         break;
 
@@ -283,9 +283,9 @@ bool Page::OnControl(const Control &control) //-V2008
                 (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_A) ||
                 (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_B))
             {
-                PLIS::RefreshAuto();
+                FPGA::RefreshAuto();
                 FreqMeter::LoadAuto();
-                PLIS::SwitchAuto();
+                FPGA::SwitchAuto();
             }
         }
         info = 14;

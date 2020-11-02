@@ -6,7 +6,7 @@
 #include "Display/Text.h"
 #include "Display/Font/FontBig.h"
 #include "Display/Font/FontMid.h"
-#include "Hardware/PLIS.h"
+#include "Hardware/FPGA.h"
 #include "Hardware/HAL/HAL.h"
 #include "Menu/Hint.h"
 #include "Menu/Menu.h"
@@ -124,7 +124,7 @@ static void DrawScreen()
         Text("---Режим Калибровка---").Write(40, 20);
         Text("Нажмите ЭНК. для сохранения").Write(5, 50);
         Text("Нажмите любую клавишу для выхода").Write(5, 90);
-        SU::Int2String(PLIS::CalibNumber(), buffer);
+        SU::Int2String(FPGA::CalibNumber(), buffer);
         Text(buffer).Write(5, 120);
     }
     else
@@ -245,18 +245,18 @@ static void DrawHint()
 {
     if((TIME_MS < (uint)(autoHint + 10000)) && autoFlag == true)
     {
-        Text(PLIS::GiveAuto()).Write(102, 37);
+        Text(FPGA::GiveAuto()).Write(102, 37);
         FreqMeter::UnloadAuto();
     }
     else
     {
-        if(PLIS::AutoMode())
+        if(FPGA::AutoMode())
         {
             
-            if((PLIS::MidAuto() != 0) || (PLIS::MaxAuto() != 0) || (PLIS::MinAuto() != 0))
+            if((FPGA::MidAuto() != 0) || (FPGA::MaxAuto() != 0) || (FPGA::MinAuto() != 0))
             {
-                Text(PLIS::GiveAuto()).Write(102, 37);
-                PLIS::SwitchAuto();
+                Text(FPGA::GiveAuto()).Write(102, 37);
+                FPGA::SwitchAuto();
                 autoHint = (int)TIME_MS;
                 autoFlag = true;
             }
@@ -391,8 +391,8 @@ static void DrawInfo()
 
 static void DrawData()
 {
-    FontBig::BigStringProp_print(PLIS::GiveData(), 10, 150, Color::WHITE);
-    FontMid::MidStringProp_print(PLIS::GiveSpec(), 344, 170, Color::WHITE);
+    FontBig::BigStringProp_print(FPGA::GiveData(), 10, 150, Color::WHITE);
+    FontMid::MidStringProp_print(FPGA::GiveSpec(), 344, 170, Color::WHITE);
     if ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) ||
         (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsTachometer()))
     {

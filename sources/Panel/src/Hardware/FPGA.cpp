@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "Settings.h"
-#include "Hardware/PLIS.h"
+#include "Hardware/FPGA.h"
 #include "Hardware/HAL/HAL.h"
 #include "Menu/Hint.h"
 #include "Menu/Menu.h"
@@ -498,7 +498,7 @@ void DecToBin(int dec, char* bin)
 }
 
 
-void PLIS::Init()
+void FPGA::Init()
 {
     __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOC_CLK_ENABLE();
@@ -520,7 +520,7 @@ void PLIS::Init()
     HAL_GPIO_Init(GPIOC, &is);
 }
 
-void PLIS::Update()
+void FPGA::Update()
 {
     if(autoMode == true)
     {
@@ -661,7 +661,7 @@ void PLIS::Update()
 }
 
 
-char* PLIS::GiveData()
+char* FPGA::GiveData()
 {
     if(CurrentTypeMeasure::IsCountPulse())
     {
@@ -743,7 +743,7 @@ char* PLIS::GiveData()
     }
 }
 
-char* PLIS::GiveSpec() //-V2008
+char* FPGA::GiveSpec() //-V2008
 {
         if(PageModesA::InterpoleCheck() && ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
@@ -866,7 +866,7 @@ char* PLIS::GiveSpec() //-V2008
             return spec;
 }
 
-char *PLIS::GiveIdent()
+char *FPGA::GiveIdent()
 {
     if (ident[0] == 0)
     {
@@ -893,7 +893,7 @@ char *PLIS::GiveIdent()
 }
 
 
-void PLIS::WriteCommand(const char *command, const char *argument)
+void FPGA::WriteCommand(const char *command, const char *argument)
 {
     if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == 0)
     {
@@ -944,7 +944,7 @@ void PLIS::WriteCommand(const char *command, const char *argument)
     }
 }
 
-void PLIS::IncreaseN()
+void FPGA::IncreaseN()
 {
     if(PageIndication::calibration.Is(Calibration::Pressed))
     {
@@ -963,7 +963,7 @@ void PLIS::IncreaseN()
     }
 }
 
-void PLIS::DecreaseN()
+void FPGA::DecreaseN()
 {       
     if(PageIndication::calibration.Is(Calibration::Pressed))
     {
@@ -982,7 +982,7 @@ void PLIS::DecreaseN()
     }
 }
 
-void PLIS::SwitchAuto()
+void FPGA::SwitchAuto()
 {
     if(autoMode == false)
     {
@@ -994,30 +994,30 @@ void PLIS::SwitchAuto()
     }
 }
 
-bool PLIS::AutoMode()
+bool FPGA::AutoMode()
 {
     return autoMode;
 }
 
-int PLIS::MidAuto()
+int FPGA::MidAuto()
 {
     CalculationAuto();
     return decMidAuto;
 }
 
-int PLIS::MinAuto()
+int FPGA::MinAuto()
 {
     CalculationAuto();
     return decMinAuto;
 }
 
-int PLIS::MaxAuto()
+int FPGA::MaxAuto()
 {
     CalculationAuto();
     return decMaxAuto;
 }
 
-void PLIS::RefreshAuto()
+void FPGA::RefreshAuto()
 {
     for(int i = 0; i < 10; i++)
     {
@@ -1027,7 +1027,7 @@ void PLIS::RefreshAuto()
     }
 }
 
-char *PLIS::GiveAuto()
+char *FPGA::GiveAuto()
 {
     CalculationAuto();
     SU::Int2String((decMinAuto - 512) * 2, minAutoData);
@@ -1053,7 +1053,7 @@ char *PLIS::GiveAuto()
     return autoData;
 }
 
-void PLIS::ReadCalibNumber()
+void FPGA::ReadCalibNumber()
 {
     while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) == 0)
     {
@@ -1092,7 +1092,7 @@ void PLIS::ReadCalibNumber()
 }
 
 
-void PLIS::WriteData()
+void FPGA::WriteData()
 {
     int negative = 1024;
 
@@ -1170,7 +1170,7 @@ void PLIS::WriteData()
     }
 }
 
-int PLIS::CalibNumber()
+int FPGA::CalibNumber()
 {
     return calibNumber;
 }

@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "Settings.h"
-#include "Hardware/PLIS.h"
+#include "Hardware/FPGA.h"
 #include "Menu/Pages/Pages.h"
 #include "Utils/Math.h"
 
@@ -31,7 +31,7 @@ void InputCouple::Load()
         argument[5] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -78,7 +78,7 @@ void ModeFilter::Load()
         argument[5] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 

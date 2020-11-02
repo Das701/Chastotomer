@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "FreqMeter.h"
 #include "Settings.h"
-#include "Hardware/PLIS.h"
+#include "Hardware/FPGA.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/PageModesA.h"
@@ -39,7 +39,7 @@ void FreqMeter::LoadChannel()
         argument[4] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -58,7 +58,7 @@ void FreqMeter::LoadDisplayTime()
         argument[4] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -73,7 +73,7 @@ void FreqMeter::LoadRefGenerator()
         argument[5] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -92,7 +92,7 @@ void FreqMeter::LoadLaunchSource()
         argument[4] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -111,7 +111,7 @@ void FreqMeter::LoadCalibration()
         argument[3] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -126,7 +126,7 @@ void FreqMeter::LoadMemoryMode()
         argument[5] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 void FreqMeter::LoadModeMeasureFrequency()
@@ -169,7 +169,7 @@ void FreqMeter::LoadModeMeasureFrequency()
         argument[5] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -186,7 +186,7 @@ void FreqMeter::LoadModeMeasurePeriod()
         argument[5] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -218,7 +218,7 @@ void FreqMeter::LoadModeMeasureDuration()
 
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -252,7 +252,7 @@ void FreqMeter::LoadModeMeasureCountPulse()
         argument[4] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -273,7 +273,7 @@ void FreqMeter::LoadPeriodTimeLabels()
                                     argument[3] = 1;    break;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -296,7 +296,7 @@ void FreqMeter::LoadTimeMeasure()
                                 argument[4] = 1;  break;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -319,7 +319,7 @@ void FreqMeter::LoadNumerPeriodsMeasure()
                                 argument[3] = 1;    break;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -335,7 +335,7 @@ void FreqMeter::LoadImpedance()
         argument[5] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -350,7 +350,7 @@ void FreqMeter::LoadModeFront()
         argument[5] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -365,7 +365,7 @@ void FreqMeter::LoadDivider()
         argument[5] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -383,7 +383,7 @@ void FreqMeter::LoadTypeSynch()
     {
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 void FreqMeter::LoadTest()
@@ -401,7 +401,7 @@ void FreqMeter::LoadTest()
     {
         testMode = false;
     }
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 void FreqMeter::LoadAuto()
@@ -413,7 +413,7 @@ void FreqMeter::LoadAuto()
     argument[5] = 1;
     argument[4] = 1;
     autoMode = true;
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 void FreqMeter::UnloadAuto()
@@ -427,7 +427,7 @@ void FreqMeter::UnloadAuto()
         argument[5] = 1;
         argument[3] = 1;
         autoMode = false;
-        PLIS::WriteCommand(command, argument);
+        FPGA::WriteCommand(command, argument);
     }
 }
 
@@ -437,7 +437,7 @@ void FreqMeter::LoadMeasure()
 
     DEFINE_ARGUMENT;
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 bool FreqMeter::TestModeStatus()
@@ -455,7 +455,7 @@ void FreqMeter::LoadOneTime()
     argument[5] = 1;
     argument[4] = 1;
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
 
 
@@ -475,5 +475,5 @@ void FreqMeter::LoadStartStop()
         argument[3] = 1;
     }
 
-    PLIS::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument);
 }
