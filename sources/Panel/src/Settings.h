@@ -87,6 +87,8 @@ struct TypeSynch : public Enumeration
     };
 
     explicit TypeSynch(E v) : Enumeration((uint8)v) {};
+    bool IsHoldoff() const { return (value == Holdoff); }
+    bool IsManual() const { return (value == Manual); }
 };
 
 

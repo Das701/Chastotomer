@@ -240,6 +240,7 @@ void PageModesA::OnChanged_ModePeriod()
         items[2] = &sTimeMeasure;
         items[3] = nullptr;
     }
+
     PageModesA::RelationOff();
     PageModesA::InterpoleOff();
     PageModesA::DCycleOff();

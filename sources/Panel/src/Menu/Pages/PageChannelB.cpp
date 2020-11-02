@@ -151,7 +151,7 @@ DEF_SWITCH_7(sTimeMeasure,
 
 static void OnPress_Sync()
 {
-    if (PageChannelB::typeSynch == TypeSynch::Holdoff)
+    if (PageChannelB::typeSynch.IsHoldoff())
     {
         items[0] = &sSync;
         items[1] = &sTimeMeasure;
@@ -160,7 +160,7 @@ static void OnPress_Sync()
         items[4] = nullptr;
         items[5] = nullptr;
     }
-    else
+    else if(PageChannelB::typeSynch.IsManual())
     {
         items[0] = &sCouple;
         items[1] = &sImpedance;
