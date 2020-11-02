@@ -66,16 +66,19 @@ void PageModesC::OnChanged_ModeFrequency()
     items[1] = &sModeFrequencyC;
     items[2] = &sPeriodTimeLabelsC;
 
-    if ((PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CB) || (PageModesC::modeMeasureFrequency == ModeMeasureFrequencyC::CA))
+    switch (PageModesC::modeMeasureFrequency.value)
     {
-        items[3] = &sNumberPeriodsC;
-    }
-    else
-    {
+    case ModeMeasureFrequencyC::Freq:
         items[3] = &sTimeMeasureC;
-    }
+        items[4] = nullptr;
+        break;
 
-    items[4] = nullptr;
+    case ModeMeasureFrequencyC::CA:
+    case ModeMeasureFrequencyC::CB:
+        items[3] = &sNumberPeriodsC;
+        items[4] = nullptr;
+        break;
+    }
 
     PageModesA::RelationOff();
     PageModesA::InterpoleOff();
@@ -95,13 +98,18 @@ void PageModesC::OnChanged_ModeCountPulse()
 {
     items[1] = &sModeCountPulseC;
 
-    if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA)
+    switch (PageModesC::modeMeasureCountPulse.value)
     {
+    case ModeMeasureCountPulseC::CtA:
+    case ModeMeasureCountPulseC::CtB:
+        items[2] = nullptr;
+        break;
+
+    case ModeMeasureCountPulseC::CTA:
+    case ModeMeasureCountPulseC::CTB:
         items[2] = &sNumberPeriodsC;
-    }
-    if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB)
-    {
-        items[2] = &sNumberPeriodsC;
+        items[3] = nullptr;
+        break;
     }
 
     items[3] = nullptr;

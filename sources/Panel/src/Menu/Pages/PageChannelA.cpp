@@ -155,8 +155,6 @@ static void OnPress_Sync()
         items[1] = &sTimeMeasure;
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
-        items[4] = nullptr;
-        items[5] = nullptr;
     }
     else if(PageChannelA::typeSynch.IsManual())
     {
@@ -166,8 +164,10 @@ static void OnPress_Sync()
         items[3] = &sFront;
         items[4] = &sDivider;
         items[5] = &sSync;
+        items[6] = nullptr;
         
     }
+
     TYPE_SYNCH_A = (TypeSynch::E)PageChannelA::typeSynch.value;
     FreqMeter::LoadTypeSynch();
 }

@@ -235,11 +235,6 @@ void PageModesA::OnChanged_ModePeriod()
         items[3] = &sTimeMeasure;
         items[4] = nullptr;
     }
-    else
-    {
-        items[2] = &sTimeMeasure;
-        items[3] = nullptr;
-    }
 
     PageModesA::RelationOff();
     PageModesA::InterpoleOff();
@@ -262,25 +257,29 @@ void PageModesA::OnChanged_ModeDuration()
 
     PageModesB::modeMeasureDuration.value = PageModesA::modeMeasureDuration.value;
 
-    if (PageModesA::modeMeasureDuration.Is_Ndt_1ns())
+    switch (PageModesA::modeMeasureDuration.value)
     {
+    case ModeMeasureDuration::Ndt_1ns:
         PageModesA::InterpoleOn();
         PageModesA::DCycleOff();
         items[2] = nullptr;
-    }
-    else if (PageModesA::modeMeasureDuration.Is_Dcycle() || PageModesA::modeMeasureDuration.Is_Phase())
-    {
+        break;
+
+    case ModeMeasureDuration::Dcycle:
+    case ModeMeasureDuration::Phase:
         PageModesA::DCycleOn();
         PageModesA::InterpoleOff();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
-    }
-    else
-    {
+        break;
+
+    case ModeMeasureDuration::Ndt:
+    case ModeMeasureDuration::Ndt2:
         PageModesA::InterpoleOff();
         PageModesA::DCycleOff();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
+        break;
     }
 
     PageModesA::RelationOff();
@@ -298,16 +297,23 @@ DEF_SWITCH_5(sModeDuration,
 void PageModesA::OnChanged_ModeCountPulse()
 {
     items[1] = &sModeCountPulse;
-    if (PageModesA::modeMeasureCountPulse.value == ModeMeasureCountPulseA::StartStop)
+    items[2] = nullptr;
+
+    switch (PageModesA::modeMeasureCountPulse.value)
     {
-        PageModesB::modeMeasureCountPulse.value = ModeMeasureCountPulseB::StartStop;
-        items[2] = nullptr;
-    }
-    if (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::ATB)
-    {
+    case ModeMeasureCountPulseA::AtC:
+        break;
+
+    case ModeMeasureCountPulseA::ATB:
         items[2] = &sNumberPeriods;
         items[3] = nullptr;
+        break;
+
+    case ModeMeasureCountPulseA::StartStop:
+        PageModesB::modeMeasureCountPulse.value = ModeMeasureCountPulseB::StartStop;
+        break;
     }
+
     PageModesA::RelationOff();
     PageModesA::InterpoleOff();
     PageModesA::DCycleOff();

@@ -108,14 +108,29 @@ DEF_SWITCH_4(sTypeMeasure,
 
 void PageModesB::OnChanged_ModeFrequency()
 {
-    if (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BC)
+    if (PageModesB::modeMeasureFrequency.IsFrequency())
+    {
+        items[1] = &sModeFrequency;
+        items[2] = &sPeriodTimeLabels;
+        items[3] = &sTimeMeasure;
+        items[4] = nullptr;
+        PageModesA::RelationOff();
+    }
+    else if (PageModesB::modeMeasureFrequency.IsBA())
+    {
+        items[1] = &sModeFrequency;
+        items[2] = &sNumberPeriods;
+        items[3] = nullptr;
+        PageModesA::RelationOn();
+    }
+    else if (PageModesB::modeMeasureFrequency.IsBC())
     {
         items[1] = &sModeFrequency;
         items[2] = &sTimeMeasure;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
-    else if (PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::T_1)
+    else if (PageModesB::modeMeasureFrequency.IsT_1())
     {
         items[1] = &sModeFrequency;
         items[2] = &sPeriodTimeLabels;
@@ -123,28 +138,14 @@ void PageModesB::OnChanged_ModeFrequency()
         items[4] = nullptr;
         PageModesA::RelationOff();
     }
-    else if(PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::BA)
-    {
-        items[1] = &sModeFrequency;
-        items[2] = &sNumberPeriods;   
-        items[3] = nullptr;
-        PageModesA::RelationOn();
-    }
-    else if(PageModesB::modeMeasureFrequency == ModeMeasureFrequencyB::Tachometer)
+    else if(PageModesB::modeMeasureFrequency.IsTachometer())
     {
         items[1] = &sModeFrequency;
         items[2] = &sNumberPeriods;   
         items[3] = nullptr;
         PageModesA::RelationOff();
     }
-    else
-    {
-        items[1] = &sModeFrequency;
-        items[2] = &sPeriodTimeLabels;
-        items[3] = &sTimeMeasure;
-        items[4] = nullptr;
-        PageModesA::RelationOff();
-    }     
+
     PageModesA::InterpoleOff();
     PageModesA::DCycleOff();     
     FreqMeter::LoadModeMeasureFrequency();
@@ -174,11 +175,6 @@ void PageModesB::OnChanged_ModePeriod()
         items[3] = &sTimeMeasure;
         items[4] = nullptr;
     }
-    else
-    {
-        items[2] = &sTimeMeasure;
-        items[3] = nullptr;
-    }
 
     PageModesA::RelationOff();
     PageModesA::InterpoleOff();
@@ -201,27 +197,31 @@ void PageModesB::OnChanged_ModeDuration()
 
     PageModesA::modeMeasureDuration.value = PageModesB::modeMeasureDuration.value;
     
-    if (PageModesB::modeMeasureDuration.Is_Ndt_1ns())
+    switch (PageModesB::modeMeasureDuration.value)
     {
+    case ModeMeasureDuration::Ndt_1ns:
         PageModesA::InterpoleOn();
         PageModesA::DCycleOff();
         items[2] = nullptr;
-    }
-    else if (PageModesB::modeMeasureDuration.Is_Dcycle() || PageModesB::modeMeasureDuration.Is_Phase())
-    {
+        break;
+
+    case ModeMeasureDuration::Dcycle:
+    case ModeMeasureDuration::Phase:
         PageModesA::DCycleOn();
         PageModesA::InterpoleOff();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
-    }
-    else
-    {
+        break;
+
+    case ModeMeasureDuration::Ndt:
+    case ModeMeasureDuration::Ndt2:
         PageModesA::InterpoleOff();
         PageModesA::DCycleOff();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
+        break;
     }
-    
+
     PageModesA::RelationOff();
     FreqMeter::LoadModeMeasureDuration();
 }
@@ -237,16 +237,21 @@ DEF_SWITCH_5(sModeDuration,
 void PageModesB::OnChanged_ModeCountPulse()
 {
     items[1] = &sModeCountPulse;
+    items[2] = nullptr;
 
-    if(PageModesB::modeMeasureCountPulse.value == ModeMeasureCountPulseB::StartStop)
+    switch (PageModesB::modeMeasureCountPulse.value)
     {
-        PageModesA::modeMeasureCountPulse.value = ModeMeasureCountPulseA::StartStop;
-        items[2] = nullptr;
-    }
-    if (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA)
-    {
+    case ModeMeasureCountPulseB::BtA:
+        break;
+
+    case ModeMeasureCountPulseB::BTA:
         items[2] = &sNumberPeriods;
         items[3] = nullptr;
+        break;
+
+    case ModeMeasureCountPulseB::StartStop:
+        PageModesA::modeMeasureCountPulse.value = ModeMeasureCountPulseA::StartStop;
+        break;
     }
 
     PageModesA::RelationOff();
