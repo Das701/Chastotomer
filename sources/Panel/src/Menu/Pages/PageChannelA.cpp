@@ -155,6 +155,8 @@ static void OnPress_Sync()
         items[1] = &sTimeMeasure;
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
+
+        PageChannelA::self->selectedItem = 0;
     }
     else if(PageChannelA::typeSynch.IsManual())
     {
@@ -166,6 +168,7 @@ static void OnPress_Sync()
         items[5] = &sSync;
         items[6] = nullptr;
         
+        PageChannelA::self->selectedItem = 5;
     }
 
     TYPE_SYNCH_A = (TypeSynch::E)PageChannelA::typeSynch.value;

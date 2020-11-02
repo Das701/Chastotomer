@@ -82,12 +82,15 @@ private:
 class Page : public Item
 {
 public:
-    Page(Item **_items = nullptr) : items(_items), selectedItem(0) {};
+    Page(Item **_items = nullptr) : selectedItem(0), items(_items) {};
 
     virtual void Draw(int x, int y, bool selected = false);
     virtual bool OnControl(const Control &control);    
     // Возвращает указатель на выделенный пункт меню
     Item *SelectedItem() { return items[selectedItem]; };
+
+    // Номер выбранного итема
+    int selectedItem;
 
 private:
     // Делает текущим следующий элемент
@@ -98,8 +101,6 @@ private:
     int NumItems() const;
     // Указатель на массив элементов меню. Заканчивается нулём.
     Item **items;
-    // Номер выбранного итема
-    int selectedItem;
 
     virtual void CreateHint(char buffer[100]) const { buffer[0] = 0; };
 
