@@ -116,7 +116,7 @@ void ModeFilter::Set(ModeFilter::E v)
 
 void LevelSynch::Change(Channel::E ch, int delta)
 {
-    LEVEL_SYNCH(ch) += delta * Divider::Current().ToAbs();
+    LEVEL_SYNCH(ch) += delta;
 
     LIMITATION(LEVEL_SYNCH(ch), MIN, MAX);
 }
