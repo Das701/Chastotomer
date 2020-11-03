@@ -34,7 +34,7 @@ static float decFx = 0.0F;
 static float decTizm = 0.0F;
 static float decNkal = 0.0F;
 
-float MathFPGA::interpol = 0.0F;
+static float interpol = 0.0F;
 
 static char minAutoData[7] = { 0 };
 static char maxAutoData[7] = { 0 };
@@ -550,7 +550,7 @@ char *MathFPGA::GiveData()
         else if (ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpolateCheck())
         {
             MathFPGA::CalculateInterpolate();
-            std::sprintf(procDataInterpol, "%10.2f", MathFPGA::interpol);
+            std::sprintf(procDataInterpol, "%10.2f", interpol);
             return procDataInterpol;
         }
         else if ((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && PageModesA::DCycleCheck())
