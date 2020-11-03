@@ -5,7 +5,7 @@ struct MathFPGA
 {
     static void Calculate();
     static void BinToDec();
-    static void CalculationAuto();
+    static void CalculateAuto();
     static void CalculateDcycle();
 
     static int MidAuto();

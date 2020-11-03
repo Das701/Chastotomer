@@ -267,7 +267,7 @@ void MathFPGA::BinToDec()
 }
 
 
-void MathFPGA::CalculationAuto()
+void MathFPGA::CalculateAuto()
 {
     decMinAuto = 0;
     decMidAuto = 0;
@@ -308,21 +308,21 @@ void MathFPGA::CalculationAuto()
 
 int MathFPGA::MidAuto()
 {
-    CalculationAuto();
+    CalculateAuto();
     return decMidAuto;
 }
 
 
 int MathFPGA::MinAuto()
 {
-    CalculationAuto();
+    CalculateAuto();
     return decMinAuto;
 }
 
 
 int MathFPGA::MaxAuto()
 {
-    CalculationAuto();
+    CalculateAuto();
     return decMaxAuto;
 }
 
@@ -340,7 +340,7 @@ void MathFPGA::RefreshAuto()
 
 char *MathFPGA::GiveAuto()
 {
-    CalculationAuto();
+    CalculateAuto();
     SU::Int2String((MathFPGA::decMinAuto - 512) * 2, minAutoData);
     SU::Int2String((MathFPGA::decMaxAuto - 512) * 2, maxAutoData);
     std::strcpy(autoData, "Макс ");
