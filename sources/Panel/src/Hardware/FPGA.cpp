@@ -49,62 +49,12 @@ static char procDataDcycle[30] = { 0 };
 
 static char encData[10];
 static char ident[4];
-static char timer1[27];
-static int decTimer1;
-static int decCAL1;
-static int decCAL2;
-
-static char CAL1[24];
-static char CAL2[24];
-
-static float interpol;
 
 static bool autoMode = false;
 
 static char calibBin[10];
 static int calibNumber = 0;
 static int NAC = 0;
-
-
-static void CalculationInterpolate() 
-{     
-    decTimer1 = 0;
-    decCAL1 = 0;
-    decCAL2 = 0; 
-    int base1 = 1; 
-    int base2 = 1; 
-    int base3 = 1; 
-    int len = 24;   
-
-    for (int i = len - 1; i >= 0; i--) 
-    { 
-        if (timer1[i] == 1) 
-        {
-            decTimer1 += base1;
-        }            
-        base1 = base1 * 2; 
-    }
-
-    for (int i = len - 1; i >= 0; i--) 
-    { 
-        if (CAL1[i] == 1) 
-        {
-            decCAL1 += base2;
-        }            
-        base2 = base2 * 2; 
-    } 
-
-    for (int i = len - 1; i >= 0; i--) 
-    { 
-        if (CAL2[i] == 1) 
-        {
-            decCAL2 += base3;
-        }            
-        base3 = base3 * 2; 
-    }
-
-    interpol = (float)(100 * decTimer1) / (float)(decCAL2 - decCAL1);
-}
 
 
 void FPGA::Init()
@@ -176,17 +126,17 @@ void FPGA::Update()
 
                 for (int i = 0; i < 24; i++)
                 {
-                    READ_PIN_B14(timer1[i]);
+                    READ_PIN_B14(MathFPGA::timer1[i]);
                 }
 
                 for (int i = 0; i < 24; i++)
                 {
-                    READ_PIN_B14(CAL1[i]);
+                    READ_PIN_B14(MathFPGA::CAL1[i]);
                 }
 
                 for (int i = 0; i < 24; i++)
                 {
-                    READ_PIN_B14(CAL2[i]);
+                    READ_PIN_B14(MathFPGA::CAL2[i]);
                 }
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
@@ -316,8 +266,8 @@ char* FPGA::GiveData()
         }
         else if(ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpolateCheck())
         {
-            CalculationInterpolate();
-            std::sprintf(procDataInterpol, "%10.2f", interpol);
+            MathFPGA::CalculateInterpolate();
+            std::sprintf(procDataInterpol, "%10.2f", MathFPGA::interpol);
             return procDataInterpol;
         }
         else if((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && PageModesA::DCycleCheck())

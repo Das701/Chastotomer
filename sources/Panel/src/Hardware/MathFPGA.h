@@ -10,6 +10,7 @@ struct MathFPGA
     static void CalculateAuto();
     static void CalculateDcycle();
     static void CalculateComparator();
+    static void CalculateInterpolate();
 
     static int MidAuto();
     static int MinAuto();
@@ -50,6 +51,11 @@ struct MathFPGA
     static char binTizm[16];
     static char binNkal[16];
 
+    static char timer1[27];
+    static char CAL1[24];
+    static char CAL2[24];
+
+    static float interpol;
 
 private:
     static int CalculateFrequency(int &manualZeros);

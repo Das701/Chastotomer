@@ -20,7 +20,6 @@ int MathFPGA::emptyZeros = 0;
 int MathFPGA::NA = 0; //-V707
 int MathFPGA::NB = 0; //-V707
 
-
 int MathFPGA::decMinAuto = 0;
 int MathFPGA::decMidAuto = 0;
 int MathFPGA::decMaxAuto = 0;
@@ -29,12 +28,6 @@ char MathFPGA::minAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::midAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::maxAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-static char minAutoData[7] = { 0 };
-static char maxAutoData[7] = { 0 };
-static char autoData[20] = { 0 };
-
-static int decPeriod = 0;
-static int decDuration = 0;
 float MathFPGA::dutyCycle = 0.0F;
 int MathFPGA::dcycleZeros = 0;
 
@@ -42,10 +35,25 @@ float MathFPGA::decFx = 0.0F;
 float MathFPGA::decTizm = 0.0F;
 float MathFPGA::decNkal = 0.0F;
 
+float MathFPGA::interpol = 0.0F;
+
 char MathFPGA::binFx[32] = { 0 };
 char MathFPGA::binTizm[16] = { 0 };
 char MathFPGA::binNkal[16] = { 0 };
 
+char MathFPGA::timer1[27] = { 0 };
+char MathFPGA::CAL1[24] = { 0 };
+char MathFPGA::CAL2[24] = { 0 };
+
+static char minAutoData[7] = { 0 };
+static char maxAutoData[7] = { 0 };
+static char autoData[20] = { 0 };
+
+static int decPeriod = 0;
+static int decDuration = 0;
+static int decTimer1 = 0;
+static int decCAL1 = 0;
+static int decCAL2 = 0;
 
 void MathFPGA::Calculate()
 {
@@ -481,4 +489,45 @@ void MathFPGA::DecToBin(int dec, char *bin)
         }
         x = x / 2;
     }
+}
+
+
+void MathFPGA::CalculateInterpolate()
+{
+    decTimer1 = 0;
+    decCAL1 = 0;
+    decCAL2 = 0;
+    int base1 = 1;
+    int base2 = 1;
+    int base3 = 1;
+    int len = 24;
+
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (timer1[i] == 1)
+        {
+            decTimer1 += base1;
+        }
+        base1 = base1 * 2;
+    }
+
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (CAL1[i] == 1)
+        {
+            decCAL1 += base2;
+        }
+        base2 = base2 * 2;
+    }
+
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (CAL2[i] == 1)
+        {
+            decCAL2 += base3;
+        }
+        base3 = base3 * 2;
+    }
+
+    interpol = (float)(100 * decTimer1) / (float)(decCAL2 - decCAL1);
 }
