@@ -367,6 +367,12 @@ double Value::ToDouble() const
 }
 
 
+float Value::ToFloat() const
+{
+    return (float)ToDouble();
+}
+
+
 int Value::Sign() const
 {
     //                fedcba9876543210
