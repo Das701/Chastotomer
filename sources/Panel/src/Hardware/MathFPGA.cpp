@@ -11,9 +11,9 @@
 #include <cstring>
 
 
-int MathFPGA::Auto::decMin = 0;
-int MathFPGA::Auto::decMid = 0;
-int MathFPGA::Auto::decMax = 0;
+static int decMinAuto = 0;
+static int decMidAuto = 0;
+static int decMaxAuto = 0;
 char MathFPGA::Auto::dataMin[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::Auto::dataMid[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::Auto::dataMax[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -276,9 +276,9 @@ float MathFPGA::BinToDec(char bin[32])
 
 void MathFPGA::Auto::Calculate()
 {
-    decMin = 0;
-    decMid = 0;
-    decMax = 0;
+    decMinAuto = 0;
+    decMidAuto = 0;
+    decMaxAuto = 0;
     int base1 = 1;
     int base2 = 1;
     int base3 = 1;
@@ -288,7 +288,7 @@ void MathFPGA::Auto::Calculate()
     {
         if (dataMin[i] == 1)
         {
-            decMin += base1;
+            decMinAuto += base1;
         }
         base1 = base1 * 2;
     }
@@ -297,7 +297,7 @@ void MathFPGA::Auto::Calculate()
     {
         if (dataMid[i] == 1)
         {
-            decMid += base2;
+            decMidAuto += base2;
         }
         base2 = base2 * 2;
     }
@@ -306,7 +306,7 @@ void MathFPGA::Auto::Calculate()
     {
         if (dataMax[i] == 1)
         {
-            decMax += base3;
+            decMaxAuto += base3;
         }
         base3 = base3 * 2;
     }
@@ -316,21 +316,21 @@ void MathFPGA::Auto::Calculate()
 int MathFPGA::Auto::Mid()
 {
     Calculate();
-    return decMid;
+    return decMidAuto;
 }
 
 
 int MathFPGA::Auto::Min()
 {
     Calculate();
-    return decMin;
+    return decMinAuto;
 }
 
 
 int MathFPGA::Auto::Max()
 {
     Calculate();
-    return decMax;
+    return decMaxAuto;
 }
 
 
@@ -339,8 +339,8 @@ char *MathFPGA::Auto::Give()
     static char result[20] = { 0 };
 
     Auto::Calculate();
-    SU::Int2String((Auto::decMin - 512) * 2, minAutoData);
-    SU::Int2String((Auto::decMax - 512) * 2, maxAutoData);
+    SU::Int2String((decMinAuto - 512) * 2, minAutoData);
+    SU::Int2String((decMaxAuto - 512) * 2, maxAutoData);
     std::strcpy(result, "Макс ");
     std::strcat(result, maxAutoData);
     std::strcat(result, " Мин ");
@@ -348,14 +348,14 @@ char *MathFPGA::Auto::Give()
 
     if (CURRENT_CHANNEL_IS_A)
     {
-        LEVEL_SYNCH_A = (Auto::decMid - 512) * 2;
-        NA = Auto::decMid - 512;
+        LEVEL_SYNCH_A = (decMidAuto - 512) * 2;
+        NA = decMidAuto - 512;
     }
 
     if (CURRENT_CHANNEL_IS_B)
     {
-        LEVEL_SYNCH_B = (Auto::decMid - 512) * 2;
-        NB = Auto::decMid - 512;
+        LEVEL_SYNCH_B = (decMidAuto - 512) * 2;
+        NB = decMidAuto - 512;
 
     }
 
