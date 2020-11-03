@@ -13,6 +13,14 @@ float MathFPGA::decDataC = 0.0F;
 int MathFPGA::decDA = 1;
 int MathFPGA::emptyZeros = 0;
 
+int MathFPGA::decMinAuto = 0;
+int MathFPGA::decMidAuto = 0;
+int MathFPGA::decMaxAuto = 0;
+
+char MathFPGA::minAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+char MathFPGA::midAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+char MathFPGA::maxAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
 
 void MathFPGA::Calculate()
 {
@@ -239,5 +247,76 @@ void MathFPGA::BinToDec()
     if (CURRENT_CHANNEL_IS_C)
     {
         decDataA = decDataA * 64 / 100;
+    }
+}
+
+
+void MathFPGA::CalculationAuto()
+{
+    decMinAuto = 0;
+    decMidAuto = 0;
+    decMaxAuto = 0;
+    int base1 = 1;
+    int base2 = 1;
+    int base3 = 1;
+    int len = 10;
+
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (minAuto[i] == 1)
+        {
+            decMinAuto += base1;
+        }
+        base1 = base1 * 2;
+    }
+
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (midAuto[i] == 1)
+        {
+            decMidAuto += base2;
+        }
+        base2 = base2 * 2;
+    }
+
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (maxAuto[i] == 1)
+        {
+            decMaxAuto += base3;
+        }
+        base3 = base3 * 2;
+    }
+}
+
+
+int MathFPGA::MidAuto()
+{
+    CalculationAuto();
+    return decMidAuto;
+}
+
+
+int MathFPGA::MinAuto()
+{
+    CalculationAuto();
+    return decMinAuto;
+}
+
+
+int MathFPGA::MaxAuto()
+{
+    CalculationAuto();
+    return decMaxAuto;
+}
+
+
+void MathFPGA::RefreshAuto()
+{
+    for (int i = 0; i < 10; i++)
+    {
+        minAuto[i] = 0;
+        midAuto[i] = 0;
+        maxAuto[i] = 0;
     }
 }

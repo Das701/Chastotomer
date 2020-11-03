@@ -5,6 +5,7 @@
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Hardware/FPGA.h"
+#include "Hardware/MathFPGA.h"
 #include "Menu/Hint.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Pages/Pages.h"
@@ -285,7 +286,7 @@ bool Page::OnControl(const Control &control) //-V2008
                 (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_A) ||
                 (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_B))
             {
-                FPGA::RefreshAuto();
+                MathFPGA::RefreshAuto();
                 FreqMeter::LoadAuto();
                 FPGA::SwitchAuto();
             }

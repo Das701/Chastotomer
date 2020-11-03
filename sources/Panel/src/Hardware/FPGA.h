@@ -13,10 +13,6 @@ struct FPGA
     static void DecreaseN();
     static void SwitchAuto();
     static bool AutoMode();
-    static int MidAuto();
-    static int MinAuto();
-    static int MaxAuto();
-    static void RefreshAuto();
     static int CalibNumber();
     static void ReadCalibNumber();
     static char *GiveIdent();

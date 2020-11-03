@@ -7,6 +7,7 @@
 #include "Display/Font/FontBig.h"
 #include "Display/Font/FontMid.h"
 #include "Hardware/FPGA.h"
+#include "Hardware/MathFPGA.h"
 #include "Hardware/HAL/HAL.h"
 #include "Menu/Hint.h"
 #include "Menu/Menu.h"
@@ -208,7 +209,7 @@ static void DrawHint()
         if(FPGA::AutoMode())
         {
             
-            if((FPGA::MidAuto() != 0) || (FPGA::MaxAuto() != 0) || (FPGA::MinAuto() != 0))
+            if((MathFPGA::MidAuto() != 0) || (MathFPGA::MaxAuto() != 0) || (MathFPGA::MinAuto() != 0))
             {
                 Text(FPGA::GiveAuto()).Write(102, 37);
                 FPGA::SwitchAuto();

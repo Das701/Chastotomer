@@ -73,13 +73,6 @@ static float decNkal;
 static char CAL1[24];
 static char CAL2[24];
 
-static char minAuto[10] = { 0 };
-static char midAuto[10] = { 0 };
-static char maxAuto[10] = { 0 };
-static int decMinAuto;
-static int decMidAuto;
-static int decMaxAuto;
-
 static int decPeriod;
 static int decDuration;
 static char period[32];
@@ -227,43 +220,6 @@ static void CalculationComparator()
     }   
 }
 
-static void CalculationAuto() 
-{     
-    decMinAuto = 0;
-    decMidAuto = 0;
-    decMaxAuto = 0; 
-    int base1 = 1; 
-    int base2 = 1; 
-    int base3 = 1; 
-    int len = 10;
-
-    for (int i = len - 1; i >= 0; i--) 
-    { 
-        if (minAuto[i] == 1) 
-        {
-            decMinAuto += base1;
-        }            
-        base1 = base1 * 2; 
-    }
-
-    for (int i = len - 1; i >= 0; i--) 
-    { 
-        if (midAuto[i] == 1) 
-        {
-            decMidAuto += base2;
-        }            
-        base2 = base2 * 2; 
-    } 
-
-    for (int i = len - 1; i >= 0; i--) 
-    { 
-        if (maxAuto[i] == 1) 
-        {
-            decMaxAuto += base3;
-        }            
-        base3 = base3 * 2; 
-    }     
-}
 
 void DecToBin(int dec, char* bin) 
 { 
@@ -320,17 +276,17 @@ void FPGA::Update()
 
             for (int i = 0; i < 10; i++)
             {
-                READ_PIN_B14(minAuto[i]);
+                READ_PIN_B14(MathFPGA::minAuto[i]);
             }
 
             for (int i = 0; i < 10; i++)
             {
-                READ_PIN_B14(midAuto[i]);
+                READ_PIN_B14(MathFPGA::midAuto[i]);
             }
 
             for (int i = 0; i < 10; i++)
             {
-                READ_PIN_B14(maxAuto[i]);
+                READ_PIN_B14(MathFPGA::maxAuto[i]);
             }
 
             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
@@ -785,6 +741,7 @@ void FPGA::DecreaseN()
     }
 }
 
+
 void FPGA::SwitchAuto()
 {
     if(autoMode == false)
@@ -797,44 +754,18 @@ void FPGA::SwitchAuto()
     }
 }
 
+
 bool FPGA::AutoMode()
 {
     return autoMode;
 }
 
-int FPGA::MidAuto()
-{
-    CalculationAuto();
-    return decMidAuto;
-}
-
-int FPGA::MinAuto()
-{
-    CalculationAuto();
-    return decMinAuto;
-}
-
-int FPGA::MaxAuto()
-{
-    CalculationAuto();
-    return decMaxAuto;
-}
-
-void FPGA::RefreshAuto()
-{
-    for(int i = 0; i < 10; i++)
-    {
-        minAuto[i] = 0;
-        midAuto[i] = 0;
-        maxAuto[i] = 0;
-    }
-}
 
 char *FPGA::GiveAuto()
 {
-    CalculationAuto();
-    SU::Int2String((decMinAuto - 512) * 2, minAutoData);
-    SU::Int2String((decMaxAuto - 512) * 2, maxAutoData);
+    MathFPGA::CalculationAuto();
+    SU::Int2String((MathFPGA::decMinAuto - 512) * 2, minAutoData);
+    SU::Int2String((MathFPGA::decMaxAuto - 512) * 2, maxAutoData);
     std::strcpy(autoData, "Макс ");
     std::strcat(autoData, maxAutoData);
     std::strcat(autoData, " Мин ");
@@ -842,14 +773,14 @@ char *FPGA::GiveAuto()
  
     if (CURRENT_CHANNEL_IS_A)
     {
-        LEVEL_SYNCH_A = (decMidAuto - 512) * 2;
-        NA = decMidAuto - 512;
+        LEVEL_SYNCH_A = (MathFPGA::decMidAuto - 512) * 2;
+        NA = MathFPGA::decMidAuto - 512;
     }
 
     if (CURRENT_CHANNEL_IS_B)
     {
-        LEVEL_SYNCH_B = (decMidAuto - 512) * 2;
-        NB = decMidAuto - 512;
+        LEVEL_SYNCH_B = (MathFPGA::decMidAuto - 512) * 2;
+        NB = MathFPGA::decMidAuto - 512;
 
     }
 
