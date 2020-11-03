@@ -6,6 +6,7 @@ struct MathFPGA
     static void Calculate();
     static void BinToDec();
     static void CalculationAuto();
+    static void CalculateDcycle();
 
     static int MidAuto();
     static int MinAuto();
@@ -31,6 +32,12 @@ struct MathFPGA
 
     static int NA; //-V707
     static int NB; //-V707
+
+    static char period[32];
+    static char duration[32];
+
+    static float dutyCycle;
+    static int dcycleZeros;
 
 private:
     static int CalculateFrequency(int &manualZeros);

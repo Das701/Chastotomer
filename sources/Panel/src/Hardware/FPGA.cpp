@@ -39,9 +39,6 @@
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
 
-static int dcycleZeros = 0;
-
-
 static char procData[40] = { 0 };
 static char identInfo[10] = { 0 };
 
@@ -67,67 +64,13 @@ static float decNkal;
 static char CAL1[24];
 static char CAL2[24];
 
-static int decPeriod;
-static int decDuration;
-static char period[32];
-static char duration[32];
-
 static float interpol;
-
-static float dutyCycle;
 
 static bool autoMode = false;
 
 static char calibBin[10];
 static int calibNumber = 0;
 static int NAC = 0;
-
-
-static void CalculationDcycle() 
-{     
-    decPeriod = 0;
-    decDuration = 0;
-    int base1 = 1; 
-    int base2 = 1; 
-    int len = 32;  
-    for (int i = len - 1; i >= 0; i--) 
-    { 
-        if (period[i] == 1) 
-        {
-            decPeriod += base1;
-        }            
-        base1 = base1 * 2; 
-    }
-    for (int i = len - 1; i >= 0; i--) 
-    { 
-        if (duration[i] == 1) 
-        {
-            decDuration += base2;
-        }            
-        base2 = base2 * 2; 
-    }   
-    dutyCycle = (float)decDuration / (float)decPeriod;
-
-    if(ModeMeasureDuration::Current().Is_Phase())
-    {
-        dutyCycle = dutyCycle*360;
-    }
-    else
-    {
-        if(dutyCycle < 0)
-        {
-            dutyCycle = dutyCycle*(-1);
-        }
-        if(dutyCycle != 0.0F) //-V2550 //-V550
-        {
-            while(dutyCycle < 1)
-            {
-                dutyCycle = dutyCycle * 10;
-                dcycleZeros++;
-            }
-        }
-    }
-}
 
 
 static void CalculationInterpolate() 
@@ -327,12 +270,12 @@ void FPGA::Update()
 
                 for (int i = 0; i < 32; i++)
                 {
-                    READ_PIN_B14(period[i]);
+                    READ_PIN_B14(MathFPGA::period[i]);
                 }
 
                 for (int i = 0; i < 32; i++)
                 {
-                    READ_PIN_B14(duration[i]);
+                    READ_PIN_B14(MathFPGA::duration[i]);
                 }
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
@@ -448,15 +391,15 @@ char* FPGA::GiveData()
         }
         else if((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && PageModesA::DCycleCheck())
         {
-            CalculationDcycle();
+            MathFPGA::CalculateDcycle();
 
             if (ModeMeasureDuration::Current().Is_Phase())
             {
-                std::sprintf(procDataDcycle, "%10.3f", dutyCycle);
+                std::sprintf(procDataDcycle, "%10.3f", MathFPGA::dutyCycle);
             }
             else
             {
-                std::sprintf(procDataDcycle, "%10.7f", dutyCycle);
+                std::sprintf(procDataDcycle, "%10.7f", MathFPGA::dutyCycle);
             }
 
             return procDataDcycle;
@@ -514,9 +457,9 @@ char* FPGA::GiveSpec() //-V2008
                 else
                 {
                     std::strcpy(spec, " E-0");
-                    spec[3] = (char)(dcycleZeros | 0x30);
+                    spec[3] = (char)(MathFPGA::dcycleZeros | 0x30);
 
-                    dcycleZeros = 0;
+                    MathFPGA::dcycleZeros = 0;
                 }
         }
         else

@@ -5,15 +5,21 @@
 #include "Menu/Pages/PageModesC.h"
 #include "Utils/StringUtils.h"
 #include <cstring>
- 
 
-char MathFPGA::dataA[32];
-char MathFPGA::dataB[32];
+
+char MathFPGA::period[32] = { 0 };
+char MathFPGA::duration[32] = { 0 };
+
+char MathFPGA::dataA[32] = { 0 };
+char MathFPGA::dataB[32] = { 0 };
 float MathFPGA::decDataA = 0.0F;
 float MathFPGA::decDataB = 0.0F;
 float MathFPGA::decDataC = 0.0F;
 int MathFPGA::decDA = 1;
 int MathFPGA::emptyZeros = 0;
+int MathFPGA::NA = 0; //-V707
+int MathFPGA::NB = 0; //-V707
+
 
 int MathFPGA::decMinAuto = 0;
 int MathFPGA::decMidAuto = 0;
@@ -23,13 +29,14 @@ char MathFPGA::minAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::midAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::maxAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-static char minAutoData[7];
-static char maxAutoData[7];
-static char autoData[20];
+static char minAutoData[7] = { 0 };
+static char maxAutoData[7] = { 0 };
+static char autoData[20] = { 0 };
 
-int MathFPGA::NA = 0; //-V707
-int MathFPGA::NB = 0; //-V707
-
+static int decPeriod = 0;
+static int decDuration = 0;
+float MathFPGA::dutyCycle = 0.0F;
+int MathFPGA::dcycleZeros = 0;
 
 void MathFPGA::Calculate()
 {
@@ -355,4 +362,51 @@ char *MathFPGA::GiveAuto()
     }
 
     return autoData;
+}
+
+
+void MathFPGA::CalculateDcycle()
+{
+    decPeriod = 0;
+    decDuration = 0;
+    int base1 = 1;
+    int base2 = 1;
+    int len = 32;
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (period[i] == 1)
+        {
+            decPeriod += base1;
+        }
+        base1 = base1 * 2;
+    }
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (duration[i] == 1)
+        {
+            decDuration += base2;
+        }
+        base2 = base2 * 2;
+    }
+    dutyCycle = (float)decDuration / (float)decPeriod;
+
+    if (ModeMeasureDuration::Current().Is_Phase())
+    {
+        dutyCycle = dutyCycle * 360;
+    }
+    else
+    {
+        if (dutyCycle < 0)
+        {
+            dutyCycle = dutyCycle * (-1);
+        }
+        if (dutyCycle != 0.0F) //-V2550 //-V550
+        {
+            while (dutyCycle < 1)
+            {
+                dutyCycle = dutyCycle * 10;
+                dcycleZeros++;
+            }
+        }
+    }
 }
