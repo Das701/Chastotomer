@@ -786,7 +786,7 @@ char* FPGA::GiveSpec() //-V2008
         }
         else
         {
-            if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsAB() || PageModesA::modeMeasureFrequency.IsAC())) ||
+            if((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsRatioAB() || PageModesA::modeMeasureFrequency.IsRatioAC())) ||
                 (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency.IsBA() || PageModesB::modeMeasureFrequency.IsBC())) ||
                 (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureFrequency.IsCA() || PageModesC::modeMeasureFrequency.IsCB())) ||
                 ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) || (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsTachometer())) ||

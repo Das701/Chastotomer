@@ -256,7 +256,7 @@ bool Page::OnControl(const Control &control) //-V2008
         }
         else
         {
-            if ((PageModesA::modeMeasureFrequency.IsAC() && CURRENT_CHANNEL_IS_A) ||
+            if ((PageModesA::modeMeasureFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
                 (PageModesB::modeMeasureFrequency.IsBC() && CURRENT_CHANNEL_IS_B))
             {
             }

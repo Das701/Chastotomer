@@ -169,14 +169,14 @@ void PageModesA::OnChanged_ModeFrequency()
         items[4] = nullptr;
         PageModesA::RelationOff();
     }
-    else if (PageModesA::modeMeasureFrequency.IsAB())
+    else if (PageModesA::modeMeasureFrequency.IsRatioAB())
     {
         items[1] = &sModeFrequency;
         items[2] = &sNumberPeriods;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
-    else if (PageModesA::modeMeasureFrequency.IsAC())
+    else if (PageModesA::modeMeasureFrequency.IsRatioAC())
     {
         items[1] = &sModeFrequency;
         items[2] = &sTimeMeasure;
@@ -616,14 +616,14 @@ bool CurrentModeMeasureFrequency::IsT_1()
 
 bool CurrentModeMeasureFrequency::Is_AC_or_BC()
 {
-    return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAC()) ||
+    return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsRatioAC()) ||
         (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBC()));
 }
 
 
 bool CurrentModeMeasureFrequency::Is_AB_or_BA()
 {
-    return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsAB()) ||
+    return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsRatioAB()) ||
         (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBA()));
 }
 
