@@ -72,7 +72,7 @@ void FPGA::Init()
 
 void FPGA::Update()
 {
-    if(autoMode == true)
+    if(autoMode)
     {
         if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
         {
@@ -303,7 +303,7 @@ void FPGA::DecreaseN()
 
 void FPGA::SwitchAuto()
 {
-    if(autoMode == false)
+    if(!autoMode)
     {
         autoMode = true;
     }
