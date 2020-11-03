@@ -41,9 +41,6 @@ struct MathFPGA
     static char binTizm[16];
     static char binNkal[16];
 
-    static char CAL1[24];
-    static char CAL2[24];
-
     static float interpol;
 
 private:

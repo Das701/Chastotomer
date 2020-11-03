@@ -21,4 +21,6 @@ struct FPGA
     static char minAuto[10];
     static char midAuto[10];
     static char maxAuto[10];
+    static char CAL1[24];
+    static char CAL2[24];
 };

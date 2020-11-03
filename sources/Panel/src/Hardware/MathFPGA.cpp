@@ -38,9 +38,6 @@ char MathFPGA::binFx[32] = { 0 };
 char MathFPGA::binTizm[16] = { 0 };
 char MathFPGA::binNkal[16] = { 0 };
 
-char MathFPGA::CAL1[24] = { 0 };
-char MathFPGA::CAL2[24] = { 0 };
-
 static char minAutoData[7] = { 0 };
 static char maxAutoData[7] = { 0 };
 
@@ -503,7 +500,7 @@ void MathFPGA::CalculateInterpolate()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (CAL1[i] == 1)
+        if (FPGA::CAL1[i] == 1)
         {
             decCAL1 += base2;
         }
@@ -512,7 +509,7 @@ void MathFPGA::CalculateInterpolate()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (CAL2[i] == 1)
+        if (FPGA::CAL2[i] == 1)
         {
             decCAL2 += base3;
         }
