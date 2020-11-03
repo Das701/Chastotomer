@@ -41,8 +41,7 @@
 
 static int dcycleZeros = 0;
 
-static char dataA [32]; 
-static char dataB [32];
+
 static char procData[40] = { 0 };
 static char identInfo[10] = { 0 };
 static char autoData[20];
@@ -96,42 +95,6 @@ static char calibBin[10];
 static int calibNumber = 0;
 static int NAC = 0;
 
-
-static void BinToDec() 
-{ 
-    int len = 32; 
-    MathFPGA::decDataA = 0; 
-    int base = 1; 
-
-    for (int i = len - 1; i >= 0; i--) 
-    { 
-        if (dataA[i] == 1) 
-        {
-            MathFPGA::decDataA += (float)base;
-        }            
-        base = base * 2; 
-    }
-
-    if(CurrentModeMeasureFrequency::Is_AC_or_BC())
-    {
-        MathFPGA::decDataB = 0;
-        int baseB = 1; 
-
-        for (int i = len - 1; i >= 0; i--) 
-        { 
-            if (dataB[i] == 1) 
-            {
-                MathFPGA::decDataB += (float)baseB;
-            }            
-            baseB = baseB * 2; 
-        }  
-    }
-
-    if(CURRENT_CHANNEL_IS_C)
-    {
-        MathFPGA::decDataA = MathFPGA::decDataA * 64 / 100;
-    }
-}
 
 static void CalculationDcycle() 
 {     
@@ -464,14 +427,14 @@ void FPGA::Update()
 
                 for (int i = 0; i < 32; i++)
                 {
-                    READ_PIN_B14(dataA[i]);
+                    READ_PIN_B14(MathFPGA::dataA[i]);
                 }
 
                 if(CurrentModeMeasureFrequency::Is_AC_or_BC() && PageModesA::RelationCheck())
                 {
                     for (int i = 0; i < 32; i++)
                     {
-                        READ_PIN_B14(dataB[i]);
+                        READ_PIN_B14(MathFPGA::dataB[i]);
                     }
                 }
 
@@ -487,7 +450,7 @@ char* FPGA::GiveData()
 {
     if(CurrentTypeMeasure::IsCountPulse())
     {
-        BinToDec();
+        MathFPGA::BinToDec();
         MathFPGA::decDataA = MathFPGA::decDataA / 2;
 
         if(CURRENT_CHANNEL_IS_C)
@@ -508,7 +471,7 @@ char* FPGA::GiveData()
     {
         if(CurrentModeMeasureFrequency::IsTachometer())
         {
-            BinToDec();
+            MathFPGA::BinToDec();
             MathFPGA::decDataA = MathFPGA::decDataA / 2;
             std::sprintf(procData, "%10.0f", MathFPGA::decDataA);
 
@@ -550,7 +513,7 @@ char* FPGA::GiveData()
         }
         else
         {
-            BinToDec();
+            MathFPGA::BinToDec();
             MathFPGA::Calculate();
 
             int pow = 0;

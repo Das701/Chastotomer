@@ -5,6 +5,8 @@
 #include "Menu/Pages/PageModesC.h"
 
 
+char MathFPGA::dataA[32];
+char MathFPGA::dataB[32];
 float MathFPGA::decDataA = 0.0F;
 float MathFPGA::decDataB = 0.0F;
 float MathFPGA::decDataC = 0.0F;
@@ -201,4 +203,41 @@ int MathFPGA::CalculateDuration()
     }
 
     return 1;
+}
+
+
+void MathFPGA::BinToDec()
+{
+    int len = 32;
+    decDataA = 0;
+    int base = 1;
+
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (dataA[i] == 1)
+        {
+            decDataA += (float)base;
+        }
+        base = base * 2;
+    }
+
+    if (CurrentModeMeasureFrequency::Is_AC_or_BC())
+    {
+        decDataB = 0;
+        int baseB = 1;
+
+        for (int i = len - 1; i >= 0; i--)
+        {
+            if (dataB[i] == 1)
+            {
+                decDataB += (float)baseB;
+            }
+            baseB = baseB * 2;
+        }
+    }
+
+    if (CURRENT_CHANNEL_IS_C)
+    {
+        decDataA = decDataA * 64 / 100;
+    }
 }
