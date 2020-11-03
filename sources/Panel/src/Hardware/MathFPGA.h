@@ -10,4 +10,7 @@ struct MathFPGA
     static float decDataC;
     static int decDA;
     static int emptyZeros;
+
+private:
+    static int CalculateFrequency(int &manualZeros);
 };
