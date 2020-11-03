@@ -541,9 +541,7 @@ int ValueNANO::Integer() const
 
 int ValuePICO::Integer() const
 {
-#pragma warning(push, 0)
-    return (int)(Abs() / (1000 * 1000 * 1000 * 1000)) * Sign();
-#pragma warning(pop)
+    return (int)(Abs() / 1000 / 1000 / 1000 / 1000) * Sign();
 }
 
 
@@ -774,9 +772,7 @@ void ValuePICO::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint
 {
     value = (uint64)units;
 
-#pragma warning(push, 0)
-    value *= 1000 * 1000 * 1000 * 1000;
-#pragma warning(pop)
+    value = value * 1000 * 1000 * 1000 * 1000;
 
     value += (uint64)pUnits + (uint64)nUnits * 1000 + (uint64)uUnits * 1000 * 1000 + (uint64)mUnits * 1000 * 1000 * 1000;
 
@@ -907,7 +903,7 @@ pString ValuePICO::ToString() const
 
     while (!stack.Empty())                          // Переводим в строку целую часть
     {
-        symbol[0] = stack.Pop();
+        symbol[0] = stack.Pop() | 0x30;
 
         std::strcat(buffer, symbol);
     }
@@ -928,7 +924,7 @@ pString ValuePICO::ToString() const
 
         std::strcat(buffer, symbol);
 
-        val.Sub(ValuePICO(Integer()));
+        val.Sub(ValuePICO(val.Integer()));
     }
 
     return buffer;
