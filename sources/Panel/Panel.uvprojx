@@ -984,6 +984,16 @@
               <FilePath>.\src\Utils\StringUtils.cpp</FilePath>
             </File>
             <File>
+              <FileName>Value.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Value.h</FilePath>
+            </File>
+            <File>
+              <FileName>Value.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Value.cpp</FilePath>
+            </File>
+            <File>
               <FileName>Values.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Values.h</FilePath>

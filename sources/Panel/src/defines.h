@@ -1,12 +1,13 @@
 #pragma once
 
-typedef unsigned short     uint16;
-typedef signed short       int16;
-typedef unsigned char      uint8;
-typedef signed char        int8;
-typedef unsigned int       uint;
-typedef const char * const pString;
-typedef const char *       pCHAR;
+typedef unsigned short         uint16;
+typedef signed short           int16;
+typedef unsigned char          uint8;
+typedef signed char            int8;
+typedef unsigned long long int uint64;
+typedef unsigned int           uint;
+typedef const char * const     pString;
+typedef const char *           pCHAR;
 
 typedef void(*pFuncVII)(int, int);
 
