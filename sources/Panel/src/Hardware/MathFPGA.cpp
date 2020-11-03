@@ -18,8 +18,8 @@ char MathFPGA::Auto::dataMin[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::Auto::dataMid[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::Auto::dataMax[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-char MathFPGA::Measure::dataA[32] = { 0 };
-char MathFPGA::Measure::dataB[32] = { 0 };
+char MathFPGA::Measure::dataFrequencyA[32] = { 0 };
+char MathFPGA::Measure::dataFrequencyB[32] = { 0 };
 char MathFPGA::Measure::dataPeriod[32] = { 0 };
 char MathFPGA::Measure::dataDuration[32] = { 0 };
 char MathFPGA::Measure::dataComparatorFx[32] = { 0 };
@@ -239,11 +239,11 @@ int MathFPGA::Measure::CalculateDuration()
 
 void MathFPGA::Measure::BinToDec()
 {
-    decDataA.FromDouble(MathFPGA::BinToDec(dataA));
+    decDataA.FromDouble(MathFPGA::BinToDec(dataFrequencyA));
 
     if (CurrentModeMeasureFrequency::Is_RatioAC_or_RatioBC())
     {
-        decDataB.FromDouble(MathFPGA::BinToDec(dataB));
+        decDataB.FromDouble(MathFPGA::BinToDec(dataFrequencyB));
     }
 
     if (CURRENT_CHANNEL_IS_C)

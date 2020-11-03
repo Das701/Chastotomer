@@ -156,11 +156,11 @@ void FPGA::Update()
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-                CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataA);
+                CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataFrequencyA);
 
                 if(CurrentModeMeasureFrequency::Is_RatioAC_or_RatioBC() && PageModesA::RelationCheck())
                 {
-                    CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataB);
+                    CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataFrequencyB);
                 }
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);

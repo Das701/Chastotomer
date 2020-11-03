@@ -23,8 +23,8 @@ struct MathFPGA
 
     private:
 
-        static char dataA[32];
-        static char dataB[32];
+        static char dataFrequencyA[32];
+        static char dataFrequencyB[32];
         static char dataPeriod[32];
         static char dataDuration[32];
 
