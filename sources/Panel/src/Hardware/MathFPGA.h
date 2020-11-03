@@ -15,8 +15,6 @@ struct MathFPGA
     static void CalculateComparator();
     static void CalculateInterpolate();
 
-    static char *GiveAuto();
-
     static int NA; //-V707
     static int NB; //-V707
 
@@ -36,6 +34,9 @@ struct MathFPGA
         static int Min();
         static int Max();
 
+        static char *Give();
+
+    private:
         static int decMin;
         static int decMid;
         static int decMax;

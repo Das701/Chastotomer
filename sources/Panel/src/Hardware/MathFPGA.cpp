@@ -323,7 +323,7 @@ int MathFPGA::Auto::Max()
 }
 
 
-char *MathFPGA::GiveAuto()
+char *MathFPGA::Auto::Give()
 {
     static char result[20] = { 0 };
 
