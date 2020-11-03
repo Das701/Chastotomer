@@ -21,7 +21,7 @@ static int emptyZeros = 0;
 int MathFPGA::NA = 0; //-V707
 int MathFPGA::NB = 0; //-V707
 
-int MathFPGA::decMinAuto = 0;
+static int decMinAuto = 0;
 int MathFPGA::decMidAuto = 0;
 int MathFPGA::decMaxAuto = 0;
 
@@ -50,7 +50,6 @@ char MathFPGA::ident[4] = { 0 };
 
 static char minAutoData[7] = { 0 };
 static char maxAutoData[7] = { 0 };
-static char autoData[20] = { 0 };
 
 static int decPeriod = 0;
 static int decDuration = 0;
@@ -364,13 +363,15 @@ void MathFPGA::RefreshAuto()
 
 char *MathFPGA::GiveAuto()
 {
+    static char result[20] = { 0 };
+
     CalculateAuto();
-    SU::Int2String((MathFPGA::decMinAuto - 512) * 2, minAutoData);
+    SU::Int2String(( decMinAuto - 512) * 2, minAutoData);
     SU::Int2String((MathFPGA::decMaxAuto - 512) * 2, maxAutoData);
-    std::strcpy(autoData, "Макс ");
-    std::strcat(autoData, maxAutoData);
-    std::strcat(autoData, " Мин ");
-    std::strcat(autoData, minAutoData);
+    std::strcpy(result, "Макс ");
+    std::strcat(result, maxAutoData);
+    std::strcat(result, " Мин ");
+    std::strcat(result, minAutoData);
 
     if (CURRENT_CHANNEL_IS_A)
     {
@@ -385,7 +386,7 @@ char *MathFPGA::GiveAuto()
 
     }
 
-    return autoData;
+    return result;
 }
 
 
