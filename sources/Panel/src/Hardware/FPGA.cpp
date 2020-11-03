@@ -134,15 +134,9 @@ void FPGA::Update()
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-                for (int i = 0; i < 32; i++)
-                {
-                    READ_PIN_B14(period[i]);
-                }
+                CYCLE_READ_PIN_B14(32, period);
 
-                for (int i = 0; i < 32; i++)
-                {
-                    READ_PIN_B14(duration[i]);
-                }
+                CYCLE_READ_PIN_B14(32, duration);
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
                 HAL_TIM::DelayUS(8);
@@ -154,25 +148,13 @@ void FPGA::Update()
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-                for (int i = 0; i < 3; i++)
-                {
-                    READ_PIN_B14(ident[i]);
-                }
+                CYCLE_READ_PIN_B14(3, ident);
 
-                for (int i = 0; i < 32; i++)
-                {
-                    READ_PIN_B14(binFx[i]);
-                }
+                CYCLE_READ_PIN_B14(32, binFx);
 
-                for (int i = 0; i < 16; i++)
-                {
-                    READ_PIN_B14(binTizm[i]);
-                }
+                CYCLE_READ_PIN_B14(16, binTizm);
 
-                for (int i = 0; i < 16; i++)
-                {
-                    READ_PIN_B14(binNkal[i]);
-                }
+                CYCLE_READ_PIN_B14(16, binNkal);
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
                 HAL_TIM::DelayUS(8);
@@ -184,17 +166,11 @@ void FPGA::Update()
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-                for (int i = 0; i < 32; i++)
-                {
-                    READ_PIN_B14(dataA[i]);
-                }
+                CYCLE_READ_PIN_B14(32, dataA);
 
                 if(CurrentModeMeasureFrequency::Is_AC_or_BC() && PageModesA::RelationCheck())
                 {
-                    for (int i = 0; i < 32; i++)
-                    {
-                        READ_PIN_B14(dataB[i]);
-                    }
+                    CYCLE_READ_PIN_B14(32, dataB);
                 }
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
@@ -304,15 +280,9 @@ void FPGA::ReadCalibNumber()
     {
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-        for (int i = 0; i < 3; i++)
-        {
-            READ_PIN_B14(ident[i]);
-        }
+        CYCLE_READ_PIN_B14(3, ident);
 
-        for (int i = 0; i < 10; i++)
-        {
-            READ_PIN_B14(calibBin[i]);
-        }
+        CYCLE_READ_PIN_B14(10, calibBin);
 
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
         HAL_TIM::DelayUS(8);
