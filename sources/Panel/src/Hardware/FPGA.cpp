@@ -41,6 +41,8 @@
 
 char FPGA::dataA[32] = { 0 };
 char FPGA::dataB[32] = { 0 };
+char FPGA::timer1[27] = { 0 };
+char FPGA::ident[4] = { 0 };
 
 static char encData[10];
 static bool autoMode = false;
@@ -81,7 +83,7 @@ void FPGA::Update()
 
             for (int i = 0; i < 3; i++)
             {
-                READ_PIN_B14(MathFPGA::ident[i]);
+                READ_PIN_B14(ident[i]);
             }
 
             for (int i = 0; i < 10; i++)
@@ -113,12 +115,12 @@ void FPGA::Update()
 
                 for (int i = 0; i < 3; i++)
                 {
-                    READ_PIN_B14(MathFPGA::ident[i]);
+                    READ_PIN_B14(ident[i]);
                 }
 
                 for (int i = 0; i < 24; i++)
                 {
-                    READ_PIN_B14(MathFPGA::timer1[i]);
+                    READ_PIN_B14(timer1[i]);
                 }
 
                 for (int i = 0; i < 24; i++)
@@ -163,7 +165,7 @@ void FPGA::Update()
 
                 for (int i = 0; i < 3; i++)
                 {
-                    READ_PIN_B14(MathFPGA::ident[i]);
+                    READ_PIN_B14(ident[i]);
                 }
 
                 for (int i = 0; i < 32; i++)
@@ -333,7 +335,7 @@ void FPGA::ReadCalibNumber()
 
         for (int i = 0; i < 3; i++)
         {
-            READ_PIN_B14(MathFPGA::ident[i]);
+            READ_PIN_B14(ident[i]);
         }
 
         for (int i = 0; i < 10; i++)

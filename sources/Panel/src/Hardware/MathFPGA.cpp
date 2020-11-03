@@ -42,11 +42,8 @@ char MathFPGA::binFx[32] = { 0 };
 char MathFPGA::binTizm[16] = { 0 };
 char MathFPGA::binNkal[16] = { 0 };
 
-char MathFPGA::timer1[27] = { 0 };
 char MathFPGA::CAL1[24] = { 0 };
 char MathFPGA::CAL2[24] = { 0 };
-
-char MathFPGA::ident[4] = { 0 };
 
 static char minAutoData[7] = { 0 };
 static char maxAutoData[7] = { 0 };
@@ -512,7 +509,7 @@ void MathFPGA::CalculateInterpolate()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (timer1[i] == 1)
+        if (FPGA::timer1[i] == 1)
         {
             decTimer1 += base1;
         }
@@ -777,7 +774,7 @@ char *MathFPGA::GiveIdent()
 {
     static char identInfo[10] = { 0 };
 
-    if (ident[0] == 0)
+    if (FPGA::ident[0] == 0)
     {
         std::strcpy(identInfo, "0");
     }
@@ -788,7 +785,7 @@ char *MathFPGA::GiveIdent()
 
     for (int i = 1; i < 4; i++)
     {
-        if (ident[i] == 0)
+        if (FPGA::ident[i] == 0)
         {
             std::strcat(identInfo, "0");
         }
