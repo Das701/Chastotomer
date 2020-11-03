@@ -12,7 +12,7 @@
 
 
 static Value decDataA(0);
-static float decDataB = 0.0F;
+static Value decDataB(0);
 static float decDataC = 0.0F;
 static int decDA = 1;
 static int emptyZeros = 0;
@@ -116,7 +116,7 @@ int MathFPGA::CalculateFrequency(int &manualZeros)
     {
         int sT = PageModesA::timeMeasure.ToMS();
 
-        decDataA.FromDouble(decDataA.ToDouble() / decDataB / 32);
+        decDataA.FromDouble(decDataA.ToDouble() / decDataB.ToDouble() / 32);
         manualZeros = 1000000 * sT;
         result = 1;
     }
@@ -230,7 +230,7 @@ void MathFPGA::BinToDec()
 
     if (CurrentModeMeasureFrequency::Is_RatioAC_or_RatioBC())
     {
-        decDataB = BinToDec(FPGA::dataB);
+        decDataB.FromDouble(BinToDec(FPGA::dataB));
     }
 
     if (CURRENT_CHANNEL_IS_C)
