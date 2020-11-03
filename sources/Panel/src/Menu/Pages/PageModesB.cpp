@@ -143,7 +143,7 @@ void PageModesB::OnChanged_ModeFrequency()
         PageModesA::RelationOff();
     }
 
-    PageModesA::InterpoleOff();
+    PageModesA::InterpolateOff();
     PageModesA::DCycleOff();     
     FreqMeter::LoadModeMeasureFrequency();
 }
@@ -174,7 +174,7 @@ void PageModesB::OnChanged_ModePeriod()
     }
 
     PageModesA::RelationOff();
-    PageModesA::InterpoleOff();
+    PageModesA::InterpolateOff();
     PageModesA::DCycleOff();
     FreqMeter::LoadModeMeasurePeriod();
 
@@ -197,7 +197,7 @@ void PageModesB::OnChanged_ModeDuration()
     switch (PageModesB::modeMeasureDuration.value)
     {
     case ModeMeasureDuration::Ndt_1ns:
-        PageModesA::InterpoleOn();
+        PageModesA::InterpolateOn();
         PageModesA::DCycleOff();
         items[2] = nullptr;
         break;
@@ -205,14 +205,14 @@ void PageModesB::OnChanged_ModeDuration()
     case ModeMeasureDuration::Dcycle:
     case ModeMeasureDuration::Phase:
         PageModesA::DCycleOn();
-        PageModesA::InterpoleOff();
+        PageModesA::InterpolateOff();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
         break;
 
     case ModeMeasureDuration::Ndt:
     case ModeMeasureDuration::Ndt2:
-        PageModesA::InterpoleOff();
+        PageModesA::InterpolateOff();
         PageModesA::DCycleOff();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
@@ -252,7 +252,7 @@ void PageModesB::OnChanged_ModeCountPulse()
     }
 
     PageModesA::RelationOff();
-    PageModesA::InterpoleOff();
+    PageModesA::InterpolateOff();
     PageModesA::DCycleOff();
     FreqMeter::LoadModeMeasureCountPulse();
 

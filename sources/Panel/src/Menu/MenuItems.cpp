@@ -241,7 +241,7 @@ bool Page::OnControl(const Control &control) //-V2008
         else
         {
             PageModesA::RelationOff();
-            PageModesA::InterpoleOff();
+            PageModesA::InterpolateOff();
             PageModesA::DCycleOff();
         }
         info = 12;

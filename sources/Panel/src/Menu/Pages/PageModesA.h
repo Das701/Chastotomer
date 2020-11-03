@@ -13,6 +13,7 @@ struct CurrentTypeMeasure
 struct CurrentModeMeasureFrequency
 {
     static bool IsTachometer();
+    static bool IsComparator();
     static bool IsT_1();
     static bool Is_AC_or_BC();
     static bool Is_AB_or_BA();
@@ -202,15 +203,19 @@ struct PageModesA
     static Page *self;
     
     static void Init();
-    static void InterpoleOn();
-    static void InterpoleOff();
-    static bool InterpoleCheck();
+
+    static void InterpolateOn();
+    static void InterpolateOff();
+    static bool InterpolateCheck();
+
     static void DCycleOn();
     static void DCycleOff();
     static bool DCycleCheck();
+
     static void RelationOn();
     static void RelationOff();
     static bool RelationCheck();
+
     static void PressSetup();
     static bool StartStop();
     static void ToggleStartStop();

@@ -358,7 +358,7 @@ static void Calculation()
     }
 }
 
-static void CalculationInterpole() 
+static void CalculationInterpolate() 
 {     
     decTimer1 = 0;
     decCAL1 = 0;
@@ -554,7 +554,7 @@ void FPGA::Update()
     }
     else
     {
-        if (ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpoleCheck())
+        if (ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpolateCheck())
         {
             if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
             {
@@ -692,7 +692,7 @@ char* FPGA::GiveData()
 
             return procData;
         }
-        else if (CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsComparator() && PageModesA::typeMeasure.IsFrequency())) 
+        else if (CurrentModeMeasureFrequency::IsComparator()) 
         {
             CalculationComparator();
             float top = 200.0F;
@@ -705,9 +705,9 @@ char* FPGA::GiveData()
 
             return procData;
         }
-        else if(ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpoleCheck())
+        else if(ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpolateCheck())
         {
-            CalculationInterpole();
+            CalculationInterpolate();
             std::sprintf(procDataInterpol, "%10.2f", interpol);
             return procDataInterpol;
         }
@@ -763,7 +763,7 @@ char* FPGA::GiveData()
 
 char* FPGA::GiveSpec() //-V2008
 {
-        if(PageModesA::InterpoleCheck() && ModeMeasureDuration::Current().Is_Ndt_1ns())
+        if(PageModesA::InterpolateCheck() && ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
             std::strcpy(spec, " ns");
         }

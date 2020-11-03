@@ -53,49 +53,6 @@ extern int info;
 static int autoHint = 0;
 static bool autoFlag = false;
 
-//static void CalculateCoord(int &x, int &y, int sizeX, int sizeY)
-//{
-//    static int deltaX = 1;
-//    static int deltaY = 0;
-//
-//    x += deltaX;
-//    y += deltaY;
-//
-//    if (x < 0)
-//    {
-//        x = 0;
-//        deltaX = -deltaX;
-//    }
-//    if (y < 0)
-//    {
-//        y = 0;
-//        deltaY = 1;
-//    }
-//    if (x + sizeX > 250)
-//    {
-//        deltaX = -deltaX;
-//    }
-//    if (y + sizeY > 60)
-//    {
-//        deltaY = -1;
-//    }
-//}
-
-//static void Func3()
-//{
-//    static int x = 0;
-//    static int y = 0;
-//
-//    int sizeX = 8;
-//    int sizeY = 3;
-//
-//    static HLine line(sizeX);
-//
-//    CalculateCoord(x, y, sizeX, sizeY);
-//
-//    line.Draw(x, y, Color::WHITE);
-//}
-
 void Display::StartScreen()
 {   
     BeginScene();
@@ -110,8 +67,6 @@ void Display::Update()
 
     DrawScreen();
     
-//    Func3();
-
     EndScene();
 }
 
@@ -341,52 +296,6 @@ static void DrawInfo()
             Text(" ").Write(430, 80);
         }
     }
-
-//    switch (info)
-//    {
-//        case 1:
-//            Text("Right").Write(100, 100);
-//            break;
-//        case 2:
-//            Text("Left").Write(100, 100);
-//            break;
-//        case 3:
-//            Text("GovLeft").Write(100, 100);
-//            break;
-//        case 4:
-//            Text("GovRight").Write(100, 100);
-//            break;
-//        case 5:
-//            Text("Enter").Write(100, 100);
-//            break;
-//        case 6:
-//            Text("Count").Write(100, 100);
-//            break;
-//        case 7:
-//            Text("None").Write(100, 100);
-//            break;
-//        case 8:
-//            Text("Mode").Write(100, 100);
-//            break;
-//        case 9:
-//            Text("Indication").Write(100, 100);
-//            break;
-//        case 10:
-//            Text("Channels").Write(100, 100);
-//            break;
-//        case 11:
-//            Text("GovButton").Write(100, 100);
-//            break;
-//        case 12:
-//            Text("Esc").Write(100, 100);
-//            break;
-//        case 13:
-//            Text("Test").Write(100, 100);
-//            break;
-//        case 14:
-//            Text("Auto").Write(100, 100);
-//            break;
-//    }
 }
 
 static void DrawData()

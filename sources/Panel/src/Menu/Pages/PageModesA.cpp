@@ -39,17 +39,17 @@ NumberPeriods           PageModesA::numberPeriods(NumberPeriods::_1);
 TimeMeasure             PageModesA::timeMeasure(TimeMeasure::_1ms);
 
 
-void PageModesA::InterpoleOn()
+void PageModesA::InterpolateOn()
 {
     interpoleOn = true;
 }
 
-void PageModesA::InterpoleOff()
+void PageModesA::InterpolateOff()
 {
     interpoleOn = false;
 }
 
-bool PageModesA::InterpoleCheck()
+bool PageModesA::InterpolateCheck()
 {
     return interpoleOn == true;
 }
@@ -205,7 +205,7 @@ void PageModesA::OnChanged_ModeFrequency()
         PageModesA::RelationOff();
     }
 
-    PageModesA::InterpoleOff();
+    PageModesA::InterpolateOff();
     PageModesA::DCycleOff();
     FreqMeter::LoadModeMeasureFrequency();
 
@@ -237,7 +237,7 @@ void PageModesA::OnChanged_ModePeriod()
     }
 
     PageModesA::RelationOff();
-    PageModesA::InterpoleOff();
+    PageModesA::InterpolateOff();
     PageModesA::DCycleOff();
     FreqMeter::LoadModeMeasurePeriod();
 
@@ -260,7 +260,7 @@ void PageModesA::OnChanged_ModeDuration()
     switch (PageModesA::modeMeasureDuration.value)
     {
     case ModeMeasureDuration::Ndt_1ns:
-        PageModesA::InterpoleOn();
+        PageModesA::InterpolateOn();
         PageModesA::DCycleOff();
         items[2] = nullptr;
         break;
@@ -268,14 +268,14 @@ void PageModesA::OnChanged_ModeDuration()
     case ModeMeasureDuration::Dcycle:
     case ModeMeasureDuration::Phase:
         PageModesA::DCycleOn();
-        PageModesA::InterpoleOff();
+        PageModesA::InterpolateOff();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
         break;
 
     case ModeMeasureDuration::Ndt:
     case ModeMeasureDuration::Ndt2:
-        PageModesA::InterpoleOff();
+        PageModesA::InterpolateOff();
         PageModesA::DCycleOff();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
@@ -315,7 +315,7 @@ void PageModesA::OnChanged_ModeCountPulse()
     }
 
     PageModesA::RelationOff();
-    PageModesA::InterpoleOff();
+    PageModesA::InterpolateOff();
     PageModesA::DCycleOff();
     FreqMeter::LoadModeMeasureCountPulse();
 
@@ -604,6 +604,12 @@ bool CurrentModeMeasureFrequency::IsTachometer()
 {
     return (((PageModesA::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_A) ||
         (PageModesB::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_B)));
+}
+
+
+bool CurrentModeMeasureFrequency::IsComparator()
+{
+    return CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency() && PageModesA::modeMeasureFrequency.IsComparator();
 }
 
 

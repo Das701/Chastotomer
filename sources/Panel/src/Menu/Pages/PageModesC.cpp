@@ -81,7 +81,7 @@ void PageModesC::OnChanged_ModeFrequency()
     }
 
     PageModesA::RelationOff();
-    PageModesA::InterpoleOff();
+    PageModesA::InterpolateOff();
     PageModesA::DCycleOff();
     FreqMeter::LoadModeMeasureFrequency();
 }
@@ -115,7 +115,7 @@ void PageModesC::OnChanged_ModeCountPulse()
     items[3] = nullptr;
 
     PageModesA::RelationOff();
-    PageModesA::InterpoleOff();
+    PageModesA::InterpolateOff();
     PageModesA::DCycleOff();
     FreqMeter::LoadModeMeasureCountPulse();
 }
