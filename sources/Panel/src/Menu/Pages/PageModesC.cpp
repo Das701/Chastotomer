@@ -73,8 +73,8 @@ void PageModesC::OnChanged_ModeFrequency()
         items[4] = nullptr;
         break;
 
-    case ModeMeasureFrequencyC::CA:
-    case ModeMeasureFrequencyC::CB:
+    case ModeMeasureFrequencyC::RatioCA:
+    case ModeMeasureFrequencyC::RatioCB:
         items[3] = &sNumberPeriodsC;
         items[4] = nullptr;
         break;

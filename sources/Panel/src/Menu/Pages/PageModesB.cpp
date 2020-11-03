@@ -117,13 +117,13 @@ void PageModesB::OnChanged_ModeFrequency()
         items[4] = nullptr;
         PageModesA::RelationOff();
     }
-    else if (PageModesB::modeMeasureFrequency.IsBA())
+    else if (PageModesB::modeMeasureFrequency.IsRatioBA())
     {
         items[2] = &sNumberPeriods;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
-    else if (PageModesB::modeMeasureFrequency.IsBC())
+    else if (PageModesB::modeMeasureFrequency.IsRatioBC())
     {
         items[2] = &sTimeMeasure;
         items[3] = nullptr;

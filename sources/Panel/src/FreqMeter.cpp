@@ -141,14 +141,14 @@ void FreqMeter::LoadModeMeasureFrequency()
     {
     }
     else if ((PageModesA::modeMeasureFrequency.IsRatioAB() && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::modeMeasureFrequency.IsBA() && CURRENT_CHANNEL_IS_B) ||
-        (PageModesC::modeMeasureFrequency.IsCA() && CURRENT_CHANNEL_IS_C))
+        (PageModesB::modeMeasureFrequency.IsRatioBA() && CURRENT_CHANNEL_IS_B) ||
+        (PageModesC::modeMeasureFrequency.IsRatioCA() && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
     }
     else if ((PageModesA::modeMeasureFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::modeMeasureFrequency.IsBC() && CURRENT_CHANNEL_IS_B) ||
-        (PageModesC::modeMeasureFrequency.IsCB() && CURRENT_CHANNEL_IS_C))
+        (PageModesB::modeMeasureFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B) ||
+        (PageModesC::modeMeasureFrequency.IsRatioCB() && CURRENT_CHANNEL_IS_C))
     {
         argument[4] = 1;
     }

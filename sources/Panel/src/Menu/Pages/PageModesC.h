@@ -24,14 +24,14 @@ struct ModeMeasureFrequencyC : public Enumeration
     enum E
     {
         Frequency,  // Частота
-        CA,         // f(C) / f(A)
-        CB          // f(C) / f(B)
+        RatioCA,    // f(C) / f(A)
+        RatioCB     // f(C) / f(B)
     };
 
     explicit ModeMeasureFrequencyC(E v) : Enumeration((uint8)v) {};
     bool IsFrequency() const { return (value == Frequency); }
-    bool IsCA()        const { return (value == CA); }
-    bool IsCB()        const { return (value == CB); }
+    bool IsRatioCA()   const { return (value == RatioCA); }
+    bool IsRatioCB()   const { return (value == RatioCB); }
 };
 
 // Режим счёта импульсов

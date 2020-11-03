@@ -617,20 +617,20 @@ bool CurrentModeMeasureFrequency::IsT_1()
 bool CurrentModeMeasureFrequency::Is_AC_or_BC()
 {
     return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsRatioAC()) ||
-        (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBC()));
+        (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsRatioBC()));
 }
 
 
 bool CurrentModeMeasureFrequency::Is_AB_or_BA()
 {
     return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsRatioAB()) ||
-        (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsBA()));
+        (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsRatioBA()));
 }
 
 
 bool CurrentModeMeasureFrequency::Is_CA_or_CB()
 {
-    return (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureFrequency.IsCA() || PageModesC::modeMeasureFrequency.IsCB()));
+    return (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureFrequency.IsRatioCA() || PageModesC::modeMeasureFrequency.IsRatioCB()));
 }
 
 

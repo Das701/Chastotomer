@@ -8,16 +8,16 @@ struct ModeMeasureFrequencyB : public Enumeration
     enum E
     {
         Frequency,  // Частота
-        BA,         // f(B) / f(A)
-        BC,         // f(B) / f(C)
+        RatioBA,    // f(B) / f(A)
+        RatioBC,    // f(B) / f(C)
         T_1,        // f = 1 / T
         Tachometer  // Тахометр
     };
 
     explicit ModeMeasureFrequencyB(E v) : Enumeration((uint8)v) {};
     bool IsFrequency()  const { return (value == Frequency); }
-    bool IsBA()         const { return (value == BA); }
-    bool IsBC()         const { return (value == BC);  }
+    bool IsRatioBA()    const { return (value == RatioBA); }
+    bool IsRatioBC()    const { return (value == RatioBC);  }
     bool IsT_1()        const { return (value == T_1); }
     bool IsTachometer() const { return (value == Tachometer); }
 };
