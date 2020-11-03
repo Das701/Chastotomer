@@ -38,6 +38,15 @@ static int decDuration = 0;
 float MathFPGA::dutyCycle = 0.0F;
 int MathFPGA::dcycleZeros = 0;
 
+float MathFPGA::decFx = 0.0F;
+float MathFPGA::decTizm = 0.0F;
+float MathFPGA::decNkal = 0.0F;
+
+char MathFPGA::binFx[32] = { 0 };
+char MathFPGA::binTizm[16] = { 0 };
+char MathFPGA::binNkal[16] = { 0 };
+
+
 void MathFPGA::Calculate()
 {
     int x = 0;
@@ -408,5 +417,50 @@ void MathFPGA::CalculateDcycle()
                 dcycleZeros++;
             }
         }
+    }
+}
+
+
+void MathFPGA::CalculateComparator()
+{
+    decFx = 0;
+    decTizm = 0;
+    decNkal = 0;
+    int base1 = 1;
+    int base2 = 1;
+    int base3 = 1;
+    int len1 = 32;
+    int len2 = 16;
+
+    for (int i = len1 - 1; i >= 0; i--)
+    {
+        if (binFx[i] == 1)
+        {
+            decFx += (float)base1;
+        }
+        base1 = base1 * 2;
+    }
+
+    for (int i = len2 - 1; i >= 0; i--)
+    {
+        if (binTizm[i] == 1)
+        {
+            decTizm += (float)base2;
+        }
+        base2 = base2 * 2;
+    }
+
+    if (binTizm[0] == 1)
+    {
+        decTizm = decTizm - 65536;
+    }
+
+    for (int i = len2 - 1; i >= 0; i--)
+    {
+        if (binNkal[i] == 1)
+        {
+            decNkal += (float)base3;
+        }
+        base3 = base3 * 2;
     }
 }

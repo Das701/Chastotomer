@@ -7,6 +7,7 @@ struct MathFPGA
     static void BinToDec();
     static void CalculateAuto();
     static void CalculateDcycle();
+    static void CalculateComparator();
 
     static int MidAuto();
     static int MinAuto();
@@ -38,6 +39,15 @@ struct MathFPGA
 
     static float dutyCycle;
     static int dcycleZeros;
+
+    static float decFx;
+    static float decTizm;
+    static float decNkal;
+
+    static char binFx[32];
+    static char binTizm[16];
+    static char binNkal[16];
+
 
 private:
     static int CalculateFrequency(int &manualZeros);

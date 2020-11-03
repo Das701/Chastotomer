@@ -54,13 +54,6 @@ static int decTimer1;
 static int decCAL1;
 static int decCAL2;
 
-static char binFx[32];
-static char binTizm[16];
-static char binNkal[16];
-static float decFx;
-static float decTizm;
-static float decNkal;
-
 static char CAL1[24];
 static char CAL2[24];
 
@@ -111,50 +104,6 @@ static void CalculationInterpolate()
     }
 
     interpol = (float)(100 * decTimer1) / (float)(decCAL2 - decCAL1);
-}
-
-static void CalculationComparator() 
-{     
-    decFx = 0;
-    decTizm = 0;
-    decNkal = 0; 
-    int base1 = 1; 
-    int base2 = 1; 
-    int base3 = 1; 
-    int len1 = 32;
-    int len2 = 16;
-
-    for (int i = len1 - 1; i >= 0; i--) 
-    { 
-        if (binFx[i] == 1) 
-        {
-            decFx += (float)base1;
-        }            
-        base1 = base1 * 2; 
-    }
-
-    for (int i = len2 - 1; i >= 0; i--) 
-    { 
-        if (binTizm[i] == 1) 
-        {
-            decTizm += (float)base2;
-        }            
-        base2 = base2 * 2; 
-    } 
-
-    if (binTizm[0] == 1) 
-    {
-        decTizm = decTizm - 65536;
-    }
-
-    for (int i = len2 - 1; i >= 0; i--) 
-    { 
-        if (binNkal[i] == 1) 
-        {
-            decNkal += (float)base3;
-        }            
-        base3 = base3 * 2; 
-    }   
 }
 
 
@@ -295,17 +244,17 @@ void FPGA::Update()
 
                 for (int i = 0; i < 32; i++)
                 {
-                    READ_PIN_B14(binFx[i]);
+                    READ_PIN_B14(MathFPGA::binFx[i]);
                 }
 
                 for (int i = 0; i < 16; i++)
                 {
-                    READ_PIN_B14(binTizm[i]);
+                    READ_PIN_B14(MathFPGA::binTizm[i]);
                 }
 
                 for (int i = 0; i < 16; i++)
                 {
-                    READ_PIN_B14(binNkal[i]);
+                    READ_PIN_B14(MathFPGA::binNkal[i]);
                 }
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
@@ -372,11 +321,11 @@ char* FPGA::GiveData()
         }
         else if (CurrentModeMeasureFrequency::IsComparator()) 
         {
-            CalculationComparator();
+            MathFPGA::CalculateComparator();
             float top = 200.0F;
             float n = 5000000.0F;
-            float dx = ((decTizm * 100) / decNkal);
-            float k = (n - decFx) / n;
+            float dx = ((MathFPGA::decTizm * 100) / MathFPGA::decNkal);
+            float k = (n - MathFPGA::decFx) / n;
             MathFPGA::decDataA = k - (dx / top) / n;
             MathFPGA::decDataA = MathFPGA::decDataA * 1000000;
             std::sprintf(procData, "%10.3f", MathFPGA::decDataA);
