@@ -34,10 +34,6 @@ struct MathFPGA
     static float decTizm;
     static float decNkal;
 
-    static char binFx[32];
-    static char binTizm[16];
-    static char binNkal[16];
-
     static float interpol;
 
 private:

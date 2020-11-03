@@ -31,10 +31,6 @@ float MathFPGA::decNkal = 0.0F;
 
 float MathFPGA::interpol = 0.0F;
 
-char MathFPGA::binFx[32] = { 0 };
-char MathFPGA::binTizm[16] = { 0 };
-char MathFPGA::binNkal[16] = { 0 };
-
 static char minAutoData[7] = { 0 };
 static char maxAutoData[7] = { 0 };
 
@@ -426,7 +422,7 @@ void MathFPGA::CalculateComparator()
 
     for (int i = len1 - 1; i >= 0; i--)
     {
-        if (binFx[i] == 1)
+        if (FPGA::binFx[i] == 1)
         {
             decFx += (float)base1;
         }
@@ -435,21 +431,21 @@ void MathFPGA::CalculateComparator()
 
     for (int i = len2 - 1; i >= 0; i--)
     {
-        if (binTizm[i] == 1)
+        if (FPGA::binTizm[i] == 1)
         {
             decTizm += (float)base2;
         }
         base2 = base2 * 2;
     }
 
-    if (binTizm[0] == 1)
+    if (FPGA::binTizm[0] == 1)
     {
         decTizm = decTizm - 65536;
     }
 
     for (int i = len2 - 1; i >= 0; i--)
     {
-        if (binNkal[i] == 1)
+        if (FPGA::binNkal[i] == 1)
         {
             decNkal += (float)base3;
         }

@@ -25,4 +25,7 @@ struct FPGA
     static char CAL2[24];
     static char period[32];
     static char duration[32];
+    static char binFx[32];
+    static char binTizm[16];
+    static char binNkal[16];
 };

@@ -50,7 +50,9 @@ char FPGA::CAL1[24] = { 0 };
 char FPGA::CAL2[24] = { 0 };
 char FPGA::period[32] = { 0 };
 char FPGA::duration[32] = { 0 };
-
+char FPGA::binFx[32] = { 0 };
+char FPGA::binTizm[16] = { 0 };
+char FPGA::binNkal[16] = { 0 };
 
 static char encData[10];
 static bool autoMode = false;
@@ -178,17 +180,17 @@ void FPGA::Update()
 
                 for (int i = 0; i < 32; i++)
                 {
-                    READ_PIN_B14(MathFPGA::binFx[i]);
+                    READ_PIN_B14(binFx[i]);
                 }
 
                 for (int i = 0; i < 16; i++)
                 {
-                    READ_PIN_B14(MathFPGA::binTizm[i]);
+                    READ_PIN_B14(binTizm[i]);
                 }
 
                 for (int i = 0; i < 16; i++)
                 {
-                    READ_PIN_B14(MathFPGA::binNkal[i]);
+                    READ_PIN_B14(binNkal[i]);
                 }
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
