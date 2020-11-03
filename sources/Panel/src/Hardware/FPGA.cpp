@@ -192,21 +192,14 @@ static void Calculation()
     {
         if(CurrentModeMeasureFrequency::IsT_1())
         {
-            int n = 1;
-            manualZeros = 10;
-            double test1;
-            double test2;
-            double test3;
+            manualZeros = 10 * PageModesA::periodTimeLabels.ToZeros() / 1000 * PageModesA::numberPeriods.ToAbs();
 
-            manualZeros *= PageModesA::periodTimeLabels.ToZeros() / 1000;
+            double test1 = (double)decDataA / PageModesA::periodTimeLabels.ToZeros();
 
-            n *= PageModesA::numberPeriods.ToAbs();
-            manualZeros *= PageModesA::numberPeriods.ToAbs();
-           
-            test1 = (double)decDataA / PageModesA::periodTimeLabels.ToZeros();
-            test2 = test1 / n;
-            test3 = 4 / test2;
-            decDataA = (float)test3;
+            double test2 = test1 / PageModesA::numberPeriods.ToAbs();
+
+            decDataA = (float)(4 / test2);
+
             decDA = (int)(decDataA / 2.0F);
 
             if(decDA < 1000)
