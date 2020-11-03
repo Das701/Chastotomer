@@ -7,22 +7,22 @@
 
 struct MathDouble
 {
-    static int GetPositionFirstDigit(const Value &value, Order::E order);
+    static int GetPositionFirstDigit(const ValueNANO &value, Order::E order);
 
     // ¬озвращает символ в позиции position. «нак не учитываетс€. “очка находитс€ соответственно order. One - после единиц, Kilo - после тыс€ч и так далее.
     // Order::Count - значенине по умолчанию - зап€та€ в позиции относительно размерности числового значени€
-    static char GetChar(const Value &value, int postition, Order::E order);
+    static char GetChar(const ValueNANO &value, int postition, Order::E order);
 
     // ¬озвращает цифру в позиции position. “очка находитс€ соответственно order. One - после единиц, Kilo - после тыс€ч и так далее.
     // Order::Count - значенине по умолчанию - зап€та€ в позиции относительно размерности числового значени€
-    static int GetDigit(const Value &value, int position, Order::E order = Order::Count);
+    static int GetDigit(const ValueNANO &value, int position, Order::E order = Order::Count);
 };
 
 
 
-int MathDouble::GetPositionFirstDigit(const Value &val, Order::E order)
+int MathDouble::GetPositionFirstDigit(const ValueNANO &val, Order::E order)
 {
-    Value value = val;
+    ValueNANO value = val;
     value.SetSign(1);
 
     int result = 0;
@@ -57,7 +57,7 @@ int MathDouble::GetPositionFirstDigit(const Value &val, Order::E order)
 }
 
 
-char MathDouble::GetChar(const Value &value, int position, Order::E order)
+char MathDouble::GetChar(const ValueNANO &value, int position, Order::E order)
 {
     int digit = GetDigit(value, position, order);
 
@@ -65,9 +65,9 @@ char MathDouble::GetChar(const Value &value, int position, Order::E order)
 }
 
 
-int MathDouble::GetDigit(const Value &val, int position, Order::E order)
+int MathDouble::GetDigit(const ValueNANO &val, int position, Order::E order)
 {
-    Value value = val;
+    ValueNANO value = val;
     value.SetSign(1);
 
     order = (order == Order::Count) ? value.GetOrder() : order;
@@ -128,31 +128,31 @@ static Order::E stored = Order::Count;
 static bool GetSign(int &sign, char *begin, char **end);
 
 // ¬озвращает значение до степени (символа e)
-static bool GetIntPart(Value &value, char *begin, char **end, int numDigitsAfterComma);
+static bool GetIntPart(ValueNANO &value, char *begin, char **end, int numDigitsAfterComma);
 
 // ¬озвращает степень (то, что после символа e)
 static bool GetPower(int &power, char *begin, char **end);
 
 
-Value::Value(const char *const buffer, Order::E order) //-V730
+ValueNANO::ValueNANO(const char *const buffer, Order::E order) //-V730
 {
     FromString(buffer, Order::GetPow10(order));
 }
 
 
-Value::Value(double v)
+ValueNANO::ValueNANO(double v)
 {
     FromDouble(v);
 }
 
 
-Value::Value(int v)
+ValueNANO::ValueNANO(int v)
 {
     FromINT(v);
 }
 
 
-bool Value::FromString(const char *buffer, char **end, int numDigitsAfterComma)
+bool ValueNANO::FromString(const char *buffer, char **end, int numDigitsAfterComma)
 {
     char *begin = const_cast<char *>(buffer);
 
@@ -215,7 +215,7 @@ static bool GetSign(int &sign, char *begin, char **end)
 
 
 #ifdef PANEL
-static bool GetIntPart(Value &value, char *begin, char **end, int numDigitsAfterComma)
+static bool GetIntPart(ValueNANO &value, char *begin, char **end, int numDigitsAfterComma)
 {
     *end = begin;
 
@@ -247,12 +247,12 @@ static bool GetIntPart(Value &value, char *begin, char **end, int numDigitsAfter
         *end = *end + 1;
     }
 
-    value = Value(buffer.c_str(), Order::One);
+    value = ValueNANO(buffer.c_str(), Order::One);
 
     return true;
 }
 #else
-static bool GetIntPart(Value &, char *, char **, int)
+static bool GetIntPart(ValueNANO &, char *, char **, int)
 {
     return true;
 }
@@ -288,7 +288,7 @@ static bool GetPower(int &pow, char *begin, char **end)
 
     *end = begin;
 
-    pow = Value(buffer.c_str(), Order::One).Integer();
+    pow = ValueNANO(buffer.c_str(), Order::One).Integer();
 
     return true;
 }
@@ -300,7 +300,7 @@ static bool GetPower(int &, char *, char **)
 #endif
 
 
-void Value::FromString(const char *const buffer, int pow10)
+void ValueNANO::FromString(const char *const buffer, int pow10)
 {
     int pos = 0;                                    // “екуща€ обрабатываема€ позици€ в buffer
     int sign = 1;                                   // ќтрицательное значение означает отрицательный знак
@@ -338,7 +338,7 @@ void Value::FromString(const char *const buffer, int pow10)
 }
 
 
-void Value::FromUnits(int units, uint mUnits, uint uUnits, uint nUnits, int sign)
+void ValueNANO::FromUnits(int units, uint mUnits, uint uUnits, uint nUnits, int sign)
 {
     value = static_cast<uint>(units);
     value *= 1000 * 1000 * 1000;
@@ -447,7 +447,7 @@ static uint AssembleTriple(const char *const buffer, int start, int *end)
 }
 
 
-void Value::FromDouble(double v)
+void ValueNANO::FromDouble(double v)
 {
     int sign = (v < 0.0) ? -1 : 1;
 
@@ -460,38 +460,38 @@ void Value::FromDouble(double v)
 }
 
 
-void Value::FromINT(int v)
+void ValueNANO::FromINT(int v)
 {
     FromUnits(v < 0 ? -v : v, 0, 0, 0, v < 0 ? - 1 : 1);
 }
 
 
-double Value::ToDouble() const
+double ValueNANO::ToDouble() const
 {
     return static_cast<double>(Abs()) / 1E9 * static_cast<double>(Sign());
 }
 
 
-float Value::ToFloat() const
+float ValueNANO::ToFloat() const
 {
     return (float)ToDouble();
 }
 
 
-int Value::Sign() const
+int ValueNANO::Sign() const
 {
     //                fedcba9876543210
     return (value & 0x8000000000000000U) ? -1 : 1;
 }
 
 
-uint64 Value::Abs() const
+uint64 ValueNANO::Abs() const
 {   //                fedcba9876543210
     return (value & 0x7fffffffffffffff);
 }
 
 
-void Value::Div(uint div)
+void ValueNANO::Div(uint div)
 {
     int sign = Sign();
 
@@ -503,7 +503,7 @@ void Value::Div(uint div)
 }
 
 
-void Value::Mul(uint mul)
+void ValueNANO::Mul(uint mul)
 {
     int sign = Sign();
 
@@ -515,7 +515,7 @@ void Value::Mul(uint mul)
 }
 
 
-void Value::SetSign(int sign)
+void ValueNANO::SetSign(int sign)
 {
     if (sign >= 0)
     {
@@ -530,7 +530,7 @@ void Value::SetSign(int sign)
 }
 
 
-int Value::Integer() const
+int ValueNANO::Integer() const
 {
     uint64 val = Abs();
 
@@ -538,9 +538,9 @@ int Value::Integer() const
 }
 
 
-int Value::FractNano() const
+int ValueNANO::FractNano() const
 {
-    Value val = *this;
+    ValueNANO val = *this;
     val.SetSign(1);
 
     int whole = val.Integer();
@@ -549,7 +549,7 @@ int Value::FractNano() const
 }
 
 
-void Value::Add(Value add)
+void ValueNANO::Add(ValueNANO add)
 {
     int sign = Sign();
     int signAdd = add.Sign();
@@ -593,7 +593,7 @@ void Value::Add(Value add)
 }
 
 
-void Value::Sub(Value val)
+void ValueNANO::Sub(ValueNANO val)
 {
     val.SetSign(-val.Sign());
 
@@ -601,7 +601,7 @@ void Value::Sub(Value val)
 }
 
 
-void Value::MulPow10(int pow)
+void ValueNANO::MulPow10(int pow)
 {
     while (pow > 0)
     {
@@ -617,45 +617,45 @@ void Value::MulPow10(int pow)
 }
 
 
-bool Value::operator<(const Value &rhs)
+bool ValueNANO::operator<(const ValueNANO &rhs)
 {
     return ToDouble() < rhs.ToDouble();
 }
 
 
-bool Value::operator<=(const Value &rhs)
+bool ValueNANO::operator<=(const ValueNANO &rhs)
 {
     return ToDouble() <= rhs.ToDouble();
 }
 
 
-bool Value::operator>(const Value &rhs)
+bool ValueNANO::operator>(const ValueNANO &rhs)
 {
     return ToDouble() > rhs.ToDouble();
 }
 
 
-bool Value::operator>=(const Value &rhs)
+bool ValueNANO::operator>=(const ValueNANO &rhs)
 {
     return ToDouble() >= rhs.ToDouble();
 }
 
 
-bool Value::operator==(const Value &rhs)
+bool ValueNANO::operator==(const ValueNANO &rhs)
 {
     return (value == rhs.value);
 }
 
 
-bool Value::operator!=(const Value &rhs)
+bool ValueNANO::operator!=(const ValueNANO &rhs)
 {
     return (value != rhs.value);
 }
 
 
-Order::E Value::GetOrder() const
+Order::E ValueNANO::GetOrder() const
 {
-    Value temp = *this;
+    ValueNANO temp = *this;
     temp.SetSign(1);
 
     int integer = temp.Integer();
@@ -702,7 +702,7 @@ int Order::GetPow10(Order::E order)
 }
 
 
-static void AddChar(char *buffer, const Value &value, int pos, Order::E order)
+static void AddChar(char *buffer, const ValueNANO &value, int pos, Order::E order)
 {
     char digit[2] = { 0, 0 };
     digit[0] = MathDouble::GetChar(value, pos, order);
@@ -710,7 +710,7 @@ static void AddChar(char *buffer, const Value &value, int pos, Order::E order)
 }
 
 
-pString Value::ToString(bool sign, Order::E order) const
+pString ValueNANO::ToString(bool sign, Order::E order) const
 {
     static char buffer[50];
     

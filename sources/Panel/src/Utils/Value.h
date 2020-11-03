@@ -27,14 +27,14 @@ struct Order
 };
 
 
-struct Value
+struct ValueNANO
 {
-    explicit Value(double v);
-    explicit Value(int v);
+    explicit ValueNANO(double v);
+    explicit ValueNANO(int v);
 
     // Берёт значение из строкового представления. При этом первым символом может идти знак ("+" или "-"), дробная часть отделяется от целой точкой ("."),
     // а order указыват, на сколько нужно умножжить итоговое число (3 - умножить на 1000, -3 - разделить на 1000)
-    explicit Value(const char *const buffer, Order::E order);
+    explicit ValueNANO(const char *const buffer, Order::E order);
 
     void FromUnits(int units, uint mUnits, uint uUnits, uint nUnits, int sign);
     void FromDouble(double v);
@@ -49,8 +49,8 @@ struct Value
 
     void Div(uint div);
     void Mul(uint mul);
-    void Add(Value value);
-    void Sub(Value value);
+    void Add(ValueNANO value);
+    void Sub(ValueNANO value);
     // Умножить на 10 в степени pow
     void MulPow10(int pow);
 
@@ -68,22 +68,22 @@ struct Value
     uint64 Abs() const;
 
     // Возвращает:
-    // Order::Mega  - Value::Integer() >= 1e6
-    // Order::Kilo  - Value::Integer() >= 1e3
-    // Order::One   - Value::Integer() >= 0
-    // Order::Milli - Value::Integer() >= 1e-3
-    // Order::Micro - Value::Integer() >= 1e-6
+    // Order::Mega  - ValueNANO::Integer() >= 1e6
+    // Order::Kilo  - ValueNANO::Integer() >= 1e3
+    // Order::One   - ValueNANO::Integer() >= 0
+    // Order::Milli - ValueNANO::Integer() >= 1e-3
+    // Order::Micro - ValueNANO::Integer() >= 1e-6
     Order::E GetOrder() const;
 
     // Возращает строку значения
     pString ToString(bool sign, Order::E order = Order::Count) const;
 
-    bool operator<(const Value &);
-    bool operator>(const Value &);
-    bool operator<=(const Value &);
-    bool operator>=(const Value &);
-    bool operator==(const Value &);
-    bool operator!=(const Value &);
+    bool operator<(const ValueNANO &);
+    bool operator>(const ValueNANO &);
+    bool operator<=(const ValueNANO &);
+    bool operator>=(const ValueNANO &);
+    bool operator==(const ValueNANO &);
+    bool operator!=(const ValueNANO &);
 
 private:
 

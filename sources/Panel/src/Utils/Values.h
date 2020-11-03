@@ -95,7 +95,7 @@ public:
 
     String ToString(bool alwaysSign) const;
 
-    float Value() const { return value; }
+    float ValueNANO() const { return value; }
 
 private:
     float value;

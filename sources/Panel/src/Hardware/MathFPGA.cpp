@@ -27,9 +27,9 @@ char MathFPGA::Measure::dataComparatorTizm[16] = { 0 };
 char MathFPGA::Measure::dataComparatorNkal[16] = { 0 };
 
 
-static Value decDataA(0);
-static Value decDataB(0);
-static Value decDataC(0);
+static ValueNANO decDataA(0);
+static ValueNANO decDataB(0);
+static ValueNANO decDataC(0);
 static int decDA = 1;
 static int emptyZeros = 0;
 int MathFPGA::NA = 0; //-V707
@@ -550,12 +550,12 @@ char *MathFPGA::Measure::GiveData()
                 decTizm -= 65536;
             }
 
-            Value dx(decTizm);
+            ValueNANO dx(decTizm);
             dx.Div((uint)decNkal);
             dx.Div(2 * 5000000);
 
-            Value k(5000000);
-            k.Sub(Value((int)decFx));
+            ValueNANO k(5000000);
+            k.Sub(ValueNANO((int)decFx));
             k.Div(5000000);
             k.Sub(dx);
             k.Mul(1000000);
