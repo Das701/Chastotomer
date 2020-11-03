@@ -25,10 +25,6 @@ static int decMinAuto = 0;
 int MathFPGA::decMidAuto = 0;
 int MathFPGA::decMaxAuto = 0;
 
-char MathFPGA::minAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-char MathFPGA::midAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-char MathFPGA::maxAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
 float MathFPGA::dutyCycle = 0.0F;
 int MathFPGA::dcycleZeros = 0;
 
@@ -299,7 +295,7 @@ void MathFPGA::CalculateAuto()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (minAuto[i] == 1)
+        if (FPGA::minAuto[i] == 1)
         {
             decMinAuto += base1;
         }
@@ -308,7 +304,7 @@ void MathFPGA::CalculateAuto()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (midAuto[i] == 1)
+        if (FPGA::midAuto[i] == 1)
         {
             decMidAuto += base2;
         }
@@ -317,7 +313,7 @@ void MathFPGA::CalculateAuto()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (maxAuto[i] == 1)
+        if (FPGA::maxAuto[i] == 1)
         {
             decMaxAuto += base3;
         }
@@ -344,17 +340,6 @@ int MathFPGA::MaxAuto()
 {
     CalculateAuto();
     return decMaxAuto;
-}
-
-
-void MathFPGA::RefreshAuto()
-{
-    for (int i = 0; i < 10; i++)
-    {
-        minAuto[i] = 0;
-        midAuto[i] = 0;
-        maxAuto[i] = 0;
-    }
 }
 
 
