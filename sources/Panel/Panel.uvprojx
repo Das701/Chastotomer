@@ -634,6 +634,16 @@
               <FilePath>.\src\Hardware\FPGA.cpp</FilePath>
             </File>
             <File>
+              <FileName>MathFPGA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\MathFPGA.h</FilePath>
+            </File>
+            <File>
+              <FileName>MathFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\MathFPGA.cpp</FilePath>
+            </File>
+            <File>
               <FileName>VCP.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\VCP.h</FilePath>

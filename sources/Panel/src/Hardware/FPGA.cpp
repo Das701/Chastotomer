@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Settings.h"
 #include "Hardware/FPGA.h"
+#include "Hardware/MathFPGA.h"
 #include "Hardware/HAL/HAL.h"
 #include "Menu/Hint.h"
 #include "Menu/Menu.h"
@@ -48,10 +49,6 @@ static char autoData[20];
 static char minAutoData[7];
 static char maxAutoData[7];
 
-static float decDataA;
-static float decDataB;
-static float decDataC;
-static int decDA;
 static char procDataInterpol[30] = { 0 };
 static char spec[10] = { 0 };
 
@@ -89,9 +86,6 @@ static int decDuration;
 static char period[32];
 static char duration[32];
 
-static int emptyZeros;
-static int manualZeros = 1;
-
 static float interpol;
 
 static float dutyCycle;
@@ -106,28 +100,28 @@ static int NAC = 0;
 static void BinToDec() 
 { 
     int len = 32; 
-    decDataA = 0; 
+    MathFPGA::decDataA = 0; 
     int base = 1; 
 
     for (int i = len - 1; i >= 0; i--) 
     { 
         if (dataA[i] == 1) 
         {
-            decDataA += (float)base;
+            MathFPGA::decDataA += (float)base;
         }            
         base = base * 2; 
     }
 
     if(CurrentModeMeasureFrequency::Is_AC_or_BC())
     {
-        decDataB = 0;
+        MathFPGA::decDataB = 0;
         int baseB = 1; 
 
         for (int i = len - 1; i >= 0; i--) 
         { 
             if (dataB[i] == 1) 
             {
-                decDataB += (float)baseB;
+                MathFPGA::decDataB += (float)baseB;
             }            
             baseB = baseB * 2; 
         }  
@@ -135,7 +129,7 @@ static void BinToDec()
 
     if(CURRENT_CHANNEL_IS_C)
     {
-        decDataA = decDataA * 64 / 100;
+        MathFPGA::decDataA = MathFPGA::decDataA * 64 / 100;
     }
 }
 
@@ -185,172 +179,6 @@ static void CalculationDcycle()
     }
 }
 
-static void Calculation()
-{
-    int x = 0;
-
-    if(CurrentTypeMeasure::IsFrequency())
-    {
-        if(CurrentModeMeasureFrequency::IsT_1())
-        {
-            manualZeros = 10 * PageModesA::periodTimeLabels.ToZeros() / 1000 * PageModesA::numberPeriods.ToAbs();
-
-            double test1 = (double)decDataA / PageModesA::periodTimeLabels.ToZeros();
-
-            double test2 = test1 / PageModesA::numberPeriods.ToAbs();
-
-            decDataA = (float)(4 / test2);
-
-            decDA = (int)(decDataA / 2.0F);
-
-            if(decDA < 1000)
-            {
-            }
-            else if(decDA < 1000000)
-            {
-                decDataA = decDataA / 1000;
-            }
-            else
-            {
-                decDataA = decDataA / 1000000;
-            }
-
-            x = 1;
-        }
-        else if(CurrentModeMeasureFrequency::Is_AB_or_BA())
-        {           
-            x = PageModesA::numberPeriods.ToAbs();
-        }
-        else if(CurrentModeMeasureFrequency::Is_CA_or_CB())
-        {
-            decDataA = decDataA * 100;
-            x = PageModesC::numberPeriods.ToAbs();
-        }
-        else if(CurrentModeMeasureFrequency::Is_AC_or_BC())
-        {
-            int sT = PageModesA::timeMeasure.ToMS();
-
-            decDataA = decDataA / decDataB;
-            decDataA = decDataA / 32;
-            manualZeros = 1000000;
-            manualZeros = manualZeros * sT;
-            x = 1;
-        }
-        else
-        {
-            int mhz = 1000 * PageModesA::timeMeasure.ToMS();
-            int khz = PageModesA::timeMeasure.ToMS();
-            
-            if(((decDataA / (float)khz) / 2.0F) < 1000.0F)
-            {
-                x = khz; 
-            }
-            else
-            {
-                x = mhz;            
-            }
-            decDA = (int)((decDataA / (float)khz) / 2.0F);
-            if(CURRENT_CHANNEL_IS_C)
-            {
-                if(decDataA < 10000)
-                {
-                    decDataC = decDataA;               
-                    khz = khz * 10;
-                    x = khz;
-                }
-                else
-                {
-                    decDataC = decDataA;
-                    mhz = mhz * 10;
-                    x = mhz;
-                }
-            }
-            if(CURRENT_CHANNEL_IS_D)
-            {
-                if(decDataA * 64.0F / (1000.0F * (float)khz) > 19000.0F)
-                {
-                    decDataC = 0;
-                    x = khz;
-                }
-                else
-                {
-                    decDataC = (float)decDataA * 64 / 1000;
-                    x = mhz;
-                }
-                decDA = (int)decDataC;
-            }
-        }
-    }
-    else if(CurrentTypeMeasure::IsDuration())
-    {
-        if(PageModesA::periodTimeLabels.IsT_7())
-        {
-            x = 10;
-        }
-        else if(PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
-        {
-            x = 100;
-        }
-        else
-        {
-            x = 1;
-        }
-    }
-    else if(CurrentTypeMeasure::IsPeriod())
-    {
-        if(ModeMeasurePeriod::Current().IsF_1())
-        {
-            int sT = PageModesA::timeMeasure.ToMS();
-            
-            decDA = (int)(decDataA / (2.0F * (float)sT));
-            decDataA = 4 / decDataA;
-
-            if(decDA >= 1000) //-V1051
-            {
-                decDataA = decDataA * 10000000 * (float)sT * (float)sT;
-            }  
-            else if(decDA <= 1)
-            {
-                decDataA = decDataA * 10 * (float)sT * (float)sT;
-            }
-            else
-            {
-                decDataA = decDataA * 10000 * (float)sT * (float)sT;
-            }
-
-            x = sT * 10;
-        }
-        else
-        {
-            int usT = 1;
-
-            if(PageModesA::periodTimeLabels.IsT_7() || PageModesA::periodTimeLabels.IsT_4())
-            {
-                usT *= 10;
-            }
-            else if(PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
-            {
-                usT *= 100;
-            }
-            
-            x = usT * PageModesA::numberPeriods.ToAbs();
-        }
-    }
-
-    if(CURRENT_CHANNEL_IS_D)
-    {
-        decDataA = decDataC * 2;
-    }
-
-    decDataA = (float)decDataA / (2.0F * (float)x);
-    emptyZeros = x;
-
-    if(manualZeros != 1) //-V1051
-    {
-        emptyZeros = manualZeros;
-        manualZeros = 1;
-    }
-}
 
 static void CalculationInterpolate() 
 {     
@@ -660,19 +488,19 @@ char* FPGA::GiveData()
     if(CurrentTypeMeasure::IsCountPulse())
     {
         BinToDec();
-        decDataA = decDataA / 2;
+        MathFPGA::decDataA = MathFPGA::decDataA / 2;
 
         if(CURRENT_CHANNEL_IS_C)
         {
-            decDataA = decDataA * 100;
+            MathFPGA::decDataA = MathFPGA::decDataA * 100;
         }
 
         if(CurrentModeMeasureCountPulse::IsBig_T())
         {
-            decDataA /= (float)PageModesA::numberPeriods.ToAbs();
+            MathFPGA::decDataA /= (float)PageModesA::numberPeriods.ToAbs();
         }
 
-        std::sprintf(procData, "%10.0f", decDataA);
+        std::sprintf(procData, "%10.0f", MathFPGA::decDataA);
 
         return procData;
     }
@@ -681,8 +509,8 @@ char* FPGA::GiveData()
         if(CurrentModeMeasureFrequency::IsTachometer())
         {
             BinToDec();
-            decDataA = decDataA / 2;
-            std::sprintf(procData, "%10.0f", decDataA);
+            MathFPGA::decDataA = MathFPGA::decDataA / 2;
+            std::sprintf(procData, "%10.0f", MathFPGA::decDataA);
 
             return procData;
         }
@@ -693,9 +521,9 @@ char* FPGA::GiveData()
             float n = 5000000.0F;
             float dx = ((decTizm * 100) / decNkal);
             float k = (n - decFx) / n;
-            decDataA = k - (dx / top) / n;
-            decDataA = decDataA * 1000000;
-            std::sprintf(procData, "%10.3f", decDataA);
+            MathFPGA::decDataA = k - (dx / top) / n;
+            MathFPGA::decDataA = MathFPGA::decDataA * 1000000;
+            std::sprintf(procData, "%10.3f", MathFPGA::decDataA);
 
             return procData;
         }
@@ -723,14 +551,14 @@ char* FPGA::GiveData()
         else
         {
             BinToDec();
-            Calculation();
+            MathFPGA::Calculate();
 
             int pow = 0;
 
-            while (emptyZeros >= 10)
+            while (MathFPGA::emptyZeros >= 10)
             {
                 pow++;
-                emptyZeros /= 10;
+                MathFPGA::emptyZeros /= 10;
             }
 
             if (pow < 10)
@@ -738,17 +566,17 @@ char* FPGA::GiveData()
                 char format[10];
                 std::strcpy(format, "%10.0f");
                 format[4] = (char)(pow | 0x30);
-                std::sprintf(procData, format, decDataA);
+                std::sprintf(procData, format, MathFPGA::decDataA);
             }
             else
             {
                 char format[10];
                 std::strcpy(format, "%10.10f");
                 format[5] = (char)((pow - 10) | 0x30);
-                std::sprintf(procData, format, decDataA);
+                std::sprintf(procData, format, MathFPGA::decDataA);
             }
 
-            emptyZeros = 1;
+            MathFPGA::emptyZeros = 1;
         }
 
         return procData;
@@ -794,11 +622,11 @@ char* FPGA::GiveSpec() //-V2008
                 {
                     if(CurrentModeMeasureFrequency::IsT_1())
                     {
-                        if(decDA < 1000)
+                        if(MathFPGA::decDA < 1000)
                         {
                             std::strcpy(spec, " Hz");
                         }
-                        else if(decDA < 1000000)
+                        else if(MathFPGA::decDA < 1000000)
                         {
                             std::strcpy(spec, " kHz");
                         }
@@ -815,7 +643,7 @@ char* FPGA::GiveSpec() //-V2008
                     {
                         if (CURRENT_CHANNEL_IS_C)
                         {
-                            if (decDataC / 2 < 10000)
+                            if (MathFPGA::decDataC / 2 < 10000)
                             {
                                 std::strcpy(spec, " MHz");
                             }
@@ -832,7 +660,7 @@ char* FPGA::GiveSpec() //-V2008
                         }
                         else
                         {
-                            if (decDA < 1000)
+                            if (MathFPGA::decDA < 1000)
                             {
                                 std::strcpy(spec, " kHz");
 
@@ -849,11 +677,11 @@ char* FPGA::GiveSpec() //-V2008
                     if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsF_1()) ||
                         (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsF_1()))
                     {
-                        if(decDA >= 1000)
+                        if(MathFPGA::decDA >= 1000)
                         {
                             std::strcpy(spec, " ns");
                         }
-                        else if(decDA <= 1)
+                        else if(MathFPGA::decDA <= 1)
                         {
                             std::strcpy(spec, " ms");
                         }
