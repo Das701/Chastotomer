@@ -15,9 +15,9 @@ char MathFPGA::duration[32] = { 0 };
 char MathFPGA::dataA[32] = { 0 };
 char MathFPGA::dataB[32] = { 0 };
 static float decDataA = 0.0F;
-float MathFPGA::decDataB = 0.0F;
-float MathFPGA::decDataC = 0.0F;
-int MathFPGA::decDA = 1;
+static float decDataB = 0.0F;
+static float decDataC = 0.0F;
+static int decDA = 1;
 int MathFPGA::emptyZeros = 0;
 int MathFPGA::NA = 0; //-V707
 int MathFPGA::NB = 0; //-V707
@@ -685,11 +685,11 @@ char *MathFPGA::GiveSpec() //-V2008
             {
                 if (CurrentModeMeasureFrequency::IsT_1())
                 {
-                    if (MathFPGA::decDA < 1000)
+                    if (decDA < 1000)
                     {
                         std::strcpy(result, " Hz");
                     }
-                    else if (MathFPGA::decDA < 1000000)
+                    else if (decDA < 1000000)
                     {
                         std::strcpy(result, " kHz");
                     }
@@ -706,7 +706,7 @@ char *MathFPGA::GiveSpec() //-V2008
                 {
                     if (CURRENT_CHANNEL_IS_C)
                     {
-                        if (MathFPGA::decDataC / 2 < 10000)
+                        if (decDataC / 2 < 10000)
                         {
                             std::strcpy(result, " MHz");
                         }
@@ -723,7 +723,7 @@ char *MathFPGA::GiveSpec() //-V2008
                     }
                     else
                     {
-                        if (MathFPGA::decDA < 1000)
+                        if (decDA < 1000)
                         {
                             std::strcpy(result, " kHz");
 
@@ -740,11 +740,11 @@ char *MathFPGA::GiveSpec() //-V2008
                 if ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsF_1()) ||
                     (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsF_1()))
                 {
-                    if (MathFPGA::decDA >= 1000)
+                    if (decDA >= 1000)
                     {
                         std::strcpy(result, " ns");
                     }
-                    else if (MathFPGA::decDA <= 1)
+                    else if (decDA <= 1)
                     {
                         std::strcpy(result, " ms");
                     }
