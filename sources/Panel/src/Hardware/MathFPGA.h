@@ -28,9 +28,14 @@ struct MathFPGA
         static char dataPeriod[32];
         static char dataDuration[32];
 
+        static char dataComparatorFx[32];   // |
+        static char dataComparatorTizm[16]; // | Данные для компаратора
+        static char dataComparatorNkal[16]; // /
+
         static int CalculateFrequency(int &manualZeros);
         static int CalculatePeriod();
         static int CalculateDuration();
+
         static void CalculateDcycle();
         static void CalculateComparator();
         static void CalculateInterpolate();

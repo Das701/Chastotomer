@@ -21,7 +21,4 @@ private:
     static char dataIdent[4];
     static char dataCAL1[24];
     static char dataCAL2[24];
-    static char dataBinFx[32];
-    static char dataBinTizm[16];
-    static char dataBinNkal[16];
 };

@@ -47,9 +47,6 @@ char FPGA::dataTimer[27] = { 0 };
 char FPGA::dataIdent[4] = { 0 };
 char FPGA::dataCAL1[24] = { 0 };
 char FPGA::dataCAL2[24] = { 0 };
-char FPGA::dataBinFx[32] = { 0 };
-char FPGA::dataBinTizm[16] = { 0 };
-char FPGA::dataBinNkal[16] = { 0 };
 
 static char encData[10];
 static bool autoMode = false;
@@ -143,11 +140,11 @@ void FPGA::Update()
 
                 CYCLE_READ_PIN_B14(3, dataIdent);
 
-                CYCLE_READ_PIN_B14(32, dataBinFx);
+                CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataComparatorFx);
 
-                CYCLE_READ_PIN_B14(16, dataBinTizm);
+                CYCLE_READ_PIN_B14(16, MathFPGA::Measure::dataComparatorTizm);
 
-                CYCLE_READ_PIN_B14(16, dataBinNkal);
+                CYCLE_READ_PIN_B14(16, MathFPGA::Measure::dataComparatorNkal);
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
                 HAL_TIM::DelayUS(8);

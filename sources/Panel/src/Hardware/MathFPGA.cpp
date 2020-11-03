@@ -22,6 +22,9 @@ char MathFPGA::Measure::dataA[32] = { 0 };
 char MathFPGA::Measure::dataB[32] = { 0 };
 char MathFPGA::Measure::dataPeriod[32] = { 0 };
 char MathFPGA::Measure::dataDuration[32] = { 0 };
+char MathFPGA::Measure::dataComparatorFx[32] = { 0 };
+char MathFPGA::Measure::dataComparatorTizm[16] = { 0 };
+char MathFPGA::Measure::dataComparatorNkal[16] = { 0 };
 
 
 static Value decDataA(0);
@@ -421,7 +424,7 @@ void MathFPGA::Measure::CalculateComparator()
 
     for (int i = len1 - 1; i >= 0; i--)
     {
-        if (FPGA::dataBinFx[i] == 1)
+        if (dataComparatorFx[i] == 1)
         {
             decFx += (float)base1;
         }
@@ -430,21 +433,21 @@ void MathFPGA::Measure::CalculateComparator()
 
     for (int i = len2 - 1; i >= 0; i--)
     {
-        if (FPGA::dataBinTizm[i] == 1)
+        if (dataComparatorTizm[i] == 1)
         {
             decTizm += (float)base2;
         }
         base2 = base2 * 2;
     }
 
-    if (FPGA::dataBinTizm[0] == 1)
+    if (dataComparatorTizm[0] == 1)
     {
         decTizm = decTizm - 65536;
     }
 
     for (int i = len2 - 1; i >= 0; i--)
     {
-        if (FPGA::dataBinNkal[i] == 1)
+        if (dataComparatorNkal[i] == 1)
         {
             decNkal += (float)base3;
         }
