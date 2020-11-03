@@ -94,14 +94,28 @@ private:
 struct ValuePICO
 {
     explicit ValuePICO(int v);
+    explicit ValuePICO(const ValuePICO &v);
+
+    void FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign);
+    void FromINT(int v);
 
     void Div(uint div);
     void Mul(uint mul);
 
-    void Sub(ValuePICO value);
+    void Add(ValuePICO &value);
+    void Sub(const ValuePICO &value);
+
+    int Sign() const;
+    void SetSign(int sign);
 
     // Возращает строку значения
-    pString ToString(bool sign, Order::E order = Order::Count) const;
+    pString ToString() const;
+
+    double ToDouble() const;
+
+    uint64 Abs() const;
+
+    int Integer() const;
 
 private:
 

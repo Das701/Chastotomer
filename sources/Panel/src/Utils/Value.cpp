@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Utils/Math.h"
+#include "Utils/Stack.h"
 #include "Utils/Value.h"
 #include <cmath>
 #include <cstring>
@@ -538,6 +539,14 @@ int ValueNANO::Integer() const
 }
 
 
+int ValuePICO::Integer() const
+{
+#pragma warning(push, 0)
+    return (int)(Abs() / (1000 * 1000 * 1000 * 1000)) * Sign();
+#pragma warning(pop)
+}
+
+
 int ValueNANO::FractNano() const
 {
     ValueNANO val = *this;
@@ -744,30 +753,193 @@ pString ValueNANO::ToString(bool sign, Order::E order) const
 }
 
 
-ValuePICO::ValuePICO(int)
+ValuePICO::ValuePICO(int v)
 {
-
+    FromINT(v);
 }
 
 
-void ValuePICO::Div(uint)
+ValuePICO::ValuePICO(const ValuePICO &v) : value(v.value)
 {
-
 }
 
 
-void ValuePICO::Mul(uint)
+void ValuePICO::FromINT(int v)
 {
-
-}
-
-void ValuePICO::Sub(ValuePICO)
-{
-
+    FromUNITS(v < 0 ? -v : v, 0, 0, 0, 0, v < 0 ? -1 : 1);
 }
 
 
-pString ValuePICO::ToString(bool , Order::E ) const
+void ValuePICO::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign)
 {
-    return "";
+    value = (uint64)units;
+
+#pragma warning(push, 0)
+    value *= 1000 * 1000 * 1000 * 1000;
+#pragma warning(pop)
+
+    value += (uint64)pUnits + (uint64)nUnits * 1000 + (uint64)uUnits * 1000 * 1000 + (uint64)mUnits * 1000 * 1000 * 1000;
+
+    if (sign < 0)
+    {
+        SetSign(sign);
+    }
+}
+
+
+void ValuePICO::Div(uint div)
+{
+    int sign = Sign();
+
+    SetSign(1);
+
+    value /= div;
+
+    SetSign(sign);
+}
+
+
+void ValuePICO::Mul(uint mul)
+{
+    int sign = Sign();
+
+    SetSign(1);
+
+    value *= mul;
+
+    SetSign(sign);
+}
+
+
+void ValuePICO::Add(ValuePICO &add)
+{
+    int sign = Sign();
+    int signAdd = add.Sign();
+
+    SetSign(1);
+    add.SetSign(1);
+
+    if (sign > 0 && signAdd > 0)
+    {
+        value += add.value;
+    }
+    else if (sign < 0 && signAdd < 0)
+    {
+        value += add.value;
+        SetSign(-1);
+    }
+    else if (sign > 0 && signAdd < 0)
+    {
+        if (value >= add.value)
+        {
+            value -= add.value;
+        }
+        else
+        {
+            value = add.value - value;
+            SetSign(-1);
+        }
+    }
+    else
+    {
+        if (add.value >= value)
+        {
+            value = add.value - value;
+        }
+        else
+        {
+            value -= add.value;
+            SetSign(-1);
+        }
+    }
+}
+
+
+void ValuePICO::Sub(const ValuePICO &val)
+{
+    ValuePICO sub(val);
+
+    sub.SetSign(-val.Sign());
+
+    Add(sub);
+}
+
+
+int ValuePICO::Sign() const
+{
+    //                fedcba9876543210
+    return (value & 0x8000000000000000U) ? -1 : 1;
+}
+
+
+void ValuePICO::SetSign(int sign)
+{
+    if (sign >= 0)
+    {
+        //         fedcba9876543210
+        value &= 0x7FFFFFFFFFFFFFFFU;       // \todo как это может работать?
+    }
+    else
+    {
+        //         fedcba9876543210
+        value |= 0x8000000000000000U;           // ”станавливаем признак отрицательного числа
+    }
+}
+
+
+pString ValuePICO::ToString() const
+{
+    static char buffer[50];
+
+    char symbol[2] = { 0, 0 };
+
+    buffer[0] = 0;
+
+    int intPart = Integer();
+
+    Stack<char> stack(100);
+
+    while (intPart != 0)
+    {
+        stack.Push(intPart % 10);
+        intPart /= 10;
+    }
+
+    while (!stack.Empty())                          // ѕереводим в строку целую часть
+    {
+        symbol[0] = stack.Pop();
+
+        std::strcat(buffer, symbol);
+    }
+
+    symbol[0] = '.';
+
+    std::strcat(buffer, symbol);
+
+    ValuePICO val(*this);
+
+    val.Sub(ValuePICO(Integer()));                  // “еперь в val осталась только дробна€ часть
+
+    while (val.value != 0)
+    {
+        val.Mul(10);
+
+        symbol[0] = (char)(val.Integer() | 0x30);
+
+        std::strcat(buffer, symbol);
+    }
+
+    return buffer;
+}
+
+
+double ValuePICO::ToDouble() const
+{
+    return (double)Abs() / 1E9 * (double)Sign();
+}
+
+
+uint64 ValuePICO::Abs() const
+{   //                fedcba9876543210
+    return (value & 0x7fffffffffffffff);
 }

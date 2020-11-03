@@ -3,9 +3,10 @@
 #include <cstdlib>
 
 
-template class Stack<uint>;
+//template class Stack<uint>;
 template class Stack<int8>;
-template class Stack<uint8>;
+//template class Stack<uint8>;
+template class Stack<char>;
 
 
 template <typename T>

@@ -560,7 +560,7 @@ char *MathFPGA::Measure::GiveData()
             k.Sub(dx);
             k.Mul(1000000);
 
-            std::sprintf(result, "%s", k.ToString(false, Order::One));
+            std::sprintf(result, "%s", k.ToString());
 
             return result;
         }
