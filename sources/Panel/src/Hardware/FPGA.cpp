@@ -39,10 +39,10 @@
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
 
+char FPGA::dataA[32] = { 0 };
+
 static char encData[10];
-
 static bool autoMode = false;
-
 static char calibBin[10];
 static int calibNumber = 0;
 static int NAC = 0;
@@ -192,7 +192,7 @@ void FPGA::Update()
 
                 for (int i = 0; i < 32; i++)
                 {
-                    READ_PIN_B14(MathFPGA::dataA[i]);
+                    READ_PIN_B14(dataA[i]);
                 }
 
                 if(CurrentModeMeasureFrequency::Is_AC_or_BC() && PageModesA::RelationCheck())

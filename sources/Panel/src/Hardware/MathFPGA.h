@@ -22,7 +22,6 @@ struct MathFPGA
     static void RefreshAuto();
     static char *GiveAuto();
 
-    static char dataA[32];
     static char dataB[32];
 
     static int decMinAuto;

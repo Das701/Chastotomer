@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Settings.h"
+#include "Hardware/FPGA.h"
 #include "Hardware/MathFPGA.h"
 #include "Menu/Pages/PageModesA.h"
 #include "Menu/Pages/PageModesB.h"
@@ -12,7 +13,6 @@
 char MathFPGA::period[32] = { 0 };
 char MathFPGA::duration[32] = { 0 };
 
-char MathFPGA::dataA[32] = { 0 };
 char MathFPGA::dataB[32] = { 0 };
 static float decDataA = 0.0F;
 static float decDataB = 0.0F;
@@ -263,7 +263,7 @@ void MathFPGA::BinToDec()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (dataA[i] == 1)
+        if (FPGA::dataA[i] == 1)
         {
             decDataA += (float)base;
         }
