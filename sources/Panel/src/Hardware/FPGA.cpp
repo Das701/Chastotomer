@@ -24,6 +24,12 @@
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);                              \
     HAL_TIM::DelayUS(2);
 
+#define CYCLE_READ_PIN_B14(num, x)                                                      \
+    for (int i = 0; i < num; i++)                                                       \
+    {                                                                                   \
+        READ_PIN_B14(x[i]);                                                             \
+    }
+
 #define WRITE_COMMAND(x)                                                                \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, (x == 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);    \
     HAL_TIM::DelayUS(2);                                                                \
@@ -81,6 +87,7 @@ void FPGA::Init()
     HAL_GPIO_Init(GPIOC, &is);
 }
 
+
 void FPGA::Update()
 {
     if(autoMode)
@@ -89,25 +96,13 @@ void FPGA::Update()
         {
             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-            for (int i = 0; i < 3; i++)
-            {
-                READ_PIN_B14(ident[i]);
-            }
+            CYCLE_READ_PIN_B14(3, ident);
 
-            for (int i = 0; i < 10; i++)
-            {
-                READ_PIN_B14(minAuto[i]);
-            }
+            CYCLE_READ_PIN_B14(10, minAuto);
 
-            for (int i = 0; i < 10; i++)
-            {
-                READ_PIN_B14(midAuto[i]);
-            }
+            CYCLE_READ_PIN_B14(10, midAuto);
 
-            for (int i = 0; i < 10; i++)
-            {
-                READ_PIN_B14(maxAuto[i]);
-            }
+            CYCLE_READ_PIN_B14(10, maxAuto);
 
             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
             HAL_TIM::DelayUS(8);
@@ -121,25 +116,13 @@ void FPGA::Update()
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-                for (int i = 0; i < 3; i++)
-                {
-                    READ_PIN_B14(ident[i]);
-                }
+                CYCLE_READ_PIN_B14(3, ident);
 
-                for (int i = 0; i < 24; i++)
-                {
-                    READ_PIN_B14(timer1[i]);
-                }
+                CYCLE_READ_PIN_B14(24, timer1);
 
-                for (int i = 0; i < 24; i++)
-                {
-                    READ_PIN_B14(CAL1[i]);
-                }
+                CYCLE_READ_PIN_B14(24, CAL1);
 
-                for (int i = 0; i < 24; i++)
-                {
-                    READ_PIN_B14(CAL2[i]);
-                }
+                CYCLE_READ_PIN_B14(24, CAL2);
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
                 HAL_TIM::DelayUS(8);
