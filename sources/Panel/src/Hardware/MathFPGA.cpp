@@ -38,9 +38,9 @@ int MathFPGA::NB = 0; //-V707
 static float dutyCycle = 0.0F;
 static int dcycleZeros = 0;
 
-static float decFx = 0.0F;
-static float decTizm = 0.0F;
-static float decNkal = 0.0F;
+static uint decFx = 0;
+static uint16 decTizm = 0;
+static uint16 decNkal = 0;
 
 static float interpol = 0.0F;
 
@@ -260,7 +260,7 @@ float MathFPGA::BinToDec(char bin[32])
 
     float result = 0.0F;
 
-    for (int i = 32 - 1; i >= 0; i--)
+    for (int i = 32; i >= 0; i--)
     {
         if (bin[i] == 1)
         {
@@ -271,6 +271,46 @@ float MathFPGA::BinToDec(char bin[32])
     }
 
     return result;
+}
+
+
+uint MathFPGA::BinToUint32(char bin[32])
+{
+    int base = 1;
+
+    uint result = 0;
+
+    for (int i = 31; i >= 0; i--)
+    {
+        if (bin[i] == 1)
+        {
+            result += base;
+        }
+
+        base *= 2;
+    }
+
+    return result;
+}
+
+
+uint16 MathFPGA::BinToUint16(char bin[16])
+{
+    int base = 1;
+
+    uint result = 0;
+
+    for (int i = 15; i >= 0; i--)
+    {
+        if (bin[i] == 1)
+        {
+            result += base;
+        }
+
+        base *= 2;
+    }
+
+    return (uint16)result;
 }
 
 
@@ -411,51 +451,6 @@ void MathFPGA::Measure::CalculateDcycle()
 }
 
 
-void MathFPGA::Measure::CalculateComparator()
-{
-    decFx = 0;
-    decTizm = 0;
-    decNkal = 0;
-    int base1 = 1;
-    int base2 = 1;
-    int base3 = 1;
-    int len1 = 32;
-    int len2 = 16;
-
-    for (int i = len1 - 1; i >= 0; i--)
-    {
-        if (dataComparatorFx[i] == 1)
-        {
-            decFx += (float)base1;
-        }
-        base1 = base1 * 2;
-    }
-
-    for (int i = len2 - 1; i >= 0; i--)
-    {
-        if (dataComparatorTizm[i] == 1)
-        {
-            decTizm += (float)base2;
-        }
-        base2 = base2 * 2;
-    }
-
-    if (dataComparatorTizm[0] == 1)
-    {
-        decTizm = decTizm - 65536;
-    }
-
-    for (int i = len2 - 1; i >= 0; i--)
-    {
-        if (dataComparatorNkal[i] == 1)
-        {
-            decNkal += (float)base3;
-        }
-        base3 = base3 * 2;
-    }
-}
-
-
 void MathFPGA::DecToBin(int dec, char *bin)
 {
     int x = dec;
@@ -544,7 +539,17 @@ char *MathFPGA::Measure::GiveData()
         }
         else if (CurrentModeMeasureFrequency::IsComparator())
         {
-            CalculateComparator();
+            decFx = BinToUint32(dataComparatorFx);
+
+            decNkal = BinToUint16(dataComparatorNkal);
+
+            decTizm = BinToUint16(dataComparatorTizm);
+
+            if (dataComparatorTizm[0] == 1)
+            {
+                decTizm -= 65536;
+            }
+
             float top = 200.0F;
             float n = 5000000.0F;
             float dx = ((decTizm * 100) / decNkal);

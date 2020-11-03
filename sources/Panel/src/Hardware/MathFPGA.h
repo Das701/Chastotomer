@@ -37,7 +37,6 @@ struct MathFPGA
         static int CalculateDuration();
 
         static void CalculateDcycle();
-        static void CalculateComparator();
         static void CalculateInterpolate();
     };
 
@@ -63,4 +62,6 @@ struct MathFPGA
 private:
 
     static float BinToDec(char bin[32]);
+    static uint BinToUint32(char bin[32]);
+    static uint16 BinToUint16(char bin[16]);
 };

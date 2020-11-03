@@ -1784,9 +1784,9 @@
       <ActiveTab>2</ActiveTab>
       <Doc>
         <Name>&lt;1&gt;.\src\Hardware\MathFPGA.cpp</Name>
-        <ColumnNumber>36</ColumnNumber>
+        <ColumnNumber>29</ColumnNumber>
         <TopLine>25</TopLine>
-        <CurrentLine>68</CurrentLine>
+        <CurrentLine>69</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
@@ -1796,15 +1796,15 @@
         <ColumnNumber>0</ColumnNumber>
         <TopLine>187</TopLine>
         <CurrentLine>198</CurrentLine>
-        <Folding>1</Folding>
+        <Folding>0</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
       </Doc>
       <Doc>
         <Name>&lt;1&gt;.\src\main.cpp</Name>
-        <ColumnNumber>5</ColumnNumber>
+        <ColumnNumber>0</ColumnNumber>
         <TopLine>1</TopLine>
-        <CurrentLine>32</CurrentLine>
+        <CurrentLine>16</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
