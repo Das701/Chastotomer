@@ -27,43 +27,7 @@ void MathFPGA::Calculate()
     }
     else if (CurrentTypeMeasure::IsPeriod())
     {
-        if (ModeMeasurePeriod::Current().IsF_1())
-        {
-            int sT = PageModesA::timeMeasure.ToMS();
-
-            decDA = (int)(decDataA / (2.0F * (float)sT));
-            decDataA = 4 / decDataA;
-
-            if (decDA >= 1000) //-V1051
-            {
-                decDataA = decDataA * 10000000 * (float)sT * (float)sT;
-            }
-            else if (decDA <= 1)
-            {
-                decDataA = decDataA * 10 * (float)sT * (float)sT;
-            }
-            else
-            {
-                decDataA = decDataA * 10000 * (float)sT * (float)sT;
-            }
-
-            x = sT * 10;
-        }
-        else
-        {
-            int usT = 1;
-
-            if (PageModesA::periodTimeLabels.IsT_7() || PageModesA::periodTimeLabels.IsT_4())
-            {
-                usT *= 10;
-            }
-            else if (PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
-            {
-                usT *= 100;
-            }
-
-            x = usT * PageModesA::numberPeriods.ToAbs();
-        }
+        x = CalculatePeriod();
     }
 
     if (CURRENT_CHANNEL_IS_D)
@@ -173,6 +137,52 @@ int MathFPGA::CalculateFrequency(int &manualZeros)
             }
             decDA = (int)decDataC;
         }
+    }
+
+    return result;
+}
+
+
+int MathFPGA::CalculatePeriod()
+{
+    int result = 1;
+
+    if (ModeMeasurePeriod::Current().IsF_1())
+    {
+        int sT = PageModesA::timeMeasure.ToMS();
+
+        decDA = (int)(decDataA / (2.0F * (float)sT));
+        decDataA = 4 / decDataA;
+
+        if (decDA >= 1000) //-V1051
+        {
+            decDataA = decDataA * 10000000 * (float)sT * (float)sT;
+        }
+        else if (decDA <= 1)
+        {
+            decDataA = decDataA * 10 * (float)sT * (float)sT;
+        }
+        else
+        {
+            decDataA = decDataA * 10000 * (float)sT * (float)sT;
+        }
+
+        result = sT * 10;
+    }
+    else
+    {
+        int usT = 1;
+
+        if (PageModesA::periodTimeLabels.IsT_7() || PageModesA::periodTimeLabels.IsT_4())
+        {
+            usT *= 10;
+        }
+        else if (PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
+        {
+            usT *= 100;
+        }
+
+        result = usT * PageModesA::numberPeriods.ToAbs();
     }
 
     return result;

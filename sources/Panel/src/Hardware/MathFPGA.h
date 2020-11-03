@@ -13,5 +13,6 @@ struct MathFPGA
 
 private:
     static int CalculateFrequency(int &manualZeros);
+    static int CalculatePeriod();
     static int CalculateDuration();
 };
