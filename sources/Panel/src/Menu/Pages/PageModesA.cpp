@@ -640,6 +640,12 @@ bool CurrentModeMeasureFrequency::Is_RatioCA_or_RatioCB()
 }
 
 
+bool CurrentModeMeasureFrequency::Is_Ratio()
+{
+    return Is_RatioAB_or_RatioBA() || Is_RatioAC_or_RatioBC() || Is_RatioCA_or_RatioCB();
+}
+
+
 bool CurrentModeMeasureCountPulse::IsBig_T()
 {
     return ((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::ATB))

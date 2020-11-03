@@ -18,6 +18,7 @@ struct CurrentModeMeasureFrequency
     static bool Is_RatioAC_or_RatioBC();
     static bool Is_RatioAB_or_RatioBA();
     static bool Is_RatioCA_or_RatioCB();
+    static bool Is_Ratio();
 };
 
 

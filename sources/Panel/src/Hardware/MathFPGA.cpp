@@ -186,35 +186,26 @@ int MathFPGA::CalculatePeriod()
         decDA = (int)(decDataA / (2.0F * (float)sT));
         decDataA = 4 / decDataA;
 
-        if (decDA >= 1000) //-V1051
-        {
-            decDataA = decDataA * 10000000 * (float)sT * (float)sT;
-        }
-        else if (decDA <= 1)
-        {
-            decDataA = decDataA * 10 * (float)sT * (float)sT;
-        }
-        else
-        {
-            decDataA = decDataA * 10000 * (float)sT * (float)sT;
-        }
+        decDataA *= (float)sT * (float)sT;
+
+        if (decDA >= 1000)      { decDataA *= 10000000; }
+        else if (decDA <= 1)    { decDataA *= 10;       }
+        else                    { decDataA *= 10000;    }
 
         result = sT * 10;
     }
     else
     {
-        int usT = 1;
-
         if (PageModesA::periodTimeLabels.IsT_7() || PageModesA::periodTimeLabels.IsT_4())
         {
-            usT *= 10;
+            result *= 10;
         }
         else if (PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
         {
-            usT *= 100;
+            result *= 100;
         }
 
-        result = usT * PageModesA::numberPeriods.ToAbs();
+        result *= PageModesA::numberPeriods.ToAbs();
     }
 
     return result;
@@ -397,6 +388,7 @@ void MathFPGA::CalculateDcycle()
         {
             dutyCycle = dutyCycle * (-1);
         }
+
         if (dutyCycle != 0.0F) //-V2550 //-V550
         {
             while (dutyCycle < 1)
@@ -459,14 +451,8 @@ void MathFPGA::DecToBin(int dec, char *bin)
     int x = dec;
     for (int i = 0; i < 10; i++)
     {
-        if (x % 2 != 0)
-        {
-            bin[i] = 1;
-        }
-        else
-        {
-            bin[i] = 0;
-        }
+        if (x % 2 != 0) { bin[i] = 1; }
+        else            { bin[i] = 0; }
         x = x / 2;
     }
 }
@@ -569,14 +555,8 @@ char *MathFPGA::GiveData()
         {
             MathFPGA::CalculateDcycle();
 
-            if (ModeMeasureDuration::Current().Is_Phase())
-            {
-                std::sprintf(procDataDcycle, "%10.3f", MathFPGA::dutyCycle);
-            }
-            else
-            {
-                std::sprintf(procDataDcycle, "%10.7f", MathFPGA::dutyCycle);
-            }
+            if (ModeMeasureDuration::Current().Is_Phase())  { std::sprintf(procDataDcycle, "%10.3f", MathFPGA::dutyCycle); }
+            else                                            { std::sprintf(procDataDcycle, "%10.7f", MathFPGA::dutyCycle); }
 
             return procDataDcycle;
         }
@@ -643,11 +623,9 @@ char *MathFPGA::GiveSpec() //-V2008
     }
     else
     {
-        if ((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsRatioAB() || PageModesA::modeMeasureFrequency.IsRatioAC())) ||
-            (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency.IsRatioBA() || PageModesB::modeMeasureFrequency.IsRatioBC())) ||
-            (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureFrequency.IsRatioCA() || PageModesC::modeMeasureFrequency.IsRatioCB())) ||
-            ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) || (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsTachometer())) ||
-            (PageModesA::typeMeasure.IsCountPulse() || PageModesB::typeMeasure.IsCountPulse() || PageModesC::typeMeasure.IsCountPulse()))
+        if (CurrentModeMeasureFrequency::Is_Ratio() ||
+            CurrentModeMeasureFrequency::IsTachometer() ||
+            CurrentTypeMeasure::IsCountPulse())
         {
             std::strcpy(result, " ");
         }
@@ -657,18 +635,9 @@ char *MathFPGA::GiveSpec() //-V2008
             {
                 if (CurrentModeMeasureFrequency::IsT_1())
                 {
-                    if (decDA < 1000)
-                    {
-                        std::strcpy(result, " Hz");
-                    }
-                    else if (decDA < 1000000)
-                    {
-                        std::strcpy(result, " kHz");
-                    }
-                    else
-                    {
-                        std::strcpy(result, " MHz");
-                    }
+                    if (decDA < 1000)           { std::strcpy(result, " Hz");  }
+                    else if (decDA < 1000000)   { std::strcpy(result, " kHz"); }
+                    else                        { std::strcpy(result, " MHz"); }
                 }
                 else if (PageModesA::modeMeasureFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
                 {
@@ -678,32 +647,17 @@ char *MathFPGA::GiveSpec() //-V2008
                 {
                     if (CURRENT_CHANNEL_IS_C)
                     {
-                        if (decDataC / 2 < 10000)
-                        {
-                            std::strcpy(result, " MHz");
-                        }
-                        else
-                        {
-                            std::strcpy(result, " GHz");
-                        }
+                        if (decDataC / 2 < 10000)   { std::strcpy(result, " MHz"); }
+                        else                        { std::strcpy(result, " GHz"); }
                     }
-                    else if (CURRENT_CHANNEL_IS_D)
+                    else if (CURRENT_CHANNEL_IS_D)   
                     {
-                        {
-                            std::strcpy(result, " GHz");
-                        }
+                        std::strcpy(result, " GHz");
                     }
                     else
                     {
-                        if (decDA < 1000)
-                        {
-                            std::strcpy(result, " kHz");
-
-                        }
-                        else
-                        {
-                            std::strcpy(result, " MHz");
-                        }
+                        if (decDA < 1000)           { std::strcpy(result, " kHz"); }
+                        else                        { std::strcpy(result, " MHz"); }
                     }
                 }
             }
@@ -712,31 +666,16 @@ char *MathFPGA::GiveSpec() //-V2008
                 if ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsF_1()) ||
                     (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsF_1()))
                 {
-                    if (decDA >= 1000)
-                    {
-                        std::strcpy(result, " ns");
-                    }
-                    else if (decDA <= 1)
-                    {
-                        std::strcpy(result, " ms");
-                    }
-                    else
-                    {
-                        std::strcpy(result, " us");
-                    }
+                    if (decDA >= 1000)      { std::strcpy(result, " ns"); }
+                    else if (decDA <= 1)    { std::strcpy(result, " ms"); }
+                    else                    { std::strcpy(result, " us"); }
                 }
                 else
                 {
                     PeriodTimeLabels &current = PeriodTimeLabels::Current();
 
-                    if (current.IsT_3() || current.IsT_4() || current.IsT_5())
-                    {
-                        std::strcpy(result, " ms");
-                    }
-                    else
-                    {
-                        std::strcpy(result, " us");
-                    }
+                    if (current.IsT_3() || current.IsT_4() || current.IsT_5())  { std::strcpy(result, " ms"); }
+                    else                                                        { std::strcpy(result, " us"); }
                 }
             }
         }
@@ -749,25 +688,13 @@ char *MathFPGA::GiveIdent()
 {
     static char identInfo[10] = { 0 };
 
-    if (FPGA::ident[0] == 0)
-    {
-        std::strcpy(identInfo, "0");
-    }
-    else
-    {
-        std::strcpy(identInfo, "1");
-    }
+    if (FPGA::ident[0] == 0)        { std::strcpy(identInfo, "0"); }
+    else                            { std::strcpy(identInfo, "1"); }
 
     for (int i = 1; i < 4; i++)
     {
-        if (FPGA::ident[i] == 0)
-        {
-            std::strcat(identInfo, "0");
-        }
-        else
-        {
-            std::strcat(identInfo, "1");
-        }
+        if (FPGA::ident[i] == 0)    { std::strcat(identInfo, "0"); }
+        else                        { std::strcat(identInfo, "1"); }
     }
 
     return identInfo;
