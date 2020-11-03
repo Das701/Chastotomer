@@ -17,20 +17,25 @@
 #include <stm32f4xx_hal.h>
 
 
-#define READ_PIN_B14(x)  \
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);    \
-    HAL_TIM::DelayUS(2);                                    \
-    x = (char)HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);         \
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);  \
+#define READ_PIN_B14(x)                                                                 \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);                                \
+    HAL_TIM::DelayUS(2);                                                                \
+    x = (char)HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14);                                     \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);                              \
     HAL_TIM::DelayUS(2);
 
-#define WRITE_COMMAND(x) \
+#define WRITE_COMMAND(x)                                                                \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, (x == 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);    \
     HAL_TIM::DelayUS(2);                                                                \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);                                \
     HAL_TIM::DelayUS(2);                                                                \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
+#define CYCLE_WRITE_COMMAND(num, x)                                                     \
+    for (int i = 0; i < num; i++)                                                       \
+    {                                                                                   \
+        WRITE_COMMAND(x[i]);                                                            \
+    }
 
 char FPGA::dataA[32] = { 0 };
 char FPGA::dataB[32] = { 0 };
@@ -231,15 +236,9 @@ void FPGA::WriteCommand(const char *command, const char *argument)
         HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
-        for (int i = 0; i < 4; i++)
-        {
-            WRITE_COMMAND(command[i]);
-        }
+        CYCLE_WRITE_COMMAND(4, command);
 
-        for (int i = 0; i < 6; i++)
-        {
-            WRITE_COMMAND(argument[i]);
-        }
+        CYCLE_WRITE_COMMAND(6, argument);
 
         HAL_TIM::DelayUS(2);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //-V525
