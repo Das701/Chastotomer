@@ -39,18 +39,18 @@ bool Button::OnControl(const Control &)
 }
 
 
-void Button::Draw(int x, int y, bool selected)
+void Button::Draw(int x, int y, int width, bool selected)
 {
     if (selected)
     {
         Color::BLACK.SetAsCurrent();
     }
-    Text(text).Write(x, y + 2, WIDTH);
+    Text(text).Write(x, y + 2, width);
 }
 
 
 
-void Page::Draw(int x, int y, bool)
+void Page::Draw(int x, int y, int, bool)
 {
     for (int i = 0; i < NumItems(); i++)
     {
@@ -58,7 +58,7 @@ void Page::Draw(int x, int y, bool)
         {
             Rectangle(WidthItem(i), HEIGHT - 1).Fill(x + 1, y + 1, Color::_14);
         }
-        items[i]->Draw(x, y, i == selectedItem);
+        items[i]->Draw(x, y, WidthItem(i), i == selectedItem);
         Rectangle(WidthItem(i), HEIGHT).Draw(x, y, Color::WHITE);
 
         x += WidthItem(i);
@@ -68,6 +68,14 @@ void Page::Draw(int x, int y, bool)
 
 int Page::WidthItem(int num) const
 {
+    if (IsPageModes())
+    {
+        if (num == 0)
+        {
+            return ((Display::WIDTH - 1) / 6) * 2;
+        }
+    }
+
     int result = ((num % 2) == 0) ? ((Display::WIDTH - 1) / 6) : (Display::WIDTH / 6);
 
     if (num == 5)
@@ -76,18 +84,12 @@ int Page::WidthItem(int num) const
     }
 
     return result;
+}
 
-//    if (NumItems() == 1)
-//    {
-//        return Display::WIDTH - 2;
-//    }
-//
-//    if (num < NumItems() - 1)
-//    {
-//        return (Display::WIDTH - 1) / NumItems();
-//    }
-//
-//    return Display::WIDTH - WidthItem(0) * (NumItems() - 1) - 1;
+
+bool Page::IsPageModes() const
+{
+    return this == PageModesA::self || this == PageModesB::self || this == PageModesC::self || this == PageModesD::self;
 }
 
 
@@ -401,14 +403,14 @@ bool Switch::OnControl(const Control &control)
 }
 
 
-void Switch::Draw(int x, int y, bool selected)
+void Switch::Draw(int x, int y, int width, bool selected)
 {
     if (selected)
     {
         Color::BLACK.SetAsCurrent();
     }
 
-    Text(text).WriteInCenterRect(x, y, WIDTH, HEIGHT);
+    Text(text).WriteInCenterRect(x, y, width, HEIGHT);
 }
 
 
@@ -418,3 +420,4 @@ void Switch::CreateHint(char buffer[100]) const
     std::strcat(buffer, ": ");
     std::strcat(buffer, state->ToText());
 }
+

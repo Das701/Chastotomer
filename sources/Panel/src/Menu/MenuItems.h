@@ -23,11 +23,10 @@ class Item
 {
     friend class Hint;
 public:
-    static const int WIDTH = 77;
     static const int HEIGHT = 55;
 
     // Функция отрисовки
-    virtual void Draw(int x, int y, bool selected = false) = 0;
+    virtual void Draw(int x, int y, int width, bool selected = false) = 0;
     // Функция обработки нажатия кнопки/поворота ручки
     virtual bool OnControl(const Control &) { return false; };
 
@@ -47,7 +46,7 @@ class Button : public Item
 public:
     Button(char *_text) : text(_text){};
 
-    virtual void Draw(int x, int y, bool selected = false);
+    virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &control);
     
 private:
@@ -67,7 +66,7 @@ public:
         state->ugo = _ugo;
         hint = _hint;
     };
-    virtual void Draw(int x, int y, bool selected = false);
+    virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &control);
 
 private:
@@ -84,10 +83,13 @@ class Page : public Item
 public:
     Page(Item **_items = nullptr) : selectedItem(0), items(_items) {};
 
-    virtual void Draw(int x, int y, bool selected = false);
+    virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &control);    
     // Возвращает указатель на выделенный пункт меню
     Item *SelectedItem() { return items[selectedItem]; };
+
+    // Возвращает true, если это страница режимов
+    bool IsPageModes() const;
 
     // Номер выбранного итема
     int selectedItem;

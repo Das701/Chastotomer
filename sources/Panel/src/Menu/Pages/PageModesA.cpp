@@ -153,7 +153,7 @@ void PageModesA::OnChanged_TypeMeasure()
 
 
 DEF_SWITCH_4(sTypeMeasure,
-    "Вид изм.", "Выбор измерения",
+    "Измерение", "Выбор измерения",
     "Частота", "Период", "Длит.", "Сч. имп.",
     PageModesA::typeMeasure, PageModesA::OnChanged_TypeMeasure
 );

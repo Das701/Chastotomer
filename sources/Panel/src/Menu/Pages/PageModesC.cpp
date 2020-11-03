@@ -55,7 +55,7 @@ void PageModesC::OnChanged_TypeMeasure()
 }
 
 DEF_SWITCH_2(sTypeMeasureC,
-    "Вид изм.", "Выбор измерения",
+    "Измерение", "Выбор измерения",
     "Частота", "Сч. имп.",
     PageModesC::typeMeasure, PageModesC::OnChanged_TypeMeasure
 )
