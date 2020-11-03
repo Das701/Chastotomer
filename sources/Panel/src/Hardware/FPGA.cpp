@@ -181,7 +181,7 @@ void FPGA::Update()
 }
 
 
-void FPGA::WriteCommand(const char *command, const char *argument)
+void FPGA::WriteCommand(const char command[4], const char argument[6])
 {
     if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == 0)
     {

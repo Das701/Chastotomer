@@ -6,7 +6,7 @@ friend struct MathFPGA;
 
     static void Init();
     static void Update();
-    static void WriteCommand(const char *command, const char *argument);
+    static void WriteCommand(const char command[4], const char argument[6]);
     static void WriteData();
     static void IncreaseN();
     static void DecreaseN();
