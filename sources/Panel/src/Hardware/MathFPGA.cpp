@@ -501,7 +501,7 @@ void MathFPGA::CalculateInterpolate()
 }
 
 
-char *MathFPGA::GiveData()
+char *MathFPGA::Measure::GiveData()
 {
     static char result[40] = { 0 };
 

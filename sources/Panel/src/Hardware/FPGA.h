@@ -18,6 +18,7 @@ friend struct MathFPGA;
 private:
     static char dataA[32];
     static char dataB[32];
+
     static char timer1[27];
     static char ident[4];
     static char CAL1[24];
