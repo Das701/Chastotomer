@@ -64,7 +64,6 @@ static char procDataInterpol[30] = { 0 };
 static char procDataDcycle[30] = { 0 };
 
 static char spec[10] = { 0 };
-static char identInfo[10] = { 0 };
 
 
 void MathFPGA::Calculate()
@@ -775,6 +774,8 @@ char *MathFPGA::GiveSpec() //-V2008
 
 char *MathFPGA::GiveIdent()
 {
+    static char identInfo[10] = { 0 };
+
     if (ident[0] == 0)
     {
         std::strcpy(identInfo, "0");
