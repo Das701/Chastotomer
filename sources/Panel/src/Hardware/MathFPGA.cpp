@@ -27,8 +27,8 @@ static int emptyZeros = 0;
 int MathFPGA::NA = 0; //-V707
 int MathFPGA::NB = 0; //-V707
 
-float MathFPGA::dutyCycle = 0.0F;
-int MathFPGA::dcycleZeros = 0;
+static float dutyCycle = 0.0F;
+static int dcycleZeros = 0;
 
 float MathFPGA::decFx = 0.0F;
 float MathFPGA::decTizm = 0.0F;
@@ -557,8 +557,8 @@ char *MathFPGA::GiveData()
         {
             MathFPGA::CalculateDcycle();
 
-            if (ModeMeasureDuration::Current().Is_Phase())  { std::sprintf(procDataDcycle, "%10.3f", MathFPGA::dutyCycle); }
-            else                                            { std::sprintf(procDataDcycle, "%10.7f", MathFPGA::dutyCycle); }
+            if (ModeMeasureDuration::Current().Is_Phase())  { std::sprintf(procDataDcycle, "%10.3f", dutyCycle); }
+            else                                            { std::sprintf(procDataDcycle, "%10.7f", dutyCycle); }
 
             return procDataDcycle;
         }
@@ -618,9 +618,9 @@ char *MathFPGA::GiveSpec() //-V2008
         else
         {
             std::strcpy(result, " E-0");
-            result[3] = (char)(MathFPGA::dcycleZeros | 0x30);
+            result[3] = (char)(dcycleZeros | 0x30);
 
-            MathFPGA::dcycleZeros = 0;
+            dcycleZeros = 0;
         }
     }
     else
