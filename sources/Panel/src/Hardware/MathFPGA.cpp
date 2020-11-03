@@ -18,7 +18,7 @@ static float decDataA = 0.0F;
 static float decDataB = 0.0F;
 static float decDataC = 0.0F;
 static int decDA = 1;
-int MathFPGA::emptyZeros = 0;
+static int emptyZeros = 0;
 int MathFPGA::NA = 0; //-V707
 int MathFPGA::NB = 0; //-V707
 
@@ -615,10 +615,10 @@ char *MathFPGA::GiveData()
 
             int pow = 0;
 
-            while (MathFPGA::emptyZeros >= 10)
+            while (emptyZeros >= 10)
             {
                 pow++;
-                MathFPGA::emptyZeros /= 10;
+                emptyZeros /= 10;
             }
 
             if (pow < 10)
@@ -636,7 +636,7 @@ char *MathFPGA::GiveData()
                 std::sprintf(result, format, decDataA);
             }
 
-            MathFPGA::emptyZeros = 1;
+            emptyZeros = 1;
         }
 
         return result;
