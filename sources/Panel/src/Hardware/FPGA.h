@@ -17,13 +17,13 @@ friend struct MathFPGA;
 
 private:
 
-    static char timer1[27];
-    static char ident[4];
-    static char CAL1[24];
-    static char CAL2[24];
-    static char period[32];
-    static char duration[32];
-    static char binFx[32];
-    static char binTizm[16];
-    static char binNkal[16];
+    static char dataTimer[27];
+    static char dataIdent[4];
+    static char dataCAL1[24];
+    static char dataCAL2[24];
+    static char dataPeriod[32];
+    static char dataDuration[32];
+    static char dataBinFx[32];
+    static char dataBinTizm[16];
+    static char dataBinNkal[16];
 };

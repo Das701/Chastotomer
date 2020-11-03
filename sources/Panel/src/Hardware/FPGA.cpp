@@ -43,15 +43,15 @@
         WRITE_COMMAND(x[i]);                                                            \
     }
 
-char FPGA::timer1[27] = { 0 };
-char FPGA::ident[4] = { 0 };
-char FPGA::CAL1[24] = { 0 };
-char FPGA::CAL2[24] = { 0 };
-char FPGA::period[32] = { 0 };
-char FPGA::duration[32] = { 0 };
-char FPGA::binFx[32] = { 0 };
-char FPGA::binTizm[16] = { 0 };
-char FPGA::binNkal[16] = { 0 };
+char FPGA::dataTimer[27] = { 0 };
+char FPGA::dataIdent[4] = { 0 };
+char FPGA::dataCAL1[24] = { 0 };
+char FPGA::dataCAL2[24] = { 0 };
+char FPGA::dataPeriod[32] = { 0 };
+char FPGA::dataDuration[32] = { 0 };
+char FPGA::dataBinFx[32] = { 0 };
+char FPGA::dataBinTizm[16] = { 0 };
+char FPGA::dataBinNkal[16] = { 0 };
 
 static char encData[10];
 static bool autoMode = false;
@@ -91,7 +91,7 @@ void FPGA::Update()
         {
             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-            CYCLE_READ_PIN_B14(3, ident);
+            CYCLE_READ_PIN_B14(3, dataIdent);
 
             CYCLE_READ_PIN_B14(10, MathFPGA::Auto::dataMin);
 
@@ -111,13 +111,13 @@ void FPGA::Update()
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-                CYCLE_READ_PIN_B14(3, ident);
+                CYCLE_READ_PIN_B14(3, dataIdent);
 
-                CYCLE_READ_PIN_B14(24, timer1);
+                CYCLE_READ_PIN_B14(24, dataTimer);
 
-                CYCLE_READ_PIN_B14(24, CAL1);
+                CYCLE_READ_PIN_B14(24, dataCAL1);
 
-                CYCLE_READ_PIN_B14(24, CAL2);
+                CYCLE_READ_PIN_B14(24, dataCAL2);
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
                 HAL_TIM::DelayUS(8);
@@ -129,9 +129,9 @@ void FPGA::Update()
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-                CYCLE_READ_PIN_B14(32, period);
+                CYCLE_READ_PIN_B14(32, dataPeriod);
 
-                CYCLE_READ_PIN_B14(32, duration);
+                CYCLE_READ_PIN_B14(32, dataDuration);
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
                 HAL_TIM::DelayUS(8);
@@ -143,13 +143,13 @@ void FPGA::Update()
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-                CYCLE_READ_PIN_B14(3, ident);
+                CYCLE_READ_PIN_B14(3, dataIdent);
 
-                CYCLE_READ_PIN_B14(32, binFx);
+                CYCLE_READ_PIN_B14(32, dataBinFx);
 
-                CYCLE_READ_PIN_B14(16, binTizm);
+                CYCLE_READ_PIN_B14(16, dataBinTizm);
 
-                CYCLE_READ_PIN_B14(16, binNkal);
+                CYCLE_READ_PIN_B14(16, dataBinNkal);
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
                 HAL_TIM::DelayUS(8);
@@ -275,7 +275,7 @@ void FPGA::ReadCalibNumber()
     {
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-        CYCLE_READ_PIN_B14(3, ident);
+        CYCLE_READ_PIN_B14(3, dataIdent);
 
         CYCLE_READ_PIN_B14(10, calibBin);
 

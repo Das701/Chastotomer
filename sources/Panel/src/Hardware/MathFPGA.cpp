@@ -366,7 +366,7 @@ void MathFPGA::Measure::CalculateDcycle()
     int len = 32;
     for (int i = len - 1; i >= 0; i--)
     {
-        if (FPGA::period[i] == 1)
+        if (FPGA::dataPeriod[i] == 1)
         {
             decPeriod += base1;
         }
@@ -374,7 +374,7 @@ void MathFPGA::Measure::CalculateDcycle()
     }
     for (int i = len - 1; i >= 0; i--)
     {
-        if (FPGA::duration[i] == 1)
+        if (FPGA::dataDuration[i] == 1)
         {
             decDuration += base2;
         }
@@ -418,7 +418,7 @@ void MathFPGA::Measure::CalculateComparator()
 
     for (int i = len1 - 1; i >= 0; i--)
     {
-        if (FPGA::binFx[i] == 1)
+        if (FPGA::dataBinFx[i] == 1)
         {
             decFx += (float)base1;
         }
@@ -427,21 +427,21 @@ void MathFPGA::Measure::CalculateComparator()
 
     for (int i = len2 - 1; i >= 0; i--)
     {
-        if (FPGA::binTizm[i] == 1)
+        if (FPGA::dataBinTizm[i] == 1)
         {
             decTizm += (float)base2;
         }
         base2 = base2 * 2;
     }
 
-    if (FPGA::binTizm[0] == 1)
+    if (FPGA::dataBinTizm[0] == 1)
     {
         decTizm = decTizm - 65536;
     }
 
     for (int i = len2 - 1; i >= 0; i--)
     {
-        if (FPGA::binNkal[i] == 1)
+        if (FPGA::dataBinNkal[i] == 1)
         {
             decNkal += (float)base3;
         }
@@ -474,7 +474,7 @@ void MathFPGA::Measure::CalculateInterpolate()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (FPGA::timer1[i] == 1)
+        if (FPGA::dataTimer[i] == 1)
         {
             decTimer1 += base1;
         }
@@ -483,7 +483,7 @@ void MathFPGA::Measure::CalculateInterpolate()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (FPGA::CAL1[i] == 1)
+        if (FPGA::dataCAL1[i] == 1)
         {
             decCAL1 += base2;
         }
@@ -492,7 +492,7 @@ void MathFPGA::Measure::CalculateInterpolate()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (FPGA::CAL2[i] == 1)
+        if (FPGA::dataCAL2[i] == 1)
         {
             decCAL2 += base3;
         }
@@ -692,13 +692,13 @@ char *MathFPGA::GiveIdent()
 {
     static char identInfo[10] = { 0 };
 
-    if (FPGA::ident[0] == 0)        { std::strcpy(identInfo, "0"); }
-    else                            { std::strcpy(identInfo, "1"); }
+    if (FPGA::dataIdent[0] == 0)        { std::strcpy(identInfo, "0"); }
+    else                                { std::strcpy(identInfo, "1"); }
 
     for (int i = 1; i < 4; i++)
     {
-        if (FPGA::ident[i] == 0)    { std::strcat(identInfo, "0"); }
-        else                        { std::strcat(identInfo, "1"); }
+        if (FPGA::dataIdent[i] == 0)    { std::strcat(identInfo, "0"); }
+        else                            { std::strcat(identInfo, "1"); }
     }
 
     return identInfo;
