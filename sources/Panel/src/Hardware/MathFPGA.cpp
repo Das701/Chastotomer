@@ -550,12 +550,12 @@ char *MathFPGA::Measure::GiveData()
                 decTizm -= 65536;
             }
 
-            ValueNANO dx(decTizm);
+            ValuePICO dx(decTizm);
             dx.Div((uint)decNkal);
             dx.Div(2 * 5000000);
 
-            ValueNANO k(5000000);
-            k.Sub(ValueNANO((int)decFx));
+            ValuePICO k(5000000);
+            k.Sub(ValuePICO((int)decFx));
             k.Div(5000000);
             k.Sub(dx);
             k.Mul(1000000);

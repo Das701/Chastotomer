@@ -742,3 +742,32 @@ pString ValueNANO::ToString(bool sign, Order::E order) const
 
     return buffer;
 }
+
+
+ValuePICO::ValuePICO(int)
+{
+
+}
+
+
+void ValuePICO::Div(uint)
+{
+
+}
+
+
+void ValuePICO::Mul(uint)
+{
+
+}
+
+void ValuePICO::Sub(ValuePICO)
+{
+
+}
+
+
+pString ValuePICO::ToString(bool , Order::E ) const
+{
+    return "";
+}

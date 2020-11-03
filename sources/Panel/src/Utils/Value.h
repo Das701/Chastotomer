@@ -89,3 +89,21 @@ private:
 
     uint64 value;       // «начение параметра в единицах измерени€ "нано". ”становленный в "1" старший бит означает, что число отрицательное
 };
+
+
+struct ValuePICO
+{
+    explicit ValuePICO(int v);
+
+    void Div(uint div);
+    void Mul(uint mul);
+
+    void Sub(ValuePICO value);
+
+    // ¬озращает строку значени€
+    pString ToString(bool sign, Order::E order = Order::Count) const;
+
+private:
+
+    uint64 value;       // «начение параметра в единицах измерени€ "нано". ”становленный в "1" старший бит означает, что число отрицательное
+};
