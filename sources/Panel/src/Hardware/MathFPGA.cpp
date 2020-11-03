@@ -20,6 +20,9 @@ char MathFPGA::Auto::dataMax[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 char MathFPGA::Measure::dataA[32] = { 0 };
 char MathFPGA::Measure::dataB[32] = { 0 };
+char MathFPGA::Measure::dataPeriod[32] = { 0 };
+char MathFPGA::Measure::dataDuration[32] = { 0 };
+
 
 static Value decDataA(0);
 static Value decDataB(0);
@@ -366,7 +369,7 @@ void MathFPGA::Measure::CalculateDcycle()
     int len = 32;
     for (int i = len - 1; i >= 0; i--)
     {
-        if (FPGA::dataPeriod[i] == 1)
+        if (dataPeriod[i] == 1)
         {
             decPeriod += base1;
         }
@@ -374,7 +377,7 @@ void MathFPGA::Measure::CalculateDcycle()
     }
     for (int i = len - 1; i >= 0; i--)
     {
-        if (FPGA::dataDuration[i] == 1)
+        if (dataDuration[i] == 1)
         {
             decDuration += base2;
         }

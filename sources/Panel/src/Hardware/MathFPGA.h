@@ -25,6 +25,8 @@ struct MathFPGA
 
         static char dataA[32];
         static char dataB[32];
+        static char dataPeriod[32];
+        static char dataDuration[32];
 
         static int CalculateFrequency(int &manualZeros);
         static int CalculatePeriod();
