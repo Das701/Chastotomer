@@ -3,7 +3,9 @@
 #include "Hardware/MathFPGA.h"
 #include "Menu/Pages/PageModesA.h"
 #include "Menu/Pages/PageModesC.h"
-
+#include "Utils/StringUtils.h"
+#include <cstring>
+ 
 
 char MathFPGA::dataA[32];
 char MathFPGA::dataB[32];
@@ -20,6 +22,13 @@ int MathFPGA::decMaxAuto = 0;
 char MathFPGA::minAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::midAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::maxAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+static char minAutoData[7];
+static char maxAutoData[7];
+static char autoData[20];
+
+int MathFPGA::NA = 0; //-V707
+int MathFPGA::NB = 0; //-V707
 
 
 void MathFPGA::Calculate()
@@ -319,4 +328,31 @@ void MathFPGA::RefreshAuto()
         midAuto[i] = 0;
         maxAuto[i] = 0;
     }
+}
+
+
+char *MathFPGA::GiveAuto()
+{
+    CalculationAuto();
+    SU::Int2String((MathFPGA::decMinAuto - 512) * 2, minAutoData);
+    SU::Int2String((MathFPGA::decMaxAuto - 512) * 2, maxAutoData);
+    std::strcpy(autoData, "Макс ");
+    std::strcat(autoData, maxAutoData);
+    std::strcat(autoData, " Мин ");
+    std::strcat(autoData, minAutoData);
+
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        LEVEL_SYNCH_A = (MathFPGA::decMidAuto - 512) * 2;
+        NA = MathFPGA::decMidAuto - 512;
+    }
+
+    if (CURRENT_CHANNEL_IS_B)
+    {
+        LEVEL_SYNCH_B = (MathFPGA::decMidAuto - 512) * 2;
+        NB = MathFPGA::decMidAuto - 512;
+
+    }
+
+    return autoData;
 }

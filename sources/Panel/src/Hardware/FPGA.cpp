@@ -44,17 +44,11 @@ static int dcycleZeros = 0;
 
 static char procData[40] = { 0 };
 static char identInfo[10] = { 0 };
-static char autoData[20];
-static char minAutoData[7];
-static char maxAutoData[7];
 
 static char procDataInterpol[30] = { 0 };
 static char spec[10] = { 0 };
 
 static char procDataDcycle[30] = { 0 };
-
-static int NA = 0; //-V707
-static int NB = 0; //-V707
 
 static char encData[10];
 static char ident[4];
@@ -713,11 +707,11 @@ void FPGA::IncreaseN()
     {
         if(CURRENT_CHANNEL_IS_A)
         {
-            NA++;
+            MathFPGA::NA++;
         }
         else if(CURRENT_CHANNEL_IS_B)
         {
-            NB++;
+            MathFPGA::NB++;
         }
     }
 }
@@ -732,11 +726,11 @@ void FPGA::DecreaseN()
     {
         if(CURRENT_CHANNEL_IS_A)
         {
-            NA--;
+            MathFPGA::NA--;
         }
         else if(CURRENT_CHANNEL_IS_B)
         {
-            NB--;
+            MathFPGA::NB--;
         }
     }
 }
@@ -760,32 +754,6 @@ bool FPGA::AutoMode()
     return autoMode;
 }
 
-
-char *FPGA::GiveAuto()
-{
-    MathFPGA::CalculationAuto();
-    SU::Int2String((MathFPGA::decMinAuto - 512) * 2, minAutoData);
-    SU::Int2String((MathFPGA::decMaxAuto - 512) * 2, maxAutoData);
-    std::strcpy(autoData, "Макс ");
-    std::strcat(autoData, maxAutoData);
-    std::strcat(autoData, " Мин ");
-    std::strcat(autoData, minAutoData);
- 
-    if (CURRENT_CHANNEL_IS_A)
-    {
-        LEVEL_SYNCH_A = (MathFPGA::decMidAuto - 512) * 2;
-        NA = MathFPGA::decMidAuto - 512;
-    }
-
-    if (CURRENT_CHANNEL_IS_B)
-    {
-        LEVEL_SYNCH_B = (MathFPGA::decMidAuto - 512) * 2;
-        NB = MathFPGA::decMidAuto - 512;
-
-    }
-
-    return autoData;
-}
 
 void FPGA::ReadCalibNumber()
 {
@@ -845,24 +813,24 @@ void FPGA::WriteData()
     {
         if(CURRENT_CHANNEL_IS_A)
         {
-                if(NA < 0)
+                if(MathFPGA::NA < 0)
                 {
-                    DecToBin(negative + NA, encData);
+                    DecToBin(negative + MathFPGA::NA, encData);
                 }
                 else
                 {
-                    DecToBin(NA, encData);
+                    DecToBin(MathFPGA::NA, encData);
                 }
         }
         else if(CURRENT_CHANNEL_IS_B)
         {
-            if(NB < 0)
+            if(MathFPGA::NB < 0)
             {
-                DecToBin(negative + NB, encData);
+                DecToBin(negative + MathFPGA::NB, encData);
             }
             else
             {
-                DecToBin(NB, encData);
+                DecToBin(MathFPGA::NB, encData);
             }
         }
     }

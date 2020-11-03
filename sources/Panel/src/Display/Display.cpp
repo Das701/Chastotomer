@@ -201,7 +201,7 @@ static void DrawHint()
 {
     if((TIME_MS < (uint)(autoHint + 10000)) && autoFlag == true)
     {
-        Text(FPGA::GiveAuto()).Write(102, 37);
+        Text(MathFPGA::GiveAuto()).Write(102, 37);
         FreqMeter::UnloadAuto();
     }
     else
@@ -211,7 +211,7 @@ static void DrawHint()
             
             if((MathFPGA::MidAuto() != 0) || (MathFPGA::MaxAuto() != 0) || (MathFPGA::MinAuto() != 0))
             {
-                Text(FPGA::GiveAuto()).Write(102, 37);
+                Text(MathFPGA::GiveAuto()).Write(102, 37);
                 FPGA::SwitchAuto();
                 autoHint = (int)TIME_MS;
                 autoFlag = true;
