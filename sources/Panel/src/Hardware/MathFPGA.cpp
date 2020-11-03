@@ -10,9 +10,6 @@
 #include <cstring>
 
 
-char MathFPGA::period[32] = { 0 };
-char MathFPGA::duration[32] = { 0 };
-
 static float decDataA = 0.0F;
 static float decDataB = 0.0F;
 static float decDataC = 0.0F;
@@ -378,7 +375,7 @@ void MathFPGA::CalculateDcycle()
     int len = 32;
     for (int i = len - 1; i >= 0; i--)
     {
-        if (period[i] == 1)
+        if (FPGA::period[i] == 1)
         {
             decPeriod += base1;
         }
@@ -386,7 +383,7 @@ void MathFPGA::CalculateDcycle()
     }
     for (int i = len - 1; i >= 0; i--)
     {
-        if (duration[i] == 1)
+        if (FPGA::duration[i] == 1)
         {
             decDuration += base2;
         }

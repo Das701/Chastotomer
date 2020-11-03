@@ -48,6 +48,8 @@ char FPGA::midAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char FPGA::maxAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char FPGA::CAL1[24] = { 0 };
 char FPGA::CAL2[24] = { 0 };
+char FPGA::period[32] = { 0 };
+char FPGA::duration[32] = { 0 };
 
 
 static char encData[10];
@@ -151,12 +153,12 @@ void FPGA::Update()
 
                 for (int i = 0; i < 32; i++)
                 {
-                    READ_PIN_B14(MathFPGA::period[i]);
+                    READ_PIN_B14(period[i]);
                 }
 
                 for (int i = 0; i < 32; i++)
                 {
-                    READ_PIN_B14(MathFPGA::duration[i]);
+                    READ_PIN_B14(duration[i]);
                 }
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);

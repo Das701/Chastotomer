@@ -23,4 +23,6 @@ struct FPGA
     static char maxAuto[10];
     static char CAL1[24];
     static char CAL2[24];
+    static char period[32];
+    static char duration[32];
 };

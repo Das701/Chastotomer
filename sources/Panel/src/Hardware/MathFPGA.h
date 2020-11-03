@@ -27,9 +27,6 @@ struct MathFPGA
     static int NA; //-V707
     static int NB; //-V707
 
-    static char period[32];
-    static char duration[32];
-
     static float dutyCycle;
     static int dcycleZeros;
 
