@@ -15,9 +15,9 @@ struct CurrentModeMeasureFrequency
     static bool IsTachometer();
     static bool IsComparator();
     static bool IsT_1();
-    static bool Is_AC_or_BC();
-    static bool Is_AB_or_BA();
-    static bool Is_CA_or_CB();
+    static bool Is_RatioAC_or_RatioBC();
+    static bool Is_RatioAB_or_RatioBA();
+    static bool Is_RatioCA_or_RatioCB();
 };
 
 

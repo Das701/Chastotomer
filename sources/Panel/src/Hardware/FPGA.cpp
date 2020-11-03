@@ -168,7 +168,7 @@ void FPGA::Update()
 
                 CYCLE_READ_PIN_B14(32, dataA);
 
-                if(CurrentModeMeasureFrequency::Is_AC_or_BC() && PageModesA::RelationCheck())
+                if(CurrentModeMeasureFrequency::Is_RatioAC_or_RatioBC() && PageModesA::RelationCheck())
                 {
                     CYCLE_READ_PIN_B14(32, dataB);
                 }
