@@ -29,6 +29,8 @@ struct MathFPGA
 
     struct Auto
     {
+    friend struct FPGA;
+
         static void Calculate();
         static int Mid();
         static int Min();
@@ -36,10 +38,16 @@ struct MathFPGA
 
         static char *Give();
 
+        static void Refresh();
+
     private:
         static int decMin;
         static int decMid;
         static int decMax;
+
+        static char dataMin[10];
+        static char dataMid[10];
+        static char dataMax[10];
     };
 
 private:

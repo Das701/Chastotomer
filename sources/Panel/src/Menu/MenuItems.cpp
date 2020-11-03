@@ -286,7 +286,7 @@ bool Page::OnControl(const Control &control) //-V2008
                 (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_A) ||
                 (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_B))
             {
-                FPGA::RefreshAuto();
+                MathFPGA::Auto::Refresh();
                 FreqMeter::LoadAuto();
                 FPGA::SwitchAuto();
             }

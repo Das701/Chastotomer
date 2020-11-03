@@ -47,9 +47,6 @@ char FPGA::dataA[32] = { 0 };
 char FPGA::dataB[32] = { 0 };
 char FPGA::timer1[27] = { 0 };
 char FPGA::ident[4] = { 0 };
-char FPGA::minAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-char FPGA::midAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-char FPGA::maxAuto[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char FPGA::CAL1[24] = { 0 };
 char FPGA::CAL2[24] = { 0 };
 char FPGA::period[32] = { 0 };
@@ -98,11 +95,11 @@ void FPGA::Update()
 
             CYCLE_READ_PIN_B14(3, ident);
 
-            CYCLE_READ_PIN_B14(10, minAuto);
+            CYCLE_READ_PIN_B14(10, MathFPGA::Auto::dataMin);
 
-            CYCLE_READ_PIN_B14(10, midAuto);
+            CYCLE_READ_PIN_B14(10, MathFPGA::Auto::dataMid);
 
-            CYCLE_READ_PIN_B14(10, maxAuto);
+            CYCLE_READ_PIN_B14(10, MathFPGA::Auto::dataMax);
 
             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
             HAL_TIM::DelayUS(8);
@@ -378,15 +375,4 @@ void FPGA::WriteData()
 int FPGA::CalibNumber()
 {
     return calibNumber;
-}
-
-
-void FPGA::RefreshAuto()
-{
-    for (int i = 0; i < 10; i++)
-    {
-        minAuto[i] = 0;
-        midAuto[i] = 0;
-        maxAuto[i] = 0;
-    }
 }

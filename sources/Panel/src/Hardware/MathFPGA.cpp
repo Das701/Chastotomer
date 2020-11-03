@@ -14,6 +14,9 @@
 int MathFPGA::Auto::decMin = 0;
 int MathFPGA::Auto::decMid = 0;
 int MathFPGA::Auto::decMax = 0;
+char MathFPGA::Auto::dataMin[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+char MathFPGA::Auto::dataMid[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+char MathFPGA::Auto::dataMax[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 
 static Value decDataA(0);
@@ -275,7 +278,7 @@ void MathFPGA::Auto::Calculate()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (FPGA::minAuto[i] == 1)
+        if (dataMin[i] == 1)
         {
             decMin += base1;
         }
@@ -284,7 +287,7 @@ void MathFPGA::Auto::Calculate()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (FPGA::midAuto[i] == 1)
+        if (dataMid[i] == 1)
         {
             decMid += base2;
         }
@@ -293,7 +296,7 @@ void MathFPGA::Auto::Calculate()
 
     for (int i = len - 1; i >= 0; i--)
     {
-        if (FPGA::maxAuto[i] == 1)
+        if (dataMax[i] == 1)
         {
             decMax += base3;
         }
@@ -697,4 +700,15 @@ char *MathFPGA::GiveIdent()
     }
 
     return identInfo;
+}
+
+
+void MathFPGA::Auto::Refresh()
+{
+    for (int i = 0; i < 10; i++)
+    {
+        dataMin[i] = 0;
+        dataMid[i] = 0;
+        dataMax[i] = 0;
+    }
 }
