@@ -21,7 +21,7 @@ extern Switch sNumberPeriodsC;
 
 
 TypeMeasureC             PageModesC::typeMeasure(TypeMeasureC::Frequency);
-ModeMeasureFrequencyC    PageModesC::modeMeasureFrequency(ModeMeasureFrequencyC::Freq);
+ModeMeasureFrequencyC    PageModesC::modeMeasureFrequency(ModeMeasureFrequencyC::Frequency);
 ModeMeasureCountPulseC   PageModesC::modeMeasureCountPulse(ModeMeasureCountPulseC::CtA);
 PeriodTimeLabels         PageModesC::periodTimeLabels(PeriodTimeLabels::T_8);
 NumberPeriods            PageModesC::numberPeriods(NumberPeriods::_1);
@@ -68,7 +68,7 @@ void PageModesC::OnChanged_ModeFrequency()
 
     switch (PageModesC::modeMeasureFrequency.value)
     {
-    case ModeMeasureFrequencyC::Freq:
+    case ModeMeasureFrequencyC::Frequency:
         items[3] = &sTimeMeasureC;
         items[4] = nullptr;
         break;

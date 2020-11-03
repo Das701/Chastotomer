@@ -49,7 +49,7 @@ struct ModeMeasureFrequencyA : public Enumeration
 {
     enum E
     {
-        Freq,       // Частота
+        Frequency,  // Частота
         AB,         // f(A) / f(B)
         AC,         // f(A) / f(C)
         T_1,        // f = 1 / T
@@ -59,7 +59,7 @@ struct ModeMeasureFrequencyA : public Enumeration
 
     explicit ModeMeasureFrequencyA(E v) : Enumeration((uint8)v) {};
 
-    bool IsFrequency()  const { return (value == Freq); }
+    bool IsFrequency()  const { return (value == Frequency); }
     bool IsAB()         const { return (value == AB); }
     bool IsAC()         const { return (value == AC); }
     bool IsT_1()        const { return (value == T_1); }

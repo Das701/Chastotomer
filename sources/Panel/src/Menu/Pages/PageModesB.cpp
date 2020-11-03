@@ -24,7 +24,7 @@ extern Switch sNumberPeriods;
 
 
 TypeMeasureAB            PageModesB::typeMeasure(TypeMeasureAB::Frequency);
-ModeMeasureFrequencyB    PageModesB::modeMeasureFrequency(ModeMeasureFrequencyB::Freq);
+ModeMeasureFrequencyB    PageModesB::modeMeasureFrequency(ModeMeasureFrequencyB::Frequency);
 ModeMeasurePeriod        PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration      PageModesB::modeMeasureDuration(ModeMeasureDuration::Ndt);
 ModeMeasureCountPulseB   PageModesB::modeMeasureCountPulse(ModeMeasureCountPulseB::BtA);

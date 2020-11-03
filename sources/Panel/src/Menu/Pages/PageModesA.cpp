@@ -29,7 +29,7 @@ static bool relationOn = false;
 static bool startStop = false;
 
 TypeMeasureAB           PageModesA::typeMeasure(TypeMeasureAB::Frequency);
-ModeMeasureFrequencyA   PageModesA::modeMeasureFrequency(ModeMeasureFrequencyA::Freq);
+ModeMeasureFrequencyA   PageModesA::modeMeasureFrequency(ModeMeasureFrequencyA::Frequency);
 ModeMeasurePeriod       PageModesA::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration     PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
 ModeMeasureCountPulseA  PageModesA::modeMeasureCountPulse(ModeMeasureCountPulseA::AtC);
