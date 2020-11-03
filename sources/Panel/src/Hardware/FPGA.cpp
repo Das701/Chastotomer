@@ -16,8 +16,6 @@
 #include <stm32f4xx_hal.h>
 
 
-
-
 #define READ_PIN_B14(x)  \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);    \
     HAL_TIM::DelayUS(2);                                    \
@@ -38,6 +36,7 @@
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);    \
     HAL_TIM::DelayUS(2);                                    \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+
 
 static int dcycleZeros = 0;
 
@@ -108,15 +107,15 @@ static void BinToDec()
 { 
     int len = 32; 
     decDataA = 0; 
-    int baseA = 1; 
+    int base = 1; 
 
     for (int i = len - 1; i >= 0; i--) 
     { 
         if (dataA[i] == 1) 
         {
-            decDataA += (float)baseA;
+            decDataA += (float)base;
         }            
-        baseA = baseA * 2; 
+        base = base * 2; 
     }
 
     if(CurrentModeMeasureFrequency::Is_AC_or_BC())
@@ -199,13 +198,12 @@ static void Calculation()
             double test2;
             double test3;
 
-            int tmet = PageModesA::periodTimeLabels.ToZeros();
             manualZeros *= PageModesA::periodTimeLabels.ToZeros() / 1000;
 
             n *= PageModesA::numberPeriods.ToAbs();
             manualZeros *= PageModesA::numberPeriods.ToAbs();
            
-            test1 = (double)decDataA / tmet;
+            test1 = (double)decDataA / PageModesA::periodTimeLabels.ToZeros();
             test2 = test1 / n;
             test3 = 4 / test2;
             decDataA = (float)test3;
