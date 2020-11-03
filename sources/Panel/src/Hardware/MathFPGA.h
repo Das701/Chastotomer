@@ -3,6 +3,8 @@
 
 struct MathFPGA
 {
+    static char *GiveData();
+
     static void BinToDec();
     static void DecToBin(int dec, char *bin);
 

@@ -39,13 +39,9 @@
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
 
-static char procData[40] = { 0 };
 static char identInfo[10] = { 0 };
 
-static char procDataInterpol[30] = { 0 };
 static char spec[10] = { 0 };
-
-static char procDataDcycle[30] = { 0 };
 
 static char encData[10];
 static char ident[4];
@@ -219,106 +215,6 @@ void FPGA::Update()
     }
 }
 
-
-char* FPGA::GiveData()
-{
-    if(CurrentTypeMeasure::IsCountPulse())
-    {
-        MathFPGA::BinToDec();
-        MathFPGA::decDataA = MathFPGA::decDataA / 2;
-
-        if(CURRENT_CHANNEL_IS_C)
-        {
-            MathFPGA::decDataA = MathFPGA::decDataA * 100;
-        }
-
-        if(CurrentModeMeasureCountPulse::IsBig_T())
-        {
-            MathFPGA::decDataA /= (float)PageModesA::numberPeriods.ToAbs();
-        }
-
-        std::sprintf(procData, "%10.0f", MathFPGA::decDataA);
-
-        return procData;
-    }
-    else
-    {
-        if(CurrentModeMeasureFrequency::IsTachometer())
-        {
-            MathFPGA::BinToDec();
-            MathFPGA::decDataA = MathFPGA::decDataA / 2;
-            std::sprintf(procData, "%10.0f", MathFPGA::decDataA);
-
-            return procData;
-        }
-        else if (CurrentModeMeasureFrequency::IsComparator()) 
-        {
-            MathFPGA::CalculateComparator();
-            float top = 200.0F;
-            float n = 5000000.0F;
-            float dx = ((MathFPGA::decTizm * 100) / MathFPGA::decNkal);
-            float k = (n - MathFPGA::decFx) / n;
-            MathFPGA::decDataA = k - (dx / top) / n;
-            MathFPGA::decDataA = MathFPGA::decDataA * 1000000;
-            std::sprintf(procData, "%10.3f", MathFPGA::decDataA);
-
-            return procData;
-        }
-        else if(ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpolateCheck())
-        {
-            MathFPGA::CalculateInterpolate();
-            std::sprintf(procDataInterpol, "%10.2f", MathFPGA::interpol);
-            return procDataInterpol;
-        }
-        else if((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && PageModesA::DCycleCheck())
-        {
-            MathFPGA::CalculateDcycle();
-
-            if (ModeMeasureDuration::Current().Is_Phase())
-            {
-                std::sprintf(procDataDcycle, "%10.3f", MathFPGA::dutyCycle);
-            }
-            else
-            {
-                std::sprintf(procDataDcycle, "%10.7f", MathFPGA::dutyCycle);
-            }
-
-            return procDataDcycle;
-        }
-        else
-        {
-            MathFPGA::BinToDec();
-            MathFPGA::Calculate();
-
-            int pow = 0;
-
-            while (MathFPGA::emptyZeros >= 10)
-            {
-                pow++;
-                MathFPGA::emptyZeros /= 10;
-            }
-
-            if (pow < 10)
-            {
-                char format[10];
-                std::strcpy(format, "%10.0f");
-                format[4] = (char)(pow | 0x30);
-                std::sprintf(procData, format, MathFPGA::decDataA);
-            }
-            else
-            {
-                char format[10];
-                std::strcpy(format, "%10.10f");
-                format[5] = (char)((pow - 10) | 0x30);
-                std::sprintf(procData, format, MathFPGA::decDataA);
-            }
-
-            MathFPGA::emptyZeros = 1;
-        }
-
-        return procData;
-    }
-}
 
 char* FPGA::GiveSpec() //-V2008
 {
