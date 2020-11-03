@@ -550,13 +550,23 @@ char *MathFPGA::Measure::GiveData()
                 decTizm -= 65536;
             }
 
-            float top = 200.0F;
-            float n = 5000000.0F;
-            float dx = ((decTizm * 100) / decNkal);
-            float k = (n - decFx) / n;
-            decDataA.FromDouble(k - (dx / top) / n);
-            decDataA.Mul(1000000);
-            std::sprintf(result, "%10.3f", decDataA.ToFloat());
+            Value n(5000000);
+
+            Value dx(decTizm);
+            dx.Mul(100U);
+            dx.Div((uint)decNkal);
+
+            Value k(5000000);
+            k.Sub(Value((int)decFx));
+            k.Div(5000000);
+
+            dx.Div(200);
+            dx.Div(5000000);
+
+            k.Sub(dx);
+            k.Mul(1000000);
+
+            std::sprintf(result, "%s", k.ToString(false, Order::One));
 
             return result;
         }

@@ -2,6 +2,111 @@
 #include "Utils/Math.h"
 #include "Utils/Value.h"
 #include <cmath>
+#include <cstring>
+
+
+struct MathDouble
+{
+    static int GetPositionFirstDigit(const Value &value, Order::E order);
+
+    // ¬озвращает символ в позиции position. «нак не учитываетс€. “очка находитс€ соответственно order. One - после единиц, Kilo - после тыс€ч и так далее.
+    // Order::Count - значенине по умолчанию - зап€та€ в позиции относительно размерности числового значени€
+    static char GetChar(const Value &value, int postition, Order::E order);
+
+    // ¬озвращает цифру в позиции position. “очка находитс€ соответственно order. One - после единиц, Kilo - после тыс€ч и так далее.
+    // Order::Count - значенине по умолчанию - зап€та€ в позиции относительно размерности числового значени€
+    static int GetDigit(const Value &value, int position, Order::E order = Order::Count);
+};
+
+
+
+int MathDouble::GetPositionFirstDigit(const Value &val, Order::E order)
+{
+    Value value = val;
+    value.SetSign(1);
+
+    int result = 0;
+
+    if (value.Integer() > 0)
+    {
+        int whole = value.Integer();
+
+        while (whole > 9)
+        {
+            whole /= 10;
+            result++;
+        }
+    }
+    else
+    {
+        int fract = value.FractNano();
+
+        if (fract == 0)
+        {
+            return 0;
+        }
+
+        do
+        {
+            result--;
+            fract *= 10;
+        } while (fract < (100 * 1000 * 1000));
+    }
+
+    return result - Order::GetPow10(order == Order::Count ? value.GetOrder() : order);
+}
+
+
+char MathDouble::GetChar(const Value &value, int position, Order::E order)
+{
+    int digit = GetDigit(value, position, order);
+
+    return (digit == -1) ? '\0' : static_cast<char>(GetDigit(value, position, order) | 0x30);
+}
+
+
+int MathDouble::GetDigit(const Value &val, int position, Order::E order)
+{
+    Value value = val;
+    value.SetSign(1);
+
+    order = (order == Order::Count) ? value.GetOrder() : order;
+
+    position += Order::GetPow10(order);
+
+    if (position < 0)
+    {
+        int divider = 100 * 1000 * 1000;       // Ќа это число будем делить количество наносекунд
+
+        int fract = value.FractNano();
+
+        while (position < -1)
+        {
+            if (divider == 0)
+            {
+                return -1;
+            }
+
+            fract %= divider;
+            divider /= 10;
+            position++;
+        }
+
+        return (divider == 0) ? -1 : (fract / divider);
+    }
+    else
+    {
+        int whole = value.Integer();
+
+        while (position > 0)
+        {
+            whole /= 10;
+            position--;
+        }
+
+        return (whole % 10);
+    }
+}
 
 
 // Ќаходит знак, если первый элемент buffer - знак. ¬ pos записываетс€ позици€ элемента за знаком в этом случае
@@ -594,4 +699,49 @@ int Order::GetPow10(Order::E order)
     };
 
     return pows[order];
+}
+
+
+static void AddChar(char *buffer, const Value &value, int pos, Order::E order)
+{
+    char digit[2] = { 0, 0 };
+    digit[0] = MathDouble::GetChar(value, pos, order);
+    std::strcat(buffer, digit);
+}
+
+
+pString Value::ToString(bool sign, Order::E order) const
+{
+    static char buffer[50];
+
+    buffer[0] = '\0';
+
+    if (sign)
+    {
+        buffer[0] = (Sign() > 0) ? '+' : '-';
+        buffer[1] = '\0';
+    }
+
+    order = (order == Order::Count) ? GetOrder() : order;
+
+    int first = MathDouble::GetPositionFirstDigit(*this, order);
+
+    for (int i = first; i >= 0; i--)
+    {
+        AddChar(buffer, *this, i, order);
+    }
+
+    std::strcat(buffer, ".");
+
+    for (int i = -1; i >= -9; i--)
+    {
+        AddChar(buffer, *this, i, order);
+    }
+
+    while (buffer[std::strlen(buffer) - 1] == '0') //-V1044
+    {
+        buffer[std::strlen(buffer) - 1] = '\0';
+    }
+
+    return buffer;
 }
