@@ -462,7 +462,7 @@ void Value::FromDouble(double v)
 
 void Value::FromINT(int v)
 {
-    FromUnits(v < 0 ? -v : v, 0, 0, 0, v < 0);
+    FromUnits(v < 0 ? -v : v, 0, 0, 0, v < 0 ? - 1 : 1);
 }
 
 
@@ -713,6 +713,8 @@ static void AddChar(char *buffer, const Value &value, int pos, Order::E order)
 pString Value::ToString(bool sign, Order::E order) const
 {
     static char buffer[50];
+    
+    std::memset(buffer, '0', 50);
 
     buffer[0] = '\0';
 
@@ -736,11 +738,6 @@ pString Value::ToString(bool sign, Order::E order) const
     for (int i = -1; i >= -9; i--)
     {
         AddChar(buffer, *this, i, order);
-    }
-
-    while (buffer[std::strlen(buffer) - 1] == '0') //-V1044
-    {
-        buffer[std::strlen(buffer) - 1] = '\0';
     }
 
     return buffer;
