@@ -72,7 +72,7 @@ int Page::WidthItem(int num) const
     {
         if (num == 0)
         {
-            return ((Display::WIDTH - 1) / 6) * 2;
+            return ((Display::WIDTH - 1) / 6) * 2 - 50;
         }
     }
 

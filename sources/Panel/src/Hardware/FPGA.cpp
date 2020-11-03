@@ -732,12 +732,11 @@ char* FPGA::GiveData()
             Calculation();
 
             int pow = 0;
-            int zeroes = emptyZeros;
 
-            while (zeroes >= 10)
+            while (emptyZeros >= 10)
             {
                 pow++;
-                zeroes /= 10;
+                emptyZeros /= 10;
             }
 
             if (pow < 10)
@@ -749,11 +748,15 @@ char* FPGA::GiveData()
             }
             else
             {
-                std::sprintf(procData, "%10.10f", decDataA);
+                char format[10];
+                std::strcpy(format, "%10.10f");
+                format[5] = (char)((pow - 10) | 0x30);
+                std::sprintf(procData, format, decDataA);
             }
 
             emptyZeros = 1;
         }
+
         return procData;
     }
 }
