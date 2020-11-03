@@ -30,9 +30,9 @@ int MathFPGA::NB = 0; //-V707
 static float dutyCycle = 0.0F;
 static int dcycleZeros = 0;
 
-float MathFPGA::decFx = 0.0F;
-float MathFPGA::decTizm = 0.0F;
-float MathFPGA::decNkal = 0.0F;
+static float decFx = 0.0F;
+static float decTizm = 0.0F;
+static float decNkal = 0.0F;
 
 float MathFPGA::interpol = 0.0F;
 
@@ -539,8 +539,8 @@ char *MathFPGA::GiveData()
             MathFPGA::CalculateComparator();
             float top = 200.0F;
             float n = 5000000.0F;
-            float dx = ((MathFPGA::decTizm * 100) / MathFPGA::decNkal);
-            float k = (n - MathFPGA::decFx) / n;
+            float dx = ((decTizm * 100) / decNkal);
+            float k = (n - decFx) / n;
             decDataA.FromDouble(k - (dx / top) / n);
             decDataA.Mul(1000000);
             std::sprintf(result, "%10.3f", decDataA.ToFloat());
