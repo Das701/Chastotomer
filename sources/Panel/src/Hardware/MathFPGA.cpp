@@ -229,38 +229,37 @@ int MathFPGA::CalculateDuration()
 
 void MathFPGA::BinToDec()
 {
-    int len = 32;
-    decDataA = 0;
-    int base = 1;
-
-    for (int i = len - 1; i >= 0; i--)
-    {
-        if (FPGA::dataA[i] == 1)
-        {
-            decDataA += (float)base;
-        }
-        base = base * 2;
-    }
+    decDataA = BinToDec(FPGA::dataA);
 
     if (CurrentModeMeasureFrequency::Is_RatioAC_or_RatioBC())
     {
-        decDataB = 0;
-        int baseB = 1;
-
-        for (int i = len - 1; i >= 0; i--)
-        {
-            if (FPGA::dataB[i] == 1)
-            {
-                decDataB += (float)baseB;
-            }
-            baseB = baseB * 2;
-        }
+        decDataB = BinToDec(FPGA::dataB);
     }
 
     if (CURRENT_CHANNEL_IS_C)
     {
         decDataA = decDataA * 64 / 100;
     }
+}
+
+
+float MathFPGA::BinToDec(char bin[32])
+{
+    int base = 1;
+
+    float result = 0.0F;
+
+    for (int i = 32 - 1; i >= 0; i--)
+    {
+        if (bin[i] == 1)
+        {
+            result += (float)base;
+        }
+
+        base *= 2;
+    }
+
+    return result;
 }
 
 

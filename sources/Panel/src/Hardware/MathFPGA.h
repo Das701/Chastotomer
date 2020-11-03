@@ -40,4 +40,6 @@ private:
     static int CalculateFrequency(int &manualZeros);
     static int CalculatePeriod();
     static int CalculateDuration();
+
+    static float BinToDec(char bin[32]);
 };
