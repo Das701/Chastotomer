@@ -188,6 +188,7 @@ static void CalculationDcycle()
 static void Calculation()
 {
     int x = 0;
+
     if(CurrentTypeMeasure::IsFrequency())
     {
         if(CurrentModeMeasureFrequency::IsT_1())
@@ -335,10 +336,12 @@ static void Calculation()
             x = usT * PageModesA::numberPeriods.ToAbs();
         }
     }
+
     if(CURRENT_CHANNEL_IS_D)
     {
         decDataA = decDataC * 2;
     }
+
     decDataA = (float)decDataA / (2.0F * (float)x);
     emptyZeros = x;
 
