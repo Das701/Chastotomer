@@ -14,4 +14,5 @@ struct FPGA
     static void ReadCalibNumber();
 
     static char dataA[32];
+    static char dataB[32];
 };

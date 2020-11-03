@@ -13,7 +13,6 @@
 char MathFPGA::period[32] = { 0 };
 char MathFPGA::duration[32] = { 0 };
 
-char MathFPGA::dataB[32] = { 0 };
 static float decDataA = 0.0F;
 static float decDataB = 0.0F;
 static float decDataC = 0.0F;
@@ -277,7 +276,7 @@ void MathFPGA::BinToDec()
 
         for (int i = len - 1; i >= 0; i--)
         {
-            if (dataB[i] == 1)
+            if (FPGA::dataB[i] == 1)
             {
                 decDataB += (float)baseB;
             }

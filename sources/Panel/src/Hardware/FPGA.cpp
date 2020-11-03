@@ -40,6 +40,7 @@
 
 
 char FPGA::dataA[32] = { 0 };
+char FPGA::dataB[32] = { 0 };
 
 static char encData[10];
 static bool autoMode = false;
@@ -199,7 +200,7 @@ void FPGA::Update()
                 {
                     for (int i = 0; i < 32; i++)
                     {
-                        READ_PIN_B14(MathFPGA::dataB[i]);
+                        READ_PIN_B14(dataB[i]);
                     }
                 }
 
