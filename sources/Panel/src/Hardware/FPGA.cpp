@@ -731,7 +731,14 @@ char* FPGA::GiveData()
             BinToDec();
             Calculation();
 
-            int pow = emptyZeros / 10;
+            int pow = 0;
+            int zeroes = emptyZeros;
+
+            while (zeroes >= 10)
+            {
+                pow++;
+                zeroes /= 10;
+            }
 
             if (pow < 10)
             {
