@@ -23,18 +23,7 @@ void MathFPGA::Calculate()
     }
     else if (CurrentTypeMeasure::IsDuration())
     {
-        if (PageModesA::periodTimeLabels.IsT_7())
-        {
-            x = 10;
-        }
-        else if (PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
-        {
-            x = 100;
-        }
-        else
-        {
-            x = 1;
-        }
+        x = CalculateDuration();
     }
     else if (CurrentTypeMeasure::IsPeriod())
     {
@@ -187,4 +176,19 @@ int MathFPGA::CalculateFrequency(int &manualZeros)
     }
 
     return result;
+}
+
+
+int MathFPGA::CalculateDuration()
+{
+    if (PageModesA::periodTimeLabels.IsT_7())
+    {
+        return 10;
+    }
+    else if (PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
+    {
+        return 100;
+    }
+
+    return 1;
 }
