@@ -3,8 +3,10 @@
 
 struct MathFPGA
 {
-    static void Calculate();
     static void BinToDec();
+    static void DecToBin(int dec, char *bin);
+
+    static void Calculate();
     static void CalculateAuto();
     static void CalculateDcycle();
     static void CalculateComparator();

@@ -464,3 +464,21 @@ void MathFPGA::CalculateComparator()
         base3 = base3 * 2;
     }
 }
+
+
+void MathFPGA::DecToBin(int dec, char *bin)
+{
+    int x = dec;
+    for (int i = 0; i < 10; i++)
+    {
+        if (x % 2 != 0)
+        {
+            bin[i] = 1;
+        }
+        else
+        {
+            bin[i] = 0;
+        }
+        x = x / 2;
+    }
+}

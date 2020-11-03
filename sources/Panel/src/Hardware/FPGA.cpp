@@ -107,24 +107,6 @@ static void CalculationInterpolate()
 }
 
 
-void DecToBin(int dec, char* bin) 
-{ 
-    int x = dec;
-    for(int i = 0; i < 10; i++)
-    {
-        if(x % 2 != 0)
-        {
-            bin[i] = 1;
-        }
-        else
-        {
-            bin[i] = 0;
-        }
-        x = x / 2;
-    }   
-}
-
-
 void FPGA::Init()
 {
     __HAL_RCC_GPIOB_CLK_ENABLE();
@@ -698,7 +680,7 @@ void FPGA::WriteData()
             NAC = 0;
         }
         calibNumber = calibNumber + NAC;
-        DecToBin(calibNumber, encData);
+        MathFPGA::DecToBin(calibNumber, encData);
         NAC = 0;
     }
     else
@@ -707,22 +689,22 @@ void FPGA::WriteData()
         {
                 if(MathFPGA::NA < 0)
                 {
-                    DecToBin(negative + MathFPGA::NA, encData);
+                    MathFPGA::DecToBin(negative + MathFPGA::NA, encData);
                 }
                 else
                 {
-                    DecToBin(MathFPGA::NA, encData);
+                    MathFPGA::DecToBin(MathFPGA::NA, encData);
                 }
         }
         else if(CURRENT_CHANNEL_IS_B)
         {
             if(MathFPGA::NB < 0)
             {
-                DecToBin(negative + MathFPGA::NB, encData);
+                MathFPGA::DecToBin(negative + MathFPGA::NB, encData);
             }
             else
             {
-                DecToBin(MathFPGA::NB, encData);
+                MathFPGA::DecToBin(MathFPGA::NB, encData);
             }
         }
     }
