@@ -927,6 +927,8 @@ pString ValuePICO::ToString() const
         symbol[0] = (char)(val.Integer() | 0x30);
 
         std::strcat(buffer, symbol);
+
+        val.Sub(ValuePICO(Integer()));
     }
 
     return buffer;
