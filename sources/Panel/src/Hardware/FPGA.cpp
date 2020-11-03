@@ -24,18 +24,11 @@
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);  \
     HAL_TIM::DelayUS(2);
 
-#define WRITE_COMMAND_1()   \
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);    \
-    HAL_TIM::DelayUS(2);                                    \
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);    \
-    HAL_TIM::DelayUS(2);                                    \
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-
-#define WRITE_COMMAND_0() \
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);  \
-    HAL_TIM::DelayUS(2);                                    \
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);    \
-    HAL_TIM::DelayUS(2);                                    \
+#define WRITE_COMMAND(x) \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, (x == 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);    \
+    HAL_TIM::DelayUS(2);                                                                \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);                                \
+    HAL_TIM::DelayUS(2);                                                                \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
 
@@ -240,26 +233,12 @@ void FPGA::WriteCommand(const char *command, const char *argument)
 
         for (int i = 0; i < 4; i++)
         {
-            if (command[i] == 1)
-            {
-                WRITE_COMMAND_1();
-            }
-            else
-            {
-                WRITE_COMMAND_0();
-            }
+            WRITE_COMMAND(command[i]);
         }
 
         for (int i = 0; i < 6; i++)
         {
-            if (argument[i] == 1)
-            {
-                WRITE_COMMAND_1();
-            }
-            else
-            {
-                WRITE_COMMAND_0();
-            }
+            WRITE_COMMAND(argument[i]);
         }
 
         HAL_TIM::DelayUS(2);
@@ -427,14 +406,7 @@ void FPGA::WriteData()
 
         for(int i = 9; i > -1; i--)
         {
-            if (encData[i] == 1)
-            {
-                WRITE_COMMAND_1();
-            }
-            else
-            {
-                WRITE_COMMAND_0();
-            }
+            WRITE_COMMAND(encData[i]);
         }
 
         HAL_TIM::DelayUS(2);
