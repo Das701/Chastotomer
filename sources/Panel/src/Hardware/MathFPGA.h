@@ -9,17 +9,22 @@ struct MathFPGA
     static void BinToDec();
     static void DecToBin(int dec, char *bin);
 
-    static void Calculate();
-    static void CalculateDcycle();
-    static void CalculateComparator();
-    static void CalculateInterpolate();
-
     static int NA; //-V707
     static int NB; //-V707
 
     struct Measure
     {
         static char *GiveData();
+
+        static void Calculate();
+
+    private:
+        static int CalculateFrequency(int &manualZeros);
+        static int CalculatePeriod();
+        static int CalculateDuration();
+        static void CalculateDcycle();
+        static void CalculateComparator();
+        static void CalculateInterpolate();
     };
 
     struct Auto
@@ -46,9 +51,6 @@ struct MathFPGA
     };
 
 private:
-    static int CalculateFrequency(int &manualZeros);
-    static int CalculatePeriod();
-    static int CalculateDuration();
 
     static float BinToDec(char bin[32]);
 };

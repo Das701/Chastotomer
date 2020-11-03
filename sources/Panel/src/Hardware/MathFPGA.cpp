@@ -49,7 +49,7 @@ static char procDataInterpol[30] = { 0 };
 static char procDataDcycle[30] = { 0 };
 
 
-void MathFPGA::Calculate()
+void MathFPGA::Measure::Calculate()
 {
     int x = 0;
     int manualZeros = 1;
@@ -83,7 +83,7 @@ void MathFPGA::Calculate()
 }
 
 
-int MathFPGA::CalculateFrequency(int &manualZeros)
+int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
 {
     int result = 0;
 
@@ -176,7 +176,7 @@ int MathFPGA::CalculateFrequency(int &manualZeros)
 }
 
 
-int MathFPGA::CalculatePeriod()
+int MathFPGA::Measure::CalculatePeriod()
 {
     int result = 1;
 
@@ -214,7 +214,7 @@ int MathFPGA::CalculatePeriod()
 }
 
 
-int MathFPGA::CalculateDuration()
+int MathFPGA::Measure::CalculateDuration()
 {
     if (PageModesA::periodTimeLabels.IsT_7())
     {
@@ -355,7 +355,7 @@ char *MathFPGA::Auto::Give()
 }
 
 
-void MathFPGA::CalculateDcycle()
+void MathFPGA::Measure::CalculateDcycle()
 {
     decPeriod = 0;
     decDuration = 0;
@@ -403,7 +403,7 @@ void MathFPGA::CalculateDcycle()
 }
 
 
-void MathFPGA::CalculateComparator()
+void MathFPGA::Measure::CalculateComparator()
 {
     decFx = 0;
     decTizm = 0;
@@ -460,7 +460,7 @@ void MathFPGA::DecToBin(int dec, char *bin)
 }
 
 
-void MathFPGA::CalculateInterpolate()
+void MathFPGA::Measure::CalculateInterpolate()
 {
     decTimer1 = 0;
     decCAL1 = 0;
@@ -536,7 +536,7 @@ char *MathFPGA::Measure::GiveData()
         }
         else if (CurrentModeMeasureFrequency::IsComparator())
         {
-            MathFPGA::CalculateComparator();
+            CalculateComparator();
             float top = 200.0F;
             float n = 5000000.0F;
             float dx = ((decTizm * 100) / decNkal);
@@ -549,13 +549,13 @@ char *MathFPGA::Measure::GiveData()
         }
         else if (ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpolateCheck())
         {
-            MathFPGA::CalculateInterpolate();
+            CalculateInterpolate();
             std::sprintf(procDataInterpol, "%10.2f", interpol);
             return procDataInterpol;
         }
         else if ((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && PageModesA::DCycleCheck())
         {
-            MathFPGA::CalculateDcycle();
+            CalculateDcycle();
 
             if (ModeMeasureDuration::Current().Is_Phase())  { std::sprintf(procDataDcycle, "%10.3f", dutyCycle); }
             else                                            { std::sprintf(procDataDcycle, "%10.7f", dutyCycle); }
@@ -565,7 +565,7 @@ char *MathFPGA::Measure::GiveData()
         else
         {
             MathFPGA::BinToDec();
-            MathFPGA::Calculate();
+            Calculate();
 
             int pow = 0;
 
