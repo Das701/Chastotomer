@@ -39,8 +39,8 @@ static float dutyCycle = 0.0F;
 static int dcycleZeros = 0;
 
 static uint decFx = 0;
-static uint16 decTizm = 0;
-static uint16 decNkal = 0;
+static int decTizm = 0;
+static int decNkal = 0;
 
 static float interpol = 0.0F;
 
@@ -298,13 +298,13 @@ uint16 MathFPGA::BinToUint16(char bin[16])
 {
     int base = 1;
 
-    uint result = 0;
+    uint16 result = 0;
 
     for (int i = 15; i >= 0; i--)
     {
         if (bin[i] == 1)
         {
-            result += base;
+            result += (uint16)base;
         }
 
         base *= 2;
