@@ -2,6 +2,8 @@
 
 struct FPGA
 {
+friend struct MathFPGA;
+
     static void Init();
     static void Update();
     static void WriteCommand(const char *command, const char *argument);
@@ -14,6 +16,7 @@ struct FPGA
     static void ReadCalibNumber();
     static void RefreshAuto();
 
+private:
     static char dataA[32];
     static char dataB[32];
     static char timer1[27];
