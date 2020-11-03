@@ -5,7 +5,6 @@
 #include "Menu/Pages/PageModesC.h"
 
 
-static int manualZeros = 1;
 float MathFPGA::decDataA = 0.0F;
 float MathFPGA::decDataB = 0.0F;
 float MathFPGA::decDataC = 0.0F;
@@ -16,6 +15,7 @@ int MathFPGA::emptyZeros = 0;
 void MathFPGA::Calculate()
 {
     int x = 0;
+    int manualZeros = 1;
 
     if (CurrentTypeMeasure::IsFrequency())
     {
@@ -58,10 +58,8 @@ void MathFPGA::Calculate()
         {
             int sT = PageModesA::timeMeasure.ToMS();
 
-            decDataA = decDataA / decDataB;
-            decDataA = decDataA / 32;
-            manualZeros = 1000000;
-            manualZeros = manualZeros * sT;
+            decDataA = decDataA / decDataB / 32;
+            manualZeros = 1000000 * sT;
             x = 1;
         }
         else
@@ -176,6 +174,5 @@ void MathFPGA::Calculate()
     if (manualZeros != 1) //-V1051
     {
         emptyZeros = manualZeros;
-        manualZeros = 1;
     }
 }
