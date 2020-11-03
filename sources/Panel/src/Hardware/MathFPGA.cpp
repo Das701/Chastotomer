@@ -550,19 +550,13 @@ char *MathFPGA::Measure::GiveData()
                 decTizm -= 65536;
             }
 
-            Value n(5000000);
-
             Value dx(decTizm);
-            dx.Mul(100U);
             dx.Div((uint)decNkal);
+            dx.Div(2 * 5000000);
 
             Value k(5000000);
             k.Sub(Value((int)decFx));
             k.Div(5000000);
-
-            dx.Div(200);
-            dx.Div(5000000);
-
             k.Sub(dx);
             k.Mul(1000000);
 
