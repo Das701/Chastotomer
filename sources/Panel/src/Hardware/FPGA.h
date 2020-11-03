@@ -12,5 +12,4 @@ struct FPGA
     static bool AutoMode();
     static int CalibNumber();
     static void ReadCalibNumber();
-    static char *GiveIdent();
 };

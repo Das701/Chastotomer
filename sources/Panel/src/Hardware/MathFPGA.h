@@ -5,6 +5,7 @@ struct MathFPGA
 {
     static char *GiveData();
     static char *GiveSpec();
+    static char *GiveIdent();
 
     static void BinToDec();
     static void DecToBin(int dec, char *bin);
@@ -59,6 +60,8 @@ struct MathFPGA
     static char CAL2[24];
 
     static float interpol;
+
+    static char ident[4];
 
 private:
     static int CalculateFrequency(int &manualZeros);

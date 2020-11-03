@@ -47,6 +47,8 @@ char MathFPGA::timer1[27] = { 0 };
 char MathFPGA::CAL1[24] = { 0 };
 char MathFPGA::CAL2[24] = { 0 };
 
+char MathFPGA::ident[4] = { 0 };
+
 static char minAutoData[7] = { 0 };
 static char maxAutoData[7] = { 0 };
 static char autoData[20] = { 0 };
@@ -62,6 +64,7 @@ static char procDataInterpol[30] = { 0 };
 static char procDataDcycle[30] = { 0 };
 
 static char spec[10] = { 0 };
+static char identInfo[10] = { 0 };
 
 
 void MathFPGA::Calculate()
@@ -767,4 +770,31 @@ char *MathFPGA::GiveSpec() //-V2008
         }
     }
     return spec;
+}
+
+
+char *MathFPGA::GiveIdent()
+{
+    if (ident[0] == 0)
+    {
+        std::strcpy(identInfo, "0");
+    }
+    else
+    {
+        std::strcpy(identInfo, "1");
+    }
+
+    for (int i = 1; i < 4; i++)
+    {
+        if (ident[i] == 0)
+        {
+            std::strcat(identInfo, "0");
+        }
+        else
+        {
+            std::strcat(identInfo, "1");
+        }
+    }
+
+    return identInfo;
 }

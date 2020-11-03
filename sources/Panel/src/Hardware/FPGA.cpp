@@ -39,10 +39,7 @@
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
 
-static char identInfo[10] = { 0 };
-
 static char encData[10];
-static char ident[4];
 
 static bool autoMode = false;
 
@@ -83,7 +80,7 @@ void FPGA::Update()
 
             for (int i = 0; i < 3; i++)
             {
-                READ_PIN_B14(ident[i]);
+                READ_PIN_B14(MathFPGA::ident[i]);
             }
 
             for (int i = 0; i < 10; i++)
@@ -115,7 +112,7 @@ void FPGA::Update()
 
                 for (int i = 0; i < 3; i++)
                 {
-                    READ_PIN_B14(ident[i]);
+                    READ_PIN_B14(MathFPGA::ident[i]);
                 }
 
                 for (int i = 0; i < 24; i++)
@@ -165,7 +162,7 @@ void FPGA::Update()
 
                 for (int i = 0; i < 3; i++)
                 {
-                    READ_PIN_B14(ident[i]);
+                    READ_PIN_B14(MathFPGA::ident[i]);
                 }
 
                 for (int i = 0; i < 32; i++)
@@ -211,33 +208,6 @@ void FPGA::Update()
             }
         }
     }
-}
-
-
-char *FPGA::GiveIdent()
-{
-    if (ident[0] == 0)
-    {
-        std::strcpy(identInfo, "0");
-    }
-    else
-    {
-        std::strcpy(identInfo, "1");
-    }
-
-    for (int i = 1; i < 4; i++)
-    {
-        if (ident[i] == 0)
-        {
-            std::strcat(identInfo, "0");
-        }
-        else
-        {
-            std::strcat(identInfo, "1");
-        }
-    }
-
-    return identInfo;
 }
 
 
@@ -362,7 +332,7 @@ void FPGA::ReadCalibNumber()
 
         for (int i = 0; i < 3; i++)
         {
-            READ_PIN_B14(ident[i]);
+            READ_PIN_B14(MathFPGA::ident[i]);
         }
 
         for (int i = 0; i < 10; i++)
