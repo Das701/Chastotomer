@@ -20,8 +20,8 @@ int MathFPGA::NA = 0; //-V707
 int MathFPGA::NB = 0; //-V707
 
 static int decMinAuto = 0;
-int MathFPGA::decMidAuto = 0;
-int MathFPGA::decMaxAuto = 0;
+static int decMidAuto = 0;
+static int decMaxAuto = 0;
 
 float MathFPGA::dutyCycle = 0.0F;
 int MathFPGA::dcycleZeros = 0;
@@ -262,7 +262,7 @@ float MathFPGA::BinToDec(char bin[32])
 }
 
 
-void MathFPGA::CalculateAuto()
+void MathFPGA::Auto::Calculate()
 {
     decMinAuto = 0;
     decMidAuto = 0;
@@ -301,23 +301,23 @@ void MathFPGA::CalculateAuto()
 }
 
 
-int MathFPGA::MidAuto()
+int MathFPGA::Auto::Mid()
 {
-    CalculateAuto();
+    Calculate();
     return decMidAuto;
 }
 
 
-int MathFPGA::MinAuto()
+int MathFPGA::Auto::Min()
 {
-    CalculateAuto();
+    Calculate();
     return decMinAuto;
 }
 
 
-int MathFPGA::MaxAuto()
+int MathFPGA::Auto::Max()
 {
-    CalculateAuto();
+    Calculate();
     return decMaxAuto;
 }
 
@@ -326,9 +326,9 @@ char *MathFPGA::GiveAuto()
 {
     static char result[20] = { 0 };
 
-    CalculateAuto();
-    SU::Int2String(( decMinAuto - 512) * 2, minAutoData);
-    SU::Int2String((MathFPGA::decMaxAuto - 512) * 2, maxAutoData);
+    Auto::Calculate();
+    SU::Int2String((decMinAuto - 512) * 2, minAutoData);
+    SU::Int2String((decMaxAuto - 512) * 2, maxAutoData);
     std::strcpy(result, "Макс ");
     std::strcat(result, maxAutoData);
     std::strcat(result, " Мин ");
@@ -336,14 +336,14 @@ char *MathFPGA::GiveAuto()
 
     if (CURRENT_CHANNEL_IS_A)
     {
-        LEVEL_SYNCH_A = (MathFPGA::decMidAuto - 512) * 2;
-        NA = MathFPGA::decMidAuto - 512;
+        LEVEL_SYNCH_A = (decMidAuto - 512) * 2;
+        NA = decMidAuto - 512;
     }
 
     if (CURRENT_CHANNEL_IS_B)
     {
-        LEVEL_SYNCH_B = (MathFPGA::decMidAuto - 512) * 2;
-        NB = MathFPGA::decMidAuto - 512;
+        LEVEL_SYNCH_B = (decMidAuto - 512) * 2;
+        NB = decMidAuto - 512;
 
     }
 

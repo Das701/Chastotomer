@@ -208,8 +208,7 @@ static void DrawHint()
     {
         if(FPGA::AutoMode())
         {
-            
-            if((MathFPGA::MidAuto() != 0) || (MathFPGA::MaxAuto() != 0) || (MathFPGA::MinAuto() != 0))
+            if((MathFPGA::Auto::Mid() != 0) || (MathFPGA::Auto::Max() != 0) || (MathFPGA::Auto::Min() != 0))
             {
                 Text(MathFPGA::GiveAuto()).Write(102, 37);
                 FPGA::SwitchAuto();

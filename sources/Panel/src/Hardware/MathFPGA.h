@@ -11,18 +11,11 @@ struct MathFPGA
     static void DecToBin(int dec, char *bin);
 
     static void Calculate();
-    static void CalculateAuto();
     static void CalculateDcycle();
     static void CalculateComparator();
     static void CalculateInterpolate();
 
-    static int MidAuto();
-    static int MinAuto();
-    static int MaxAuto();
     static char *GiveAuto();
-
-    static int decMidAuto;
-    static int decMaxAuto;
 
     static int NA; //-V707
     static int NB; //-V707
@@ -35,6 +28,14 @@ struct MathFPGA
     static float decNkal;
 
     static float interpol;
+
+    struct Auto
+    {
+        static void Calculate();
+        static int Mid();
+        static int Min();
+        static int Max();
+    };
 
 private:
     static int CalculateFrequency(int &manualZeros);
