@@ -13,7 +13,7 @@
 
 static Value decDataA(0);
 static Value decDataB(0);
-static float decDataC = 0.0F;
+static Value decDataC(0);
 static int decDA = 1;
 static int emptyZeros = 0;
 int MathFPGA::NA = 0; //-V707
@@ -65,7 +65,7 @@ void MathFPGA::Calculate()
 
     if (CURRENT_CHANNEL_IS_D)
     {
-        decDataA.FromDouble((double)decDataC * 2.0);
+        decDataA.FromDouble(decDataC.ToDouble() * 2.0);
     }
 
     decDataA.Div((uint)(2 * x));
@@ -139,13 +139,13 @@ int MathFPGA::CalculateFrequency(int &manualZeros)
         {
             if (decDataA.ToUINT64() < 10000)
             {
-                decDataC = (float)decDataA.ToDouble();
+                decDataC.FromDouble(decDataA.ToDouble());
                 khz = khz * 10;
                 result = khz;
             }
             else
             {
-                decDataC = (float)decDataA.ToDouble();
+                decDataC.FromDouble(decDataA.ToDouble());
                 mhz = mhz * 10;
                 result = mhz;
             }
@@ -155,15 +155,16 @@ int MathFPGA::CalculateFrequency(int &manualZeros)
         {
             if (decDataA.ToDouble() * 64.0F / (1000.0F * (float)khz) > 19000.0F)
             {
-                decDataC = 0;
+                decDataC.FromDouble(0.0);
                 result = khz;
             }
             else
             {
-                decDataC = (float)decDataA.ToDouble() * 64 / 1000;
+                decDataC.FromDouble(decDataA.ToDouble() * 64 / 1000);
                 result = mhz;
             }
-            decDA = (int)decDataC;
+
+            decDA = (int)decDataC.ToUINT64();
         }
     }
 
@@ -644,8 +645,8 @@ char *MathFPGA::GiveSpec() //-V2008
                 {
                     if (CURRENT_CHANNEL_IS_C)
                     {
-                        if (decDataC / 2 < 10000)   { std::strcpy(result, " MHz"); }
-                        else                        { std::strcpy(result, " GHz"); }
+                        if (decDataC.ToUINT64() / 2 < 10000)    { std::strcpy(result, " MHz"); }
+                        else                                    { std::strcpy(result, " GHz"); }
                     }
                     else if (CURRENT_CHANNEL_IS_D)   
                     {
