@@ -35,6 +35,10 @@ struct MathFPGA
         static int Mid();
         static int Min();
         static int Max();
+
+        static int decMin;
+        static int decMid;
+        static int decMax;
     };
 
 private:
