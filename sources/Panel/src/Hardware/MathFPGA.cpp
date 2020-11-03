@@ -14,7 +14,7 @@ char MathFPGA::duration[32] = { 0 };
 
 char MathFPGA::dataA[32] = { 0 };
 char MathFPGA::dataB[32] = { 0 };
-float MathFPGA::decDataA = 0.0F;
+static float decDataA = 0.0F;
 float MathFPGA::decDataB = 0.0F;
 float MathFPGA::decDataC = 0.0F;
 int MathFPGA::decDA = 1;
@@ -548,19 +548,19 @@ char *MathFPGA::GiveData()
     if (CurrentTypeMeasure::IsCountPulse())
     {
         MathFPGA::BinToDec();
-        MathFPGA::decDataA = MathFPGA::decDataA / 2;
+        decDataA = decDataA / 2;
 
         if (CURRENT_CHANNEL_IS_C)
         {
-            MathFPGA::decDataA = MathFPGA::decDataA * 100;
+            decDataA = decDataA * 100;
         }
 
         if (CurrentModeMeasureCountPulse::IsBig_T())
         {
-            MathFPGA::decDataA /= (float)PageModesA::numberPeriods.ToAbs();
+            decDataA /= (float)PageModesA::numberPeriods.ToAbs();
         }
 
-        std::sprintf(result, "%10.0f", MathFPGA::decDataA);
+        std::sprintf(result, "%10.0f", decDataA);
 
         return result;
     }
@@ -569,8 +569,8 @@ char *MathFPGA::GiveData()
         if (CurrentModeMeasureFrequency::IsTachometer())
         {
             MathFPGA::BinToDec();
-            MathFPGA::decDataA = MathFPGA::decDataA / 2;
-            std::sprintf(result, "%10.0f", MathFPGA::decDataA);
+            decDataA /= 2;
+            std::sprintf(result, "%10.0f", decDataA);
 
             return result;
         }
@@ -581,9 +581,9 @@ char *MathFPGA::GiveData()
             float n = 5000000.0F;
             float dx = ((MathFPGA::decTizm * 100) / MathFPGA::decNkal);
             float k = (n - MathFPGA::decFx) / n;
-            MathFPGA::decDataA = k - (dx / top) / n;
-            MathFPGA::decDataA = MathFPGA::decDataA * 1000000;
-            std::sprintf(result, "%10.3f", MathFPGA::decDataA);
+            decDataA = k - (dx / top) / n;
+            decDataA = decDataA * 1000000;
+            std::sprintf(result, "%10.3f", decDataA);
 
             return result;
         }
@@ -626,14 +626,14 @@ char *MathFPGA::GiveData()
                 char format[10];
                 std::strcpy(format, "%10.0f");
                 format[4] = (char)(pow | 0x30);
-                std::sprintf(result, format, MathFPGA::decDataA);
+                std::sprintf(result, format, decDataA);
             }
             else
             {
                 char format[10];
                 std::strcpy(format, "%10.10f");
                 format[5] = (char)((pow - 10) | 0x30);
-                std::sprintf(result, format, MathFPGA::decDataA);
+                std::sprintf(result, format, decDataA);
             }
 
             MathFPGA::emptyZeros = 1;
