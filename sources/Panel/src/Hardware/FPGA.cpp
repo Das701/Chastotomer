@@ -31,7 +31,7 @@
     }
 
 #define WRITE_COMMAND(x)                                                                \
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, (x == 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);    \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, (x == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);    \
     HAL_TIM::DelayUS(2);                                                                \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);                                \
     HAL_TIM::DelayUS(2);                                                                \
