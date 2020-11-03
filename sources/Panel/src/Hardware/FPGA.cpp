@@ -43,8 +43,6 @@
         WRITE_COMMAND(x[i]);                                                            \
     }
 
-char FPGA::dataA[32] = { 0 };
-char FPGA::dataB[32] = { 0 };
 char FPGA::timer1[27] = { 0 };
 char FPGA::ident[4] = { 0 };
 char FPGA::CAL1[24] = { 0 };
@@ -163,11 +161,11 @@ void FPGA::Update()
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
-                CYCLE_READ_PIN_B14(32, dataA);
+                CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataA);
 
                 if(CurrentModeMeasureFrequency::Is_RatioAC_or_RatioBC() && PageModesA::RelationCheck())
                 {
-                    CYCLE_READ_PIN_B14(32, dataB);
+                    CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataB);
                 }
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);

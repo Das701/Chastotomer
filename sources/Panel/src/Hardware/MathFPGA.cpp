@@ -18,6 +18,8 @@ char MathFPGA::Auto::dataMin[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::Auto::dataMid[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::Auto::dataMax[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
+char MathFPGA::Measure::dataA[32] = { 0 };
+char MathFPGA::Measure::dataB[32] = { 0 };
 
 static Value decDataA(0);
 static Value decDataB(0);
@@ -229,13 +231,13 @@ int MathFPGA::Measure::CalculateDuration()
 }
 
 
-void MathFPGA::BinToDec()
+void MathFPGA::Measure::BinToDec()
 {
-    decDataA.FromDouble(BinToDec(FPGA::dataA));
+    decDataA.FromDouble(MathFPGA::BinToDec(dataA));
 
     if (CurrentModeMeasureFrequency::Is_RatioAC_or_RatioBC())
     {
-        decDataB.FromDouble(BinToDec(FPGA::dataB));
+        decDataB.FromDouble(MathFPGA::BinToDec(dataB));
     }
 
     if (CURRENT_CHANNEL_IS_C)
@@ -507,7 +509,7 @@ char *MathFPGA::Measure::GiveData()
 
     if (CurrentTypeMeasure::IsCountPulse())
     {
-        MathFPGA::BinToDec();
+        BinToDec();
         decDataA.Div(2);
 
         if (CURRENT_CHANNEL_IS_C)
@@ -528,7 +530,7 @@ char *MathFPGA::Measure::GiveData()
     {
         if (CurrentModeMeasureFrequency::IsTachometer())
         {
-            MathFPGA::BinToDec();
+            BinToDec();
             decDataA.Div(2);
             std::sprintf(result, "%10.0f", decDataA.ToFloat());
 
@@ -564,7 +566,7 @@ char *MathFPGA::Measure::GiveData()
         }
         else
         {
-            MathFPGA::BinToDec();
+            BinToDec();
             Calculate();
 
             int pow = 0;

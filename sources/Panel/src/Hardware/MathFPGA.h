@@ -6,7 +6,6 @@ struct MathFPGA
     static char *GiveSpec();
     static char *GiveIdent();
 
-    static void BinToDec();
     static void DecToBin(int dec, char *bin);
 
     static int NA; //-V707
@@ -14,11 +13,19 @@ struct MathFPGA
 
     struct Measure
     {
+    friend struct FPGA;
+
         static char *GiveData();
 
         static void Calculate();
 
+        static void BinToDec();
+
     private:
+
+        static char dataA[32];
+        static char dataB[32];
+
         static int CalculateFrequency(int &manualZeros);
         static int CalculatePeriod();
         static int CalculateDuration();
