@@ -302,7 +302,7 @@ static void DrawInfo()
 static void DrawData()
 {
     FontBig::BigStringProp_print(MathFPGA::GiveData(), 10, 150, Color::WHITE);
-    FontMid::MidStringProp_print(FPGA::GiveSpec(), 344, 170, Color::WHITE);
+    FontMid::MidStringProp_print(MathFPGA::GiveSpec(), 344, 170, Color::WHITE);
     if ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) ||
         (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsTachometer()))
     {

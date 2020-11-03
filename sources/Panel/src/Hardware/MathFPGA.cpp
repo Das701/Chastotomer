@@ -2,6 +2,7 @@
 #include "Settings.h"
 #include "Hardware/MathFPGA.h"
 #include "Menu/Pages/PageModesA.h"
+#include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageModesC.h"
 #include "Utils/StringUtils.h"
 #include <cstdio>
@@ -59,6 +60,9 @@ static int decCAL2 = 0;
 static char procData[40] = { 0 };
 static char procDataInterpol[30] = { 0 };
 static char procDataDcycle[30] = { 0 };
+
+static char spec[10] = { 0 };
+
 
 void MathFPGA::Calculate()
 {
@@ -636,4 +640,131 @@ char *MathFPGA::GiveData()
 
         return procData;
     }
+}
+
+
+char *MathFPGA::GiveSpec() //-V2008
+{
+    if (PageModesA::InterpolateCheck() && ModeMeasureDuration::Current().Is_Ndt_1ns())
+    {
+        std::strcpy(spec, " ns");
+    }
+    else if ((PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Dcycle() && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Dcycle() && CURRENT_CHANNEL_IS_B) ||
+        (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_B))
+    {
+        if (ModeMeasureDuration::Current().Is_Phase())
+        {
+            std::strcpy(spec, " $");
+        }
+        else
+        {
+            std::strcpy(spec, " E-0");
+            spec[3] = (char)(MathFPGA::dcycleZeros | 0x30);
+
+            MathFPGA::dcycleZeros = 0;
+        }
+    }
+    else
+    {
+        if ((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsRatioAB() || PageModesA::modeMeasureFrequency.IsRatioAC())) ||
+            (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency.IsRatioBA() || PageModesB::modeMeasureFrequency.IsRatioBC())) ||
+            (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureFrequency.IsRatioCA() || PageModesC::modeMeasureFrequency.IsRatioCB())) ||
+            ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) || (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsTachometer())) ||
+            (PageModesA::typeMeasure.IsCountPulse() || PageModesB::typeMeasure.IsCountPulse() || PageModesC::typeMeasure.IsCountPulse()))
+        {
+            std::strcpy(spec, " ");
+        }
+        else
+        {
+            if (CurrentTypeMeasure::IsFrequency())
+            {
+                if (CurrentModeMeasureFrequency::IsT_1())
+                {
+                    if (MathFPGA::decDA < 1000)
+                    {
+                        std::strcpy(spec, " Hz");
+                    }
+                    else if (MathFPGA::decDA < 1000000)
+                    {
+                        std::strcpy(spec, " kHz");
+                    }
+                    else
+                    {
+                        std::strcpy(spec, " MHz");
+                    }
+                }
+                else if (PageModesA::modeMeasureFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
+                {
+                    std::strcpy(spec, " E-6");
+                }
+                else
+                {
+                    if (CURRENT_CHANNEL_IS_C)
+                    {
+                        if (MathFPGA::decDataC / 2 < 10000)
+                        {
+                            std::strcpy(spec, " MHz");
+                        }
+                        else
+                        {
+                            std::strcpy(spec, " GHz");
+                        }
+                    }
+                    else if (CURRENT_CHANNEL_IS_D)
+                    {
+                        {
+                            std::strcpy(spec, " GHz");
+                        }
+                    }
+                    else
+                    {
+                        if (MathFPGA::decDA < 1000)
+                        {
+                            std::strcpy(spec, " kHz");
+
+                        }
+                        else
+                        {
+                            std::strcpy(spec, " MHz");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsF_1()) ||
+                    (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsF_1()))
+                {
+                    if (MathFPGA::decDA >= 1000)
+                    {
+                        std::strcpy(spec, " ns");
+                    }
+                    else if (MathFPGA::decDA <= 1)
+                    {
+                        std::strcpy(spec, " ms");
+                    }
+                    else
+                    {
+                        std::strcpy(spec, " us");
+                    }
+                }
+                else
+                {
+                    PeriodTimeLabels &current = PeriodTimeLabels::Current();
+
+                    if (current.IsT_3() || current.IsT_4() || current.IsT_5())
+                    {
+                        std::strcpy(spec, " ms");
+                    }
+                    else
+                    {
+                        std::strcpy(spec, " us");
+                    }
+                }
+            }
+        }
+    }
+    return spec;
 }

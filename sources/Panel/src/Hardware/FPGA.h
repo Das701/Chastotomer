@@ -4,7 +4,6 @@ struct FPGA
 {
     static void Init();
     static void Update();
-    static char *GiveSpec();
     static void WriteCommand(const char *command, const char *argument);
     static void WriteData();
     static void IncreaseN();
