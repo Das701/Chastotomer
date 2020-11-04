@@ -1,7 +1,9 @@
 #include "defines.h"
 #include "Display/Display.h"
 #include "Display/Primitives.h"
+#include "Display/Text.h"
 #include "Hardware/HAL/HAL.h"
+#include "Utils/String.h"
 #include <cstring>
 #include <cstdlib>
 
@@ -148,14 +150,21 @@ uint8 *Display::GetPixel(int x, int y)
 }
 
 
+static uint timeStart = 0;
+
+
 void Display::BeginScene()
 {
-    std::memset(buffer, 0, HEIGHT_BUFFER * WIDTH_BUFFER * sizeof(buffer[0][0]));
+    timeStart = TIME_MS;
+
+    Rectangle(Display::WIDTH, Display::HEIGHT).Fill(0, 0, Color::BLACK);
 }
 
 
 void Display::EndScene()
 {
+    Text(String("%d ms", TIME_MS - timeStart).c_str()).Write(100, 100);
+
     HAL_FSMC::SendBuffer(buffer[0]);
 }
 
