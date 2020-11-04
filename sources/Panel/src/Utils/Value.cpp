@@ -556,6 +556,18 @@ int ValueNANO::FractNano() const
 }
 
 
+uint64 ValuePICO::FractPico() const
+{
+    ValuePICO val(*this);
+
+    val.SetSign(1);
+
+    int whole = val.Integer();
+
+    return (val.value - whole * 1000 * 1000 * 1000 * 1000);
+}
+
+
 void ValueNANO::Add(ValueNANO add)
 {
     int sign = Sign();
@@ -873,12 +885,12 @@ void ValuePICO::SetSign(int sign)
     if (sign >= 0)
     {
         //         fedcba9876543210
-        value &= 0x7FFFFFFFFFFFFFFFU;       // \todo как это может работать?
+        value &= 0x7FFFFFFFFFFFFFFFU;   // Сбрасываем старший бит - признак положительного числа
     }
     else
     {
         //         fedcba9876543210
-        value |= 0x8000000000000000U;           // Устанавливаем признак отрицательного числа
+        value |= 0x8000000000000000U;   // Устанавливаем старший бит - признак отрицательного числа
     }
 }
 
@@ -900,6 +912,12 @@ pString ValuePICO::ToString() const
         stack.Push(intPart % 10);
         intPart /= 10;
     }
+    
+    if(stack.Empty())
+    {
+        symbol[0] = '0';
+        std::strcat(buffer, symbol);
+    }
 
     while (!stack.Empty())                          // Переводим в строку целую часть
     {
@@ -919,12 +937,14 @@ pString ValuePICO::ToString() const
     while (val.value != 0)
     {
         val.Mul(10);
-
-        symbol[0] = (char)(val.Integer() | 0x30);
+        
+        int integer = val.Integer();
+        
+        symbol[0] = (char)(integer | 0x30);
 
         std::strcat(buffer, symbol);
 
-        val.Sub(ValuePICO(val.Integer()));
+        val.Sub(ValuePICO(integer));
     }
 
     return buffer;

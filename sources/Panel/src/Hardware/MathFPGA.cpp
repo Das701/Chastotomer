@@ -260,7 +260,7 @@ float MathFPGA::BinToDec(char bin[32])
 
     float result = 0.0F;
 
-    for (int i = 32; i >= 0; i--)
+    for (int i = 31; i >= 0; i--)
     {
         if (bin[i] == 1)
         {
@@ -560,6 +560,8 @@ char *MathFPGA::Measure::GiveData()
             k.Sub(dx);
             k.Mul(1000000);
 
+            k.SetSign(1);
+            
             std::sprintf(result, "%s", k.ToString());
 
             return result;

@@ -109,6 +109,7 @@ struct ValuePICO
     void SetSign(int sign);
 
     // Возращает строку значения
+    // 
     pString ToString() const;
 
     double ToDouble() const;
@@ -116,6 +117,8 @@ struct ValuePICO
     uint64 Abs() const;
 
     int Integer() const;
+
+    uint64 FractPico() const;
 
 private:
 
