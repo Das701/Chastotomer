@@ -271,6 +271,15 @@ void WindowSet(unsigned int s_x, unsigned int e_x, unsigned int s_y, unsigned in
 }
 
 
+#define SEND_PIXEL(x)                                           \
+    data = COLOR(x);                                            \
+    PORT_WR->BSRR = PIN_WR << 16;                               \
+    GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data;           \
+    GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8);    \
+    PORT_WR->BSRR = PIN_WR;
+
+
+
 void HAL_FSMC::SendBuffer(uint8 *buffer)
 {
     WindowSet(0, 0x1df, 0x0, 0x10f);
@@ -283,27 +292,15 @@ void HAL_FSMC::SendBuffer(uint8 *buffer)
 
     PORT_D_C->BSRR = PIN_D_C;
 
+    uint16 data = 0;
+
     for(int i = 0; i < 272 * 480 / 2; i++)
     {
         uint8 val8 = *buffer;
 
-        uint16 data = COLOR((val8 >> 4));
+        SEND_PIXEL(val8 >> 4);
 
-        PORT_WR->BSRR = PIN_WR << 16;
-
-        GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data;
-        GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8);
-
-        PORT_WR->BSRR = PIN_WR;
-
-        data = COLOR((val8 & 0x0F));
-
-        PORT_WR->BSRR = PIN_WR << 16;
-
-        GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data;
-        GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8);
-
-        PORT_WR->BSRR = PIN_WR;
+        SEND_PIXEL(val8 & 0x0F);
 
         buffer++;
     }
