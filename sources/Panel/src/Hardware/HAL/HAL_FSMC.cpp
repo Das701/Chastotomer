@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Display/Colors.h"
 #include "Hardware/HAL/HAL.h"
 #include <stm32f4xx_hal.h>
 #include <cstdlib>
@@ -278,47 +279,35 @@ void HAL_FSMC::SendBuffer(uint8 *buffer)
 
     DataBus::InitWrite();
 
-    //pinCS.Reset();
     PORT_CS->BSRR = PIN_CS << 16;
 
-    //pinD_C.Set();
     PORT_D_C->BSRR = PIN_D_C;
 
     for(int i = 0; i < 272 * 480 / 2; i++)
     {
         uint8 val8 = *buffer;
 
-        uint8 hi = (uint8)(val8 >> 4);
+        uint16 data = COLOR((val8 >> 4));
 
-        uint16 data = (hi == 0) ? 0U : 0xFFFFU;
-
-        //pinWR.Reset();
         PORT_WR->BSRR = PIN_WR << 16;
 
         GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data;
         GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8);
 
-        //pinWR.Set();
         PORT_WR->BSRR = PIN_WR;
 
-        uint8 lo = (uint8)(val8 & 0x0F);
+        data = COLOR((val8 & 0x0F));
 
-        data = (lo == 0) ? 0U : 0xFFFFU;
-
-        //pinWR.Reset();
         PORT_WR->BSRR = PIN_WR << 16;
 
         GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data;
         GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8);
 
-        //pinWR.Set();
         PORT_WR->BSRR = PIN_WR;
-
 
         buffer++;
     }
 
-    //pinCS.Set();
     PORT_CS->BSRR = PIN_CS;
 }
 

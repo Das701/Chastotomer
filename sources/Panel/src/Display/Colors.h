@@ -29,6 +29,13 @@ struct Color
     void SetAsCurrent();
     static Color GetCurrent();
 
+    static uint16 MakeFromFloat(float r, float g, float b);
+
 private:
     static Color current;
 };
+
+
+extern uint16 colors[16];
+
+#define COLOR(x) colors[x]

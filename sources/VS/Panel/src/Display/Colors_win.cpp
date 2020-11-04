@@ -35,16 +35,13 @@ Color Color::Number(16);
 
 Color Color::current = Color::BLACK;
 
-uint cols[16] =
+uint16 colors[16] =
 {
     0, 0, 0, 0,
     0, 0, 0, 0,
     0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU,
     0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU
 };
-
-
-#define COLOR(x) cols[x];
 
 
 void Color::SetAsCurrent()

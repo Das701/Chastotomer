@@ -35,9 +35,6 @@ static wxButton *buttons[Control::Count] = { nullptr };
 
 static GovernorGUI *governor = nullptr;
 
-// Цвета
-static uint colors[256];
-
 static bool needStartTimerLong = false;
 static bool needStopTimerLong = false;
 

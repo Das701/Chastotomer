@@ -4,6 +4,27 @@
 #include "Display/Primitives.h"
 
 
+uint16 colors[16] =
+{
+    0,      // BLACK
+    0,      // 
+    0,      // 
+    0,      // 
+    0,      // 
+    0,      // 
+    0,      // 
+    0,      // 
+    0,      // 
+    0,      // 
+    0,      // 
+    0,      // 
+    0,      // 
+    0,      // 
+    0,      // 
+    0       // WHITE
+};
+
+
 using namespace Display::Primitives;
 
 Color Color::BLACK(0);
@@ -27,13 +48,23 @@ Color Color::Number(16);
 
 Color Color::current = Color::BLACK;
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Color::SetAsCurrent()
 {
     if (value != Color::Number.value)
     {
         current = Color(value);
     }
+}
+
+
+uint16 Color::MakeFromFloat(float r, float g, float b)
+{
+    int red = (int)(r * 0x1F);
+    int green = (int)(g * 0x3F);
+    int blue = (int)(b * 0x1F);
+
+    return (uint16)((red & 0x1F) | ((green & 0x3F) << 5) | ((blue & 0x1F) << 11));
 }
 
 

@@ -131,6 +131,14 @@ void Display::Init()
     HAL_FSMC::WriteData(0x0f); //0..271
     
     HAL_FSMC::WriteCommand(0x2c);
+
+
+    for (int i = 0; i < 16; i++)
+    {
+        float step = 1.0F / 16.0F * i;
+
+        COLOR(i) = Color::MakeFromFloat(step, step, step);
+    }
 }
 
 
