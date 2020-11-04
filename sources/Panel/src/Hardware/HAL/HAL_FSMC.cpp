@@ -255,22 +255,6 @@ void HAL_FSMC::WriteData(uint data)
 }
 
 
-void WindowSet(unsigned int s_x, unsigned int e_x, unsigned int s_y, unsigned int e_y)
-{
-    HAL_FSMC::WriteCommand(0x2a); //SET page address
-    HAL_FSMC::WriteData((s_x) >> 8); //SET start page address=0
-    HAL_FSMC::WriteData(s_x);
-    HAL_FSMC::WriteData((e_x) >> 8); //SET end page address
-    HAL_FSMC::WriteData(e_x);
-
-    HAL_FSMC::WriteCommand(0x2b); //SET column address
-    HAL_FSMC::WriteData((s_y) >> 8); //SET start column address=0
-    HAL_FSMC::WriteData(s_y);
-    HAL_FSMC::WriteData((e_y) >> 8); //SET end column address
-    HAL_FSMC::WriteData(e_y);
-}
-
-
 #define SEND_PIXEL(x)                                           \
     data = COLOR(x);                                            \
     PORT_WR->BSRR = PIN_WR << 16;                               \
@@ -278,6 +262,23 @@ void WindowSet(unsigned int s_x, unsigned int e_x, unsigned int s_y, unsigned in
     GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8);    \
     PORT_WR->BSRR = PIN_WR;
 
+
+static void WindowSet(unsigned int s_x, unsigned int e_x, unsigned int s_y, unsigned int e_y)
+{
+    HAL_FSMC::WriteCommand(0x2a);       //SET page address
+
+    HAL_FSMC::WriteData((s_x) >> 8);    //SET start page address=0
+    HAL_FSMC::WriteData(s_x);
+    HAL_FSMC::WriteData((e_x) >> 8);    //SET end page address
+    HAL_FSMC::WriteData(e_x);
+
+    HAL_FSMC::WriteCommand(0x2b);       //SET column address
+
+    HAL_FSMC::WriteData((s_y) >> 8);    //SET start column address=0
+    HAL_FSMC::WriteData(s_y);
+    HAL_FSMC::WriteData((e_y) >> 8);    //SET end column address
+    HAL_FSMC::WriteData(e_y);
+}
 
 
 void HAL_FSMC::SendBuffer(uint8 *buffer)
