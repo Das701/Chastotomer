@@ -63,13 +63,13 @@ static int second = 0;
 static int topRow = 0;
 
 
-//static uint timeStart = 0;
-//static uint timeFull = 0;
+static uint timeStart = 0;
+static uint timeFull = 0;
 
 
 bool Display::DrawWelcomeScreen()
 {
-    if (TIME_MS < 5000)
+    if (TIME_MS < 1000)
     {
         for (int i = 0; i < NUM_PARTS; i++)
         {
@@ -96,14 +96,14 @@ void Display::Update()
 {
     if (needRedraw)
     {
-//        timeStart = TIME_MS;
+        timeStart = TIME_MS;
 
         for (int i = 0; i < NUM_PARTS; i++)
         {
             DrawPartScreen(i);
         }
 
-//        timeFull = TIME_MS - timeStart;
+        timeFull = TIME_MS - timeStart;
     }
 
     needRedraw = false;
@@ -116,14 +116,14 @@ static void DrawPartScreen(int num)
 
     if (num == 0)
     {
-//        timeStart = TIME_MS;
+        timeStart = TIME_MS;
     }
 
     Display::BeginScene();
 
     if (num == 0)
     {
-//        Text(String("Пол %d", timeFull).c_str()).Write(400, 0, Color::WHITE);
+        Text(String("Пол %d", timeFull).c_str()).Write(400, 0, Color::WHITE);
     }
 
     DrawScreen();
@@ -132,7 +132,7 @@ static void DrawPartScreen(int num)
 
     if (num == Display::NUM_PARTS)
     {
-        //timeFull = TIME_MS - timeStart;
+        timeFull = TIME_MS - timeStart;
     }
 }
 

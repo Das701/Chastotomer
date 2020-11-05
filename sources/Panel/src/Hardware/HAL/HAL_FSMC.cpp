@@ -330,7 +330,6 @@ void HAL_FSMC::SendBuffer(uint8 *buffer, int startY)
         GPIOC->ODR = (GPIOC->ODR & 0xff00) + (color2 & 0xFF);       // g2
         GPIOA->ODR = (GPIOA->ODR & 0xff00) + (color2 >> 8);         // b2
         PORT_WR->BSRR = PIN_WR;
-
     }
 
     PORT_CS->BSRR = PIN_CS;
