@@ -147,39 +147,14 @@ uint8 *Display::GetPixel(int x, int y)
 }
 
 
-static uint timeStart = 0;
-
-
 void Display::BeginScene()
 {
-    if (Display::TopRow() == 0)
-    {
-        timeStart = TIME_MS;
-    }
-
     std::memset(&buffer[0][0], Color::BLACK.value, Display::WIDTH * Display::HEIGHT / 2);
 }
 
 
 void Display::EndScene()
 {
-    static uint timeSend = 0;
-    static uint timeFull = 0;
-    uint start = TIME_MS;
-
-    if (Display::TopRow() > 0)
-    {
-        Text(String("Рис %d ms", TIME_MS - timeStart).c_str()).Write(380, 210);
-        Text(String("Зас %d ms", timeSend).c_str()).Write(380, 230);
-        Text(String("Пол %d ms", timeFull).c_str()).Write(380, 250);
-    }
-
     HAL_FSMC::SendBuffer(buffer[0], TopRow());
-
-    if (Display::TopRow() > 0)
-    {
-        timeSend = TIME_MS - start;
-        timeFull = TIME_MS - timeStart;
-    }
 }
 
