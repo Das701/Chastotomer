@@ -15,8 +15,6 @@ struct Font
     {
         enum E
         {
-            _5,
-            _7,
             _8,
             Number,
             None

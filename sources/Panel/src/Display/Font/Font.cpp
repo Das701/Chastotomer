@@ -1,16 +1,14 @@
 #include "defines.h"
 #include "Font.h"
-#include "font7.inc"
-#include "font5.inc"
 #include "font8.inc"
 
 
 
-const Font *fonts[Font::Type::Number] = {&font5, &font7, &font8};
-const Font *font = &font7;
+const Font *fonts[Font::Type::Number] = {&font8};
+const Font *font = &font8;
 
 
-static Font::Type::E type = Font::Type::_5;
+static Font::Type::E type = Font::Type::_8;
 
 
 int Font::GetSize()
