@@ -1,6 +1,9 @@
 #include "defines.h"
 #include "Display/Font/Font.h"
 #include "Display/Font/fontGOST16B.inc"
+#include "Display/Font/fontGOSTB18B.inc"
+#include "Display/Font/fontGOSTB20B.inc"
+#include "Display/Font/fontGOSTB28B.inc"
 #include "Hardware/HAL/HAL.h"
 #include <cstring>
 
@@ -90,9 +93,6 @@ struct HeaderFont
 static int spacing = 1;
 
 
-static PTypeFont::E currentType = PTypeFont::None;
-
-
 static const unsigned char *font = nullptr;
 
 
@@ -112,12 +112,10 @@ void Font::Set(const PTypeFont::E typeFont)
 {
     switch (typeFont)
     {
-    case PTypeFont::GOST16B:
-    {
-        currentType = typeFont;
-        font = fontGOST16B;
-    }
-    break;
+    case PTypeFont::GOST16B:   font = fontGOST16B;   break;
+    case PTypeFont::GOSTB18B:  font = fontGOSTB18B;  break;
+    case PTypeFont::GOSTB20B:  font = fontGOSTB20B;  break;
+    case PTypeFont::GOSTB28B:  font = fontGOSTB28B;  break;
     case PTypeFont::None:
     case PTypeFont::Count:
         break;

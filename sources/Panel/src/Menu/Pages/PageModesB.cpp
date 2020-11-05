@@ -150,7 +150,7 @@ void PageModesB::OnChanged_ModeFrequency()
 
 // Выбор режима измерения частоты, отношения частот, "тахометра"
 DEF_SWITCH_5(sModeFrequency,
-    "Режим изм.", "Измерение частоты",
+    "Режим", "Измерение частоты",
     "Частота", "f(B)/f(A)", "f(B)/f(C)", "f=1/T", "Тахометр",
     PageModesB::modeMeasureFrequency, PageModesB::OnChanged_ModeFrequency
 );
@@ -182,7 +182,7 @@ void PageModesB::OnChanged_ModePeriod()
 
 // Выбор режима измерения периода
 DEF_SWITCH_2(sModePeriod,
-    "Режим изм.", "Измерение периода",
+    "Режим", "Измерение периода",
     "Период", "T=1/f",
     PageModesB::modeMeasurePeriod, PageModesB::OnChanged_ModePeriod
 );
@@ -225,7 +225,7 @@ void PageModesB::OnChanged_ModeDuration()
 
 // Выбор режима измерения длительности импульсов, интервалов, коэффициента заполнения, разности фаз
 DEF_SWITCH_5(sModeDuration,
-    "Режим изм.", "Измерение длительности",
+    "Режим", "Измерение длительности",
     "ndt", "ndt/1нс", "S-S", "D", "Фаза",
     PageModesB::modeMeasureDuration, PageModesB::OnChanged_ModeDuration
 );
@@ -260,7 +260,7 @@ void PageModesB::OnChanged_ModeCountPulse()
 
 // Выбор режима счёта импульсов
 DEF_SWITCH_3(sModeCountPulse,
-    "Режим изм.", "Счёт числа импульсов",
+    "Режим", "Счёт числа импульсов",
     "B(tA)", "B(TA)", "Старт/Стоп",
     PageModesB::modeMeasureCountPulse, PageModesB::OnChanged_ModeCountPulse
 );

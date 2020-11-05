@@ -100,7 +100,7 @@ void Text::WriteSymbols(char *start, int num, int x, int y, int width, Color col
 {
     color.SetAsCurrent();
 
-    WriteSymbols(start, num, x, y), width;
+    WriteSymbols(start, num, x, y, width);
 }
 
 

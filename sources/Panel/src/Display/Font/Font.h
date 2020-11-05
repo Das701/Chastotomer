@@ -7,6 +7,9 @@ struct PTypeFont
     enum E
     {
         GOST16B,
+        GOSTB18B,
+        GOSTB20B,
+        GOSTB28B,
         Count,
         None
     } value;

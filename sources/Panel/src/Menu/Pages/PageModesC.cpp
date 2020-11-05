@@ -88,7 +88,7 @@ void PageModesC::OnChanged_ModeFrequency()
 
 // Выбор режима измерения частоты, отношения частот, "тахометра"
 DEF_SWITCH_3(sModeFrequencyC,
-    "Режим изм.", "Измерение частоты",
+    "Режим", "Измерение частоты",
     "Частота", "f(C)/f(A)", "f(C)/f(B)",
     PageModesC::modeMeasureFrequency, PageModesC::OnChanged_ModeFrequency
 );
@@ -122,7 +122,7 @@ void PageModesC::OnChanged_ModeCountPulse()
 
 // Выбор режима счёта импульсов
 DEF_SWITCH_4(sModeCountPulseC,
-    "Режим изм.", "Счёт числа импульсов",
+    "Режим", "Счёт числа импульсов",
     "C(tA)", "C(tB)", "C(TA)", "C(TB)",
     PageModesC::modeMeasureCountPulse, PageModesC::OnChanged_ModeCountPulse
 );

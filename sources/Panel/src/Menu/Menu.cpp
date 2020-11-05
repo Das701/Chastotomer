@@ -35,8 +35,6 @@ void Menu::Init()
 
 void Menu::Draw()
 {
-    Font::Set(PTypeFont::GOST16B);
-
     openedPage->Draw(0, 216, 0);
 }
 
