@@ -42,7 +42,7 @@ Color Color::_11(11);
 Color Color::_12(12);
 Color Color::_13(13);
 Color Color::_14(14);
-Color Color::WHITE(15);
+Color Color::WHITE(255);
 
 
 uint16 Color::MakeFromFloat(float r, float g, float b)
