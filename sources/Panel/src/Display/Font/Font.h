@@ -2,12 +2,6 @@
 #include "defines.h"
 
 
-struct PSymbol
-{
-    uchar width;
-    uchar bytes[8];
-};
-
 struct PTypeFont
 {
     enum E
@@ -18,12 +12,9 @@ struct PTypeFont
     } value;
 };
 
+
 struct Font
 {
-    int _height;
-    PSymbol symbols[256];
-
-public:
     // Устанавливает текущий шрифт. Ранее установленный можно восстановить функцией Pop()
     static void Set(const PTypeFont::E typeFont);
     static PTypeFont::E Current();

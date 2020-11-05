@@ -4,7 +4,6 @@
 
 struct PAdvancedFont
 {
-    PAdvancedFont() {};
     // Установить действующий шрифт
     PAdvancedFont(PTypeFont::E type);
 
