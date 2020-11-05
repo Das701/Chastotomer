@@ -57,6 +57,17 @@ int Text::Write(int x, int y, Color color)
 }
 
 
+int Text::Write(int x, int y)
+{
+    if (text)
+    {
+        x = WriteSymbols(text, (int)std::strlen(text), x, y);
+    }
+
+    return x;
+}
+
+
 int Text::WriteSymbols(char* start, int num, int x, int y) const
 {
     char* p = start;
@@ -83,6 +94,18 @@ int Text::Write(int x, int y, int width, Color color)
 }
 
 
+int Text::Write(int x, int y, int width)
+{
+    int length = Font::GetLengthText(text);
+
+    int delta = (width - length * 2) / 2;
+
+    Write(x + delta, y);
+
+    return x;
+}
+
+
 void Text::WriteSymbols(char *start, int num, int x, int y, int width, Color color) const
 {
     color.SetAsCurrent();
@@ -90,6 +113,16 @@ void Text::WriteSymbols(char *start, int num, int x, int y, int width, Color col
     int length = Font::GetLengthSymbols(start, num);
 
     int delta = (width - length*2) / 2;
+
+    WriteSymbols(start, num, x + delta, y);
+}
+
+
+void Text::WriteSymbols(char *start, int num, int x, int y, int width) const
+{
+    int length = Font::GetLengthSymbols(start, num);
+
+    int delta = (width - length * 2) / 2;
 
     WriteSymbols(start, num, x + delta, y);
 }
@@ -115,6 +148,36 @@ void Text::WriteInCenterRect(int x, int y, int width, int height, Color color)
         WriteSymbols(start, num, x, y + dY, width, color);
 
         GetWord(1, start, num); 
+
+        WriteSymbols(start, num, x, y + 6 + dY + static_cast<int>(1.5F * (float)Font::GetSize()), width);
+    }
+    else
+    {
+        // остальные варианты пока не трогаем
+    }
+}
+
+
+void Text::WriteInCenterRect(int x, int y, int width, int height)
+{
+    volatile int numWords = NumWords();
+
+    if (numWords == 1)
+    {
+        int dY = (height - Font::GetSize()) / 2;
+        Write(x, y + dY, width);
+    }
+    else if (numWords == 2)
+    {
+        char *start = 0;
+        int num = 0;
+
+        GetWord(0, start, num);
+
+        int dY = (height - Font::GetSize()) / 2 - Font::GetSize() / 2 - 6;
+        WriteSymbols(start, num, x, y + dY, width);
+
+        GetWord(1, start, num);
 
         WriteSymbols(start, num, x, y + 6 + dY + static_cast<int>(1.5F * (float)Font::GetSize()), width);
     }

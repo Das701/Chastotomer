@@ -75,7 +75,7 @@ static uint timeFull = 0;
 void Display::DrawWelcomeScreen()
 {   
     BeginScene();
-    Text("OAO лмхох, 43-96/2, Cherm V 1.2").Write(40, 100);
+    Text("OAO лмхох, 43-96/2, Cherm V 1.2").Write(40, 100, Color::WHITE);
     EndScene();
 }
 

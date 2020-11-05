@@ -21,7 +21,7 @@ int main(void)
     Menu::Update();
     Display::Update();
     VCP::Init();
-    uint time = TIME_MS;
+    //uint time = TIME_MS;
 
     //while((time + 3000) > TIME_MS)
     //{
