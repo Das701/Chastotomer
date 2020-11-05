@@ -33,34 +33,4 @@ struct HeaderFont
 };
 
 
-PTypeFont::E PAdvancedFont::currentType = PTypeFont::None;
 
-
-static const unsigned char * font = nullptr;
-
-
-PAdvancedFont::PAdvancedFont(PTypeFont::E t)
-{
-    currentType = t;
-    
-    if(currentType == PTypeFont::GOST16B)
-    {
-        font = fontGOST16B;
-    }
-    else
-    {
-        font = nullptr;
-    }
-}
-
-
-HeaderFont *HeaderFont::Sefl()
-{
-    return reinterpret_cast<HeaderFont *>(const_cast<uint8 *>(font));
-}
-
-
-uint8 *NativeSymbol::Data()
-{
-    return reinterpret_cast<uint8 *>(this) + sizeof(*this);
-}
