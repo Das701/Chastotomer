@@ -77,37 +77,30 @@ void Display::Init()
 {
     HAL_FSMC::Reset();
     
-    HAL_FSMC::WriteCommand(0x01);   // soft reset
+    HAL_FSMC::WriteCommand(0x01);                       // soft reset
 
     HAL_TIM::DelayMS(10);
 
-    HAL_FSMC::WriteCommand(0xe0, 0x01); // set pll
+    HAL_FSMC::WriteCommand(0xe0, 0x01);                 // set pll
 
-    HAL_TIM::DelayMS(10);
-    HAL_FSMC::WriteCommand(0xe0);   // set pll
-    HAL_FSMC::WriteData(0x03);
     HAL_TIM::DelayMS(10);
     
-    //HAL_FSMC::WriteCommand(0x29);   // ¬ключить дисплей
-
+    HAL_FSMC::WriteCommand(0xe0, 0x03);                 // set pll
+    
+    HAL_TIM::DelayMS(10);
+    
     SetModeLCD();
 
-    HAL_FSMC::WriteCommand(0xf0);   // set pixel data interface
-    HAL_FSMC::WriteData(0x03);      // 0x03 for 16bit, 0x00 for 8bit
-    
-    HAL_FSMC::WriteCommand(0x3a);
-    HAL_FSMC::WriteData(0x50);
+    HAL_FSMC::WriteCommand(0xf0, 0x03);                 // set pixel data interface 0x03 for 16bit, 0x00 for 8bit
+
+    HAL_FSMC::WriteCommand(0x3a, 0x50);
 
     // Set the MN of PLL
-    HAL_FSMC::WriteCommand(0xe2);   // Set the PLL
-    HAL_FSMC::WriteData(0x1d);
-    HAL_FSMC::WriteData(0x02);
-    HAL_FSMC::WriteData(0x54);
+    HAL_FSMC::WriteCommand(0xe2, 0x1d, 0x02, 0x54);     // Set the PLL
 
     HAL_TIM::DelayMS(100);
 
     SetLShiftFreq(0xfffff / 8);
-
     
     SetHorizPeriod(525, 25, 5, 0, 0);
     
