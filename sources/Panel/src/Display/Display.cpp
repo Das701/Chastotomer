@@ -51,6 +51,8 @@ static void DrawData();
 
 extern int info;
 
+static bool needRedraw = true;
+
 static int autoHint = 0;
 static bool autoFlag = false;
 
@@ -62,13 +64,24 @@ void Display::StartScreen()
 }
 
 
+void Display::Refresh()
+{
+    needRedraw = true;
+}
+
+
 void Display::Update()
 {
-    BeginScene();
+    if (needRedraw)
+    {
+        BeginScene();
 
-    DrawScreen();
-    
-    EndScene();
+        DrawScreen();
+
+        EndScene();
+    }
+
+    needRedraw = false;
 }
 
 

@@ -32,12 +32,7 @@ int main(void)
     {
         FPGA::Update();
         Menu::Update();
-
-        if(TIME_MS > time + 10)
-        {
-            Display::Update(); 
-        }
-
+        Display::Update(); 
         SCPI::Update();
     }
 }

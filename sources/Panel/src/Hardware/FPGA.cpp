@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Settings.h"
+#include "Display/Display.h"
 #include "Hardware/FPGA.h"
 #include "Hardware/MathFPGA.h"
 #include "Hardware/HAL/HAL.h"
@@ -28,7 +29,8 @@
     for (int i = 0; i < num; i++)                                                       \
     {                                                                                   \
         READ_PIN_B14(x[i]);                                                             \
-    }
+    }                                                                                   \
+    Display::Refresh();
 
 #define WRITE_COMMAND(x)                                                                \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, (x == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);    \

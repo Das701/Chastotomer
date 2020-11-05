@@ -45,6 +45,8 @@ bool Menu::Update()
 {
     while (!Keyboard::Empty())
     {
+        Display::Refresh();
+
         Control control = Keyboard::NextControl();
 
         if (!openedPage->OnControl(control))
@@ -53,6 +55,7 @@ bool Menu::Update()
         }
         return true; //-V612
     }
+    
     return false;
 }
 

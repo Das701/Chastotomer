@@ -9,6 +9,9 @@ namespace Display
 
     void Init();
 
+    // Вызвать, если требуется перерисовка
+    void Refresh();
+
     void Update();
 
     uint8 *GetPixel(int x, int y);
