@@ -52,10 +52,18 @@ static void DrawScreen();
 static void DrawInfo();
 static void DrawData();
 
+// Отрисовать верхнюю часть экрана
+static void DrawTopPart();
+
+// Отрисовать нижнюю часть экрана
+static void DrawBottomPart();
+
+
 static bool needRedraw = true;      // Если true, требуется перерисовка дисплея
 static int autoHint = 0;
 static bool autoFlag = false;
 static int second = 0;
+static int topRow = 0;
 
 void Display::DrawWelcomeScreen()
 {   
@@ -75,14 +83,36 @@ void Display::Update()
 {
     if (needRedraw)
     {
-        BeginScene();
+        DrawTopPart();
 
-        DrawScreen();
-
-        EndScene();
+        DrawBottomPart();
     }
 
     needRedraw = false;
+}
+
+
+static void DrawTopPart()
+{
+    topRow = 0;
+
+    Display::BeginScene();
+
+    DrawScreen();
+
+    Display::EndScene();
+}
+
+
+static void DrawBottomPart()
+{
+    topRow = Display::HEIGHT / 2;
+
+    Display::BeginScene();
+
+    DrawScreen();
+
+    Display::EndScene();
 }
 
 
@@ -114,9 +144,6 @@ static void DrawScreen()
         Menu::Draw();
         
         DrawData(); 
-
-//        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
-        //delay_us(8);
     }
 }
 
@@ -467,4 +494,10 @@ static void DrawStatusBarD()
     int width = 60;
     Text(PageModesD::timeMeasure.ToText()).Write(2, y + 7, width, Color::WHITE);
     Rectangle(width, 30).Draw(0, y, Color::WHITE);
+}
+
+
+int Display::TopRow()
+{
+    return topRow;
 }

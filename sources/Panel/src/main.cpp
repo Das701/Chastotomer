@@ -23,10 +23,10 @@ int main(void)
     VCP::Init();
     uint time = TIME_MS;
 
-    while((time + 3000) > TIME_MS)
-    {
-        Display::DrawWelcomeScreen();
-    }
+    //while((time + 3000) > TIME_MS)
+    //{
+    //    Display::DrawWelcomeScreen();
+    //}
 
     while (1)
     {

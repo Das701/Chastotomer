@@ -28,9 +28,6 @@ using namespace Display::Primitives;
 static uint8 buffer[HEIGHT_BUFFER][WIDTH_BUFFER];
 
 
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void SetLShiftFreq(uint freq)
 {
     HAL_FSMC::WriteCommand(0xe6);   // set the LSHIFT (pixel clock) frequency
@@ -157,7 +154,7 @@ void Display::BeginScene()
 {
     timeStart = TIME_MS;
 
-    std::memset(buffer, (Color::BLACK.value << 4) + (Color::BLACK.value), Display::WIDTH * Display::HEIGHT / 2);
+    std::memset(&buffer[0][0], Color::BLACK.value, Display::WIDTH * Display::HEIGHT / 2);
 }
 
 
@@ -172,7 +169,7 @@ void Display::EndScene()
     Text(String("Время засылки %d", timeSend).c_str()).Write(100, 120);
     Text(String("Полное время %d", timeFull).c_str()).Write(100, 80);
 
-    HAL_FSMC::SendBuffer(buffer[0]);
+    HAL_FSMC::SendBuffer(buffer[0], TopRow());
 
     timeSend = TIME_MS - start;
 
