@@ -74,7 +74,7 @@ static uint timeSend = 0;
 
 bool Display::DrawWelcomeScreen()
 {
-    if (TIME_MS < 5000)
+    if (TIME_MS < 1000)
     {
         topRow = 0;
         BeginScene();

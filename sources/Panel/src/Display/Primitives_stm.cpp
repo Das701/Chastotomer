@@ -17,10 +17,7 @@ void Rectangle::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
-    HLine(width).Draw(x, y);
-    HLine(width).Draw(x, y + height);
-    VLine(height).Draw(x, y);
-    VLine(height).Draw(x + width, y);
+    Draw(x, y);
 }
 
 
@@ -29,18 +26,18 @@ void Rectangle::DrawRounded(int x, int y, int round, Color color)
     color.SetAsCurrent();
 
     HLine(width - round * 2).Draw(x + round, y);
-    HLine(width - round * 2).Draw(x + round, y + height);
+    HLine(width - round * 2).Draw(x + round, y + height - 1);
     VLine(height - round * 2).Draw(x, y + round);
-    VLine(height - round * 2).Draw(x + width, y + round);
+    VLine(height - round * 2).Draw(x + width - 1, y + round);
 }
 
 
 void Rectangle::Draw(int x, int y)
 {
     HLine(width).Draw(x, y);
-    HLine(width).Draw(x, y + height);
+    HLine(width).Draw(x, y + height - 1);
     VLine(height).Draw(x, y);
-    VLine(height).Draw(x + width, y);
+    VLine(height).Draw(x + width - 1, y);
 }
 
 
@@ -48,10 +45,7 @@ void Rectangle::Fill(int x0, int y0, Color color)
 {
     color.SetAsCurrent();
 
-    for (int y = y0; y < y0 + height; y++)
-    {
-        HLine(width).Draw(x0, y);
-    }
+    Fill(x0, y0);
 }
 
 
