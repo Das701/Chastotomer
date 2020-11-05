@@ -130,9 +130,11 @@ bool Font::RowNotEmpty(uint8 s, int r)
 }
 
 
-bool Font::BitIsExist(uint8 symbol, int row, int bit)
+bool Font::BitIsExist(uint8 s, int row, int bit)
 {
-    return PAdvancedFont().BitIsExist(symbol, row, bit);
+    NativeSymbol *symbol = HeaderFont::Sefl()->GetSymbol(s);
+
+    return symbol ? symbol->BitIsExist(row, bit) : false;
 }
 
 

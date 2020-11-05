@@ -14,8 +14,6 @@ struct PAdvancedFont
     // Возвращает высоту самого высокого символа
     uint8 GetHeight();
 
-    bool BitIsExist(uint8 symbol, int row, int bit);
-
 private:
     static PTypeFont::E currentType;
 };

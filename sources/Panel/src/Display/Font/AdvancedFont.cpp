@@ -143,14 +143,6 @@ uint8 *NativeSymbol::Data()
 }
 
 
-bool PAdvancedFont::BitIsExist(uint8 s, int row, int bit)
-{
-    NativeSymbol *symbol = HeaderFont::Sefl()->GetSymbol(s);
-
-    return symbol ? symbol->BitIsExist(row, bit) : false;
-}
-
-
 bool NativeSymbol::BitIsExist(int r, int b)
 {
     uint8 *row = GetRow(r);
