@@ -33,7 +33,7 @@ Color Color::WHITE(15);
 
 static Color current = Color::BLACK;
 
-uint16 colors[Color::Count] =
+uint colors[Color::Count] =
 {
     0, 0, 0, 0,
     0, 0, 0, 0,

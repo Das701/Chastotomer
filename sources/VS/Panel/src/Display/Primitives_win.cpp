@@ -27,6 +27,12 @@ void Rectangle::Draw(int x, int y, Color color)
 }
 
 
+void Rectangle::DrawRounded(int x, int y, int, Color color)
+{
+    Draw(x, y, color);
+}
+
+
 void Rectangle::Fill(int x, int y, Color color)
 {
     color.SetAsCurrent();
