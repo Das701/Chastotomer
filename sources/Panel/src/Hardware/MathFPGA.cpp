@@ -508,6 +508,8 @@ char *MathFPGA::Measure::GiveData()
 {
     static char result[40] = { 0 };
 
+    result[0] = 0;
+
     if (CurrentTypeMeasure::IsCountPulse())
     {
         BinToDec();
@@ -545,24 +547,27 @@ char *MathFPGA::Measure::GiveData()
 
             decTizm = BinToUint16(dataComparatorTizm);
 
-            if (dataComparatorTizm[0] == 1)
+            if (decNkal != 0)
             {
-                decTizm -= 65536;
+                if (dataComparatorTizm[0] == 1)
+                {
+                    decTizm -= 65536;
+                }
+
+                ValuePICO dx(decTizm);
+                dx.Div((uint)decNkal);
+                dx.Div(2 * 5000000);
+
+                ValuePICO k(5000000);
+                k.Sub(ValuePICO((int)decFx));
+                k.Div(5000000);
+                k.Sub(dx);
+                k.Mul(1000000);
+
+                k.SetSign(1);
+
+                std::sprintf(result, "%s", k.ToString());
             }
-
-            ValuePICO dx(decTizm);
-            dx.Div((uint)decNkal);
-            dx.Div(2 * 5000000);
-
-            ValuePICO k(5000000);
-            k.Sub(ValuePICO((int)decFx));
-            k.Div(5000000);
-            k.Sub(dx);
-            k.Mul(1000000);
-
-            k.SetSign(1);
-            
-            std::sprintf(result, "%s", k.ToString());
 
             return result;
         }
