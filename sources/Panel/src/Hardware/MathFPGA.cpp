@@ -254,7 +254,7 @@ void MathFPGA::Measure::BinToDec()
 }
 
 
-float MathFPGA::BinToDec(char bin[32])
+float MathFPGA::BinToDec(const char bin[32])
 {
     int base = 1;
 
@@ -274,7 +274,7 @@ float MathFPGA::BinToDec(char bin[32])
 }
 
 
-uint MathFPGA::BinToUint32(char bin[32])
+uint MathFPGA::BinToUint32(const char bin[32])
 {
     int base = 1;
 
@@ -294,7 +294,7 @@ uint MathFPGA::BinToUint32(char bin[32])
 }
 
 
-uint16 MathFPGA::BinToUint16(char bin[16])
+uint16 MathFPGA::BinToUint16(const char bin[16])
 {
     int base = 1;
 

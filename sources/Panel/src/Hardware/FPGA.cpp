@@ -142,7 +142,7 @@ void FPGA::Update()
 
                 CYCLE_READ_PIN_B14(3, dataIdent);
 
-                CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataComparatorFx);
+                CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataComparatorFx); //-V525
 
                 CYCLE_READ_PIN_B14(16, MathFPGA::Measure::dataComparatorTizm);
 

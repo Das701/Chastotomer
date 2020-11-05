@@ -659,7 +659,7 @@ void PageModes::ResetModeCurrentMeasure()
 {
     PageModesA::ResetModeCurrentMeasure();
     PageModesB::ResetModeCurrentMeasure();
-    PageModesB::ResetModeCurrentMeasure();
+    PageModesC::ResetModeCurrentMeasure();
 }
 
 

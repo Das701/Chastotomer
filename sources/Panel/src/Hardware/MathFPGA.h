@@ -61,7 +61,7 @@ struct MathFPGA
 
 private:
 
-    static float BinToDec(char bin[32]);
-    static uint BinToUint32(char bin[32]);
-    static uint16 BinToUint16(char bin[16]);
+    static float BinToDec(const char bin[32]);
+    static uint BinToUint32(const char bin[32]);
+    static uint16 BinToUint16(const char bin[16]);
 };

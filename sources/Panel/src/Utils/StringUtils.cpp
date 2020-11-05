@@ -482,7 +482,8 @@ char *SU::Int2String(int n, char *buffer)
     {
         result[i++] = n % 10 + '0';
         n -= n % 10;
-    } while ((n /= 10) > 0);
+        n /= 10;
+    } while (n > 0);
 
     result[i] = '\0';
 

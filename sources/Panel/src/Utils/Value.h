@@ -91,7 +91,7 @@ private:
 };
 
 
-struct ValuePICO
+struct ValuePICO //-V690
 {
     explicit ValuePICO(int v);
     explicit ValuePICO(const ValuePICO &v);

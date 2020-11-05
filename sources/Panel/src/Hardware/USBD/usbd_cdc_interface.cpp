@@ -104,6 +104,7 @@ static int8_t CDC_Itf_Control (uint8 cmd, uint8* pbuf, uint16)
         break;    
     
     default:
+        // здесь ничего
         break;
     }
   
