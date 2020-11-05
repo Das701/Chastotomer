@@ -54,14 +54,6 @@ PAdvancedFont::PAdvancedFont(PTypeFont::E t)
 }
 
 
-uint8 PAdvancedFont::GetHeight(uint8 num)
-{
-    NativeSymbol *symbol = HeaderFont::Sefl()->GetSymbol(num);
-
-    return symbol ? symbol->height : 0U;
-}
-
-
 int NativeSymbol::BytesInRow()
 {
     int result = width / 8;

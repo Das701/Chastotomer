@@ -32,6 +32,7 @@ public:
     static uint8 GetWidth(uint8 symbol);
     static uint8 GetWidth(char symbol);
     static uint8 GetHeight();
+    static uint8 GetHeight(uint8 symbol);
     static bool RowNotEmpty(uint8 symbol, int row);
     static bool BitIsExist(uint8 symbol, int row, int bit);
     // Устанавливает количество пустых пикселей между символами.

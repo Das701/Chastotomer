@@ -113,6 +113,14 @@ uint8 Font::GetHeight()
 }
 
 
+uint8 Font::GetHeight(uint8 s)
+{
+    NativeSymbol *symbol = HeaderFont::Sefl()->GetSymbol(s);
+
+    return symbol ? symbol->height : 0U;
+}
+
+
 bool Font::RowNotEmpty(uint8 s, int r)
 {
     HeaderFont *header = HeaderFont::Sefl();
