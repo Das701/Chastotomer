@@ -67,22 +67,6 @@ int NativeSymbol::BytesInRow()
 }
 
 
-uint8 *NativeSymbol::GetRow(int row)
-{
-    if (row > height - 1)
-    {
-        return nullptr;
-    }
-
-    if (row < firstRow)
-    {
-        return nullptr;
-    }
-
-    return Data() + (row - firstRow) * BytesInRow();
-}
-
-
 NativeSymbol *HeaderFont::GetSymbol(uint8 num)
 {
     HeaderFont *header = HeaderFont::Sefl();

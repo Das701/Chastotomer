@@ -21,7 +21,20 @@ struct NativeSymbol
     // ¬озвращает количество байт в строке
     int BytesInRow();
     // ¬озвращает указатель на первый байт строки
-    uint8 *GetRow(int row);
+    uint8 *GetRow(int row)
+    {
+        if (row > height - 1)
+        {
+            return nullptr;
+        }
+
+        if (row < firstRow)
+        {
+            return nullptr;
+        }
+
+        return Data() + (row - firstRow) * BytesInRow();
+    }
     // ¬озвращает указатель на первый байт данных
     uint8 *Data();
 
