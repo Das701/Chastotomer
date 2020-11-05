@@ -297,11 +297,7 @@ void HAL_FSMC::SendBuffer(uint8 *buffer)
 
     for(int i = 0; i < 272 * 480 / 2; i++)
     {
-        uint8 val8 = *buffer++;
-
-        SEND_PIXEL(val8 >> 4);
-
-        SEND_PIXEL(val8 & 0x0F);
+        SEND_PIXEL(*buffer++);
     }
 
     PORT_CS->BSRR = PIN_CS;

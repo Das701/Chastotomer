@@ -37,24 +37,13 @@ void Rectangle::Fill(int x0, int y0, Color color)
 
 void Point::Draw(int x, int y, Color color)
 {
-    color.SetAsCurrent();
-    
-    color = Color::GetCurrent();
-
-    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT)
+    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / 2)
     {
-        uint8 *point = Display::GetPixel(x, y);     // Адрес байта, в котором наша точка
-        
-        if ((x % 2) != 0)
-        {
-            *point &= 0xF0;                         // Очищаем младшую тетраду
-            *point |= color.value & 0x0F;                  // Записываем в младшую тетраду цвет
-        }
-        else
-        {
-            *point &= 0x0F;                         // Очищаем старшую тетраду
-            *point |= (color.value << 4) & 0xF0;           // Записываем в старшую тетраду цвет
-        }
+        color.SetAsCurrent();
+
+        color = Color::GetCurrent();
+
+        *Display::GetPixel(x, y) = color.value;
     }
 }
 

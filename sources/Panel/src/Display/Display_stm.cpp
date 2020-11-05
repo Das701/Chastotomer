@@ -23,8 +23,8 @@ using namespace Display::Primitives;
 using namespace Display::Primitives;
 
 /// В этом буфере будем рисовать. Ширина равна 480 / 2 потому, что в байте хранятся 2 пикселя с 1 из 16-ти возможных градация каждая.
-#define WIDTH_BUFFER    (240)
-#define HEIGHT_BUFFER   (272)
+#define WIDTH_BUFFER    (480)
+#define HEIGHT_BUFFER   (272 / 2)
 static uint8 buffer[HEIGHT_BUFFER][WIDTH_BUFFER];
 
 
@@ -146,7 +146,7 @@ void Display::Init()
 
 uint8 *Display::GetPixel(int x, int y)
 {
-    return &buffer[y][x / 2];
+    return &buffer[y][x];
 }
 
 
