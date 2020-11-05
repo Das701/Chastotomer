@@ -524,24 +524,9 @@
           <GroupName>Display</GroupName>
           <Files>
             <File>
-              <FileName>Display.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Display.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Display.h</FileName>
+              <FileName>Colors.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Display\Display.h</FilePath>
-            </File>
-            <File>
-              <FileName>Primitives.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Primitives.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Primitives.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Primitives.h</FilePath>
+              <FilePath>.\src\Display\Colors.h</FilePath>
             </File>
             <File>
               <FileName>Colors.cpp</FileName>
@@ -549,19 +534,34 @@
               <FilePath>.\src\Display\Colors.cpp</FilePath>
             </File>
             <File>
-              <FileName>Colors.h</FileName>
+              <FileName>Display.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Display\Colors.h</FilePath>
+              <FilePath>.\src\Display\Display.h</FilePath>
             </File>
             <File>
-              <FileName>Display_HAL.cpp</FileName>
+              <FileName>Display.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Display\Display_HAL.cpp</FilePath>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
             </File>
             <File>
-              <FileName>Text.cpp</FileName>
+              <FileName>Display_stm.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Display\Text.cpp</FilePath>
+              <FilePath>.\src\Display\Display_stm.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Primitives.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Primitives.h</FilePath>
+            </File>
+            <File>
+              <FileName>Primitives.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Primitives.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Symbols.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Symbols.h</FilePath>
             </File>
             <File>
               <FileName>Text.h</FileName>
@@ -569,9 +569,9 @@
               <FilePath>.\src\Display\Text.h</FilePath>
             </File>
             <File>
-              <FileName>Symbols.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Symbols.h</FilePath>
+              <FileName>Text.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Text.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1530,24 +1530,9 @@
           <GroupName>Display</GroupName>
           <Files>
             <File>
-              <FileName>Display.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Display.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Display.h</FileName>
+              <FileName>Colors.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Display\Display.h</FilePath>
-            </File>
-            <File>
-              <FileName>Primitives.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Primitives.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Primitives.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Primitives.h</FilePath>
+              <FilePath>.\src\Display\Colors.h</FilePath>
             </File>
             <File>
               <FileName>Colors.cpp</FileName>
@@ -1555,19 +1540,34 @@
               <FilePath>.\src\Display\Colors.cpp</FilePath>
             </File>
             <File>
-              <FileName>Colors.h</FileName>
+              <FileName>Display.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Display\Colors.h</FilePath>
+              <FilePath>.\src\Display\Display.h</FilePath>
             </File>
             <File>
-              <FileName>Display_HAL.cpp</FileName>
+              <FileName>Display.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Display\Display_HAL.cpp</FilePath>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
             </File>
             <File>
-              <FileName>Text.cpp</FileName>
+              <FileName>Display_stm.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Display\Text.cpp</FilePath>
+              <FilePath>.\src\Display\Display_stm.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Primitives.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Primitives.h</FilePath>
+            </File>
+            <File>
+              <FileName>Primitives.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Primitives.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Symbols.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Symbols.h</FilePath>
             </File>
             <File>
               <FileName>Text.h</FileName>
@@ -1575,9 +1575,9 @@
               <FilePath>.\src\Display\Text.h</FilePath>
             </File>
             <File>
-              <FileName>Symbols.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Symbols.h</FilePath>
+              <FileName>Text.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Text.cpp</FilePath>
             </File>
           </Files>
         </Group>
