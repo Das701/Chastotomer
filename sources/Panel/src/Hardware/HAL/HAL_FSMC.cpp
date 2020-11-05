@@ -315,11 +315,21 @@ void HAL_FSMC::SendBuffer(uint8 *buffer, int startY)
         GPIOC->ODR = (GPIOC->ODR & 0xff00) + color.g;
         PORT_WR->BSRR = PIN_WR;
 
+        __asm
+        {
+            nop
+        }
+
         PORT_WR->BSRR = PIN_WR << 16;
         GPIOA->ODR = (GPIOA->ODR & 0xff00) + color.b;
         color = colors[*buffer++];
         GPIOC->ODR = (GPIOC->ODR & 0xff00) + color.r;
         PORT_WR->BSRR = PIN_WR;
+
+        __asm
+        {
+            nop
+        }
 
         PORT_WR->BSRR = PIN_WR << 16;
         GPIOA->ODR = (GPIOA->ODR & 0xff00) + color.g;

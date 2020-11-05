@@ -149,11 +149,11 @@ static void DrawBottomPart()
 
 static void DrawScreen()
 {
-    for (int i = 0; i < Display::WIDTH; i++)
-    {
-        Color((uint8)i).SetAsCurrent();
-        VLine(Display::HEIGHT).Draw(i, 0);
-    }
+//    for (int i = 0; i < Display::WIDTH; i++)
+//    {
+//        Color((uint8)i).SetAsCurrent();
+//        VLine(Display::HEIGHT).Draw(i, 0);
+//    }
 
 
     if(PageIndication::calibration.Is(Calibration::Pressed))

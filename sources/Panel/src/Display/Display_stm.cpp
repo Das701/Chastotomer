@@ -91,7 +91,7 @@ void Display::Init()
     
     SetModeLCD();
 
-    HAL_FSMC::WriteCommand(0xf0, 0x03);                 // set pixel data interface 0x03 for 16bit, 0x00 for 8bit
+    HAL_FSMC::WriteCommand(0xf0, 0x02);                 // set pixel data interface 0x03 for 16bit, 0x00 for 8bit
 
     HAL_FSMC::WriteCommand(0x3a, 0x50);
 
