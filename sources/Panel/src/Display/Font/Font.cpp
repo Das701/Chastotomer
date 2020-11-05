@@ -81,9 +81,11 @@ void Font::Pop()
 }
 
 
-uint8 Font::GetWidth(uint8 symbol)
+uint8 Font::GetWidth(uint8 num)
 {
-    return PAdvancedFont().GetWidth(symbol);
+    NativeSymbol *symbol = HeaderFont::Sefl()->GetSymbol(num);
+
+    return symbol ? symbol->width : 0U;
 }
 
 
@@ -95,7 +97,19 @@ uint8 Font::GetWidth(char symbol)
 
 uint8 Font::GetHeight()
 {
-    return PAdvancedFont().GetHeight();
+    uint8 result = 0;
+
+    for (int i = 0; i < 256; i++)
+    {
+        NativeSymbol *symbol = HeaderFont::Sefl()->GetSymbol(static_cast<uint8>(i));
+
+        if (symbol && symbol->height > result)
+        {
+            result = symbol->height;
+        }
+    }
+
+    return result;
 }
 
 

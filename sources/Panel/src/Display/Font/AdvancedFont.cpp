@@ -54,36 +54,11 @@ PAdvancedFont::PAdvancedFont(PTypeFont::E t)
 }
 
 
-uint8 PAdvancedFont::GetWidth(uint8 num)
-{
-    NativeSymbol *symbol = HeaderFont::Sefl()->GetSymbol(num);
-
-    return symbol ? symbol->width : 0U;
-}
-
 uint8 PAdvancedFont::GetHeight(uint8 num)
 {
     NativeSymbol *symbol = HeaderFont::Sefl()->GetSymbol(num);
 
     return symbol ? symbol->height : 0U;
-}
-
-
-uint8 PAdvancedFont::GetHeight()
-{
-    uint8 result = 0;
-
-    for (int i = 0; i < 256; i++)
-    {
-        NativeSymbol *symbol = HeaderFont::Sefl()->GetSymbol(static_cast<uint8>(i));
-
-        if (symbol && symbol->height > result)
-        {
-            result = symbol->height;
-        }
-    }
-
-    return result;
 }
 
 
