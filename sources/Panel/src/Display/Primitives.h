@@ -22,7 +22,8 @@ namespace Display
         {
         public:
             Point() {};
-            void Draw(int x, int y, Color color = Color::Number);
+            void Draw(int x, int y, Color color);
+            void Draw(int x, int y);
         };
 
 

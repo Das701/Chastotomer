@@ -187,3 +187,14 @@ void Point::Draw(int x, int y, Color color)
         buffer[y][x] = current.value;
     }
 }
+
+
+void Point::Draw(int x, int y)
+{
+    y -= Display::TopRow();
+
+    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / 2)
+    {
+        buffer[y][x] = current.value;
+    }
+}
