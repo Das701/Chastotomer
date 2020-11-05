@@ -103,12 +103,6 @@ void Display::EndScene()
 }
 
 
-uint8 *Display::GetPixel(int, int)
-{
-    return 0;
-}
-
-
 void Frame::OnTimerLong(wxTimerEvent&)
 {
 }

@@ -35,21 +35,6 @@ void Rectangle::Fill(int x0, int y0, Color color)
 }
 
 
-void Point::Draw(int x, int y, Color color)
-{
-    y -= Display::TopRow();
-
-    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / 2)
-    {
-        color.SetAsCurrent();
-
-        color = Color::GetCurrent();
-
-        *Display::GetPixel(x, y) = color.value;
-    }
-}
-
-
 void HLine::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();

@@ -14,8 +14,6 @@ namespace Display
 
     void Update();
 
-    uint8 *GetPixel(int x, int y);
-   
     void BeginScene();
 
     void EndScene();

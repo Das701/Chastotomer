@@ -30,9 +30,6 @@ struct Color
     static Color GetCurrent();
 
     static uint16 MakeFromFloat(float r, float g, float b);
-
-private:
-    static Color current;
 };
 
 

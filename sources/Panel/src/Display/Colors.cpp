@@ -46,18 +46,6 @@ Color Color::WHITE(15);
 Color Color::Number(16);
 
 
-Color Color::current = Color::BLACK;
-
-
-void Color::SetAsCurrent()
-{
-    if (value != Color::Number.value)
-    {
-        current = Color(value);
-    }
-}
-
-
 uint16 Color::MakeFromFloat(float r, float g, float b)
 {
     int red = (int)(r * 0x1F);
@@ -65,10 +53,4 @@ uint16 Color::MakeFromFloat(float r, float g, float b)
     int blue = (int)(b * 0x1F);
 
     return (uint16)((red & 0x1F) | ((green & 0x3F) << 5) | ((blue & 0x1F) << 11));
-}
-
-
-Color Color::GetCurrent()
-{
-    return current;
 }

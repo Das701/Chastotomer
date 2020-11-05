@@ -33,7 +33,7 @@ Color Color::WHITE(15);
 Color Color::Number(16);
 
 
-Color Color::current = Color::BLACK;
+static Color current = Color::BLACK;
 
 uint16 colors[16] =
 {

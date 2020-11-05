@@ -27,6 +27,9 @@ using namespace Display::Primitives;
 #define HEIGHT_BUFFER   (272 / 2)
 static uint8 buffer[HEIGHT_BUFFER][WIDTH_BUFFER];
 
+//static const uint8 *start = &buffer[0][0];
+//static const uint8 *end = start + WIDTH_BUFFER * HEIGHT_BUFFER;
+
 
 static void SetLShiftFreq(uint freq)
 {
@@ -141,12 +144,6 @@ void Display::Init()
 }
 
 
-uint8 *Display::GetPixel(int x, int y)
-{
-    return &buffer[y][x];
-}
-
-
 void Display::BeginScene()
 {
     std::memset(&buffer[0][0], Color::BLACK.value, Display::WIDTH * Display::HEIGHT / 2);
@@ -158,3 +155,35 @@ void Display::EndScene()
     HAL_FSMC::SendBuffer(buffer[0], TopRow());
 }
 
+
+static Color current = Color::BLACK;
+
+Color Color::GetCurrent()
+{
+    return current;
+}
+
+
+void Color::SetAsCurrent()
+{
+    if (value != Color::Number.value)
+    {
+        current = Color(value);
+    }
+}
+
+
+void Point::Draw(int x, int y, Color color)
+{
+    y -= Display::TopRow();
+
+    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / 2)
+    {
+        if (color.value != Color::Number.value)
+        {
+            current = color;
+        }
+
+        buffer[y][x] = current.value;
+    }
+}
