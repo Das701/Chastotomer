@@ -312,22 +312,22 @@ void HAL_FSMC::SendBuffer(uint8 *buffer, int startY)
         SColor color2 = colors[*buffer++];
 
         PORT_WR->BSRR = PIN_WR << 16;
-        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color1.r;
-        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color1.g;
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color1.g;
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color1.r;
         PORT_WR->BSRR = PIN_WR;
 
         __asm { nop }
 
         PORT_WR->BSRR = PIN_WR << 16;
-        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color1.b;
-        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color2.r;
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color2.r;
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color1.b;
         PORT_WR->BSRR = PIN_WR;
 
         __asm { nop }
 
         PORT_WR->BSRR = PIN_WR << 16;
-        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color2.g;
-        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color2.b;
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color2.b;
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color2.g;
         PORT_WR->BSRR = PIN_WR;
 
     }
