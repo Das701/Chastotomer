@@ -152,7 +152,10 @@ static uint timeStart = 0;
 
 void Display::BeginScene()
 {
-    timeStart = TIME_MS;
+    if (Display::TopRow() == 0)
+    {
+        timeStart = TIME_MS;
+    }
 
     std::memset(&buffer[0][0], Color::BLACK.value, Display::WIDTH * Display::HEIGHT / 2);
 }
@@ -160,19 +163,23 @@ void Display::BeginScene()
 
 void Display::EndScene()
 {
-    Text(String("%d ms", TIME_MS - timeStart).c_str()).Write(100, 100);
-
-    uint start = TIME_MS;
     static uint timeSend = 0;
     static uint timeFull = 0;
+    uint start = TIME_MS;
 
-    Text(String("Время засылки %d", timeSend).c_str()).Write(100, 120);
-    Text(String("Полное время %d", timeFull).c_str()).Write(100, 80);
+    if (Display::TopRow() > 0)
+    {
+        Text(String("Рис %d ms", TIME_MS - timeStart).c_str()).Write(380, 210);
+        Text(String("Зас %d ms", timeSend).c_str()).Write(380, 230);
+        Text(String("Пол %d ms", timeFull).c_str()).Write(380, 250);
+    }
 
     HAL_FSMC::SendBuffer(buffer[0], TopRow());
 
-    timeSend = TIME_MS - start;
-
-    timeFull = TIME_MS - timeStart;
+    if (Display::TopRow() > 0)
+    {
+        timeSend = TIME_MS - start;
+        timeFull = TIME_MS - timeStart;
+    }
 }
 
