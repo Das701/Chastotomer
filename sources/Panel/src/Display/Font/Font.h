@@ -26,4 +26,6 @@ struct Font
     // Устанавливает количество пустых пикселей между символами.
     static void SetSpacing(int spacing);
     static int GetSpacing();
+    static int GetLengthSymbols(char *start, int num);
+    static int GetLengthText(char *text);
 };

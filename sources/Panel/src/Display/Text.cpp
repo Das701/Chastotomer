@@ -84,38 +84,33 @@ int Text::Write(int x, int y, int width, Color color)
 }
 
 
-int Text::Write(int x, int y, int )
+int Text::Write(int x, int y, int width)
 {
-    return Write(x, y);
-//    int length = Font::GetLengthText(text);
-//
-//    int delta = (width - length * 2) / 2;
-//
-//    Write(x + delta, y);
-//
-//    return x;
+    int length = Font::GetLengthText(text);
+
+    int delta = (width - length) / 2;
+
+    Write(x + delta, y);
+
+    return x;
 }
 
 
-void Text::WriteSymbols(char *start, int num, int x, int y, int , Color ) const
+void Text::WriteSymbols(char *start, int num, int x, int y, int width, Color color) const
 {
-//    color.SetAsCurrent();
-//
-//    int length = Font::GetLengthSymbols(start, num);
-//
-//    int delta = (width - length*2) / 2;
-//
-    WriteSymbols(start, num, x /*+ delta*/, y);
+    color.SetAsCurrent();
+
+    WriteSymbols(start, num, x, y), width;
 }
 
 
-void Text::WriteSymbols(char *start, int num, int x, int y, int ) const
+void Text::WriteSymbols(char *start, int num, int x, int y, int width) const
 {
-//    int length = Font::GetLengthSymbols(start, num);
-//
-//    int delta = (width - length * 2) / 2;
-//
-    WriteSymbols(start, num, x /*+ delta*/, y);
+    int length = Font::GetLengthSymbols(start, num);
+
+    int delta = (width - length) / 2;
+
+    WriteSymbols(start, num, x + delta, y);
 }
 
 

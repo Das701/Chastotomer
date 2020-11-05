@@ -214,3 +214,28 @@ int Font::GetSpacing()
 {
     return spacing;
 }
+
+
+int Font::GetLengthSymbols(char *start, int num)
+{
+    int result = 0;
+
+    for (int i = 0; i < num; i++)
+    {
+        result += GetWidth(*start++);
+        result += spacing;
+    }
+
+    if (result > spacing)
+    {
+        result -= spacing;
+    }
+
+    return result;
+}
+
+
+int Font::GetLengthText(char *text)
+{
+    return GetLengthSymbols(text, (int)std::strlen(text));
+}
