@@ -195,7 +195,7 @@ void Point::Draw(int x, int y)
 
     if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / 2)
     {
-        buffer[y][x] = current.value;
+        buffer[y][x] = current.value; 
     }
 }
 
@@ -204,6 +204,29 @@ void HLine::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
+    y -= Display::TopRow();
+
+    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / 2)
+    {
+        int end = x + length;
+
+        if (end >= Display::WIDTH)
+        {
+            end = Display::WIDTH - 1;
+        }
+
+        uint8 *pointer = &buffer[y][x];
+
+        for (int i = x; i < end; i++)
+        {
+            *pointer++ = current.value;
+        }
+    }
+}
+
+
+void HLine::Draw(int x, int y)
+{
     y -= Display::TopRow();
 
     if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / 2)

@@ -10,8 +10,10 @@ namespace Display
         {
         public:
             Rectangle(int width, int height);
-            void Draw(int x, int y, Color color = Color::Number);
-            void Fill(int x, int y, Color color = Color::Number);
+            void Draw(int x, int y);
+            void Draw(int x, int y, Color color);
+            void Fill(int x, int y);
+            void Fill(int x, int y, Color color);
         private:
             int width;
             int height;
@@ -31,7 +33,8 @@ namespace Display
         {
         public:
             HLine(int _length) : length(_length) {};
-            void Draw(int x, int y, Color color = Color::Number);
+            void Draw(int x, int y, Color color);
+            void Draw(int x, int y);
         private:
             const int length;
         };
@@ -41,7 +44,8 @@ namespace Display
         {
         public:
             VLine(int _length) : length(_length) {};
-            void Draw(int x, int y, Color color = Color::Number);
+            void Draw(int x, int y, Color color);
+            void Draw(int x, int y);
         private:
             const int length;
         };
