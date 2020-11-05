@@ -23,13 +23,39 @@ void Rectangle::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
-    memDC.DrawRectangle({ x, y, width + 1, height + 1 });
+    Draw(x, y);
 }
 
 
-void Rectangle::DrawRounded(int x, int y, int, Color color)
+void Rectangle::Draw(int x, int y)
 {
-    Draw(x, y, color);
+    if (width == 1 && height == 1)
+    {
+        Point().Draw(x, y);
+    }
+    else
+    {
+        memDC.DrawRectangle({ x, y, width, height });
+    }
+}
+
+
+void Rectangle::DrawRounded(int x, int y, int round, Color color)
+{
+    color.SetAsCurrent();
+
+    HLine(width - 2 * round).Draw(x + round, y);
+    HLine(width - 2 * round).Draw(x + round, y + height);
+    VLine(height - 2 * round).Draw(x, y + round);
+    VLine(height - 2 * round).Draw(x + width, y + round);
+
+//    if (round == 2)
+//    {
+//        Point().Draw(x + 1, y + 1);
+//        Point().Draw(x + width - 1, y + 1);
+//        Point().Draw(x + 1, y + height - 1);
+//        Point().Draw(x + width - 1, y + height - 1);
+//    }
 }
 
 
@@ -49,6 +75,12 @@ void HLine::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
+    Draw(x, y);
+}
+
+
+void HLine::Draw(int x, int y)
+{
     memDC.DrawLine({ x, y }, { x + length, y });
 }
 
