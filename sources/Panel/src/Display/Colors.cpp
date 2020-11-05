@@ -51,5 +51,5 @@ uint16 Color::MakeFromFloat(float r, float g, float b)
     int green = (int)(g * 0x3F);
     int blue = (int)(b * 0x1F);
 
-    return (uint16)((red & 0x1F) | ((green & 0x3F) << 5) | ((blue & 0x1F) << 11));
+    return (uint16)((blue & 0x1F) | ((green & 0x3F) << 5) | ((red & 0x1F) << 11));
 }

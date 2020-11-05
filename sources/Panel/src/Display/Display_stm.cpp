@@ -141,6 +141,9 @@ void Display::Init()
 
         COLOR(i) = Color::MakeFromFloat(step, step, step);
     }
+
+    COLOR(Color::BLACK.value) = 0x0000;
+    COLOR(Color::WHITE.value) = 0xFFFF;
 }
 
 
