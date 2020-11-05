@@ -3,6 +3,7 @@
 typedef unsigned short         uint16;
 typedef signed short           int16;
 typedef unsigned char          uint8;
+typedef unsigned char          uchar;
 typedef signed char            int8;
 typedef unsigned long long int uint64;
 typedef unsigned int           uint;

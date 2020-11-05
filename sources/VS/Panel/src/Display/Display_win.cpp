@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Display/Display.h"
 #include "Display/Primitives.h"
+#include "Display/Font/Font.h"
 #include "GUI/GovernorGUI.h"
 #include "Keyboard/Keyboard.h"
 
@@ -84,6 +85,10 @@ static Screen *screen = nullptr;
 void Display::Init()
 {
     CreateFrame();
+
+    Font::Set(PTypeFont::GOST16B);
+
+    Font::SetSpacing(2);
 }
 
 

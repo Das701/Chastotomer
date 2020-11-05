@@ -2,38 +2,39 @@
 #include "defines.h"
 
 
-struct Symbol
+struct PSymbol
 {
-    uint8 width;
-    uint8 bytes[8];
+    uchar width;
+    uchar bytes[8];
 };
 
+struct PTypeFont
+{
+    enum E
+    {
+        GOST16B,
+        Count,
+        None
+    } value;
+};
 
 struct Font
 {
-    struct Type
-    {
-        enum E
-        {
-            _8,
-            Number,
-            None
-        } value;
-        explicit Type(E v = None) : value(v) {};
-        operator uint8() const { return (uint8)value; };
-    };
+    int _height;
+    PSymbol symbols[256];
 
-    static int GetSize();
-    static int GetLengthText(const char *text);
-    static int GetLengthSymbols(const char *text, int num);
-    static int GetHeightSymbol(char symbol);
-    static int GetLengthSymbol(char symbol);
-    static void SetType(Type::E typeFont);
-    
-    int height;
-    Symbol symbol[256];
+public:
+    // Устанавливает текущий шрифт. Ранее установленный можно восстановить функцией Pop()
+    static void Set(const PTypeFont::E typeFont);
+    static PTypeFont::E Current();
+    // Восстанавливает шрифт, бывший текущим перед последним вызовом SetCurrent()
+    static void Pop();
+    static uint8 GetWidth(uint8 symbol);
+    static uint8 GetWidth(char symbol);
+    static uint8 GetHeight();
+    static bool RowNotEmpty(uint8 symbol, int row);
+    static bool BitIsExist(uint8 symbol, int row, int bit);
+    // Устанавливает количество пустых пикселей между символами.
+    static void SetSpacing(int spacing);
+    static int GetSpacing();
 };
-
-
-// Текущий шрифт
-extern const Font *font;

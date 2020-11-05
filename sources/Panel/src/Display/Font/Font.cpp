@@ -1,64 +1,92 @@
 #include "defines.h"
-#include "Font.h"
-#include "font8.inc"
+#include "Display/Font/AdvancedFont.h"
+#include "Hardware/HAL/HAL.h"
+#include <cstring>
 
 
+const Font *fonts[PTypeFont::Count] = {nullptr};
+const Font *font = nullptr;
 
-const Font *fonts[Font::Type::Number] = {&font8};
-const Font *font = &font8;
+PTypeFont::E pushedFont = PTypeFont::None;
+PTypeFont::E currentFont = PTypeFont::None;
 
 
-static Font::Type::E type = Font::Type::_8;
+static int spacing = 1;
 
 
-int Font::GetSize()
+PTypeFont::E Font::Current()
 {
-    return font->height;
+    return currentFont;
 }
 
 
-int Font::GetLengthText(const char *text)
+void Font::Set(const PTypeFont::E typeFont)
 {
-    int result = 0;
+    pushedFont = currentFont;
 
-    while (*text)
+    if (typeFont != currentFont)
     {
-        result += GetLengthSymbol(*text);
-        text++;
+        switch (typeFont)
+        {
+        case PTypeFont::GOST16B:
+        {
+            font = nullptr;
+            volatile PAdvancedFont f(typeFont);
+        }       
+            break;
+        case PTypeFont::None:
+        case PTypeFont::Count:
+            break;
+        }
+
+        currentFont = typeFont;
     }
-
-    return result;
 }
 
 
-int Font::GetLengthSymbols(const char *text, int num)
+void Font::Pop()
 {
-    int result = 0;
-
-    for (int i = 0; i < num; i++)
-    {
-        result += GetLengthSymbol(*text);
-        text++;
-    }
-
-    return result;
+    Set(pushedFont);
 }
 
 
-int Font::GetHeightSymbol(char)
+uint8 Font::GetWidth(uint8 symbol)
 {
-    return 9;
+    return PAdvancedFont().GetWidth(symbol);
 }
 
 
-int Font::GetLengthSymbol(char symbol)
+uint8 Font::GetWidth(char symbol)
 {
-    return font->symbol[(uint8)symbol].width + 1;
+    return GetWidth(static_cast<uint8>(symbol));
 }
 
 
-void Font::SetType(Type::E typeFont)
+uint8 Font::GetHeight()
 {
-    type = typeFont;
-    font = fonts[type];
+    return PAdvancedFont().GetHeight();
+}
+
+
+bool Font::RowNotEmpty(uint8 symbol, int row)
+{
+    return PAdvancedFont().RowNotEmpty(symbol, row);
+}
+
+
+bool Font::BitIsExist(uint8 symbol, int row, int bit)
+{
+    return PAdvancedFont().BitIsExist(symbol, row, bit);
+}
+
+
+void Font::SetSpacing(int s)
+{
+    spacing = s;
+}
+
+
+int Font::GetSpacing()
+{
+    return spacing;
 }

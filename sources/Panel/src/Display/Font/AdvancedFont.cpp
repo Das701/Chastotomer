@@ -1,7 +1,6 @@
 #include "defines.h"
-#include "AdvancedFont_p.h"
-#include "fontGOST28.inc"
-#include "fontGOST72bold.inc"
+#include "Display/Font/AdvancedFont.h"
+#include "Display/Font/fontGOST16B.inc"
 
 
 struct NativeSymbol
@@ -44,13 +43,9 @@ PAdvancedFont::PAdvancedFont(PTypeFont::E t)
 {
     currentType = t;
     
-    if(currentType == PTypeFont::_GOST28)
+    if(currentType == PTypeFont::GOST16B)
     {
-        font = fontGOST28;
-    }
-    else if(currentType == PTypeFont::_GOST72bold)
-    {
-        font = fontGOST72bold;
+        font = fontGOST16B;
     }
     else
     {

@@ -589,21 +589,6 @@
               <FilePath>.\src\Display\Font\Font.h</FilePath>
             </File>
             <File>
-              <FileName>font5.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\font5.inc</FilePath>
-            </File>
-            <File>
-              <FileName>font7.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\font7.inc</FilePath>
-            </File>
-            <File>
-              <FileName>font8.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\font8.inc</FilePath>
-            </File>
-            <File>
               <FileName>FontMid.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Font\FontMid.cpp</FilePath>
@@ -622,6 +607,21 @@
               <FileName>FontBig.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\FontBig.h</FilePath>
+            </File>
+            <File>
+              <FileName>AdvancedFont.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Font\AdvancedFont.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>AdvancedFont.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\AdvancedFont.h</FilePath>
+            </File>
+            <File>
+              <FileName>fontGOST16B.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\fontGOST16B.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -1595,21 +1595,6 @@
               <FilePath>.\src\Display\Font\Font.h</FilePath>
             </File>
             <File>
-              <FileName>font5.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\font5.inc</FilePath>
-            </File>
-            <File>
-              <FileName>font7.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\font7.inc</FilePath>
-            </File>
-            <File>
-              <FileName>font8.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\font8.inc</FilePath>
-            </File>
-            <File>
               <FileName>FontMid.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Font\FontMid.cpp</FilePath>
@@ -1628,6 +1613,21 @@
               <FileName>FontBig.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\FontBig.h</FilePath>
+            </File>
+            <File>
+              <FileName>AdvancedFont.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Font\AdvancedFont.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>AdvancedFont.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\AdvancedFont.h</FilePath>
+            </File>
+            <File>
+              <FileName>fontGOST16B.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\fontGOST16B.inc</FilePath>
             </File>
           </Files>
         </Group>
