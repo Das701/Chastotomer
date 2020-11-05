@@ -4,9 +4,6 @@
 #include <cstring>
 
 
-const Font *fonts[PTypeFont::Count] = {nullptr};
-
-PTypeFont::E pushedFont = PTypeFont::None;
 PTypeFont::E currentFont = PTypeFont::None;
 
 
@@ -103,8 +100,6 @@ PTypeFont::E Font::Current()
 
 void Font::Set(const PTypeFont::E typeFont)
 {
-    pushedFont = currentFont;
-
     if (typeFont != currentFont)
     {
         switch (typeFont)
@@ -121,12 +116,6 @@ void Font::Set(const PTypeFont::E typeFont)
 
         currentFont = typeFont;
     }
-}
-
-
-void Font::Pop()
-{
-    Set(pushedFont);
 }
 
 
