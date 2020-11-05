@@ -90,25 +90,10 @@ struct HeaderFont
 static int spacing = 1;
 
 
-PTypeFont::E PAdvancedFont::currentType = PTypeFont::None;
+static PTypeFont::E currentType = PTypeFont::None;
 
 
 static const unsigned char *font = nullptr;
-
-
-PAdvancedFont::PAdvancedFont(PTypeFont::E t)
-{
-    currentType = t;
-
-    if (currentType == PTypeFont::GOST16B)
-    {
-        font = fontGOST16B;
-    }
-    else
-    {
-        font = nullptr;
-    }
-}
 
 
 HeaderFont *HeaderFont::Sefl()
@@ -129,7 +114,8 @@ void Font::Set(const PTypeFont::E typeFont)
     {
     case PTypeFont::GOST16B:
     {
-        volatile PAdvancedFont f(typeFont);
+        currentType = typeFont;
+        font = fontGOST16B;
     }
     break;
     case PTypeFont::None:
