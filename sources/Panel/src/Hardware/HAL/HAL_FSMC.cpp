@@ -317,17 +317,16 @@ void HAL_FSMC::SendBuffer(uint8 *buffer, int startY)
         GPIOA->ODR = (GPIOA->ODR & 0xff00) + (color1 & 0xFF);       // g1
         PORT_WR->BSRR = PIN_WR;
 
-        __asm { nop }
+        __asm { nop }                                                       // \warning NOP вставлен для задержки
 
         PORT_WR->BSRR = PIN_WR << 16;
         GPIOA->ODR = (GPIOA->ODR & 0xff00) + (color2 & 0xFF);       // r2
         GPIOC->ODR = (GPIOC->ODR & 0xff00) + (color1 >> 8);         // b1
         PORT_WR->BSRR = PIN_WR;
 
-        __asm { nop }
+        color2 >>= 8;                                                       // Здесь обошлись без нопа - потому что нужна операция сдвига
 
         PORT_WR->BSRR = PIN_WR << 16;
-        color2 >>= 8;
         GPIOC->ODR = (GPIOC->ODR & 0xff00) + (color2 & 0xFF);       // g2
         GPIOA->ODR = (GPIOA->ODR & 0xff00) + (color2 >> 8);         // b2
         PORT_WR->BSRR = PIN_WR;
