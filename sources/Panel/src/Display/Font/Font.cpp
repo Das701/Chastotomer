@@ -4,9 +4,6 @@
 #include <cstring>
 
 
-PTypeFont::E currentFont = PTypeFont::None;
-
-
 struct NativeSymbol
 {
     uint8 width;        // Ширина символа в пикселях
@@ -92,29 +89,18 @@ struct HeaderFont
 static int spacing = 1;
 
 
-PTypeFont::E Font::Current()
-{
-    return currentFont;
-}
-
-
 void Font::Set(const PTypeFont::E typeFont)
 {
-    if (typeFont != currentFont)
+    switch (typeFont)
     {
-        switch (typeFont)
-        {
-        case PTypeFont::GOST16B:
-        {
-            volatile PAdvancedFont f(typeFont);
-        }       
-            break;
-        case PTypeFont::None:
-        case PTypeFont::Count:
-            break;
-        }
-
-        currentFont = typeFont;
+    case PTypeFont::GOST16B:
+    {
+        volatile PAdvancedFont f(typeFont);
+    }
+    break;
+    case PTypeFont::None:
+    case PTypeFont::Count:
+        break;
     }
 }
 

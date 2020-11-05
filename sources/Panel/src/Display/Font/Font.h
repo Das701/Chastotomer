@@ -17,7 +17,6 @@ struct Font
 {
     // Устанавливает текущий шрифт. Ранее установленный можно восстановить функцией Pop()
     static void Set(const PTypeFont::E typeFont);
-    static PTypeFont::E Current();
     static uint8 GetWidth(uint8 symbol);
     static uint8 GetWidth(char symbol);
     static uint8 GetHeight();
