@@ -44,17 +44,14 @@ uint16 colors[Color::Count] =
 
 void Color::SetAsCurrent()
 {
-    if (value < 16)
-    {
-        uint val = COLOR(value);
-        uint8 b = (uint8)val;
-        uint8 g = (uint8)(val >> 8);
-        uint8 r = (uint8)(val >> 16);
+    uint val = COLOR(value);
+    uint8 b = (uint8)val;
+    uint8 g = (uint8)(val >> 8);
+    uint8 r = (uint8)(val >> 16);
 
-        wxColour colorDraw = wxColour(r, g, b);
+    wxColour colorDraw = wxColour(r, g, b);
 
-        memDC.SetPen(wxPen(colorDraw));
-    }
+    memDC.SetPen(wxPen(colorDraw));
 }
 
 
