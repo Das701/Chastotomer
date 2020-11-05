@@ -3,11 +3,11 @@
 
 struct SColor
 {
-    uint8 r;
-    uint8 g;
-    uint8 b;
+//    uint8 r;
+//    uint8 g;
+//    uint8 b;
 
-    static SColor MakeFromUint8(uint8 red, uint8 green, uint8 blue);
+    static uint MakeFromUint8(uint8 red, uint8 green, uint8 blue);
 };
 
 struct Color
@@ -38,10 +38,10 @@ struct Color
     void SetAsCurrent();
     static Color GetCurrent();
 
-    static SColor MakeFromFloat(float r, float g, float b);
+    static uint MakeFromFloat(float r, float g, float b);
 };
 
 
-extern SColor colors[Color::Count];
+extern uint colors[Color::Count];
 
 #define COLOR(x) colors[x]

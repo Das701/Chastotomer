@@ -4,7 +4,7 @@
 #include "Display/Primitives.h"
 
 
-SColor colors[Color::Count] =
+uint colors[Color::Count] =
 {
     0,      // BLACK
     0,      // 
@@ -45,21 +45,16 @@ Color Color::_14(14);
 Color Color::WHITE(255);
 
 
-SColor Color::MakeFromFloat(float r, float g, float b)
+uint Color::MakeFromFloat(float red, float green, float blue)
 {
-    SColor result;
-    result.r = (uint8)(r * 255);
-    result.g = (uint8)(g * 255);
-    result.b = (uint8)(b * 255);
-    return result;
+    int r = (int)(red * 255);
+    int g = (int)(green * 255);
+    int b = (int)(blue * 255);
+    return (uint)(r | (g << 8) | (b << 16));
 }
 
 
-SColor SColor::MakeFromUint8(uint8 red, uint8 green, uint8 blue)
+uint SColor::MakeFromUint8(uint8 red, uint8 green, uint8 blue)
 {
-    SColor result;
-    result.r = red;
-    result.g = green;
-    result.b = blue;
-    return result;
+    return (uint)(red | (green << 8) | (blue << 16));
 }
