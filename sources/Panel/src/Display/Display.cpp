@@ -151,7 +151,8 @@ static void DrawScreen()
 {
     for (int i = 0; i < Display::WIDTH; i++)
     {
-        VLine(Display::HEIGHT).Draw(i, 0, (Color)i);
+        Color((uint8)i).SetAsCurrent();
+        VLine(Display::HEIGHT).Draw(i, 0);
     }
 
 

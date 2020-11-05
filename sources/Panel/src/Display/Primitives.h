@@ -43,8 +43,7 @@ namespace Display
         class VLine
         {
         public:
-            VLine(int _length) : length(_length) {};
-            void Draw(int x, int y, Color color);
+            VLine(int l) : length(l) {};
             void Draw(int x, int y);
         private:
             const int length;

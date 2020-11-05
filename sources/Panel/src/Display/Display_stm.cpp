@@ -27,8 +27,8 @@ using namespace Display::Primitives;
 #define HEIGHT_BUFFER   (272 / 2)
 static uint8 buffer[HEIGHT_BUFFER][WIDTH_BUFFER];
 
-//static const uint8 *start = &buffer[0][0];
-//static const uint8 *end = start + WIDTH_BUFFER * HEIGHT_BUFFER;
+static const uint8 *startBuffer = &buffer[0][0];
+static const uint8 *endBuffer = startBuffer + WIDTH_BUFFER * HEIGHT_BUFFER;
 
 
 static void SetLShiftFreq(uint freq)
@@ -237,6 +237,41 @@ void HLine::Draw(int x, int y)
         for (int i = x; i < end; i++)
         {
             *pointer++ = current.value;
+        }
+    }
+}
+
+
+void VLine::Draw(int x, int y)
+{
+    y -= Display::TopRow();
+
+    if (x >= 0 && x < Display::WIDTH)
+    {
+        int height = length;
+
+        if (y < 0)
+        {
+            while (y < 0 && height > 0)
+            {
+                y++;
+                height--;
+            }
+        }
+
+        if (height > 0)
+        {
+            if (y < Display::HEIGHT)
+            {
+                uint8 *pointer = &buffer[y][x];
+
+                while (pointer < endBuffer && height > 0)
+                {
+                    *pointer = current.value;
+                    pointer += Display::WIDTH;
+                    height--;
+                }
+            }
         }
     }
 }
