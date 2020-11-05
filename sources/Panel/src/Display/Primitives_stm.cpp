@@ -35,17 +35,6 @@ void Rectangle::Fill(int x0, int y0, Color color)
 }
 
 
-void HLine::Draw(int x, int y, Color color)
-{
-    color.SetAsCurrent();
-    
-    for(int i = 0; i < length; i++)
-    {
-        Point().Draw(x++, y);
-    }
-}
-
-
 void VLine::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();

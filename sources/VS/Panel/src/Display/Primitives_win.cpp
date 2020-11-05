@@ -53,3 +53,9 @@ void Point::Draw(int x, int y, Color color)
 
     memDC.DrawPoint({ x, y });
 }
+
+
+void Point::Draw(int x, int y)
+{
+    memDC.DrawPoint({ x, y });
+}
