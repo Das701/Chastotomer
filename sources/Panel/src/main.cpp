@@ -1,14 +1,10 @@
 #include "Display/Display.h"
-#include "Display/Text.h"
 #include "Hardware/FPGA.h"
 #include "Hardware/VCP.h"
 #include "Hardware/HAL/HAL.h"
 #include "Keyboard/Keyboard.h"
 #include "Menu/Menu.h"
 #include "SCPI/SCPI.h"
-
-
-using Display::Text;
 
 
 int main(void)

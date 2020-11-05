@@ -12,6 +12,7 @@ namespace Display
             Rectangle(int width, int height);
             void Draw(int x, int y);
             void Draw(int x, int y, Color color);
+            void DrawRounded(int x, int y, int round, Color color);
             void Fill(int x, int y);
             void Fill(int x, int y, Color color);
         private:

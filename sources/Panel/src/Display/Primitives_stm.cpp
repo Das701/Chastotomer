@@ -24,6 +24,17 @@ void Rectangle::Draw(int x, int y, Color color)
 }
 
 
+void Rectangle::DrawRounded(int x, int y, int round, Color color)
+{
+    color.SetAsCurrent();
+
+    HLine(width - round * 2).Draw(x + round, y);
+    HLine(width - round * 2).Draw(x + round, y + height);
+    VLine(height - round * 2).Draw(x, y + round);
+    VLine(height - round * 2).Draw(x + width, y + round);
+}
+
+
 void Rectangle::Draw(int x, int y)
 {
     HLine(width).Draw(x, y);

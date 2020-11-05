@@ -60,7 +60,7 @@ void Page::Draw(int x, int y, int, bool)
             Rectangle(WidthItem(i), HEIGHT - 1).Fill(x + 1, y + 1, Color::WHITE);
         }
         items[i]->Draw(x, y, WidthItem(i), i == selectedItem);
-        Rectangle(WidthItem(i), HEIGHT).Draw(x, y, Color::WHITE);
+        Rectangle(WidthItem(i), HEIGHT).DrawRounded(x, y, 1, Color::WHITE);
 
         x += WidthItem(i);
     }
