@@ -19,7 +19,17 @@ struct NativeSymbol
 //    uint8 data;     // Первый байт первой строки символа
 
     // Возвращает количество байт в строке
-    int BytesInRow();
+    int BytesInRow()
+    {
+        int result = width / 8;
+
+        if (width % 8)
+        {
+            result++;
+        }
+
+        return result;
+    }
     // Возвращает указатель на первый байт строки
     uint8 *GetRow(int row)
     {

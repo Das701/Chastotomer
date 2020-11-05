@@ -54,17 +54,17 @@ PAdvancedFont::PAdvancedFont(PTypeFont::E t)
 }
 
 
-int NativeSymbol::BytesInRow()
-{
-    int result = width / 8;
-
-    if (width % 8)
-    {
-        result++;
-    }
-
-    return result;
-}
+//int NativeSymbol::BytesInRow()
+//{
+//    int result = width / 8;
+//
+//    if (width % 8)
+//    {
+//        result++;
+//    }
+//
+//    return result;
+//}
 
 
 HeaderFont *HeaderFont::Sefl()
