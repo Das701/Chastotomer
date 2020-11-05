@@ -48,7 +48,23 @@ struct NativeSymbol
     // Возвращает указатель на первый байт данных
     uint8 *Data();
 
-    bool BitIsExist(int row, int bit);
+    bool BitIsExist(int r, int b)
+    {
+        uint8 *row = GetRow(r);
+
+        if (row == nullptr)
+        {
+            return false;
+        }
+
+        while (b > 7)       // Перемещаеммся к байту, содержащему наш бит
+        {
+            row++;
+            b -= 8;
+        }
+
+        return ((*row) & (1 << (7 - b))) != 0;
+    }
 };
 
 

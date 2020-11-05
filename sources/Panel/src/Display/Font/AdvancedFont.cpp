@@ -54,19 +54,6 @@ PAdvancedFont::PAdvancedFont(PTypeFont::E t)
 }
 
 
-//int NativeSymbol::BytesInRow()
-//{
-//    int result = width / 8;
-//
-//    if (width % 8)
-//    {
-//        result++;
-//    }
-//
-//    return result;
-//}
-
-
 HeaderFont *HeaderFont::Sefl()
 {
     return reinterpret_cast<HeaderFont *>(const_cast<uint8 *>(font));
@@ -76,23 +63,4 @@ HeaderFont *HeaderFont::Sefl()
 uint8 *NativeSymbol::Data()
 {
     return reinterpret_cast<uint8 *>(this) + sizeof(*this);
-}
-
-
-bool NativeSymbol::BitIsExist(int r, int b)
-{
-    uint8 *row = GetRow(r);
-
-    if (row == nullptr)
-    {
-        return false;
-    }
-
-    while (b > 7)       // Перемещаеммся к байту, содержащему наш бит
-    {
-        row++;
-        b -= 8;
-    }
-
-    return ((*row) & (1 << (7 - b))) != 0;
 }
