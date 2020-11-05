@@ -54,37 +54,6 @@ PAdvancedFont::PAdvancedFont(PTypeFont::E t)
 }
 
 
-bool PAdvancedFont::RowNotEmpty(uint8 s, int r)
-{
-    HeaderFont *header = HeaderFont::Sefl();
-
-    NativeSymbol *symbol = header->GetSymbol(s);
-
-    if (symbol)
-    {
-        if (r < symbol->firstRow)
-        {
-            return false;
-        }
-
-        uint8 *row = symbol->GetRow(r);
-
-        if (row)
-        {
-            for (int i = 0; i < symbol->BytesInRow(); i++)
-            {
-                if (row[i] != 0)
-                {
-                    return true;
-                }
-            }
-        }
-    }
-
-    return false;
-}
-
-
 uint8 PAdvancedFont::GetWidth(uint8 num)
 {
     NativeSymbol *symbol = HeaderFont::Sefl()->GetSymbol(num);
