@@ -234,6 +234,13 @@ void HAL_FSMC::WriteCommand(uint16 command)
 }
 
 
+void HAL_FSMC::WriteCommand(uint16 command, uint data)
+{
+    WriteCommand(command);
+    WriteData(data);
+}
+
+
 void HAL_FSMC::WriteData(uint data)
 {
     //pinCS.Reset();
