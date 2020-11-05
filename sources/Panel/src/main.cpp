@@ -25,7 +25,7 @@ int main(void)
 
     while((time + 3000) > TIME_MS)
     {
-        Display::StartScreen();
+        Display::DrawWelcomeScreen();
     }
 
     while (1)

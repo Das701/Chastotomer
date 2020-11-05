@@ -17,7 +17,8 @@ namespace Display
     uint8 *GetPixel(int x, int y);
    
     void BeginScene();
-    void StartScreen();
-    
-    void EndScene(); 
+
+    void EndScene();
+
+    void DrawWelcomeScreen();
 };

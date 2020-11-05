@@ -56,7 +56,7 @@ static bool needRedraw = true;
 static int autoHint = 0;
 static bool autoFlag = false;
 
-void Display::StartScreen()
+void Display::DrawWelcomeScreen()
 {   
     BeginScene();
     Text("OAO ÃÕ»œ», 43-96/2, Cherm V 1.2").Write(40, 100);
