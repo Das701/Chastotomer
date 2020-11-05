@@ -609,16 +609,6 @@
               <FilePath>.\src\Display\Font\FontBig.h</FilePath>
             </File>
             <File>
-              <FileName>AdvancedFont.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Font\AdvancedFont.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>AdvancedFont.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\AdvancedFont.h</FilePath>
-            </File>
-            <File>
               <FileName>fontGOST16B.inc</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\fontGOST16B.inc</FilePath>
@@ -1613,16 +1603,6 @@
               <FileName>FontBig.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\FontBig.h</FilePath>
-            </File>
-            <File>
-              <FileName>AdvancedFont.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Font\AdvancedFont.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>AdvancedFont.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\AdvancedFont.h</FilePath>
             </File>
             <File>
               <FileName>fontGOST16B.inc</FileName>

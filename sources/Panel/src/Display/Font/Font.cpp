@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "Display/Font/AdvancedFont.h"
+#include "Display/Font/Font.h"
 #include "Display/Font/fontGOST16B.inc"
 #include "Hardware/HAL/HAL.h"
 #include <cstring>
