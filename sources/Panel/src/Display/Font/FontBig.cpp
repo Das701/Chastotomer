@@ -738,10 +738,10 @@ static const uint16_t BigCharOffs[] = {
 	@param	foreground - palette for foreground (lower byte)
 	@return
 	*/
-void FontBig::BigStringProp_print(char *text, int x, int y, Color color)
+void FontBig::Write(char *text, int x, int y, Color color)
 {
 	while (*text) {
-		uint32_t space = BigSymbol_print((uint8)*text, x, y, color);
+		uint32_t space = WriteSymbol((uint8)*text, x, y, color);
 		x += space;
 		text++;
 	}
@@ -795,7 +795,7 @@ void FontBig::BigStringProp_print(char *text, int x, int y, Color color)
 	  @param	foreground - palette for foreground (lower byte)
 	  @return	width of symbol in pixels (for proportional string printing)
 	  */
-uint32_t FontBig::BigSymbol_print(uint8_t symbol, int x, int y, Color color)
+uint32_t FontBig::WriteSymbol(uint8_t symbol, int x, int y, Color color)
 {
     //	assert(0x30 <= symbol && symbol <= 0x39);
     bool falsecheck = false;

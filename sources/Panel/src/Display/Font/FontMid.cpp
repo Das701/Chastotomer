@@ -886,7 +886,7 @@ const uint8_t *FontMidArray_select(char symbol)
 	@param	foreground - palette for foreground (lower byte)
 	@return	width of symbol in pixels (for proportional string printing)
 	*/
-uint32_t FontMid::MidSymbol_print(uint8_t symbol, int x, int y, Color color)
+uint32_t FontMid::WriteSymbol(uint8_t symbol, int x, int y, Color color)
 {
     const uint8_t *index = FontMidArray_select((char)symbol);	// first row index
 
@@ -965,10 +965,10 @@ uint32_t FontMid::MidSymbol_print(uint8_t symbol, int x, int y, Color color)
 	@param	foreground - palette for foreground (lower byte)
 	@return
 	*/
-void FontMid::MidStringProp_print(char *text, int x, int y, Color color)
+void FontMid::Write(char *text, int x, int y, Color color)
 {
 	while (*text) {
-		uint32_t space = MidSymbol_print((uint8)*text, x, y, color);
+		uint32_t space = WriteSymbol((uint8)*text, x, y, color);
 		x += space;
 		text++;
 	}

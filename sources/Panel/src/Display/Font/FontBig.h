@@ -24,24 +24,13 @@
 #define		BIGSPACE_WIDTH		24		// character 'space' width
 #define		BIGGAP_WIDTH		4		// gap between characters
 #define		DISPLAY_WIDTH		480		// LSD screen width
-//#define		DISPLAY_WIDTH		320		// LSD screen width
 
 
-/*  Functions  _________________________________________________________________*/
 struct FontBig
 {
+    static void Write(char *text, int x, int y, Color color);
     
-//static void BigStringMono_print(char *text, int x, int y, Color color);
-static void BigStringProp_print(char *text, int x, int y, Color color);
-
-//static void BigStringMonoPad_print(char *text, uint8_t *display, 
-//							uint32_t foreground, uint32_t background);
-//static void BigStringPropPad_print(char *text, uint8_t *display, 
-//							uint32_t foreground, uint32_t background);
-
-static uint32_t BigSymbol_print(uint8_t symbol, int x, int y, Color color);
-//static uint32_t BigSymbolPad_print(uint8_t symbol, volatile uint8_t *display, 
-//						  uint32_t foreground, uint32_t background);
+    static uint32_t WriteSymbol(uint8_t symbol, int x, int y, Color color);
 };
 
 #endif
