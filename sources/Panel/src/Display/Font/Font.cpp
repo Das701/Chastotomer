@@ -5,7 +5,6 @@
 
 
 const Font *fonts[PTypeFont::Count] = {nullptr};
-const Font *font = nullptr;
 
 PTypeFont::E pushedFont = PTypeFont::None;
 PTypeFont::E currentFont = PTypeFont::None;
@@ -112,7 +111,6 @@ void Font::Set(const PTypeFont::E typeFont)
         {
         case PTypeFont::GOST16B:
         {
-            font = nullptr;
             volatile PAdvancedFont f(typeFont);
         }       
             break;
