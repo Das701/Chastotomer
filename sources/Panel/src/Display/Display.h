@@ -7,6 +7,9 @@ namespace Display
 	static const int WIDTH = 480;
 	static const int HEIGHT = 272;
 
+    // Число частей, на которые поделен дисплей для отрисовки
+    static const int NUM_PARTS = 2;
+
     void Init();
 
     // Вызвать, если требуется перерисовка

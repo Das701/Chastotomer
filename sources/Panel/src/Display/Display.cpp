@@ -52,11 +52,8 @@ static void DrawScreen();
 static void DrawInfo();
 static void DrawData();
 
-// Отрисовать верхнюю часть экрана
-static void DrawTopPart();
-
-// Отрисовать нижнюю часть экрана
-static void DrawBottomPart();
+// Отрисовать очередную часть экрана
+static void DrawPartScreen(int num);
 
 
 static bool needRedraw = true;      // Если true, требуется перерисовка дисплея
@@ -66,25 +63,21 @@ static int second = 0;
 static int topRow = 0;
 
 
-static uint timeStart = 0;
-static uint timeDraw = 0;
-static uint timeSend = 0;
-static uint timeFull = 0;
+//static uint timeStart = 0;
+//static uint timeFull = 0;
 
 
 bool Display::DrawWelcomeScreen()
 {
-    if (TIME_MS < 1000)
+    if (TIME_MS < 5000)
     {
-        topRow = 0;
-        BeginScene();
-        Text("OAO МНИПИ, 43-96/2, Cherm V 1.2").Write(40, 100, Color::WHITE);
-        EndScene();
-
-        topRow = Display::HEIGHT / 2;
-        BeginScene();
-        Text("OAO МНИПИ, 43-96/2, Cherm V 1.2").Write(40, 100, Color::WHITE);
-        EndScene();
+        for (int i = 0; i < NUM_PARTS; i++)
+        {
+            topRow = i * (Display::HEIGHT / Display::NUM_PARTS);
+            BeginScene();
+            Text("OAO МНИПИ, 43-96/2, Cherm V 1.2").Write(40, 100, Color::WHITE);
+            EndScene();
+        }
 
         return true;
     }
@@ -103,60 +96,44 @@ void Display::Update()
 {
     if (needRedraw)
     {
-        timeStart = TIME_MS;
+//        timeStart = TIME_MS;
 
-        DrawTopPart();
+        for (int i = 0; i < NUM_PARTS; i++)
+        {
+            DrawPartScreen(i);
+        }
 
-        DrawBottomPart();
-
-        timeFull = TIME_MS - timeStart;
+//        timeFull = TIME_MS - timeStart;
     }
 
     needRedraw = false;
 }
 
 
-static void DrawTopPart()
+static void DrawPartScreen(int num)
 {
-    topRow = 0;
+    topRow = num * (Display::HEIGHT / Display::NUM_PARTS);
 
-    uint timeStartDraw = TIME_MS;
+    if (num == 0)
+    {
+//        timeStart = TIME_MS;
+    }
 
     Display::BeginScene();
 
-    DrawScreen();
-
-    Text(String("Рис %d", timeDraw).c_str()).Write(100, 50, Color::WHITE);
-    Text(String("Зас %d", timeSend).c_str()).Write(100, 70, Color::WHITE);
-    Text(String("Пол %d", timeFull).c_str()).Write(100, 90, Color::WHITE);
-
-    timeDraw = TIME_MS - timeStartDraw;
-
-    uint timeStartSend = TIME_MS;
-
-    Display::EndScene();
-
-    timeSend = TIME_MS - timeStartSend;
-}
-
-
-static void DrawBottomPart()
-{
-    topRow = Display::HEIGHT / 2;
-
-    uint timeStartDraw = TIME_MS;
-
-    Display::BeginScene();
+    if (num == 0)
+    {
+//        Text(String("Пол %d", timeFull).c_str()).Write(400, 0, Color::WHITE);
+    }
 
     DrawScreen();
 
-    timeDraw += (TIME_MS - timeStartDraw);
-
-    uint timeStartSend = TIME_MS;
-
     Display::EndScene();
 
-    timeSend += (TIME_MS - timeStartSend);
+    if (num == Display::NUM_PARTS)
+    {
+        //timeFull = TIME_MS - timeStart;
+    }
 }
 
 

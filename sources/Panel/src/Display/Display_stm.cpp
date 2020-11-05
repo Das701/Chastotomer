@@ -24,7 +24,7 @@ using namespace Display::Primitives;
 
 /// В этом буфере будем рисовать. Ширина равна 480 / 2 потому, что в байте хранятся 2 пикселя с 1 из 16-ти возможных градация каждая.
 #define WIDTH_BUFFER    (480)
-#define HEIGHT_BUFFER   (272 / 2)
+#define HEIGHT_BUFFER   (272 / Display::NUM_PARTS)
 static uint8 buffer[HEIGHT_BUFFER][WIDTH_BUFFER];
 
 static const uint8 *startBuffer = &buffer[0][0];
@@ -142,7 +142,7 @@ void Display::Init()
 
 void Display::BeginScene()
 {
-    std::memset(&buffer[0][0], Color::BLACK.value, Display::WIDTH * Display::HEIGHT / 2);
+    std::memset(&buffer[0][0], Color::BLACK.value, Display::WIDTH * Display::HEIGHT / Display::NUM_PARTS);
 }
 
 
@@ -172,7 +172,7 @@ void Point::Draw(int x, int y, Color color)
 
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / 2)
+    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / Display::NUM_PARTS)
     {
         buffer[y][x] = current.value;
     }
@@ -183,7 +183,7 @@ void Point::Draw(int x, int y)
 {
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / 2)
+    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / Display::NUM_PARTS)
     {
         buffer[y][x] = current.value; 
     }
@@ -202,7 +202,7 @@ void HLine::Draw(int x, int y)
 {
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / 2)
+    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / Display::NUM_PARTS)
     {
         int end = x + length;
 
@@ -240,7 +240,7 @@ void VLine::Draw(int x, int y)
 
         if (height > 0)
         {
-            if (y < Display::HEIGHT)
+            if (y < Display::HEIGHT / Display::NUM_PARTS)
             {
                 uint8 *pointer = &buffer[y][x];
 
