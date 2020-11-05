@@ -308,32 +308,26 @@ void HAL_FSMC::SendBuffer(uint8 *buffer, int startY)
 
     for(int i = 0; i < Display::WIDTH * Display::HEIGHT / 2 / 2; i++)
     {
-        SColor color = colors[*buffer++];
+        SColor color1 = colors[*buffer++];
+        SColor color2 = colors[*buffer++];
 
         PORT_WR->BSRR = PIN_WR << 16;
-        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color.r;
-        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color.g;
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color1.r;
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color1.g;
         PORT_WR->BSRR = PIN_WR;
 
-        __asm
-        {
-            nop
-        }
+        __asm { nop }
 
         PORT_WR->BSRR = PIN_WR << 16;
-        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color.b;
-        color = colors[*buffer++];
-        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color.r;
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color1.b;
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color2.r;
         PORT_WR->BSRR = PIN_WR;
 
-        __asm
-        {
-            nop
-        }
+        __asm { nop }
 
         PORT_WR->BSRR = PIN_WR << 16;
-        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color.g;
-        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color.b;
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color2.g;
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color2.b;
         PORT_WR->BSRR = PIN_WR;
 
     }
