@@ -18,15 +18,11 @@ int main(void)
     Display::Init();
     Keyboard::Init();
     Menu::Init();   
-    Menu::Update();
-    Display::Update();
     VCP::Init();
-    //uint time = TIME_MS;
 
-    //while((time + 3000) > TIME_MS)
-    //{
-    //    Display::DrawWelcomeScreen();
-    //}
+    while (Display::DrawWelcomeScreen())
+    {
+    }
 
     while (1)
     {

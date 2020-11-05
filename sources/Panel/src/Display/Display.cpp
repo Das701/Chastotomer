@@ -72,11 +72,24 @@ static uint timeSend = 0;
 static uint timeFull = 0;
 
 
-void Display::DrawWelcomeScreen()
-{   
-    BeginScene();
-    Text("OAO ÃÕ»œ», 43-96/2, Cherm V 1.2").Write(40, 100, Color::WHITE);
-    EndScene();
+bool Display::DrawWelcomeScreen()
+{
+    if (TIME_MS < 5000)
+    {
+        topRow = 0;
+        BeginScene();
+        Text("OAO ÃÕ»œ», 43-96/2, Cherm V 1.2").Write(40, 100, Color::WHITE);
+        EndScene();
+
+        topRow = Display::HEIGHT / 2;
+        BeginScene();
+        Text("OAO ÃÕ»œ», 43-96/2, Cherm V 1.2").Write(40, 100, Color::WHITE);
+        EndScene();
+
+        return true;
+    }
+
+    return false;
 }
 
 

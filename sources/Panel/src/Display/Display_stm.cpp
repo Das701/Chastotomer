@@ -132,7 +132,7 @@ void Display::Init()
 
     for (int i = 0; i < Color::Count; i++)
     {
-        COLOR(i) = SColor::MakeFromUint8(i, i, i);
+        COLOR(i) = SColor::MakeFromUint8((uint8)i, (uint8)i, (uint8)i);
     }
 
     COLOR(Color::BLACK.value) = SColor::MakeFromUint8(0, 0, 0);
