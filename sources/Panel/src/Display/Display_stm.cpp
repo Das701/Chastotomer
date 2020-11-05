@@ -132,13 +132,11 @@ void Display::Init()
 
     for (int i = 0; i < Color::Count; i++)
     {
-        float step = 1.0F / 255.0F * i;
-
-        COLOR(i) = Color::MakeFromFloat(step, step, step);
+        COLOR(i) = SColor::MakeFromUint8(i, i, i);
     }
 
-    COLOR(Color::BLACK.value) = 0x0000;
-    COLOR(Color::WHITE.value) = 0xFFFF;
+    COLOR(Color::BLACK.value) = SColor::MakeFromUint8(0, 0, 0);
+    COLOR(Color::WHITE.value) = SColor::MakeFromUint8(255, 255, 255);
 }
 
 

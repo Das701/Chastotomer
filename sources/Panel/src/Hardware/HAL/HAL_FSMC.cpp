@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Display/Colors.h"
+#include "Display/Display.h"
 #include "Hardware/HAL/HAL.h"
 #include <stm32f4xx_hal.h>
 #include <cstdlib>
@@ -272,11 +273,7 @@ void HAL_FSMC::WriteData(uint data)
 
 
 #define SEND_PIXEL(x)                                           \
-    data = COLOR(x);                                            \
-    PORT_WR->BSRR = PIN_WR << 16;                               \
-    GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data;           \
-    GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8);    \
-    PORT_WR->BSRR = PIN_WR;
+
 
 
 static void WindowSet(unsigned int s_x, unsigned int e_x, unsigned int s_y, unsigned int e_y)
@@ -309,11 +306,26 @@ void HAL_FSMC::SendBuffer(uint8 *buffer, int startY)
 
     PORT_D_C->BSRR = PIN_D_C;
 
-    uint16 data = 0;
-
-    for(int i = 0; i < 272 * 480 / 2; i++)
+    for(int i = 0; i < Display::WIDTH * Display::HEIGHT / 2 / 2; i++)
     {
-        SEND_PIXEL(*buffer++);
+        SColor color = colors[*buffer++];
+
+        PORT_WR->BSRR = PIN_WR << 16;
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color.r;
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color.g;
+        PORT_WR->BSRR = PIN_WR;
+
+        PORT_WR->BSRR = PIN_WR << 16;
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color.b;
+        color = colors[*buffer++];
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color.r;
+        PORT_WR->BSRR = PIN_WR;
+
+        PORT_WR->BSRR = PIN_WR << 16;
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + color.g;
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + color.b;
+        PORT_WR->BSRR = PIN_WR;
+
     }
 
     PORT_CS->BSRR = PIN_CS;

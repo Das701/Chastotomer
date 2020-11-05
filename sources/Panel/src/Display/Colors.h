@@ -1,6 +1,14 @@
 #pragma once
 #include "defines.h"
 
+struct SColor
+{
+    uint8 r;
+    uint8 g;
+    uint8 b;
+
+    static SColor MakeFromUint8(uint8 red, uint8 green, uint8 blue);
+};
 
 struct Color
 {
@@ -30,10 +38,10 @@ struct Color
     void SetAsCurrent();
     static Color GetCurrent();
 
-    static uint16 MakeFromFloat(float r, float g, float b);
+    static SColor MakeFromFloat(float r, float g, float b);
 };
 
 
-extern uint16 colors[Color::Count];
+extern SColor colors[Color::Count];
 
 #define COLOR(x) colors[x]
