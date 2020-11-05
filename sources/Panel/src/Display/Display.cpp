@@ -24,37 +24,38 @@
 #include <cstdlib>
 #include <cstring>
 
-int second = 0;
+
 using namespace Display::Primitives;
 using Display::Text;
 
+
 // Нарисовать тип измерения
 static void DrawTypeMeasure();
+
 // Нарисовать режим измерения
 static void DrawModeMeasure();
+
 // Нарисовать подсказку
 static void DrawHint();
+
 // Нарисовать статус-бар
 static void DrawStatusBar();
+
+// Нарисовать строку настроек текущего канала
+static void DrawChannelSettings();
+
 static void DrawStatusBarA();
 static void DrawStatusBarB();
 static void DrawStatusBarC();
 static void DrawStatusBarD();
-// Нарисовать строку настроек текущего канала
-static void DrawChannelSettings();
-
 static void DrawScreen();
-
 static void DrawInfo();
-
 static void DrawData();
 
-extern int info;
-
-static bool needRedraw = true;
-
+static bool needRedraw = true;      // Если true, требуется перерисовка дисплея
 static int autoHint = 0;
 static bool autoFlag = false;
+static int second = 0;
 
 void Display::DrawWelcomeScreen()
 {   
