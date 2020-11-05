@@ -49,7 +49,19 @@ struct HeaderFont
     NativeSymbol symbol;        // Первый символ в таблице его смещение 256
 
     // Возвращает указатель на символ, если он присутствует в таблице и nullptr в обратном случае
-    NativeSymbol *GetSymbol(uint8 num);
+    NativeSymbol *GetSymbol(uint8 num)
+    {
+        HeaderFont *header = HeaderFont::Sefl();
+
+        if (header->offsets[num] == 0)
+        {
+            return nullptr;
+        }
+
+        uint8 *offset = reinterpret_cast<uint8 *>(header) + header->offsets[num];
+
+        return reinterpret_cast<NativeSymbol *>(offset);
+    }
 
     static HeaderFont *Sefl();
 };

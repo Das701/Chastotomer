@@ -67,21 +67,6 @@ int NativeSymbol::BytesInRow()
 }
 
 
-NativeSymbol *HeaderFont::GetSymbol(uint8 num)
-{
-    HeaderFont *header = HeaderFont::Sefl();
-
-    if (header->offsets[num] == 0)
-    {
-        return nullptr;
-    }
-
-    uint8 *offset = reinterpret_cast<uint8 *>(header) + header->offsets[num];
-
-    return reinterpret_cast<NativeSymbol *>(offset);
-}
-
-
 HeaderFont *HeaderFont::Sefl()
 {
     return reinterpret_cast<HeaderFont *>(const_cast<uint8 *>(font));
