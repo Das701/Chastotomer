@@ -22,7 +22,8 @@ struct Color
     static Color _13;
     static Color _14;
     static Color WHITE;
-    static Color Number;
+
+    static const int Count = 256;
 
     explicit Color(uint8 val) : value(val) {};
 
@@ -33,6 +34,6 @@ struct Color
 };
 
 
-extern uint16 colors[16];
+extern uint16 colors[Color::Count];
 
 #define COLOR(x) colors[x]

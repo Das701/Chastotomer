@@ -166,10 +166,7 @@ Color Color::GetCurrent()
 
 void Color::SetAsCurrent()
 {
-    if (value != Color::Number.value)
-    {
-        current = Color(value);
-    }
+    current = Color(value);
 }
 
 
@@ -179,10 +176,7 @@ void Point::Draw(int x, int y, Color color)
 
     if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / 2)
     {
-        if (color.value != Color::Number.value)
-        {
-            current = color;
-        }
+        current = color;
 
         buffer[y][x] = current.value;
     }
