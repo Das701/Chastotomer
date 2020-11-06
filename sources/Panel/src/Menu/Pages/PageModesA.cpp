@@ -159,6 +159,14 @@ DEF_SWITCH_4(sTypeMeasure,
 );
 
 
+static void OnPress_Statistics()
+{
+
+}
+
+DEF_BUTTON(bStatistics, "Стат", OnPress_Statistics);
+
+
 void PageModesA::OnChanged_ModeFrequency()
 {
     if (PageModesA::modeMeasureFrequency.IsFrequency())
@@ -201,7 +209,8 @@ void PageModesA::OnChanged_ModeFrequency()
     else if (PageModesA::modeMeasureFrequency.IsComparator())
     {
         items[1] = &sModeFrequency;
-        items[2] = nullptr;
+        items[2] = &bStatistics;
+        items[3] = nullptr;
         PageModesA::RelationOff();
     }
 
