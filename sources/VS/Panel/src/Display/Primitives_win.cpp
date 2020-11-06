@@ -63,11 +63,24 @@ void Rectangle::Fill(int x, int y, Color color)
 {
     color.SetAsCurrent();
 
-    wxBrush brush = memDC.GetBrush();
-    wxPen pen = memDC.GetPen();
-    memDC.SetBrush(wxBrush(pen.GetColour()));
-    memDC.DrawRectangle({ x, y, width + 1, height + 1 });
-    memDC.SetBrush(brush);
+    Fill(x, y);
+}
+
+
+void Rectangle::Fill(int x, int y)
+{
+    if (width == 1 && height == 1)
+    {
+        Point().Draw(x, y);
+    }
+    else
+    {
+        wxBrush brush = memDC.GetBrush();
+        wxPen pen = memDC.GetPen();
+        memDC.SetBrush(wxBrush(pen.GetColour()));
+        memDC.DrawRectangle({ x, y, width, height });
+        memDC.SetBrush(brush);
+    }
 }
 
 
