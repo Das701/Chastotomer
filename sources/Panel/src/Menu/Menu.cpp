@@ -87,13 +87,30 @@ static void SetCurrentChannel(const Control &control)
     {
         if (Menu::OpenedPage()->IsPageSettings())
         {
-            Math::CircleIncrease<uint8>((uint8*)&set.currentChannel, 0, Channel::Count - 1);
+            Math::CircleIncrease<uint8>((uint8 *)&CURRENT_CHANNEL, 0, Channel::Count - 1);
         }
 
         if (CURRENT_CHANNEL_IS_A)       { openedPage = PageSettingsA::self; }
         else if (CURRENT_CHANNEL_IS_B)  { openedPage = PageSettingsB::self; }
         else if (CURRENT_CHANNEL_IS_C)  { openedPage = PageSettingsC::self; }
         else if (CURRENT_CHANNEL_IS_D)  { openedPage = PageSettingsD::self; }
+
+        Hint::Hide();
+
+        FreqMeter::LoadChannel();
+    }
+
+    if (control.value == Control::Mode)
+    {
+        if (Menu::OpenedPage()->IsPageModes())
+        {
+            Math::CircleIncrease<uint8>((uint8 *)&CURRENT_CHANNEL, 0, Channel::Count - 1);
+        }
+
+        if (CURRENT_CHANNEL_IS_A)      { openedPage = PageModesA::self; }
+        else if (CURRENT_CHANNEL_IS_B) { openedPage = PageModesB::self; }
+        else if (CURRENT_CHANNEL_IS_C) { openedPage = PageModesC::self; }
+        else if (CURRENT_CHANNEL_IS_D) { openedPage = PageModesD::self; }
 
         Hint::Hide();
 
@@ -108,23 +125,16 @@ static bool OpenPage(Control control)
     {
         return false;
     }
-    
-    Page *pageMode = nullptr;
-    
-    if (CURRENT_CHANNEL_IS_A)       { pageMode = PageModesA::self; }
-    else if (CURRENT_CHANNEL_IS_B)  { pageMode = PageModesB::self; }
-    else if (CURRENT_CHANNEL_IS_C)  { pageMode = PageModesC::self; }
-    else if (CURRENT_CHANNEL_IS_D)  { pageMode = PageModesD::self; }
-        
-    Page * const pages[Control::Count] =
+           
+    SetCurrentChannel(control);
+
+    Page *const pages[Control::Count] =
     {
         nullptr,                            //  0
-        pageMode,                           //  Control::Mode
+        nullptr,                            //  Control::Mode
         PageIndication::self,               //  Control::Indication
         nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
     };
-
-    SetCurrentChannel(control);
 
     Page *page = pages[control.value];
 
