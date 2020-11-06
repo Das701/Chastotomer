@@ -775,8 +775,8 @@ uint32_t FontBig::WriteSymbol(uint8_t symbol, int x, int y, Color color)
 	uint32_t code;
 	uint8_t *endMem = (uint8_t *)(0x807FFFF); //-V566
 
-	while (true)
-	{ //-V2530
+	while (true)   //-V2530
+	{
 		code = *index++;
 
 		if (code == 0)
