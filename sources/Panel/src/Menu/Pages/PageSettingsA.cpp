@@ -86,9 +86,9 @@ static void OnPress_Divider()
 
 // Включение(отключение) входного делителя напряжения
 DEF_SWITCH_UGO_2(sDivider,
-    "\x7E\x7F\x7E \x7E\x7F\x8F", "Вкл/откл входного делителя",
+    "1:1 1:10", "Вкл/откл входного делителя",
     "1:1", "1:10",
-    "", "1:10",
+    "1:1", "1:10",
     PageSettingsA::divider, OnPress_Divider
 );
 
