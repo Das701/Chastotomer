@@ -159,7 +159,8 @@ static const uint16_t	FontMidRow[] = {
   @brief	Font Middle-Size rows index (8-bit)
   @note		Comments: bitmap, spase-mark-space... (chars...)
   */
-typedef enum {
+typedef enum
+{
 	fmrx_s16 = FONTMID_STARTINDEX,
 	fmrx_s12_3_1,					//  
 	fmrx_s11_3_2,					//  
@@ -734,7 +735,8 @@ static const uint8_t fontmid_degree[] = {		//  °
 const uint8_t *FontMidArray_select(char symbol)
 {
 	const uint8_t *array;
-	switch (symbol) {
+	switch (symbol)
+	{
 	case '%':
 		array = fontmid_percent;
 		break;
@@ -836,182 +838,87 @@ const uint8_t *FontMidArray_select(char symbol)
 
 
 /*!*****************************************************************************
-  @brief	Mid Symbol print with background padding
-  @param	symbol - character
-  @param	display - pointer to top left corner in LCD buffer memory
-  @param	foreground - palette for foreground (lower byte)
-  @param	background - palette for background (lower byte)
-  @return	width of symbol in pixels (for proportional string printing)
-  */
-  //uint32_t FontMid::MidSymbolPad_print(uint8_t symbol, volatile uint8_t *display, 
-  //						  uint32_t foreground, uint32_t background)
-  //{
-  //	const uint8_t *index = FontMidArray_select(symbol);	// first row index
-  //
-  //	uint32_t width = 0;
-  //	if (symbol == ' ') width = FONTMID_SPACEWIDTH;		// space width
-  //
-  //	uint32_t same = 0;									// number of the same rows
-  //	uint32_t row;										// row of pixels
-  //	uint32_t code;
-  //
-  //	while (code = *index++) {
-  //		if (code >= FONTMID_STARTINDEX) {
-  //			if (!same)  same = 1;						// new row -> one row
-  //			row = FontMidRow[code - FONTMID_STARTINDEX];
-  //		}
-  //		else {
-  //			same = code;								// multi-rows
-  //			continue;
-  //		}
-  //		
-  //		for ( ; same; same-- ) {
-  //			uint32_t rowshift = row;					// row for shift
-  //			for (uint32_t i = 0; i < 16; i++) {
-  //				uint32_t pixel = rowshift & 0x8000;
-  //				*(display + i) =  pixel ? foreground : background;
-  //				if (pixel && i > width)  width = i;
-  //				rowshift <<= 1;
-  //			}
-  //			display += DISPLAY_WIDTH;
-  //		}
-  //	}
-  //	return width + FONTMID_GAPWIDTH;
-  //}
-
-  /*!*****************************************************************************
-	@brief	Mid Symbol print without background padding
-	@param	symbol - character
-	@param	display - pointer to top left corner in LCD buffer memory
-	@param	foreground - palette for foreground (lower byte)
-	@return	width of symbol in pixels (for proportional string printing)
-	*/
+	@brief    Mid Symbol print without background padding
+	@param    symbol - character
+	@param    display - pointer to top left corner in LCD buffer memory
+	@param    foreground - palette for foreground (lower byte)
+	@return   width of symbol in pixels (for proportional string printing)
+*/
 uint32_t FontMid::WriteSymbol(uint8_t symbol, int x, int y, Color color)
 {
-    const uint8_t *index = FontMidArray_select((char)symbol);	// first row index
+	const uint8_t *index = FontMidArray_select((char)symbol);	// first row index
 
-    uint32_t width = 0;
-    if (symbol == ' ')
-    {
-        width = FONTMID_SPACEWIDTH;			// space width
-    }
+	uint32_t width = 0;
+	if (symbol == ' ')
+	{
+		width = FONTMID_SPACEWIDTH;			// space width
+	}
 
-    uint32_t same = 0;									// number of the same rows
-    uint32_t row;										// row of pixels
-    uint32_t code;
+	uint32_t same = 0;									// number of the same rows
+	uint32_t row;										// row of pixels
+	uint32_t code;
 
-    while (true) {
-        code = *index++;
-        if (code == 0)
-        {
-            break;
-        }
-        if (code >= FONTMID_STARTINDEX) {
-            if (same == 0)
-            {
-                same = 1;						// new row -> one row
-            }
-            row = FontMidRow[code - FONTMID_STARTINDEX];
-        }
-        else {
-            same = code;								// multi-rows
-            continue;
-        }
+	while (true)
+	{
+		code = *index++;
+		if (code == 0)
+		{
+			break;
+		}
+		if (code >= FONTMID_STARTINDEX)
+		{
+			if (same == 0)
+			{
+				same = 1;						// new row -> one row
+			}
+			row = FontMidRow[code - FONTMID_STARTINDEX];
+		}
+		else
+		{
+			same = code;								// multi-rows
+			continue;
+		}
 
-        for (; same; same--) {
-            uint32_t rowshift = row;					// row for shift
-            for (uint32_t i = 0; i < 16; i++) {
-                uint32_t pixel = rowshift & 0x8000;
-                if (pixel != 0)
-                {
-                    Point().Draw((int)(x + i), y, color);
-                }
+		for (; same; same--)
+		{
+			uint32_t rowshift = row;					// row for shift
+			for (uint32_t i = 0; i < 16; i++)
+			{
+				uint32_t pixel = rowshift & 0x8000;
+				if (pixel != 0)
+				{
+					Point().Draw((int)(x + i), y, color);
+				}
 				if ((pixel != 0) && i > width)
 				{
 					width = i;
 				}
-                rowshift <<= 1;
+				rowshift <<= 1;
 				if (rowshift == 0)
 				{
 					break;
 				}
-            }
-            y++;
-        }
-    }
-    return width + FONTMID_GAPWIDTH;
+			}
+			y++;
+		}
+	}
+	return width + FONTMID_GAPWIDTH;
 }
 
-/*!*****************************************************************************
-  @brief	Mid Text String Monospace print without Background Padding
-  @param	text - pointer to text string
-  @param	display - pointer to top left corner in LCD buffer memory
-  @param	foreground - palette for foreground (lower byte)
-  @return
-  */
-  //void FontMid::MidStringMono_print(char *text, int x, int y, Color color)
-  //{
-  //	while (*text) {
-  //		MidSymbol_print(*text, x, y, color);
-  //		x += FONTMID_SYMBWIDTH;
-  //		text++;
-  //	}
-  //}
 
-  /*!*****************************************************************************
-	@brief	Mid Text String Proportional space print without Background Padding
-	@param	text - pointer to text string
-	@param	display - pointer to top left corner in LCD buffer memory
-	@param	foreground - palette for foreground (lower byte)
+/*!*****************************************************************************
+	@brief   Mid Text String Proportional space print without Background Padding
+	@param   text - pointer to text string
+	@param   display - pointer to top left corner in LCD buffer memory
+	@param   foreground - palette for foreground (lower byte)
 	@return
-	*/
+*/
 void FontMid::Write(char *text, int x, int y, Color color)
 {
-	while (*text) {
+	while (*text)
+	{
 		uint32_t space = WriteSymbol((uint8)*text, x, y, color);
 		x += space;
 		text++;
 	}
 }
-
-
-/*!*****************************************************************************
-  @brief	Mid Text String Monospace print with Background Padding
-  @param	text - pointer to text string
-  @param	display - pointer to top left corner in LCD buffer memory
-  @param	foreground - palette for foreground (lower byte)
-  @param	background - palette for background (lower byte)
-  @return
-  */
-  //void FontMid::MidStringMonoPad_print(char *text, uint8_t *display, 
-  //							uint32_t foreground, uint32_t background)
-  //{
-  //	while (*text) {
-  //		MidSymbolPad_print(*text, display, foreground, background);
-  //		display += FONTMID_SYMBWIDTH;
-  //		text++;
-  //	}
-  //}
-
-
-  /*!*****************************************************************************
-	@brief	Mid Text String Proportional space print with Background Padding
-	@param	text - pointer to text string
-	@param	display - pointer to top left corner in LCD buffer memory
-	@param	foreground - palette for foreground (lower byte)
-	@param	background - palette for background (lower byte)
-	@return
-	*/
-	//void FontMid::MidStringPropPad_print(char *text, uint8_t *display, 
-	//							uint32_t foreground, uint32_t background)
-	//{
-	//	while (*text) {
-	//		uint32_t space = MidSymbolPad_print(*text, display, foreground, background);
-	//		display += space;
-	//		text++;
-	//	}
-	//}
-
-
-
-
