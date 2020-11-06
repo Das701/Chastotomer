@@ -1,1 +1,1 @@
-start ../../Chastotomer.uvmpw
+start ../../CH3-96-2.uvmpw
