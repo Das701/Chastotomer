@@ -55,6 +55,8 @@ static void DrawData();
 // Отрисовать очередную часть экрана
 static void DrawPartScreen(int num);
 
+static void SetTopRow(int i);
+
 
 static bool needRedraw = true;      // Если true, требуется перерисовка дисплея
 static int autoHint = 0;
@@ -67,13 +69,17 @@ static uint timeStart = 0;
 static uint timeFull = 0;
 
 
+static int topDraw = 0;             // Верхний у отрисовываемой части экрана
+static int bottomhDraw = 0;         // Нижний у отрисовываемой части экрана
+
+
 bool Display::DrawWelcomeScreen()
 {
     if (TIME_MS < 1000)
     {
         for (int i = 0; i < NUM_PARTS; i++)
         {
-            topRow = i * (Display::HEIGHT / Display::NUM_PARTS);
+            SetTopRow(i);
             BeginScene();
             Text("OAO МНИПИ, 43-96/2, Cherm V 1.2").Write(40, 100, Color::WHITE);
             EndScene();
@@ -83,6 +89,15 @@ bool Display::DrawWelcomeScreen()
     }
 
     return false;
+}
+
+
+static void SetTopRow(int i)
+{
+    topRow = i * (Display::HEIGHT / Display::NUM_PARTS);
+
+    topDraw = topRow;
+    bottomhDraw = topDraw + Display::HEIGHT / Display::NUM_PARTS;
 }
 
 
@@ -112,7 +127,7 @@ void Display::Update()
 
 static void DrawPartScreen(int num)
 {
-    topRow = num * (Display::HEIGHT / Display::NUM_PARTS);
+    SetTopRow(num);
 
     if (num == 0)
     {
@@ -521,4 +536,27 @@ static void DrawStatusBarD()
 int Display::TopRow()
 {
     return topRow;
+}
+
+
+bool Display::InDrawingPart(int y, int height)
+{
+    int yBottom = y + height;
+
+    if (y >= topDraw && y <= bottomhDraw)
+    {
+        return true;
+    }
+
+    if (y <= topDraw && yBottom >= bottomhDraw)
+    {
+        return true;
+    }
+
+    if (yBottom >= topDraw && yBottom <= bottomhDraw)
+    {
+        return true;
+    }
+
+    return false;
 }

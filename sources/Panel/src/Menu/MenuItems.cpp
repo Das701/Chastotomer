@@ -54,18 +54,21 @@ void Button::Draw(int x, int y, int width, bool selected)
 
 void Page::Draw(int x, int y, int, bool)
 {
-    for (int i = 0; i < NumItems(); i++)
+    if (Display::InDrawingPart(y, HEIGHT))
     {
-        if (i == selectedItem)
+        for (int i = 0; i < NumItems(); i++)
         {
-            Rectangle(WidthItem(i) - 1, HEIGHT - 1).Fill(x + 1, y + 1, Color::WHITE);
+            if (i == selectedItem)
+            {
+                Rectangle(WidthItem(i) - 1, HEIGHT - 1).Fill(x + 1, y + 1, Color::WHITE);
+            }
+
+            items[i]->Draw(x, y, WidthItem(i), i == selectedItem);
+
+            Rectangle(WidthItem(i), HEIGHT).DrawRounded(x, y, 2, Color::WHITE);
+
+            x += WidthItem(i);
         }
-
-        items[i]->Draw(x, y, WidthItem(i), i == selectedItem);
-
-        Rectangle(WidthItem(i), HEIGHT).DrawRounded(x, y, 2, Color::WHITE);
-
-        x += WidthItem(i);
     }
 }
 

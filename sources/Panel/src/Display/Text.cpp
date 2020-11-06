@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Menu/MenuItems.h"
@@ -65,11 +66,14 @@ int Text::Write(int x, int y)
 
 int Text::WriteSymbols(char* start, int num, int x, int y) const
 {
-    char* p = start;
-
-    for (int i = 0; i < num; i++)
+    if (Display::InDrawingPart(y, Font::GetHeight()))
     {
-        x = WriteSymbol(x, y, (uint8)(*p++)) + Font::GetSpacing();
+        char *p = start;
+
+        for (int i = 0; i < num; i++)
+        {
+            x = WriteSymbol(x, y, (uint8)(*p++)) + Font::GetSpacing();
+        }
     }
 
     return x;
@@ -86,11 +90,14 @@ int Text::Write(int x, int y, int width, Color color)
 
 int Text::Write(int x, int y, int width)
 {
-    int length = Font::GetLengthText(text);
+    if (Display::InDrawingPart(y, Font::GetHeight()))
+    {
+        int length = Font::GetLengthText(text);
 
-    int delta = (width - length) / 2;
+        int delta = (width - length) / 2;
 
-    Write(x + delta, y);
+        x = Write(x + delta, y);
+    }
 
     return x;
 }
