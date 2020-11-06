@@ -84,7 +84,7 @@ public:
     Page(Item **_items = nullptr) : selectedItem(0), items(_items) {};
 
     virtual void Draw(int x, int y, int width, bool selected = false);
-    virtual bool OnControl(const Control &control);    
+    virtual bool OnControl(const Control &) { return false; };
 
     // Возвращает указатель на выделенный пункт меню
     Item *SelectedItem() { return items[selectedItem]; };
@@ -95,16 +95,16 @@ public:
     // Возвращает true, если это страница настроек
     bool IsPageSettings() const;
 
-    // Номер выбранного итема
-    int selectedItem;
-
-private:
-
     // Делает текущим следующий элемент
     void SelectNextItem();
 
     // Делает текущим предыдущий элемент
     void SelectPrevItem();
+
+    // Номер выбранного итема
+    int selectedItem;
+
+private:
 
     // Возвращает количество итемов на странице
     int NumItems() const;

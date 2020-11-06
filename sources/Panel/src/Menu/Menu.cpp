@@ -4,6 +4,7 @@
 #include "Display/Font/Font.h"
 #include "Keyboard/Keyboard.h"
 #include "Hardware/FPGA.h"
+#include "Hardware/MathFPGA.h"
 #include "Menu/Hint.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
@@ -18,6 +19,9 @@ using namespace Display;
 
 // ќткрывает страницу, соответствующую воздействию control. ¬озвращает false, если дл€ воздействи€ нет соответствующей страницы
 static bool OpenPage(Control control);
+
+// ќбработка событи€ клаиатуры
+static bool OnControl(const Control &control);
 
 // “екуща€ отображаема€ страница меню
 static Page *openedPage = PageModesA::self;
@@ -62,7 +66,7 @@ bool Menu::Update()
 
         if (!processed)
         {
-            processed = openedPage->OnControl(control);
+            processed = OnControl(control);
         }
 
         if (!processed)
@@ -210,4 +214,93 @@ char *Menu::ChannelSettings()
 Page* Menu::OpenedPage()
 {
     return openedPage;
+}
+
+
+static bool OnControl(const Control &control) //-V2008
+{
+    bool result = false;
+
+    switch (control.value)
+    {
+    case Control::Right:
+        openedPage->SelectNextItem();
+        Hint::Hide();
+        result = true;
+        break;
+
+    case Control::Left:
+        openedPage->SelectPrevItem();
+        Hint::Hide();
+        result = true;
+        break;
+
+    case Control::GovLeft:
+        FPGA::DecreaseN();
+        FPGA::WriteData();
+        break;
+
+    case Control::GovRight:
+        FPGA::IncreaseN();
+        FPGA::WriteData();
+        break;
+
+    case Control::Enter:
+        if (openedPage->SelectedItem())
+        {
+            result = openedPage->SelectedItem()->OnControl(control);
+        }
+        break;
+
+    case Control::Mode:
+        if (CURRENT_CHANNEL_IS_A)
+        {
+            PageModesA::PressSetup();
+        }
+        else if (CURRENT_CHANNEL_IS_B)
+        {
+            PageModesB::PressSetupB();
+        }
+        break;
+
+    case Control::Test:
+        if ((PageModesA::modeMeasureFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
+            (PageModesB::modeMeasureFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B))
+        {
+        }
+        else
+        {
+            FreqMeter::LoadTest();
+        }
+        break;
+
+    case Control::Auto:
+        if ((PageModesA::typeMeasure.IsFrequency() && PageModesA::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
+            (PageModesB::typeMeasure.IsFrequency() && PageModesB::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
+            (PageModesC::typeMeasure.IsFrequency() && PageModesC::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
+            (PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
+            (PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
+            (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_A) ||
+            (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_B))
+        {
+            MathFPGA::Auto::Refresh();
+            FreqMeter::LoadAuto();
+            FPGA::SwitchAuto();
+        }
+        break;
+
+    case Control::Indication:
+    case Control::Channels:
+    case Control::GovButton:
+    case Control::Service:
+    case Control::Count:
+    case Control::None:
+        break;
+
+    default:
+        // никаких действий по умолчанию производить не требуетс€
+        break;
+    }
+
+    return result;
 }
