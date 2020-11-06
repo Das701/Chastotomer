@@ -550,6 +550,14 @@ int Display::TopRow()
 }
 
 
+#ifdef WIN32
+
+bool Display::InDrawingPart(int, int)
+{
+    return true;
+
+#else
+
 bool Display::InDrawingPart(int y, int height)
 {
     int yBottom = y + height;
@@ -570,4 +578,7 @@ bool Display::InDrawingPart(int y, int height)
     }
 
     return false;
+
+#endif
+
 }
