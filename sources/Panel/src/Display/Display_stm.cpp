@@ -135,8 +135,9 @@ void Display::Init()
         COLOR(i) = SColor::MakeFromUint8((uint8)i, (uint8)i, (uint8)i);
     }
 
-    COLOR(Color::BLACK.value) = SColor::MakeFromUint8(0, 0, 0);
-    COLOR(Color::WHITE.value) = SColor::MakeFromUint8(255, 255, 255);
+    Font::Set(PTypeFont::GOST16B);
+
+    Font::SetSpacing(2);
 }
 
 
