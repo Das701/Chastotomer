@@ -37,6 +37,8 @@ struct Control
     Control(E v = None, Action::E a = Action::Press) : value(v), action(a) {};
 
     const char *Name();
+
+    bool IsRotateGovernor() const { return (value == GovLeft) || (value == GovRight); }
 };
 
 namespace Keyboard

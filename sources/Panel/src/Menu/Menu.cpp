@@ -3,6 +3,7 @@
 #include "Display/Display.h"
 #include "Display/Font/Font.h"
 #include "Keyboard/Keyboard.h"
+#include "Hardware/FPGA.h"
 #include "Menu/Hint.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
@@ -36,7 +37,35 @@ bool Menu::Update()
 
         Control control = Keyboard::NextControl();
 
-        if (!openedPage->OnControl(control))
+        bool processed = false;
+
+        if (PageIndication::calibration.IsPressed())
+        {
+            if (CURRENT_CHANNEL_IS_A_OR_B)
+            {
+                if (control.value == Control::GovLeft)
+                {
+                    LevelSynch::Change(CURRENT_CHANNEL, -2);
+                    FPGA::DecreaseN();
+                    FPGA::WriteData();
+                    processed = true;
+                }
+                else if (control.value == Control::GovRight)
+                {
+                    LevelSynch::Change(CURRENT_CHANNEL, 2);
+                    FPGA::IncreaseN();
+                    FPGA::WriteData();
+                    processed = true;
+                }
+            }
+        }
+
+        if (!processed)
+        {
+            processed = openedPage->OnControl(control);
+        }
+
+        if (!processed)
         {
             OpenPage(control);
         }

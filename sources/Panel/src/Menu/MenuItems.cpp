@@ -104,14 +104,6 @@ bool Page::IsPageSettings() const
 }
 
 
-static bool ChangeLevelSynch(int delta)
-{
-    LevelSynch::Change(CURRENT_CHANNEL, delta);
-
-    return true;
-}
-
-
 bool Page::OnControl(const Control &control) //-V2008
 {
     bool result = false;
@@ -119,61 +111,23 @@ bool Page::OnControl(const Control &control) //-V2008
     switch (control.value)
     {
     case Control::Right:
-        if (PageIndication::calibration.Is(Calibration::Pressed))
-        {
-            if (SelectedItem())
-            {
-                result = SelectedItem()->OnControl(control);
-            }
-        }
-        else
-        {
-            SelectNextItem();
-            Hint::Hide();
-            result = true;
-        }
+        SelectNextItem();
+        Hint::Hide();
+        result = true;
         break;
 
     case Control::Left:
-        if (PageIndication::calibration.Is(Calibration::Pressed))
-        {
-            if (SelectedItem())
-            {
-                result = SelectedItem()->OnControl(control);
-            }
-        }
-        else
-        {
-            SelectPrevItem();
-            Hint::Hide();
-            result = true;
-        }
+        SelectPrevItem();
+        Hint::Hide();
+        result = true;
         break;
 
     case Control::GovLeft:
-
-        if (PageIndication::calibration.Is(Calibration::Pressed))
-        {
-        }
-        else if(CURRENT_CHANNEL_IS_A_OR_B)
-        {
-            result = ChangeLevelSynch(-2);
-        }
-
         FPGA::DecreaseN();
         FPGA::WriteData();
         break;
 
     case Control::GovRight:
-
-        if (PageIndication::calibration.Is(Calibration::Pressed))
-        {
-        }
-        else if(CURRENT_CHANNEL_IS_A_OR_B)
-        {
-            result = ChangeLevelSynch(2);
-        }
-
         FPGA::IncreaseN();
         FPGA::WriteData();
         break;
@@ -183,7 +137,6 @@ bool Page::OnControl(const Control &control) //-V2008
         {
             result = SelectedItem()->OnControl(control);
         }
-
         break;
 
     case Control::Count:
@@ -193,13 +146,6 @@ bool Page::OnControl(const Control &control) //-V2008
         break;
 
     case Control::Mode:
-        if (PageIndication::calibration.Is(Calibration::Pressed))
-        {
-            if (SelectedItem())
-            {
-                result = SelectedItem()->OnControl(control);
-            }
-        }
         if (CURRENT_CHANNEL_IS_A)
         {
             PageModesA::PressSetup();
@@ -211,91 +157,40 @@ bool Page::OnControl(const Control &control) //-V2008
         break;
 
     case Control::Indication:
-        if (PageIndication::calibration.Is(Calibration::Pressed))
-        {
-            if (SelectedItem())
-            {
-                result = SelectedItem()->OnControl(control);
-            }
-        }
         break;
 
     case Control::Channels:
-        if (PageIndication::calibration.Is(Calibration::Pressed))
-        {
-            if (SelectedItem())
-            {
-                result = SelectedItem()->OnControl(control);
-            }
-        }
         break;
 
     case Control::GovButton:
-        if (SelectedItem())
-        {
-            result = SelectedItem()->OnControl(control);
-        }
         break;
 
     case Control::Service:
-        if (PageIndication::calibration.Is(Calibration::Pressed))
-        {
-            if (SelectedItem())
-            {
-                result = SelectedItem()->OnControl(control);
-            }
-        }
-        else
-        {
-            PageModesA::RelationOff();
-            PageModesA::InterpolateOff();
-            PageModesA::DCycleOff();
-        }
         break;
 
     case Control::Test:
-        if (PageIndication::calibration.Is(Calibration::Pressed))
+        if ((PageModesA::modeMeasureFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
+            (PageModesB::modeMeasureFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B))
         {
-            if (SelectedItem())
-            {
-                result = SelectedItem()->OnControl(control);
-            }
         }
         else
         {
-            if ((PageModesA::modeMeasureFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
-                (PageModesB::modeMeasureFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B))
-            {
-            }
-            else
-            {
-                FreqMeter::LoadTest();
-            }
+            FreqMeter::LoadTest();
         }
         break;
 
     case Control::Auto:
-        if (PageIndication::calibration.Is(Calibration::Pressed))
+        if ((PageModesA::typeMeasure.IsFrequency() && PageModesA::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
+            (PageModesB::typeMeasure.IsFrequency() && PageModesB::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
+            (PageModesC::typeMeasure.IsFrequency() && PageModesC::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
+            (PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
+            (PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
+            (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_A) ||
+            (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_B))
         {
-            if (SelectedItem())
-            {
-                result = SelectedItem()->OnControl(control);
-            }
-        }
-        else
-        {
-            if ((PageModesA::typeMeasure.IsFrequency() && PageModesA::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
-                (PageModesB::typeMeasure.IsFrequency() && PageModesB::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
-                (PageModesC::typeMeasure.IsFrequency() && PageModesC::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
-                (PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
-                (PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
-                (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_A) ||
-                (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Ndt() && CURRENT_CHANNEL_IS_B))
-            {
-                MathFPGA::Auto::Refresh();
-                FreqMeter::LoadAuto();
-                FPGA::SwitchAuto();
-            }
+            MathFPGA::Auto::Refresh();
+            FreqMeter::LoadAuto();
+            FPGA::SwitchAuto();
         }
         break;
 
