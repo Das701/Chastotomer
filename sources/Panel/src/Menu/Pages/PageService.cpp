@@ -3,9 +3,6 @@
 #include "Menu/Pages/PageService.h"
 
 
-extern Item *items[7];
-
-
 static void OnPress_Information()
 {
 
@@ -13,12 +10,37 @@ static void OnPress_Information()
 
 DEF_BUTTON(bInformation, "»нфо", OnPress_Information);
 
+
+static void OnPress_ResetSettings()
+{
+
+}
+
+DEF_BUTTON(bResetSettings, "—брос настроек", OnPress_ResetSettings);
+
+
+static void OnPress_Language()
+{
+
+}
+
+DEF_BUTTON(bLanguage, "язык", OnPress_Language);
+
+
+static void OnPress_ResetMode()
+{
+
+}
+
+DEF_BUTTON(bResetMode, "—брос режима", OnPress_ResetMode);
+
+
 static Item *items[7] =
 {
     &bInformation,
-    nullptr,
-    nullptr,
-    nullptr,
+    &bResetSettings,
+    &bLanguage,
+    &bResetMode,
     nullptr,
     nullptr,
     nullptr

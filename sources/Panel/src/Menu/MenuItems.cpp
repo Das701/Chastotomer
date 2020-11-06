@@ -38,18 +38,6 @@ bool Button::OnControl(const Control &)
 }
 
 
-void Button::Draw(int x, int y, int width, bool selected)
-{
-    if (selected)
-    {
-        Color::BLACK.SetAsCurrent();
-    }
-
-    Text(text).Write(x, y + 2, width);
-}
-
-
-
 void Page::Draw(int x, int y, int, bool)
 {
     if (Display::InDrawingPart(y, HEIGHT))
@@ -206,6 +194,17 @@ bool Switch::OnControl(const Control &control)
 
 
 void Switch::Draw(int x, int y, int width, bool selected)
+{
+    if (selected)
+    {
+        Color::BLACK.SetAsCurrent();
+    }
+
+    Text(text).WriteInCenterRect(x, y, width, HEIGHT);
+}
+
+
+void Button::Draw(int x, int y, int width, bool selected)
 {
     if (selected)
     {
