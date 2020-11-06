@@ -48,7 +48,7 @@ static TIM_HandleTypeDef handleTIM4;
 
 static Control::E controls[NUM_SL][NUM_RL] =
 {
-    {Control::Esc,          Control::Test,  Control::Auto,          Control::GovButton},
+    {Control::Service,      Control::Test,  Control::Auto,          Control::GovButton},
     {Control::Channels,     Control::Mode,  Control::Indication,    Control::None},
     {Control::Enter,        Control::Left,  Control::None,          Control::None},
     {Control::Right,        Control::None,  Control::None,          Control::None},

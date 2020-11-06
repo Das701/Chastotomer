@@ -17,8 +17,6 @@
 using namespace Display::Primitives;
 using namespace Display;
 
-int info = 0;
-
 
 
 int Enumeration::NumStates() const
@@ -134,7 +132,6 @@ bool Page::OnControl(const Control &control) //-V2008
             Hint::Hide();
             result = true;
         }
-        info = 1;
         break;
 
     case Control::Left:
@@ -151,7 +148,6 @@ bool Page::OnControl(const Control &control) //-V2008
             Hint::Hide();
             result = true;
         }
-        info = 2;
         break;
 
     case Control::GovLeft:
@@ -166,7 +162,6 @@ bool Page::OnControl(const Control &control) //-V2008
 
         FPGA::DecreaseN();
         FPGA::WriteData();
-        info = 3;
         break;
 
     case Control::GovRight:
@@ -181,7 +176,6 @@ bool Page::OnControl(const Control &control) //-V2008
 
         FPGA::IncreaseN();
         FPGA::WriteData();
-        info = 4;
         break;
 
     case Control::Enter:
@@ -189,15 +183,15 @@ bool Page::OnControl(const Control &control) //-V2008
         {
             result = SelectedItem()->OnControl(control);
         }
-        info = 5;
+
         break;
 
     case Control::Count:
-        info = 6;
         break;
+
     case Control::None:
-        info = 7;
         break;
+
     case Control::Mode:
         if (PageIndication::calibration.Is(Calibration::Pressed))
         {
@@ -214,8 +208,8 @@ bool Page::OnControl(const Control &control) //-V2008
         {
             PageModesB::PressSetupB();
         }
-        info = 8;
         break;
+
     case Control::Indication:
         if (PageIndication::calibration.Is(Calibration::Pressed))
         {
@@ -224,8 +218,8 @@ bool Page::OnControl(const Control &control) //-V2008
                 result = SelectedItem()->OnControl(control);
             }
         }
-        info = 9;
         break;
+
     case Control::Channels:
         if (PageIndication::calibration.Is(Calibration::Pressed))
         {
@@ -234,16 +228,16 @@ bool Page::OnControl(const Control &control) //-V2008
                 result = SelectedItem()->OnControl(control);
             }
         }
-        info = 10;
         break;
+
     case Control::GovButton:
         if (SelectedItem())
         {
             result = SelectedItem()->OnControl(control);
         }
-        info = 11;
         break;
-    case Control::Esc:
+
+    case Control::Service:
         if (PageIndication::calibration.Is(Calibration::Pressed))
         {
             if (SelectedItem())
@@ -257,8 +251,8 @@ bool Page::OnControl(const Control &control) //-V2008
             PageModesA::InterpolateOff();
             PageModesA::DCycleOff();
         }
-        info = 12;
         break;
+
     case Control::Test:
         if (PageIndication::calibration.Is(Calibration::Pressed))
         {
@@ -278,8 +272,8 @@ bool Page::OnControl(const Control &control) //-V2008
                 FreqMeter::LoadTest();
             }
         }
-        info = 13;
         break;
+
     case Control::Auto:
         if (PageIndication::calibration.Is(Calibration::Pressed))
         {
@@ -303,7 +297,6 @@ bool Page::OnControl(const Control &control) //-V2008
                 FPGA::SwitchAuto();
             }
         }
-        info = 14;
         break;
 
     default:

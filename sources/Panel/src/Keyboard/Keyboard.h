@@ -13,7 +13,7 @@ struct Control
 /*  4 */   Right,
 /*  5 */   Channels,
 /*  6 */   Enter,
-/*  7 */   Esc,
+/*  7 */   Service,
 /*  8 */   GovLeft,
 /*  9 */   GovRight,
 /* 10 */   Test,

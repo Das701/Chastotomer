@@ -155,7 +155,7 @@ static void CreateButtons(Frame *frame)
     Control::E keysM[4] = { Control::Mode, Control::Indication, Control::Test, Control::Auto };
 
     // ”правл€ющие кнопки
-    Control::E keysC[4] = { Control::Channels, Control::Left, Control::Esc, Control::Right };
+    Control::E keysC[4] = { Control::Channels, Control::Left, Control::Service, Control::Right };
 
     //  нопки регул€тора
     Control::E keysGov[4] = { Control::Enter, Control::None, Control::None, Control::None};
