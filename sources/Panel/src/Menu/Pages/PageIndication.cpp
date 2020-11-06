@@ -93,7 +93,7 @@ void PageIndication::OnceLaunchSwitchFalse()
 
 // Включение(отключение) режима памяти
 DEF_SWITCH_2(sMemoryMode,
-    "Пам", "Режим память",
+    "Память", "Режим память",
     "Выкл", "Вкл", 
     PageIndication::memoryMode, OnPress_MemoryMode);
 

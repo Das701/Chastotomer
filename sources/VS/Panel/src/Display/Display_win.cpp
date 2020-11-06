@@ -151,20 +151,17 @@ static void CreateButtons(Frame *frame)
 
     wxSize size(width, height);
 
-    //  нопки режимов
-    Control::E keysM[4] = { Control::Mode, Control::Indication, Control::Test, Control::Auto };
+    Control::E keys1[3] = { Control::Channels, Control::Mode, Control::Indication};
 
-    // ”правл€ющие кнопки
-    Control::E keysC[4] = { Control::Channels, Control::Left, Control::Service, Control::Right };
+    Control::E keys2[3] = { Control::Service, Control::Test, Control::Auto};
 
-    //  нопки регул€тора
-    Control::E keysGov[4] = { Control::Enter, Control::None, Control::None, Control::None};
+    Control::E keys3[3] = { Control::Enter, Control::Left, Control::Right};
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 3; i++)
     {
-        CreateButton(keysM[i], frame, { x0 + (width + dX) * i, y0 }, size);
-        CreateButton(keysC[i], frame, { x0 + (width + dX) * i, y0 + height + dY + 10 }, size);
-        CreateButton(keysGov[i], frame, { x0 + (width + dX) * i, y0 + (height + dY) * 2 + 10 }, size);
+        CreateButton(keys1[i], frame, { x0 + (width + dX) * i, y0 }, size);
+        CreateButton(keys2[i], frame, { x0 + (width + dX) * i, y0 + height + dY + 10 }, size);
+        CreateButton(keys3[i], frame, { x0 + (width + dX) * i, y0 + (height + dY) * 2 + 10 }, size);
     }
 
     governor = new GovernorGUI(frame, { 700, 150 });
