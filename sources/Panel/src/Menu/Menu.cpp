@@ -21,14 +21,6 @@ static bool OpenPage(Control control);
 // Текущая отображаемая страница меню
 static Page *openedPage = PageModesA::self;
 
-// Первое нажатие
-static bool firstPress = false;
-
-
-void Menu::Init()
-{
-}
-
 
 void Menu::Draw()
 {
@@ -60,38 +52,15 @@ static void SetCurrentChannel(const Control &control)
 {
     if (control.value == Control::Channels)
     {
-        if(firstPress == false)
+        if (Menu::OpenedPage()->IsPageSettings())
         {
-            openedPage = PageSettingsA::self;
-            firstPress = true;
+            Math::CircleIncrease<uint8>((uint8*)&set.currentChannel, 0, Channel::Count - 1);
         }
-        else
-        {
-            uint8 channel = (uint8)set.currentChannel;
-            Math::CircleIncrease<uint8>(&channel, 0, Channel::Count - 1);
-            set.currentChannel = (Channel::E)channel;
-    
-            Page *page = nullptr;
-    
-            if (CURRENT_CHANNEL_IS_A)
-            {
-                page = PageSettingsA::self;
-            }
-            else if (CURRENT_CHANNEL_IS_B)
-            {
-                page = PageSettingsB::self;
-            }
-            else if (CURRENT_CHANNEL_IS_C)
-            {
-                page = PageSettingsC::self;
-            }
-            else if (CURRENT_CHANNEL_IS_D)
-            {
-                page = PageSettingsD::self;
-            }
 
-            openedPage = page;
-        }
+        if (CURRENT_CHANNEL_IS_A)       { openedPage = PageSettingsA::self; }
+        else if (CURRENT_CHANNEL_IS_B)  { openedPage = PageSettingsB::self; }
+        else if (CURRENT_CHANNEL_IS_C)  { openedPage = PageSettingsC::self; }
+        else if (CURRENT_CHANNEL_IS_D)  { openedPage = PageSettingsD::self; }
 
         Hint::Hide();
 
@@ -109,22 +78,10 @@ static bool OpenPage(Control control)
     
     Page *pageMode = nullptr;
     
-    if (CURRENT_CHANNEL_IS_A)
-    {
-        pageMode = PageModesA::self;
-    } 
-    else if (CURRENT_CHANNEL_IS_B)
-    {
-        pageMode = PageModesB::self;
-    }
-    else if (CURRENT_CHANNEL_IS_C)
-    {
-        pageMode = PageModesC::self;
-    }
-    else if (CURRENT_CHANNEL_IS_D)
-    {
-        pageMode = PageModesD::self;
-    }       
+    if (CURRENT_CHANNEL_IS_A)       { pageMode = PageModesA::self; }
+    else if (CURRENT_CHANNEL_IS_B)  { pageMode = PageModesB::self; }
+    else if (CURRENT_CHANNEL_IS_C)  { pageMode = PageModesC::self; }
+    else if (CURRENT_CHANNEL_IS_D)  { pageMode = PageModesD::self; }
         
     Page * const pages[Control::Count] =
     {

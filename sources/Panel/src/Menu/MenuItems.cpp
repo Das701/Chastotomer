@@ -96,7 +96,13 @@ int Page::WidthItem(int num) const
 
 bool Page::IsPageModes() const
 {
-    return this == PageModesA::self || this == PageModesB::self || this == PageModesC::self || this == PageModesD::self;
+    return (this == PageModesA::self) || (this == PageModesB::self) || (this == PageModesC::self) || (this == PageModesD::self);
+}
+
+
+bool Page::IsPageSettings() const
+{
+    return (this == PageSettingsA::self) || (this == PageSettingsB::self) || (this == PageSettingsC::self) || (this == PageSettingsD::self);
 }
 
 

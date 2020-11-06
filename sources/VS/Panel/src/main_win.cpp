@@ -10,7 +10,6 @@ void init()
 	HAL::Init();
 	Display::Init();
 	Keyboard::Init();
-	Menu::Init();
 }
 
 

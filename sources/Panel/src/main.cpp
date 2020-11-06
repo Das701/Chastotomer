@@ -13,7 +13,6 @@ int main(void)
     FPGA::Init();
     Display::Init();
     Keyboard::Init();
-    Menu::Init();   
     VCP::Init();
 
     while (Display::DrawWelcomeScreen())

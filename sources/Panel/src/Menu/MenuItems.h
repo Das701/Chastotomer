@@ -92,6 +92,9 @@ public:
     // Возвращает true, если это страница режимов
     bool IsPageModes() const;
 
+    // Возвращает true, если это страница настроек
+    bool IsPageSettings() const;
+
     // Номер выбранного итема
     int selectedItem;
 
