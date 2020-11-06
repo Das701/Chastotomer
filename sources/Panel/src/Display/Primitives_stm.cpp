@@ -25,10 +25,18 @@ void Rectangle::DrawRounded(int x, int y, int round, Color color)
 {
     color.SetAsCurrent();
 
-    HLine(width - round * 2).Draw(x + round, y);
-    HLine(width - round * 2).Draw(x + round, y + height - 1);
-    VLine(height - round * 2).Draw(x, y + round);
-    VLine(height - round * 2).Draw(x + width - 1, y + round);
+    HLine(width - round * 2 + 1).Draw(x + round, y);
+    HLine(width - round * 2 + 1).Draw(x + round, y + height);
+    VLine(height - round * 2 + 1).Draw(x, y + round);
+    VLine(height - round * 2 + 1).Draw(x + width, y + round);
+
+    if (round == 2)
+    {
+        Point().Draw(x + 1, y + 1);
+        Point().Draw(x + width - 1, y + 1);
+        Point().Draw(x + 1, y + height - 1);
+        Point().Draw(x + width - 1, y + height - 1);
+    }
 }
 
 
