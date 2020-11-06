@@ -258,6 +258,13 @@ static bool OnControl(const Control &control) //-V2008
         FPGA::WriteData();
         break;
 
+    case Control::GovButton:
+        if (openedPage->SelectedItem())
+        {
+            openedPage->SelectedItem()->OnControl(control);
+        }
+        break;
+
     case Control::Enter:
         if (openedPage->SelectedItem())
         {
@@ -304,7 +311,6 @@ static bool OnControl(const Control &control) //-V2008
 
     case Control::Indication:
     case Control::Channels:
-    case Control::GovButton:
     case Control::Service:
     case Control::Count:
     case Control::None:
