@@ -85,10 +85,10 @@ static bool OpenPage(Control control)
         
     Page * const pages[Control::Count] =
     {
-/*  0                   */  nullptr,
-/*  Control::Mode       */  pageMode,
-/*  Control::Indication */  PageIndication::self,
-/*  3                   */  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
+        nullptr,                            //  0
+        pageMode,                           //  Control::Mode
+        PageIndication::self,               //  Control::Indication
+        nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
     };
 
     SetCurrentChannel(control);
