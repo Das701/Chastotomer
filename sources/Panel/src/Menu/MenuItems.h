@@ -85,6 +85,7 @@ public:
 
     virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &control);    
+
     // Возвращает указатель на выделенный пункт меню
     Item *SelectedItem() { return items[selectedItem]; };
 
@@ -95,17 +96,21 @@ public:
     int selectedItem;
 
 private:
+
     // Делает текущим следующий элемент
     void SelectNextItem();
+
     // Делает текущим предыдущий элемент
     void SelectPrevItem();
+
     // Возвращает количество итемов на странице
     int NumItems() const;
-    // Указатель на массив элементов меню. Заканчивается нулём.
-    Item **items;
 
     virtual void CreateHint(char buffer[100]) const { buffer[0] = 0; };
 
     // Возвращает ширину элемента меню с номером num
     int WidthItem(int num) const;
+
+    // Указатель на массив элементов меню. Заканчивается нулём.
+    Item **items;
 };

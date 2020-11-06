@@ -27,9 +27,6 @@ static bool firstPress = false;
 
 void Menu::Init()
 {
-//    PageModesA::Init();
-//    PageModesB::Init();
-//    PageModesC::Init();
 }
 
 
@@ -131,10 +128,10 @@ static bool OpenPage(Control control)
         
     Page * const pages[Control::Count] =
     {
-        /*  0 */  nullptr,
-        /*  1 */  pageMode,
-        /*  2 */  PageIndication::self,
-        /*  3 */  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
+/*  0                   */  nullptr,
+/*  Control::Mode       */  pageMode,
+/*  Control::Indication */  PageIndication::self,
+/*  3                   */  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
     };
 
     SetCurrentChannel(control);
@@ -224,7 +221,7 @@ char *Menu::ChannelSettings()
     return settings;
 }
 
-Page* Menu::UsedPage()
+Page* Menu::OpenedPage()
 {
     return openedPage;
 }

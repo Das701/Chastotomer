@@ -25,15 +25,15 @@ void FreqMeter::LoadChannel()
 
     DEFINE_ARGUMENT;
 
-    if (Menu::UsedPage() == PageChannelB::self)
+    if (Menu::OpenedPage() == PageChannelB::self)
     {
         argument[4] = 1;
     }
-    else if (Menu::UsedPage() == PageChannelC::self)
+    else if (Menu::OpenedPage() == PageChannelC::self)
     {
         argument[5] = 1;
     }
-    else if (Menu::UsedPage() == PageChannelD::self)
+    else if (Menu::OpenedPage() == PageChannelD::self)
     {
         argument[5] = 1;
         argument[4] = 1;

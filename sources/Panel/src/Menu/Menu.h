@@ -11,5 +11,5 @@ namespace Menu
 
     char *ChannelSettings();
     
-    Page* UsedPage();
+    Page* OpenedPage();
 };

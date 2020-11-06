@@ -33,6 +33,7 @@ add_compile_options(/wd5027)    # 'xxx': move assignment operator was implicitly
 add_compile_options(/wd5039)    # 'xxx': pointer or reference to potentially throwing function passed to extern C function under -EHc.
 add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
 add_compile_options(/wd5204)    # 'xxx': class has virtual functions, but its trivial destructor is not virtual; instances of objects derived from this class may not be destructed correctly
+add_compile_options(/wd26821)
 
 file(GLOB VS_HAL           ../../common/_VS_KEIL/HAL/*)
 file(GLOB SRC              ../../Panel/src/defines.h
