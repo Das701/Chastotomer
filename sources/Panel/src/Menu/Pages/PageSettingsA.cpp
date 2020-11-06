@@ -30,9 +30,9 @@ static void OnPress_Couple()
 
 // Выбор закрытого(открытого) входа текущего канала
 DEF_SWITCH_UGO_2(sCouple,
-    "\x7C \x7D", "Вход",
+    "\x80 \x80", "Вход",
     "Открытый вход", "Закрытый вход",
-    "\x7C", "\x7D",
+    "\x80", "\x80",
     PageSettingsA::couple, OnPress_Couple
 );
 
