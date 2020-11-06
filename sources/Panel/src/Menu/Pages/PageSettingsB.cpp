@@ -31,9 +31,9 @@ static void OnPress_Couple()
 
 // Выбор закрытого(открытого) входа текущего канала
 DEF_SWITCH_UGO_2(sCouple,
-    "\x7C \x7D", "Вход",
+    "\x81 \x80", "Вход",
     "Открытый вход", "Закрытый вход",
-    "\x7C", "\x7D",
+    "\x81", "\x80",
     PageSettingsB::couple, OnPress_Couple
 );
 
@@ -73,9 +73,9 @@ static void OnPress_Front()
 
 // Выбор фронта синхронизации текущего канала
 DEF_SWITCH_UGO_2(sFront,
-    "\x8D \x8E", "Выбор типа синхронизации",
+    "\x82 \x83", "Выбор типа синхронизации",
     "Фронт", "Срез",
-    "\x8D", "\x8E",
+    "\x82", "\x83",
     PageSettingsB::modeFront, OnPress_Front
 );
 

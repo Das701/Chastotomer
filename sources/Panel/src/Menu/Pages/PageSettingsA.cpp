@@ -72,9 +72,9 @@ static void OnPress_Front()
 
 // Выбор фронта синхронизации текущего канала
 DEF_SWITCH_UGO_2(sFront,
-    "\x8D \x8E", "Выбор типа синхронизации",
+    "\x82 \x83", "Выбор типа синхронизации",
     "Фронт", "Срез",
-    "\x8D", "\x8E",
+    "\x82", "\x83",
     PageSettingsA::modeFront, OnPress_Front
 );
 
