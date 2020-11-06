@@ -45,6 +45,9 @@ bool Menu::Update()
 
         if (PageIndication::calibration.IsPressed())
         {
+        }
+        else
+        {
             if (CURRENT_CHANNEL_IS_A_OR_B)
             {
                 if (control.value == Control::GovLeft)

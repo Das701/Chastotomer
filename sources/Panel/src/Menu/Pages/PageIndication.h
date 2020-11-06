@@ -58,8 +58,8 @@ struct Calibration : public Enumeration
 {
     enum E
     {
-        Unpressed,          // Не нажата 
-        Pressed             // Нажата
+        Unpressed,          // Находимся не в режиме калибровки - ручка управляет уровнем синхронизации
+        Pressed             // Находимся в режиме калибровки - ручка управляет калибровкой
     };
 
     explicit Calibration(E v) : Enumeration((uint8)v) {};
