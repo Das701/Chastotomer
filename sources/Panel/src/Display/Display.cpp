@@ -186,7 +186,10 @@ static void DrawScreen()
 
 void DrawChannelSettings()
 {
-    Text(Menu::ChannelSettings()).Write(102, 17);
+    if (Display::InDrawingPart(17, 20))
+    {
+        Text(Menu::ChannelSettings()).Write(102, 17);
+    }
 }
 
 
@@ -377,8 +380,16 @@ static void DrawInfo()
 
 static void DrawData()
 {
-    FontBig::Write(MathFPGA::Measure::GiveData(), 10, 150, Color::WHITE);
-    FontMid::Write(MathFPGA::GiveSpec(), 344, 170, Color::WHITE);
+    if (Display::InDrawingPart(150, 50))
+    {
+        FontBig::Write(MathFPGA::Measure::GiveData(), 10, 150, Color::WHITE);
+    }
+
+    if (Display::InDrawingPart(170, 50))
+    {
+        FontMid::Write(MathFPGA::GiveSpec(), 344, 170, Color::WHITE);
+    }
+
     if ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) ||
         (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsTachometer()))
     {
