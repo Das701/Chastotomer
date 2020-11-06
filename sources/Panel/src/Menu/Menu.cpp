@@ -11,6 +11,7 @@
 #include "Menu/Pages/PagesSettings.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/Pages/PageModesA.h"
+#include "Menu/Pages/PageService.h"
 #include "Utils/Math.h"
 #include "Utils/StringUtils.h"
 #include <cstring>
@@ -133,10 +134,19 @@ static bool OpenPage(Control control)
 
     Page *const pages[Control::Count] =
     {
-        nullptr,                            //  0
-        nullptr,                            //  Control::Mode
-        PageIndication::self,               //  Control::Indication
-        nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
+        nullptr,              // GovButton,
+        nullptr,              // Mode,
+        PageIndication::self, // Indication,
+        nullptr,              // Left,
+        nullptr,              // Right,
+        nullptr,              // Channels,
+        nullptr,              // Enter,
+        PageService::self,    // Service,
+        nullptr,              // GovLeft,
+        nullptr,              // GovRight,
+        nullptr,              // Test,
+        nullptr,              // Auto,
+        nullptr               // None,
     };
 
     Page *page = pages[control.value];

@@ -44,13 +44,16 @@ private:
 class Button : public Item
 {
 public:
-    Button(char *_text) : text(_text){};
+    Button(char *_text, void (*funcPress)()) : text(_text), funcOnPress(funcPress) {};
 
     virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &control);
     
 private:
     char *text;
+    void (*funcOnPress)();
+
+    virtual void CreateHint(char [100]) const {};
 };
 
 
