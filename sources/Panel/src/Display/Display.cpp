@@ -16,7 +16,7 @@
 #include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageModesC.h"
 #include "Menu/Pages/PageModesD.h"
-#include "Menu/Pages/Pages.h"
+#include "Menu/Pages/PagesSettings.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Utils/String.h"
 #include "Utils/StringUtils.h"

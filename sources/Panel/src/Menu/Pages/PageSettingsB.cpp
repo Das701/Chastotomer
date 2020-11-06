@@ -1,13 +1,13 @@
 #include "defines.h"
 #include "FreqMeter.h"
 #include "Settings.h"
-#include "Menu/Pages/Pages.h"
 #include "Menu/MenuItems.h"
+#include "Menu/Pages/PagesSettings.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
-#include "Menu/Pages/PageModesA.h"
 #include <cstring>
+
 
 using namespace Display::Primitives;
 using namespace Display;
@@ -15,12 +15,13 @@ using namespace Display;
 extern Switch sSync;
 extern Item *items[7];
 
-InputCouple     PageChannelA::couple(InputCouple::AC);
-InputImpedance  PageChannelA::impedance(InputImpedance::_1MOmh);
-ModeFilter      PageChannelA::modeFilter(ModeFilter::Off);
-ModeFront       PageChannelA::modeFront(ModeFront::Front);
-Divider         PageChannelA::divider(Divider::_1);
-TypeSynch       PageChannelA::typeSynch(TypeSynch::Manual);
+
+InputCouple      PageSettingsB::couple(InputCouple::AC);
+InputImpedance   PageSettingsB::impedance(InputImpedance::_1MOmh);
+ModeFilter       PageSettingsB::modeFilter(ModeFilter::Off);
+ModeFront        PageSettingsB::modeFront(ModeFront::Front);
+Divider          PageSettingsB::divider(Divider::_1);
+TypeSynch        PageSettingsB::typeSynch(TypeSynch::Manual);
 
 
 static void OnPress_Couple()
@@ -33,7 +34,7 @@ DEF_SWITCH_UGO_2(sCouple,
     "\x7C \x7D", "Вход",
     "Открытый вход", "Закрытый вход",
     "\x7C", "\x7D",
-    PageChannelA::couple, OnPress_Couple
+    PageSettingsB::couple, OnPress_Couple
 );
 
 
@@ -47,7 +48,7 @@ DEF_SWITCH_UGO_2(sImpedance,
     "Rвх", "Входное сопротивление канала",
     "1 МОм", "50 Ом",
     "1МОм", "50Ом",
-    PageChannelA::impedance, OnPress_Impedance
+    PageSettingsB::impedance, OnPress_Impedance
 );
 
 
@@ -61,7 +62,7 @@ DEF_SWITCH_UGO_2(sLowpassFilter,
     "ФНЧ", "Включение/отключение фильтра НЧ",
     "Откл.", "Вкл.",
     "ФНЧ", "",
-    PageChannelA::modeFilter, OnPress_Filter
+    PageSettingsB::modeFilter, OnPress_Filter
 );
 
 
@@ -75,7 +76,7 @@ DEF_SWITCH_UGO_2(sFront,
     "\x8D \x8E", "Выбор типа синхронизации",
     "Фронт", "Срез",
     "\x8D", "\x8E",
-    PageChannelA::modeFront, OnPress_Front
+    PageSettingsB::modeFront, OnPress_Front
 );
 
 
@@ -89,7 +90,7 @@ DEF_SWITCH_UGO_2(sDivider,
     "\x7E\x7F\x7E \x7E\x7F\x8F", "Вкл/откл входного делителя",
     "1:1", "1:10",
     "", "1:10",
-    PageChannelA::divider, OnPress_Divider
+    PageSettingsB::divider, OnPress_Divider
 );
 
 
@@ -109,6 +110,7 @@ DEF_SWITCH_6(sPeriodTimeLabels,
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
     PageModesA::periodTimeLabels,  OnPress_TimeLabels
 );
+
 
 
 static void OnPress_TimeMeasure()
@@ -149,16 +151,14 @@ DEF_SWITCH_7(sTimeMeasure,
 
 static void OnPress_Sync()
 {
-    if (PageChannelA::typeSynch.IsHoldoff())
+    if (PageSettingsB::typeSynch.IsHoldoff())
     {
         items[0] = &sSync;
         items[1] = &sTimeMeasure;
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
-
-        PageChannelA::self->selectedItem = 0;
     }
-    else if(PageChannelA::typeSynch.IsManual())
+    else if(PageSettingsB::typeSynch.IsManual())
     {
         items[0] = &sCouple;
         items[1] = &sImpedance;
@@ -167,12 +167,9 @@ static void OnPress_Sync()
         items[4] = &sDivider;
         items[5] = &sSync;
         items[6] = nullptr;
-        
-        PageChannelA::self->selectedItem = 5;
     }
-
-    TYPE_SYNCH_A = (TypeSynch::E)PageChannelA::typeSynch.value;
-    FreqMeter::LoadTypeSynch();
+    TYPE_SYNCH_B = (TypeSynch::E)PageSettingsB::typeSynch.value;
+    FreqMeter::LoadTypeSynch(); 
 }
 
 // Выбор уровня синхронизации ТТЛ, ЭСЛ
@@ -180,7 +177,7 @@ DEF_SWITCH_UGO_2(sSync,
     "Синхр", "Выбор уровня сихронизации",
     "Ручн", "Holdoff",
     "Ручн", "Holdoff",
-    PageChannelA::typeSynch, OnPress_Sync
+    PageSettingsB::typeSynch, OnPress_Sync
 );
 
 static Item *items[7] =
@@ -194,31 +191,13 @@ static Item *items[7] =
     nullptr
 };
 
-static Page pageChannelA(items);
+static Page pageChannelB(items);
 
-Page *PageChannelA::self = &pageChannelA;
+Page *PageSettingsB::self = &pageChannelB;
 
-Switch *PageChannelA::switchTypeSynch = &sSync;
+Switch *PageSettingsB::switchTypeSynch = &sSync;
 
-void PageChannelA::FixPress()
+void PageSettingsB::FixPress()
 {
     OnPress_Sync();
-}
-
-
-InputImpedance &InputImpedance::Current()
-{
-    return CURRENT_CHANNEL_IS_A ? PageChannelA::impedance : PageChannelB::impedance;
-}
-
-
-ModeFront &ModeFront::Current()
-{
-    return CURRENT_CHANNEL_IS_A ? PageChannelA::modeFront : PageChannelB::modeFront;
-}
-
-
-Divider &Divider::Current()
-{
-    return CURRENT_CHANNEL_IS_A ? PageChannelA::divider : PageChannelB::divider;
 }

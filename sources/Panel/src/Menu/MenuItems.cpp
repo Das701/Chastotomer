@@ -8,7 +8,7 @@
 #include "Hardware/MathFPGA.h"
 #include "Menu/Hint.h"
 #include "Menu/MenuItems.h"
-#include "Menu/Pages/Pages.h"
+#include "Menu/Pages/PagesSettings.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Utils/Math.h"
 #include <cstring>

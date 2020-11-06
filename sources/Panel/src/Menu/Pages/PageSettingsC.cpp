@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "Menu/MenuItems.h"
-#include "Menu/Pages/Pages.h"
+#include "Menu/Pages/PagesSettings.h"
 
 
 static Item *items[7] =
@@ -14,6 +14,6 @@ static Item *items[7] =
     nullptr
 };
 
-static Page pageChannelD(items);
+static Page pageChannelC(items);
 
-Page *PageChannelD::self = &pageChannelD;
+Page *PageSettingsC::self = &pageChannelC;

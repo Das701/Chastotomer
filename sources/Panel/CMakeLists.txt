@@ -28,6 +28,7 @@ add_compile_options(/wd5027)    # move assignment operator was implicitly define
 add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
 add_compile_options(/wd5204)    # 'type-name': class has virtual functions, but its trivial destructor is not virtual; instances of objects derived from this class may not be destructed correctly
 add_compile_options(/wd5219)    # implicit conversion from 'type1' to 'type2', possible loss of data
+add_compile_options(/wd26812)
 
 
 file(GLOB HAL            ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Inc/*.h

@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "Settings.h"
 #include "Hardware/FPGA.h"
-#include "Menu/Pages/Pages.h"
+#include "Menu/Pages/PagesSettings.h"
 #include "Utils/Math.h"
 
 
@@ -39,11 +39,11 @@ InputCouple &InputCouple::Current()
 {
     if(CURRENT_CHANNEL_IS_A)
     {
-        return PageChannelA::couple;
+        return PageSettingsA::couple;
     }
     else if(CURRENT_CHANNEL_IS_B)
     {
-        return PageChannelB::couple;
+        return PageSettingsB::couple;
     }
     
     static InputCouple couple(InputCouple::AC);
@@ -56,12 +56,12 @@ void InputCouple::Set(InputCouple::E v)
 {
     if(CURRENT_CHANNEL_IS_A)
     {
-        PageChannelA::couple.value = (uint8)v;
+        PageSettingsA::couple.value = (uint8)v;
         Load();
     }
     else if(CURRENT_CHANNEL_IS_B)
     {
-        PageChannelB::couple.value = (uint8)v;
+        PageSettingsB::couple.value = (uint8)v;
         Load();
     }
 }
@@ -86,11 +86,11 @@ ModeFilter &ModeFilter::Current()
 {
     if(CURRENT_CHANNEL_IS_A)
     {
-        return PageChannelA::modeFilter;
+        return PageSettingsA::modeFilter;
     }
     else if(CURRENT_CHANNEL_IS_B)
     {
-        return PageChannelB::modeFilter;
+        return PageSettingsB::modeFilter;
     }
     
     static ModeFilter mode(ModeFilter::Off);
@@ -103,12 +103,12 @@ void ModeFilter::Set(ModeFilter::E v)
 {
     if(CURRENT_CHANNEL_IS_A)
     {
-        PageChannelA::modeFilter.value = (uint8)v;
+        PageSettingsA::modeFilter.value = (uint8)v;
         Load();
     }
     else if(CURRENT_CHANNEL_IS_B)
     {
-        PageChannelB::modeFilter.value = (uint8)v;
+        PageSettingsB::modeFilter.value = (uint8)v;
         Load();
     }
 }

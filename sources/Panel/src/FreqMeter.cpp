@@ -9,7 +9,7 @@
 #include "Menu/Pages/PageModesC.h"
 #include "Menu/Pages/PageModesD.h"
 #include "Menu/Pages/PageIndication.h"
-#include "Menu/Pages/Pages.h"
+#include "Menu/Pages/PagesSettings.h"
 #include "Menu/Hint.h"
 
 
@@ -25,15 +25,15 @@ void FreqMeter::LoadChannel()
 
     DEFINE_ARGUMENT;
 
-    if (Menu::OpenedPage() == PageChannelB::self)
+    if (Menu::OpenedPage() == PageSettingsB::self)
     {
         argument[4] = 1;
     }
-    else if (Menu::OpenedPage() == PageChannelC::self)
+    else if (Menu::OpenedPage() == PageSettingsC::self)
     {
         argument[5] = 1;
     }
-    else if (Menu::OpenedPage() == PageChannelD::self)
+    else if (Menu::OpenedPage() == PageSettingsD::self)
     {
         argument[5] = 1;
         argument[4] = 1;
@@ -375,7 +375,7 @@ void FreqMeter::LoadTypeSynch()
 
     DEFINE_ARGUMENT;
 
-    if ((PageChannelA::typeSynch == TypeSynch::Holdoff && CURRENT_CHANNEL_IS_A) || (PageChannelB::typeSynch == TypeSynch::Holdoff && CURRENT_CHANNEL_IS_B))
+    if ((PageSettingsA::typeSynch == TypeSynch::Holdoff && CURRENT_CHANNEL_IS_A) || (PageSettingsB::typeSynch == TypeSynch::Holdoff && CURRENT_CHANNEL_IS_B))
     {
         argument[5] = 1;
     }

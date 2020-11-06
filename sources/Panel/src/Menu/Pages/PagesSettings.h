@@ -53,7 +53,7 @@ struct Divider : public Enumeration
 };
 
 
-struct PageChannelA
+struct PageSettingsA
 {
     static Page *self;
     static InputCouple couple;
@@ -67,7 +67,7 @@ struct PageChannelA
 };
 
 
-struct PageChannelB
+struct PageSettingsB
 {
     static Page *self;
     static InputCouple couple;
@@ -81,12 +81,12 @@ struct PageChannelB
 };
 
 
-struct PageChannelC
+struct PageSettingsC
 {
     static Page *self;
 };
 
-struct PageChannelD
+struct PageSettingsD
 {
     static Page *self;
 };

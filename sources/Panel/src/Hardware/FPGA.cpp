@@ -6,7 +6,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Menu/Hint.h"
 #include "Menu/Menu.h"
-#include "Menu/Pages/Pages.h"
+#include "Menu/Pages/PagesSettings.h"
 #include "Menu/Pages/PageModesA.h"
 #include "Menu/Pages/PageModesB.h"
 #include "Menu/Pages/PageModesC.h"

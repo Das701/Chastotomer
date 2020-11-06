@@ -6,7 +6,7 @@
 #include "Menu/Hint.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
-#include "Menu/Pages/Pages.h"
+#include "Menu/Pages/PagesSettings.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/Pages/PageModesA.h"
 #include "Utils/Math.h"
@@ -62,7 +62,7 @@ static void SetCurrentChannel(const Control &control)
     {
         if(firstPress == false)
         {
-            openedPage = PageChannelA::self;
+            openedPage = PageSettingsA::self;
             firstPress = true;
         }
         else
@@ -75,19 +75,19 @@ static void SetCurrentChannel(const Control &control)
     
             if (CURRENT_CHANNEL_IS_A)
             {
-                page = PageChannelA::self;
+                page = PageSettingsA::self;
             }
             else if (CURRENT_CHANNEL_IS_B)
             {
-                page = PageChannelB::self;
+                page = PageSettingsB::self;
             }
             else if (CURRENT_CHANNEL_IS_C)
             {
-                page = PageChannelC::self;
+                page = PageSettingsC::self;
             }
             else if (CURRENT_CHANNEL_IS_D)
             {
-                page = PageChannelD::self;
+                page = PageSettingsD::self;
             }
 
             openedPage = page;
@@ -166,14 +166,14 @@ char *Menu::ChannelSettings()
 
     if(CURRENT_CHANNEL_IS_A)
     {
-        ADD_UGO(PageChannelA::couple.UGO());
-        ADD_UGO(PageChannelA::impedance.UGO());
-        ADD_UGO(PageChannelA::modeFilter.UGO());
-        ADD_UGO(PageChannelA::modeFront.UGO());
-        ADD_UGO(PageChannelA::divider.UGO());
-        ADD_UGO(PageChannelA::typeSynch.UGO());
+        ADD_UGO(PageSettingsA::couple.UGO());
+        ADD_UGO(PageSettingsA::impedance.UGO());
+        ADD_UGO(PageSettingsA::modeFilter.UGO());
+        ADD_UGO(PageSettingsA::modeFront.UGO());
+        ADD_UGO(PageSettingsA::divider.UGO());
+        ADD_UGO(PageSettingsA::typeSynch.UGO());
         ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Divider::Current().ToAbs(), buffer));
-        if (PageChannelA::typeSynch == TypeSynch::Manual)
+        if (PageSettingsA::typeSynch == TypeSynch::Manual)
         {
             std::strcat(settings, "ìÂ");
         }
@@ -193,14 +193,14 @@ char *Menu::ChannelSettings()
     
     if(CURRENT_CHANNEL_IS_B)
     {
-        ADD_UGO(PageChannelB::couple.UGO());
-        ADD_UGO(PageChannelB::impedance.UGO());
-        ADD_UGO(PageChannelB::modeFilter.UGO());
-        ADD_UGO(PageChannelB::modeFront.UGO());
-        ADD_UGO(PageChannelB::divider.UGO());
-        ADD_UGO(PageChannelB::typeSynch.UGO());
+        ADD_UGO(PageSettingsB::couple.UGO());
+        ADD_UGO(PageSettingsB::impedance.UGO());
+        ADD_UGO(PageSettingsB::modeFilter.UGO());
+        ADD_UGO(PageSettingsB::modeFront.UGO());
+        ADD_UGO(PageSettingsB::divider.UGO());
+        ADD_UGO(PageSettingsB::typeSynch.UGO());
         ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Divider::Current().ToAbs(), buffer));
-        if (PageChannelB::typeSynch == TypeSynch::Manual)
+        if (PageSettingsB::typeSynch == TypeSynch::Manual)
         {
             std::strcat(settings, "ìÂ");
         }
