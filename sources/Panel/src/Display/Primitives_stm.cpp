@@ -49,14 +49,6 @@ void Rectangle::Draw(int x, int y)
 }
 
 
-void Rectangle::Fill(int x0, int y0, Color color)
-{
-    color.SetAsCurrent();
-
-    Fill(x0, y0);
-}
-
-
 void Rectangle::Fill(int x0, int y0)
 {
     for (int y = y0; y < y0 + height; y++)

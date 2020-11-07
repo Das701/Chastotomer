@@ -124,6 +124,14 @@ void Font::Set(const PTypeFont::E typeFont)
 
 uint8 Font::GetWidth(uint8 num)
 {
+    if (num == 0x20)
+    {
+        if (font == fontGOST16B)
+        {
+            return 10;
+        }
+    }
+
     NativeSymbol *symbol = HeaderFont::Sefl()->GetSymbol(num);
 
     return symbol ? symbol->width : 0U;

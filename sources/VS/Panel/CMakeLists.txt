@@ -44,9 +44,9 @@ file(GLOB SRC              ../../Panel/src/defines.h
                                        src/main_win.cpp)
 file(GLOB DISPLAY                      src/Display/Display_win.cpp
                                        src/Display/Colors_win.cpp
-                           ../../Panel/src/Display/Colors.h
+                           ../../Panel/src/Display/Colors.*
                            ../../Panel/src/Display/Display.*
-                           ../../Panel/src/Display/Primitives.h
+                           ../../Panel/src/Display/Primitives.*
                                        src/Display/Primitives_win.cpp
                            ../../Panel/src/Display/Text.*)
 file(GLOB DISPLAY_FONT     ../../Panel/src/Display/Font/*)

@@ -1,10 +1,6 @@
 #pragma once
 #include "defines.h"
 
-struct SColor
-{
-    static uint MakeFromUint8(uint8 red, uint8 green, uint8 blue);
-};
 
 struct Color
 {
@@ -30,8 +26,6 @@ struct Color
 
     void SetAsCurrent();
     static Color GetCurrent();
-
-    static uint MakeFromFloat(float r, float g, float b);
 };
 
 

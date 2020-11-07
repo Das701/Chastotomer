@@ -184,15 +184,6 @@ static void DrawScreen()
 }
 
 
-void DrawChannelSettings()
-{
-    if (Display::InDrawingPart(17, 20))
-    {
-        Text(Menu::ChannelSettings()).Write(102, 17);
-    }
-}
-
-
 static void DrawTypeMeasure()
 {
     int x = 0;
@@ -281,11 +272,30 @@ static void DrawStatusBar()
     }
 }
 
+static void DrawChannelSettings()
+{
+    if (Display::InDrawingPart(17, 20))
+    {
+        Rectangle(360, 30).FillRounded(105, 15, 2, Color::GREEN_20, Color::GREEN_20);
+
+        Text(Menu::ChannelSettings()).Write(108, 21, Color::WHITE);
+    }
+}
+
+
 static void DrawHint()
 {
+    int x = 105;
+    int y = 60;
+    int dX = 4;
+    int dY = 6;
+
     if((TIME_MS < (uint)(autoHint + 10000)) && autoFlag == true)
     {
-        Text(MathFPGA::Auto::Give()).Write(102, 37);
+        Rectangle(360, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::GREEN_20);
+
+        Text(MathFPGA::Auto::Give()).Write(x + dX, y + dY, Color::WHITE);
+
         FreqMeter::UnloadAuto();
     }
     else
@@ -294,19 +304,26 @@ static void DrawHint()
         {
             if((MathFPGA::Auto::Mid() != 0) || (MathFPGA::Auto::Max() != 0) || (MathFPGA::Auto::Min() != 0))
             {
-                Text(MathFPGA::Auto::Give()).Write(102, 37);
+                Rectangle(360, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::GREEN_20);
+
+                Text(MathFPGA::Auto::Give()).Write(x + dX, y + dY, Color::WHITE);
                 FPGA::SwitchAuto();
                 autoHint = (int)TIME_MS;
                 autoFlag = true;
             }
             else
             {
-                Text("Установка уровня синхр.").Write(102, 37);
+                Rectangle(360, 30).FillRounded(105, 60, 2, Color::GREEN_20, Color::GREEN_20);
+                Text("Установка уровня синхр.").Write(x + dX, y + dY, Color::WHITE);
             }
         }
         else
         {
-            Text(Hint::Text()).Write(102, 37);
+            if (Hint::Text()[0] != 0)
+            {
+                Rectangle(360, 30).FillRounded(105, 60, 2, Color::GREEN_20, Color::GREEN_20);
+                Text(Hint::Text()).Write(x + dX, y + dY, Color::WHITE);
+            }
             autoFlag = false;
         }
     }

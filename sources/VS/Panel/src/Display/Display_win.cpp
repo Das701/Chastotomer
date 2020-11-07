@@ -108,19 +108,21 @@ void Display::BeginScene()
     static int count = 34;
     //static int count = 59;
 
+    uint8 c = 0x80;
+
     for (int i = 0; i < Display::WIDTH * Display::HEIGHT / (count + count); i++)
     {
         for (int y = 0; y < count; y++)
         {
-            *pointer++ = 0x40;      // red
-            *pointer++ = 0x40;      // green
+            *pointer++ = c;      // red
+            *pointer++ = c;      // green
             *pointer++ = 0;         // blue
         }
 
         for (int y = 0; y < count; y++)
         {
             *pointer++ = 0;
-            *pointer++ = 0x40;
+            *pointer++ = c;
             *pointer++ = 0;
         }
     }

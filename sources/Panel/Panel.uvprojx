@@ -554,6 +554,11 @@
               <FilePath>.\src\Display\Primitives.h</FilePath>
             </File>
             <File>
+              <FileName>Primitives.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Primitives.cpp</FilePath>
+            </File>
+            <File>
               <FileName>Primitives_stm.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Primitives_stm.cpp</FilePath>
@@ -1588,6 +1593,11 @@
               <FileName>Primitives.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Primitives.h</FilePath>
+            </File>
+            <File>
+              <FileName>Primitives.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Primitives.cpp</FilePath>
             </File>
             <File>
               <FileName>Primitives_stm.cpp</FileName>

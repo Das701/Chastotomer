@@ -132,7 +132,7 @@ void Display::Init()
 
     for (int i = 0; i < Color::Count; i++)
     {
-        COLOR(i) = SColor::MakeFromUint8((uint8)i, (uint8)i, (uint8)i);
+        COLOR(i) = MAKE_COLOR(i, i, i);
     }
 
     Font::Set(PTypeFont::GOST16B);
