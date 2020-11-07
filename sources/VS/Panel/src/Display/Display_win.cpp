@@ -97,7 +97,42 @@ void Display::BeginScene()
     memDC.SelectObject(bitmap);
     wxBrush brush({ 0, 0, 0 }, wxTRANSPARENT);
     memDC.SetBrush(brush);
-    Primitives::Rectangle(Display::WIDTH, Display::HEIGHT).Fill(0, 0, Color::BLACK);
+
+
+#define SIZE_BUFFER (Display::WIDTH * Display::HEIGHT * 4)
+
+    unsigned char buffer[SIZE_BUFFER];
+
+    unsigned char *pointer = buffer;
+
+    static int count = 34;
+    //static int count = 59;
+
+    for (int i = 0; i < Display::WIDTH * Display::HEIGHT / (count + count); i++)
+    {
+        for (int y = 0; y < count; y++)
+        {
+            *pointer++ = 0x40;      // red
+            *pointer++ = 0x40;      // green
+            *pointer++ = 0;         // blue
+        }
+
+        for (int y = 0; y < count; y++)
+        {
+            *pointer++ = 0;
+            *pointer++ = 0x40;
+            *pointer++ = 0;
+        }
+    }
+    
+    wxImage image;
+    image.Create(Display::WIDTH, Display::HEIGHT, buffer, true);
+
+    wxBitmap bmp(image);
+
+    memDC.DrawBitmap(bmp, 0, 0);
+
+    //Primitives::Rectangle(Display::WIDTH, Display::HEIGHT).Fill(0, 0, Color::RED);
 }
 
 

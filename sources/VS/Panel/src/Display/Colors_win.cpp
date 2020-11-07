@@ -14,31 +14,23 @@ using namespace Display::Primitives;
 extern wxMemoryDC memDC;
 
 Color Color::BLACK(0);
-Color Color::_1(1);
-Color Color::_2(2);
-Color Color::_3(3);
-Color Color::_4(4);
-Color Color::_5(5);
-Color Color::_6(6);
-Color Color::_7(7);
-Color Color::_8(8);
-Color Color::_9(9);
-Color Color::_10(10);
-Color Color::_11(11);
-Color Color::_12(12);
-Color Color::_13(13);
-Color Color::_14(14);
-Color Color::WHITE(15);
+Color Color::WHITE(1);
+Color Color::YELLOW(2);
+Color Color::BLUE(3);
+Color Color::RED(4);
+Color Color::GREEN(5);
 
 
 static Color current = Color::BLACK;
 
 uint colors[Color::Count] =
 {
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0xFFFFU, 0xFFFFU, 0xFFFFU, 0xFFFFU,
-    0xFFFFU, 0xFFFFU, 0xFFFFU, 0xFFFFU
+    0x00000000U,    // BLACK
+    0xFFFFFFFFU,    // WHITE
+    0x00FFFF00U,    // YELLOW
+    0x000000FFU,    // BLUE
+    0x00FF00FFU,    // RED
+    0x0000FF00U     // GREEN
 };
 
 
