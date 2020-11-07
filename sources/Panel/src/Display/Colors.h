@@ -19,6 +19,10 @@ struct Color
     static Color GREY_10;   // 10% серого
     static Color GREY_50;   // 50% серого
     static Color GREY_20;   // 20% серого
+    static Color GREEN_50;
+    static Color GREEN_25;
+    static Color GREEN_10;
+    static Color GREEN_20;
 
     static const int Count = 256;
 

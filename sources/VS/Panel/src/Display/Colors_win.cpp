@@ -22,21 +22,29 @@ Color Color::GREEN(5);
 Color Color::GREY_10(6);
 Color Color::GREY_50(7);
 Color Color::GREY_20(8);
+Color Color::GREEN_50(9);
+Color Color::GREEN_25(10);
+Color Color::GREEN_10(11);
+Color Color::GREEN_20(12);
 
 
 static Color current = Color::BLACK;
 
 uint colors[Color::Count] =
 {
-    0x00000000U,                // BLACK
-    0xFFFFFFFFU,                // WHITE
-    0x00FFFF00U,                // YELLOW
-    0x000000FFU,                // BLUE
-    0x00FF00FFU,                // RED
-    0x0000FF00U,                // GREEN
-    MAKE_COLOR(25, 25, 25),     // GREY_10
-    MAKE_COLOR(127, 127, 127),  // GREY_50
-    MAKE_COLOR(51, 51, 51)      // GREY_20
+    MAKE_COLOR(0, 0, 0),            // BLACK
+    MAKE_COLOR(0xFF, 0xFF, 0xFF),   // WHITE
+    MAKE_COLOR(0x00, 0xFF, 0xFF),   // YELLOW
+    MAKE_COLOR(0x00, 0x00, 0xFF),   // BLUE
+    MAKE_COLOR(0xFF, 0x00, 0x00),   // RED
+    MAKE_COLOR(0x00, 0xFF, 0x00),   // GREEN
+    MAKE_COLOR(25, 25, 25),         // GREY_10
+    MAKE_COLOR(127, 127, 127),      // GREY_50
+    MAKE_COLOR(51, 51, 51),         // GREY_20
+    MAKE_COLOR(0, 127, 0),          // GREEN_50
+    MAKE_COLOR(0, 255 / 4, 0),      // GREEN_25
+    MAKE_COLOR(0, 255 / 10, 0),     // GREEN_10
+    MAKE_COLOR(0, 255 / 5, 0)       // GREEN_20
 };
 
 

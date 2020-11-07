@@ -165,7 +165,7 @@ static void DrawScreen()
     }
     else
     {
-        DrawStatusBar();    
+        DrawStatusBar();
             
         DrawTypeMeasure();
         
@@ -179,7 +179,7 @@ static void DrawScreen()
         
         Menu::Draw();
         
-        DrawData(); 
+        DrawData();
     }
 }
 
@@ -197,6 +197,11 @@ static void DrawTypeMeasure()
 {
     int x = 0;
     int width = 100; 
+
+    Rectangle(width, 30).FillRounded(x, 15, 2, Color::GREEN_20, Color::WHITE);
+
+    Color::WHITE.SetAsCurrent();
+
     if (CURRENT_CHANNEL_IS_A)
     {
         Text(PageModesA::typeMeasure.ToText()).Write(x, 25, width);
@@ -213,7 +218,6 @@ static void DrawTypeMeasure()
     {
         Text("Частота").Write(x, 25, width);
     }
-    Rectangle(width, 30).Draw(x, 15, Color::WHITE);
 }
 
 
@@ -436,16 +440,16 @@ static void DrawStatusBarA()
     const Enumeration *mode = modes[PageModesA::typeMeasure];
 
     const Enumeration *toText = enums[PageModesA::typeMeasure][mode->value];
-    
+   
     int y = 80;
     int width = 60;
+
+    Rectangle(width, 30).FillRounded(0, y, 2, Color::GREEN_20, Color::WHITE);
 
     if (toText)
     {
         Text(toText->ToText()).Write(2, y + 7, width, Color::WHITE);
     }
-
-    Rectangle(width, 30).Draw(0, y, Color::WHITE);
 }
 
 static void DrawStatusBarB()
@@ -490,12 +494,12 @@ static void DrawStatusBarB()
     int y = 80;
     int width = 60;
 
+    Rectangle(width, 30).FillRounded(0, y, 2, Color::GREEN_20, Color::WHITE);
+
     if (toText)
     {
         Text(toText->ToText()).Write(2, y + 7, width, Color::WHITE);
     }
-
-    Rectangle(width, 30).Draw(0, y, Color::WHITE);
 }
 
 static void DrawStatusBarC()
@@ -527,20 +531,20 @@ static void DrawStatusBarC()
     int y = 80;
     int width = 60;
 
+    Rectangle(width, 30).FillRounded(0, y, 2, Color::GREEN_20, Color::WHITE);
+
     if (toText)
     {
         Text(toText->ToText()).Write(2, y + 7, width, Color::WHITE);
     }
-
-    Rectangle(width, 30).Draw(0, y, Color::WHITE);
 }
 
 static void DrawStatusBarD()
 {
     int y = 80;
     int width = 60;
+    Rectangle(width, 30).FillRounded(0, y, 2, Color::GREEN_20, Color::WHITE);
     Text(PageModesD::timeMeasure.ToText()).Write(2, y + 7, width, Color::WHITE);
-    Rectangle(width, 30).Draw(0, y, Color::WHITE);
 }
 
 
