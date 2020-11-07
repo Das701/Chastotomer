@@ -114,9 +114,9 @@ void Display::BeginScene()
     {
         for (int y = 0; y < count; y++)
         {
-            *pointer++ = c;      // red
+            *pointer++ = c;      // red //-V525
             *pointer++ = c;      // green
-            *pointer++ = 0;         // blue
+            *pointer++ = 0;      // blue
         }
 
         for (int y = 0; y < count; y++)
