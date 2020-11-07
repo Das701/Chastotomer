@@ -15,6 +15,7 @@ namespace Display
             void DrawRounded(int x, int y, int round, Color color);
             void Fill(int x, int y);
             void Fill(int x, int y, Color color);
+            void FillRounded(int x, int y, int round, Color colorFill, Color colorBound);
         private:
             int width;
             int height;

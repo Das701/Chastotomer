@@ -44,14 +44,11 @@ void Page::Draw(int x, int y, int, bool)
     {
         for (int i = 0; i < NumItems(); i++)
         {
-            if (i == selectedItem)
-            {
-                Rectangle(WidthItem(i) - 1, HEIGHT - 1).Fill(x + 1, y + 1, Color::WHITE);
-            }
+            bool selected = (i == selectedItem);
 
-            items[i]->Draw(x, y, WidthItem(i), i == selectedItem);
+            Rectangle(WidthItem(i) - 1, HEIGHT - 1).FillRounded(x + 1, y + 1, 2, selected ? Color::WHITE : Color::BLACK, Color::WHITE);
 
-            Rectangle(WidthItem(i), HEIGHT).DrawRounded(x, y, 2, Color::WHITE);
+            items[i]->Draw(x, y, WidthItem(i), selected);
 
             x += WidthItem(i);
         }
@@ -198,6 +195,10 @@ void Switch::Draw(int x, int y, int width, bool selected)
     if (selected)
     {
         Color::BLACK.SetAsCurrent();
+    }
+    else
+    {
+        Color::WHITE.SetAsCurrent();
     }
 
     Text(text).WriteInCenterRect(x, y, width, HEIGHT);
