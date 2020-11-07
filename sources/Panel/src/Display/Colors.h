@@ -3,10 +3,6 @@
 
 struct SColor
 {
-//    uint8 r;
-//    uint8 g;
-//    uint8 b;
-
     static uint MakeFromUint8(uint8 red, uint8 green, uint8 blue);
 };
 
@@ -20,6 +16,9 @@ struct Color
     static Color BLUE;
     static Color RED;
     static Color GREEN;
+    static Color GREY_10;   // 10% серого
+    static Color GREY_50;   // 50% серого
+    static Color GREY_20;   // 20% серого
 
     static const int Count = 256;
 
@@ -33,5 +32,7 @@ struct Color
 
 
 extern uint colors[Color::Count];
+
+#define MAKE_COLOR(r, g, b) ((b) | ((g) << 8) | ((r) << 16))
 
 #define COLOR(x) colors[x]
