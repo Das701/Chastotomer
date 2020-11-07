@@ -13,12 +13,6 @@ using namespace Display::Primitives;
 extern wxMemoryDC memDC;
 
 
-Rectangle::Rectangle(int _width, int _height) : width(_width), height(_height)
-{
-
-}
-
-
 void Rectangle::Draw(int x, int y, Color color)
 {
     color.SetAsCurrent();
@@ -36,25 +30,6 @@ void Rectangle::Draw(int x, int y)
     else
     {
         memDC.DrawRectangle({ x, y, width, height });
-    }
-}
-
-
-void Rectangle::DrawRounded(int x, int y, int round, Color color)
-{
-    color.SetAsCurrent();
-
-    HLine(width - 2 * round + 1).Draw(x + round, y);
-    HLine(width - 2 * round + 1).Draw(x + round, y + height);
-    VLine(height - 2 * round + 1).Draw(x, y + round);
-    VLine(height - 2 * round + 1).Draw(x + width, y + round);
-
-    if (round == 2)
-    {
-        Point().Draw(x + 1, y + 1);
-        Point().Draw(x + width - 1, y + 1);
-        Point().Draw(x + 1, y + height - 1);
-        Point().Draw(x + width - 1, y + height - 1);
     }
 }
 

@@ -9,7 +9,7 @@ namespace Display
         class Rectangle
         {
         public:
-            Rectangle(int width, int height);
+            Rectangle(int _width, int _height) : width(_width), height(_height) {}
             void Draw(int x, int y);
             void Draw(int x, int y, Color color);
             void DrawRounded(int x, int y, int round, Color color);
