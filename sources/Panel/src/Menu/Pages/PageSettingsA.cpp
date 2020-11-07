@@ -30,7 +30,7 @@ static void OnPress_Couple()
 
 // Выбор закрытого(открытого) входа текущего канала
 DEF_SWITCH_UGO_2(sCouple,
-    "\x81 \x80", "Вход",
+    "Вход", "Вход",
     "Открытый вход", "Закрытый вход",
     "\x81", "\x80",
     PageSettingsA::couple, OnPress_Couple
@@ -72,7 +72,7 @@ static void OnPress_Front()
 
 // Выбор фронта синхронизации текущего канала
 DEF_SWITCH_UGO_2(sFront,
-    "\x82 \x83", "Выбор типа синхронизации",
+    "\x82/\x83", "Выбор типа синхронизации",
     "Фронт", "Срез",
     "\x82", "\x83",
     PageSettingsA::modeFront, OnPress_Front
@@ -86,7 +86,7 @@ static void OnPress_Divider()
 
 // Включение(отключение) входного делителя напряжения
 DEF_SWITCH_UGO_2(sDivider,
-    "1:1 1:10", "Вкл/откл входного делителя",
+    "Делитель", "Вкл/откл входного делителя",
     "1:1", "1:10",
     "1:1", "1:10",
     PageSettingsA::divider, OnPress_Divider
