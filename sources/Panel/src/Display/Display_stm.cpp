@@ -129,12 +129,6 @@ void Display::Init()
     
     HAL_FSMC::WriteCommand(0x2c);
 
-
-    for (int i = 0; i < Color::Count; i++)
-    {
-        COLOR(i) = MAKE_COLOR(i, i, i);
-    }
-
     Font::Set(PTypeFont::GOST16B);
 
     Font::SetSpacing(2);
@@ -143,7 +137,7 @@ void Display::Init()
 
 void Display::BeginScene()
 {
-    std::memset(&buffer[0][0], Color::BLACK.value, Display::WIDTH * Display::HEIGHT / Display::NUM_PARTS);
+    std::memset(&buffer[0][0], Color::GREEN_25.value, Display::WIDTH * Display::HEIGHT / Display::NUM_PARTS);
 }
 
 
