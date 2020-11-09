@@ -137,33 +137,29 @@ void Display::Init()
     Font::SetSpacing(2);
 
 
-    int num = 4;
+//    int num = 4;
 
     uint8 *pointer = lineBackground;
 
-    for (int i = 0; i < Display::WIDTH * 2; i += (2 * num))
+    for (int i = 0; i < Display::WIDTH * 2; i += 2)
     {
-        for (int b = 0; b < num; b++)
-        {
-            *pointer++ = Color::GREEN_10.value;
-        }
-
-        for (int b = 0; b < num; b++)
-        {
-            *pointer++ = Color::GREEN_12.value;
-        }
+        *pointer++ = Color::GREEN_10.value;
+        *pointer++ = Color::GREEN_25.value;
     }
 }
 
 
 void Display::BeginScene()
 {
-    for (int i = 0; i < Display::HEIGHT / Display::NUM_PARTS; i += 4)
+    for (int i = 0; i < Display::HEIGHT / Display::NUM_PARTS; i += 2)
     {
-        std::memcpy(&buffer[i][0], lineBackground, Display::WIDTH);
-        std::memcpy(&buffer[i + 1][0], lineBackground + 1, Display::WIDTH);
-        std::memcpy(&buffer[i + 2][0], lineBackground + 2, Display::WIDTH);
-        std::memcpy(&buffer[i + 3][0], lineBackground + 3, Display::WIDTH);
+          std::memcpy(&buffer[i][0], lineBackground, Display::WIDTH);
+          std::memcpy(&buffer[i + 1][0], lineBackground + 1, Display::WIDTH);
+
+//        std::memcpy(&buffer[i][0], lineBackground, Display::WIDTH);
+//        std::memcpy(&buffer[i + 1][0], lineBackground + 1, Display::WIDTH);
+//        std::memcpy(&buffer[i + 2][0], lineBackground + 2, Display::WIDTH);
+//        std::memcpy(&buffer[i + 3][0], lineBackground + 3, Display::WIDTH);
     }
 }
 
