@@ -30,7 +30,7 @@ using Display::Text;
 
 
 // Нарисовать подсказку
-static void DrawHint();
+static void DrawHint(int x, int y);
 
 // Нарисовать статус-бар
 static void DrawStatusBar();
@@ -162,11 +162,11 @@ static void DrawScreen()
     {
         DrawStatusBar();
         
-        CurrentTypeMeasure::Draw(100, 100);
+        CurrentTypeMeasure::Draw(10, 57);
         
-        CurrentModeMeasure::Draw(210, 100);
+        CurrentModeMeasure::Draw(120, 57);
         
-        DrawHint();
+        DrawHint(10, 100);
         
         DrawChannelSettings();
         
@@ -190,10 +190,8 @@ static void DrawChannelSettings()
 }
 
 
-static void DrawHint()
+static void DrawHint(int x, int y)
 {
-    int x = 105;
-    int y = 60;
     int dX = 4;
     int dY = 6;
 
@@ -220,7 +218,7 @@ static void DrawHint()
             }
             else
             {
-                Rectangle(360, 30).FillRounded(105, 60, 2, Color::GREEN_20, Color::GREEN_20);
+                Rectangle(360, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::GREEN_20);
                 Text("Установка уровня синхр.").Write(x + dX, y + dY, Color::WHITE);
             }
         }
@@ -228,7 +226,7 @@ static void DrawHint()
         {
             if (Hint::Text()[0] != 0)
             {
-                Rectangle(360, 30).FillRounded(105, 60, 2, Color::GREEN_20, Color::GREEN_20);
+                Rectangle(360, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::GREEN_20);
                 Text(Hint::Text()).Write(x + dX, y + dY, Color::WHITE);
             }
             autoFlag = false;
@@ -236,7 +234,6 @@ static void DrawHint()
     }
 }
 
-//static bool xMark = false;
 
 static void DrawInfo()
 {
