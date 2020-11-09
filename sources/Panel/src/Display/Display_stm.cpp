@@ -145,12 +145,12 @@ void Display::Init()
     {
         for (int b = 0; b < num; b++)
         {
-            *pointer++ = Color::GREEN_25.value;
+            *pointer++ = Color::GREEN_10.value;
         }
 
         for (int b = 0; b < num; b++)
         {
-            *pointer++ = Color::GREEN_25.value;
+            *pointer++ = Color::GREEN_5.value;
         }
     }
 }
@@ -158,9 +158,12 @@ void Display::Init()
 
 void Display::BeginScene()
 {
-    for (int i = 0; i < Display::HEIGHT / Display::NUM_PARTS; i++)
+    for (int i = 0; i < Display::HEIGHT / Display::NUM_PARTS; i += 4)
     {
         std::memcpy(&buffer[i][0], lineBackground, Display::WIDTH);
+        std::memcpy(&buffer[i + 1][0], lineBackground + 1, Display::WIDTH);
+        std::memcpy(&buffer[i + 2][0], lineBackground + 2, Display::WIDTH);
+        std::memcpy(&buffer[i + 3][0], lineBackground + 3, Display::WIDTH);
     }
 }
 

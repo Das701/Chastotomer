@@ -19,6 +19,7 @@ struct Color
     static Color GREEN_25;
     static Color GREEN_10;
     static Color GREEN_20;
+    static Color GREEN_5;
 
     static const int Count = 256;
 
