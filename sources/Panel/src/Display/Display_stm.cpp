@@ -150,7 +150,7 @@ void Display::Init()
 
         for (int b = 0; b < num; b++)
         {
-            *pointer++ = Color::GREEN_5.value;
+            *pointer++ = Color::GREEN_15.value;
         }
     }
 }

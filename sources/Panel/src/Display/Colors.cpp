@@ -18,6 +18,7 @@ Color Color::GREEN_25(10);
 Color Color::GREEN_10(11);
 Color Color::GREEN_20(12);
 Color Color::GREEN_5(13);
+Color Color::GREEN_15(14);
 
 uint colors[Color::Count] =
 {
@@ -34,5 +35,6 @@ uint colors[Color::Count] =
     MAKE_COLOR(0, 255 / 4, 0),      // GREEN_25
     MAKE_COLOR(0, 255 / 10, 0),     // GREEN_10
     MAKE_COLOR(0, 255 / 5, 0),      // GREEN_20
-    MAKE_COLOR(0, 255 / 20, 0)      // GREEN_5
+    MAKE_COLOR(0, 255 / 20, 0),     // GREEN_5
+    MAKE_COLOR(0, 38, 0)            // GREEN_15
 };
