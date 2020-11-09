@@ -109,7 +109,10 @@ void Display::Refresh()
 
 void Display::Update()
 {
-    if (needRedraw)
+    static uint lastUpdate = 0;
+
+    if (needRedraw ||
+        ((TIME_MS - lastUpdate) > 1000))
     {
         timeStart = TIME_MS;
 
@@ -119,6 +122,8 @@ void Display::Update()
         }
 
         timeFull = TIME_MS - timeStart;
+
+        lastUpdate = TIME_MS;
     }
 
     needRedraw = false;
@@ -138,7 +143,7 @@ static void DrawPartScreen(int num)
 
     if (num == 0)
     {
-        Text(String("Пол %d", timeFull).c_str()).Write(400, 0, Color::WHITE);
+        Text(String("%d", timeFull).c_str()).Write(440, 0, Color::WHITE);
     }
 
     DrawScreen();
