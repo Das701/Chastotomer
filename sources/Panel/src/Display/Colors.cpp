@@ -24,21 +24,21 @@ Color Color::GREY_75(16);
 
 uint colors[Color::Count] =
 {
-    MAKE_COLOR(0, 0, 0),            // BLACK
-    MAKE_COLOR(0xFF, 0xFF, 0xFF),   // WHITE
-    MAKE_COLOR(0x00, 0xFF, 0xFF),   // YELLOW
-    MAKE_COLOR(0x00, 0x00, 0xFF),   // BLUE
-    MAKE_COLOR(0xFF, 0x00, 0x00),   // RED
-    MAKE_COLOR(0x00, 0xFF, 0x00),   // GREEN
-    MAKE_COLOR(25, 25, 25),         // GREY_10
-    MAKE_COLOR(127, 127, 127),      // GREY_50
-    MAKE_COLOR(51, 51, 51),         // GREY_20
-    MAKE_COLOR(0, 127, 0),          // GREEN_50
-    MAKE_COLOR(0, 255 / 4, 0),      // GREEN_25
-    MAKE_COLOR(0, 255 / 10, 0),     // GREEN_10
-    MAKE_COLOR(0, 255 / 5, 0),      // GREEN_20
-    MAKE_COLOR(0, 255 / 20, 0),     // GREEN_5
-    MAKE_COLOR(0, 38, 0),           // GREEN_15
-    MAKE_COLOR(0, 31, 0),           // GREEN_12
-    MAKE_COLOR(191, 191, 191)       // GREY_75
+    MAKE_COLOR(0,   0,   0),    // BLACK
+    MAKE_COLOR(255, 255, 255),  // WHITE
+    MAKE_COLOR(0,   255, 255),  // YELLOW
+    MAKE_COLOR(0,   0,   255),  // BLUE
+    MAKE_COLOR(255, 0,   0),    // RED
+    MAKE_COLOR(0,   255, 0),    // GREEN
+    MAKE_COLOR(25,  25,  25),   // GREY_10
+    MAKE_COLOR(127, 127, 127),  // GREY_50
+    MAKE_COLOR(51,  51,  51),   // GREY_20
+    MAKE_COLOR(0,   127, 0),    // GREEN_50
+    MAKE_COLOR(0,   64,  0),    // GREEN_25
+    MAKE_COLOR(0,   25,  0),    // GREEN_10
+    MAKE_COLOR(0,   51,  0),    // GREEN_20
+    MAKE_COLOR(0,   13,  0),    // GREEN_5
+    MAKE_COLOR(0,   38,  0),    // GREEN_15
+    MAKE_COLOR(0,   31,  0),    // GREEN_12
+    MAKE_COLOR(191, 191, 191)   // GREY_75
 };
