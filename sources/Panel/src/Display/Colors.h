@@ -12,6 +12,7 @@ struct Color
     static Color GREY_10;   // 10% серого
     static Color GREY_20;   // 20% серого
     static Color GREY_50;   // 50% серого
+    static Color GREY_75;   // 50% серого
 
     static Color RED;
 
