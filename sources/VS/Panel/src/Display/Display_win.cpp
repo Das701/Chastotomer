@@ -31,6 +31,9 @@
 #undef pString
 
 
+using namespace Display::Primitives;
+
+
 // Здесь хранятся указатели на кнопки
 static wxButton *buttons[Control::Count] = { nullptr };
 
@@ -81,6 +84,7 @@ public:
 static Screen *screen = nullptr;
 
 
+static wxBitmap *backgroundBMP = nullptr;
 
 void Display::Init()
 {
@@ -89,6 +93,30 @@ void Display::Init()
     Font::Set(PTypeFont::GOST16B);
 
     Font::SetSpacing(2);
+
+#define SIZE_BUFFER (Display::WIDTH * Display::HEIGHT * 3)
+
+    static unsigned char buffer[SIZE_BUFFER];
+
+    unsigned char *pointer = buffer;
+
+    for (int i = 0; i < Display::WIDTH * Display::HEIGHT; i += 2)
+    {
+        *pointer++ = RED_FROM_COLOR(COLOR(Color::GREEN_10.value));
+        *pointer++ = GREEN_FROM_COLOR(COLOR(Color::GREEN_10.value));
+        *pointer++ = BLUE_FROM_COLOR(COLOR(Color::GREEN_10.value));
+
+        *pointer++ = RED_FROM_COLOR(COLOR(Color::GREEN_25.value));
+        *pointer++ = GREEN_FROM_COLOR(COLOR(Color::GREEN_25.value));
+        *pointer++ = BLUE_FROM_COLOR(COLOR(Color::GREEN_25.value));
+    }
+
+    wxImage image;
+    image.Create(Display::WIDTH, Display::HEIGHT, buffer, true);
+
+    static wxBitmap bmp(image);
+
+    backgroundBMP = &bmp;
 }
 
 
@@ -98,43 +126,7 @@ void Display::BeginScene()
     wxBrush brush({ 0, 0, 0 }, wxTRANSPARENT);
     memDC.SetBrush(brush);
 
-
-#define SIZE_BUFFER (Display::WIDTH * Display::HEIGHT * 4)
-
-    unsigned char buffer[SIZE_BUFFER];
-
-    unsigned char *pointer = buffer;
-
-    static int count = 34;
-    //static int count = 59;
-
-    uint8 c = 0x80;
-
-    for (int i = 0; i < Display::WIDTH * Display::HEIGHT / (count + count); i++)
-    {
-        for (int y = 0; y < count; y++)
-        {
-            *pointer++ = c;      // red //-V525
-            *pointer++ = c;      // green
-            *pointer++ = 0;      // blue
-        }
-
-        for (int y = 0; y < count; y++)
-        {
-            *pointer++ = 0;
-            *pointer++ = c;
-            *pointer++ = 0;
-        }
-    }
-    
-    wxImage image;
-    image.Create(Display::WIDTH, Display::HEIGHT, buffer, true);
-
-    wxBitmap bmp(image);
-
-    memDC.DrawBitmap(bmp, 0, 0);
-
-    //Primitives::Rectangle(Display::WIDTH, Display::HEIGHT).Fill(0, 0, Color::RED);
+    memDC.DrawBitmap(*backgroundBMP, 0, 0);
 }
 
 

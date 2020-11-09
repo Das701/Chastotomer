@@ -41,7 +41,10 @@ struct Color
 extern uint colors[Color::Count];
 
 #ifdef WIN32
-    #define MAKE_COLOR(r, g, b) ((uint)((b) | ((g) << 8) | ((r) << 16)))
+    #define MAKE_COLOR(r, g, b)     ((uint)((b) | ((g) << 8) | ((r) << 16)))
+    #define RED_FROM_COLOR(color)   ((uint8)(((color) >> 16) & 0xFF))
+    #define GREEN_FROM_COLOR(color) ((uint8)(((color) >> 8) & 0xFF))
+    #define BLUE_FROM_COLOR(color)  ((uint8)(color & 0xFF))
 #else
     #define MAKE_COLOR(r, g, b) ((uint)((r) | ((g) << 8) | ((b) << 16)))
 #endif
