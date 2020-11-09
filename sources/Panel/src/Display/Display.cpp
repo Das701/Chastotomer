@@ -163,7 +163,7 @@ static void DrawScreen()
 
         CurrentModeMeasure::DrawParameters(270, 57);
         
-        DrawHint(10, 100);
+        DrawHint(10, Display::HEIGHT - Item::HEIGHT - 30);
         
         DrawChannelSettings();
         

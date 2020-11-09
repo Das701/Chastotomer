@@ -30,7 +30,7 @@ static Page *openedPage = PageModesA::self;
 
 void Menu::Draw()
 {
-    openedPage->Draw(0, 216, 0);
+    openedPage->Draw(0, Display::HEIGHT - Item::HEIGHT - 1, 0);
 }
 
 

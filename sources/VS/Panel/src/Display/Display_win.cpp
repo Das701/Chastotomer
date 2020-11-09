@@ -94,9 +94,7 @@ void Display::Init()
 
     Font::SetSpacing(2);
 
-#define SIZE_BUFFER (Display::WIDTH * Display::HEIGHT * 3)
-
-    static unsigned char buffer[SIZE_BUFFER];
+    static unsigned char buffer[Display::WIDTH * Display::HEIGHT * 3];
 
     unsigned char *pointer = buffer;
 

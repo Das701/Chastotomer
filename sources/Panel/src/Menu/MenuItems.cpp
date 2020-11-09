@@ -46,9 +46,9 @@ void Page::Draw(int x, int y, int, bool)
         {
             bool selected = (i == selectedItem);
 
-            Rectangle(WidthItem(i) - 1, HEIGHT - 1).FillRounded(x + 1, y + 1, 2, selected ? Color::GREY_75 : Color::GREY_10, Color::WHITE);
+            Rectangle(WidthItem(i) - 1, HEIGHT - 1).FillRounded(x, y + 1, 2, selected ? Color::GREY_75 : Color::GREY_10, Color::WHITE);
 
-            items[i]->Draw(x, y, WidthItem(i), selected);
+            items[i]->Draw(x, y + 5, WidthItem(i), selected);
 
             x += WidthItem(i);
         }
@@ -70,7 +70,7 @@ int Page::WidthItem(int num) const
 
     if (num == 5)
     {
-        result += 2;
+        result += 3;
     }
 
     return result;
