@@ -171,7 +171,7 @@ char *Menu::ChannelSettings()
 
     char buffer[20];
 
-    static const char * const names[Channel::Count] = { "A:", "B:", "C:", "D:" };
+    static const char * const names[Channel::Count] = { "Канал A:", "Канал B:", "Канал C:", "Канал D:" };
 
     static char settings[100] = { 0 };
 

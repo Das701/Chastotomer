@@ -164,7 +164,7 @@ static void DrawScreen()
         
         CurrentTypeMeasure::Draw(100, 100);
         
-        CurrentModeMeasure::Draw(210, 110);
+        CurrentModeMeasure::Draw(210, 100);
         
         DrawHint();
         
@@ -183,9 +183,9 @@ static void DrawChannelSettings()
 {
     if (Display::InDrawingPart(17, 20))
     {
-        Rectangle(360, 30).FillRounded(105, 15, 2, Color::GREEN_20, Color::GREEN_20);
+        Rectangle(460, 30).FillRounded(10, 15, 2, Color::GREEN_20, Color::GREEN_20);
 
-        Text(Menu::ChannelSettings()).Write(108, 21, Color::WHITE);
+        Text(Menu::ChannelSettings()).Write(20, 21, Color::WHITE);
     }
 }
 

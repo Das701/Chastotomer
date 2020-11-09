@@ -659,7 +659,11 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
 
 void CurrentModeMeasure::Draw(int x, int y)
 {
-    Text(ToEnumeration().ToText()).Write(x, y);
+    int width = 120;
+
+    Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
+
+    Text(ToEnumeration().ToText()).Write(x + 10, y + 10, Color::WHITE);
 }
 
 
