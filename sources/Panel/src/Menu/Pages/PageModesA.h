@@ -26,6 +26,13 @@ struct CurrentModeMeasureFrequency
 };
 
 
+struct CurrentModeMeasure
+{
+    static Enumeration &ToEnumeration();
+    static void Draw(int x, int y);
+};
+
+
 struct CurrentModeMeasureCountPulse
 {
     static bool IsBig_T();

@@ -616,13 +616,60 @@ Enumeration &CurrentTypeMeasure::ToEnumeration()
 }
 
 
+Enumeration &CurrentModeMeasure::ToEnumeration()
+{
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        static Enumeration * const modes[4] =
+        {
+            &PageModesA::modeMeasureFrequency,
+            &PageModesA::modeMeasurePeriod,
+            &PageModesA::modeMeasureDuration,
+            &PageModesA::modeMeasureCountPulse
+        };
+        
+        return *modes[PageModesA::typeMeasure.value];
+    }
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        static Enumeration * const modesB[4] =
+        {
+            &PageModesB::modeMeasureFrequency,
+            &PageModesB::modeMeasurePeriod,
+            &PageModesB::modeMeasureDuration,
+            &PageModesB::modeMeasureCountPulse
+        };
+
+        return *modesB[PageModesB::typeMeasure.value];
+    }
+    else if (CURRENT_CHANNEL_IS_C)
+    {
+        static Enumeration * const modesC[2] =
+        {
+            &PageModesC::modeMeasureFrequency,
+            &PageModesC::modeMeasureCountPulse
+        };
+
+        return *modesC[PageModesC::typeMeasure.value];;
+    }
+
+    return PageModesD::modeMeasureFrequency;
+}
+
+
+void CurrentModeMeasure::Draw(int x, int y)
+{
+    Text(ToEnumeration().ToText()).Write(x, y);
+}
+
+
 void CurrentTypeMeasure::Draw(int x, int y)
 {
     int width = 100;
 
     Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
 
-    Text(CurrentTypeMeasure::ToEnumeration().ToText()).Write(x, y + 10, width, Color::WHITE);
+    Text(ToEnumeration().ToText()).Write(x, y + 10, width, Color::WHITE);
 }
 
 

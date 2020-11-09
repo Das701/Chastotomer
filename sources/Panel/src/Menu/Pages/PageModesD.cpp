@@ -18,8 +18,9 @@ extern Item *items[7];
 extern Switch sTimeMeasureD;
 
 
-TypeMeasureD PageModesD::typeMeasure(TypeMeasureD::Frequency);
-TimeMeasure  PageModesD::timeMeasure(TimeMeasure::_1ms);
+TypeMeasureD          PageModesD::typeMeasure(TypeMeasureD::Frequency);
+ModeMeasureFrequencyD PageModesD::modeMeasureFrequency(ModeMeasureFrequencyD::Frequency);
+TimeMeasure           PageModesD::timeMeasure(TimeMeasure::_1ms);
 
 
 static void OnPress_TimeMeasure()
@@ -54,12 +55,25 @@ DEF_SWITCH_2(sTypeMeasure,
 )
 
 
+static void OnChanged_ModeMeasureFrequency()
+{
+
+}
+
+
+DEF_SWITCH_2(sModeMeasureFrequency,
+    "Режим", "Измерение частоы",
+    "Частота", "Частота",
+    PageModesD::modeMeasureFrequency, OnChanged_ModeMeasureFrequency
+)
+
+
 static Item *items[7] =
 {
     &sTimeMeasureD,
     nullptr,
     &sTypeMeasure,
-    nullptr,
+    &sModeMeasureFrequency,
     nullptr,
     nullptr,
     nullptr

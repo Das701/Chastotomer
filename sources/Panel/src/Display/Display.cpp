@@ -29,9 +29,6 @@ using namespace Display::Primitives;
 using Display::Text;
 
 
-// Нарисовать режим измерения
-static void DrawModeMeasure();
-
 // Нарисовать подсказку
 static void DrawHint();
 
@@ -167,7 +164,7 @@ static void DrawScreen()
         
         CurrentTypeMeasure::Draw(100, 100);
         
-        DrawModeMeasure();
+        CurrentModeMeasure::Draw(210, 110);
         
         DrawHint();
         
@@ -178,46 +175,6 @@ static void DrawScreen()
         Menu::Draw();
         
         DrawData();
-    }
-}
-
-
-static void DrawModeMeasure()
-{
-    if (CURRENT_CHANNEL_IS_A)
-    {
-        static const Enumeration *modes[4] =
-        {
-            &PageModesA::modeMeasureFrequency,
-            &PageModesA::modeMeasurePeriod,
-            &PageModesA::modeMeasureDuration,
-            &PageModesA::modeMeasureCountPulse
-        };
-        Text(modes[PageModesA::typeMeasure.value]->ToText()).Write(0, 55);
-    }
-    else if (CURRENT_CHANNEL_IS_B)
-    {
-        static const Enumeration *modesB[4] =
-        {
-            &PageModesB::modeMeasureFrequency,
-            &PageModesB::modeMeasurePeriod,
-            &PageModesB::modeMeasureDuration,
-            &PageModesB::modeMeasureCountPulse
-        };
-        Text(modesB[PageModesB::typeMeasure.value]->ToText()).Write(0, 55);
-    }
-    else if (CURRENT_CHANNEL_IS_C)
-    {
-        static const Enumeration *modesC[2] =
-        {
-            &PageModesC::modeMeasureFrequency,
-            &PageModesC::modeMeasureCountPulse
-        };
-        Text(modesC[PageModesC::typeMeasure.value]->ToText()).Write(0, 55);
-    }   
-    if (CURRENT_CHANNEL_IS_D)
-    {  
-        Text("Частота").Write(0, 55);
     }
 }
 
