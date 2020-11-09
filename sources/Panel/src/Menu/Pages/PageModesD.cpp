@@ -17,6 +17,8 @@ using namespace Display;
 extern Item *items[7];
 extern Switch sTimeMeasureD;
 
+
+TypeMeasureD PageModesD::typeMeasure(TypeMeasureD::Frequency);
 TimeMeasure  PageModesD::timeMeasure(TimeMeasure::_1ms);
 
 
@@ -39,11 +41,24 @@ DEF_SWITCH_7(sTimeMeasureD,
 );
 
 
+static void OnChanged_TypeMeasure()
+{
+
+}
+
+
+DEF_SWITCH_2(sTypeMeasure,
+    "Измерения", "Выбор измерения",
+    "Частота", "Частота",
+    PageModesD::typeMeasure, OnChanged_TypeMeasure
+)
+
+
 static Item *items[7] =
 {
     &sTimeMeasureD,
     nullptr,
-    nullptr,
+    &sTypeMeasure,
     nullptr,
     nullptr,
     nullptr,

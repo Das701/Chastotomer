@@ -9,6 +9,9 @@ struct CurrentTypeMeasure
     static bool IsPeriod();
     static bool IsDuration();
     static bool IsCountPulse();
+    static Enumeration &ToEnumeration();
+    static void Draw(int x, int y);
+
 };
 
 struct CurrentModeMeasureFrequency

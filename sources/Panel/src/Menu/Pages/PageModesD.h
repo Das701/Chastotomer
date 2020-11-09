@@ -3,11 +3,23 @@
 #include "Menu/Pages/PageModesA.h"
 
 
+struct TypeMeasureD : public Enumeration
+{
+    enum E
+    {
+        Frequency,
+        Count
+    };
+
+    explicit TypeMeasureD(E v) : Enumeration((uint8)v) {};
+};
+
+
 class PageModesD
 {
 public:
     static Page *self;
 
-    // Время счета
-    static TimeMeasure timeMeasure;
+    static TypeMeasureD typeMeasure;
+    static TimeMeasure  timeMeasure;     // Время счета
 };

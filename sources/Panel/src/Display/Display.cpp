@@ -29,9 +29,6 @@ using namespace Display::Primitives;
 using Display::Text;
 
 
-// Нарисовать тип измерения
-static void DrawTypeMeasure();
-
 // Нарисовать режим измерения
 static void DrawModeMeasure();
 
@@ -167,8 +164,8 @@ static void DrawScreen()
     else
     {
         DrawStatusBar();
-            
-        DrawTypeMeasure();
+        
+        CurrentTypeMeasure::Draw(100, 100);
         
         DrawModeMeasure();
         
@@ -181,34 +178,6 @@ static void DrawScreen()
         Menu::Draw();
         
         DrawData();
-    }
-}
-
-
-static void DrawTypeMeasure()
-{
-    int x = 0;
-    int width = 100; 
-
-    Rectangle(width, 30).FillRounded(x, 15, 2, Color::GREEN_20, Color::WHITE);
-
-    Color::WHITE.SetAsCurrent();
-
-    if (CURRENT_CHANNEL_IS_A)
-    {
-        Text(PageModesA::typeMeasure.ToText()).Write(x, 25, width);
-    }
-    else if (CURRENT_CHANNEL_IS_B)
-    {
-        Text(PageModesB::typeMeasure.ToText()).Write(x, 25, width);
-    }
-    else if (CURRENT_CHANNEL_IS_C)
-    {
-        Text(PageModesC::typeMeasure.ToText()).Write(x, 25, width);
-    }
-    else if (CURRENT_CHANNEL_IS_D)
-    {
-        Text("Частота").Write(x, 25, width);
     }
 }
 
