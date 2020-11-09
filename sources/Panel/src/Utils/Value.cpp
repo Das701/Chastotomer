@@ -934,7 +934,9 @@ pString ValuePICO::ToString() const
 
     val.Sub(ValuePICO(Integer()));                  // “еперь в val осталась только дробна€ часть
 
-    while (val.value != 0)
+    int count = 0;
+
+    while (val.value != 0 && count < 4)
     {
         val.Mul(10);
         
@@ -943,6 +945,8 @@ pString ValuePICO::ToString() const
         symbol[0] = (char)(integer | 0x30);
 
         std::strcat(buffer, symbol);
+
+        count++;
 
         val.Sub(ValuePICO(integer));
     }

@@ -31,6 +31,9 @@ static const uint8 *startBuffer = &buffer[0][0];
 static const uint8 *endBuffer = startBuffer + WIDTH_BUFFER * HEIGHT_BUFFER;
 
 
+static uint8 lineBackground[Display::WIDTH * 2];    // Эта последовательность байт используется для отрисовки фона
+
+
 static void SetLShiftFreq(uint freq)
 {
     HAL_FSMC::WriteCommand(0xe6);   // set the LSHIFT (pixel clock) frequency
@@ -132,12 +135,33 @@ void Display::Init()
     Font::Set(PTypeFont::GOST16B);
 
     Font::SetSpacing(2);
+
+
+    int num = 4;
+
+    uint8 *pointer = lineBackground;
+
+    for (int i = 0; i < Display::WIDTH * 2; i += (2 * num))
+    {
+        for (int b = 0; b < num; b++)
+        {
+            *pointer++ = Color::GREEN_25.value;
+        }
+
+        for (int b = 0; b < num; b++)
+        {
+            *pointer++ = Color::GREEN_25.value;
+        }
+    }
 }
 
 
 void Display::BeginScene()
 {
-    std::memset(&buffer[0][0], Color::GREEN_25.value, Display::WIDTH * Display::HEIGHT / Display::NUM_PARTS);
+    for (int i = 0; i < Display::HEIGHT / Display::NUM_PARTS; i++)
+    {
+        std::memcpy(&buffer[i][0], lineBackground, Display::WIDTH);
+    }
 }
 
 
