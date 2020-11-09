@@ -32,9 +32,6 @@ using Display::Text;
 // Нарисовать подсказку
 static void DrawHint(int x, int y);
 
-// Нарисовать статус-бар
-static void DrawStatusBar();
-
 // Нарисовать строку настроек текущего канала
 static void DrawChannelSettings();
 
@@ -160,11 +157,11 @@ static void DrawScreen()
     }
     else
     {
-        DrawStatusBar();
-        
         CurrentTypeMeasure::Draw(10, 57);
         
         CurrentModeMeasure::Draw(120, 57);
+
+        CurrentModeMeasure::DrawParameters(270, 57);
         
         DrawHint(10, 100);
         
@@ -319,56 +316,6 @@ static void DrawData()
         (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsTachometer()))
     {
         Text("60s").Write(2, 87, 60, Color::WHITE);
-    }
-}
-
-static void DrawStatusBar()
-{
-    static const Enumeration *const types[Channel::Count][4] =
-    {
-        { &PageModesA::modeMeasureFrequency, &PageModesA::modeMeasurePeriod, &PageModesA::modeMeasureDuration, &PageModesA::modeMeasureCountPulse },
-        { &PageModesB::modeMeasureFrequency, &PageModesB::modeMeasurePeriod, &PageModesB::modeMeasureDuration, &PageModesB::modeMeasureCountPulse },
-        { &PageModesC::modeMeasureFrequency, &PageModesC::modeMeasureCountPulse, nullptr, nullptr },
-        { nullptr, nullptr, nullptr, nullptr }
-    };
-
-    static const Enumeration *const modes[3][TypeMeasureAB::Count][6] =
-    {
-        {
-            { &PageModesA::timeMeasure,   &PageModesA::numberPeriods, &PageModesA::timeMeasure,   &PageModesA::numberPeriods, nullptr, nullptr },
-            { &PageModesA::numberPeriods, &PageModesA::timeMeasure,   nullptr,                    nullptr,                    nullptr, nullptr },
-            { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr },
-            { nullptr,                    &PageModesA::numberPeriods, nullptr,                    nullptr,                    nullptr, nullptr }
-        },                                                                                        
-        {                                                                                         
-            { &PageModesA::timeMeasure,   &PageModesA::numberPeriods, &PageModesA::timeMeasure,   &PageModesA::numberPeriods, nullptr, nullptr },
-            { &PageModesA::numberPeriods, &PageModesA::timeMeasure,   nullptr,                    nullptr,                    nullptr, nullptr },
-            { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr },
-            { nullptr,                    &PageModesA::numberPeriods, nullptr,                    nullptr,                    nullptr, nullptr }
-        },
-        {
-            { &PageModesC::timeMeasure,   &PageModesC::numberPeriods, &PageModesC::numberPeriods, nullptr,                    nullptr, nullptr },
-            { nullptr,                    nullptr,                    &PageModesC::numberPeriods, &PageModesC::numberPeriods, nullptr, nullptr },
-            { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr },
-            { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr }
-        }
-    };
- 
-    int y = 80;
-    int width = 60;
-
-    Rectangle(width, 30).FillRounded(0, y, 2, Color::GREEN_20, Color::WHITE);
-
-    const Enumeration *mode = &PageModesD::timeMeasure;
-
-    if (!CURRENT_CHANNEL_IS_D)
-    {
-        mode = modes[CURRENT_CHANNEL][CurrentTypeMeasure::Value()][types[CURRENT_CHANNEL][CurrentTypeMeasure::Value()]->value];
-    }
-
-    if (mode)
-    {
-        Text(mode->ToText()).Write(2, y + 7, width, Color::WHITE);
     }
 }
 

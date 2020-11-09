@@ -30,6 +30,7 @@ struct CurrentModeMeasure
 {
     static Enumeration &ToEnumeration();
     static void Draw(int x, int y);
+    static void DrawParameters(int x, int y);
 };
 
 

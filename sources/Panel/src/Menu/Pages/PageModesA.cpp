@@ -667,6 +667,56 @@ void CurrentModeMeasure::Draw(int x, int y)
 }
 
 
+void CurrentModeMeasure::DrawParameters(int x, int y)
+{
+    static const Enumeration *const types[Channel::Count][4] =
+    {
+        { &PageModesA::modeMeasureFrequency, &PageModesA::modeMeasurePeriod, &PageModesA::modeMeasureDuration, &PageModesA::modeMeasureCountPulse },
+        { &PageModesB::modeMeasureFrequency, &PageModesB::modeMeasurePeriod, &PageModesB::modeMeasureDuration, &PageModesB::modeMeasureCountPulse },
+        { &PageModesC::modeMeasureFrequency, &PageModesC::modeMeasureCountPulse, nullptr, nullptr },
+        { nullptr, nullptr, nullptr, nullptr }
+    };
+
+    static const Enumeration *const modes[3][TypeMeasureAB::Count][6] =
+    {
+        {
+            { &PageModesA::timeMeasure,   &PageModesA::numberPeriods, &PageModesA::timeMeasure,   &PageModesA::numberPeriods, nullptr, nullptr },
+            { &PageModesA::numberPeriods, &PageModesA::timeMeasure,   nullptr,                    nullptr,                    nullptr, nullptr },
+            { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr },
+            { nullptr,                    &PageModesA::numberPeriods, nullptr,                    nullptr,                    nullptr, nullptr }
+        },
+        {
+            { &PageModesA::timeMeasure,   &PageModesA::numberPeriods, &PageModesA::timeMeasure,   &PageModesA::numberPeriods, nullptr, nullptr },
+            { &PageModesA::numberPeriods, &PageModesA::timeMeasure,   nullptr,                    nullptr,                    nullptr, nullptr },
+            { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr },
+            { nullptr,                    &PageModesA::numberPeriods, nullptr,                    nullptr,                    nullptr, nullptr }
+        },
+        {
+            { &PageModesC::timeMeasure,   &PageModesC::numberPeriods, &PageModesC::numberPeriods, nullptr,                    nullptr, nullptr },
+            { nullptr,                    nullptr,                    &PageModesC::numberPeriods, &PageModesC::numberPeriods, nullptr, nullptr },
+            { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr },
+            { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr }
+        }
+    };
+
+    int width = 60;
+
+    const Enumeration *mode = &PageModesD::timeMeasure;
+
+    if (!CURRENT_CHANNEL_IS_D)
+    {
+        mode = modes[CURRENT_CHANNEL][CurrentTypeMeasure::Value()][types[CURRENT_CHANNEL][CurrentTypeMeasure::Value()]->value];
+    }
+
+    if (mode)
+    {
+        Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
+
+        Text(mode->ToText()).Write(x + 2, y + 7, width, Color::WHITE);
+    }
+}
+
+
 void CurrentTypeMeasure::Draw(int x, int y)
 {
     int width = 100;
