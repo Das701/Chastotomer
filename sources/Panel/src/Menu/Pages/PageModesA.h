@@ -4,6 +4,7 @@
 
 struct CurrentTypeMeasure
 {
+    static int Value();
     static bool IsFrequency();
     static bool IsPeriod();
     static bool IsDuration();

@@ -578,6 +578,25 @@ ModeMeasureDuration &ModeMeasureDuration::Current()
 }
 
 
+int CurrentTypeMeasure::Value()
+{
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        return PageModesA::typeMeasure.value;
+    }
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        return PageModesB::typeMeasure.value;
+    }
+    else if (CURRENT_CHANNEL_IS_C)
+    {
+        return PageModesC::typeMeasure.value;
+    }
+    
+    return 0;
+}
+
+
 bool CurrentTypeMeasure::IsFrequency()
 {
     return ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency()) ||
