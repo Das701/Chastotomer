@@ -23,10 +23,8 @@ char MathFPGA::Measure::dataFrequencyA[32] = { 0 };
 char MathFPGA::Measure::dataFrequencyB[32] = { 0 };
 char MathFPGA::Measure::dataPeriod[32] = { 0 };
 char MathFPGA::Measure::dataDuration[32] = { 0 };
-char MathFPGA::Measure::dataComparatorFx[32] = { 0 };
-char MathFPGA::Measure::dataComparatorTizm[16] = { 0 };
-char MathFPGA::Measure::dataComparatorNkal[16] = { 0 };
 
+ValuePICO MathFPGA::Measure::valueComparator(0);
 
 static ValueNANO decDataA(0);
 static ValueNANO decDataB(0);
@@ -38,10 +36,6 @@ int MathFPGA::NB = 0; //-V707
 
 static float dutyCycle = 0.0F;
 static int dcycleZeros = 0;
-
-static uint decFx = 0;
-static int decTizm = 0;
-static int decNkal = 0;
 
 static float interpol = 0.0F;
 
@@ -542,35 +536,7 @@ char *MathFPGA::Measure::GiveData()
         }
         else if (CurrentModeMeasureFrequency::IsComparator())
         {
-            decFx = BinToUint32(dataComparatorFx);
-
-            decNkal = BinToUint16(dataComparatorNkal);
-
-            decTizm = BinToUint16(dataComparatorTizm);
-
-            if (decNkal != 0)
-            {
-                if (dataComparatorTizm[0] == 1)
-                {
-                    decTizm -= 65536;
-                }
-
-                ValuePICO dx(decTizm);
-                dx.Div((uint)decNkal);
-                dx.Div(2 * 5000000);
-
-                ValuePICO k(5000000);
-                k.Sub(ValuePICO((int)decFx));
-                k.Div(5000000);
-                k.Sub(dx);
-                k.Mul(1000000);
-
-                k.SetSign(1);
-
-                std::sprintf(result, "%s", k.ToString());
-
-                PageStatistics::AppendValue(k.ToDouble());
-            }
+            std::sprintf(result, "%s", valueComparator.ToString());
 
             return result;
         }

@@ -6,12 +6,13 @@
 #include "Hardware/HAL/HAL.h"
 #include "Menu/Hint.h"
 #include "Menu/Menu.h"
-#include "Menu/Pages/Settings/PagesSettings.h"
+#include "Menu/Pages/PageIndication.h"
+#include "Menu/Pages/PageStatistics.h"
 #include "Menu/Pages/Modes/PageModesA.h"
 #include "Menu/Pages/Modes/PageModesB.h"
 #include "Menu/Pages/Modes/PageModesC.h"
 #include "Menu/Pages/Modes/PageModesD.h"
-#include "Menu/Pages/PageIndication.h"
+#include "Menu/Pages/Settings/PagesSettings.h"
 #include "Utils/StringUtils.h"
 #include <cstring>
 #include <cstdio>
@@ -136,20 +137,55 @@ void FPGA::Update()
         }
         else if (CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsComparator() && PageModesA::typeMeasure.IsFrequency())) 
         {
+            static char comparatorFx[32] = { 0 };
+            static char comparatorTizm[16] = { 0 };
+            static char comparatorNkal[16] = { 0 };
+
             if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
                 CYCLE_READ_PIN_B14(3, dataIdent);
 
-                CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataComparatorFx); //-V525
+                CYCLE_READ_PIN_B14(32, comparatorFx); //-V525
 
-                CYCLE_READ_PIN_B14(16, MathFPGA::Measure::dataComparatorTizm);
+                CYCLE_READ_PIN_B14(16, comparatorTizm);
 
-                CYCLE_READ_PIN_B14(16, MathFPGA::Measure::dataComparatorNkal);
+                CYCLE_READ_PIN_B14(16, comparatorNkal);
 
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+
                 HAL_TIM::DelayUS(8);
+
+                uint decFx = MathFPGA::BinToUint32(comparatorFx);
+
+                int decNkal = MathFPGA::BinToUint16(comparatorNkal);
+
+                int decTizm = MathFPGA::BinToUint16(comparatorTizm);
+
+                if (decNkal != 0)
+                {
+                    if (comparatorTizm[0] == 1)
+                    {
+                        decTizm -= 65536;
+                    }
+
+                    ValuePICO dx(decTizm);
+                    dx.Div((uint)decNkal);
+                    dx.Div(2 * 5000000);
+
+                    ValuePICO k(5000000);
+                    k.Sub(ValuePICO((int)decFx));
+                    k.Div(5000000);
+                    k.Sub(dx);
+                    k.Mul(1000000);
+
+                    k.SetSign(1);
+
+                    MathFPGA::Measure::valueComparator = k;
+
+                    PageStatistics::AppendValue(k.ToDouble());
+                }
             }
         }
         else

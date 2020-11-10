@@ -1,4 +1,5 @@
 #pragma once
+#include "Utils/Value.h"
 
 
 struct MathFPGA
@@ -28,9 +29,7 @@ struct MathFPGA
         static char dataPeriod[32];
         static char dataDuration[32];
 
-        static char dataComparatorFx[32];   // |
-        static char dataComparatorTizm[16]; // | Данные для компаратора
-        static char dataComparatorNkal[16]; // /
+        static ValuePICO valueComparator;               // Рассчитанное значение компаратора
 
         static int CalculateFrequency(int &manualZeros);
         static int CalculatePeriod();
@@ -62,6 +61,9 @@ struct MathFPGA
 private:
 
     static float BinToDec(const char bin[32]);
+
+public:
+
     static uint BinToUint32(const char bin[32]);
     static uint16 BinToUint16(const char bin[16]);
 };
