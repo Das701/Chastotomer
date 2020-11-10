@@ -103,8 +103,6 @@ namespace FreqMeter
 
     void LoadDivider();
 
-    void LoadChannel();
-    
     void LoadCalibration();
     
     void LoadLaunchSource();

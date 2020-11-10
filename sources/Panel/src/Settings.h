@@ -29,6 +29,9 @@ struct Channel
         D,
         Count
     };
+
+    // Загрузить текущий канал в аппаратуру
+    static void LoadCurrentToFPGA();
 };
 
 

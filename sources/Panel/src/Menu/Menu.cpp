@@ -110,7 +110,7 @@ static void SetCurrentChannel(const Control &control)
 
         Hint::Hide();
 
-        FreqMeter::LoadChannel();
+        Channel::LoadCurrentToFPGA();
     }
 
     if (control.value == Control::Mode)
@@ -122,7 +122,7 @@ static void SetCurrentChannel(const Control &control)
 
         Hint::Hide();
 
-        FreqMeter::LoadChannel();
+        Channel::LoadCurrentToFPGA();
     }
 }
 

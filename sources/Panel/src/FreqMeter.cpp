@@ -17,7 +17,7 @@ static bool autoMode = false;
 ModeTest FreqMeter::modeTest(ModeTest::Disabled);
 
 
-void FreqMeter::LoadChannel()
+void Channel::LoadCurrentToFPGA()
 {
     char command[4] = { 0, 0, 0, 0 };
 
