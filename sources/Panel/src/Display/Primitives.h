@@ -50,5 +50,11 @@ namespace Display
         private:
             const int length;
         };
+
+        class Line
+        {
+        public:
+            void Draw(int x1, int y1, int x2, int y2);
+        };
     }
 }

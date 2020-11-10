@@ -14,17 +14,15 @@ namespace Math
     // Например, RoundFloat(12.37137, 4) округлит до 12.40)
     float RoundFloat(float value, int numDigits);
 
-    template<class T> T    Abs(T x);
+    template<class T> T Abs(T x);
     
     int Pow10(int pow);
+
+    int Sign(int val);
 
     template<class T> void CircleIncrease(T *value, T min, T max);
 
     template<class T> void CircleDecrease(T *value, T min, T max);
 
-    template<class T>
-    T Min(T x1, T x2)
-    {
-        return (x1 < x2) ? x1 : x2;
-    }
+    template<class T> T Min(T x1, T x2)  { return (x1 < x2) ? x1 : x2;  }
 };

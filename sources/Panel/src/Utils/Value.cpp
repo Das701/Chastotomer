@@ -957,7 +957,7 @@ pString ValuePICO::ToString() const
 
 double ValuePICO::ToDouble() const
 {
-    return (double)Abs() / 1E9 * (double)Sign();
+    return (double)Abs() / 1E12 * (double)Sign();
 }
 
 

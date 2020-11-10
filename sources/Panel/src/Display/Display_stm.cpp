@@ -3,7 +3,9 @@
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Hardware/HAL/HAL.h"
+#include "Utils/Math.h"
 #include "Utils/String.h"
+#include <cmath>
 #include <cstring>
 #include <cstdlib>
 
@@ -270,5 +272,57 @@ void VLine::Draw(int x, int y)
                 }
             }
         }
+    }
+}
+
+
+void Line::Draw(int x1, int y1, int x2, int y2)
+{
+    if ((x2 - x1) == 0 && (y2 - y1) == 0)
+    {
+        ++x1;
+    }
+    int x = x1;
+    int y = y1;
+    int dx = (int)std::fabsf((float)(x2 - x1));
+    int dy = (int)std::fabsf((float)(y2 - y1));
+    int s1 = Math::Sign(x2 - x1);
+    int s2 = Math::Sign(y2 - y1);
+    int temp;
+    int exchange = 0;
+    if (dy > dx)
+    {
+        temp = dx;
+        dx = dy;
+        dy = temp;
+        exchange = 1;
+    }
+    int e = 2 * dy - dx;
+    int i = 0;
+    for (; i <= dx; i++)
+    {
+        Point().Draw(x, y);
+
+        while (e >= 0)
+        {
+            if (exchange)
+            {
+                x += s1;
+            }
+            else
+            {
+                y += s2;
+            }
+            e = e - 2 * dx;
+        }
+        if (exchange)
+        {
+            y += s2;
+        }
+        else
+        {
+            x += s1;
+        }
+        e = e + 2 * dy;
     }
 }
