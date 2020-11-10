@@ -456,11 +456,9 @@ static void OnChanged_ModeTest()
 
 static void OnEvent(EventType::E event)
 {
-    switch (event)
+    if (event == EventType::ModeTestChanged)
     {
-    case EventType::ModeTestChanged:
         OnChanged_ModeTest();
-        break;
     }
 }
 

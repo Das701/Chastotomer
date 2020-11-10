@@ -377,6 +377,9 @@ static void OnEvent(EventType::E event)
     case EventType::ModeTestChanged:
         OnChanged_ModeTest();
         break;
+
+    case EventType::Count:
+        break;
     }
 }
 
