@@ -252,3 +252,7 @@ void PageModes::ResetModeCurrentMeasure()
 }
 
 
+void PageModes::OnChanged_ModeTest()
+{
+    PageModesA::OnChanged_ModeTest();
+}

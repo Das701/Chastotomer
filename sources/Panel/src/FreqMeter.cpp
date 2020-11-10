@@ -4,10 +4,7 @@
 #include "Hardware/FPGA.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
-#include "Menu/Pages/Modes/PageModesA.h"
-#include "Menu/Pages/Modes/PageModesB.h"
-#include "Menu/Pages/Modes/PageModesC.h"
-#include "Menu/Pages/Modes/PageModesD.h"
+#include "Menu/Pages/Modes/PageModes.h"
 #include "Menu/Pages/Settings/PagesSettings.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/Hint.h"
@@ -485,6 +482,8 @@ void ModeTest::Switch()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    PageModes::OnChanged_ModeTest();
 }
 
 

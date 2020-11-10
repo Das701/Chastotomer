@@ -62,7 +62,7 @@ static Item *items[7] =
 };
 
 
-static Page pageShowStatistics(items);
+static Page pageShowStatistics(items, nullptr);
 
 Page *PageStatistics::self = &pageShowStatistics;
 

@@ -47,6 +47,6 @@ static Item *items[7] =
 };
 
 
-static Page pageService(items);
+static Page pageService(items, nullptr);
 
 Page *PageService::self = &pageService;

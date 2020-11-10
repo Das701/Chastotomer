@@ -74,11 +74,9 @@ static Item *items[7] =
     nullptr,
     &sTypeMeasure,
     &sModeMeasureFrequency,
-    nullptr,
-    nullptr,
     nullptr
 };
 
-static Page pageModesD(items);
+static Page pageModesD(items, nullptr);
 
 Page *PageModesD::self = &pageModesD;

@@ -111,6 +111,6 @@ static Item *items[7] =
     nullptr,
 };
 
-static Page pageIndication(items);
+static Page pageIndication(items, nullptr);
 
 Page *PageIndication::self = &pageIndication;

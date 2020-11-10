@@ -171,8 +171,8 @@ void PageModesA::OnChanged_ModeFrequency()
     if (PageModesA::modeMeasureFrequency.IsFrequency())
     {
         items[1] = &sModeFrequency;
-        items[2] = &sPeriodTimeLabels;
-        items[3] = &sTimeMeasure;
+        items[2] = &sTimeMeasure;
+        items[3] = ModeTest::IsEnabled() ? &sPeriodTimeLabels : nullptr;
         items[4] = nullptr;
         PageModesA::RelationOff();
     }
@@ -234,7 +234,7 @@ void PageModesA::OnChanged_ModePeriod()
     if (PageModesA::modeMeasurePeriod.IsPeriod())
     {
         items[2] = &sPeriodTimeLabels;
-        items[3] = &sNumberPeriods;
+        items[3] = &sNumberPeriods; 
         items[4] = nullptr;
     }
     else if (PageModesA::modeMeasurePeriod.IsF_1())
@@ -449,14 +449,11 @@ static Item *items[7] =
 {
     &sTypeMeasure,
     &sModeFrequency,
-    &sPeriodTimeLabels,
     &sTimeMeasure,
-    nullptr,
-    nullptr,
     nullptr
 };
 
-static Page pageModes(items);
+static Page pageModes(items, nullptr);
 
 Page *PageModesA::self = &pageModes;
 
@@ -586,4 +583,10 @@ void PageModesA::ResetModeCurrentMeasure()
     case TypeMeasureAB::Duration:   modeMeasureDuration.value = 0;      break;
     case TypeMeasureAB::CountPulse: modeMeasureCountPulse.value = 0;    break;
     }
+}
+
+
+void PageModesA::OnChanged_ModeTest()
+{
+    OnChanged_ModeFrequency();
 }

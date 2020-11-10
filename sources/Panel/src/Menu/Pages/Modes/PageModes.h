@@ -48,5 +48,8 @@ struct PageModes
 {
     // Сброс режима текущего измерения
     static void ResetModeCurrentMeasure();
+
+    // Эту функцию нужно вызывать при изменении режима "Тест"
+    static void OnChanged_ModeTest();
 };
 

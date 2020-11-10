@@ -192,7 +192,7 @@ static Item *items[7] =
     nullptr
 };
 
-static Page pageChannelB(items);
+static Page pageChannelB(items, nullptr);
 
 Page *PageSettingsB::self = &pageChannelB;
 

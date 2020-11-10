@@ -222,12 +222,10 @@ static Item *items[7] =
     &sModeFrequencyC,
     &sPeriodTimeLabelsC,
     &sTimeMeasureC,
-    nullptr,
-    nullptr,
     nullptr
 };
 
-static Page pageModesC(items);
+static Page pageModesC(items, nullptr);
 
 Page *PageModesC::self = &pageModesC;
 

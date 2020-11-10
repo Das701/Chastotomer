@@ -226,3 +226,9 @@ Color Item::ColorDraw(bool selected)
 {
     return selected ? Color::BLACK : Color::WHITE;
 }
+
+
+void Page::OnEvent()
+{
+
+}

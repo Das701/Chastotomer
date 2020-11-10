@@ -360,12 +360,10 @@ static Item *items[7] =
     &sModeFrequency,
     &sPeriodTimeLabels,
     &sTimeMeasure,
-    nullptr,
-    nullptr,
     nullptr
 };
 
-static Page pageModesB(items);
+static Page pageModesB(items, nullptr);
 
 Page *PageModesB::self = &pageModesB;
 

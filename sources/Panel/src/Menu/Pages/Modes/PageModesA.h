@@ -165,8 +165,12 @@ struct NumberPeriods : public Enumeration
 };
 
 
-struct PageModesA
+class PageModesA
 {
+friend struct PageModes;
+
+public:
+
     static Page *self;
     
     static void Init();
@@ -207,4 +211,8 @@ struct PageModesA
     static PeriodTimeLabels         periodTimeLabels;           // Период меток времени
     static TimeMeasure              timeMeasure;                // Время счета
     static NumberPeriods            numberPeriods;              // Число периодов измерения
+
+private:
+
+    static void OnChanged_ModeTest();
 };
