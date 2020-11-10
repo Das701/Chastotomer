@@ -613,36 +613,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\fontGOST16B.inc</FilePath>
             </File>
-            <File>
-              <FileName>fontGOSTB20B.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOSTB20B.inc</FilePath>
-            </File>
-            <File>
-              <FileName>fontGOSTB28B.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOSTB28B.inc</FilePath>
-            </File>
-            <File>
-              <FileName>fontGOSTB18B.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOSTB18B.inc</FilePath>
-            </File>
-            <File>
-              <FileName>fontGOSTB18B.xml</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOSTB18B.xml</FilePath>
-            </File>
-            <File>
-              <FileName>fontGOSTB20B.xml</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOSTB20B.xml</FilePath>
-            </File>
-            <File>
-              <FileName>fontGOSTB28B.xml</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOSTB28B.xml</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1668,36 +1638,6 @@
               <FileName>fontGOST16B.inc</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\fontGOST16B.inc</FilePath>
-            </File>
-            <File>
-              <FileName>fontGOSTB20B.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOSTB20B.inc</FilePath>
-            </File>
-            <File>
-              <FileName>fontGOSTB28B.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOSTB28B.inc</FilePath>
-            </File>
-            <File>
-              <FileName>fontGOSTB18B.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOSTB18B.inc</FilePath>
-            </File>
-            <File>
-              <FileName>fontGOSTB18B.xml</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOSTB18B.xml</FilePath>
-            </File>
-            <File>
-              <FileName>fontGOSTB20B.xml</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOSTB20B.xml</FilePath>
-            </File>
-            <File>
-              <FileName>fontGOSTB28B.xml</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOSTB28B.xml</FilePath>
             </File>
           </Files>
         </Group>

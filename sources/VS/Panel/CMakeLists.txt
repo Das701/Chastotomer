@@ -17,7 +17,7 @@ add_definitions(-DSTM32F429xx -DWXUSINGDLL -DGUI)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
-add_compile_options(/wd4062)    # enumerator 'xxx' in switch of enum 'yyy' is not handled
+#add_compile_options(/wd4062)    # enumerator 'xxx' in switch of enum 'yyy' is not handled
 add_compile_options(/wd4211)    # nonstandard extension used: redefined extern to static
 add_compile_options(/wd4355)    # 'this': used in base member initializer list
 add_compile_options(/wd4514)    # 'xxx': unreferenced inline function has been removed
