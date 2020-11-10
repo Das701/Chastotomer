@@ -170,18 +170,18 @@ void FPGA::Update()
 
                 HAL_TIM::DelayUS(8);
 
-                uint decFx = MathFPGA::BinToUint32(comparatorFx);
-
                 int decNkal = MathFPGA::BinToUint16(comparatorNkal);
-
-                int decTizm = MathFPGA::BinToUint16(comparatorTizm);
 
                 if (decNkal != 0)
                 {
+                    int decTizm = MathFPGA::BinToUint16(comparatorTizm);
+
                     if (comparatorTizm[0] == 1)
                     {
                         decTizm -= 65536;
                     }
+
+                    uint decFx = MathFPGA::BinToUint32(comparatorFx);
 
                     ValuePICO dx(decTizm);
                     dx.Div((uint)decNkal);

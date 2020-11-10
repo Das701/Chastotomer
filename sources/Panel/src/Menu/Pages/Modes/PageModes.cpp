@@ -130,8 +130,6 @@ void CurrentModeMeasure::DrawParameters(int x, int y)
         }
     };
 
-    int width = 60;
-
     const Enumeration *mode = &PageModesD::timeMeasure;
 
     if (!CURRENT_CHANNEL_IS_D)
@@ -141,6 +139,8 @@ void CurrentModeMeasure::DrawParameters(int x, int y)
 
     if (mode)
     {
+        int width = 60;
+
         Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
 
         Text(mode->ToText()).Write(x + 2, y + 7, width, Color::WHITE);
