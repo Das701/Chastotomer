@@ -86,12 +86,12 @@ bool PageIndication::OnceLaunch()
 
 void PageIndication::OnceLaunchSwitchTrue()
 {
-        onceLaunch = true;
+    onceLaunch = true;
 }
 
 void PageIndication::OnceLaunchSwitchFalse()
 {
-        onceLaunch = false;
+    onceLaunch = false;
 }
 
 // Включение(отключение) режима памяти
