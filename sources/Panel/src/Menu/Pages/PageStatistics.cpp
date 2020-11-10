@@ -42,12 +42,7 @@ DEF_SWITCH_2(sModeShow,
 );
 
 
-static void OnPress_Clear()
-{
-    PageStatistics::values.Clear();
-}
-
-DEF_BUTTON(bClear, "Очистить", OnPress_Clear);
+DEF_BUTTON(bClear, "Очистить", PageStatistics::Clear);
 
 
 static void OnPress_Exit()
@@ -83,6 +78,7 @@ void PageStatistics::AppendValue(double value)
 
 void PageStatistics::Clear()
 {
+    PageStatistics::values.Clear();
 }
 
 
