@@ -76,7 +76,7 @@ DEF_SWITCH_2(sCalibration,
 
 static void OnPress_MemoryMode()
 {
-    FreqMeter::LoadMemoryMode();
+    MemoryMode::Load();
 }
 
 bool PageIndication::OnceLaunch()

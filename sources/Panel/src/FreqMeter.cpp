@@ -116,7 +116,7 @@ void FreqMeter::LoadCalibration()
 }
 
 
-void FreqMeter::LoadMemoryMode()
+void MemoryMode::Load()
 {
     char command[4] = { 1, 1, 0, 0 };
 

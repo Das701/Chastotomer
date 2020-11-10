@@ -28,6 +28,7 @@ struct RefGenerator : public Enumeration
     bool IsExternal() const { return (value == External); }
 };
 
+
 struct LaunchSource : public Enumeration
 {
     enum E
@@ -42,6 +43,7 @@ struct LaunchSource : public Enumeration
     bool IsOneTime() const  { return (value == OneTime); }
 };
 
+
 struct MemoryMode : public Enumeration
 {
     enum E
@@ -52,7 +54,10 @@ struct MemoryMode : public Enumeration
 
     explicit MemoryMode(E v) : Enumeration((uint8)v) {};
     bool IsOn() const { return (value == On); }
+
+    static void Load();
 };
+
 
 struct Calibration : public Enumeration
 {
@@ -65,6 +70,7 @@ struct Calibration : public Enumeration
     explicit Calibration(E v) : Enumeration((uint8)v) {};
     bool IsPressed() const { return (value == Pressed); }
 };
+
 
 class PageIndication
 {

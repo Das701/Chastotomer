@@ -102,8 +102,6 @@ namespace FreqMeter
 
     void LoadChannel();
     
-    void LoadMemoryMode();
-    
     void LoadCalibration();
     
     void LoadLaunchSource();
