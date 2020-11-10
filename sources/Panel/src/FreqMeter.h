@@ -14,6 +14,9 @@ struct ModeTest : public Enumeration
     explicit ModeTest(E v) : Enumeration((uint8)v) {};
 
     static bool IsEnabled();
+
+    // Переключить режим теста
+    static void Switch();
 };
 
 
@@ -60,10 +63,7 @@ namespace FreqMeter
     void LoadRefGenerator();
     
     void LoadDisplayTime();
-    
-    // Переключить режим "Тест"
-    void SwitchModeTest();
-    
+   
     void LoadAuto();
     
     void LoadMeasure();

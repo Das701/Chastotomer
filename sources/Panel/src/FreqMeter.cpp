@@ -19,11 +19,6 @@ static bool autoMode = false;
 
 static ModeTest modeTest(ModeTest::Disabled);
 
-bool ModeTest::IsEnabled()
-{
-    return modeTest.Is(ModeTest::Enabled);
-}
-
 
 void FreqMeter::LoadChannel()
 {
@@ -392,25 +387,6 @@ void FreqMeter::LoadTypeSynch()
     FPGA::WriteCommand(command, argument);
 }
 
-void FreqMeter::SwitchModeTest()
-{
-    char command[4] = { 1, 1, 1, 1 };
-
-    DEFINE_ARGUMENT;
-
-    if (ModeTest::IsEnabled())
-    {
-        modeTest.value = ModeTest::Disabled;
-    }
-    else
-    {
-        argument[5] = 1;
-
-        modeTest.value = ModeTest::Enabled;
-    }
-
-    FPGA::WriteCommand(command, argument);
-}
 
 void FreqMeter::LoadAuto()
 {
@@ -423,6 +399,7 @@ void FreqMeter::LoadAuto()
     autoMode = true;
     FPGA::WriteCommand(command, argument);
 }
+
 
 void FreqMeter::UnloadAuto()
 {
@@ -477,6 +454,34 @@ void FreqMeter::LoadStartStop()
     else
     {
         argument[3] = 1;
+    }
+
+    FPGA::WriteCommand(command, argument);
+}
+
+
+bool ModeTest::IsEnabled()
+{
+    return modeTest.Is(ModeTest::Enabled);
+}
+
+
+
+void ModeTest::Switch()
+{
+    char command[4] = { 1, 1, 1, 1 };
+
+    DEFINE_ARGUMENT;
+
+    if (IsEnabled())
+    {
+        modeTest.value = ModeTest::Disabled;
+    }
+    else
+    {
+        argument[5] = 1;
+
+        modeTest.value = ModeTest::Enabled;
     }
 
     FPGA::WriteCommand(command, argument);

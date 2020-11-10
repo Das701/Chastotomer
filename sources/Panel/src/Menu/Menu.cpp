@@ -313,7 +313,7 @@ static bool OnControl(const Control &control) //-V2008
         }
         else
         {
-            FreqMeter::SwitchModeTest();
+            ModeTest::Switch();
         }
         break;
 
