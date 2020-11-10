@@ -13,7 +13,7 @@ using namespace Display::Primitives;
 using namespace Display;
 
 
-Stack<double> PageStatistics::values(400);
+Stack<double> PageStatistics::values(440);
 
 
 struct ShowStatistics : public Enumeration
@@ -145,4 +145,7 @@ void PageStatistics::Draw()
 
         Line().Draw(x1, y1, x2, y2);
     }
+
+    Text(String("%f", max).c_str()).Write(0, 0);
+    Text(String("%f", min).c_str()).Write(0, 10 + height);
 }

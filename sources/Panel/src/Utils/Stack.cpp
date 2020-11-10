@@ -33,9 +33,8 @@ void Stack<T>::Push(T elem)
     }
     else
     {
-        std::memcpy(buffer, buffer + sizeof(T), (numElements - 1) * sizeof(T));
-        numElements--;
-        buffer[numElements] = elem;
+        std::memcpy(buffer, buffer + 1, (numElements - 1) * sizeof(T));
+        buffer[numElements - 1] = elem;
     }
 }
 
