@@ -1,7 +1,8 @@
 #include "defines.h"
+#include "Menu/Menu.h"
 #include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/PageStatistics.h"
-
+#include "Menu/Pages/Modes/PageModesA.h"
 
 
 struct ShowStatistics : public Enumeration
@@ -41,7 +42,7 @@ DEF_BUTTON(bClear, "Очистить", OnPress_Clear);
 
 static void OnPress_Exit()
 {
-
+    Menu::SetOpenedPage(PageModesA::self);
 }
 
 DEF_BUTTON(bExit, "Выход", OnPress_Exit);

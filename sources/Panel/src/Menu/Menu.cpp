@@ -38,8 +38,6 @@ bool Menu::Update()
 {
     while (!Keyboard::Empty())
     {
-        Display::Refresh();
-
         Control control = Keyboard::NextControl();
 
         bool processed = false;
@@ -77,6 +75,9 @@ bool Menu::Update()
         {
             OpenPage(control);
         }
+
+        Display::Refresh();
+
         return true; //-V612
     }
     

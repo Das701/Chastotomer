@@ -34,6 +34,8 @@ int Enumeration::NumStates() const
 
 bool Button::OnControl(const Control &)
 {
+    funcOnPress();
+
     return true;
 }
 
