@@ -20,26 +20,6 @@ Settings set =
 #define DEFINE_ARGUMENT char argument[6] = {0, 0, 0, 0, 0, 0}
 
 
-static ModeTest modeTest(ModeTest::Disabled);
-
-bool ModeTest::IsEnabled()
-{
-    return modeTest.Is(ModeTest::Enabled);
-}
-
-
-void ModeTest::Enable()
-{
-    modeTest.value = ModeTest::Enabled;
-}
-
-
-void ModeTest::Disable()
-{
-    modeTest.value = ModeTest::Disabled;
-}
-
-
 void InputCouple::Load()
 {
     char command[4] = { 0, 0, 1, 1 };

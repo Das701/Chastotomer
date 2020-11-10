@@ -92,23 +92,6 @@ struct TypeSynch : public Enumeration
 };
 
 
-// Включён или выключен режим "Тест"
-struct ModeTest : public Enumeration
-{
-    enum E
-    {
-        Disabled,
-        Enabled
-    };
-
-    explicit ModeTest(E v) : Enumeration((uint8)v) {};
-
-    static bool IsEnabled();
-    static void Disable();
-    static void Enable();
-};
-
-
 struct Settings
 {
     Channel::E   currentChannel;                // Текущий канал

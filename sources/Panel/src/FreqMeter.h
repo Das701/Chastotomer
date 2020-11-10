@@ -1,4 +1,20 @@
 #pragma once
+#include "Menu/MenuItems.h"
+
+
+// Включён или выключен режим "Тест"
+struct ModeTest : public Enumeration
+{
+    enum E
+    {
+        Disabled,
+        Enabled
+    };
+
+    explicit ModeTest(E v) : Enumeration((uint8)v) {};
+
+    static bool IsEnabled();
+};
 
 
 namespace FreqMeter
