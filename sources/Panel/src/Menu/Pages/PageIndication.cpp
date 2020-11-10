@@ -12,11 +12,11 @@ using namespace Display;
 extern Item *items[7];
 static bool onceLaunch = false;
 
-DisplayTime         PageIndication::displayTime(DisplayTime::_100ms);
-RefGenerator        PageIndication::refGenerator(RefGenerator::Internal);
-LaunchSource        PageIndication::launchSource(LaunchSource::Internal);
-Calibration         PageIndication::calibration(Calibration::Unpressed);
-MemoryMode          PageIndication::memoryMode(MemoryMode::On);
+DisplayTime  PageIndication::displayTime(DisplayTime::_100ms);
+RefGenerator PageIndication::refGenerator(RefGenerator::Internal);
+LaunchSource PageIndication::launchSource(LaunchSource::Internal);
+Calibration  PageIndication::calibration(Calibration::Unpressed);
+MemoryMode   PageIndication::memoryMode(MemoryMode::On);
 
 
 
@@ -29,7 +29,8 @@ static void OnPress_DisplayTime()
 DEF_SWITCH_3(sDisplayTime,
     "Т-ИНД", "Время индикации",
     "0.1s.", "1s.", "10s.",
-    PageIndication::displayTime, OnPress_DisplayTime);
+    PageIndication::displayTime, OnPress_DisplayTime
+);
 
 
 static void OnPress_RefGenerator()
@@ -41,7 +42,8 @@ static void OnPress_RefGenerator()
 DEF_SWITCH_2(sRefGenerator,
     "ОГ", "Выбор опорного генератора",
     "Внутренний", "Внешний", 
-    PageIndication::refGenerator, OnPress_RefGenerator);
+    PageIndication::refGenerator, OnPress_RefGenerator
+);
 
 
 static void OnPress_LaunchSource()
@@ -95,10 +97,11 @@ void PageIndication::OnceLaunchSwitchFalse()
 // Включение(отключение) режима памяти
 DEF_SWITCH_2(sMemoryMode,
     "Память", "Режим память",
-    "Выкл", "Вкл", 
-    PageIndication::memoryMode, OnPress_MemoryMode);
+    "Выкл", "Вкл",
+    PageIndication::memoryMode, OnPress_MemoryMode
+);
 
-static Item *items[7] =
+static Item *items[] =
 {
     &sDisplayTime,
     &sRefGenerator,
@@ -106,7 +109,6 @@ static Item *items[7] =
     &sCalibration,
     &sMemoryMode,
     nullptr,
-    nullptr
 };
 
 static Page pageIndication(items);

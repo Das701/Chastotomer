@@ -13,39 +13,38 @@ using namespace Display::Primitives;
 using namespace Display;
 
 
-Stack<double> PageStatistics::values(440);
-
-
-struct ShowStatistics : public Enumeration
+struct ModeShow : public Enumeration
 {
     enum E
     {
-        No,
-        Yes
+        Full,       // Показывать полный вид - от 0 до максимального значения
+        Parth       // Показывать частичный вид - от минимального до максимального значения
     };
 
-    explicit ShowStatistics(E v) : Enumeration((uint8)v) {};
+    explicit ModeShow(E v) : Enumeration((uint8)v) {};
 };
 
 
-static ShowStatistics showStatistics(ShowStatistics::No);
+static ModeShow modeShow(ModeShow::Full);
+
+Stack<double> PageStatistics::values(440);
 
 
-static void OnPress_ShowStatistics()
+static void OnPress_ModeShow()
 {
-
+    Display::Refresh();
 }
 
-DEF_SWITCH_2(sShow,
-    "Показывать", "",
-    "Нет", "Да",
-    showStatistics, OnPress_ShowStatistics
-)
+DEF_SWITCH_2(sModeShow,
+    "Вид", "Вид",
+    "Полный", "Частичный",
+    modeShow, OnPress_ModeShow
+);
 
 
 static void OnPress_Clear()
 {
-
+    PageStatistics::values.Clear();
 }
 
 DEF_BUTTON(bClear, "Очистить", OnPress_Clear);
@@ -61,7 +60,7 @@ DEF_BUTTON(bExit, "Выход", OnPress_Exit);
 
 static Item *items[] =
 {
-    &sShow,
+    &sModeShow,
     &bClear,
     &bExit,
     nullptr
@@ -89,17 +88,17 @@ void PageStatistics::Clear()
 
 void PageStatistics::Draw()
 {
-    if (values.Size() == 0)
-    {
-        return;
-    }
-
     int x0 = 10;
     int y0 = 10;
     int width = Display::WIDTH - 20;
     int height = 110;
 
     Rectangle(width, height).Fill(x0, y0, Color::GRAY_50);
+
+    if (values.Size() == 0)
+    {
+        return;
+    }
 
     int startElement = values.Size() - 7;
 
@@ -121,6 +120,11 @@ void PageStatistics::Draw()
         if (values[i] < min) { min = values[i]; }
 
         if (values[i] > max) { max = values[i]; }
+    }
+
+    if (modeShow.Is(ModeShow::Full))
+    {
+        min = 0.0;
     }
 
     float stepX = (float)width / values.Size();
