@@ -28,6 +28,8 @@ static bool OnControl(const Control &control);
 // Текущая отображаемая страница меню
 static Page *openedPage = PageModesA::self;
 
+static void SubscribeToEvents();
+
 
 void Menu::Draw()
 {
@@ -113,11 +115,6 @@ static void SetCurrentChannel(const Control &control)
 
     if (control.value == Control::Mode)
     {
-        if (Menu::OpenedPage()->IsPageModes())
-        {
-            Math::CircleIncrease<uint8>((uint8 *)&CURRENT_CHANNEL, 0, Channel::Count - 1);
-        }
-
         if (CURRENT_CHANNEL_IS_A)      { openedPage = PageModesA::self; }
         else if (CURRENT_CHANNEL_IS_B) { openedPage = PageModesB::self; }
         else if (CURRENT_CHANNEL_IS_C) { openedPage = PageModesC::self; }
@@ -302,7 +299,7 @@ static bool OnControl(const Control &control) //-V2008
         }
         else if (CURRENT_CHANNEL_IS_B)
         {
-            PageModesB::PressSetupB();
+            PageModesB::PressSetup();
         }
         break;
 
@@ -350,5 +347,11 @@ static bool OnControl(const Control &control) //-V2008
 
 void Menu::Init()
 {
-    PageModesA::Init();
+    SubscribeToEvents();
+}
+
+
+static void SubscribeToEvents()
+{
+    FreqMeter::modeTest.AddObserver(PageModesA::self);
 }

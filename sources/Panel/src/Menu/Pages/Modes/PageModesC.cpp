@@ -25,11 +25,6 @@ NumberPeriods            PageModesC::numberPeriods(NumberPeriods::_1);
 TimeMeasure              PageModesC::timeMeasure(TimeMeasure::_1ms);
 
 
-void PageModesC::Init()
-{
-}
-
-
 void PageModesC::OnChanged_TypeMeasure()
 {
     switch (PageModesC::typeMeasure.value)

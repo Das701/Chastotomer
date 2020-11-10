@@ -31,12 +31,7 @@ NumberPeriods            PageModesB::numberPeriods(NumberPeriods::_1);
 TimeMeasure              PageModesB::timeMeasure(TimeMeasure::_1ms);
 
 
-void PageModesB::Init()
-{
-}
-
-
-void PageModesB::PressSetupB()
+void PageModesB::PressSetup()
 {
     switch (PageModesB::typeMeasure.value)
     {

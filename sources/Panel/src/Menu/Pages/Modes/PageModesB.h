@@ -40,8 +40,7 @@ struct PageModesB
 {
     static Page *self;
 
-    static void Init();
-    static void PressSetupB();
+    static void PressSetup();
 
     // Сброс режима измерения
     static void ResetModeCurrentMeasure();

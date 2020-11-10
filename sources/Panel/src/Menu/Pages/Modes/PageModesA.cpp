@@ -84,11 +84,6 @@ bool PageModesA::RelationCheck()
 }
 
 
-void PageModesA::Init()
-{
-    FreqMeter::modeTest.AddObserver(PageModesA::self);
-}
-
 void PageModesA::PressSetup()
 {
     switch (PageModesA::typeMeasure.value)

@@ -53,8 +53,6 @@ struct PageModesC
 {
     static Page *self;
 
-    static void Init();
-
     // Сброс режима измерения
     static void ResetModeCurrentMeasure();
 

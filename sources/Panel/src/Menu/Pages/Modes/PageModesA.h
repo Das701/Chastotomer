@@ -173,8 +173,6 @@ public:
 
     static Page *self;
     
-    static void Init();
-
     static void InterpolateOn();
     static void InterpolateOff();
     static bool InterpolateCheck();
