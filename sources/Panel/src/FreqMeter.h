@@ -49,9 +49,9 @@ struct ModeFront : public Enumeration
     };
 
     explicit ModeFront(E v) : Enumeration((uint8)v) {};
-    static ModeFront &Current();
     bool IsFront() const { return (value == Front); }
 
+    static ModeFront &Current();
     static void LoadToFPGA();
 };
 
@@ -66,10 +66,11 @@ struct ModeFilter : public Enumeration
     };
 
     explicit ModeFilter(E v) : Enumeration((uint8)v) {};
-    static void LoadToFPGA();
-    static ModeFilter &Current();
     static void Set(E v);
     bool IsOff() const { return (value == ModeFilter::Off); }
+
+    static ModeFilter &Current();
+    static void LoadToFPGA();
 };
 
 
