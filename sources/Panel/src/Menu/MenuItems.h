@@ -1,5 +1,6 @@
 #pragma once
 #include "defines.h"
+#include "Display/Colors.h"
 #include "Keyboard/Keyboard.h"
 
 
@@ -29,6 +30,10 @@ public:
     virtual void Draw(int x, int y, int width, bool selected = false) = 0;
     // Функция обработки нажатия кнопки/поворота ручки
     virtual bool OnControl(const Control &) { return false; };
+
+    static Color ColorBackground(bool selected);
+
+    static Color ColorDraw(bool selected);
 
 protected:
     // Общая часть подсказки для данного итема
