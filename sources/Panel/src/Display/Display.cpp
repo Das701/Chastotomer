@@ -254,7 +254,7 @@ static void DrawInfo()
         } 
     }
 
-    if(set.modeTest)
+    if(ModeTest::IsEnabled())
     {
         Text("Тест").Write(430, 120);
     }

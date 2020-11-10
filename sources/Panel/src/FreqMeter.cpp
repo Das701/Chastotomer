@@ -391,14 +391,14 @@ void FreqMeter::SwitchModeTest()
 
     DEFINE_ARGUMENT;
 
-    if (set.modeTest)
+    if (ModeTest::IsEnabled())
     {
-        set.modeTest = false;
+        ModeTest::Disable();
     }
     else
     {
         argument[5] = 1;
-        set.modeTest = true;
+        ModeTest::Enable();
     }
 
     FPGA::WriteCommand(command, argument);
