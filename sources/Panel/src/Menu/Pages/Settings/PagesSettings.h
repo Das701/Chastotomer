@@ -23,19 +23,6 @@ struct InputImpedance : public Enumeration
     bool Is_50Ohm() const { return (value == _50Omh); }
 };
 
-// Фронт синхронизации
-struct ModeFront : public Enumeration
-{
-    enum E
-    {
-        Front,          // Фронт
-        Slice           // Срез
-    };
-
-    explicit ModeFront(E v) : Enumeration((uint8)v) {};
-    static ModeFront &Current();
-    bool IsFront() const { return (value == Front); }
-};
 
 // Делитель напряжения
 struct Divider : public Enumeration

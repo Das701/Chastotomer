@@ -61,23 +61,6 @@ struct InputCouple : public Enumeration
 };
 
 
-// ФНЧ
-struct ModeFilter : public Enumeration
-{
-    enum E
-    {
-        On,             // Включен
-        Off             // Выключен
-    };
-
-    explicit ModeFilter(E v) : Enumeration((uint8)v) {};
-    static void Load();
-    static ModeFilter& Current();
-    static void Set(E v);
-    bool IsOff() const { return (value == ModeFilter::Off); }
-};
-
-
 struct Settings
 {
     Channel::E   currentChannel;                // Текущий канал

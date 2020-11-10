@@ -67,7 +67,7 @@ DEF_SWITCH_UGO_2(sLowpassFilter,
 
 static void OnPress_Front()
 {
-    FreqMeter::LoadModeFront();
+    ModeFront::Load();
 }
 
 // Выбор фронта синхронизации текущего канала

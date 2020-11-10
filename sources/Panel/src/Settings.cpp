@@ -67,21 +67,6 @@ void InputCouple::Set(InputCouple::E v)
 }
 
 
-void ModeFilter::Load()
-{
-    char command[4] = { 0, 1, 0, 1 };
-
-    DEFINE_ARGUMENT;
-
-    if(Current().IsOff())
-    {
-        argument[5] = 1;
-    }
-
-    FPGA::WriteCommand(command, argument);
-}
-
-
 ModeFilter &ModeFilter::Current()
 {
     if(CURRENT_CHANNEL_IS_A)

@@ -38,6 +38,40 @@ struct TypeSynch : public Enumeration
 };
 
 
+// Фронт синхронизации
+struct ModeFront : public Enumeration
+{
+    enum E
+    {
+        Front,          // Фронт
+        Slice           // Срез
+    };
+
+    explicit ModeFront(E v) : Enumeration((uint8)v) {};
+    static ModeFront &Current();
+    bool IsFront() const { return (value == Front); }
+
+    static void Load();
+};
+
+
+// ФНЧ
+struct ModeFilter : public Enumeration
+{
+    enum E
+    {
+        On,             // Включен
+        Off             // Выключен
+    };
+
+    explicit ModeFilter(E v) : Enumeration((uint8)v) {};
+    static void Load();
+    static ModeFilter &Current();
+    static void Set(E v);
+    bool IsOff() const { return (value == ModeFilter::Off); }
+};
+
+
 namespace FreqMeter
 {
     // Загрузка режима измерения частоты
@@ -63,8 +97,6 @@ namespace FreqMeter
 
     // Загрузка входного сопротивления по текущему каналу
     void LoadImpedance();
-
-    void LoadModeFront();
 
     void LoadDivider();
 

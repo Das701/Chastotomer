@@ -340,13 +340,13 @@ void FreqMeter::LoadImpedance()
 }
 
 
-void FreqMeter::LoadModeFront()
+void ModeFront::Load()
 {
     char command[4] = { 0, 1, 0, 0 };
 
     DEFINE_ARGUMENT;
 
-    if (!ModeFront::Current().IsFront())
+    if (!Current().IsFront())
     {
         argument[5] = 1;
     }
@@ -482,6 +482,21 @@ void ModeTest::Switch()
         argument[5] = 1;
 
         modeTest.value = ModeTest::Enabled;
+    }
+
+    FPGA::WriteCommand(command, argument);
+}
+
+
+void ModeFilter::Load()
+{
+    char command[4] = { 0, 1, 0, 1 };
+
+    DEFINE_ARGUMENT;
+
+    if (Current().IsOff())
+    {
+        argument[5] = 1;
     }
 
     FPGA::WriteCommand(command, argument);
