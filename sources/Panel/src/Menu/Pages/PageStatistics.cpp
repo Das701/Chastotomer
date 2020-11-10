@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuItemsDef.h"
@@ -80,5 +81,5 @@ void PageStatistics::Clear()
 
 void PageStatistics::Draw()
 {
-    Rectangle(100, 100).Fill(10, 100, Color::WHITE);
+    Rectangle(Display::WIDTH - 20, 110).Fill(10, 10, Color::GRAY_50);
 }

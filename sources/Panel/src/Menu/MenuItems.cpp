@@ -218,7 +218,7 @@ void Switch::CreateHint(char buffer[100]) const
 
 Color Item::ColorBackground(bool selected)
 {
-    return selected ? Color::GREY_75 : Color::GREY_10;
+    return selected ? Color::GRAY_75 : Color::GRAY_10;
 }
 
 
