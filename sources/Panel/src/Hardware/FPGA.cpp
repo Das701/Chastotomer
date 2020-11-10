@@ -20,8 +20,11 @@
 
 
 #define ReadPin(x)  HAL_GPIO_ReadPin(x)
+#define SetPin(x)   HAL_GPIO_WritePin(x, GPIO_PIN_SET)
+#define ResetPin(x) HAL_GPIO_WritePin(x, GPIO_PIN_RESET)
 
-#define PinFLAG GPIOC, GPIO_PIN_8
+#define PinFLAG     GPIOC, GPIO_PIN_8
+#define PinCS       GPIOB, GPIO_PIN_12
 
 
 #define READ_PIN_B14(x)                                                                 \
@@ -92,7 +95,7 @@ void FPGA::Update()
     {
         if(ReadPin(PinFLAG) != 0)
         {
-            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+            SetPin(PinCS);
 
             CYCLE_READ_PIN_B14(3, dataIdent);
 
@@ -102,7 +105,8 @@ void FPGA::Update()
 
             CYCLE_READ_PIN_B14(10, MathFPGA::Auto::dataMax);
 
-            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+            ResetPin(PinCS);
+
             HAL_TIM::DelayUS(8);
         }
     }
@@ -112,7 +116,7 @@ void FPGA::Update()
         {
             if (ReadPin(PinFLAG) != 0)
             {
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+                SetPin(PinCS);
 
                 CYCLE_READ_PIN_B14(3, dataIdent);
 
@@ -122,7 +126,8 @@ void FPGA::Update()
 
                 CYCLE_READ_PIN_B14(24, dataCAL2);
 
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+                ResetPin(PinCS);
+
                 HAL_TIM::DelayUS(8);
             }
         }
@@ -130,13 +135,14 @@ void FPGA::Update()
         {
             if (ReadPin(PinFLAG) != 0)
             {
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+                SetPin(PinCS);
 
                 CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataPeriod);
 
                 CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataDuration);
 
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+                ResetPin(PinCS);
+
                 HAL_TIM::DelayUS(8);
             }
         }
@@ -148,7 +154,7 @@ void FPGA::Update()
 
             if (ReadPin(PinFLAG) != 0)
             {
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+                SetPin(PinCS);
 
                 CYCLE_READ_PIN_B14(3, dataIdent);
 
@@ -158,7 +164,7 @@ void FPGA::Update()
 
                 CYCLE_READ_PIN_B14(16, comparatorNkal);
 
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+                ResetPin(PinCS);
 
                 HAL_TIM::DelayUS(8);
 
@@ -197,7 +203,7 @@ void FPGA::Update()
         {
             if (ReadPin(PinFLAG) != 0)
             {
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+                SetPin(PinCS);
 
                 CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataFrequencyA);
 
@@ -206,7 +212,8 @@ void FPGA::Update()
                     CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataFrequencyB);
                 }
 
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+                ResetPin(PinCS);
+
                 HAL_TIM::DelayUS(8);
             }
         }
@@ -218,7 +225,7 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
 {
     if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == 0)
     {
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+        ResetPin(PinCS);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
         HAL_TIM::DelayUS(2);
@@ -311,13 +318,14 @@ void FPGA::ReadCalibNumber()
 
     if (ReadPin(PinFLAG) != 0)
     {
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+        SetPin(PinCS);
 
         CYCLE_READ_PIN_B14(3, dataIdent);
 
         CYCLE_READ_PIN_B14(10, calibBin);
 
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+        ResetPin(PinCS);
+
         HAL_TIM::DelayUS(8);
     }
 
@@ -379,7 +387,7 @@ void FPGA::WriteData()
 
     if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == 0)
     {
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+        ResetPin(PinCS);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
         HAL_TIM::DelayUS(2);
