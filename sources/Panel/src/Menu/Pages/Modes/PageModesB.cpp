@@ -213,7 +213,8 @@ void PageModesB::OnChanged_ModeDuration()
     }
 
     PageModesA::RelationOff();
-    FreqMeter::LoadModeMeasureDuration();
+
+    CurrentModeMeasureDuration::LoadToFPGA();
 }
 
 // Выбор режима измерения длительности импульсов, интервалов, коэффициента заполнения, разности фаз

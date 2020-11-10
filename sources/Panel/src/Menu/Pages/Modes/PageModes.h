@@ -48,6 +48,12 @@ struct CurrentModeMeasurePeriod
 };
 
 
+struct CurrentModeMeasureDuration
+{
+    static void LoadToFPGA();
+};
+
+
 struct CurrentModeMeasureCountPulse
 {
     static bool IsBig_T();

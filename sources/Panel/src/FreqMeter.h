@@ -77,9 +77,6 @@ namespace FreqMeter
 {
     extern ModeTest modeTest;
 
-    // Загрузка режима измерения длительности
-    void LoadModeMeasureDuration();
-
     // Загрузка режима измерения счёта импульсов
     void LoadModeMeasureCountPulse();
 
