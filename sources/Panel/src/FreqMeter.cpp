@@ -75,7 +75,7 @@ void FreqMeter::LoadRefGenerator()
 }
 
 
-void FreqMeter::LoadLaunchSource()
+void LaunchSource::LoadToFPGA()
 {
     char command[4] = { 1, 0, 1, 0 };
 
@@ -322,7 +322,7 @@ void FreqMeter::LoadNumerPeriodsMeasure()
 
 
 
-void FreqMeter::LoadImpedance()
+void InputImpedance::LoadToFPGA()
 {
     char command[4] = { 0, 0, 0, 1 };
 

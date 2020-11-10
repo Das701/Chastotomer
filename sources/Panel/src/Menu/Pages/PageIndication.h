@@ -41,6 +41,8 @@ struct LaunchSource : public Enumeration
     explicit LaunchSource(E v) : Enumeration((uint8)v) {};
     bool IsExternal() const { return (value == External); }
     bool IsOneTime() const  { return (value == OneTime); }
+
+    static void LoadToFPGA();
 };
 
 

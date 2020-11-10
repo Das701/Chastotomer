@@ -89,12 +89,7 @@ namespace FreqMeter
     // Загрузка числа периодов измерения
     void LoadNumerPeriodsMeasure();
 
-    // Загрузка входного сопротивления по текущему каналу
-    void LoadImpedance();
-
     void LoadCalibration();
-    
-    void LoadLaunchSource();
     
     void LoadRefGenerator();
     

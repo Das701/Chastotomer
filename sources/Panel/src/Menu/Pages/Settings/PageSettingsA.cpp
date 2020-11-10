@@ -39,7 +39,7 @@ DEF_SWITCH_UGO_2(sCouple,
 
 static void OnPress_Impedance()
 {
-    FreqMeter::LoadImpedance();
+    InputImpedance::LoadToFPGA();
 }
 
 // Установка входного сопротивления текущего канала

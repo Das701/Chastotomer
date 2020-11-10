@@ -48,7 +48,7 @@ DEF_SWITCH_2(sRefGenerator,
 
 static void OnPress_LaunchSource()
 {
-    FreqMeter::LoadLaunchSource();
+    LaunchSource::LoadToFPGA();
 }
 
 // Выбор источника запуска
