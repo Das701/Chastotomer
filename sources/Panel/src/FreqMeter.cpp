@@ -60,7 +60,7 @@ void FreqMeter::LoadDisplayTime()
 }
 
 
-void FreqMeter::LoadRefGenerator()
+void RefGenerator::LoadToFPGA()
 {
     char command[4] = { 1, 0, 0, 1 };
 

@@ -35,7 +35,7 @@ DEF_SWITCH_3(sDisplayTime,
 
 static void OnPress_RefGenerator()
 {
-    FreqMeter::LoadRefGenerator();
+    RefGenerator::LoadToFPGA();
 }
 
 // Выбор опорного генератора

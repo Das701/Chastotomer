@@ -26,6 +26,8 @@ struct RefGenerator : public Enumeration
 
     explicit RefGenerator(E v) : Enumeration((uint8)v) {};
     bool IsExternal() const { return (value == External); }
+
+    static void LoadToFPGA();
 };
 
 

@@ -91,8 +91,6 @@ namespace FreqMeter
 
     void LoadCalibration();
     
-    void LoadRefGenerator();
-    
     void LoadDisplayTime();
    
     void LoadAuto();
