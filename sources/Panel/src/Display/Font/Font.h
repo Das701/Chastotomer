@@ -2,7 +2,7 @@
 #include "defines.h"
 
 
-struct PTypeFont
+struct TypeFont
 {
     enum E
     {
@@ -19,7 +19,7 @@ struct PTypeFont
 struct Font
 {
     // Устанавливает текущий шрифт. Ранее установленный можно восстановить функцией Pop()
-    static void Set(const PTypeFont::E typeFont);
+    static void Set(const TypeFont::E typeFont);
     static uint8 GetWidth(uint8 symbol);
     static uint8 GetWidth(char symbol);
     static uint8 GetHeight();

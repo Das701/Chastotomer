@@ -107,19 +107,19 @@ uint8 *NativeSymbol::Data()
 }
 
 
-void Font::Set(const PTypeFont::E typeFont)
+void Font::Set(const TypeFont::E typeFont)
 {
     switch (typeFont)
     {
-    case PTypeFont::GOST16B:   font = fontGOST16B;   break;
+    case TypeFont::GOST16B:   font = fontGOST16B;   break;
 //    case PTypeFont::GOSTB18B:  font = fontGOSTB18B;  break;
 //    case PTypeFont::GOSTB20B:  font = fontGOSTB20B;  break;
-//    case PTypeFont::GOSTB28B:  font = fontGOSTB28B;  break;
-    case PTypeFont::GOSTB18B:
-    case PTypeFont::GOSTB20B:
-    case PTypeFont::GOSTB28B:
-    case PTypeFont::None:
-    case PTypeFont::Count:
+//`    case PTypeFont::GOSTB28B:  font = fontGOSTB28B;  break;
+    case TypeFont::GOSTB18B:
+    case TypeFont::GOSTB20B:
+    case TypeFont::GOSTB28B:
+    case TypeFont::None:
+    case TypeFont::Count:
         break;
     }
 }
