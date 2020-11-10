@@ -75,7 +75,8 @@ void PageModesC::OnChanged_ModeFrequency()
     PageModesA::RelationOff();
     PageModesA::InterpolateOff();
     PageModesA::DCycleOff();
-    FreqMeter::LoadModeMeasureFrequency();
+    
+    CurrentModeMeasureFrequency::LoadToFPGA();
 }
 
 // Выбор режима измерения частоты, отношения частот, "тахометра"

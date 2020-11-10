@@ -77,9 +77,6 @@ namespace FreqMeter
 {
     extern ModeTest modeTest;
 
-    // Загрузка режима измерения частоты
-    void LoadModeMeasureFrequency();
-
     // Загрузка режима измерения периода
     void LoadModeMeasurePeriod();
 
