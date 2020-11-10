@@ -101,7 +101,7 @@ DEF_SWITCH_2(sMemoryMode,
     PageIndication::memoryMode, OnPress_MemoryMode
 );
 
-static Item *items[] =
+static Item *items[7] =
 {
     &sDisplayTime,
     &sRefGenerator,

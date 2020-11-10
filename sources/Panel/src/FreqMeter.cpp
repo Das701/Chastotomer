@@ -370,7 +370,7 @@ void FreqMeter::LoadDivider()
 }
 
 
-void FreqMeter::LoadTypeSynch()
+void TypeSynch::Load()
 {
     char command[4] = { 1, 1, 0, 1 };
 

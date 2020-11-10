@@ -1,4 +1,5 @@
 #pragma once
+#include "FreqMeter.h"
 #include "Menu/MenuItems.h"
 
 
@@ -74,21 +75,6 @@ struct ModeFilter : public Enumeration
     static ModeFilter& Current();
     static void Set(E v);
     bool IsOff() const { return (value == ModeFilter::Off); }
-};
-
-
-// Выбор типа синхронизации - ТТЛ или ЭСЛ
-struct TypeSynch : public Enumeration
-{
-    enum E
-    {
-        Manual,         // Ручн
-        Holdoff         // Holdoff
-    };
-
-    explicit TypeSynch(E v) : Enumeration((uint8)v) {};
-    bool IsHoldoff() const { return (value == Holdoff); }
-    bool IsManual() const { return (value == Manual); }
 };
 
 

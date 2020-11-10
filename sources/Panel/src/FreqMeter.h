@@ -20,6 +20,24 @@ struct ModeTest : public Enumeration
 };
 
 
+// Выбор типа синхронизации - ТТЛ или ЭСЛ
+struct TypeSynch : public Enumeration
+{
+    enum E
+    {
+        Manual,         // Ручн
+        Holdoff         // Holdoff
+    };
+
+    explicit TypeSynch(E v) : Enumeration((uint8)v) {};
+    bool IsHoldoff() const { return (value == Holdoff); }
+    bool IsManual() const { return (value == Manual); }
+
+    // Загрузить в аппаратуру
+    static void Load();
+};
+
+
 namespace FreqMeter
 {
     // Загрузка режима измерения частоты
@@ -50,8 +68,6 @@ namespace FreqMeter
 
     void LoadDivider();
 
-    void LoadTypeSynch();
-    
     void LoadChannel();
     
     void LoadMemoryMode();

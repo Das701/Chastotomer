@@ -169,7 +169,8 @@ static void OnPress_Sync()
         items[6] = nullptr;
     }
     TYPE_SYNCH_B = (TypeSynch::E)PageSettingsB::typeSynch.value;
-    FreqMeter::LoadTypeSynch(); 
+
+    TypeSynch::Load(); 
 }
 
 // Выбор уровня синхронизации ТТЛ, ЭСЛ

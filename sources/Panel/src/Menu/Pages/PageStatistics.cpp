@@ -53,7 +53,7 @@ static void OnPress_Exit()
 DEF_BUTTON(bExit, "Выход", OnPress_Exit);
 
 
-static Item *items[] =
+static Item *items[7] =
 {
     &sModeShow,
     &bClear,

@@ -172,7 +172,8 @@ static void OnPress_Sync()
     }
 
     TYPE_SYNCH_A = (TypeSynch::E)PageSettingsA::typeSynch.value;
-    FreqMeter::LoadTypeSynch();
+
+    TypeSynch::Load();
 }
 
 // Выбор уровня синхронизации ТТЛ, ЭСЛ
