@@ -1,9 +1,10 @@
 #pragma once
 #include "Menu/MenuItems.h"
+#include "Utils/Observer.h"
 
 
 // Включён или выключен режим "Тест"
-struct ModeTest : public Enumeration
+struct ModeTest : public Enumeration, public Subject
 {
     enum E
     {
@@ -13,10 +14,10 @@ struct ModeTest : public Enumeration
 
     explicit ModeTest(E v) : Enumeration((uint8)v) {};
 
-    static bool IsEnabled();
+    bool IsEnabled() const { return value == Enabled; }
 
     // Переключить режим теста
-    static void Switch();
+    void Switch();
 };
 
 
@@ -74,6 +75,8 @@ struct ModeFilter : public Enumeration
 
 namespace FreqMeter
 {
+    extern ModeTest modeTest;
+
     // Загрузка режима измерения частоты
     void LoadModeMeasureFrequency();
 

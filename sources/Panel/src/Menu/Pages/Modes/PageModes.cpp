@@ -250,9 +250,3 @@ void PageModes::ResetModeCurrentMeasure()
     PageModesB::ResetModeCurrentMeasure();
     PageModesC::ResetModeCurrentMeasure();
 }
-
-
-void PageModes::OnChanged_ModeTest()
-{
-    PageModesA::OnChanged_ModeTest();
-}

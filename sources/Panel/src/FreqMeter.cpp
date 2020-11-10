@@ -14,7 +14,7 @@
 
 static bool autoMode = false;
 
-static ModeTest modeTest(ModeTest::Disabled);
+ModeTest FreqMeter::modeTest(ModeTest::Disabled);
 
 
 void FreqMeter::LoadChannel()
@@ -457,13 +457,6 @@ void FreqMeter::LoadStartStop()
 }
 
 
-bool ModeTest::IsEnabled()
-{
-    return modeTest.Is(ModeTest::Enabled);
-}
-
-
-
 void ModeTest::Switch()
 {
     char command[4] = { 1, 1, 1, 1 };
@@ -472,18 +465,18 @@ void ModeTest::Switch()
 
     if (IsEnabled())
     {
-        modeTest.value = ModeTest::Disabled;
+        value = ModeTest::Disabled;
     }
     else
     {
         argument[5] = 1;
 
-        modeTest.value = ModeTest::Enabled;
+        value = ModeTest::Enabled;
     }
 
     FPGA::WriteCommand(command, argument);
 
-    PageModes::OnChanged_ModeTest();
+    Event(EventType::ModeTestChanged);
 }
 
 

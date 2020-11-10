@@ -172,7 +172,7 @@ void PageModesA::OnChanged_ModeFrequency()
     {
         items[1] = &sModeFrequency;
         items[2] = &sTimeMeasure;
-        items[3] = ModeTest::IsEnabled() ? &sPeriodTimeLabels : nullptr;
+        items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
         items[4] = nullptr;
         PageModesA::RelationOff();
     }
@@ -583,10 +583,4 @@ void PageModesA::ResetModeCurrentMeasure()
     case TypeMeasureAB::Duration:   modeMeasureDuration.value = 0;      break;
     case TypeMeasureAB::CountPulse: modeMeasureCountPulse.value = 0;    break;
     }
-}
-
-
-void PageModesA::OnChanged_ModeTest()
-{
-    OnChanged_ModeFrequency();
 }

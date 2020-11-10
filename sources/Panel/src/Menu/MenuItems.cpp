@@ -228,7 +228,10 @@ Color Item::ColorDraw(bool selected)
 }
 
 
-void Page::OnEvent()
+void Page::OnEvent(EventType::E event)
 {
-
+    if (onEvent)
+    {
+        onEvent(event);
+    }
 }

@@ -90,7 +90,7 @@ private:
 class Page : public Item, public Observer
 {
 public:
-    Page(Item **_items, void (*_onEvent)()) : selectedItem(0), items(_items), onEvent(_onEvent) {};
+    Page(Item **_items, void (*_onEvent)(EventType::E)) : selectedItem(0), items(_items), onEvent(_onEvent) {};
 
     virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &) { return false; };
@@ -110,7 +110,7 @@ public:
     // Делает текущим предыдущий элемент
     void SelectPrevItem();
 
-    virtual void OnEvent();
+    virtual void OnEvent(EventType::E);
 
     // Номер выбранного итема
     int selectedItem;
@@ -128,5 +128,5 @@ private:
     // Указатель на массив элементов меню. Заканчивается нулём.
     Item **items;
 
-    void (*onEvent)();
+    void (*onEvent)(EventType::E);
 };

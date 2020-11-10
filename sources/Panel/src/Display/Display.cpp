@@ -251,7 +251,7 @@ static void DrawInfo()
         } 
     }
 
-    if(ModeTest::IsEnabled())
+    if(FreqMeter::modeTest.IsEnabled())
     {
         Text("Тест").Write(430, 120);
     }
