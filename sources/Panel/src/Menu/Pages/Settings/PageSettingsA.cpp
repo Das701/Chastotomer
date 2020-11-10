@@ -81,7 +81,7 @@ DEF_SWITCH_UGO_2(sFront,
 
 static void OnPress_Divider()
 {
-    FreqMeter::LoadDivider();
+    Divider::LoadToFPGA();
 }
 
 // Включение(отключение) входного делителя напряжения

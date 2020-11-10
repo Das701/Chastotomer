@@ -352,7 +352,7 @@ void ModeFront::Load()
 }
 
 
-void FreqMeter::LoadDivider()
+void Divider::LoadToFPGA()
 {
     char command[4] = { 0, 0, 1, 0 };
 
