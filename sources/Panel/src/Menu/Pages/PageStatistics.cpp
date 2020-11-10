@@ -95,7 +95,7 @@ void PageStatistics::Draw()
 
     Rectangle(width, height).Fill(x0, y0, Color::GRAY_50);
 
-    if (values.Size() == 0)
+    if (values.Size() < 2)
     {
         return;
     }
@@ -127,7 +127,7 @@ void PageStatistics::Draw()
         min = 0.0;
     }
 
-    float stepX = (float)width / values.Size();
+    float stepX = (float)width / (values.Size() - 1);
     float stepY = height / (float)(max - min);
 
     y0 = y0 + height;
