@@ -169,8 +169,8 @@ void PageModesB::OnChanged_ModePeriod()
     PageModesA::RelationOff();
     PageModesA::InterpolateOff();
     PageModesA::DCycleOff();
-    FreqMeter::LoadModeMeasurePeriod();
 
+    CurrentModeMeasurePeriod::LoadToFPGA();
 }
 
 // Выбор режима измерения периода

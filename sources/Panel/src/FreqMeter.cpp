@@ -171,7 +171,7 @@ void CurrentModeMeasureFrequency::LoadToFPGA()
 }
 
 
-void FreqMeter::LoadModeMeasurePeriod()
+void CurrentModeMeasurePeriod::LoadToFPGA()
 {
     char command[4] = { 0, 1, 1, 0 };
 

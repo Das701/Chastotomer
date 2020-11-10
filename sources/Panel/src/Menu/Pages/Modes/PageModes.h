@@ -18,6 +18,15 @@ struct CurrentTypeMeasure
 
 };
 
+
+struct CurrentModeMeasure
+{
+    static Enumeration &ToEnumeration();
+    static void Draw(int x, int y);
+    static void DrawParameters(int x, int y);
+};
+
+
 struct CurrentModeMeasureFrequency
 {
     static bool IsTachometer();
@@ -33,11 +42,9 @@ struct CurrentModeMeasureFrequency
 };
 
 
-struct CurrentModeMeasure
+struct CurrentModeMeasurePeriod
 {
-    static Enumeration &ToEnumeration();
-    static void Draw(int x, int y);
-    static void DrawParameters(int x, int y);
+    static void LoadToFPGA();
 };
 
 
@@ -45,6 +52,7 @@ struct CurrentModeMeasureCountPulse
 {
     static bool IsBig_T();
 };
+
 
 // Здесь функции общие для всех страниц режимов каналов
 struct PageModes
