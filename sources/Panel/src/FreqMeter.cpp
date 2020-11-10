@@ -220,7 +220,7 @@ void CurrentModeMeasureDuration::LoadToFPGA()
 }
 
 
-void FreqMeter::LoadModeMeasureCountPulse()
+void CurrentModeMeasureCountPulse::LoadToFPGA()
 {
     char command[4] = { 0, 1, 1, 0 };
 
