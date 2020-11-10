@@ -3,9 +3,7 @@
 #include "Hardware/FPGA.h"
 #include "Hardware/MathFPGA.h"
 #include "Menu/Pages/PageStatistics.h"
-#include "Menu/Pages/Modes/PageModesA.h"
-#include "Menu/Pages/Modes/PageModesB.h"
-#include "Menu/Pages/Modes/PageModesC.h"
+#include "Menu/Pages/Modes/PageModes.h"
 #include "Utils/StringUtils.h"
 #include "Utils/Value.h"
 #include <cstdio>

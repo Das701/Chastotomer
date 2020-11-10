@@ -8,10 +8,7 @@
 #include "Menu/Menu.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/Pages/PageStatistics.h"
-#include "Menu/Pages/Modes/PageModesA.h"
-#include "Menu/Pages/Modes/PageModesB.h"
-#include "Menu/Pages/Modes/PageModesC.h"
-#include "Menu/Pages/Modes/PageModesD.h"
+#include "Menu/Pages/Modes/PageModes.h"
 #include "Menu/Pages/Settings/PagesSettings.h"
 #include "Utils/StringUtils.h"
 #include <cstring>

@@ -2,44 +2,6 @@
 #include "Menu/MenuItems.h"
 
 
-struct CurrentTypeMeasure
-{
-    static int Value();
-    static bool IsFrequency();
-    static bool IsPeriod();
-    static bool IsDuration();
-    static bool IsCountPulse();
-    static Enumeration &ToEnumeration();
-    static void Draw(int x, int y);
-
-};
-
-struct CurrentModeMeasureFrequency
-{
-    static bool IsTachometer();
-    static bool IsComparator();
-    static bool IsT_1();
-    static bool Is_RatioAC_or_RatioBC();
-    static bool Is_RatioAB_or_RatioBA();
-    static bool Is_RatioCA_or_RatioCB();
-    static bool Is_Ratio();
-};
-
-
-struct CurrentModeMeasure
-{
-    static Enumeration &ToEnumeration();
-    static void Draw(int x, int y);
-    static void DrawParameters(int x, int y);
-};
-
-
-struct CurrentModeMeasureCountPulse
-{
-    static bool IsBig_T();
-};
-
-
 struct TypeMeasureAB : public Enumeration
 {
     enum E
@@ -200,14 +162,6 @@ struct NumberPeriods : public Enumeration
     int ToAbs() const;
     // Возвращает NumberPeriods для текущего канала
     static NumberPeriods &Current();
-};
-
-
-// Здесь функции общие для всех страниц режимов каналов
-struct PageModes
-{
-    // Сброс режима текущего измерения
-    static void ResetModeCurrentMeasure();
 };
 
 

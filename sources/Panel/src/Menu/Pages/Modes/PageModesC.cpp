@@ -3,10 +3,7 @@
 #include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Menu/MenuItemsDef.h"
-#include "Menu/Pages/Modes/PageModesC.h"
-#include "Menu/Pages/Modes/PageModesA.h"
-#include "Menu/Pages/Modes/PageModesB.h"
-#include "Menu/Pages/Modes/PageModesD.h"
+#include "Menu/Pages/Modes/PageModes.h"
 
 
 using namespace Display::Primitives;
