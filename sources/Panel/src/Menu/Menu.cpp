@@ -346,3 +346,9 @@ static bool OnControl(const Control &control) //-V2008
 
     return result;
 }
+
+
+void Menu::Init()
+{
+    PageModesA::Init();
+}

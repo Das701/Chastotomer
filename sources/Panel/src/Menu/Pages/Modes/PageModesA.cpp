@@ -84,10 +84,9 @@ bool PageModesA::RelationCheck()
 }
 
 
-
-
 void PageModesA::Init()
 {
+    FreqMeter::modeTest.AddObserver(PageModesA::self);
 }
 
 void PageModesA::PressSetup()
@@ -444,7 +443,6 @@ void PageModesA::ToggleStartStop()
 }
 
 
-
 static Item *items[7] =
 {
     &sTypeMeasure,
@@ -453,7 +451,24 @@ static Item *items[7] =
     nullptr
 };
 
-static Page pageModes(items, nullptr);
+
+static void OnChanged_ModeTest()
+{
+
+}
+
+static void OnEvent(EventType::E event)
+{
+    switch (event)
+    {
+    case EventType::ModeTestChanged:
+        OnChanged_ModeTest();
+        break;
+    }
+}
+
+
+static Page pageModes(items, OnEvent);
 
 Page *PageModesA::self = &pageModes;
 
