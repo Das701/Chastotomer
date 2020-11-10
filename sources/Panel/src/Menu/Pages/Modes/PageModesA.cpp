@@ -459,6 +459,8 @@ static void OnChanged_ModeTest()
     case TypeMeasureAB::Frequency:  PageModesA::OnChanged_ModeFrequency();  break;
     case TypeMeasureAB::Period:     PageModesA::OnChanged_ModePeriod();     break;
     }
+
+    PageModesA::self->VerifySelectedItem();
 }
 
 static void OnEvent(EventType::E event)

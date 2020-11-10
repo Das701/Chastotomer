@@ -5,7 +5,7 @@ struct EventType
 {
     enum E
     {
-        ModeTestChanged
+        ModeTestChanged         // Это событие генерирует ModeTest, когда изменяет своё состояние
     };
 };
 

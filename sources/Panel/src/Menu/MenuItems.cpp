@@ -114,6 +114,14 @@ void Page::SelectPrevItem()
 }
 
 
+void Page::VerifySelectedItem()
+{
+    if (selectedItem >= NumItems())
+    {
+        selectedItem = NumItems() - 1;
+    }
+}
+
 
 bool Switch::OnControl(const Control &control)
 {
