@@ -89,12 +89,12 @@ void ModeFilter::Set(ModeFilter::E v)
     if(CURRENT_CHANNEL_IS_A)
     {
         PageSettingsA::modeFilter.value = (uint8)v;
-        Load();
+        LoadToFPGA();
     }
     else if(CURRENT_CHANNEL_IS_B)
     {
         PageSettingsB::modeFilter.value = (uint8)v;
-        Load();
+        LoadToFPGA();
     }
 }
 

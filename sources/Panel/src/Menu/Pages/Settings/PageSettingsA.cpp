@@ -53,7 +53,7 @@ DEF_SWITCH_UGO_2(sImpedance,
 
 static void OnPress_Filter()
 {
-    ModeFilter::Load();
+    ModeFilter::LoadToFPGA();
 }
 
 // Включение(отключение) ФНЧ
@@ -67,7 +67,7 @@ DEF_SWITCH_UGO_2(sLowpassFilter,
 
 static void OnPress_Front()
 {
-    ModeFront::Load();
+    ModeFront::LoadToFPGA();
 }
 
 // Выбор фронта синхронизации текущего канала
@@ -173,7 +173,7 @@ static void OnPress_Sync()
 
     TYPE_SYNCH_A = (TypeSynch::E)PageSettingsA::typeSynch.value;
 
-    TypeSynch::Load();
+    TypeSynch::LoadToFPGA();
 }
 
 // Выбор уровня синхронизации ТТЛ, ЭСЛ

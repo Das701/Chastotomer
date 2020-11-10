@@ -35,7 +35,7 @@ struct TypeSynch : public Enumeration
     bool IsManual() const { return (value == Manual); }
 
     // Загрузить в аппаратуру
-    static void Load();
+    static void LoadToFPGA();
 };
 
 
@@ -52,7 +52,7 @@ struct ModeFront : public Enumeration
     static ModeFront &Current();
     bool IsFront() const { return (value == Front); }
 
-    static void Load();
+    static void LoadToFPGA();
 };
 
 
@@ -66,7 +66,7 @@ struct ModeFilter : public Enumeration
     };
 
     explicit ModeFilter(E v) : Enumeration((uint8)v) {};
-    static void Load();
+    static void LoadToFPGA();
     static ModeFilter &Current();
     static void Set(E v);
     bool IsOff() const { return (value == ModeFilter::Off); }

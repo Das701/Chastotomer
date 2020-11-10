@@ -337,7 +337,7 @@ void InputImpedance::LoadToFPGA()
 }
 
 
-void ModeFront::Load()
+void ModeFront::LoadToFPGA()
 {
     char command[4] = { 0, 1, 0, 0 };
 
@@ -367,7 +367,7 @@ void Divider::LoadToFPGA()
 }
 
 
-void TypeSynch::Load()
+void TypeSynch::LoadToFPGA()
 {
     char command[4] = { 1, 1, 0, 1 };
 
@@ -480,7 +480,7 @@ void ModeTest::Switch()
 }
 
 
-void ModeFilter::Load()
+void ModeFilter::LoadToFPGA()
 {
     char command[4] = { 0, 1, 0, 1 };
 
