@@ -254,7 +254,7 @@ static void DrawInfo()
         } 
     }
 
-    if(FreqMeter::TestModeStatus() == true)
+    if(set.modeTest)
     {
         Text("Тест").Write(430, 120);
     }

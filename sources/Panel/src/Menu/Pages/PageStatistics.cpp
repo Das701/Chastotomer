@@ -69,10 +69,7 @@ Page *PageStatistics::self = &pageShowStatistics;
 
 void PageStatistics::AppendValue(double value)
 {
-    if (value < 1.0)
-    {
-        values.Push(value);
-    }
+    values.Push(value);
 }
 
 

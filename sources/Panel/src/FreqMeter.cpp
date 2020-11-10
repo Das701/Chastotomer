@@ -15,7 +15,6 @@
 
 #define DEFINE_ARGUMENT char argument[6] = {0, 0, 0, 0, 0, 0}
 
-static bool testMode = false;
 static bool autoMode = false;
 
 
@@ -386,21 +385,22 @@ void FreqMeter::LoadTypeSynch()
     FPGA::WriteCommand(command, argument);
 }
 
-void FreqMeter::LoadTest()
+void FreqMeter::SwitchModeTest()
 {
     char command[4] = { 1, 1, 1, 1 };
 
     DEFINE_ARGUMENT;
 
-    if (testMode == false)
+    if (set.modeTest)
     {
-        argument[5] = 1;
-        testMode = true;
+        set.modeTest = false;
     }
     else
     {
-        testMode = false;
+        argument[5] = 1;
+        set.modeTest = true;
     }
+
     FPGA::WriteCommand(command, argument);
 }
 
@@ -431,6 +431,7 @@ void FreqMeter::UnloadAuto()
     }
 }
 
+
 void FreqMeter::LoadMeasure()
 {
     char command[4] = { 1, 1, 1, 1 };
@@ -438,11 +439,6 @@ void FreqMeter::LoadMeasure()
     DEFINE_ARGUMENT;
 
     FPGA::WriteCommand(command, argument);
-}
-
-bool FreqMeter::TestModeStatus()
-{
-    return testMode;
 }
 
 

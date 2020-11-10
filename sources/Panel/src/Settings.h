@@ -97,6 +97,7 @@ struct Settings
     Channel::E   currentChannel;                // Текущий канал
     int          levelSynch[Channel::Count][2]; // Уровень синхронизации
     TypeSynch::E typeSynch[Channel::Count];     // Тип синхронизации для каждого из каналов
+    bool         modeTest;       // Если true - включён режим "Тест"
 };
 
 extern Settings set;
