@@ -238,8 +238,8 @@ void PageModesA::OnChanged_ModePeriod()
     }
     else if (PageModesA::modeMeasurePeriod.IsF_1())
     {
-        items[2] = &sPeriodTimeLabels;
-        items[3] = &sTimeMeasure;
+        items[2] = &sTimeMeasure;
+        items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
         items[4] = nullptr;
     }
 
@@ -454,7 +454,11 @@ static Item *items[7] =
 
 static void OnChanged_ModeTest()
 {
-
+    switch(PageModesA::typeMeasure.value)
+    {
+    case TypeMeasureAB::Frequency:  PageModesA::OnChanged_ModeFrequency();  break;
+    case TypeMeasureAB::Period:     PageModesA::OnChanged_ModePeriod();     break;
+    }
 }
 
 static void OnEvent(EventType::E event)
