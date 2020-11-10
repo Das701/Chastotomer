@@ -104,8 +104,8 @@ void PageModesB::OnChanged_ModeFrequency()
 
     if (PageModesB::modeMeasureFrequency.IsFrequency())
     {
-        items[2] = &sPeriodTimeLabels;
-        items[3] = &sTimeMeasure;
+        items[2] = &sTimeMeasure;
+        items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
         items[4] = nullptr;
         PageModesA::RelationOff();
     }
@@ -160,8 +160,8 @@ void PageModesB::OnChanged_ModePeriod()
     }
     else if (PageModesB::modeMeasurePeriod.IsF_1())
     {
-        items[2] = &sPeriodTimeLabels;
-        items[3] = &sTimeMeasure;
+        items[2] = &sTimeMeasure;
+        items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
         items[4] = nullptr;
     }
 
@@ -353,12 +353,35 @@ static Item *items[7] =
 {
     &sTypeMeasure,
     &sModeFrequency,
-    &sPeriodTimeLabels,
     &sTimeMeasure,
     nullptr
 };
 
-static Page pageModesB(items, nullptr);
+
+static void OnChanged_ModeTest()
+{
+    switch (PageModesB::typeMeasure.value)
+    {
+    case TypeMeasureAB::Frequency: PageModesB::OnChanged_ModeFrequency(); break;
+    case TypeMeasureAB::Period:    PageModesB::OnChanged_ModePeriod();    break;
+    }
+
+    PageModesB::self->VerifySelectedItem();
+}
+
+
+static void OnEvent(EventType::E event)
+{
+    switch(event)
+    {
+    case EventType::ModeTestChanged:
+        OnChanged_ModeTest();
+        break;
+    }
+}
+
+
+static Page pageModesB(items, OnEvent);
 
 Page *PageModesB::self = &pageModesB;
 

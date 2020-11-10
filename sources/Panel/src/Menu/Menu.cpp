@@ -354,4 +354,5 @@ void Menu::Init()
 static void SubscribeToEvents()
 {
     FreqMeter::modeTest.AddObserver(PageModesA::self);
+    FreqMeter::modeTest.AddObserver(PageModesB::self);
 }

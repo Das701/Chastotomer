@@ -162,9 +162,10 @@ DEF_BUTTON(bStatistics, "Стат", OnPress_Statistics);
 
 void PageModesA::OnChanged_ModeFrequency()
 {
+    items[1] = &sModeFrequency;
+
     if (PageModesA::modeMeasureFrequency.IsFrequency())
     {
-        items[1] = &sModeFrequency;
         items[2] = &sTimeMeasure;
         items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
         items[4] = nullptr;
@@ -172,21 +173,18 @@ void PageModesA::OnChanged_ModeFrequency()
     }
     else if (PageModesA::modeMeasureFrequency.IsRatioAB())
     {
-        items[1] = &sModeFrequency;
         items[2] = &sNumberPeriods;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
     else if (PageModesA::modeMeasureFrequency.IsRatioAC())
     {
-        items[1] = &sModeFrequency;
         items[2] = &sTimeMeasure;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
     else if (PageModesA::modeMeasureFrequency.IsT_1())
     {
-        items[1] = &sModeFrequency;
         items[2] = &sPeriodTimeLabels;
         items[3] = &sNumberPeriods;
         items[4] = nullptr;
@@ -194,14 +192,12 @@ void PageModesA::OnChanged_ModeFrequency()
     }
     else if (PageModesA::modeMeasureFrequency.IsTachometer())
     {
-        items[1] = &sModeFrequency;
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
         PageModesA::RelationOff();
     }
     else if (PageModesA::modeMeasureFrequency.IsComparator())
     {
-        items[1] = &sModeFrequency;
         items[2] = &bStatistics;
         items[3] = nullptr;
         PageModesA::RelationOff();
