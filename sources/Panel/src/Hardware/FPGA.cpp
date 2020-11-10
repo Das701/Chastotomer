@@ -19,6 +19,11 @@
 #include <stm32f4xx_hal.h>
 
 
+#define ReadPin(x)  HAL_GPIO_ReadPin(x)
+
+#define PinFLAG GPIOC, GPIO_PIN_8
+
+
 #define READ_PIN_B14(x)                                                                 \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);                                \
     HAL_TIM::DelayUS(2);                                                                \
@@ -85,7 +90,7 @@ void FPGA::Update()
 {
     if(autoMode)
     {
-        if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
+        if(ReadPin(PinFLAG) != 0)
         {
             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
@@ -105,7 +110,7 @@ void FPGA::Update()
     {
         if (ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpolateCheck())
         {
-            if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
+            if (ReadPin(PinFLAG) != 0)
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
@@ -123,7 +128,7 @@ void FPGA::Update()
         }
         else if((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && PageModesA::DCycleCheck())
         {
-            if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
+            if (ReadPin(PinFLAG) != 0)
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
@@ -141,7 +146,7 @@ void FPGA::Update()
             static char comparatorTizm[16] = { 0 };
             static char comparatorNkal[16] = { 0 };
 
-            if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
+            if (ReadPin(PinFLAG) != 0)
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
@@ -190,7 +195,7 @@ void FPGA::Update()
         }
         else
         {
-            if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
+            if (ReadPin(PinFLAG) != 0)
             {
                 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
@@ -300,11 +305,11 @@ bool FPGA::AutoMode()
 
 void FPGA::ReadCalibNumber()
 {
-    while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) == 0)
+    while (ReadPin(PinFLAG) == 0)
     {
     }
 
-    if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_8) != 0)
+    if (ReadPin(PinFLAG) != 0)
     {
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
