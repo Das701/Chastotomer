@@ -1,8 +1,10 @@
 #pragma once
-#include "Menu/MenuItems.h"
 
 
-class PageService
+class Page;
+
+
+class PageStatistics
 {
 public:
 

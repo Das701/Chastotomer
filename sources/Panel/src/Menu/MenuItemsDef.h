@@ -1,4 +1,5 @@
 #pragma once
+#include "Menu/MenuItems.h"
 
 
 #define DEF_SWITCH_2(name, title, hint, name1, name2, state, func)                                      \

@@ -240,6 +240,12 @@ Page* Menu::OpenedPage()
 }
 
 
+void Menu::SetOpenedPage(Page *page)
+{
+    openedPage = page;
+}
+
+
 static bool OnControl(const Control &control) //-V2008
 {
     bool result = false;

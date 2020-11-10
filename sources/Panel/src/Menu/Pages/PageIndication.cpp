@@ -68,7 +68,8 @@ static void OnPress_Calibration()
 DEF_SWITCH_2(sCalibration,
     "Калиб", "",
     "Не нажата", "Нажата", 
-    PageIndication::calibration, OnPress_Calibration);
+    PageIndication::calibration, OnPress_Calibration
+);
 
 
 static void OnPress_MemoryMode()

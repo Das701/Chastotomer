@@ -1,5 +1,8 @@
 #pragma once
-#include "Menu/MenuItems.h"
+
+
+class Page;
+
 
 namespace Menu
 {
@@ -10,4 +13,6 @@ namespace Menu
     char *ChannelSettings();
     
     Page* OpenedPage();
+
+    void SetOpenedPage(Page *page);
 };

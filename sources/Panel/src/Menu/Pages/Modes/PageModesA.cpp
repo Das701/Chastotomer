@@ -3,7 +3,9 @@
 #include "Settings.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
+#include "Menu/Menu.h"
 #include "Menu/MenuItemsDef.h"
+#include "Menu/Pages/PageStatistics.h"
 #include "Menu/Pages/Modes/PageModesA.h"
 #include "Menu/Pages/Modes/PageModesB.h"
 #include "Menu/Pages/Modes/PageModesC.h"
@@ -161,7 +163,7 @@ DEF_SWITCH_4(sTypeMeasure,
 
 static void OnPress_Statistics()
 {
-
+    Menu::SetOpenedPage(PageStatistics::self);
 }
 
 DEF_BUTTON(bStatistics, "Стат", OnPress_Statistics);
