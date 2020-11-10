@@ -5,7 +5,7 @@ template<typename T>
 class Stack
 {
 public:
-    Stack(int size);
+    explicit Stack(int size);
     
     ~Stack();
     
@@ -19,6 +19,11 @@ public:
     
     // ¬озвращает количество нулей на дне стека
     int NumFirstZeros() const;
+
+    T &operator [](const int index) const
+    {
+        return buffer[index];
+    }
 
 private:
     T *buffer;

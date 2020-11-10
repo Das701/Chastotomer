@@ -1,12 +1,12 @@
 #include "defines.h"
 #include "Stack.h"
 #include <cstdlib>
+#include <cstring>
 
 
-//template class Stack<uint>;
 template class Stack<int8>;
-//template class Stack<uint8>;
 template class Stack<char>;
+template class Stack<double>;
 
 
 template <typename T>
@@ -30,6 +30,12 @@ void Stack<T>::Push(T elem)
     {
         buffer[numElements] = elem;
         numElements++;
+    }
+    else
+    {
+        std::memcpy(buffer, buffer + sizeof(T), (numElements - 1) * sizeof(T));
+        numElements--;
+        buffer[numElements] = elem;
     }
 }
 

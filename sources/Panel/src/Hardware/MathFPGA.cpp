@@ -2,6 +2,7 @@
 #include "Settings.h"
 #include "Hardware/FPGA.h"
 #include "Hardware/MathFPGA.h"
+#include "Menu/Pages/PageStatistics.h"
 #include "Menu/Pages/Modes/PageModesA.h"
 #include "Menu/Pages/Modes/PageModesB.h"
 #include "Menu/Pages/Modes/PageModesC.h"
@@ -567,6 +568,8 @@ char *MathFPGA::Measure::GiveData()
                 k.SetSign(1);
 
                 std::sprintf(result, "%s", k.ToString());
+
+                PageStatistics::AppendValue(k.ToDouble());
             }
 
             return result;
