@@ -8,10 +8,11 @@
 #include "Menu/Hint.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
-#include "Menu/Pages/Settings/PagesSettings.h"
 #include "Menu/Pages/PageIndication.h"
-#include "Menu/Pages/Modes/PageModesA.h"
 #include "Menu/Pages/PageService.h"
+#include "Menu/Pages/PageStatistics.h"
+#include "Menu/Pages/Modes/PageModesA.h"
+#include "Menu/Pages/Settings/PagesSettings.h"
 #include "Utils/Math.h"
 #include "Utils/StringUtils.h"
 #include <cstring>
@@ -31,6 +32,11 @@ static Page *openedPage = PageModesA::self;
 void Menu::Draw()
 {
     openedPage->Draw(0, Display::HEIGHT - Item::HEIGHT - 1, 0);
+
+    if (openedPage == PageStatistics::self)
+    {
+        PageStatistics::Draw();
+    }
 }
 
 

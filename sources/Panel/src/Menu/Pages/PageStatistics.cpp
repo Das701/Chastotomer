@@ -1,8 +1,12 @@
 #include "defines.h"
+#include "Display/Primitives.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/PageStatistics.h"
 #include "Menu/Pages/Modes/PageModesA.h"
+
+
+using namespace Display::Primitives;
 
 
 struct ShowStatistics : public Enumeration
@@ -60,3 +64,21 @@ static Item *items[] =
 static Page pageShowStatistics(items);
 
 Page *PageStatistics::self = &pageShowStatistics;
+
+
+void PageStatistics::AppendValue(ValuePICO &)
+{
+
+}
+
+
+void PageStatistics::Clear()
+{
+
+}
+
+
+void PageStatistics::Draw()
+{
+    Rectangle(100, 100).Fill(10, 100, Color::WHITE);
+}

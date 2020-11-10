@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>D:\Projects\stm32\CH3-96-2\sources\Panel\src\Menu\Pages\Settings</LastAddFilePath>
+    <LastAddFilePath>D:\Projects\stm32\CH3-96-2\sources\Panel\src\Menu\Pages</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>
@@ -15,7 +15,7 @@
     <View>
       <WinId>38003</WinId>
       <ViewName>Registers</ViewName>
-      <TableColWidths>123 69</TableColWidths>
+      <TableColWidths>172 173</TableColWidths>
     </View>
     <View>
       <WinId>346</WinId>

@@ -868,25 +868,30 @@
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageService.cpp</FilePath>
             </File>
+            <File>
+              <FileName>PageStatistics.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\PageStatistics.h</FilePath>
+            </File>
+            <File>
+              <FileName>PageStatistics.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageStatistics.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Menu/Pages/Modes</GroupName>
           <Files>
             <File>
-              <FileName>PageModesA.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesA.cpp</FilePath>
-            </File>
-            <File>
               <FileName>PageModesA.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesA.h</FilePath>
             </File>
             <File>
-              <FileName>PageModesB.cpp</FileName>
+              <FileName>PageModesA.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesB.cpp</FilePath>
+              <FilePath>.\src\Menu\Pages\Modes\PageModesA.cpp</FilePath>
             </File>
             <File>
               <FileName>PageModesB.h</FileName>
@@ -894,9 +899,9 @@
               <FilePath>.\src\Menu\Pages\Modes\PageModesB.h</FilePath>
             </File>
             <File>
-              <FileName>PageModesC.cpp</FileName>
+              <FileName>PageModesB.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesC.cpp</FilePath>
+              <FilePath>.\src\Menu\Pages\Modes\PageModesB.cpp</FilePath>
             </File>
             <File>
               <FileName>PageModesC.h</FileName>
@@ -904,20 +909,30 @@
               <FilePath>.\src\Menu\Pages\Modes\PageModesC.h</FilePath>
             </File>
             <File>
-              <FileName>PageModesD.cpp</FileName>
+              <FileName>PageModesC.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesD.cpp</FilePath>
+              <FilePath>.\src\Menu\Pages\Modes\PageModesC.cpp</FilePath>
             </File>
             <File>
               <FileName>PageModesD.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesD.h</FilePath>
             </File>
+            <File>
+              <FileName>PageModesD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Modes\PageModesD.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Menu/Pages/Settings</GroupName>
           <Files>
+            <File>
+              <FileName>PagesSettings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\Settings\PagesSettings.h</FilePath>
+            </File>
             <File>
               <FileName>PageSettingsA.cpp</FileName>
               <FileType>8</FileType>
@@ -937,11 +952,6 @@
               <FileName>PageSettingsD.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Settings\PageSettingsD.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PagesSettings.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Settings\PagesSettings.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1914,25 +1924,30 @@
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageService.cpp</FilePath>
             </File>
+            <File>
+              <FileName>PageStatistics.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\PageStatistics.h</FilePath>
+            </File>
+            <File>
+              <FileName>PageStatistics.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageStatistics.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Menu/Pages/Modes</GroupName>
           <Files>
             <File>
-              <FileName>PageModesA.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesA.cpp</FilePath>
-            </File>
-            <File>
               <FileName>PageModesA.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesA.h</FilePath>
             </File>
             <File>
-              <FileName>PageModesB.cpp</FileName>
+              <FileName>PageModesA.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesB.cpp</FilePath>
+              <FilePath>.\src\Menu\Pages\Modes\PageModesA.cpp</FilePath>
             </File>
             <File>
               <FileName>PageModesB.h</FileName>
@@ -1940,9 +1955,9 @@
               <FilePath>.\src\Menu\Pages\Modes\PageModesB.h</FilePath>
             </File>
             <File>
-              <FileName>PageModesC.cpp</FileName>
+              <FileName>PageModesB.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesC.cpp</FilePath>
+              <FilePath>.\src\Menu\Pages\Modes\PageModesB.cpp</FilePath>
             </File>
             <File>
               <FileName>PageModesC.h</FileName>
@@ -1950,20 +1965,30 @@
               <FilePath>.\src\Menu\Pages\Modes\PageModesC.h</FilePath>
             </File>
             <File>
-              <FileName>PageModesD.cpp</FileName>
+              <FileName>PageModesC.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesD.cpp</FilePath>
+              <FilePath>.\src\Menu\Pages\Modes\PageModesC.cpp</FilePath>
             </File>
             <File>
               <FileName>PageModesD.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesD.h</FilePath>
             </File>
+            <File>
+              <FileName>PageModesD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Modes\PageModesD.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Menu/Pages/Settings</GroupName>
           <Files>
+            <File>
+              <FileName>PagesSettings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\Settings\PagesSettings.h</FilePath>
+            </File>
             <File>
               <FileName>PageSettingsA.cpp</FileName>
               <FileType>8</FileType>
@@ -1983,11 +2008,6 @@
               <FileName>PageSettingsD.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Settings\PageSettingsD.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PagesSettings.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Settings\PagesSettings.h</FilePath>
             </File>
           </Files>
         </Group>
