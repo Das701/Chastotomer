@@ -1,6 +1,6 @@
 #pragma once
 #include "Menu/MenuItems.h"
-#include "Menu/Pages/PageModesA.h"
+#include "Menu/Pages/Modes/PageModesA.h"
 
 
 struct TypeMeasureD : public Enumeration

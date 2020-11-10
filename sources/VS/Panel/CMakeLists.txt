@@ -36,52 +36,60 @@ add_compile_options(/wd5204)    # 'xxx': class has virtual functions, but its tr
 add_compile_options(/wd26821)
 add_compile_options(/wd26812)
 
-file(GLOB VS_HAL           ../../common/_VS_KEIL/HAL/*)
-file(GLOB SRC              ../../Panel/src/defines.h
-                           ../../Panel/src/FreqMeter.*
-                           ../../Panel/src/Settings.*
-                                       src/Application_win.*
-                                       src/main_win.cpp)
-file(GLOB DISPLAY                      src/Display/Display_win.cpp
-                                       src/Display/Colors_win.cpp
-                           ../../Panel/src/Display/Colors.*
-                           ../../Panel/src/Display/Display.*
-                           ../../Panel/src/Display/Primitives.*
-                                       src/Display/Primitives_win.cpp
-                           ../../Panel/src/Display/Text.*)
-file(GLOB DISPLAY_FONT     ../../Panel/src/Display/Font/*)
-file(GLOB FREQMETER        ../../Panel/src/FreqMeter/*)
-file(GLOB GUI                          src/GUI/*)
-file(GLOB HARDWARE         ../../Panel/src/Hardware/*FPGA.*
-                           ../../Panel/src/Hardware/VCP.h
-                                       src/Hardware/VCP_win.cpp)
-file(GLOB HARDWARE_HAL     ../../Panel/src/Hardware/HAL/HAL.*
-                           ../../Panel/src/Hardware/HAL/HAL_FSMC.cpp
-                           ../../Panel/src/Hardware/HAL/HAL_TIM.cpp)
-file(GLOB KEYBOARD         ../../Panel/src/Keyboard/Keyboard.h
-                                       src/Keyboard/Keyboard_win.cpp)
-file(GLOB MENU             ../../Panel/src/Menu/*.h
-                           ../../Panel/src/Menu/*.cpp
-                           ../../Panel/src/Menu/*.txt)
-file(GLOB MENU_PAGES       ../../Panel/src/Menu/Pages/*)
-file(GLOB SCPI             ../../Panel/src/SCPI/*)
-file(GLOB UTILS            ../../Panel/src/Utils/*)
+file(GLOB VS_HAL              ../../common/_VS_KEIL/HAL/*)
+file(GLOB SRC                 ../../Panel/src/defines.h
+                              ../../Panel/src/FreqMeter.*
+                              ../../Panel/src/Settings.*
+                                          src/Application_win.*
+                                          src/main_win.cpp)
+file(GLOB DISPLAY                         src/Display/Display_win.cpp
+                                          src/Display/Colors_win.cpp
+                              ../../Panel/src/Display/Colors.*
+                              ../../Panel/src/Display/Display.*
+                              ../../Panel/src/Display/Primitives.*
+                                          src/Display/Primitives_win.cpp
+                              ../../Panel/src/Display/Text.*)
+file(GLOB DISPLAY_FONT        ../../Panel/src/Display/Font/*)
+file(GLOB FREQMETER           ../../Panel/src/FreqMeter/*)
+file(GLOB GUI                             src/GUI/*)
+file(GLOB HARDWARE            ../../Panel/src/Hardware/*FPGA.*
+                              ../../Panel/src/Hardware/VCP.h
+                                          src/Hardware/VCP_win.cpp)
+file(GLOB HARDWARE_HAL        ../../Panel/src/Hardware/HAL/HAL.*
+                              ../../Panel/src/Hardware/HAL/HAL_FSMC.cpp
+                              ../../Panel/src/Hardware/HAL/HAL_TIM.cpp)
+file(GLOB KEYBOARD            ../../Panel/src/Keyboard/Keyboard.h
+                                          src/Keyboard/Keyboard_win.cpp)
+file(GLOB MENU                ../../Panel/src/Menu/*.h
+                              ../../Panel/src/Menu/*.cpp
+                              ../../Panel/src/Menu/*.txt)
+file(GLOB MENU_PAGES          ../../Panel/src/Menu/Pages/*.h
+                              ../../Panel/src/Menu/Pages/*.cpp)
+file(GLOB MENU_PAGES_MODES    ../../Panel/src/Menu/Pages/Modes/*.h
+                              ../../Panel/src/Menu/Pages/Modes/*.cpp)
+file(GLOB MENU_PAGES_SETTINGS ../../Panel/src/Menu/Pages/Settings/*.h
+                              ../../Panel/src/Menu/Pages/Settings/*.cpp)
+file(GLOB SCPI                ../../Panel/src/SCPI/*)
+file(GLOB UTILS               ../../Panel/src/Utils/*)
 
-source_group(_VS\\HAL      FILES ${VS_HAL})
-source_group(src           FILES ${SRC})
-source_group(Display       FILES ${DISPLAY})
-source_group(Display\\Font FILES ${DISPLAY_FONT})
-source_group(FreqMeter     FILES ${FREQMETER})
-source_group(GUI           FILES ${GUI})
-source_group(Hardware      FILES ${HARDWARE})
-source_group(Hardware\\HAL FILES ${HARDWARE_HAL})
-source_group(Keyboard      FILES ${KEYBOARD})
-source_group(Menu          FILES ${MENU})
-source_group(Menu\\Pages   FILES ${MENU_PAGES})
-source_group(SCPI          FILES ${SCPI})
-source_group(Utils         FILES ${UTILS})
+source_group(_VS\\HAL              FILES ${VS_HAL})
+source_group(src                   FILES ${SRC})
+source_group(Display               FILES ${DISPLAY})
+source_group(Display\\Font         FILES ${DISPLAY_FONT})
+source_group(FreqMeter             FILES ${FREQMETER})
+source_group(GUI                   FILES ${GUI})
+source_group(Hardware              FILES ${HARDWARE})
+source_group(Hardware\\HAL         FILES ${HARDWARE_HAL})
+source_group(Keyboard              FILES ${KEYBOARD})
+source_group(Menu                  FILES ${MENU})
+source_group(Menu\\Pages           FILES ${MENU_PAGES})
+source_group(Menu\\Pages\\Modes    FILES ${MENU_PAGES_MODES})
+source_group(Menu\\Pages\\Settings FILES ${MENU_PAGES_SETTINGS})
+source_group(SCPI                  FILES ${SCPI})
+source_group(Utils                 FILES ${UTILS})
 
-add_executable(PanelGUI ${VS_HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${FREQMETER} ${GUI} ${HARDWARE_HAL} ${KEYBOARD} ${MENU} ${MENU_PAGES} ${SCPI} ${UTILS})
+add_executable(PanelGUI ${VS_HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${FREQMETER} ${GUI} ${HARDWARE_HAL} ${KEYBOARD} ${MENU}
+                        ${MENU_PAGES} ${MENU_PAGES_MODES} ${MENU_PAGES_SETTINGS} ${SCPI} ${UTILS})
 
 target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
 target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxmsw31ud_core)

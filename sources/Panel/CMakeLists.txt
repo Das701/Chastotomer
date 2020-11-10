@@ -31,38 +31,43 @@ add_compile_options(/wd5219)    # implicit conversion from 'type1' to 'type2', p
 add_compile_options(/wd26812)
 
 
-file(GLOB HAL            ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Inc/*.h
-                         ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Src/*.c)
-file(GLOB SRC            src/*.h src/*.cpp)
-file(GLOB DISPLAY        src/Display/*.h src/Display/*.cpp)
-file(GLOB DISPLAY_FONT   src/Display/Font/*)
-file(GLOB HARDWARE       src/Hardware/*.h src/Hardware/*.cpp)
-file(GLOB HARDWARE_CMSIS src/Hardware/CMSIS/*)
-file(GLOB HARDWARE_HAL   src/Hardware/HAL/*)
-file(GLOB HARDWARE_USBD  src/Hardware/USBD/*
-                         ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
-                         ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
-                         ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c)
-file(GLOB KEYBOARD       src/Keyboard/*.h src/Keyboard/*.cpp)
-file(GLOB MENU           src/Menu/*.h src/Menu/*.cpp)
-file(GLOB MENU_PAGES     src/Menu/Pages/*)
-file(GLOB SCPI           src/SCPI/*)
-file(GLOB UTILS          src/Utils/*)
+file(GLOB HAL                 ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Inc/*.h
+                              ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Src/*.c)
+file(GLOB SRC                 src/*.h src/*.cpp)
+file(GLOB DISPLAY             src/Display/*.h src/Display/*.cpp)
+file(GLOB DISPLAY_FONT        src/Display/Font/*)
+file(GLOB HARDWARE            src/Hardware/*.h src/Hardware/*.cpp)
+file(GLOB HARDWARE_CMSIS      src/Hardware/CMSIS/*)
+file(GLOB HARDWARE_HAL        src/Hardware/HAL/*)
+file(GLOB HARDWARE_USBD       src/Hardware/USBD/*
+                              ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
+                              ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
+                              ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c)
+file(GLOB KEYBOARD            src/Keyboard/*.h src/Keyboard/*.cpp)
+file(GLOB MENU                src/Menu/*.h src/Menu/*.cpp)
+file(GLOB MENU_PAGES          src/Menu/Pages/*.h
+                              src/Menu/Pages/*.cpp)
+file(GLOB MENU_PAGES_MODES    src/Menu/Pages/Modes/*)
+file(GLOB MENU_PAGES_SETTINGS src/Menu/Pages/Settings/*)
+file(GLOB SCPI                src/SCPI/*)
+file(GLOB UTILS               src/Utils/*)
 
 
-source_group(HAL             FILES ${HAL})
-source_group(src             FILES ${SRC})
-source_group(Display         FILES ${DISPLAY})
-source_group(Display\\Font   FILES ${DISPLAY_FONT})
-source_group(Hardware        FILES ${HARDWARE})
-source_group(Hardware\\CMSIS FILES ${HARDWARE_CMSIS})
-source_group(Hardware\\HAL   FILES ${HARDWARE_HAL})
-source_group(Hardware\\USBD  FILES ${HARDWARE_USBD})
-source_group(Keyboard        FILES ${KEYBOARD})
-source_group(Menu            FILES ${MENU})
-source_group(Menu\\Pages     FILES ${MENU_PAGES})
-source_group(SCPI            FILES ${SCPI})
-source_group(Utils           FILES ${UTILS})
+source_group(HAL                   FILES ${HAL})
+source_group(src                   FILES ${SRC})
+source_group(Display               FILES ${DISPLAY})
+source_group(Display\\Font         FILES ${DISPLAY_FONT})
+source_group(Hardware              FILES ${HARDWARE})
+source_group(Hardware\\CMSIS       FILES ${HARDWARE_CMSIS})
+source_group(Hardware\\HAL         FILES ${HARDWARE_HAL})
+source_group(Hardware\\USBD        FILES ${HARDWARE_USBD})
+source_group(Keyboard              FILES ${KEYBOARD})
+source_group(Menu                  FILES ${MENU})
+source_group(Menu\\Pages           FILES ${MENU_PAGES})
+source_group(Menu\\Pages\\Modes    FILES ${MENU_PAGES_MODES})
+source_group(Menu\\Pages\\Settings FILES ${MENU_PAGES_SETTINGS})
+source_group(SCPI                  FILES ${SCPI})
+source_group(Utils                 FILES ${UTILS})
 
 
 set_source_files_properties(${HARDWARE_CMSIS} ${HAL}
@@ -71,4 +76,5 @@ set_source_files_properties(${HARDWARE_CMSIS} ${HAL}
                             ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-add_library(Panel ${HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${HARDWARE_CMSIS} ${HARDWARE_HAL} ${HARDWARE_USBD} ${KEYBOARD} ${MENU} ${MENU_PAGES} ${SCPI} ${UTILS})
+add_library(Panel ${HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${HARDWARE_CMSIS} ${HARDWARE_HAL} ${HARDWARE_USBD} ${KEYBOARD} ${MENU}
+                  ${MENU_PAGES} ${MENU_PAGES_MODES} ${MENU_PAGES_SETTINGS} ${SCPI} ${UTILS})

@@ -2,9 +2,9 @@
 #include "Settings.h"
 #include "Hardware/FPGA.h"
 #include "Hardware/MathFPGA.h"
-#include "Menu/Pages/PageModesA.h"
-#include "Menu/Pages/PageModesB.h"
-#include "Menu/Pages/PageModesC.h"
+#include "Menu/Pages/Modes/PageModesA.h"
+#include "Menu/Pages/Modes/PageModesB.h"
+#include "Menu/Pages/Modes/PageModesC.h"
 #include "Utils/StringUtils.h"
 #include "Utils/Value.h"
 #include <cstdio>

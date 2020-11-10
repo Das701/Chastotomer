@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "Menu/MenuItems.h"
-#include "Menu/Pages/PagesSettings.h"
+#include "Menu/Pages/Settings/PagesSettings.h"
 
 
 static Item *items[7] =

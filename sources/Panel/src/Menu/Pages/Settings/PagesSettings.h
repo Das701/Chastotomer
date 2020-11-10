@@ -1,9 +1,9 @@
 #pragma once
 #include "Menu/MenuItems.h"
-#include "Menu/Pages/PageModesA.h"
-#include "Menu/Pages/PageModesB.h"
-#include "Menu/Pages/PageModesC.h"
-#include "Menu/Pages/PageModesD.h"
+#include "Menu/Pages/Modes/PageModesA.h"
+#include "Menu/Pages/Modes/PageModesB.h"
+#include "Menu/Pages/Modes/PageModesC.h"
+#include "Menu/Pages/Modes/PageModesD.h"
 #include "Settings.h"
 
 
