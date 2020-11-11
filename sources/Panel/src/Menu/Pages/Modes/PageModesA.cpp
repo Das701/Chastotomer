@@ -23,7 +23,6 @@ extern Switch sPeriodTimeLabels;
 extern Switch sTimeMeasure;
 extern Switch sNumberPeriods;
 
-static bool interpoleOn = false;
 static bool relationOn = false;
 static bool startStop = false;
 

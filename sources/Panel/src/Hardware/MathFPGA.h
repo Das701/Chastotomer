@@ -17,6 +17,7 @@ struct MathFPGA
         static void Enable();
         static void Disable();
         static bool IsEnabled();
+        static void Calculate();
     private:
         static bool enabled;
     };
@@ -55,8 +56,6 @@ struct MathFPGA
         static int CalculateFrequency(int &manualZeros);
         static int CalculatePeriod();
         static int CalculateDuration();
-
-        static void CalculateInterpolate();
     };
 
     struct Auto

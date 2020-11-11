@@ -462,7 +462,7 @@ void MathFPGA::DecToBin(int dec, char *bin)
 }
 
 
-void MathFPGA::Measure::CalculateInterpolate()
+void MathFPGA::Interpolation::Calculate()
 {
     decTimer1 = 0;
     decCAL1 = 0;
@@ -546,7 +546,7 @@ char *MathFPGA::Measure::GiveData()
         }
         else if (ModeMeasureDuration::Current().Is_Ndt_1ns() && MathFPGA::Interpolation::IsEnabled())
         {
-            CalculateInterpolate();
+            MathFPGA::Interpolation::Calculate();
             std::sprintf(procDataInterpol, "%10.2f", interpol);
             return procDataInterpol;
         }
