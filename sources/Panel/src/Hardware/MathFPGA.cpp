@@ -23,8 +23,8 @@ int    MathFPGA::Auto::decMax = 0;
 bool   MathFPGA::DutyCycle::enabled = false;
 float  MathFPGA::DutyCycle::value = 0.0F;
 int    MathFPGA::DutyCycle::zeroes = 0;
-char   MathFPGA::DutyCycle::dataPeriod[32] = { 0 };
 char   MathFPGA::DutyCycle::dataDuration[32] = { 0 };
+uint   MathFPGA::DutyCycle::fpgaPeriod = 0;
        
 bool   MathFPGA::Interpolation::enabled = false;
 float  MathFPGA::Interpolation::value = 0.0F;
@@ -33,7 +33,7 @@ char      MathFPGA::Measure::dataFrequencyB[32] = { 0 };
 int       MathFPGA::Measure::decDA = 1;
 int       MathFPGA::Measure::emptyZeros = 0;
 ValuePICO MathFPGA::Measure::valueComparator(0);
-uint      MathFPGA::Measure::readedDataA = 0;
+uint      MathFPGA::Measure::fpgaDataA = 0;
 ValueNANO MathFPGA::Measure::decDataA(0);
 ValueNANO MathFPGA::Measure::decDataB(0);
 ValueNANO MathFPGA::Measure::decDataC(0);
@@ -223,7 +223,7 @@ int MathFPGA::Measure::CalculateDuration()
 
 void MathFPGA::Measure::BinToDec()
 {
-    decDataA.FromDouble((double)readedDataA);
+    decDataA.FromDouble((double)fpgaDataA);
 
     if (ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC())
     {
@@ -392,21 +392,10 @@ char *MathFPGA::Auto::Give()
 
 void MathFPGA::DutyCycle::Calculate()
 {
-    static int decPeriod = 0;
     static int decDuration = 0;
 
-    int base1 = 1;
     int base2 = 1;
     int len = 32;
-
-    for (int i = len - 1; i >= 0; i--)
-    {
-        if (dataPeriod[i] == 1)
-        {
-            decPeriod += base1;
-        }
-        base1 *= 2;
-    }
 
     for (int i = len - 1; i >= 0; i--)
     {
@@ -417,7 +406,7 @@ void MathFPGA::DutyCycle::Calculate()
         base2 *= 2;
     }
 
-    value = (float)decDuration / (float)decPeriod;
+    value = (float)decDuration / (float)fpgaPeriod;
 
     if (ModeMeasureDuration::Current().Is_Phase())
     {

@@ -33,8 +33,8 @@ struct MathFPGA
 
     private:
         static bool enabled;
-        static char dataPeriod[32];
         static char dataDuration[32];
+        static uint fpgaPeriod;                 // Считанное из FPGA значение
     };
 
     struct Measure
@@ -56,9 +56,9 @@ struct MathFPGA
         static int decDA;
         static int emptyZeros;
 
-        static ValuePICO valueComparator;               // Рассчитанное значение компаратора
+        static ValuePICO valueComparator;       // Рассчитанное значение компаратора
 
-        static uint readedDataA;
+        static uint fpgaDataA;                  // Считанное из FPGA значение
         static ValueNANO decDataA;
         static ValueNANO decDataB;
         static ValueNANO decDataC;

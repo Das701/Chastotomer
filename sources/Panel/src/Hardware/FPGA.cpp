@@ -47,7 +47,7 @@
 #define READ_PIN_B14_BIN(x, bit)                                                        \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);                                \
     HAL_TIM::DelayUS(2);                                                                \
-    MathFPGA::Measure::readedDataA |= (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14) << bit);    \
+    x |= (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14) << bit);                                 \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);                              \
     HAL_TIM::DelayUS(2);
 
@@ -157,7 +157,7 @@ void FPGA::Update()
             {
                 Set_CS;
 
-                CYCLE_READ_PIN_B14(32, MathFPGA::DutyCycle::dataPeriod);
+                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::DutyCycle::fpgaPeriod);
 
                 CYCLE_READ_PIN_B14(32, MathFPGA::DutyCycle::dataDuration);
 
@@ -225,9 +225,9 @@ void FPGA::Update()
             {
                 Set_CS;
 
-                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::Measure::readedDataA);
+                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::Measure::fpgaDataA);
               
-                isOverloaded = (MathFPGA::Measure::readedDataA & (1U << 31)) != 0;
+                isOverloaded = (MathFPGA::Measure::fpgaDataA & (1U << 31)) != 0;
 
                 if((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) &&
                     PageModesA::RelationCheck())
