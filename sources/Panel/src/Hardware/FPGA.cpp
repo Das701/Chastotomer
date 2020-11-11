@@ -67,6 +67,9 @@ static char calibBin[10];
 static int calibNumber = 0;
 static int NAC = 0;
 
+static char isOverloaded0 = 0;
+static char isOverloaded31 = 0;
+
 
 void FPGA::Init()
 {
@@ -208,6 +211,9 @@ void FPGA::Update()
                 Set_CS;
 
                 CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataFrequencyA);
+                
+                isOverloaded31 = MathFPGA::Measure::dataFrequencyA[31];
+                isOverloaded0 = MathFPGA::Measure::dataFrequencyA[0];
 
                 if((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) &&
                     PageModesA::RelationCheck())
@@ -419,4 +425,16 @@ void FPGA::WriteData()
 int FPGA::CalibNumber()
 {
     return calibNumber;
+}
+
+
+char FPGA::IsOverloaded0()
+{
+    return isOverloaded0;
+}
+
+
+char FPGA::IsOverloaded31()
+{
+    return isOverloaded31;
 }

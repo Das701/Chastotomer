@@ -15,6 +15,9 @@ friend struct MathFPGA;
     static int CalibNumber();
     static void ReadCalibNumber();
 
+    static char IsOverloaded0();
+    static char IsOverloaded31();
+
 private:
 
     static char dataTimer[27];

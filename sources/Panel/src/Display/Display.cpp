@@ -169,6 +169,8 @@ static void DrawScreen()
         Menu::Draw();
         
         DrawData();
+
+        Text(String("%d %d", FPGA::IsOverloaded0(), FPGA::IsOverloaded31()).c_str()).Write(400, 50, Color::WHITE);
     }
 }
 
