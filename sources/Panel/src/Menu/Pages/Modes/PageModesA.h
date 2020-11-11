@@ -50,6 +50,8 @@ struct ModeMeasureFrequency : public Enumeration
     bool IsT_1()        const { return (value == T_1); }
     bool IsTachometer() const { return (value == Tachometer); }
     bool IsComparator() const { return (value == Comparator); }
+
+    static ModeMeasureFrequency &Current();
 };
 
 // Режим измерения периода

@@ -29,7 +29,6 @@ struct CurrentModeMeasure
 
 struct CurrentModeMeasureFrequency
 {
-    static bool IsTachometer();
     static bool IsComparator();
     static bool IsT_1();
     static bool Is_RatioAC_or_RatioBC();

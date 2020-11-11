@@ -595,3 +595,17 @@ void PageModesA::ResetModeCurrentMeasure()
     case TypeMeasureAB::CountPulse: modeMeasureCountPulse.value = 0;    break;
     }
 }
+
+
+ModeMeasureFrequency &ModeMeasureFrequency::Current()
+{
+    ModeMeasureFrequency * const modes[Channel::Count] =
+    {
+        &PageModesA::modeMeasureFrequency,
+        &PageModesB::modeMeasureFrequency,
+        &PageModesC::modeMeasureFrequency,
+        &PageModesD::modeMeasureFrequency
+    };
+
+    return *modes[CURRENT_CHANNEL];
+}

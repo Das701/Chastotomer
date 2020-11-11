@@ -524,7 +524,7 @@ char *MathFPGA::Measure::GiveData()
     }
     else
     {
-        if (CurrentModeMeasureFrequency::IsTachometer())
+        if (ModeMeasureFrequency::Current().IsTachometer())
         {
             BinToDec();
             decDataA.Div(2);
@@ -617,7 +617,7 @@ char *MathFPGA::GiveSpec() //-V2008
     else
     {
         if (CurrentModeMeasureFrequency::Is_Ratio() ||
-            CurrentModeMeasureFrequency::IsTachometer() ||
+            ModeMeasureFrequency::Current().IsTachometer() ||
             CurrentTypeMeasure::IsCountPulse())
         {
             std::strcpy(result, " ");

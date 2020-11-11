@@ -189,13 +189,6 @@ bool CurrentTypeMeasure::IsCountPulse()
 }
 
 
-bool CurrentModeMeasureFrequency::IsTachometer()
-{
-    return (((PageModesA::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_B)));
-}
-
-
 bool CurrentModeMeasureFrequency::IsComparator()
 {
     return CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency() && PageModesA::modeMeasureFrequency.IsComparator();
