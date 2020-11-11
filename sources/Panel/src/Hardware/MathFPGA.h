@@ -16,7 +16,7 @@ struct MathFPGA
     {
         static void Enable();
         static void Disable();
-        static void IsEnabled();
+        static bool IsEnabled();
     private:
         static bool enabled;
     };

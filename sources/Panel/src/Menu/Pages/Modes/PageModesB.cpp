@@ -250,7 +250,7 @@ void PageModesB::OnChanged_ModeCountPulse()
     }
 
     PageModesA::RelationOff();
-    PageModesA::InterpolateOff();
+    MathFPGA::Interpolation::Disable();
     MathFPGA::DutyCycle::Disable();
 
     ModeMeasureCountPulse::LoadToFPGA();

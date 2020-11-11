@@ -26,6 +26,8 @@ bool MathFPGA::DutyCycle::enabled = false;
 char MathFPGA::DutyCycle::dataPeriod[32] = { 0 };
 char MathFPGA::DutyCycle::dataDuration[32] = { 0 };
 
+bool MathFPGA::Interpolation::enabled = false;
+
 static ValueNANO decDataA(0);
 static ValueNANO decDataB(0);
 static ValueNANO decDataC(0);
@@ -597,7 +599,7 @@ char *MathFPGA::GiveSpec() //-V2008
 {
     static char result[10] = { 0 };
 
-    if (PageModesA::InterpolateCheck() && ModeMeasureDuration::Current().Is_Ndt_1ns())
+    if (MathFPGA::Interpolation::IsEnabled() && ModeMeasureDuration::Current().Is_Ndt_1ns())
     {
         std::strcpy(result, " ns");
     }
