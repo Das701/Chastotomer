@@ -676,7 +676,7 @@ char *MathFPGA::Measure::GiveSpec() //-V2008
 }
 
 
-char *MathFPGA::GiveIdent()
+char *MathFPGA::Measure::GiveIdent()
 {
     static char identInfo[10] = { 0 };
 
