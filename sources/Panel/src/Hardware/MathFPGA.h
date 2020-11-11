@@ -55,6 +55,7 @@ struct MathFPGA
         static char dataFrequencyB[32];
 
         static int decDA;
+        static int emptyZeros;
 
         static ValuePICO valueComparator;               // Рассчитанное значение компаратора
 

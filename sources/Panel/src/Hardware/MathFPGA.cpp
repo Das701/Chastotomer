@@ -31,13 +31,12 @@ float  MathFPGA::Interpolation::value = 0.0F;
 char      MathFPGA::Measure::dataFrequencyA[32] = { 0 };
 char      MathFPGA::Measure::dataFrequencyB[32] = { 0 };
 int       MathFPGA::Measure::decDA = 1;
+int       MathFPGA::Measure::emptyZeros = 0;
 ValuePICO MathFPGA::Measure::valueComparator(0);
 
 static ValueNANO decDataA(0);
 static ValueNANO decDataB(0);
 static ValueNANO decDataC(0);
-
-static int emptyZeros = 0;
 
 static int dcycleZeros = 0;
 
