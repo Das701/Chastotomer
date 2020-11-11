@@ -1,6 +1,5 @@
 #include "Settings.h"
-#include "Menu/Pages/Modes/Modes.h"
-#include "Menu/Pages/Modes/PageModes.h"
+#include "Menu/Pages/Modes/PagesModes.h"
 
 
 ModeMeasureCountPulse &ModeMeasureCountPulse::Current()

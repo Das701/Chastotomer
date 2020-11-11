@@ -12,7 +12,7 @@
 #include "Menu/Hint.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuItems.h"
-#include "Menu/Pages/Modes/PageModes.h"
+#include "Menu/Pages/Modes/PagesModes.h"
 #include "Menu/Pages/Settings/PagesSettings.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Utils/String.h"
@@ -154,7 +154,7 @@ static void DrawScreen()
     }
     else
     {
-        CurrentTypeMeasure::Draw(10, 57);
+        TypeMeasure::Current().Draw(10, 57);
         
         CurrentModeMeasure::Draw(120, 57);
 

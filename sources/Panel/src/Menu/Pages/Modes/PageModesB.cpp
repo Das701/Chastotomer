@@ -4,7 +4,7 @@
 #include "Display/Primitives.h"
 #include "Menu/MenuItems.h"
 #include "Menu/MenuItemsDef.h"
-#include "Menu/Pages/Modes/PageModes.h"
+#include "Menu/Pages/Modes/PagesModes.h"
 
 
 using namespace Display::Primitives;

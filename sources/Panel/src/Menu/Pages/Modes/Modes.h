@@ -34,6 +34,7 @@ struct TypeMeasure : public Enumeration
     bool IsCountPulse() const { return (value == CountPulse); }
     bool IsPeriod() const { return (value == Period); }
     bool IsDuration() const { return (value == Duration); }
+    void Draw(int x, int y) const;
 
     static TypeMeasure &Current();
 };

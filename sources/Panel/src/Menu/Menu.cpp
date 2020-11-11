@@ -11,7 +11,7 @@
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/Pages/PageService.h"
 #include "Menu/Pages/PageStatistics.h"
-#include "Menu/Pages/Modes/PageModesA.h"
+#include "Menu/Pages/Modes/PagesModes.h"
 #include "Menu/Pages/Settings/PagesSettings.h"
 #include "Utils/Math.h"
 #include "Utils/StringUtils.h"

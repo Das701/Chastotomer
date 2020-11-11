@@ -4,7 +4,7 @@
 #include "Hardware/FPGA.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
-#include "Menu/Pages/Modes/PageModes.h"
+#include "Menu/Pages/Modes/Modes.h"
 #include "Menu/Pages/Settings/PagesSettings.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/Hint.h"

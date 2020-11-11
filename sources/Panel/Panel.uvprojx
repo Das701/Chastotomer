@@ -859,9 +859,14 @@
               <FilePath>.\src\Menu\Pages\Modes\Modes.h</FilePath>
             </File>
             <File>
-              <FileName>PageModes.h</FileName>
+              <FileName>Modes.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Modes\Modes.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PagesModes.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModes.h</FilePath>
+              <FilePath>.\src\Menu\Pages\Modes\PagesModes.h</FilePath>
             </File>
             <File>
               <FileName>PageModes.cpp</FileName>
@@ -869,19 +874,9 @@
               <FilePath>.\src\Menu\Pages\Modes\PageModes.cpp</FilePath>
             </File>
             <File>
-              <FileName>PageModesA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesA.h</FilePath>
-            </File>
-            <File>
               <FileName>PageModesA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesA.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageModesB.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesB.h</FilePath>
             </File>
             <File>
               <FileName>PageModesB.cpp</FileName>
@@ -889,29 +884,14 @@
               <FilePath>.\src\Menu\Pages\Modes\PageModesB.cpp</FilePath>
             </File>
             <File>
-              <FileName>PageModesC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesC.h</FilePath>
-            </File>
-            <File>
               <FileName>PageModesC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesC.cpp</FilePath>
             </File>
             <File>
-              <FileName>PageModesD.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesD.h</FilePath>
-            </File>
-            <File>
               <FileName>PageModesD.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesD.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Modes.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\Modes.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1905,9 +1885,14 @@
               <FilePath>.\src\Menu\Pages\Modes\Modes.h</FilePath>
             </File>
             <File>
-              <FileName>PageModes.h</FileName>
+              <FileName>Modes.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Modes\Modes.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PagesModes.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModes.h</FilePath>
+              <FilePath>.\src\Menu\Pages\Modes\PagesModes.h</FilePath>
             </File>
             <File>
               <FileName>PageModes.cpp</FileName>
@@ -1915,19 +1900,9 @@
               <FilePath>.\src\Menu\Pages\Modes\PageModes.cpp</FilePath>
             </File>
             <File>
-              <FileName>PageModesA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesA.h</FilePath>
-            </File>
-            <File>
               <FileName>PageModesA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesA.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageModesB.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesB.h</FilePath>
             </File>
             <File>
               <FileName>PageModesB.cpp</FileName>
@@ -1935,29 +1910,14 @@
               <FilePath>.\src\Menu\Pages\Modes\PageModesB.cpp</FilePath>
             </File>
             <File>
-              <FileName>PageModesC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesC.h</FilePath>
-            </File>
-            <File>
               <FileName>PageModesC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesC.cpp</FilePath>
             </File>
             <File>
-              <FileName>PageModesD.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\PageModesD.h</FilePath>
-            </File>
-            <File>
               <FileName>PageModesD.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesD.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Modes.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Modes\Modes.cpp</FilePath>
             </File>
           </Files>
         </Group>

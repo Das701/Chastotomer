@@ -6,7 +6,7 @@
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
-#include "Menu/Pages/Modes/PageModesA.h"
+#include "Menu/Pages/Modes/PagesModes.h"
 #include <cstring>
 
 using namespace Display::Primitives;

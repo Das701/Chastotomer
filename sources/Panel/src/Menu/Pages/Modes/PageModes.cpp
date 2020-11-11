@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
-#include "Menu/Pages/Modes/PageModes.h"
+#include "Menu/Pages/Modes/PagesModes.h"
 #include "Settings.h"
 
 
@@ -110,13 +110,13 @@ void CurrentModeMeasure::DrawParameters(int x, int y)
 }
 
 
-void CurrentTypeMeasure::Draw(int x, int y)
+void TypeMeasure::Draw(int x, int y) const
 {
     int width = 100;
 
     Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
 
-    Text(TypeMeasure::Current().ToText()).Write(x, y + 10, width, Color::WHITE);
+    Text(ToText()).Write(x, y + 10, width, Color::WHITE);
 }
 
 
