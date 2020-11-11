@@ -22,6 +22,7 @@ int    MathFPGA::Auto::decMax = 0;
        
 bool   MathFPGA::DutyCycle::enabled = false;
 float  MathFPGA::DutyCycle::value = 0.0F;
+int    MathFPGA::DutyCycle::zeroes = 0;
 char   MathFPGA::DutyCycle::dataPeriod[32] = { 0 };
 char   MathFPGA::DutyCycle::dataDuration[32] = { 0 };
        
@@ -37,8 +38,6 @@ ValuePICO MathFPGA::Measure::valueComparator(0);
 static ValueNANO decDataA(0);
 static ValueNANO decDataB(0);
 static ValueNANO decDataC(0);
-
-static int dcycleZeros = 0;
 
 static char minAutoData[7] = { 0 };
 static char maxAutoData[7] = { 0 };
@@ -440,7 +439,7 @@ void MathFPGA::DutyCycle::Calculate()
             while (value < 1)
             {
                 value *=  10;
-                dcycleZeros++;
+                zeroes++;
             }
         }
     }
@@ -613,9 +612,9 @@ char *MathFPGA::GiveSpec() //-V2008
         else
         {
             std::strcpy(result, " E-0");
-            result[3] = (char)(dcycleZeros | 0x30);
+            result[3] = (char)(DutyCycle::zeroes | 0x30);
 
-            dcycleZeros = 0;
+            DutyCycle::zeroes = 0;
         }
     }
     else
