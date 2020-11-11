@@ -44,10 +44,6 @@ static float interpol = 0.0F;
 static char minAutoData[7] = { 0 };
 static char maxAutoData[7] = { 0 };
 
-static int decTimer1 = 0;
-static int decCAL1 = 0;
-static int decCAL2 = 0;
-
 static char procDataInterpol[30] = { 0 };
 static char procDataDcycle[30] = { 0 };
 
@@ -466,9 +462,10 @@ void MathFPGA::DecToBin(int dec, char *bin)
 
 void MathFPGA::Interpolation::Calculate()
 {
-    decTimer1 = 0;
-    decCAL1 = 0;
-    decCAL2 = 0;
+    static int decTimer1 = 0;
+    static int decCAL1 = 0;
+    static int decCAL2 = 0;
+
     int base1 = 1;
     int base2 = 1;
     int base3 = 1;
