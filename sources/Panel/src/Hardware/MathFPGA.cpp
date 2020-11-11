@@ -548,7 +548,7 @@ char *MathFPGA::Measure::GiveData()
             std::sprintf(procDataInterpol, "%10.2f", interpol);
             return procDataInterpol;
         }
-        else if ((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && DutyCycle::IsEnabled())
+        else if ((ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()) && DutyCycle::IsEnabled())
         {
             CalculateDcycle();
 
@@ -601,8 +601,8 @@ char *MathFPGA::GiveSpec() //-V2008
     {
         std::strcpy(result, " ns");
     }
-    else if ((PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Dcycle() && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Dcycle() && CURRENT_CHANNEL_IS_B) ||
+    else if ((PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_DutyCycle() && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_DutyCycle() && CURRENT_CHANNEL_IS_B) ||
         (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_A) ||
         (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_B))
     {

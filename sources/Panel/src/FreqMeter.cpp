@@ -205,7 +205,7 @@ void ModeMeasureDuration::LoadToFPGA()
         argument[5] = 1;
         argument[4] = 1;
     }
-    else if (ModeMeasureDuration::Current().Is_Dcycle())
+    else if (ModeMeasureDuration::Current().Is_DutyCycle())
     {
         argument[3] = 1;
     }

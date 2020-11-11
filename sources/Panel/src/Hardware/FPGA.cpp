@@ -136,7 +136,7 @@ void FPGA::Update()
                 HAL_TIM::DelayUS(8);
             }
         }
-        else if((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && MathFPGA::DutyCycle::IsEnabled())
+        else if((ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()) && MathFPGA::DutyCycle::IsEnabled())
         {
             if (Read_FLAG != 0)
             {

@@ -199,7 +199,7 @@ void PageModesB::OnChanged_ModeDuration()
         items[2] = nullptr;
         break;
 
-    case ModeMeasureDuration::Dcycle:
+    case ModeMeasureDuration::DutyCycle:
     case ModeMeasureDuration::Phase:
         MathFPGA::DutyCycle::Enable();
         PageModesA::InterpolateOff();
