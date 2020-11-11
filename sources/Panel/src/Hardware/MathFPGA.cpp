@@ -114,7 +114,7 @@ int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
     {
         result = PageModesA::numberPeriods.ToAbs();
     }
-    else if (CurrentModeMeasureFrequency::Is_RatioCA_or_RatioCB())
+    else if (mode.IsRatioCA() || mode.IsRatioCB())
     {
         decDataA.Mul(100);
         result = PageModesC::numberPeriods.ToAbs();

@@ -189,20 +189,13 @@ bool CurrentTypeMeasure::IsCountPulse()
 }
 
 
-bool CurrentModeMeasureFrequency::Is_RatioCA_or_RatioCB()
-{
-    return (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureFrequency.IsRatioCA() || PageModesC::modeMeasureFrequency.IsRatioCB()));
-}
-
-
 bool CurrentModeMeasureFrequency::Is_Ratio()
 {
     ModeMeasureFrequency &mode = ModeMeasureFrequency::Current();
 
-    return
-        mode.IsRatioAB() || mode.IsRatioBA() ||
-        mode.IsRatioAC() || mode.IsRatioBC() ||
-        Is_RatioCA_or_RatioCB();
+    return mode.IsRatioAB() || mode.IsRatioBA() ||
+           mode.IsRatioAC() || mode.IsRatioBC() ||
+           mode.IsRatioCA() || mode.IsRatioCB();
 }
 
 
