@@ -23,9 +23,16 @@ int Enumeration::NumStates() const
 {
     int result = 0;
 
-    for (int i = 0; names[i] != nullptr; i++)
+    if (correct == nullptr)
     {
-        result++;
+        for (int i = 0; names[i] != nullptr; i++)
+        {
+            result++;
+        }
+    }
+    else
+    {
+
     }
 
     return result;

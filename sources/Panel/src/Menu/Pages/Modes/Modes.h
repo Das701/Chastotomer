@@ -29,7 +29,7 @@ struct TypeMeasure : public Enumeration
         Count
     };
 
-    explicit TypeMeasure(E v, const bool *correct) : Enumeration((uint8)v, correct) {};
+    explicit TypeMeasure(E v, const bool *correct, int numStates) : Enumeration((uint8)v, correct, numStates) {};
     bool IsFrequency() const { return (value == Frequency); }
     bool IsCountPulse() const { return (value == CountPulse); }
     bool IsPeriod() const { return (value == Period); }
@@ -57,7 +57,7 @@ struct ModeMeasureFrequency : public Enumeration
         Count
     };
 
-    explicit ModeMeasureFrequency(E v, const bool *correct) : Enumeration((uint8)v, correct) {};
+    explicit ModeMeasureFrequency(E v, const bool *correct, int numStates) : Enumeration((uint8)v, correct, numStates) {};
 
     bool IsFrequency()  const { return (value == Frequency); }
     bool IsRatioAB()    const { return (value == RatioAB); }
@@ -136,7 +136,7 @@ struct ModeMeasureCountPulse : public Enumeration
         Count
     };
 
-    explicit ModeMeasureCountPulse(E v, const bool *correct) : Enumeration((uint8)v, correct) {};
+    explicit ModeMeasureCountPulse(E v, const bool *correct, int numStates) : Enumeration((uint8)v, correct, numStates) {};
 
 
     // Возвращает true, если включён режим измерения по периоду (большая T в названии)

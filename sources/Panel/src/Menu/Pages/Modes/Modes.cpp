@@ -5,7 +5,7 @@
 ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
 {
     static const bool correct[1] = { true };
-    static ModeMeasureCountPulse def(ModeMeasureCountPulse::Count, correct);
+    static ModeMeasureCountPulse def(ModeMeasureCountPulse::Count, correct, 1);
 
     static ModeMeasureCountPulse *const modes[Channel::Count] =
     {

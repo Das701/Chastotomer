@@ -21,13 +21,13 @@ extern Switch sNumberPeriods;
 
 
 static const bool correctTypeMeasure[TypeMeasure::Count] = { true, true, true, true };
-TypeMeasure           PageModesB::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure);
+TypeMeasure           PageModesB::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure, TypeMeasure::Count);
 static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, true, false, false, true, true, false, false, true, false};
-ModeMeasureFrequency  PageModesB::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
+ModeMeasureFrequency  PageModesB::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
 ModeMeasurePeriod     PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration   PageModesB::modeMeasureDuration(ModeMeasureDuration::Ndt);
 static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { false, false, true, true, false, false, false, false, true };
-ModeMeasureCountPulse PageModesB::modeMeasureCountPulse(ModeMeasureCountPulse::BtA, correctModeMeasureCountPulse);
+ModeMeasureCountPulse PageModesB::modeMeasureCountPulse(ModeMeasureCountPulse::BtA, correctModeMeasureCountPulse, ModeMeasureCountPulse::Count);
 
 PeriodTimeLabels      PageModesB::periodTimeLabels(PeriodTimeLabels::T_8);
 NumberPeriods         PageModesB::numberPeriods(NumberPeriods::_1);

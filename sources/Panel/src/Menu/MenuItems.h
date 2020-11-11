@@ -12,10 +12,11 @@ struct Enumeration
     char **ugo;
     const bool *correct;    // Если указатель на этот массив не равен nullptr, то его элементы используются следующим образом.
                             // value не может значения индексов, соответствующих false
-    explicit Enumeration(uint8 v, const bool *_correct = nullptr) : value(v), names(nullptr), ugo(nullptr), correct(_correct) {}
-    operator int() { return (int)value; }
-    char *ToText() const { return names[value]; }
-    char *UGO() const { return ugo[value]; }
+    int numStates;
+    explicit Enumeration(uint8 v, const bool *_correct = nullptr, int states = 0) : value(v), names(nullptr), ugo(nullptr), correct(_correct), numStates(states) {}
+    operator int()         { return (int)value; }
+    char *ToText() const   { return names[value]; }
+    char *UGO() const      { return ugo[value]; }
     int NumStates() const;
     bool Is(uint8 v) const { return value == v; }
 };

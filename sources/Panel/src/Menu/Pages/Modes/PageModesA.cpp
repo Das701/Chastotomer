@@ -29,13 +29,13 @@ static bool startStop = false;
 
 
 static const bool correctTypeMeasure[TypeMeasure::Count] = { true, true, true, true };
-TypeMeasure           PageModesA::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure);
+TypeMeasure           PageModesA::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure, TypeMeasure::Count);
 static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, true, true, true, false, false, false, false, true, true };
-ModeMeasureFrequency  PageModesA::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
+ModeMeasureFrequency  PageModesA::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
 ModeMeasurePeriod     PageModesA::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration   PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
 static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
-ModeMeasureCountPulse PageModesA::modeMeasureCountPulse(ModeMeasureCountPulse::AtC, correctModeMeasureCountPulse);
+ModeMeasureCountPulse PageModesA::modeMeasureCountPulse(ModeMeasureCountPulse::AtC, correctModeMeasureCountPulse, ModeMeasureCountPulse::Count);
 
 PeriodTimeLabels      PageModesA::periodTimeLabels(PeriodTimeLabels::T_8);
 NumberPeriods         PageModesA::numberPeriods(NumberPeriods::_1);
