@@ -9,25 +9,6 @@ using namespace Display;
 using namespace Display::Primitives;
 
 
-int CurrentTypeMeasure::Value()
-{
-    if (CURRENT_CHANNEL_IS_A)
-    {
-        return PageModesA::typeMeasure.value;
-    }
-    else if (CURRENT_CHANNEL_IS_B)
-    {
-        return PageModesB::typeMeasure.value;
-    }
-    else if (CURRENT_CHANNEL_IS_C)
-    {
-        return PageModesC::typeMeasure.value;
-    }
-
-    return 0;
-}
-
-
 Enumeration &CurrentModeMeasure::ToEnumeration()
 {
     if (CURRENT_CHANNEL_IS_A)
@@ -115,7 +96,7 @@ void CurrentModeMeasure::DrawParameters(int x, int y)
 
     if (!CURRENT_CHANNEL_IS_D)
     {
-        mode = modes[CURRENT_CHANNEL][CurrentTypeMeasure::Value()][types[CURRENT_CHANNEL][CurrentTypeMeasure::Value()]->value];
+        mode = modes[CURRENT_CHANNEL][TypeMeasure::Current().value][types[CURRENT_CHANNEL][TypeMeasure::Current().value]->value];
     }
 
     if (mode)

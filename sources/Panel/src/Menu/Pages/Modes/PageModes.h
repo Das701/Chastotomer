@@ -8,6 +8,5 @@
 
 struct CurrentTypeMeasure
 {
-    static int Value();
     static void Draw(int x, int y);
 };
