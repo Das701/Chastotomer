@@ -209,26 +209,18 @@ void FPGA::Update()
             {
                 Set_CS;
 
-                uint value = 0;
-
-                uint bit = 1U << 31;
+                MathFPGA::Measure::readedDataA = 0;
 
                 for (int i = 31; i >= 0; i--)
                 {
                     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);  
                     HAL_TIM::DelayUS(2);
-                    if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14))
-                    {
-                        value |= bit;
-                    }
-                    bit >>= 1;
+                    MathFPGA::Measure::readedDataA |= (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14) << i);
                     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
                     HAL_TIM::DelayUS(2);
                 }
                 
-                isOverloaded = (value & (1U << 31)) != 0;
-
-                MathFPGA::Measure::readedDataA = value;
+                isOverloaded = (MathFPGA::Measure::readedDataA & (1U << 31)) != 0;
 
                 if((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) &&
                     PageModesA::RelationCheck())
@@ -237,6 +229,8 @@ void FPGA::Update()
                 }
 
                 Reset_CS;
+
+                Display::Refresh();
 
                 HAL_TIM::DelayUS(8);
             }
