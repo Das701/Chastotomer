@@ -14,6 +14,7 @@ int main(void)
     Display::Init();
     Keyboard::Init();
     VCP::Init();
+    Menu::Init();
 
     while (Display::DrawWelcomeScreen())
     {
