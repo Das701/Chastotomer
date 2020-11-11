@@ -27,13 +27,6 @@ struct CurrentModeMeasure
 };
 
 
-struct CurrentModeMeasureFrequency
-{
-    // Загрузить текущий режим измерения частоты в аппаратуру
-    static void LoadToFPGA();
-};
-
-
 struct CurrentModeMeasurePeriod
 {
     static void LoadToFPGA();

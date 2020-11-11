@@ -127,7 +127,7 @@ void MemoryMode::Load()
     FPGA::WriteCommand(command, argument);
 }
 
-void CurrentModeMeasureFrequency::LoadToFPGA()
+void ModeMeasureFrequency::LoadToFPGA()
 {
     char command[4] = { 0, 1, 1, 0 };
 
