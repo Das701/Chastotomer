@@ -854,6 +854,11 @@
           <GroupName>Menu/Pages/Modes</GroupName>
           <Files>
             <File>
+              <FileName>Modes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\Modes\Modes.h</FilePath>
+            </File>
+            <File>
               <FileName>PageModes.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModes.h</FilePath>
@@ -1889,6 +1894,11 @@
         <Group>
           <GroupName>Menu/Pages/Modes</GroupName>
           <Files>
+            <File>
+              <FileName>Modes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\Modes\Modes.h</FilePath>
+            </File>
             <File>
               <FileName>PageModes.h</FileName>
               <FileType>5</FileType>
