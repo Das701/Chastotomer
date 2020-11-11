@@ -1,4 +1,5 @@
 #pragma once
+#include "Menu/MenuItems.h"
 
 
 struct TypeMeasure : public Enumeration
@@ -118,6 +119,11 @@ struct ModeMeasureCountPulse : public Enumeration
 
     explicit ModeMeasureCountPulse(E v, const bool *correct) : Enumeration((uint8)v, correct) {};
 
+
+    // Возвращает true, если включён режим измерения по периоду (большая T в названии)
+    bool IsFromPeriod() const;
+
+    static ModeMeasureCountPulse &Current();
     static void LoadToFPGA();
 };
 

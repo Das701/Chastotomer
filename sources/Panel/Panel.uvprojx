@@ -908,6 +908,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesD.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Modes.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Modes\Modes.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1948,6 +1953,11 @@
               <FileName>PageModesD.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesD.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Modes.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Modes\Modes.cpp</FilePath>
             </File>
           </Files>
         </Group>

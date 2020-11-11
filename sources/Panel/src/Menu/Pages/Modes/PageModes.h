@@ -27,13 +27,6 @@ struct CurrentModeMeasure
 };
 
 
-struct CurrentModeMeasureCountPulse
-{
-    static bool IsBig_T();
-    
-};
-
-
 // Здесь функции общие для всех страниц режимов каналов
 struct PageModes
 {

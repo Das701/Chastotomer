@@ -515,7 +515,7 @@ char *MathFPGA::Measure::GiveData()
             decDataA.Mul(100);
         }
 
-        if (CurrentModeMeasureCountPulse::IsBig_T())
+        if (ModeMeasureCountPulse::Current().IsFromPeriod())
         {
             decDataA.Div((uint)PageModesA::numberPeriods.ToAbs());
         }

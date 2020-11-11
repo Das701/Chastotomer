@@ -189,15 +189,6 @@ bool CurrentTypeMeasure::IsCountPulse()
 }
 
 
-bool CurrentModeMeasureCountPulse::IsBig_T()
-{
-    return ((CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::ATB))
-        || (CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulse::BTA))
-        || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulse::CTB))
-        || (CURRENT_CHANNEL_IS_C && (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulse::CTA)));
-}
-
-
 void PageModes::ResetModeCurrentMeasure()
 {
     PageModesA::ResetModeCurrentMeasure();
