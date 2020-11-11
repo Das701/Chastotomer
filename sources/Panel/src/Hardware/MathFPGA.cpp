@@ -227,7 +227,7 @@ void MathFPGA::Measure::BinToDec()
 
     if (ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC())
     {
-        decDataB.FromDouble(MathFPGA::BinToDec(dataFrequencyB));
+        decDataB.FromDouble(MathFPGA::BinToFloat(dataFrequencyB));
     }
 
     if (CURRENT_CHANNEL_IS_C)
@@ -238,23 +238,9 @@ void MathFPGA::Measure::BinToDec()
 }
 
 
-float MathFPGA::BinToDec(const char bin[32])
+float MathFPGA::BinToFloat(const char bin[32])
 {
-    int base = 1;
-
-    float result = 0.0F;
-
-    for (int i = 31; i >= 0; i--)
-    {
-        if (bin[i] == 1)
-        {
-            result += (float)base;
-        }
-
-        base *= 2;
-    }
-
-    return result;
+    return (float)BinToUint32(bin);
 }
 
 

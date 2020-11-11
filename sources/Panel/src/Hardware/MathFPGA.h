@@ -93,7 +93,7 @@ struct MathFPGA
 
 private:
 
-    static float BinToDec(const char bin[32]);
+    static float BinToFloat(const char bin[32]);
 
 public:
 
