@@ -56,7 +56,8 @@
     for (int i = num - 1; i >= 0; i--)                                                  \
     {                                                                                   \
         READ_PIN_B14_BIN(x, i);                                                         \
-    }
+    }                                                                                   \
+    Display::Refresh();
 
 
 #define WRITE_COMMAND(x)                                                                \
@@ -235,8 +236,6 @@ void FPGA::Update()
                 }
 
                 Reset_CS;
-
-                Display::Refresh();
 
                 HAL_TIM::DelayUS(8);
             }
