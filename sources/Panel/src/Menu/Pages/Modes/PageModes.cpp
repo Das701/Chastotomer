@@ -139,37 +139,6 @@ void CurrentTypeMeasure::Draw(int x, int y)
 }
 
 
-bool CurrentTypeMeasure::IsFrequency()
-{
-    return ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency()) ||
-        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsFrequency()) ||
-        (CURRENT_CHANNEL_IS_C && PageModesC::typeMeasure.IsFrequency()) ||
-        CURRENT_CHANNEL_IS_D);
-}
-
-
-bool CurrentTypeMeasure::IsPeriod()
-{
-    return ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod()) ||
-        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod()));
-}
-
-
-bool CurrentTypeMeasure::IsDuration()
-{
-    return ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsDuration()) ||
-        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsDuration()));
-}
-
-
-bool CurrentTypeMeasure::IsCountPulse()
-{
-    return ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse()) ||
-        (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse()) ||
-        (CURRENT_CHANNEL_IS_C && PageModesC::typeMeasure.IsCountPulse()));
-}
-
-
 void PageModes::ResetModeCurrentMeasure()
 {
     PageModesA::ResetModeCurrentMeasure();

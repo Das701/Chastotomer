@@ -55,15 +55,15 @@ void MathFPGA::Measure::Calculate()
     int x = 0;
     int manualZeros = 1;
 
-    if (CurrentTypeMeasure::IsFrequency())
+    if (TypeMeasure::Current().IsFrequency())
     {
         x = CalculateFrequency(manualZeros);
     }
-    else if (CurrentTypeMeasure::IsDuration())
+    else if (TypeMeasure::Current().IsDuration())
     {
         x = CalculateDuration();
     }
-    else if (CurrentTypeMeasure::IsPeriod())
+    else if (TypeMeasure::Current().IsPeriod())
     {
         x = CalculatePeriod();
     }
@@ -505,7 +505,7 @@ char *MathFPGA::Measure::GiveData()
 
     result[0] = 0;
 
-    if (CurrentTypeMeasure::IsCountPulse())
+    if (TypeMeasure::Current().IsCountPulse())
     {
         BinToDec();
         decDataA.Div(2);
@@ -620,13 +620,13 @@ char *MathFPGA::GiveSpec() //-V2008
     {
         if (ModeMeasureFrequency::Current().IsRatio() ||
             ModeMeasureFrequency::Current().IsTachometer() ||
-            CurrentTypeMeasure::IsCountPulse())
+            TypeMeasure::Current().IsCountPulse())
         {
             std::strcpy(result, " ");
         }
         else
         {
-            if (CurrentTypeMeasure::IsFrequency())
+            if (TypeMeasure::Current().IsFrequency())
             {
                 if (ModeMeasureFrequency::Current().IsT_1())
                 {

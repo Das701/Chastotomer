@@ -9,9 +9,5 @@
 struct CurrentTypeMeasure
 {
     static int Value();
-    static bool IsFrequency();
-    static bool IsPeriod();
-    static bool IsDuration();
-    static bool IsCountPulse();
     static void Draw(int x, int y);
 };
