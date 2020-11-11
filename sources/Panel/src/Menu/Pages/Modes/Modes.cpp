@@ -5,40 +5,9 @@
 #include "Menu/Pages/Modes/PagesModes.h"
 
 
-ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
-{
-    static const bool correct[1] = { true };
-    static ModeMeasureCountPulse empty(ModeMeasureCountPulse::Count, correct, 1);
-
-    static ModeMeasureCountPulse *const modes[Channel::Count] =
-    {
-        &PageModesA::modeMeasureCountPulse,
-        &PageModesB::modeMeasureCountPulse,
-        &PageModesC::modeMeasureCountPulse,
-        &empty
-    };
-
-    return *modes[CURRENT_CHANNEL];
-}
-
-
 bool ModeMeasureCountPulse::IsFromPeriod() const
 {
     return (value == ATB) || (value == BTA) || (value == CTA) || (value == CTB);
-}
-
-
-TypeMeasure &TypeMeasure::Current()
-{
-    static TypeMeasure *const types[TypeMeasure::Count] =
-    {
-        &PageModesA::typeMeasure,
-        &PageModesB::typeMeasure,
-        &PageModesC::typeMeasure,
-        &PageModesD::typeMeasure
-    };
-
-    return *types[CURRENT_CHANNEL];
 }
 
 
@@ -163,73 +132,7 @@ void PageModes::ResetModeCurrentMeasure()
 
 bool ModeMeasureFrequency::IsRatio() const
 {
-    ModeMeasureFrequency &mode = Current();
-
-    return mode.IsRatioAB() || mode.IsRatioBA() ||
-        mode.IsRatioAC() || mode.IsRatioBC() ||
-        mode.IsRatioCA() || mode.IsRatioCB();
-}
-
-
-ModeMeasureFrequency &ModeMeasureFrequency::Current()
-{
-    ModeMeasureFrequency *const modes[Channel::Count] =
-    {
-        &PageModesA::modeMeasureFrequency,
-        &PageModesB::modeMeasureFrequency,
-        &PageModesC::modeMeasureFrequency,
-        &PageModesD::modeMeasureFrequency
-    };
-
-    return *modes[CURRENT_CHANNEL];
-}
-
-
-ModeMeasurePeriod &ModeMeasurePeriod::Current()
-{
-    static ModeMeasurePeriod empty(ModeMeasurePeriod::Count);
-
-    static ModeMeasurePeriod * const modes[Channel::Count] =
-    {
-        &PageModesA::modeMeasurePeriod,
-        &PageModesB::modeMeasurePeriod,
-        &empty,
-        &empty
-    };
-
-    return *modes[CURRENT_CHANNEL];
-}
-
-
-ModeMeasureDuration &ModeMeasureDuration::Current()
-{
-    static ModeMeasureDuration empty(ModeMeasureDuration::Count);
-
-    static ModeMeasureDuration * const modes[Channel::Count] =
-    {
-        &PageModesA::modeMeasureDuration,
-        &PageModesB::modeMeasureDuration,
-        &empty,
-        &empty
-    };
-
-    return *modes[CURRENT_CHANNEL];
-}
-
-
-PeriodTimeLabels &PeriodTimeLabels::Current()
-{
-    PeriodTimeLabels &result = PageModesA::periodTimeLabels;
-
-    switch (CURRENT_CHANNEL)
-    {
-    case Channel::A:    result = PageModesA::periodTimeLabels;  break;
-    case Channel::B:    result = PageModesB::periodTimeLabels;  break;
-    case Channel::C:    result = PageModesC::periodTimeLabels;  break;
-    case Channel::D: case Channel::Count:                       break;
-    }
-
-    return result;
+    return IsRatioAB() || IsRatioBA() ||  IsRatioAC() || IsRatioBC() || IsRatioCA() || IsRatioCB();
 }
 
 
@@ -260,6 +163,17 @@ int TimeMeasure::ToMS() const
 }
 
 
+int NumberPeriods::ToAbs() const
+{
+    static const int abs[Count] =
+    {
+        1, 10, 100, 1000, 10000, 100000, 1000000
+    };
+
+    return abs[value];
+}
+
+
 TimeMeasure &TimeMeasure::Current()
 {
     static TimeMeasure *const times[Channel::Count] =
@@ -271,17 +185,6 @@ TimeMeasure &TimeMeasure::Current()
     };
 
     return *times[CURRENT_CHANNEL];
-}
-
-
-int NumberPeriods::ToAbs() const
-{
-    static const int abs[Count] =
-    {
-        1, 10, 100, 1000, 10000, 100000, 1000000
-    };
-
-    return abs[value];
 }
 
 
@@ -298,4 +201,97 @@ NumberPeriods &NumberPeriods::Current()
     };
 
     return *numbers[CURRENT_CHANNEL];
+}
+
+
+ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
+{
+    static const bool correct[1] = { true };
+    static ModeMeasureCountPulse empty(ModeMeasureCountPulse::Count, correct, 1);
+
+    static ModeMeasureCountPulse *const modes[Channel::Count] =
+    {
+        &PageModesA::modeMeasureCountPulse,
+        &PageModesB::modeMeasureCountPulse,
+        &PageModesC::modeMeasureCountPulse,
+        &empty
+    };
+
+    return *modes[CURRENT_CHANNEL];
+}
+
+
+TypeMeasure &TypeMeasure::Current()
+{
+    static TypeMeasure *const types[TypeMeasure::Count] =
+    {
+        &PageModesA::typeMeasure,
+        &PageModesB::typeMeasure,
+        &PageModesC::typeMeasure,
+        &PageModesD::typeMeasure
+    };
+
+    return *types[CURRENT_CHANNEL];
+}
+
+
+ModeMeasureFrequency &ModeMeasureFrequency::Current()
+{
+    ModeMeasureFrequency *const modes[Channel::Count] =
+    {
+        &PageModesA::modeMeasureFrequency,
+        &PageModesB::modeMeasureFrequency,
+        &PageModesC::modeMeasureFrequency,
+        &PageModesD::modeMeasureFrequency
+    };
+
+    return *modes[CURRENT_CHANNEL];
+}
+
+
+ModeMeasurePeriod &ModeMeasurePeriod::Current()
+{
+    static ModeMeasurePeriod empty(ModeMeasurePeriod::Count);
+
+    static ModeMeasurePeriod *const modes[Channel::Count] =
+    {
+        &PageModesA::modeMeasurePeriod,
+        &PageModesB::modeMeasurePeriod,
+        &empty,
+        &empty
+    };
+
+    return *modes[CURRENT_CHANNEL];
+}
+
+
+ModeMeasureDuration &ModeMeasureDuration::Current()
+{
+    static ModeMeasureDuration empty(ModeMeasureDuration::Count);
+
+    static ModeMeasureDuration *const modes[Channel::Count] =
+    {
+        &PageModesA::modeMeasureDuration,
+        &PageModesB::modeMeasureDuration,
+        &empty,
+        &empty
+    };
+
+    return *modes[CURRENT_CHANNEL];
+}
+
+
+PeriodTimeLabels &PeriodTimeLabels::Current()
+{
+    static PeriodTimeLabels empty(PeriodTimeLabels::Count);
+
+    static PeriodTimeLabels *const periods[Channel::Count] =
+    {
+        &PageModesA::periodTimeLabels,
+        &PageModesB::periodTimeLabels,
+        &PageModesC::periodTimeLabels,
+        &empty
+    };
+
+    return *periods[CURRENT_CHANNEL];
 }
