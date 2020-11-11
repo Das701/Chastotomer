@@ -5,19 +5,17 @@
 #include "Menu/Pages/Modes/PagesModes.h"
 
 
-
-
 ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
 {
     static const bool correct[1] = { true };
-    static ModeMeasureCountPulse def(ModeMeasureCountPulse::Count, correct, 1);
+    static ModeMeasureCountPulse empty(ModeMeasureCountPulse::Count, correct, 1);
 
     static ModeMeasureCountPulse *const modes[Channel::Count] =
     {
         &PageModesA::modeMeasureCountPulse,
         &PageModesB::modeMeasureCountPulse,
         &PageModesC::modeMeasureCountPulse,
-        &def
+        &empty
     };
 
     return *modes[CURRENT_CHANNEL];
@@ -189,27 +187,33 @@ ModeMeasureFrequency &ModeMeasureFrequency::Current()
 
 ModeMeasurePeriod &ModeMeasurePeriod::Current()
 {
-    ModeMeasurePeriod &result = PageModesA::modeMeasurePeriod;
+    static ModeMeasurePeriod empty(ModeMeasurePeriod::Count);
 
-    if (CURRENT_CHANNEL_IS_B)
+    static ModeMeasurePeriod * const modes[Channel::Count] =
     {
-        result = PageModesB::modeMeasurePeriod;
-    }
+        &PageModesA::modeMeasurePeriod,
+        &PageModesB::modeMeasurePeriod,
+        &empty,
+        &empty
+    };
 
-    return result;
+    return *modes[CURRENT_CHANNEL];
 }
 
 
 ModeMeasureDuration &ModeMeasureDuration::Current()
 {
-    ModeMeasureDuration &result = PageModesA::modeMeasureDuration;
+    static ModeMeasureDuration empty(ModeMeasureDuration::Count);
 
-    if (CURRENT_CHANNEL_IS_B)
+    static ModeMeasureDuration * const modes[Channel::Count] =
     {
-        result = PageModesB::modeMeasureDuration;
-    }
+        &PageModesA::modeMeasureDuration,
+        &PageModesB::modeMeasureDuration,
+        &empty,
+        &empty
+    };
 
-    return result;
+    return *modes[CURRENT_CHANNEL];
 }
 
 
@@ -258,20 +262,15 @@ int TimeMeasure::ToMS() const
 
 TimeMeasure &TimeMeasure::Current()
 {
-    if (CURRENT_CHANNEL_IS_A)
+    static TimeMeasure *const times[Channel::Count] =
     {
-        return PageModesA::timeMeasure;
-    }
-    else if (CURRENT_CHANNEL_IS_B)
-    {
-        return PageModesB::timeMeasure;
-    }
-    else if (CURRENT_CHANNEL_IS_C)
-    {
-        return PageModesC::timeMeasure;
-    }
+        &PageModesA::timeMeasure,
+        &PageModesB::timeMeasure,
+        &PageModesC::timeMeasure,
+        &PageModesD::timeMeasure
+    };
 
-    return PageModesD::timeMeasure;
+    return *times[CURRENT_CHANNEL];
 }
 
 
@@ -288,16 +287,15 @@ int NumberPeriods::ToAbs() const
 
 NumberPeriods &NumberPeriods::Current()
 {
-    NumberPeriods &result = PageModesA::numberPeriods;
+    static NumberPeriods empty(NumberPeriods::Count);
 
-    switch (CURRENT_CHANNEL)
+    static NumberPeriods *const numbers[Channel::Count] =
     {
-    case Channel::A:    result = PageModesA::numberPeriods; break;
-    case Channel::B:    result = PageModesB::numberPeriods; break;
-    case Channel::C:    result = PageModesC::numberPeriods; break;
-    case Channel::D:
-    case Channel::Count:                                    break;
-    }
+        &PageModesA::numberPeriods,
+        &PageModesB::numberPeriods,
+        &PageModesC::numberPeriods,
+        &empty
+    };
 
-    return result;
+    return *numbers[CURRENT_CHANNEL];
 }

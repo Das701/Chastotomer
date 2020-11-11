@@ -54,7 +54,7 @@ struct ModeMeasureFrequency : public Enumeration
         /*     C   */  RatioCB,    // f(C) / f(B)
         /* A B     */  Tachometer, // Тахометр
         /* A       */  Comparator,
-        Count
+                       Count
     };
 
     explicit ModeMeasureFrequency(E v, const bool *correct, int numStates) : Enumeration((uint8)v, correct, numStates) {};
@@ -77,47 +77,6 @@ struct ModeMeasureFrequency : public Enumeration
     static void LoadToFPGA();
 };
 
-// Режим измерения периода
-struct ModeMeasurePeriod : public Enumeration
-{
-    enum E
-    {
-        Period,     // Период
-        F_1         // T = 1 / f
-    };
-
-    explicit ModeMeasurePeriod(E v) : Enumeration((uint8)v) {};
-
-    bool IsPeriod() const { return (value == Period); }
-    bool IsF_1()    const { return (value == F_1); }
-
-    static ModeMeasurePeriod &Current();
-    static void LoadToFPGA();
-};
-
-// Режим измерения длительности
-struct ModeMeasureDuration : public Enumeration
-{
-    enum E
-    {
-        Ndt,        // ndt
-        Ndt_1ns,    // ndt_1нс
-        Ndt2,       // ndt2
-        Dcycle,     // Скважность
-        Phase       // Фаза
-    };
-
-    explicit ModeMeasureDuration(E v) : Enumeration((uint8)v) {};
-
-    bool Is_Ndt() const { return (value == Ndt); }
-    bool Is_Ndt_1ns() const { return (value == Ndt_1ns); }
-    bool Is_Ndt2() const { return (value == Ndt2); }
-    bool Is_Dcycle() const { return (value == Dcycle); }
-    bool Is_Phase() const { return (value == Phase); }
-
-    static ModeMeasureDuration &Current();
-    static void LoadToFPGA();
-};
 
 // Режим счёта импульсов
 struct ModeMeasureCountPulse : public Enumeration
@@ -145,6 +104,52 @@ struct ModeMeasureCountPulse : public Enumeration
     static ModeMeasureCountPulse &Current();
     static void LoadToFPGA();
 };
+
+
+// Режим измерения периода
+struct ModeMeasurePeriod : public Enumeration
+{
+    enum E
+    {
+        Period,     // Период
+        F_1,        // T = 1 / f
+        Count
+    };
+
+    explicit ModeMeasurePeriod(E v) : Enumeration((uint8)v) {};
+
+    bool IsPeriod() const { return (value == Period); }
+    bool IsF_1()    const { return (value == F_1); }
+
+    static ModeMeasurePeriod &Current();
+    static void LoadToFPGA();
+};
+
+// Режим измерения длительности
+struct ModeMeasureDuration : public Enumeration
+{
+    enum E
+    {
+        Ndt,        // ndt
+        Ndt_1ns,    // ndt_1нс
+        Ndt2,       // ndt2
+        Dcycle,     // Скважность
+        Phase,      // Фаза
+        Count
+    };
+
+    explicit ModeMeasureDuration(E v) : Enumeration((uint8)v) {};
+
+    bool Is_Ndt() const { return (value == Ndt); }
+    bool Is_Ndt_1ns() const { return (value == Ndt_1ns); }
+    bool Is_Ndt2() const { return (value == Ndt2); }
+    bool Is_Dcycle() const { return (value == Dcycle); }
+    bool Is_Phase() const { return (value == Phase); }
+
+    static ModeMeasureDuration &Current();
+    static void LoadToFPGA();
+};
+
 
 // Период меток времени
 struct PeriodTimeLabels : public Enumeration
