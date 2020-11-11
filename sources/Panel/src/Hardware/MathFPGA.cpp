@@ -10,33 +10,35 @@
 #include <cstring>
 
 
-static int decMinAuto = 0;
-static int decMidAuto = 0;
-static int decMaxAuto = 0;
+int MathFPGA::NA = 0; //-V707
+int MathFPGA::NB = 0; //-V707
+
 char MathFPGA::Auto::dataMin[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::Auto::dataMid[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 char MathFPGA::Auto::dataMax[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-char MathFPGA::Measure::dataFrequencyA[32] = { 0 };
-char MathFPGA::Measure::dataFrequencyB[32] = { 0 };
-
+char      MathFPGA::Measure::dataFrequencyA[32] = { 0 };
+char      MathFPGA::Measure::dataFrequencyB[32] = { 0 };
 ValuePICO MathFPGA::Measure::valueComparator(0);
 
-bool MathFPGA::DutyCycle::enabled = false;
+bool  MathFPGA::DutyCycle::enabled = false;
 float MathFPGA::DutyCycle::value = 0.0F;
-char MathFPGA::DutyCycle::dataPeriod[32] = { 0 };
-char MathFPGA::DutyCycle::dataDuration[32] = { 0 };
+char  MathFPGA::DutyCycle::dataPeriod[32] = { 0 };
+char  MathFPGA::DutyCycle::dataDuration[32] = { 0 };
 
-bool MathFPGA::Interpolation::enabled = false;
+bool  MathFPGA::Interpolation::enabled = false;
 float MathFPGA::Interpolation::value = 0.0F;
 
 static ValueNANO decDataA(0);
 static ValueNANO decDataB(0);
 static ValueNANO decDataC(0);
+
 static int decDA = 1;
 static int emptyZeros = 0;
-int MathFPGA::NA = 0; //-V707
-int MathFPGA::NB = 0; //-V707
+
+static int decMinAuto = 0;
+static int decMidAuto = 0;
+static int decMaxAuto = 0;
 
 static int dcycleZeros = 0;
 
