@@ -102,16 +102,16 @@ struct ModeMeasureCountPulse : public Enumeration
 {
     enum E
     {
-        /* A      */ AtC,      // A(tC)
-        /* A      */ ATB,      // A(TB)
-        /*    B   */ BtA,      // B(tA)
-        /*    B   */ BTA,      // B(TA)
-        /*      C */ CtA,      // C(tA)
-        /*      C */ CtB,      // C(tB)
-        /*      C */ CTA,      // C(TA)
-        /*      C */ CTB,      // C(TB)
-        /* A      */ StartStop,
-                     Count
+        /* A     */ AtC,      // A(tC)
+        /* A     */ ATB,      // A(TB)
+        /*   B   */ BtA,      // B(tA)
+        /*   B   */ BTA,      // B(TA)
+        /*     C */ CtA,      // C(tA)
+        /*     C */ CtB,      // C(tB)
+        /*     C */ CTA,      // C(TA)
+        /*     C */ CTB,      // C(TB)
+        /* A B   */ StartStop,
+                    Count
     };
 
     explicit ModeMeasureCountPulse(E v, const bool *correct) : Enumeration((uint8)v, correct) {};

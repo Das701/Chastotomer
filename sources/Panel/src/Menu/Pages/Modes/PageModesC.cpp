@@ -21,7 +21,7 @@ static const bool correctTypeMeasure[TypeMeasure::Count] = { true, false, false,
 TypeMeasure           PageModesC::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure);
 static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
 ModeMeasureFrequency  PageModesC::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
-static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { false, false, true, true, false, false, false, false, false };
+static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
 ModeMeasureCountPulse PageModesC::modeMeasureCountPulse(ModeMeasureCountPulse::CtA, correctModeMeasureCountPulse);
 PeriodTimeLabels      PageModesC::periodTimeLabels(PeriodTimeLabels::T_8);
 NumberPeriods         PageModesC::numberPeriods(NumberPeriods::_1);
