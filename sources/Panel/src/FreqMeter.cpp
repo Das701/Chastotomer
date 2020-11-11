@@ -171,7 +171,7 @@ void ModeMeasureFrequency::LoadToFPGA()
 }
 
 
-void CurrentModeMeasurePeriod::LoadToFPGA()
+void ModeMeasurePeriod::LoadToFPGA()
 {
     char command[4] = { 0, 1, 1, 0 };
 

@@ -27,12 +27,6 @@ struct CurrentModeMeasure
 };
 
 
-struct CurrentModeMeasurePeriod
-{
-    static void LoadToFPGA();
-};
-
-
 struct CurrentModeMeasureDuration
 {
     static void LoadToFPGA();

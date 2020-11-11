@@ -242,7 +242,7 @@ void PageModesA::OnChanged_ModePeriod()
     PageModesA::InterpolateOff();
     PageModesA::DCycleOff();
 
-    CurrentModeMeasurePeriod::LoadToFPGA();
+    ModeMeasurePeriod::LoadToFPGA();
 }
 
 // Выбор режима измерения периода
