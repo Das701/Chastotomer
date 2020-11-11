@@ -114,7 +114,7 @@ struct ModeMeasureCountPulse : public Enumeration
                      Count
     };
 
-    explicit ModeMeasureCountPulse(E v) : Enumeration((uint8)v) {};
+    explicit ModeMeasureCountPulse(E v, const bool *correct) : Enumeration((uint8)v, correct) {};
 };
 
 // Период меток времени
