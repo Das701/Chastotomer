@@ -43,6 +43,22 @@
     }                                                                                   \
     Display::Refresh();
 
+
+#define READ_PIN_B14_BIN(x, bit)                                                        \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);                                \
+    HAL_TIM::DelayUS(2);                                                                \
+    MathFPGA::Measure::readedDataA |= (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14) << bit);    \
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);                              \
+    HAL_TIM::DelayUS(2);
+
+#define  CYCLE_READ_PIN_B14_BIN(num, x)                                                 \
+    x = 0;                                                                              \
+    for (int i = num - 1; i >= 0; i--)                                                  \
+    {                                                                                   \
+        READ_PIN_B14_BIN(x, i);                                                         \
+    }
+
+
 #define WRITE_COMMAND(x)                                                                \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, (x == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);    \
     HAL_TIM::DelayUS(2);                                                                \
@@ -209,17 +225,8 @@ void FPGA::Update()
             {
                 Set_CS;
 
-                MathFPGA::Measure::readedDataA = 0;
-
-                for (int i = 31; i >= 0; i--)
-                {
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);  
-                    HAL_TIM::DelayUS(2);
-                    MathFPGA::Measure::readedDataA |= (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14) << i);
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-                    HAL_TIM::DelayUS(2);
-                }
-                
+                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::Measure::readedDataA);
+              
                 isOverloaded = (MathFPGA::Measure::readedDataA & (1U << 31)) != 0;
 
                 if((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) &&
