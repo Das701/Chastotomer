@@ -3,22 +3,6 @@
 #include "Menu/Pages/Modes/PageModesA.h"
 
 
-struct TypeMeasureC : public Enumeration
-{
-    enum E
-    {
-        Frequency,      // Измерение частоты
-        CountPulse,     // Подсчёт импульсов
-        Count
-    };
-
-    explicit TypeMeasureC(E v) : Enumeration((uint8)v) {};
-
-    bool IsFrequency() const  { return (value == Frequency); }
-    bool IsCountPulse() const { return (value == CountPulse); }
-};
-
-
 // Режим счёта импульсов
 struct ModeMeasureCountPulseC : public Enumeration
 {
@@ -48,7 +32,7 @@ struct PageModesC
     static void OnChanged_ModeFrequency();
     static void OnChanged_ModeCountPulse();
     
-    static TypeMeasureC           typeMeasure;           // Тип измерения
+    static TypeMeasure            typeMeasure;           // Тип измерения
     static ModeMeasureFrequency   modeMeasureFrequency;  // Режим измерения частоты
     static ModeMeasureCountPulseC modeMeasureCountPulse; // Режим счёта импульсов
     static PeriodTimeLabels       periodTimeLabels;      // Период меток времени

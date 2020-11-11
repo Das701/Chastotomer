@@ -108,7 +108,7 @@ void CurrentModeMeasure::DrawParameters(int x, int y)
         { nullptr, nullptr, nullptr, nullptr }
     };
 
-    static const Enumeration *const modes[3][TypeMeasureAB::Count][6] =
+    static const Enumeration *const modes[3][TypeMeasure::Count][6] =
     {
         {
             { &PageModesA::timeMeasure,   &PageModesA::numberPeriods, &PageModesA::timeMeasure,   &PageModesA::numberPeriods, nullptr, nullptr },

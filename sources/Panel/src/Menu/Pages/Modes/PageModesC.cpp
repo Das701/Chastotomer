@@ -17,7 +17,7 @@ extern Switch sTimeMeasureC;
 extern Switch sNumberPeriodsC;
 
 
-TypeMeasureC           PageModesC::typeMeasure(TypeMeasureC::Frequency);
+TypeMeasure            PageModesC::typeMeasure(TypeMeasure::Frequency);
 static const bool correctModeMeasureFrequency[] = { true, false, false, false, false, false, true, true, false, false };
 ModeMeasureFrequency   PageModesC::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
 ModeMeasureCountPulseC PageModesC::modeMeasureCountPulse(ModeMeasureCountPulseC::CtA);
@@ -30,16 +30,16 @@ void PageModesC::OnChanged_TypeMeasure()
 {
     switch (PageModesC::typeMeasure.value)
     {
-    case TypeMeasureC::Frequency:
-        PageModesA::typeMeasure.value = TypeMeasureAB::Frequency;
-        PageModesB::typeMeasure.value = TypeMeasureAB::Frequency;
+    case TypeMeasure::Frequency:
+        PageModesA::typeMeasure.value = TypeMeasure::Frequency;
+        PageModesB::typeMeasure.value = TypeMeasure::Frequency;
 
         PageModes::ResetModeCurrentMeasure();
         PageModesC::OnChanged_ModeFrequency();
         break;
-    case TypeMeasureC::CountPulse:
-        PageModesB::typeMeasure.value = TypeMeasureAB::CountPulse;
-        PageModesA::typeMeasure.value = TypeMeasureAB::CountPulse;
+    case TypeMeasure::CountPulse:
+        PageModesB::typeMeasure.value = TypeMeasure::CountPulse;
+        PageModesA::typeMeasure.value = TypeMeasure::CountPulse;
 
         PageModes::ResetModeCurrentMeasure();
         PageModesC::OnChanged_ModeCountPulse();
@@ -232,7 +232,7 @@ void PageModesC::ResetModeCurrentMeasure()
 {
     switch (typeMeasure)
     {
-    case TypeMeasureC::Frequency:  modeMeasureFrequency.value = 0;  break;
-    case TypeMeasureC::CountPulse: modeMeasureCountPulse.value = 0; break;
+    case TypeMeasure::Frequency:  modeMeasureFrequency.value = 0;  break;
+    case TypeMeasure::CountPulse: modeMeasureCountPulse.value = 0; break;
     }
 }

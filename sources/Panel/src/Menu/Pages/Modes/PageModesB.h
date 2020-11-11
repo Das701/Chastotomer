@@ -34,7 +34,7 @@ struct PageModesB
     static void OnChanged_ModeDuration();
     static void OnChanged_ModeCountPulse();
     
-    static TypeMeasureAB          typeMeasure;           // Тип измерения
+    static TypeMeasure            typeMeasure;           // Тип измерения
     static ModeMeasureFrequency   modeMeasureFrequency;  // Режим измерения частоты
     static ModeMeasurePeriod      modeMeasurePeriod;     // Режим измерения периода
     static ModeMeasureDuration    modeMeasureDuration;   // Режим измерения длительности

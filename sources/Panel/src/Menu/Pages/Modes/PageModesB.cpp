@@ -20,7 +20,7 @@ extern Switch sTimeMeasure;
 extern Switch sNumberPeriods;
 
 
-TypeMeasureAB          PageModesB::typeMeasure(TypeMeasureAB::Frequency);
+TypeMeasure           PageModesB::typeMeasure(TypeMeasure::Frequency);
 static const bool correctModeMeasureFrequency[] = { true, true, false, false, true, true, false, false, true, false };
 ModeMeasureFrequency   PageModesB::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
 ModeMeasurePeriod      PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
@@ -36,19 +36,19 @@ void PageModesB::PressSetup()
 {
     switch (PageModesB::typeMeasure.value)
     {
-    case TypeMeasureAB::Frequency:
+    case TypeMeasure::Frequency:
         items[1] = &sModeFrequency;
         break;
 
-    case TypeMeasureAB::Period:
+    case TypeMeasure::Period:
         items[1] = &sModePeriod;
         break;
 
-    case TypeMeasureAB::Duration:
+    case TypeMeasure::Duration:
         items[1] = &sModeDuration;
         break;
 
-    case TypeMeasureAB::CountPulse:
+    case TypeMeasure::CountPulse:
         items[1] = &sModeCountPulse;
         break;
     }
@@ -59,31 +59,31 @@ void PageModesB::OnChanged_TypeMeasure()
 {
     switch (PageModesB::typeMeasure.value)
     {
-    case TypeMeasureAB::Frequency:
-        PageModesA::typeMeasure.value = TypeMeasureAB::Frequency;
-        PageModesC::typeMeasure.value = TypeMeasureC::Frequency;
+    case TypeMeasure::Frequency:
+        PageModesA::typeMeasure.value = TypeMeasure::Frequency;
+        PageModesC::typeMeasure.value = TypeMeasure::Frequency;
 
         PageModes::ResetModeCurrentMeasure();
         PageModesB::OnChanged_ModeFrequency();
         break;
 
-    case TypeMeasureAB::Period:
-        PageModesA::typeMeasure.value = TypeMeasureAB::Period;
+    case TypeMeasure::Period:
+        PageModesA::typeMeasure.value = TypeMeasure::Period;
 
         PageModes::ResetModeCurrentMeasure();
         PageModesB::OnChanged_ModePeriod();
         break;
 
-    case TypeMeasureAB::Duration:
-        PageModesA::typeMeasure.value = TypeMeasureAB::Duration;
+    case TypeMeasure::Duration:
+        PageModesA::typeMeasure.value = TypeMeasure::Duration;
 
         PageModes::ResetModeCurrentMeasure();
         PageModesB::OnChanged_ModeDuration();
         break;
 
-    case TypeMeasureAB::CountPulse:
-        PageModesA::typeMeasure.value = TypeMeasureAB::CountPulse;
-        PageModesC::typeMeasure.value = TypeMeasureC::CountPulse;
+    case TypeMeasure::CountPulse:
+        PageModesA::typeMeasure.value = TypeMeasure::CountPulse;
+        PageModesC::typeMeasure.value = TypeMeasure::CountPulse;
 
         PageModes::ResetModeCurrentMeasure();
         PageModesB::OnChanged_ModeCountPulse();
@@ -365,8 +365,8 @@ static void OnChanged_ModeTest()
 {
     switch (PageModesB::typeMeasure.value)
     {
-    case TypeMeasureAB::Frequency: PageModesB::OnChanged_ModeFrequency(); break;
-    case TypeMeasureAB::Period:    PageModesB::OnChanged_ModePeriod();    break;
+    case TypeMeasure::Frequency: PageModesB::OnChanged_ModeFrequency(); break;
+    case TypeMeasure::Period:    PageModesB::OnChanged_ModePeriod();    break;
     }
 
     PageModesB::self->VerifySelectedItem();
@@ -396,9 +396,9 @@ void PageModesB::ResetModeCurrentMeasure()
 {
     switch (typeMeasure)
     {
-    case TypeMeasureAB::Frequency:  modeMeasureFrequency.value = 0;     break;
-    case TypeMeasureAB::Period:     modeMeasurePeriod.value = 0;        break;
-    case TypeMeasureAB::Duration:   modeMeasureDuration.value = 0;      break;
-    case TypeMeasureAB::CountPulse: modeMeasureCountPulse.value = 0;    break;
+    case TypeMeasure::Frequency:  modeMeasureFrequency.value = 0;     break;
+    case TypeMeasure::Period:     modeMeasurePeriod.value = 0;        break;
+    case TypeMeasure::Duration:   modeMeasureDuration.value = 0;      break;
+    case TypeMeasure::CountPulse: modeMeasureCountPulse.value = 0;    break;
     }
 }

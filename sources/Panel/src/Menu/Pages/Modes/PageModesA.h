@@ -2,18 +2,18 @@
 #include "Menu/MenuItems.h"
 
 
-struct TypeMeasureAB : public Enumeration
+struct TypeMeasure : public Enumeration
 {
     enum E
     {
-        Frequency,      // Измерение частоты
-        Period,         // Измерение периода
-        Duration,       // Измерение длительности
-        CountPulse,     // Подсчёт импульсов
-        Count
+        /* A B C D */  Frequency,      // Измерение частоты
+        /* A B     */  Period,         // Измерение периода
+        /* A B     */  Duration,       // Измерение длительности
+        /* A B C   */  CountPulse,     // Подсчёт импульсов
+                       Count
     };
 
-    explicit TypeMeasureAB(E v) : Enumeration((uint8)v) {};
+    explicit TypeMeasure(E v) : Enumeration((uint8)v) {};
     bool IsFrequency() const  { return (value == Frequency); }
     bool IsCountPulse() const { return (value == CountPulse); }
     bool IsPeriod() const     { return (value == Period); }
@@ -216,16 +216,12 @@ public:
     static void OnChanged_ModeDuration();
     static void OnChanged_ModeCountPulse();
     
-    static TypeMeasureAB            typeMeasure;                // Тип измерения
-    static ModeMeasureFrequency     modeMeasureFrequency;       // Режим измерения частоты
-    static ModeMeasurePeriod        modeMeasurePeriod;          // Режим измерения периода
-    static ModeMeasureDuration      modeMeasureDuration;        // Режим измерения длительности
-    static ModeMeasureCountPulseA   modeMeasureCountPulse;      // Режим счёта импульсов
-    static PeriodTimeLabels         periodTimeLabels;           // Период меток времени
-    static TimeMeasure              timeMeasure;                // Время счета
-    static NumberPeriods            numberPeriods;              // Число периодов измерения
-
-private:
-
-    static void OnChanged_ModeTest();
+    static TypeMeasure            typeMeasure;                // Тип измерения
+    static ModeMeasureFrequency   modeMeasureFrequency;       // Режим измерения частоты
+    static ModeMeasurePeriod      modeMeasurePeriod;          // Режим измерения периода
+    static ModeMeasureDuration    modeMeasureDuration;        // Режим измерения длительности
+    static ModeMeasureCountPulseA modeMeasureCountPulse;      // Режим счёта импульсов
+    static PeriodTimeLabels       periodTimeLabels;           // Период меток времени
+    static TimeMeasure            timeMeasure;                // Время счета
+    static NumberPeriods          numberPeriods;              // Число периодов измерения
 };
