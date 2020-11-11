@@ -123,6 +123,17 @@ void Page::VerifySelectedItem()
 }
 
 
+void Switch::NextChoice()
+{
+    Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
+
+    if (funcOnPress)
+    {
+        funcOnPress();
+    }
+}
+
+
 bool Switch::OnControl(const Control &control)
 {
     if (PageIndication::calibration.Is(Calibration::Pressed))
@@ -131,12 +142,7 @@ bool Switch::OnControl(const Control &control)
         {
             if (Hint::UnderItem() == this)
             {
-                Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
-
-                if (funcOnPress)
-                {
-                    funcOnPress();
-                }
+                NextChoice();
             }
 
             Hint::Create(this);
@@ -151,12 +157,7 @@ bool Switch::OnControl(const Control &control)
 
             if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
             {
-                Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
-
-                if (funcOnPress)
-                {
-                    funcOnPress();
-                }
+                NextChoice();
             }
 
             Hint::Create(this);
@@ -182,12 +183,7 @@ bool Switch::OnControl(const Control &control)
             {
                 if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
                 {
-                    Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
-
-                    if (funcOnPress)
-                    {
-                        funcOnPress();
-                    }
+                    NextChoice();
                 }
 
                 Hint::Create(this);

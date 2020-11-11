@@ -84,6 +84,8 @@ private:
     void       (*funcOnPress)();    // Эта функция вызывается после изменения состояния переключателя
     Enumeration *state;             // Адрес переменной с состоянием переключателя
     virtual void CreateHint(char buffer[100]) const;
+    // Переключить в следующее состояние
+    void  NextChoice();
 };
 
 
