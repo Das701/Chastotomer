@@ -19,7 +19,8 @@ extern Switch sTimeMeasureD;
 
 
 TypeMeasureD         PageModesD::typeMeasure(TypeMeasureD::Frequency);
-ModeMeasureFrequency PageModesD::modeMeasureFrequency(ModeMeasureFrequency::Frequency);
+static const bool correctModeMeasureFrequency[] = { true, false, false, false, false, false, false, false, false, false};
+ModeMeasureFrequency PageModesD::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
 TimeMeasure          PageModesD::timeMeasure(TimeMeasure::_1ms);
 
 

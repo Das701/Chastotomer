@@ -7,11 +7,12 @@
 
 struct Enumeration
 {
-    // “екущее состо€ние перечислени€
-    uint8  value;
+    uint8  value;           // “екущее состо€ние перечислени€
     char **names;
     char **ugo;
-    Enumeration(uint8 v) : value(v), names(nullptr), ugo(nullptr) {}
+    const bool *correct;    // ≈сли указатель на этот массив не равен nullptr, то его элементы используютс€ следующим образом.
+                            // value не может значени€ индексов, соответствующих false
+    explicit Enumeration(uint8 v, const bool *_correct = nullptr) : value(v), names(nullptr), ugo(nullptr), correct(_correct) {}
     operator int() { return (int)value; }
     char *ToText() const { return names[value]; }
     char *UGO() const { return ugo[value]; }

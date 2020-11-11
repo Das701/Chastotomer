@@ -28,7 +28,8 @@ static bool relationOn = false;
 static bool startStop = false;
 
 TypeMeasureAB          PageModesA::typeMeasure(TypeMeasureAB::Frequency);
-ModeMeasureFrequency   PageModesA::modeMeasureFrequency(ModeMeasureFrequency::Frequency);
+static const bool correctModeMeasureFrequency[] = { true, true, true, true, false, false, false, false, true, true };
+ModeMeasureFrequency   PageModesA::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
 ModeMeasurePeriod      PageModesA::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration    PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
 ModeMeasureCountPulseA PageModesA::modeMeasureCountPulse(ModeMeasureCountPulseA::AtC);

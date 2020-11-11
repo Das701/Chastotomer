@@ -38,7 +38,7 @@ struct ModeMeasureFrequency : public Enumeration
                        Count
     };
 
-    explicit ModeMeasureFrequency(E v) : Enumeration((uint8)v) {};
+    explicit ModeMeasureFrequency(E v, const bool *correct) : Enumeration((uint8)v, correct) {};
 
     bool IsFrequency()  const { return (value == Frequency); }
     bool IsRatioAB()    const { return (value == RatioAB); }
