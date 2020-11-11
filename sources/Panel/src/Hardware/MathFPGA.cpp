@@ -24,6 +24,8 @@ char MathFPGA::Measure::dataDuration[32] = { 0 };
 
 ValuePICO MathFPGA::Measure::valueComparator(0);
 
+bool MathFPGA::DutyCycle::enabled = false;
+
 static ValueNANO decDataA(0);
 static ValueNANO decDataB(0);
 static ValueNANO decDataC(0);
@@ -546,7 +548,7 @@ char *MathFPGA::Measure::GiveData()
             std::sprintf(procDataInterpol, "%10.2f", interpol);
             return procDataInterpol;
         }
-        else if ((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && PageModesA::DCycleCheck())
+        else if ((ModeMeasureDuration::Current().Is_Dcycle() || ModeMeasureDuration::Current().Is_Phase()) && DutyCycle::IsEnabled())
         {
             CalculateDcycle();
 
@@ -704,4 +706,22 @@ void MathFPGA::Auto::Refresh()
         dataMid[i] = 0;
         dataMax[i] = 0;
     }
+}
+
+
+void MathFPGA::DutyCycle::Enable()
+{
+    enabled = true;
+}
+
+
+void MathFPGA::DutyCycle::Disable()
+{
+    enabled = false;
+}
+
+
+bool MathFPGA::DutyCycle::IsEnabled()
+{
+    return enabled;
 }

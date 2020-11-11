@@ -2,6 +2,7 @@
 #include "FreqMeter.h"
 #include "Display/Display.h"
 #include "Display/Primitives.h"
+#include "Hardware/MathFPGA.h"
 #include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/Modes/PagesModes.h"
 
@@ -77,7 +78,7 @@ void PageModesC::OnChanged_ModeFrequency()
 
     PageModesA::RelationOff();
     PageModesA::InterpolateOff();
-    PageModesA::DCycleOff();
+    MathFPGA::DutyCycle::Disable();
     
     ModeMeasureFrequency::LoadToFPGA();
 }
@@ -112,7 +113,7 @@ void PageModesC::OnChanged_ModeCountPulse()
 
     PageModesA::RelationOff();
     PageModesA::InterpolateOff();
-    PageModesA::DCycleOff();
+    MathFPGA::DutyCycle::Disable();
 
     ModeMeasureCountPulse::LoadToFPGA();
 }

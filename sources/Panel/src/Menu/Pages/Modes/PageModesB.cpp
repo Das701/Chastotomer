@@ -2,6 +2,7 @@
 #include "FreqMeter.h"
 #include "Display/Display.h"
 #include "Display/Primitives.h"
+#include "Hardware/MathFPGA.h"
 #include "Menu/MenuItems.h"
 #include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/Modes/PagesModes.h"
@@ -139,7 +140,7 @@ void PageModesB::OnChanged_ModeFrequency()
     }
 
     PageModesA::InterpolateOff();
-    PageModesA::DCycleOff();     
+    MathFPGA::DutyCycle::Disable();
     
     ModeMeasureFrequency::LoadToFPGA();
 }
@@ -171,7 +172,7 @@ void PageModesB::OnChanged_ModePeriod()
 
     PageModesA::RelationOff();
     PageModesA::InterpolateOff();
-    PageModesA::DCycleOff();
+    MathFPGA::DutyCycle::Disable();
 
     ModeMeasurePeriod::LoadToFPGA();
 }
@@ -194,13 +195,13 @@ void PageModesB::OnChanged_ModeDuration()
     {
     case ModeMeasureDuration::Ndt_1ns:
         PageModesA::InterpolateOn();
-        PageModesA::DCycleOff();
+        MathFPGA::DutyCycle::Disable();
         items[2] = nullptr;
         break;
 
     case ModeMeasureDuration::Dcycle:
     case ModeMeasureDuration::Phase:
-        PageModesA::DCycleOn();
+        MathFPGA::DutyCycle::Enable();
         PageModesA::InterpolateOff();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
@@ -209,7 +210,7 @@ void PageModesB::OnChanged_ModeDuration()
     case ModeMeasureDuration::Ndt:
     case ModeMeasureDuration::Ndt2:
         PageModesA::InterpolateOff();
-        PageModesA::DCycleOff();
+        MathFPGA::DutyCycle::Disable();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
         break;
@@ -250,7 +251,7 @@ void PageModesB::OnChanged_ModeCountPulse()
 
     PageModesA::RelationOff();
     PageModesA::InterpolateOff();
-    PageModesA::DCycleOff();
+    MathFPGA::DutyCycle::Disable();
 
     ModeMeasureCountPulse::LoadToFPGA();
 }

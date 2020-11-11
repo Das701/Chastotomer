@@ -15,10 +15,6 @@ public:
     static void InterpolateOff();
     static bool InterpolateCheck();
 
-    static void DCycleOn();
-    static void DCycleOff();
-    static bool DCycleCheck();
-
     static void RelationOn();
     static void RelationOff();
     static bool RelationCheck();

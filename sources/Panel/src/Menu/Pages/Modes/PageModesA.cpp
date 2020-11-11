@@ -3,6 +3,7 @@
 #include "Settings.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
+#include "Hardware/MathFPGA.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/PageStatistics.h"
@@ -23,7 +24,6 @@ extern Switch sTimeMeasure;
 extern Switch sNumberPeriods;
 
 static bool interpoleOn = false;
-static bool dCycleOn = false;
 static bool relationOn = false;
 static bool startStop = false;
 
@@ -55,21 +55,6 @@ void PageModesA::InterpolateOff()
 bool PageModesA::InterpolateCheck()
 {
     return interpoleOn == true;
-}
-
-void PageModesA::DCycleOn()
-{
-    dCycleOn = true;
-}
-
-void PageModesA::DCycleOff()
-{
-    dCycleOn = false;
-}
-
-bool PageModesA::DCycleCheck()
-{
-    return dCycleOn == true;
 }
 
 void PageModesA::RelationOn()
@@ -208,7 +193,7 @@ void PageModesA::OnChanged_ModeFrequency()
     }
 
     PageModesA::InterpolateOff();
-    PageModesA::DCycleOff();
+    MathFPGA::DutyCycle::Disable();
 
     ModeMeasureFrequency::LoadToFPGA();
 }
@@ -245,7 +230,7 @@ void PageModesA::OnChanged_ModePeriod()
 
     PageModesA::RelationOff();
     PageModesA::InterpolateOff();
-    PageModesA::DCycleOff();
+    MathFPGA::DutyCycle::Disable();
 
     ModeMeasurePeriod::LoadToFPGA();
 }
@@ -268,13 +253,13 @@ void PageModesA::OnChanged_ModeDuration()
     {
     case ModeMeasureDuration::Ndt_1ns:
         PageModesA::InterpolateOn();
-        PageModesA::DCycleOff();
+        MathFPGA::DutyCycle::Disable();
         items[2] = nullptr;
         break;
 
     case ModeMeasureDuration::Dcycle:
     case ModeMeasureDuration::Phase:
-        PageModesA::DCycleOn();
+        MathFPGA::DutyCycle::Enable();
         PageModesA::InterpolateOff();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
@@ -283,7 +268,7 @@ void PageModesA::OnChanged_ModeDuration()
     case ModeMeasureDuration::Ndt:
     case ModeMeasureDuration::Ndt2:
         PageModesA::InterpolateOff();
-        PageModesA::DCycleOff();
+        MathFPGA::DutyCycle::Disable();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
         break;
@@ -324,7 +309,7 @@ void PageModesA::OnChanged_ModeCountPulse()
 
     PageModesA::RelationOff();
     PageModesA::InterpolateOff();
-    PageModesA::DCycleOff();
+    MathFPGA::DutyCycle::Disable();
 
     ModeMeasureCountPulse::LoadToFPGA();
 }

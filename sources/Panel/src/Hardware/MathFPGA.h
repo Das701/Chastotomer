@@ -12,6 +12,15 @@ struct MathFPGA
     static int NA; //-V707
     static int NB; //-V707
 
+    struct DutyCycle
+    {
+        static void Enable();
+        static void Disable();
+        static bool IsEnabled();
+    private:
+        static bool enabled;
+    };
+
     struct Measure
     {
     friend struct FPGA;
