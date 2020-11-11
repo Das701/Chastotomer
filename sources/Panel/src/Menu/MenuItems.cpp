@@ -46,11 +46,6 @@ char *Enumeration::ToText() const
         return names[value];
     }
 
-    if (value == 3)
-    {
-        int i = 0;
-    }
-
     int counter = -1;
 
     for (int i = 0; i <= value; i++)
