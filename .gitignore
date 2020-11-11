@@ -3,6 +3,8 @@ archive.zip
 *out.txt
 *.out
 *~*
+*.uvgui*
+*.uvoptx
 
 sources/.vs/*
 sources/Panel/Objects/*
