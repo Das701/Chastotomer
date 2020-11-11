@@ -168,7 +168,8 @@ void FPGA::Update()
         }
         else if (CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsComparator() && PageModesA::typeMeasure.IsFrequency())) 
         {
-            static char comparatorFx[32] = { 0 };
+            uint decFx = 0;
+
             static char comparatorTizm[16] = { 0 };
             static char comparatorNkal[16] = { 0 };
 
@@ -178,7 +179,7 @@ void FPGA::Update()
 
                 CYCLE_READ_PIN_B14(3, dataIdent);
 
-                CYCLE_READ_PIN_B14(32, comparatorFx); //-V525
+                CYCLE_READ_PIN_B14_BIN(32, decFx);
 
                 CYCLE_READ_PIN_B14(16, comparatorTizm);
 
@@ -198,8 +199,6 @@ void FPGA::Update()
                     {
                         decTizm -= 65536;
                     }
-
-                    uint decFx = MathFPGA::BinToUint32(comparatorFx);
 
                     ValuePICO dx(decTizm);
                     dx.Div((uint)decNkal);
