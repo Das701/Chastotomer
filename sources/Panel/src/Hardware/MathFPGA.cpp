@@ -19,12 +19,12 @@ char MathFPGA::Auto::dataMax[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 char MathFPGA::Measure::dataFrequencyA[32] = { 0 };
 char MathFPGA::Measure::dataFrequencyB[32] = { 0 };
-char MathFPGA::Measure::dataPeriod[32] = { 0 };
-char MathFPGA::Measure::dataDuration[32] = { 0 };
 
 ValuePICO MathFPGA::Measure::valueComparator(0);
 
 bool MathFPGA::DutyCycle::enabled = false;
+char MathFPGA::DutyCycle::dataPeriod[32] = { 0 };
+char MathFPGA::DutyCycle::dataDuration[32] = { 0 };
 
 static ValueNANO decDataA(0);
 static ValueNANO decDataB(0);
@@ -400,7 +400,7 @@ char *MathFPGA::Auto::Give()
 }
 
 
-void MathFPGA::Measure::CalculateDcycle()
+void MathFPGA::DutyCycle::Calculate()
 {
     decPeriod = 0;
     decDuration = 0;
@@ -550,7 +550,7 @@ char *MathFPGA::Measure::GiveData()
         }
         else if ((ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()) && DutyCycle::IsEnabled())
         {
-            CalculateDcycle();
+            DutyCycle::Calculate();
 
             if (ModeMeasureDuration::Current().Is_Phase())  { std::sprintf(procDataDcycle, "%10.3f", dutyCycle); }
             else                                            { std::sprintf(procDataDcycle, "%10.7f", dutyCycle); }

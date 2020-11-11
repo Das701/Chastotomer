@@ -14,11 +14,16 @@ struct MathFPGA
 
     struct DutyCycle
     {
+    friend struct FPGA;
+
         static void Enable();
         static void Disable();
         static bool IsEnabled();
+        static void Calculate();
     private:
         static bool enabled;
+        static char dataPeriod[32];
+        static char dataDuration[32];
     };
 
     struct Measure
@@ -35,8 +40,6 @@ struct MathFPGA
 
         static char dataFrequencyA[32];
         static char dataFrequencyB[32];
-        static char dataPeriod[32];
-        static char dataDuration[32];
 
         static ValuePICO valueComparator;               // Рассчитанное значение компаратора
 
@@ -44,7 +47,6 @@ struct MathFPGA
         static int CalculatePeriod();
         static int CalculateDuration();
 
-        static void CalculateDcycle();
         static void CalculateInterpolate();
     };
 
