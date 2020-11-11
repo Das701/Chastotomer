@@ -96,6 +96,7 @@ struct ModeMeasureDuration : public Enumeration
     bool Is_Phase() const { return (value == Phase); }
 
     static ModeMeasureDuration &Current();
+    static void LoadToFPGA();
 };
 
 // Режим счёта импульсов
@@ -116,6 +117,8 @@ struct ModeMeasureCountPulse : public Enumeration
     };
 
     explicit ModeMeasureCountPulse(E v, const bool *correct) : Enumeration((uint8)v, correct) {};
+
+    static void LoadToFPGA();
 };
 
 // Период меток времени

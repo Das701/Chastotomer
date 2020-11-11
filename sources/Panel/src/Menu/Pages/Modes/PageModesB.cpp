@@ -217,7 +217,7 @@ void PageModesB::OnChanged_ModeDuration()
 
     PageModesA::RelationOff();
 
-    CurrentModeMeasureDuration::LoadToFPGA();
+    ModeMeasureDuration::LoadToFPGA();
 }
 
 // Выбор режима измерения длительности импульсов, интервалов, коэффициента заполнения, разности фаз
@@ -252,7 +252,7 @@ void PageModesB::OnChanged_ModeCountPulse()
     PageModesA::InterpolateOff();
     PageModesA::DCycleOff();
 
-    CurrentModeMeasureCountPulse::LoadToFPGA();
+    ModeMeasureCountPulse::LoadToFPGA();
 }
 
 // Выбор режима счёта импульсов

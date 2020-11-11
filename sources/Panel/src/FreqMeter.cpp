@@ -188,7 +188,7 @@ void ModeMeasurePeriod::LoadToFPGA()
 }
 
 
-void CurrentModeMeasureDuration::LoadToFPGA()
+void ModeMeasureDuration::LoadToFPGA()
 {
     char command[4] = { 0, 1, 1, 0 };
 
@@ -220,7 +220,7 @@ void CurrentModeMeasureDuration::LoadToFPGA()
 }
 
 
-void CurrentModeMeasureCountPulse::LoadToFPGA()
+void ModeMeasureCountPulse::LoadToFPGA()
 {
     char command[4] = { 0, 1, 1, 0 };
 

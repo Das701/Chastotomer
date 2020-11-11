@@ -114,7 +114,7 @@ void PageModesC::OnChanged_ModeCountPulse()
     PageModesA::InterpolateOff();
     PageModesA::DCycleOff();
 
-    CurrentModeMeasureCountPulse::LoadToFPGA();
+    ModeMeasureCountPulse::LoadToFPGA();
 }
 
 // Выбор режима счёта импульсов
