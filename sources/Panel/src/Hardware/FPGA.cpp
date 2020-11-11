@@ -67,8 +67,7 @@ static char calibBin[10];
 static int calibNumber = 0;
 static int NAC = 0;
 
-static char isOverloaded0 = 127;
-static char isOverloaded31 = 127;
+static bool isOverloaded = false;
 
 
 void FPGA::Init()
@@ -212,20 +211,7 @@ void FPGA::Update()
 
                 CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataFrequencyA);
                 
-//                static volatile int i = 0;
-//                static volatile int j = 0;
-                
-                if(MathFPGA::Measure::dataFrequencyA[31] != GPIO_PIN_RESET || MathFPGA::Measure::dataFrequencyA[0] != GPIO_PIN_RESET)
-                {
-//                    j++;
-                }
-                else
-                {
-//                    i++;
-                }
-                
-                isOverloaded31 = MathFPGA::Measure::dataFrequencyA[31];
-                isOverloaded0 = MathFPGA::Measure::dataFrequencyA[0];
+                isOverloaded = (MathFPGA::Measure::dataFrequencyA[31] == 1);
 
                 if((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) &&
                     PageModesA::RelationCheck())
@@ -440,27 +426,7 @@ int FPGA::CalibNumber()
 }
 
 
-char FPGA::IsOverloaded0()
+bool FPGA::IsOverloaded()
 {
-    static volatile int i = 0;
-
-    if(isOverloaded0 != 0)
-    {
-        i++;
-    }
-    
-    return isOverloaded0;
-}
-
-
-char FPGA::IsOverloaded31()
-{
-    static volatile int i = 0;
-    
-    if(isOverloaded31 != 0)
-    {
-        i++;
-    }
-    
-    return isOverloaded31;
+    return isOverloaded;
 }

@@ -502,6 +502,12 @@ char *MathFPGA::Measure::GiveData()
 
     result[0] = 0;
 
+    if (FPGA::IsOverloaded())
+    {
+        std::strcpy(result, "оепеонкмемхе");
+        return result;
+    }
+
     if (TypeMeasure::Current().IsCountPulse())
     {
         BinToDec();

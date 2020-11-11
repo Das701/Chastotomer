@@ -15,8 +15,8 @@ friend struct MathFPGA;
     static int CalibNumber();
     static void ReadCalibNumber();
 
-    static char IsOverloaded0();
-    static char IsOverloaded31();
+    // Возвращает true в случае переполнения
+    static bool IsOverloaded();
 
 private:
 

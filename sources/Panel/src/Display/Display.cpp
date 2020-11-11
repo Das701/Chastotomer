@@ -17,6 +17,7 @@
 #include "Menu/Pages/PageIndication.h"
 #include "Utils/String.h"
 #include "Utils/StringUtils.h"
+#include <cctype>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -169,8 +170,6 @@ static void DrawScreen()
         Menu::Draw();
         
         DrawData();
-
-        Text(String("%d %d", FPGA::IsOverloaded0(), FPGA::IsOverloaded31()).c_str()).Write(400, 50, Color::WHITE);
     }
 }
 
@@ -303,7 +302,19 @@ static void DrawData()
 {
     if (Display::InDrawingPart(150, 50))
     {
-        FontBig::Write(MathFPGA::Measure::GiveData(), 10, 150, Color::WHITE);
+        char *data = MathFPGA::Measure::GiveData();
+
+        if (data[0] != 0)
+        {
+            if (std::isdigit(data[0]) || data[0] == ' ')
+            {
+                FontBig::Write(MathFPGA::Measure::GiveData(), 10, 150, Color::WHITE);
+            }
+            else
+            {
+                Text(String(data).c_str()).Write(10, 150, Color::WHITE);
+            }
+        }
     }
 
     if (Display::InDrawingPart(170, 50))
