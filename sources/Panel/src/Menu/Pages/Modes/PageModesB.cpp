@@ -20,8 +20,9 @@ extern Switch sTimeMeasure;
 extern Switch sNumberPeriods;
 
 
-TypeMeasure           PageModesB::typeMeasure(TypeMeasure::Frequency);
-static const bool correctModeMeasureFrequency[] = { true, true, false, false, true, true, false, false, true, false };
+static const bool correctTypeMeasure[TypeMeasure::Count] = { true, true, true, true };
+TypeMeasure           PageModesB::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure);
+static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, true, false, false, true, true, false, false, true, false};
 ModeMeasureFrequency   PageModesB::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
 ModeMeasurePeriod      PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration    PageModesB::modeMeasureDuration(ModeMeasureDuration::Ndt);

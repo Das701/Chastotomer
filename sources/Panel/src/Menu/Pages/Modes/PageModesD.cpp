@@ -18,8 +18,9 @@ extern Item *items[7];
 extern Switch sTimeMeasureD;
 
 
-TypeMeasure          PageModesD::typeMeasure(TypeMeasure::Frequency);
-static const bool correctModeMeasureFrequency[] = { true, false, false, false, false, false, false, false, false, false};
+static const bool correctTypeMeasure[TypeMeasure::Count] = { true, false, false, false };
+TypeMeasure          PageModesD::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure);
+static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, false, false, false, false};
 ModeMeasureFrequency PageModesD::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
 TimeMeasure          PageModesD::timeMeasure(TimeMeasure::_1ms);
 

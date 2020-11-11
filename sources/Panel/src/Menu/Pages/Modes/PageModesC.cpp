@@ -17,8 +17,9 @@ extern Switch sTimeMeasureC;
 extern Switch sNumberPeriodsC;
 
 
-TypeMeasure            PageModesC::typeMeasure(TypeMeasure::Frequency);
-static const bool correctModeMeasureFrequency[] = { true, false, false, false, false, false, true, true, false, false };
+static const bool correctTypeMeasure[TypeMeasure::Count] = { true, false, false, true };
+TypeMeasure            PageModesC::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure);
+static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
 ModeMeasureFrequency   PageModesC::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
 ModeMeasureCountPulseC PageModesC::modeMeasureCountPulse(ModeMeasureCountPulseC::CtA);
 PeriodTimeLabels       PageModesC::periodTimeLabels(PeriodTimeLabels::T_8);

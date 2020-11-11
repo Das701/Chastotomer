@@ -13,7 +13,7 @@ struct TypeMeasure : public Enumeration
                        Count
     };
 
-    explicit TypeMeasure(E v) : Enumeration((uint8)v) {};
+    explicit TypeMeasure(E v, const bool *correct) : Enumeration((uint8)v, correct) {};
     bool IsFrequency() const  { return (value == Frequency); }
     bool IsCountPulse() const { return (value == CountPulse); }
     bool IsPeriod() const     { return (value == Period); }
