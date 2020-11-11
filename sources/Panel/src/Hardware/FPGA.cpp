@@ -225,9 +225,9 @@ void FPGA::Update()
             {
                 Set_CS;
 
-                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::Measure::fpgaDataA);
+                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::Measure::fpgaFrequencyA);
               
-                isOverloaded = (MathFPGA::Measure::fpgaDataA & (1U << 31)) != 0;
+                isOverloaded = (MathFPGA::Measure::fpgaFrequencyA & (1U << 31)) != 0;
 
                 if((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) &&
                     PageModesA::RelationCheck())

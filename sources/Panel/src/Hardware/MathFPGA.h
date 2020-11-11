@@ -58,7 +58,7 @@ struct MathFPGA
 
         static ValuePICO valueComparator;       // Рассчитанное значение компаратора
 
-        static uint fpgaDataA;                  // Считанное из FPGA значение
+        static uint fpgaFrequencyA;             // Считанное из FPGA значение
         static ValueNANO decDataA;
         static ValueNANO decDataB;
         static ValueNANO decDataC;
