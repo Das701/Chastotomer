@@ -91,10 +91,6 @@ struct MathFPGA
         static int decMax;
     };
 
-private:
-
-    static float BinToFloat(const char bin[32]);
-
 public:
 
     static uint BinToUint32(const char bin[32]);
