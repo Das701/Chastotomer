@@ -33,7 +33,7 @@ struct MathFPGA
 
     private:
         static bool enabled;
-        static char dataDuration[32];
+        static uint fpgaDuration;               // —читанное из FPGA значение
         static uint fpgaPeriod;                 // —читанное из FPGA значение
     };
 

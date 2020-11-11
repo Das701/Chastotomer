@@ -159,7 +159,7 @@ void FPGA::Update()
 
                 CYCLE_READ_PIN_B14_BIN(32, MathFPGA::DutyCycle::fpgaPeriod);
 
-                CYCLE_READ_PIN_B14(32, MathFPGA::DutyCycle::dataDuration);
+                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::DutyCycle::fpgaDuration);
 
                 Reset_CS;
 

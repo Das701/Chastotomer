@@ -23,7 +23,7 @@ int    MathFPGA::Auto::decMax = 0;
 bool   MathFPGA::DutyCycle::enabled = false;
 float  MathFPGA::DutyCycle::value = 0.0F;
 int    MathFPGA::DutyCycle::zeroes = 0;
-char   MathFPGA::DutyCycle::dataDuration[32] = { 0 };
+uint   MathFPGA::DutyCycle::fpgaDuration = 0;
 uint   MathFPGA::DutyCycle::fpgaPeriod = 0;
        
 bool   MathFPGA::Interpolation::enabled = false;
@@ -392,21 +392,7 @@ char *MathFPGA::Auto::Give()
 
 void MathFPGA::DutyCycle::Calculate()
 {
-    static int decDuration = 0;
-
-    int base2 = 1;
-    int len = 32;
-
-    for (int i = len - 1; i >= 0; i--)
-    {
-        if (dataDuration[i] == 1)
-        {
-            decDuration += base2;
-        }
-        base2 *= 2;
-    }
-
-    value = (float)decDuration / (float)fpgaPeriod;
+    value = (float)fpgaDuration / (float)fpgaPeriod;
 
     if (ModeMeasureDuration::Current().Is_Phase())
     {
