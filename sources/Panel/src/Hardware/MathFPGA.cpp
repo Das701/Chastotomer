@@ -88,7 +88,9 @@ int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
 {
     int result = 0;
 
-    if (ModeMeasureFrequency::Current().IsT_1())
+    ModeMeasureFrequency &mode = ModeMeasureFrequency::Current();
+
+    if (mode.IsT_1())
     {
         manualZeros = 10 * PageModesA::periodTimeLabels.ToZeros() / 1000 * PageModesA::numberPeriods.ToAbs();
 
@@ -108,7 +110,7 @@ int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
 
         result = 1;
     }
-    else if (CurrentModeMeasureFrequency::Is_RatioAB_or_RatioBA())
+    else if (mode.IsRatioAB() || mode.IsRatioBA())
     {
         result = PageModesA::numberPeriods.ToAbs();
     }
@@ -117,7 +119,7 @@ int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
         decDataA.Mul(100);
         result = PageModesC::numberPeriods.ToAbs();
     }
-    else if (ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC())
+    else if (mode.IsRatioAC() || mode.IsRatioBC())
     {
         int sT = PageModesA::timeMeasure.ToMS();
 
