@@ -44,7 +44,6 @@ static float interpol = 0.0F;
 static char minAutoData[7] = { 0 };
 static char maxAutoData[7] = { 0 };
 
-static int decDuration = 0;
 static int decTimer1 = 0;
 static int decCAL1 = 0;
 static int decCAL2 = 0;
@@ -404,10 +403,12 @@ char *MathFPGA::Auto::Give()
 void MathFPGA::DutyCycle::Calculate()
 {
     static int decPeriod = 0;
-    decDuration = 0;
+    static int decDuration = 0;
+
     int base1 = 1;
     int base2 = 1;
     int len = 32;
+
     for (int i = len - 1; i >= 0; i--)
     {
         if (dataPeriod[i] == 1)
@@ -416,6 +417,7 @@ void MathFPGA::DutyCycle::Calculate()
         }
         base1 = base1 * 2;
     }
+
     for (int i = len - 1; i >= 0; i--)
     {
         if (dataDuration[i] == 1)
@@ -424,6 +426,7 @@ void MathFPGA::DutyCycle::Calculate()
         }
         base2 = base2 * 2;
     }
+
     dutyCycle = (float)decDuration / (float)decPeriod;
 
     if (ModeMeasureDuration::Current().Is_Phase())
