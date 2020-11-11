@@ -72,7 +72,7 @@
         WRITE_COMMAND(x[i]);                                                            \
     }
 
-char FPGA::dataTimer[27] = { 0 };
+uint FPGA::fpgaTimer = 0;
 char FPGA::dataIdent[4] = { 0 };
 char FPGA::dataCAL1[24] = { 0 };
 char FPGA::dataCAL2[24] = { 0 };
@@ -140,7 +140,7 @@ void FPGA::Update()
 
                 CYCLE_READ_PIN_B14(3, dataIdent);
 
-                CYCLE_READ_PIN_B14(24, dataTimer);
+                CYCLE_READ_PIN_B14_BIN(24, fpgaTimer);
 
                 CYCLE_READ_PIN_B14(24, dataCAL1);
 

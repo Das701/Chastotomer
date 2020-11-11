@@ -1,4 +1,6 @@
 #pragma once
+#include "defines.h"
+
 
 struct FPGA
 {
@@ -20,7 +22,7 @@ friend struct MathFPGA;
 
 private:
 
-    static char dataTimer[27];
+    static uint fpgaTimer;
     static char dataIdent[4];
     static char dataCAL1[24];
     static char dataCAL2[24];
