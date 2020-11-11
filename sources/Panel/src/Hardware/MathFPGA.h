@@ -41,6 +41,7 @@ struct MathFPGA
     struct Measure
     {
     friend struct FPGA;
+    friend struct MathFPGA;
 
         static char *GiveData();
 
@@ -52,6 +53,8 @@ struct MathFPGA
 
         static char dataFrequencyA[32];
         static char dataFrequencyB[32];
+
+        static int decDA;
 
         static ValuePICO valueComparator;               // Рассчитанное значение компаратора
 

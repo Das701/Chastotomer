@@ -30,13 +30,13 @@ float  MathFPGA::Interpolation::value = 0.0F;
 
 char      MathFPGA::Measure::dataFrequencyA[32] = { 0 };
 char      MathFPGA::Measure::dataFrequencyB[32] = { 0 };
+int       MathFPGA::Measure::decDA = 1;
 ValuePICO MathFPGA::Measure::valueComparator(0);
 
 static ValueNANO decDataA(0);
 static ValueNANO decDataB(0);
 static ValueNANO decDataC(0);
 
-static int decDA = 1;
 static int emptyZeros = 0;
 
 static int dcycleZeros = 0;
@@ -633,9 +633,9 @@ char *MathFPGA::GiveSpec() //-V2008
             {
                 if (ModeMeasureFrequency::Current().IsT_1())
                 {
-                    if (decDA < 1000)           { std::strcpy(result, " Hz");  }
-                    else if (decDA < 1000000)   { std::strcpy(result, " kHz"); }
-                    else                        { std::strcpy(result, " MHz"); }
+                    if (Measure::decDA < 1000)           { std::strcpy(result, " Hz");  }
+                    else if (Measure::decDA < 1000000)   { std::strcpy(result, " kHz"); }
+                    else                                 { std::strcpy(result, " MHz"); }
                 }
                 else if (PageModesA::modeMeasureFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
                 {
@@ -654,8 +654,8 @@ char *MathFPGA::GiveSpec() //-V2008
                     }
                     else
                     {
-                        if (decDA < 1000)           { std::strcpy(result, " kHz"); }
-                        else                        { std::strcpy(result, " MHz"); }
+                        if (Measure::decDA < 1000)           { std::strcpy(result, " kHz"); }
+                        else                                 { std::strcpy(result, " MHz"); }
                     }
                 }
             }
@@ -664,9 +664,9 @@ char *MathFPGA::GiveSpec() //-V2008
                 if ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsF_1()) ||
                     (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsF_1()))
                 {
-                    if (decDA >= 1000)      { std::strcpy(result, " ns"); }
-                    else if (decDA <= 1)    { std::strcpy(result, " ms"); }
-                    else                    { std::strcpy(result, " us"); }
+                    if (Measure::decDA >= 1000)      { std::strcpy(result, " ns"); }
+                    else if (Measure::decDA <= 1)    { std::strcpy(result, " ms"); }
+                    else                             { std::strcpy(result, " us"); }
                 }
                 else
                 {
