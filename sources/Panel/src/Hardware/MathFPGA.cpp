@@ -10,24 +10,27 @@
 #include <cstring>
 
 
-int MathFPGA::NA = 0; //-V707
-int MathFPGA::NB = 0; //-V707
-
-char MathFPGA::Auto::dataMin[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-char MathFPGA::Auto::dataMid[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-char MathFPGA::Auto::dataMax[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+int    MathFPGA::NA = 0; //-V707
+int    MathFPGA::NB = 0; //-V707
+       
+char   MathFPGA::Auto::dataMin[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+char   MathFPGA::Auto::dataMid[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+char   MathFPGA::Auto::dataMax[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+int    MathFPGA::Auto::decMin = 0;
+int    MathFPGA::Auto::decMid = 0;
+int    MathFPGA::Auto::decMax = 0;
+       
+bool   MathFPGA::DutyCycle::enabled = false;
+float  MathFPGA::DutyCycle::value = 0.0F;
+char   MathFPGA::DutyCycle::dataPeriod[32] = { 0 };
+char   MathFPGA::DutyCycle::dataDuration[32] = { 0 };
+       
+bool   MathFPGA::Interpolation::enabled = false;
+float  MathFPGA::Interpolation::value = 0.0F;
 
 char      MathFPGA::Measure::dataFrequencyA[32] = { 0 };
 char      MathFPGA::Measure::dataFrequencyB[32] = { 0 };
 ValuePICO MathFPGA::Measure::valueComparator(0);
-
-bool  MathFPGA::DutyCycle::enabled = false;
-float MathFPGA::DutyCycle::value = 0.0F;
-char  MathFPGA::DutyCycle::dataPeriod[32] = { 0 };
-char  MathFPGA::DutyCycle::dataDuration[32] = { 0 };
-
-bool  MathFPGA::Interpolation::enabled = false;
-float MathFPGA::Interpolation::value = 0.0F;
 
 static ValueNANO decDataA(0);
 static ValueNANO decDataB(0);
@@ -35,10 +38,6 @@ static ValueNANO decDataC(0);
 
 static int decDA = 1;
 static int emptyZeros = 0;
-
-static int decMinAuto = 0;
-static int decMidAuto = 0;
-static int decMaxAuto = 0;
 
 static int dcycleZeros = 0;
 
@@ -310,9 +309,9 @@ uint16 MathFPGA::BinToUint16(const char bin[16])
 
 void MathFPGA::Auto::Calculate()
 {
-    decMinAuto = 0;
-    decMidAuto = 0;
-    decMaxAuto = 0;
+    decMin = 0;
+    decMid = 0;
+    decMax = 0;
     int base1 = 1;
     int base2 = 1;
     int base3 = 1;
@@ -322,27 +321,27 @@ void MathFPGA::Auto::Calculate()
     {
         if (dataMin[i] == 1)
         {
-            decMinAuto += base1;
+            decMin += base1;
         }
-        base1 = base1 * 2;
+        base1 *= 2;
     }
 
     for (int i = len - 1; i >= 0; i--)
     {
         if (dataMid[i] == 1)
         {
-            decMidAuto += base2;
+            decMid += base2;
         }
-        base2 = base2 * 2;
+        base2 *= 2;
     }
 
     for (int i = len - 1; i >= 0; i--)
     {
         if (dataMax[i] == 1)
         {
-            decMaxAuto += base3;
+            decMax += base3;
         }
-        base3 = base3 * 2;
+        base3 *= 2;
     }
 }
 
@@ -350,21 +349,21 @@ void MathFPGA::Auto::Calculate()
 int MathFPGA::Auto::Mid()
 {
     Calculate();
-    return decMidAuto;
+    return decMid;
 }
 
 
 int MathFPGA::Auto::Min()
 {
     Calculate();
-    return decMinAuto;
+    return decMin;
 }
 
 
 int MathFPGA::Auto::Max()
 {
     Calculate();
-    return decMaxAuto;
+    return decMax;
 }
 
 
@@ -373,8 +372,8 @@ char *MathFPGA::Auto::Give()
     static char result[20] = { 0 };
 
     Auto::Calculate();
-    SU::Int2String((decMinAuto - 512) * 2, minAutoData);
-    SU::Int2String((decMaxAuto - 512) * 2, maxAutoData);
+    SU::Int2String((decMin - 512) * 2, minAutoData);
+    SU::Int2String((decMax - 512) * 2, maxAutoData);
     std::strcpy(result, "Макс ");
     std::strcat(result, maxAutoData);
     std::strcat(result, " Мин ");
@@ -382,14 +381,14 @@ char *MathFPGA::Auto::Give()
 
     if (CURRENT_CHANNEL_IS_A)
     {
-        LEVEL_SYNCH_A = (decMidAuto - 512) * 2;
-        NA = decMidAuto - 512;
+        LEVEL_SYNCH_A = (decMid - 512) * 2;
+        NA = decMid - 512;
     }
 
     if (CURRENT_CHANNEL_IS_B)
     {
-        LEVEL_SYNCH_B = (decMidAuto - 512) * 2;
-        NB = decMidAuto - 512;
+        LEVEL_SYNCH_B = (decMid - 512) * 2;
+        NB = decMid - 512;
 
     }
 

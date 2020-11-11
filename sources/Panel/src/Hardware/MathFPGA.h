@@ -77,6 +77,10 @@ struct MathFPGA
         static char dataMin[10];
         static char dataMid[10];
         static char dataMax[10];
+
+        static int decMin;
+        static int decMid;
+        static int decMax;
     };
 
 private:
