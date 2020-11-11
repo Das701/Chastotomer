@@ -28,6 +28,7 @@ char MathFPGA::DutyCycle::dataPeriod[32] = { 0 };
 char MathFPGA::DutyCycle::dataDuration[32] = { 0 };
 
 bool MathFPGA::Interpolation::enabled = false;
+float MathFPGA::Interpolation::value = 0.0F;
 
 static ValueNANO decDataA(0);
 static ValueNANO decDataB(0);
@@ -38,8 +39,6 @@ int MathFPGA::NA = 0; //-V707
 int MathFPGA::NB = 0; //-V707
 
 static int dcycleZeros = 0;
-
-static float interpol = 0.0F;
 
 static char minAutoData[7] = { 0 };
 static char maxAutoData[7] = { 0 };
@@ -477,7 +476,7 @@ void MathFPGA::Interpolation::Calculate()
         {
             decTimer1 += base1;
         }
-        base1 = base1 * 2;
+        base1 *= 2;
     }
 
     for (int i = len - 1; i >= 0; i--)
@@ -486,7 +485,7 @@ void MathFPGA::Interpolation::Calculate()
         {
             decCAL1 += base2;
         }
-        base2 = base2 * 2;
+        base2 *=  2;
     }
 
     for (int i = len - 1; i >= 0; i--)
@@ -495,10 +494,10 @@ void MathFPGA::Interpolation::Calculate()
         {
             decCAL2 += base3;
         }
-        base3 = base3 * 2;
+        base3 *= 2;
     }
 
-    interpol = (float)(100 * decTimer1) / (float)(decCAL2 - decCAL1);
+    value = (float)(100 * decTimer1) / (float)(decCAL2 - decCAL1);
 }
 
 
@@ -546,7 +545,7 @@ char *MathFPGA::Measure::GiveData()
         else if (ModeMeasureDuration::Current().Is_Ndt_1ns() && MathFPGA::Interpolation::IsEnabled())
         {
             MathFPGA::Interpolation::Calculate();
-            std::sprintf(procDataInterpol, "%10.2f", interpol);
+            std::sprintf(procDataInterpol, "%10.2f", MathFPGA::Interpolation::value);
             return procDataInterpol;
         }
         else if ((ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()) && DutyCycle::IsEnabled())
