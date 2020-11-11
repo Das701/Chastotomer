@@ -13,6 +13,11 @@ using namespace Display::Primitives;
 
 Text::Text(char *t)
 {
+    if (t == nullptr)
+    {
+        t = t;
+    }
+
     Create(t);
 }
 

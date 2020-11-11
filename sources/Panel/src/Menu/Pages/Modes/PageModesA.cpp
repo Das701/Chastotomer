@@ -34,7 +34,7 @@ static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { t
 ModeMeasureFrequency  PageModesA::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
 ModeMeasurePeriod     PageModesA::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration   PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
-static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
+static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { true, true, false, false, false, false, false, false, true};
 ModeMeasureCountPulse PageModesA::modeMeasureCountPulse(ModeMeasureCountPulse::AtC, correctModeMeasureCountPulse, ModeMeasureCountPulse::Count);
 
 PeriodTimeLabels      PageModesA::periodTimeLabels(PeriodTimeLabels::T_8);

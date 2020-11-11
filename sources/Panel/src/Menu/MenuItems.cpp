@@ -32,10 +32,57 @@ int Enumeration::NumStates() const
     }
     else
     {
-
+        return numStates;
     }
 
     return result;
+}
+
+
+char *Enumeration::ToText() const
+{
+    if (correct == nullptr)
+    {
+        return names[value];
+    }
+
+    if (value == 3)
+    {
+        int i = 0;
+    }
+
+    int counter = -1;
+
+    for (int i = 0; i <= value; i++)
+    {
+        if (correct[i])
+        {
+            counter++;
+        }
+    }
+
+    return names[counter];
+}
+
+
+char *Enumeration::UGO() const
+{
+    if (correct == nullptr)
+    {
+        return ugo[value];
+    }
+
+    int counter = -1;
+
+    for (int i = 0; i <= value; i++)
+    {
+        if (correct[i])
+        {
+            counter++;
+        }
+    }
+
+    return ugo[value];
 }
 
 

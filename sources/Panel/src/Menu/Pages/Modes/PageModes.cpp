@@ -56,6 +56,11 @@ void CurrentModeMeasure::Draw(int x, int y)
 
     Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
 
+    if (PageModesA::typeMeasure.value == 3)
+    {
+        int i = 0;
+    }
+
     Text(ToEnumeration().ToText()).Write(x + 10, y + 10, Color::WHITE);
 }
 

@@ -26,7 +26,7 @@ struct TypeMeasure : public Enumeration
         /* A B     */  Period,         // Измерение периода
         /* A B     */  Duration,       // Измерение длительности
         /* A B C   */  CountPulse,     // Подсчёт импульсов
-        Count
+                       Count
     };
 
     explicit TypeMeasure(E v, const bool *correct, int numStates) : Enumeration((uint8)v, correct, numStates) {};
