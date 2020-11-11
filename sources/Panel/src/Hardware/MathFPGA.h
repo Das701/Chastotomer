@@ -61,6 +61,10 @@ struct MathFPGA
 
         static ValuePICO valueComparator;               // Рассчитанное значение компаратора
 
+        static ValueNANO decDataA;
+        static ValueNANO decDataB;
+        static ValueNANO decDataC;
+
         static int CalculateFrequency(int &manualZeros);
         static int CalculatePeriod();
         static int CalculateDuration();

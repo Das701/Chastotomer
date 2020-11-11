@@ -34,10 +34,10 @@ char      MathFPGA::Measure::dataFrequencyB[32] = { 0 };
 int       MathFPGA::Measure::decDA = 1;
 int       MathFPGA::Measure::emptyZeros = 0;
 ValuePICO MathFPGA::Measure::valueComparator(0);
+ValueNANO MathFPGA::Measure::decDataA(0);
+ValueNANO MathFPGA::Measure::decDataB(0);
+ValueNANO MathFPGA::Measure::decDataC(0);
 
-static ValueNANO decDataA(0);
-static ValueNANO decDataB(0);
-static ValueNANO decDataC(0);
 
 static char minAutoData[7] = { 0 };
 static char maxAutoData[7] = { 0 };
@@ -643,8 +643,8 @@ char *MathFPGA::GiveSpec() //-V2008
                 {
                     if (CURRENT_CHANNEL_IS_C)
                     {
-                        if (decDataC.ToUINT64() / 2 < 10000)    { std::strcpy(result, " MHz"); }
-                        else                                    { std::strcpy(result, " GHz"); }
+                        if (Measure::decDataC.ToUINT64() / 2 < 10000)    { std::strcpy(result, " MHz"); }
+                        else                                             { std::strcpy(result, " GHz"); }
                     }
                     else if (CURRENT_CHANNEL_IS_D)   
                     {
