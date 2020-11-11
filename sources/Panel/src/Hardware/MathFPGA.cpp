@@ -39,10 +39,6 @@ ValueNANO MathFPGA::Measure::decDataB(0);
 ValueNANO MathFPGA::Measure::decDataC(0);
 
 
-static char procDataInterpol[30] = { 0 };
-static char procDataDcycle[30] = { 0 };
-
-
 void MathFPGA::Measure::Calculate()
 {
     int x = 0;
@@ -544,12 +540,15 @@ char *MathFPGA::Measure::GiveData()
         else if (ModeMeasureDuration::Current().Is_Ndt_1ns() && MathFPGA::Interpolation::IsEnabled())
         {
             MathFPGA::Interpolation::Calculate();
+            static char procDataInterpol[30] = { 0 };
             std::sprintf(procDataInterpol, "%10.2f", MathFPGA::Interpolation::value);
             return procDataInterpol;
         }
         else if ((ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()) && DutyCycle::IsEnabled())
         {
             DutyCycle::Calculate();
+
+            static char procDataDcycle[30] = { 0 };
 
             if (ModeMeasureDuration::Current().Is_Phase())  { std::sprintf(procDataDcycle, "%10.3f", MathFPGA::DutyCycle::value); }
             else                                            { std::sprintf(procDataDcycle, "%10.7f", MathFPGA::DutyCycle::value); }
