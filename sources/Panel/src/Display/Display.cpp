@@ -312,7 +312,9 @@ static void DrawData()
             }
             else
             {
-                Text(String(data).c_str()).Write(10, 150, Color::WHITE);
+                Font::Set(TypeFont::GOSTB28B);
+                Text(String(data).c_str()).Write(50, 165, Color::WHITE);
+                Font::Set(TypeFont::GOST16B);
             }
         }
     }

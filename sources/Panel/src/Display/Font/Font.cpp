@@ -3,7 +3,7 @@
 #include "Display/Font/fontGOST16B.inc"
 //#include "Display/Font/fontGOSTB18B.inc"
 //#include "Display/Font/fontGOSTB20B.inc"
-//#include "Display/Font/fontGOSTB28B.inc"
+#include "Display/Font/fontGOSTB28B.inc"
 #include "Hardware/HAL/HAL.h"
 #include <cstring>
 
@@ -112,12 +112,11 @@ void Font::Set(const TypeFont::E typeFont)
     switch (typeFont)
     {
     case TypeFont::GOST16B:   font = fontGOST16B;   break;
-//    case PTypeFont::GOSTB18B:  font = fontGOSTB18B;  break;
-//    case PTypeFont::GOSTB20B:  font = fontGOSTB20B;  break;
-//`    case PTypeFont::GOSTB28B:  font = fontGOSTB28B;  break;
+//    case TypeFont::GOSTB18B:  font = fontGOSTB18B;  break;
+//    case TypeFont::GOSTB20B:  font = fontGOSTB20B;  break;
+    case TypeFont::GOSTB28B:  font = fontGOSTB28B;  break;
     case TypeFont::GOSTB18B:
     case TypeFont::GOSTB20B:
-    case TypeFont::GOSTB28B:
     case TypeFont::None:
     case TypeFont::Count:
         break;
