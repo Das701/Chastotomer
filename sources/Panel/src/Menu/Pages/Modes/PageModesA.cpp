@@ -609,3 +609,13 @@ ModeMeasureFrequency &ModeMeasureFrequency::Current()
 
     return *modes[CURRENT_CHANNEL];
 }
+
+
+bool ModeMeasureFrequency::IsRatio() const
+{
+    ModeMeasureFrequency &mode = Current();
+
+    return mode.IsRatioAB() || mode.IsRatioBA() ||
+        mode.IsRatioAC() || mode.IsRatioBC() ||
+        mode.IsRatioCA() || mode.IsRatioCB();
+}

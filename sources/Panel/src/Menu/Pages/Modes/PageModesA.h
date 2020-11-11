@@ -47,6 +47,7 @@ struct ModeMeasureFrequency : public Enumeration
     bool IsRatioBC()    const { return (value == RatioBC); }
     bool IsRatioCA()    const { return (value == RatioCA); }
     bool IsRatioCB()    const { return (value == RatioCB); }
+    bool IsRatio()      const;
     bool IsT_1()        const { return (value == T_1); }
     bool IsTachometer() const { return (value == Tachometer); }
     bool IsComparator() const { return (value == Comparator); }

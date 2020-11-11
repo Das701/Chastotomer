@@ -29,8 +29,6 @@ struct CurrentModeMeasure
 
 struct CurrentModeMeasureFrequency
 {
-    static bool Is_Ratio();
-
     // Загрузить текущий режим измерения частоты в аппаратуру
     static void LoadToFPGA();
 };

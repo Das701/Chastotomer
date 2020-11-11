@@ -618,7 +618,7 @@ char *MathFPGA::GiveSpec() //-V2008
     }
     else
     {
-        if (CurrentModeMeasureFrequency::Is_Ratio() ||
+        if (ModeMeasureFrequency::Current().IsRatio() ||
             ModeMeasureFrequency::Current().IsTachometer() ||
             CurrentTypeMeasure::IsCountPulse())
         {
