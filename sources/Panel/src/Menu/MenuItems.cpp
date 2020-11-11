@@ -125,7 +125,17 @@ void Page::VerifySelectedItem()
 
 void Switch::NextChoice()
 {
-    Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
+    if (state->correct == nullptr)
+    {
+        Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
+    }
+    else
+    {
+        do 
+        {
+            Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
+        } while (state->correct[state->value] == false);
+    }
 
     if (funcOnPress)
     {
