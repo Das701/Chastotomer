@@ -591,7 +591,7 @@ char *MathFPGA::Measure::GiveData()
 }
 
 
-char *MathFPGA::GiveSpec() //-V2008
+char *MathFPGA::Measure::GiveSpec() //-V2008
 {
     static char result[10] = { 0 };
 
@@ -627,9 +627,9 @@ char *MathFPGA::GiveSpec() //-V2008
             {
                 if (ModeMeasureFrequency::Current().IsT_1())
                 {
-                    if (Measure::decDA < 1000)           { std::strcpy(result, " Hz");  }
-                    else if (Measure::decDA < 1000000)   { std::strcpy(result, " kHz"); }
-                    else                                 { std::strcpy(result, " MHz"); }
+                    if (decDA < 1000)           { std::strcpy(result, " Hz");  }
+                    else if (decDA < 1000000)   { std::strcpy(result, " kHz"); }
+                    else                        { std::strcpy(result, " MHz"); }
                 }
                 else if (PageModesA::modeMeasureFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
                 {
@@ -639,8 +639,8 @@ char *MathFPGA::GiveSpec() //-V2008
                 {
                     if (CURRENT_CHANNEL_IS_C)
                     {
-                        if (Measure::decDataC.ToUINT64() / 2 < 10000)    { std::strcpy(result, " MHz"); }
-                        else                                             { std::strcpy(result, " GHz"); }
+                        if (decDataC.ToUINT64() / 2 < 10000)    { std::strcpy(result, " MHz"); }
+                        else                                    { std::strcpy(result, " GHz"); }
                     }
                     else if (CURRENT_CHANNEL_IS_D)   
                     {
@@ -648,8 +648,8 @@ char *MathFPGA::GiveSpec() //-V2008
                     }
                     else
                     {
-                        if (Measure::decDA < 1000)           { std::strcpy(result, " kHz"); }
-                        else                                 { std::strcpy(result, " MHz"); }
+                        if (decDA < 1000)           { std::strcpy(result, " kHz"); }
+                        else                        { std::strcpy(result, " MHz"); }
                     }
                 }
             }
@@ -658,9 +658,9 @@ char *MathFPGA::GiveSpec() //-V2008
                 if ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsF_1()) ||
                     (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsF_1()))
                 {
-                    if (Measure::decDA >= 1000)      { std::strcpy(result, " ns"); }
-                    else if (Measure::decDA <= 1)    { std::strcpy(result, " ms"); }
-                    else                             { std::strcpy(result, " us"); }
+                    if (decDA >= 1000)      { std::strcpy(result, " ns"); }
+                    else if (decDA <= 1)    { std::strcpy(result, " ms"); }
+                    else                    { std::strcpy(result, " us"); }
                 }
                 else
                 {

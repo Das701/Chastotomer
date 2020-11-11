@@ -4,7 +4,6 @@
 
 struct MathFPGA
 {
-    static char *GiveSpec();
     static char *GiveIdent();
 
     static void DecToBin(int dec, char *bin);
@@ -46,6 +45,8 @@ struct MathFPGA
     friend struct MathFPGA;
 
         static char *GiveData();
+
+        static char *GiveSpec();
 
         static void Calculate();
 
