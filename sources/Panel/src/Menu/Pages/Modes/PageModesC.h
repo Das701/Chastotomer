@@ -3,21 +3,6 @@
 #include "Menu/Pages/Modes/PageModesA.h"
 
 
-// Режим счёта импульсов
-struct ModeMeasureCountPulseC : public Enumeration
-{
-    enum E
-    {
-        CtA,      // C(tA)
-        CtB,      // C(tB)
-        CTA,      // C(TA)
-        CTB       // C(TB)
-    };
-
-    explicit ModeMeasureCountPulseC(E v) : Enumeration((uint8)v) {};
-};
-
-
 struct PageModesC
 {
     static Page *self;
@@ -32,10 +17,10 @@ struct PageModesC
     static void OnChanged_ModeFrequency();
     static void OnChanged_ModeCountPulse();
     
-    static TypeMeasure            typeMeasure;           // Тип измерения
-    static ModeMeasureFrequency   modeMeasureFrequency;  // Режим измерения частоты
-    static ModeMeasureCountPulseC modeMeasureCountPulse; // Режим счёта импульсов
-    static PeriodTimeLabels       periodTimeLabels;      // Период меток времени
-    static TimeMeasure            timeMeasure;           // Время счета
-    static NumberPeriods          numberPeriods;         // Число периодов измерения
+    static TypeMeasure           typeMeasure;           // Тип измерения
+    static ModeMeasureFrequency  modeMeasureFrequency;  // Режим измерения частоты
+    static ModeMeasureCountPulse modeMeasureCountPulse; // Режим счёта импульсов
+    static PeriodTimeLabels      periodTimeLabels;      // Период меток времени
+    static TimeMeasure           timeMeasure;           // Время счета
+    static NumberPeriods         numberPeriods;         // Число периодов измерения
 };

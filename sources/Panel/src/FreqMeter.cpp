@@ -229,22 +229,22 @@ void CurrentModeMeasureCountPulse::LoadToFPGA()
     argument[1] = 1;
     argument[0] = 1;
 
-    if ((PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CtA) && CURRENT_CHANNEL_IS_C)
+    if ((PageModesC::modeMeasureCountPulse == ModeMeasureCountPulse::CtA) && CURRENT_CHANNEL_IS_C)
     {
     }
-    else if ((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::AtC && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BtA && CURRENT_CHANNEL_IS_B) ||
-        (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CtB && CURRENT_CHANNEL_IS_C))
+    else if ((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::AtC && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulse::BtA && CURRENT_CHANNEL_IS_B) ||
+        (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulse::CtB && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
     }
-    else if ((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulseA::ATB && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulseB::BTA && CURRENT_CHANNEL_IS_B) ||
-        (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTA && CURRENT_CHANNEL_IS_C))
+    else if ((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::ATB && CURRENT_CHANNEL_IS_A) ||
+        (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulse::BTA && CURRENT_CHANNEL_IS_B) ||
+        (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulse::CTA && CURRENT_CHANNEL_IS_C))
     {
         argument[4] = 1;
     }
-    else if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulseC::CTB && CURRENT_CHANNEL_IS_C)
+    else if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulse::CTB && CURRENT_CHANNEL_IS_C)
     {
         argument[5] = 1;
         argument[4] = 1;

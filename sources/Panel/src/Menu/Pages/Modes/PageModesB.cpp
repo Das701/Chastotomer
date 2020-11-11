@@ -23,14 +23,14 @@ extern Switch sNumberPeriods;
 static const bool correctTypeMeasure[TypeMeasure::Count] = { true, true, true, true };
 TypeMeasure           PageModesB::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure);
 static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, true, false, false, true, true, false, false, true, false};
-ModeMeasureFrequency   PageModesB::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
-ModeMeasurePeriod      PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
-ModeMeasureDuration    PageModesB::modeMeasureDuration(ModeMeasureDuration::Ndt);
-ModeMeasureCountPulseB PageModesB::modeMeasureCountPulse(ModeMeasureCountPulseB::BtA);
+ModeMeasureFrequency  PageModesB::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
+ModeMeasurePeriod     PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
+ModeMeasureDuration   PageModesB::modeMeasureDuration(ModeMeasureDuration::Ndt);
+ModeMeasureCountPulse PageModesB::modeMeasureCountPulse(ModeMeasureCountPulse::BtA);
 
-PeriodTimeLabels       PageModesB::periodTimeLabels(PeriodTimeLabels::T_8);
-NumberPeriods          PageModesB::numberPeriods(NumberPeriods::_1);
-TimeMeasure            PageModesB::timeMeasure(TimeMeasure::_1ms);
+PeriodTimeLabels      PageModesB::periodTimeLabels(PeriodTimeLabels::T_8);
+NumberPeriods         PageModesB::numberPeriods(NumberPeriods::_1);
+TimeMeasure           PageModesB::timeMeasure(TimeMeasure::_1ms);
 
 
 void PageModesB::PressSetup()
@@ -234,16 +234,16 @@ void PageModesB::OnChanged_ModeCountPulse()
 
     switch (PageModesB::modeMeasureCountPulse.value)
     {
-    case ModeMeasureCountPulseB::BtA:
+    case ModeMeasureCountPulse::BtA:
         break;
 
-    case ModeMeasureCountPulseB::BTA:
+    case ModeMeasureCountPulse::BTA:
         items[2] = &sNumberPeriods;
         items[3] = nullptr;
         break;
 
-    case ModeMeasureCountPulseB::StartStop:
-        PageModesA::modeMeasureCountPulse.value = ModeMeasureCountPulseA::StartStop;
+    case ModeMeasureCountPulse::StartStop:
+        PageModesA::modeMeasureCountPulse.value = ModeMeasureCountPulse::StartStop;
         break;
     }
 

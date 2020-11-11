@@ -18,13 +18,13 @@ extern Switch sNumberPeriodsC;
 
 
 static const bool correctTypeMeasure[TypeMeasure::Count] = { true, false, false, true };
-TypeMeasure            PageModesC::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure);
+TypeMeasure           PageModesC::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure);
 static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
-ModeMeasureFrequency   PageModesC::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
-ModeMeasureCountPulseC PageModesC::modeMeasureCountPulse(ModeMeasureCountPulseC::CtA);
-PeriodTimeLabels       PageModesC::periodTimeLabels(PeriodTimeLabels::T_8);
-NumberPeriods          PageModesC::numberPeriods(NumberPeriods::_1);
-TimeMeasure            PageModesC::timeMeasure(TimeMeasure::_1ms);
+ModeMeasureFrequency  PageModesC::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency);
+ModeMeasureCountPulse PageModesC::modeMeasureCountPulse(ModeMeasureCountPulse::CtA);
+PeriodTimeLabels      PageModesC::periodTimeLabels(PeriodTimeLabels::T_8);
+NumberPeriods         PageModesC::numberPeriods(NumberPeriods::_1);
+TimeMeasure           PageModesC::timeMeasure(TimeMeasure::_1ms);
 
 
 void PageModesC::OnChanged_TypeMeasure()
@@ -95,13 +95,13 @@ void PageModesC::OnChanged_ModeCountPulse()
 
     switch (PageModesC::modeMeasureCountPulse.value)
     {
-    case ModeMeasureCountPulseC::CtA:
-    case ModeMeasureCountPulseC::CtB:
+    case ModeMeasureCountPulse::CtA:
+    case ModeMeasureCountPulse::CtB:
         items[2] = nullptr;
         break;
 
-    case ModeMeasureCountPulseC::CTA:
-    case ModeMeasureCountPulseC::CTB:
+    case ModeMeasureCountPulse::CTA:
+    case ModeMeasureCountPulse::CTB:
         items[2] = &sNumberPeriodsC;
         items[3] = nullptr;
         break;
