@@ -599,10 +599,7 @@ char *MathFPGA::GiveSpec() //-V2008
     {
         std::strcpy(result, " ns");
     }
-    else if ((PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_DutyCycle() && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_DutyCycle() && CURRENT_CHANNEL_IS_B) ||
-        (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.Is_Phase() && CURRENT_CHANNEL_IS_B))
+    else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()))
     {
         if (ModeMeasureDuration::Current().Is_Phase())
         {
