@@ -415,7 +415,7 @@ void MathFPGA::DutyCycle::Calculate()
         {
             decPeriod += base1;
         }
-        base1 = base1 * 2;
+        base1 *= 2;
     }
 
     for (int i = len - 1; i >= 0; i--)
@@ -424,7 +424,7 @@ void MathFPGA::DutyCycle::Calculate()
         {
             decDuration += base2;
         }
-        base2 = base2 * 2;
+        base2 *=  2;
     }
 
     dutyCycle = (float)decDuration / (float)decPeriod;
