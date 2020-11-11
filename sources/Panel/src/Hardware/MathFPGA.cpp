@@ -44,7 +44,6 @@ static float interpol = 0.0F;
 static char minAutoData[7] = { 0 };
 static char maxAutoData[7] = { 0 };
 
-static int decPeriod = 0;
 static int decDuration = 0;
 static int decTimer1 = 0;
 static int decCAL1 = 0;
@@ -404,7 +403,7 @@ char *MathFPGA::Auto::Give()
 
 void MathFPGA::DutyCycle::Calculate()
 {
-    decPeriod = 0;
+    static int decPeriod = 0;
     decDuration = 0;
     int base1 = 1;
     int base2 = 1;
