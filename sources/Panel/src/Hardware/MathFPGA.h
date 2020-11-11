@@ -51,14 +51,13 @@ struct MathFPGA
 
     private:
 
-        static char dataFrequencyB[32];
-
         static int decDA;
         static int emptyZeros;
 
         static ValuePICO valueComparator;       // Рассчитанное значение компаратора
 
         static uint fpgaFrequencyA;             // Считанное из FPGA значение
+        static uint fpgaFrequencyB;             // Считанное из FPGA значение
         static ValueNANO decDataA;
         static ValueNANO decDataB;
         static ValueNANO decDataC;

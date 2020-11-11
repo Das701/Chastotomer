@@ -231,7 +231,7 @@ void FPGA::Update()
                 if((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) &&
                     PageModesA::RelationCheck())
                 {
-                    CYCLE_READ_PIN_B14(32, MathFPGA::Measure::dataFrequencyB);
+                    CYCLE_READ_PIN_B14_BIN(32, MathFPGA::Measure::fpgaFrequencyB);
                 }
 
                 Reset_CS;

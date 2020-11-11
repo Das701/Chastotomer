@@ -29,11 +29,11 @@ uint   MathFPGA::DutyCycle::fpgaPeriod = 0;
 bool   MathFPGA::Interpolation::enabled = false;
 float  MathFPGA::Interpolation::value = 0.0F;
 
-char      MathFPGA::Measure::dataFrequencyB[32] = { 0 };
 int       MathFPGA::Measure::decDA = 1;
 int       MathFPGA::Measure::emptyZeros = 0;
 ValuePICO MathFPGA::Measure::valueComparator(0);
 uint      MathFPGA::Measure::fpgaFrequencyA = 0;
+uint      MathFPGA::Measure::fpgaFrequencyB = 0;
 ValueNANO MathFPGA::Measure::decDataA(0);
 ValueNANO MathFPGA::Measure::decDataB(0);
 ValueNANO MathFPGA::Measure::decDataC(0);
@@ -227,7 +227,7 @@ void MathFPGA::Measure::BinToDec()
 
     if (ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC())
     {
-        decDataB.FromDouble(MathFPGA::BinToUint32(dataFrequencyB));
+        decDataB.FromDouble(fpgaFrequencyB);
     }
 
     if (CURRENT_CHANNEL_IS_C)
