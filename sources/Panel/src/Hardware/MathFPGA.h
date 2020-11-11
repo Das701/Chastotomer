@@ -30,6 +30,7 @@ struct MathFPGA
         static void Disable();
         static bool IsEnabled();
         static void Calculate();
+        static float value;
     private:
         static bool enabled;
         static char dataPeriod[32];

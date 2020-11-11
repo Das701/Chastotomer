@@ -23,6 +23,7 @@ char MathFPGA::Measure::dataFrequencyB[32] = { 0 };
 ValuePICO MathFPGA::Measure::valueComparator(0);
 
 bool MathFPGA::DutyCycle::enabled = false;
+float MathFPGA::DutyCycle::value = 0.0F;
 char MathFPGA::DutyCycle::dataPeriod[32] = { 0 };
 char MathFPGA::DutyCycle::dataDuration[32] = { 0 };
 
@@ -36,7 +37,6 @@ static int emptyZeros = 0;
 int MathFPGA::NA = 0; //-V707
 int MathFPGA::NB = 0; //-V707
 
-static float dutyCycle = 0.0F;
 static int dcycleZeros = 0;
 
 static float interpol = 0.0F;
@@ -424,27 +424,27 @@ void MathFPGA::DutyCycle::Calculate()
         {
             decDuration += base2;
         }
-        base2 *=  2;
+        base2 *= 2;
     }
 
-    dutyCycle = (float)decDuration / (float)decPeriod;
+    value = (float)decDuration / (float)decPeriod;
 
     if (ModeMeasureDuration::Current().Is_Phase())
     {
-        dutyCycle = dutyCycle * 360;
+        value *= 360;
     }
     else
     {
-        if (dutyCycle < 0)
+        if (value < 0)
         {
-            dutyCycle = dutyCycle * (-1);
+            value *= -1;
         }
 
-        if (dutyCycle != 0.0F) //-V2550 //-V550
+        if (value != 0.0F) //-V2550 //-V550
         {
-            while (dutyCycle < 1)
+            while (value < 1)
             {
-                dutyCycle = dutyCycle * 10;
+                value *=  10;
                 dcycleZeros++;
             }
         }
@@ -556,8 +556,8 @@ char *MathFPGA::Measure::GiveData()
         {
             DutyCycle::Calculate();
 
-            if (ModeMeasureDuration::Current().Is_Phase())  { std::sprintf(procDataDcycle, "%10.3f", dutyCycle); }
-            else                                            { std::sprintf(procDataDcycle, "%10.7f", dutyCycle); }
+            if (ModeMeasureDuration::Current().Is_Phase())  { std::sprintf(procDataDcycle, "%10.3f", MathFPGA::DutyCycle::value); }
+            else                                            { std::sprintf(procDataDcycle, "%10.7f", MathFPGA::DutyCycle::value); }
 
             return procDataDcycle;
         }
