@@ -532,7 +532,7 @@ char *MathFPGA::Measure::GiveData()
 
             return result;
         }
-        else if (CurrentModeMeasureFrequency::IsComparator())
+        else if (ModeMeasureFrequency::Current().IsComparator())
         {
             std::sprintf(result, "%s", valueComparator.ToString());
 

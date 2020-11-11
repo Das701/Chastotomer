@@ -189,12 +189,6 @@ bool CurrentTypeMeasure::IsCountPulse()
 }
 
 
-bool CurrentModeMeasureFrequency::IsComparator()
-{
-    return CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsFrequency() && PageModesA::modeMeasureFrequency.IsComparator();
-}
-
-
 bool CurrentModeMeasureFrequency::IsT_1()
 {
     return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsT_1()) ||
