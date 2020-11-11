@@ -28,25 +28,6 @@ int CurrentTypeMeasure::Value()
 }
 
 
-Enumeration &CurrentTypeMeasure::ToEnumeration()
-{
-    if (CURRENT_CHANNEL_IS_A)
-    {
-        return PageModesA::typeMeasure;
-    }
-    else if (CURRENT_CHANNEL_IS_B)
-    {
-        return PageModesB::typeMeasure;
-    }
-    else if (CURRENT_CHANNEL_IS_C)
-    {
-        return PageModesC::typeMeasure;
-    }
-
-    return PageModesD::typeMeasure;
-}
-
-
 Enumeration &CurrentModeMeasure::ToEnumeration()
 {
     if (CURRENT_CHANNEL_IS_A)
@@ -154,7 +135,7 @@ void CurrentTypeMeasure::Draw(int x, int y)
 
     Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
 
-    Text(ToEnumeration().ToText()).Write(x, y + 10, width, Color::WHITE);
+    Text(TypeMeasure::Current().ToText()).Write(x, y + 10, width, Color::WHITE);
 }
 
 

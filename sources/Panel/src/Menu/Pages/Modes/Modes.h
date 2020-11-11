@@ -2,6 +2,22 @@
 #include "Menu/MenuItems.h"
 
 
+struct CurrentModeMeasure
+{
+    static Enumeration &ToEnumeration();
+    static void Draw(int x, int y);
+    static void DrawParameters(int x, int y);
+};
+
+
+// Здесь функции общие для всех страниц режимов каналов
+struct PageModes
+{
+    // Сброс режима текущего измерения
+    static void ResetModeCurrentMeasure();
+};
+
+
 struct TypeMeasure : public Enumeration
 {
     enum E
@@ -18,6 +34,8 @@ struct TypeMeasure : public Enumeration
     bool IsCountPulse() const { return (value == CountPulse); }
     bool IsPeriod() const { return (value == Period); }
     bool IsDuration() const { return (value == Duration); }
+
+    static TypeMeasure &Current();
 };
 
 // Режим измерения частоты

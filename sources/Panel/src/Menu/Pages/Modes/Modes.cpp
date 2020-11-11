@@ -24,3 +24,17 @@ bool ModeMeasureCountPulse::IsFromPeriod() const
 {
     return (value == ATB) || (value == BTA) || (value == CTA) || (value == CTB);
 }
+
+
+TypeMeasure &TypeMeasure::Current()
+{
+    static TypeMeasure *const types[TypeMeasure::Count] =
+    {
+        &PageModesA::typeMeasure,
+        &PageModesB::typeMeasure,
+        &PageModesC::typeMeasure,
+        &PageModesD::typeMeasure
+    };
+
+    return *types[CURRENT_CHANNEL];
+}

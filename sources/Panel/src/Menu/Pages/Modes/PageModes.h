@@ -13,23 +13,5 @@ struct CurrentTypeMeasure
     static bool IsPeriod();
     static bool IsDuration();
     static bool IsCountPulse();
-    static Enumeration &ToEnumeration();
     static void Draw(int x, int y);
-
-};
-
-
-struct CurrentModeMeasure
-{
-    static Enumeration &ToEnumeration();
-    static void Draw(int x, int y);
-    static void DrawParameters(int x, int y);
-};
-
-
-// Здесь функции общие для всех страниц режимов каналов
-struct PageModes
-{
-    // Сброс режима текущего измерения
-    static void ResetModeCurrentMeasure();
 };
