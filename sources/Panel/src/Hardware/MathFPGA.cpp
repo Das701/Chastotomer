@@ -88,7 +88,7 @@ int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
 {
     int result = 0;
 
-    if (CurrentModeMeasureFrequency::IsT_1())
+    if (ModeMeasureFrequency::Current().IsT_1())
     {
         manualZeros = 10 * PageModesA::periodTimeLabels.ToZeros() / 1000 * PageModesA::numberPeriods.ToAbs();
 
@@ -626,7 +626,7 @@ char *MathFPGA::GiveSpec() //-V2008
         {
             if (CurrentTypeMeasure::IsFrequency())
             {
-                if (CurrentModeMeasureFrequency::IsT_1())
+                if (ModeMeasureFrequency::Current().IsT_1())
                 {
                     if (decDA < 1000)           { std::strcpy(result, " Hz");  }
                     else if (decDA < 1000000)   { std::strcpy(result, " kHz"); }

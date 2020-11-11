@@ -189,13 +189,6 @@ bool CurrentTypeMeasure::IsCountPulse()
 }
 
 
-bool CurrentModeMeasureFrequency::IsT_1()
-{
-    return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsT_1()) ||
-        (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsT_1()));
-}
-
-
 bool CurrentModeMeasureFrequency::Is_RatioAC_or_RatioBC()
 {
     return ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsRatioAC()) ||
