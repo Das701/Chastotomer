@@ -29,11 +29,11 @@ char   MathFPGA::DutyCycle::dataDuration[32] = { 0 };
 bool   MathFPGA::Interpolation::enabled = false;
 float  MathFPGA::Interpolation::value = 0.0F;
 
-char      MathFPGA::Measure::dataFrequencyA[32] = { 0 };
 char      MathFPGA::Measure::dataFrequencyB[32] = { 0 };
 int       MathFPGA::Measure::decDA = 1;
 int       MathFPGA::Measure::emptyZeros = 0;
 ValuePICO MathFPGA::Measure::valueComparator(0);
+uint      MathFPGA::Measure::readedDataA = 0;
 ValueNANO MathFPGA::Measure::decDataA(0);
 ValueNANO MathFPGA::Measure::decDataB(0);
 ValueNANO MathFPGA::Measure::decDataC(0);
@@ -223,7 +223,7 @@ int MathFPGA::Measure::CalculateDuration()
 
 void MathFPGA::Measure::BinToDec()
 {
-    decDataA.FromDouble(MathFPGA::BinToDec(dataFrequencyA));
+    decDataA.FromDouble((double)readedDataA);
 
     if (ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC())
     {
