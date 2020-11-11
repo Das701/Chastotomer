@@ -117,7 +117,7 @@ int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
         decDataA.Mul(100);
         result = PageModesC::numberPeriods.ToAbs();
     }
-    else if (CurrentModeMeasureFrequency::Is_RatioAC_or_RatioBC())
+    else if (ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC())
     {
         int sT = PageModesA::timeMeasure.ToMS();
 
@@ -234,7 +234,7 @@ void MathFPGA::Measure::BinToDec()
 {
     decDataA.FromDouble(MathFPGA::BinToDec(dataFrequencyA));
 
-    if (CurrentModeMeasureFrequency::Is_RatioAC_or_RatioBC())
+    if (ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC())
     {
         decDataB.FromDouble(MathFPGA::BinToDec(dataFrequencyB));
     }
