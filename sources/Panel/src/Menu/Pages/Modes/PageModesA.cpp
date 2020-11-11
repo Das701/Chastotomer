@@ -42,21 +42,6 @@ NumberPeriods         PageModesA::numberPeriods(NumberPeriods::_1);
 TimeMeasure           PageModesA::timeMeasure(TimeMeasure::_1ms);
 
 
-void PageModesA::InterpolateOn()
-{
-    interpoleOn = true;
-}
-
-void PageModesA::InterpolateOff()
-{
-    interpoleOn = false;
-}
-
-bool PageModesA::InterpolateCheck()
-{
-    return interpoleOn == true;
-}
-
 void PageModesA::RelationOn()
 {
     relationOn = true;

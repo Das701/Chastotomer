@@ -542,7 +542,7 @@ char *MathFPGA::Measure::GiveData()
 
             return result;
         }
-        else if (ModeMeasureDuration::Current().Is_Ndt_1ns() && PageModesA::InterpolateCheck())
+        else if (ModeMeasureDuration::Current().Is_Ndt_1ns() && MathFPGA::Interpolation::IsEnabled())
         {
             CalculateInterpolate();
             std::sprintf(procDataInterpol, "%10.2f", interpol);
@@ -722,6 +722,24 @@ void MathFPGA::DutyCycle::Disable()
 
 
 bool MathFPGA::DutyCycle::IsEnabled()
+{
+    return enabled;
+}
+
+
+void MathFPGA::Interpolation::Enable()
+{
+    enabled = true;
+}
+
+
+void MathFPGA::Interpolation::Disable()
+{
+    enabled = false;
+}
+
+
+bool MathFPGA::Interpolation::IsEnabled()
 {
     return enabled;
 }

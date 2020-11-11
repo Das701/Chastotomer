@@ -11,10 +11,6 @@ public:
 
     static Page *self;
     
-    static void InterpolateOn();
-    static void InterpolateOff();
-    static bool InterpolateCheck();
-
     static void RelationOn();
     static void RelationOff();
     static bool RelationCheck();
