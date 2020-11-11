@@ -18,21 +18,6 @@ struct TypeMeasureC : public Enumeration
     bool IsCountPulse() const { return (value == CountPulse); }
 };
 
-// Режим измерения частоты
-struct ModeMeasureFrequencyC : public Enumeration
-{
-    enum E
-    {
-        Frequency,  // Частота
-        RatioCA,    // f(C) / f(A)
-        RatioCB     // f(C) / f(B)
-    };
-
-    explicit ModeMeasureFrequencyC(E v) : Enumeration((uint8)v) {};
-    bool IsFrequency() const { return (value == Frequency); }
-    bool IsRatioCA()   const { return (value == RatioCA); }
-    bool IsRatioCB()   const { return (value == RatioCB); }
-};
 
 // Режим счёта импульсов
 struct ModeMeasureCountPulseC : public Enumeration
@@ -64,7 +49,7 @@ struct PageModesC
     static void OnChanged_ModeCountPulse();
     
     static TypeMeasureC           typeMeasure;           // Тип измерения
-    static ModeMeasureFrequencyC  modeMeasureFrequency;  // Режим измерения частоты
+    static ModeMeasureFrequency   modeMeasureFrequency;  // Режим измерения частоты
     static ModeMeasureCountPulseC modeMeasureCountPulse; // Режим счёта импульсов
     static PeriodTimeLabels       periodTimeLabels;      // Период меток времени
     static TimeMeasure            timeMeasure;           // Время счета

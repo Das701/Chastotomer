@@ -17,12 +17,12 @@ extern Switch sTimeMeasureC;
 extern Switch sNumberPeriodsC;
 
 
-TypeMeasureC             PageModesC::typeMeasure(TypeMeasureC::Frequency);
-ModeMeasureFrequencyC    PageModesC::modeMeasureFrequency(ModeMeasureFrequencyC::Frequency);
-ModeMeasureCountPulseC   PageModesC::modeMeasureCountPulse(ModeMeasureCountPulseC::CtA);
-PeriodTimeLabels         PageModesC::periodTimeLabels(PeriodTimeLabels::T_8);
-NumberPeriods            PageModesC::numberPeriods(NumberPeriods::_1);
-TimeMeasure              PageModesC::timeMeasure(TimeMeasure::_1ms);
+TypeMeasureC           PageModesC::typeMeasure(TypeMeasureC::Frequency);
+ModeMeasureFrequency   PageModesC::modeMeasureFrequency(ModeMeasureFrequency::Frequency);
+ModeMeasureCountPulseC PageModesC::modeMeasureCountPulse(ModeMeasureCountPulseC::CtA);
+PeriodTimeLabels       PageModesC::periodTimeLabels(PeriodTimeLabels::T_8);
+NumberPeriods          PageModesC::numberPeriods(NumberPeriods::_1);
+TimeMeasure            PageModesC::timeMeasure(TimeMeasure::_1ms);
 
 
 void PageModesC::OnChanged_TypeMeasure()
@@ -60,13 +60,13 @@ void PageModesC::OnChanged_ModeFrequency()
 
     switch (PageModesC::modeMeasureFrequency.value)
     {
-    case ModeMeasureFrequencyC::Frequency:
+    case ModeMeasureFrequency::Frequency:
         items[3] = &sTimeMeasureC;
         items[4] = nullptr;
         break;
 
-    case ModeMeasureFrequencyC::RatioCA:
-    case ModeMeasureFrequencyC::RatioCB:
+    case ModeMeasureFrequency::RatioCA:
+    case ModeMeasureFrequency::RatioCB:
         items[3] = &sNumberPeriodsC;
         items[4] = nullptr;
         break;

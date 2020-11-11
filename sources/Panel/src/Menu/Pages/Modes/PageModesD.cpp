@@ -18,9 +18,9 @@ extern Item *items[7];
 extern Switch sTimeMeasureD;
 
 
-TypeMeasureD          PageModesD::typeMeasure(TypeMeasureD::Frequency);
-ModeMeasureFrequencyD PageModesD::modeMeasureFrequency(ModeMeasureFrequencyD::Frequency);
-TimeMeasure           PageModesD::timeMeasure(TimeMeasure::_1ms);
+TypeMeasureD         PageModesD::typeMeasure(TypeMeasureD::Frequency);
+ModeMeasureFrequency PageModesD::modeMeasureFrequency(ModeMeasureFrequency::Frequency);
+TimeMeasure          PageModesD::timeMeasure(TimeMeasure::_1ms);
 
 
 static void OnPress_TimeMeasure()

@@ -21,23 +21,32 @@ struct TypeMeasureAB : public Enumeration
 };
 
 // Режим измерения частоты
-struct ModeMeasureFrequencyA : public Enumeration
+struct ModeMeasureFrequency : public Enumeration
 {
     enum E
     {
-        Frequency,  // Частота
-        RatioAB,    // f(A) / f(B)
-        RatioAC,    // f(A) / f(C)
-        T_1,        // f = 1 / T
-        Tachometer, // Тахометр
-        Comparator
+        /* A B C D */  Frequency,  // Частота
+        /* A B     */  T_1,        // f = 1 / T
+        /* A       */  RatioAB,    // f(A) / f(B)
+        /* A       */  RatioAC,    // f(A) / f(C)
+        /*   B     */  RatioBA,    // f(B) / f(A)
+        /*   B     */  RatioBC,    // f(B) / f(C)
+        /*     C   */  RatioCA,    // f(C) / f(A)
+        /*     C   */  RatioCB,    // f(C) / f(B)
+        /* A B     */  Tachometer, // Тахометр
+        /* A       */  Comparator,
+                       Count
     };
 
-    explicit ModeMeasureFrequencyA(E v) : Enumeration((uint8)v) {};
+    explicit ModeMeasureFrequency(E v) : Enumeration((uint8)v) {};
 
     bool IsFrequency()  const { return (value == Frequency); }
     bool IsRatioAB()    const { return (value == RatioAB); }
     bool IsRatioAC()    const { return (value == RatioAC); }
+    bool IsRatioBA()    const { return (value == RatioBA); }
+    bool IsRatioBC()    const { return (value == RatioBC); }
+    bool IsRatioCA()    const { return (value == RatioCA); }
+    bool IsRatioCB()    const { return (value == RatioCB); }
     bool IsT_1()        const { return (value == T_1); }
     bool IsTachometer() const { return (value == Tachometer); }
     bool IsComparator() const { return (value == Comparator); }
@@ -202,7 +211,7 @@ public:
     static void OnChanged_ModeCountPulse();
     
     static TypeMeasureAB            typeMeasure;                // Тип измерения
-    static ModeMeasureFrequencyA    modeMeasureFrequency;       // Режим измерения частоты
+    static ModeMeasureFrequency     modeMeasureFrequency;       // Режим измерения частоты
     static ModeMeasurePeriod        modeMeasurePeriod;          // Режим измерения периода
     static ModeMeasureDuration      modeMeasureDuration;        // Режим измерения длительности
     static ModeMeasureCountPulseA   modeMeasureCountPulse;      // Режим счёта импульсов

@@ -20,15 +20,15 @@ extern Switch sTimeMeasure;
 extern Switch sNumberPeriods;
 
 
-TypeMeasureAB            PageModesB::typeMeasure(TypeMeasureAB::Frequency);
-ModeMeasureFrequencyB    PageModesB::modeMeasureFrequency(ModeMeasureFrequencyB::Frequency);
-ModeMeasurePeriod        PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
-ModeMeasureDuration      PageModesB::modeMeasureDuration(ModeMeasureDuration::Ndt);
-ModeMeasureCountPulseB   PageModesB::modeMeasureCountPulse(ModeMeasureCountPulseB::BtA);
+TypeMeasureAB          PageModesB::typeMeasure(TypeMeasureAB::Frequency);
+ModeMeasureFrequency   PageModesB::modeMeasureFrequency(ModeMeasureFrequency::Frequency);
+ModeMeasurePeriod      PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
+ModeMeasureDuration    PageModesB::modeMeasureDuration(ModeMeasureDuration::Ndt);
+ModeMeasureCountPulseB PageModesB::modeMeasureCountPulse(ModeMeasureCountPulseB::BtA);
 
-PeriodTimeLabels         PageModesB::periodTimeLabels(PeriodTimeLabels::T_8);
-NumberPeriods            PageModesB::numberPeriods(NumberPeriods::_1);
-TimeMeasure              PageModesB::timeMeasure(TimeMeasure::_1ms);
+PeriodTimeLabels       PageModesB::periodTimeLabels(PeriodTimeLabels::T_8);
+NumberPeriods          PageModesB::numberPeriods(NumberPeriods::_1);
+TimeMeasure            PageModesB::timeMeasure(TimeMeasure::_1ms);
 
 
 void PageModesB::PressSetup()

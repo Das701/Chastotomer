@@ -15,24 +15,12 @@ struct TypeMeasureD : public Enumeration
 };
 
 
-struct ModeMeasureFrequencyD : public Enumeration
-{
-    enum E
-    {
-        Frequency,
-        Count
-    };
-
-    explicit ModeMeasureFrequencyD(E v) : Enumeration((uint8)v) {};
-};
-
-
 class PageModesD
 {
 public:
     static Page *self;
 
     static TypeMeasureD          typeMeasure;
-    static ModeMeasureFrequencyD modeMeasureFrequency;
-    static TimeMeasure           timeMeasure;     // Время счета
+    static ModeMeasureFrequency  modeMeasureFrequency;
+    static TimeMeasure           timeMeasure;           // Время счета
 };

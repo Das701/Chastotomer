@@ -27,15 +27,15 @@ static bool dCycleOn = false;
 static bool relationOn = false;
 static bool startStop = false;
 
-TypeMeasureAB           PageModesA::typeMeasure(TypeMeasureAB::Frequency);
-ModeMeasureFrequencyA   PageModesA::modeMeasureFrequency(ModeMeasureFrequencyA::Frequency);
-ModeMeasurePeriod       PageModesA::modeMeasurePeriod(ModeMeasurePeriod::Period);
-ModeMeasureDuration     PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
-ModeMeasureCountPulseA  PageModesA::modeMeasureCountPulse(ModeMeasureCountPulseA::AtC);
+TypeMeasureAB          PageModesA::typeMeasure(TypeMeasureAB::Frequency);
+ModeMeasureFrequency   PageModesA::modeMeasureFrequency(ModeMeasureFrequency::Frequency);
+ModeMeasurePeriod      PageModesA::modeMeasurePeriod(ModeMeasurePeriod::Period);
+ModeMeasureDuration    PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
+ModeMeasureCountPulseA PageModesA::modeMeasureCountPulse(ModeMeasureCountPulseA::AtC);
 
-PeriodTimeLabels        PageModesA::periodTimeLabels(PeriodTimeLabels::T_8);
-NumberPeriods           PageModesA::numberPeriods(NumberPeriods::_1);
-TimeMeasure             PageModesA::timeMeasure(TimeMeasure::_1ms);
+PeriodTimeLabels       PageModesA::periodTimeLabels(PeriodTimeLabels::T_8);
+NumberPeriods          PageModesA::numberPeriods(NumberPeriods::_1);
+TimeMeasure            PageModesA::timeMeasure(TimeMeasure::_1ms);
 
 
 void PageModesA::InterpolateOn()

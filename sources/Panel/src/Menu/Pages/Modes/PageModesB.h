@@ -2,26 +2,6 @@
 #include "Menu/MenuItems.h"
 
 
-// Режим измерения частоты
-struct ModeMeasureFrequencyB : public Enumeration
-{
-    enum E
-    {
-        Frequency,  // Частота
-        RatioBA,    // f(B) / f(A)
-        RatioBC,    // f(B) / f(C)
-        T_1,        // f = 1 / T
-        Tachometer  // Тахометр
-    };
-
-    explicit ModeMeasureFrequencyB(E v) : Enumeration((uint8)v) {};
-    bool IsFrequency()  const { return (value == Frequency); }
-    bool IsRatioBA()    const { return (value == RatioBA); }
-    bool IsRatioBC()    const { return (value == RatioBC);  }
-    bool IsT_1()        const { return (value == T_1); }
-    bool IsTachometer() const { return (value == Tachometer); }
-};
-
 // Режим счёта импульсов
 struct ModeMeasureCountPulseB : public Enumeration
 {
@@ -55,7 +35,7 @@ struct PageModesB
     static void OnChanged_ModeCountPulse();
     
     static TypeMeasureAB          typeMeasure;           // Тип измерения
-    static ModeMeasureFrequencyB  modeMeasureFrequency;  // Режим измерения частоты
+    static ModeMeasureFrequency   modeMeasureFrequency;  // Режим измерения частоты
     static ModeMeasurePeriod      modeMeasurePeriod;     // Режим измерения периода
     static ModeMeasureDuration    modeMeasureDuration;   // Режим измерения длительности
     static ModeMeasureCountPulseB modeMeasureCountPulse; // Режим счёта импульсов
