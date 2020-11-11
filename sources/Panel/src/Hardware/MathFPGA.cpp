@@ -39,9 +39,6 @@ ValueNANO MathFPGA::Measure::decDataB(0);
 ValueNANO MathFPGA::Measure::decDataC(0);
 
 
-static char minAutoData[7] = { 0 };
-static char maxAutoData[7] = { 0 };
-
 static char procDataInterpol[30] = { 0 };
 static char procDataDcycle[30] = { 0 };
 
@@ -368,6 +365,9 @@ int MathFPGA::Auto::Max()
 char *MathFPGA::Auto::Give()
 {
     static char result[20] = { 0 };
+
+    char minAutoData[7] = { 0 };
+    char maxAutoData[7] = { 0 };
 
     Auto::Calculate();
     SU::Int2String((decMin - 512) * 2, minAutoData);
