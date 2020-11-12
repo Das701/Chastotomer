@@ -187,7 +187,7 @@ struct TimeMeasure : public Enumeration
         _100ms,     // 100ms
         _1s,        // 1s
         _10s,       // 10s
-        _100s,       // 100s
+        _100s,      // 100s
         _1000s,
         Count
     };
