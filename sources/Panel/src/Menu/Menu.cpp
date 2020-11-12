@@ -255,13 +255,11 @@ static bool OnControl(const Control &control) //-V2008
     {
     case Control::Right:
         openedPage->SelectNextItem();
-        Hint::Hide();
         result = true;
         break;
 
     case Control::Left:
         openedPage->SelectPrevItem();
-        Hint::Hide();
         result = true;
         break;
 

@@ -152,12 +152,14 @@ int Page::NumItems() const
 void Page::SelectNextItem()
 {
     Math::CircleIncrease<int>(&selectedItem, 0, NumItems() - 1);
+    Hint::Create(SelectedItem());
 }
 
 
 void Page::SelectPrevItem()
 {
     Math::CircleDecrease<int>(&selectedItem, 0, NumItems() - 1);
+    Hint::Create(SelectedItem());
 }
 
 
