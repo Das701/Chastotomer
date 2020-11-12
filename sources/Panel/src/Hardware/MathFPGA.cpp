@@ -497,13 +497,9 @@ String MathFPGA::Measure::GiveSpec() //-V2008
 }
 
 
-char *MathFPGA::Measure::GiveIdent()
+String MathFPGA::Measure::GiveIdent()
 {
-    static char result[10];
-
-    std::sprintf(result, "%ud", FPGA::fpgaIdent);
-
-    return result;
+    return String("%ud", FPGA::fpgaIdent);
 }
 
 

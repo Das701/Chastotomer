@@ -35,7 +35,7 @@ struct MathFPGA
 
         static String GiveData();
         static String GiveSpec();
-        static char *GiveIdent();
+        static String GiveIdent();
 
         static void Calculate();
         static void BinToDec();
