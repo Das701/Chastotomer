@@ -25,8 +25,6 @@ int    MathFPGA::FillFactor::zeroes = 0;
 int       MathFPGA::Measure::decDA = 1;
 int       MathFPGA::Measure::emptyZeros = 0;
 ValuePICO MathFPGA::Measure::valueComparator(0);
-uint      MathFPGA::Measure::fpgaFrequencyA = 0;
-uint      MathFPGA::Measure::fpgaFrequencyB = 0;
 ValueNANO MathFPGA::Measure::decDataA(0);
 ValueNANO MathFPGA::Measure::decDataB(0);
 ValueNANO MathFPGA::Measure::decDataC(0);
@@ -215,13 +213,13 @@ int MathFPGA::Measure::CalculateDuration()
 }
 
 
-void MathFPGA::Measure::BinToDec()
+void MathFPGA::Measure::AppendDataFrequency(uint frequencyA, uint frequencyB)
 {
-    decDataA.FromDouble((double)fpgaFrequencyA);
+    decDataA.FromDouble((double)frequencyA);
 
-    if (ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC())
+    if ((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) && PageModesA::RelationCheck())
     {
-        decDataB.FromDouble(fpgaFrequencyB);
+        decDataB.FromDouble(frequencyB);
     }
 
     if (CURRENT_CHANNEL_IS_C)
@@ -317,7 +315,6 @@ String MathFPGA::Measure::GiveData()
 
     if (TypeMeasure::Current().IsCountPulse())
     {
-        BinToDec();
         decDataA.Div(2);
 
         if (CURRENT_CHANNEL_IS_C)
@@ -336,7 +333,6 @@ String MathFPGA::Measure::GiveData()
     {
         if (ModeMeasureFrequency::Current().IsTachometer())
         {
-            BinToDec();
             decDataA.Div(2);
 
             return String("%10.0f", decDataA.ToFloat());
@@ -360,7 +356,6 @@ String MathFPGA::Measure::GiveData()
         }
         else
         {
-            BinToDec();
             Calculate();
 
             int pow = 0;

@@ -127,17 +127,21 @@ void FPGA::Update() //-V2008
         {
             if (Read_FLAG != 0)
             {
+                uint frequencyA = 0;
+                uint frequencyB = 0;
+
                 Set_CS;
 
-                CYCLE_READ_PIN_B14(32, MathFPGA::Measure::fpgaFrequencyA, true);
+                CYCLE_READ_PIN_B14(32, frequencyA, true);
               
-                if((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) &&
-                    PageModesA::RelationCheck())
+                if((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) && PageModesA::RelationCheck())
                 {
-                    CYCLE_READ_PIN_B14(32, MathFPGA::Measure::fpgaFrequencyB, true);
+                    CYCLE_READ_PIN_B14(32, frequencyB, true);
                 }
 
                 Reset_CS;
+
+                MathFPGA::Measure::AppendDataFrequency(frequencyA, frequencyB);
 
                 HAL_TIM::DelayUS(8);
             }

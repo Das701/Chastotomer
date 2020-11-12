@@ -27,7 +27,8 @@ struct MathFPGA
         static String GiveSpec();
 
         static void Calculate();
-        static void BinToDec();
+
+        static void AppendDataFrequency(uint frequencyA, uint frequencyB);
 
     private:
 
@@ -36,8 +37,6 @@ struct MathFPGA
 
         static ValuePICO valueComparator;       // Рассчитанное значение компаратора
 
-        static uint fpgaFrequencyA;             // Считанное из FPGA значение
-        static uint fpgaFrequencyB;             // Считанное из FPGA значение
         static ValueNANO decDataA;
         static ValueNANO decDataB;
         static ValueNANO decDataC;
