@@ -211,26 +211,26 @@ void FPGA::ReadComparator()
 {
     if (Read_FLAG != 0)
     {
-        uint decFx = 0;
-        uint fpgaTizm = 0;
-        uint fpgaNkal = 0;
+        uint fx = 0;
+        uint tizm = 0;
+        uint nkal = 0;
 
         Set_CS;
         CYCLE_READ_PIN_B14_NO_REFRESH(3, ident, false);
-        CYCLE_READ_PIN_B14_NO_REFRESH(32, decFx, false);
-        CYCLE_READ_PIN_B14_NO_REFRESH(16, fpgaTizm, false);
-        CYCLE_READ_PIN_B14_NO_REFRESH(16, fpgaNkal, false);
+        CYCLE_READ_PIN_B14_NO_REFRESH(32, fx, false);
+        CYCLE_READ_PIN_B14_NO_REFRESH(16, tizm, false);
+        CYCLE_READ_PIN_B14_NO_REFRESH(16, nkal, false);
         Reset_CS;
 
         HAL_TIM::DelayUS(8);
 
-        int decNkal = (int)fpgaNkal;
+        int decNkal = (int)nkal;
 
         if (decNkal != 0)
         {
-            int decTizm = (int)fpgaTizm;
+            int decTizm = (int)tizm;
 
-            if ((fpgaTizm & (1U << 15)) != 0)
+            if ((tizm & (1U << 15)) != 0)
             {
                 decTizm -= 65536;
             }
@@ -240,7 +240,7 @@ void FPGA::ReadComparator()
             dx.Div(2 * 5000000);
 
             ValuePICO k(5000000);
-            k.Sub(ValuePICO((int)decFx));
+            k.Sub(ValuePICO((int)fx));
             k.Div(5000000);
             k.Sub(dx);
             k.Mul(1000000);
