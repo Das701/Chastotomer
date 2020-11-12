@@ -146,12 +146,10 @@ static void DrawScreen()
 {
     if(PageIndication::calibration.Is(Calibration::Pressed))
     {
-        char buffer[20];
         Text("---Режим Калибровка---").Write(40, 20, Color::WHITE);
         Text("Нажмите ЭНК. для сохранения").Write(5, 50);
         Text("Нажмите любую клавишу для выхода").Write(5, 90);
-        SU::Int2String(FPGA::CalibNumber(), buffer);
-        Text(buffer).Write(5, 120);
+        Text(SU::Int2String(FPGA::CalibNumber()).c_str()).Write(5, 120);
     }
     else
     {

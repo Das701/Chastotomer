@@ -173,8 +173,6 @@ String Menu::ChannelSettings()
     std::strcat(settings, " "); \
     std::strcat(settings, ugo);
 
-    char buffer[20];
-
     static const char * const names[Channel::Count] = { "Канал A:", "Канал B:", "Канал C:", "Канал D:" };
 
     char settings[100] = { 0 };
@@ -189,7 +187,7 @@ String Menu::ChannelSettings()
         ADD_UGO(PageSettingsA::modeFront.UGO());
         ADD_UGO(PageSettingsA::divider.UGO());
         ADD_UGO(PageSettingsA::typeSynch.UGO());
-        ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Divider::Current().ToAbs(), buffer));
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Divider::Current().ToAbs()).c_str());
         if (PageSettingsA::typeSynch == TypeSynch::Manual)
         {
             std::strcat(settings, "мВ");
@@ -216,7 +214,7 @@ String Menu::ChannelSettings()
         ADD_UGO(PageSettingsB::modeFront.UGO());
         ADD_UGO(PageSettingsB::divider.UGO());
         ADD_UGO(PageSettingsB::typeSynch.UGO());
-        ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Divider::Current().ToAbs(), buffer));
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Divider::Current().ToAbs()).c_str());
         if (PageSettingsB::typeSynch == TypeSynch::Manual)
         {
             std::strcat(settings, "мВ");

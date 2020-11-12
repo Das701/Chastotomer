@@ -264,13 +264,7 @@ String MathFPGA::Auto::Give()
 
     }
 
-    char minAutoData[7] = { 0 };
-    char maxAutoData[7] = { 0 };
-
-    SU::Int2String(((int)fpgaMin - 512) * 2, minAutoData);
-    SU::Int2String(((int)fpgaMax - 512) * 2, maxAutoData);
-
-    return String("Макс %s Мин %s", maxAutoData, minAutoData);
+    return String("Макс %s Мин %s", SU::Int2String(((int)fpgaMax - 512) * 2).c_str(), SU::Int2String(((int)fpgaMin - 512) * 2).c_str());
 }
 
 

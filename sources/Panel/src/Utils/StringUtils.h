@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Utils/String.h"
 
 
 struct Word
@@ -48,7 +48,7 @@ public:
 
     static bool String2Int(const char *buffer, int *value, char **end);
     
-    static char *Int2String(int n, char *buffer);
+    static String Int2String(int n);
 };
 
 
