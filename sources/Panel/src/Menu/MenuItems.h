@@ -27,6 +27,8 @@ class Item
 {
     friend class Hint;
 public:
+    virtual ~Item() {};
+
     static const int HEIGHT = 35;
 
     // Функция отрисовки

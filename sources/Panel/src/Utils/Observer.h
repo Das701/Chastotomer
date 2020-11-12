@@ -24,7 +24,7 @@ class Subject
 public:
     Subject() : numObservers(0)
     {
-        for (int i = 0; i < numObservers; i++)
+        for (int i = 0; i < MAX_OBSERVERS; i++)
         {
             observers[i] = nullptr;
         }
@@ -41,6 +41,7 @@ protected:
     }
 
 private:
-    Observer *observers[10];
+    static const int MAX_OBSERVERS = 10;
+    Observer *observers[MAX_OBSERVERS];
     int numObservers;
 };

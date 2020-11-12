@@ -95,7 +95,7 @@ void FPGA::Init()
 }
 
 
-void FPGA::Update()
+void FPGA::Update() //-V2008
 {
     if(autoMode)
     {
@@ -124,7 +124,7 @@ void FPGA::Update()
             {
                 Set_CS;
 
-                CYCLE_READ_PIN_B14(3, fpgaIdent, false);
+                CYCLE_READ_PIN_B14(3, fpgaIdent, false); //-V525
 
                 CYCLE_READ_PIN_B14(24, fpgaTimer, false);
 

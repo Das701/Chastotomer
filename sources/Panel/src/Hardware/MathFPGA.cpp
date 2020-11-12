@@ -85,7 +85,7 @@ int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
 
         decDataA.FromDouble((float)(4 / test2));
 
-        decDA = (int)(decDataA.ToDouble() / 2.0F);
+        decDA = (int)(decDataA.ToDouble() / 2.0);
 
         if (decDA < 1000)           { }
         else if (decDA < 1000000)   { decDataA.Div(1000);    }
@@ -123,7 +123,7 @@ int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
         {
             result = mhz;
         }
-        decDA = (int)((decDataA.ToDouble() / (float)khz) / 2.0F);
+        decDA = (int)((decDataA.ToDouble() / (double)khz) / 2.0);
 
         if (CURRENT_CHANNEL_IS_C)
         {
@@ -170,7 +170,7 @@ int MathFPGA::Measure::CalculatePeriod()
     {
         int sT = PageModesA::timeMeasure.ToMS();
 
-        decDA = (int)(decDataA.ToDouble() / (2.0F * (float)sT));
+        decDA = (int)(decDataA.ToDouble() / (2.0 * (double)sT));
         decDataA.FromDouble(4 / decDataA.ToDouble());
 
         decDataA.Mul((uint)sT);
@@ -415,7 +415,6 @@ char *MathFPGA::Measure::GiveData()
         }
         else if (ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
-            MathFPGA::Interpolation::Calculate();
             static char procDataInterpol[30] = { 0 };
             std::sprintf(procDataInterpol, "%10.2f", MathFPGA::Interpolation::Calculate());
             return procDataInterpol;
@@ -556,7 +555,7 @@ char *MathFPGA::Measure::GiveIdent()
 {
     static char result[10];
 
-    std::sprintf(result, "%d", FPGA::fpgaIdent);
+    std::sprintf(result, "%ud", FPGA::fpgaIdent);
 
     return result;
 }

@@ -306,7 +306,7 @@ static void DrawData()
 
         if (data[0] != 0)
         {
-            if (std::isdigit(data[0]) || data[0] == ' ')
+            if (std::isdigit(data[0]) != 0 || data[0] == ' ')
             {
                 FontBig::Write(MathFPGA::Measure::GiveData(), 10, 150, Color::WHITE);
             }

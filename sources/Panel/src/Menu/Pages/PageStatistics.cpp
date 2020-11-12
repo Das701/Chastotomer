@@ -120,8 +120,8 @@ void PageStatistics::Draw()
         min = 0.0;
     }
 
-    float stepX = (float)width / (values.Size() - 1);
-    float stepY = height / (float)(max - min);
+    float stepX = (float)width / (float)(values.Size() - 1);
+    float stepY = (float)height / (float)(max - min);
 
     y0 = y0 + height;
 
@@ -134,8 +134,8 @@ void PageStatistics::Draw()
 
     for (int i = 1; i < values.Size(); i++)
     {
-        int x1 = x0 + (int)((i - 1) * stepX);
-        int x2 = x0 + (int)(i * stepX);
+        int x1 = x0 + (int)((float)(i - 1) * stepX);
+        int x2 = x0 + (int)((float)i * stepX);
 
         int y1 = y0 - (int)(stepY * (values[i - 1] - min));
         int y2 = y0 - (int)(stepY * (values[i] - min));
