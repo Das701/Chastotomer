@@ -12,7 +12,7 @@ namespace Menu
 
     bool Update();
 
-    char *ChannelSettings();
+    String ChannelSettings();
     
     Page* OpenedPage();
 

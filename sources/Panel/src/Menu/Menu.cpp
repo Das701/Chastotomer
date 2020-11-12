@@ -166,7 +166,7 @@ static bool OpenPage(Control control)
 }
 
 
-char *Menu::ChannelSettings()
+String Menu::ChannelSettings()
 {
 // Добавляет в конец строки settings строку ugo через разделительный символ
 #define ADD_UGO(ugo)            \
@@ -177,7 +177,7 @@ char *Menu::ChannelSettings()
 
     static const char * const names[Channel::Count] = { "Канал A:", "Канал B:", "Канал C:", "Канал D:" };
 
-    static char settings[100] = { 0 };
+    char settings[100] = { 0 };
 
     std::strcpy(settings, names[CURRENT_CHANNEL]);
 
@@ -235,7 +235,7 @@ char *Menu::ChannelSettings()
         }
     }
 
-    return settings;
+    return String(settings);
 }
 
 Page* Menu::OpenedPage()
