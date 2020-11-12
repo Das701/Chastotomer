@@ -23,7 +23,6 @@ float  MathFPGA::FillFactor::value = 0.0F;
 int    MathFPGA::FillFactor::zeroes = 0;
        
 int       MathFPGA::Measure::decDA = 1;
-int       MathFPGA::Measure::emptyZeros = 0;
 int       MathFPGA::Measure::pow = 0;
 ValuePICO MathFPGA::Measure::valueComparator(0);
 ValueNANO MathFPGA::Measure::decDataA(0);
@@ -34,20 +33,20 @@ ValueNANO MathFPGA::Measure::decDataC(0);
 
 void MathFPGA::Measure::Calculate()
 {
-    int x = 0;
+    int emptyZeros = 0;
     int manualZeros = 1;
 
     if (TypeMeasure::Current().IsFrequency())
     {
-        x = CalculateFrequency(manualZeros);
+        emptyZeros = CalculateFrequency(manualZeros);
     }
     else if (TypeMeasure::Current().IsDuration())
     {
-        x = CalculateDuration();
+        emptyZeros = CalculateDuration();
     }
     else if (TypeMeasure::Current().IsPeriod())
     {
-        x = CalculatePeriod();
+        emptyZeros = CalculatePeriod();
     }
 
     if (CURRENT_CHANNEL_IS_D)
@@ -55,9 +54,7 @@ void MathFPGA::Measure::Calculate()
         decDataA.FromDouble(decDataC.ToDouble() * 2.0);
     }
 
-    decDataA.Div((uint)(2 * x));
-
-    emptyZeros = x;
+    decDataA.Div((uint)(2 * emptyZeros));
 
     if (manualZeros != 1) //-V1051
     {
@@ -71,9 +68,6 @@ void MathFPGA::Measure::Calculate()
         pow++;
         emptyZeros /= 10;
     }
-
-    emptyZeros = 1;
-
 }
 
 

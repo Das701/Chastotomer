@@ -31,7 +31,6 @@ struct MathFPGA
     private:
 
         static int decDA;
-        static int emptyZeros;
         static int pow;
 
         static ValuePICO valueComparator;       // Рассчитанное значение компаратора
