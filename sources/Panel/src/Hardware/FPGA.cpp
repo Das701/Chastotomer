@@ -118,7 +118,7 @@ void FPGA::Update() //-V2008
     }
     else
     {
-        if (ModeMeasureDuration::Current().Is_Ndt_1ns())
+        if (TypeMeasure::Current().IsDuration() && ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
             if (Read_FLAG != 0)
             {
@@ -137,7 +137,8 @@ void FPGA::Update() //-V2008
                 HAL_TIM::DelayUS(8);
             }
         }
-        else if((ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()) && MathFPGA::DutyCycle::IsEnabled())
+        else if(TypeMeasure::Current().IsDuration() && MathFPGA::DutyCycle::IsEnabled() &&
+            (ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()))
         {
             if (Read_FLAG != 0)
             {
