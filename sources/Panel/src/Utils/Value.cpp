@@ -729,9 +729,9 @@ static void AddChar(char *buffer, const ValueNANO &value, int pos, Order::E orde
 }
 
 
-pString ValueNANO::ToString(bool sign, Order::E order) const
+String ValueNANO::ToString(bool sign, Order::E order) const
 {
-    static char buffer[50];
+    char buffer[50];
     
     std::memset(buffer, '0', 50);
 
@@ -759,7 +759,7 @@ pString ValueNANO::ToString(bool sign, Order::E order) const
         AddChar(buffer, *this, i, order);
     }
 
-    return buffer;
+    return String(buffer);
 }
 
 

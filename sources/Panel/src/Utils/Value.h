@@ -15,8 +15,6 @@ struct Order
         Count
     };
 
-    static pString Suffix(Order::E order);
-
     // Возвращает степень, соответсвующую порядку
     static int GetPow10(Order::E order);
 
@@ -77,7 +75,7 @@ struct ValueNANO
     Order::E GetOrder() const;
 
     // Возращает строку значения
-    pString ToString(bool sign, Order::E order = Order::Count) const;
+    String ToString(bool sign, Order::E order = Order::Count) const;
 
     bool operator<(const ValueNANO &);
     bool operator>(const ValueNANO &);
