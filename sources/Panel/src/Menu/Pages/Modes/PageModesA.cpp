@@ -234,15 +234,11 @@ void PageModesA::OnChanged_ModeDuration()
         items[2] = nullptr;
         break;
 
-    case ModeMeasureDuration::FillFactor:
-    case ModeMeasureDuration::Phase:
-        items[2] = &sPeriodTimeLabels;
-        items[3] = nullptr;
-        break;
-
     case ModeMeasureDuration::Ndt:
     case ModeMeasureDuration::Ndt2:
-        items[2] = &sPeriodTimeLabels;
+    case ModeMeasureDuration::FillFactor:
+    case ModeMeasureDuration::Phase:
+        items[2] = &sPeriodTimeLabels; 
         items[3] = nullptr;
         break;
     }
