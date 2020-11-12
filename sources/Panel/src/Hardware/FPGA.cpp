@@ -76,7 +76,7 @@
 
 uint FPGA::fpgaTimer = 0;
 uint FPGA::fpgaIdent = 0;
-char FPGA::dataCAL1[24] = { 0 };
+uint FPGA::fpgaCAL1 = 0;
 char FPGA::dataCAL2[24] = { 0 };
 
 static char encData[10];
@@ -144,7 +144,7 @@ void FPGA::Update()
 
                 CYCLE_READ_PIN_B14_BIN(24, fpgaTimer, false);
 
-                CYCLE_READ_PIN_B14(24, dataCAL1);
+                CYCLE_READ_PIN_B14_BIN(24, fpgaCAL1, false);
 
                 CYCLE_READ_PIN_B14(24, dataCAL2);
 
