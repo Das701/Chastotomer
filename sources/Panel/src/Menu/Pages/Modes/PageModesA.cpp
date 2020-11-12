@@ -234,7 +234,7 @@ void PageModesA::OnChanged_ModeDuration()
         items[2] = nullptr;
         break;
 
-    case ModeMeasureDuration::DutyCycle:
+    case ModeMeasureDuration::FillFactor:
     case ModeMeasureDuration::Phase:
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;

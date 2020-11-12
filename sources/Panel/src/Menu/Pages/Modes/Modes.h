@@ -133,18 +133,18 @@ struct ModeMeasureDuration : public Enumeration
         Ndt,        // ndt
         Ndt_1ns,    // ndt_1нс
         Ndt2,       // ndt2
-        DutyCycle,  // Скважность
+        FillFactor, // Коэффициет заполнения
         Phase,      // Фаза
         Count
     };
 
     explicit ModeMeasureDuration(E v) : Enumeration((uint8)v) {};
 
-    bool Is_Ndt() const       { return (value == Ndt); }
-    bool Is_Ndt_1ns() const   { return (value == Ndt_1ns); }
-    bool Is_Ndt2() const      { return (value == Ndt2); }
-    bool Is_DutyCycle() const { return (value == DutyCycle); }
-    bool Is_Phase() const     { return (value == Phase); }
+    bool Is_Ndt() const        { return (value == Ndt); }
+    bool Is_Ndt_1ns() const    { return (value == Ndt_1ns); }
+    bool Is_Ndt2() const       { return (value == Ndt2); }
+    bool Is_FillFactor() const { return (value == FillFactor); }
+    bool Is_Phase() const      { return (value == Phase); }
 
     static ModeMeasureDuration &Current();
     static void LoadToFPGA();

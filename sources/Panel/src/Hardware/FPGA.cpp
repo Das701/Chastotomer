@@ -115,7 +115,7 @@ void FPGA::Update() //-V2008
         {
             ReadInterpolator();
         }
-        else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()))
+        else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_FillFactor() || ModeMeasureDuration::Current().Is_Phase()))
         {
             if (Read_FLAG != 0)
             {
@@ -132,57 +132,7 @@ void FPGA::Update() //-V2008
         }
         else if (CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsComparator() && PageModesA::typeMeasure.IsFrequency())) 
         {
-            if (Read_FLAG != 0)
-            {
-                uint decFx = 0;
-                uint fpgaTizm = 0;
-                uint fpgaNkal = 0;
-
-                Set_CS;
-
-                CYCLE_READ_PIN_B14_NO_REFRESH(3, fpgaIdent, false);
-
-                CYCLE_READ_PIN_B14_NO_REFRESH(32, decFx, false);
-
-                CYCLE_READ_PIN_B14_NO_REFRESH(16, fpgaTizm, false);
-
-                CYCLE_READ_PIN_B14_NO_REFRESH(16, fpgaNkal, false);
-
-                Reset_CS;
-
-                HAL_TIM::DelayUS(8);
-
-                int decNkal = (int)fpgaNkal;
-
-                if (decNkal != 0)
-                {
-                    int decTizm = (int)fpgaTizm;
-
-                    if ((fpgaTizm & (1U << 15)) != 0)
-                    {
-                        decTizm -= 65536;
-                    }
-
-                    ValuePICO dx(decTizm);
-                    dx.Div((uint)decNkal);
-                    dx.Div(2 * 5000000);
-
-                    ValuePICO k(5000000);
-                    k.Sub(ValuePICO((int)decFx));
-                    k.Div(5000000);
-                    k.Sub(dx);
-                    k.Mul(1000000);
-
-                    k.SetSign(1);
-
-                    MathFPGA::Measure::valueComparator = k;
-
-                    if (Comparator::values.AppendValue(k.ToDouble()))
-                    {
-                        Display::Refresh();
-                    }
-                }
-            }
+            ReadComparator();
         }
         else
         {
@@ -241,6 +191,57 @@ void FPGA::ReadAutoMode()
         Reset_CS;
 
         HAL_TIM::DelayUS(8);
+    }
+}
+
+
+void FPGA::ReadComparator()
+{
+    if (Read_FLAG != 0)
+    {
+        uint decFx = 0;
+        uint fpgaTizm = 0;
+        uint fpgaNkal = 0;
+
+        Set_CS;
+        CYCLE_READ_PIN_B14_NO_REFRESH(3, fpgaIdent, false);
+        CYCLE_READ_PIN_B14_NO_REFRESH(32, decFx, false);
+        CYCLE_READ_PIN_B14_NO_REFRESH(16, fpgaTizm, false);
+        CYCLE_READ_PIN_B14_NO_REFRESH(16, fpgaNkal, false);
+        Reset_CS;
+
+        HAL_TIM::DelayUS(8);
+
+        int decNkal = (int)fpgaNkal;
+
+        if (decNkal != 0)
+        {
+            int decTizm = (int)fpgaTizm;
+
+            if ((fpgaTizm & (1U << 15)) != 0)
+            {
+                decTizm -= 65536;
+            }
+
+            ValuePICO dx(decTizm);
+            dx.Div((uint)decNkal);
+            dx.Div(2 * 5000000);
+
+            ValuePICO k(5000000);
+            k.Sub(ValuePICO((int)decFx));
+            k.Div(5000000);
+            k.Sub(dx);
+            k.Mul(1000000);
+
+            k.SetSign(1);
+
+            MathFPGA::Measure::valueComparator = k;
+
+            if (Comparator::values.AppendValue(k.ToDouble()))
+            {
+                Display::Refresh();
+            }
+        }
     }
 }
 

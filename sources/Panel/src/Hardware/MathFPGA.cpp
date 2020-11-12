@@ -351,7 +351,7 @@ String MathFPGA::Measure::GiveData()
         {
             return String("%10.2f", MathFPGA::Interpolator::value);
         }
-        else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()))
+        else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_FillFactor() || ModeMeasureDuration::Current().Is_Phase()))
         {
             DutyCycle::Calculate();
 
@@ -404,7 +404,7 @@ String MathFPGA::Measure::GiveSpec() //-V2008
     {
         return String(" ns");
     }
-    else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()))
+    else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_FillFactor() || ModeMeasureDuration::Current().Is_Phase()))
     {
         if (ModeMeasureDuration::Current().Is_Phase())
         {

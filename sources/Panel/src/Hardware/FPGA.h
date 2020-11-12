@@ -39,6 +39,7 @@ private:
 
     static void ReadInterpolator();
     static void ReadAutoMode();
+    static void ReadComparator();
 
     static uint fpgaIdent;
 };
