@@ -67,7 +67,7 @@
         WRITE_COMMAND(x[i]);                                                            \
     }
 
-static uint fpgaIdent = 0;
+static uint ident = 0;      // Это значение считывается непосредствено из FPGA
 
 static char encData[10];
 static bool autoMode = false;
@@ -178,7 +178,7 @@ void FPGA::ReadInterpolator()
         uint cal2 = 0;
 
         Set_CS;
-        CYCLE_READ_PIN_B14(3, fpgaIdent, false); //-V525
+        CYCLE_READ_PIN_B14(3, ident, false); //-V525
         CYCLE_READ_PIN_B14(24, timer, false);
         CYCLE_READ_PIN_B14(24, cal1, false);
         CYCLE_READ_PIN_B14(24, cal2, false);
@@ -196,7 +196,7 @@ void FPGA::ReadAutoMode()
     if (Read_FLAG != 0)
     {
         Set_CS;
-        CYCLE_READ_PIN_B14(3, fpgaIdent, false);
+        CYCLE_READ_PIN_B14(3, ident, false);
         CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMin, false);
         CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMid, false);
         CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMax, false);
@@ -216,7 +216,7 @@ void FPGA::ReadComparator()
         uint fpgaNkal = 0;
 
         Set_CS;
-        CYCLE_READ_PIN_B14_NO_REFRESH(3, fpgaIdent, false);
+        CYCLE_READ_PIN_B14_NO_REFRESH(3, ident, false);
         CYCLE_READ_PIN_B14_NO_REFRESH(32, decFx, false);
         CYCLE_READ_PIN_B14_NO_REFRESH(16, fpgaTizm, false);
         CYCLE_READ_PIN_B14_NO_REFRESH(16, fpgaNkal, false);
@@ -355,7 +355,7 @@ void FPGA::ReadCalibNumber()
 
     Set_CS;
 
-    CYCLE_READ_PIN_B14(3, fpgaIdent, false);
+    CYCLE_READ_PIN_B14(3, ident, false);
 
     CYCLE_READ_PIN_B14(10, fpgaCalib, false);
 
@@ -505,5 +505,5 @@ double FPGA::Comparator::Stack::GetFromEnd(int fromEnd)
 
 String FPGA::GiveIdent()
 {
-    return String("%ud", fpgaIdent);
+    return String("%ud", ident);
 }
