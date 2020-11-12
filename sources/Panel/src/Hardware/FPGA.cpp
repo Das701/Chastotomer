@@ -172,18 +172,19 @@ void FPGA::Update()
         {
             uint decFx = 0;
 
-            static char comparatorTizm[16] = { 0 };
             static char comparatorNkal[16] = { 0 };
 
             if (Read_FLAG != 0)
             {
+                uint fpgaTizm = 0;
+
                 Set_CS;
 
                 CYCLE_READ_PIN_B14_BIN(3, fpgaIdent, false);
 
                 CYCLE_READ_PIN_B14_BIN(32, decFx, false);
 
-                CYCLE_READ_PIN_B14(16, comparatorTizm);
+                CYCLE_READ_PIN_B14_BIN(16, fpgaTizm, false);
 
                 CYCLE_READ_PIN_B14(16, comparatorNkal);
 
@@ -195,9 +196,9 @@ void FPGA::Update()
 
                 if (decNkal != 0)
                 {
-                    int decTizm = MathFPGA::BinToUint16(comparatorTizm);
+                    int decTizm = (int)fpgaTizm;
 
-                    if (comparatorTizm[0] == 1)
+                    if ((fpgaTizm & (1U << 15)) != 0)
                     {
                         decTizm -= 65536;
                     }
