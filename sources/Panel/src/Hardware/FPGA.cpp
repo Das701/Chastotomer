@@ -118,7 +118,7 @@ void FPGA::Update()
     }
     else
     {
-        if (ModeMeasureDuration::Current().Is_Ndt_1ns() && MathFPGA::Interpolation::IsEnabled())
+        if (ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
             if (Read_FLAG != 0)
             {

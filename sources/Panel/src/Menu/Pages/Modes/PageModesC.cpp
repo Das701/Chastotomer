@@ -77,7 +77,6 @@ void PageModesC::OnChanged_ModeFrequency()
     }
 
     PageModesA::RelationOff();
-    MathFPGA::Interpolation::Disable();
     MathFPGA::DutyCycle::Disable();
     
     ModeMeasureFrequency::LoadToFPGA();
@@ -112,7 +111,6 @@ void PageModesC::OnChanged_ModeCountPulse()
     items[3] = nullptr;
 
     PageModesA::RelationOff();
-    MathFPGA::Interpolation::Disable();
     MathFPGA::DutyCycle::Disable();
 
     ModeMeasureCountPulse::LoadToFPGA();

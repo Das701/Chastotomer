@@ -416,7 +416,7 @@ char *MathFPGA::Measure::GiveData()
 
             return result;
         }
-        else if (ModeMeasureDuration::Current().Is_Ndt_1ns() && MathFPGA::Interpolation::IsEnabled())
+        else if (ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
             MathFPGA::Interpolation::Calculate();
             static char procDataInterpol[30] = { 0 };
@@ -474,7 +474,7 @@ char *MathFPGA::Measure::GiveSpec() //-V2008
 {
     static char result[10] = { 0 };
 
-    if (MathFPGA::Interpolation::IsEnabled() && ModeMeasureDuration::Current().Is_Ndt_1ns())
+    if (ModeMeasureDuration::Current().Is_Ndt_1ns())
     {
         std::strcpy(result, " ns");
     }
@@ -589,24 +589,6 @@ void MathFPGA::DutyCycle::Disable()
 
 
 bool MathFPGA::DutyCycle::IsEnabled()
-{
-    return enabled;
-}
-
-
-void MathFPGA::Interpolation::Enable()
-{
-    enabled = true;
-}
-
-
-void MathFPGA::Interpolation::Disable()
-{
-    enabled = false;
-}
-
-
-bool MathFPGA::Interpolation::IsEnabled()
 {
     return enabled;
 }

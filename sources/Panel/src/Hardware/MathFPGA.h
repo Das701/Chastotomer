@@ -11,9 +11,6 @@ struct MathFPGA
 
     struct Interpolation
     {
-        static void Enable();
-        static void Disable();
-        static bool IsEnabled();
         static void Calculate();
         static float value;
     private:

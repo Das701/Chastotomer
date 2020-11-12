@@ -139,7 +139,6 @@ void PageModesB::OnChanged_ModeFrequency()
         PageModesA::RelationOff();
     }
 
-    MathFPGA::Interpolation::Disable();
     MathFPGA::DutyCycle::Disable();
     
     ModeMeasureFrequency::LoadToFPGA();
@@ -171,7 +170,6 @@ void PageModesB::OnChanged_ModePeriod()
     }
 
     PageModesA::RelationOff();
-    MathFPGA::Interpolation::Disable();
     MathFPGA::DutyCycle::Disable();
 
     ModeMeasurePeriod::LoadToFPGA();
@@ -194,7 +192,6 @@ void PageModesB::OnChanged_ModeDuration()
     switch (PageModesB::modeMeasureDuration.value)
     {
     case ModeMeasureDuration::Ndt_1ns:
-        MathFPGA::Interpolation::Enable();
         MathFPGA::DutyCycle::Disable();
         items[2] = nullptr;
         break;
@@ -202,14 +199,12 @@ void PageModesB::OnChanged_ModeDuration()
     case ModeMeasureDuration::DutyCycle:
     case ModeMeasureDuration::Phase:
         MathFPGA::DutyCycle::Enable();
-        MathFPGA::Interpolation::Disable();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
         break;
 
     case ModeMeasureDuration::Ndt:
     case ModeMeasureDuration::Ndt2:
-        MathFPGA::Interpolation::Disable();
         MathFPGA::DutyCycle::Disable();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
@@ -250,7 +245,6 @@ void PageModesB::OnChanged_ModeCountPulse()
     }
 
     PageModesA::RelationOff();
-    MathFPGA::Interpolation::Disable();
     MathFPGA::DutyCycle::Disable();
 
     ModeMeasureCountPulse::LoadToFPGA();
