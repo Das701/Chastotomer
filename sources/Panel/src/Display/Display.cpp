@@ -318,7 +318,7 @@ static void DrawData()
 
     if (Display::InDrawingPart(170, 50))
     {
-        FontMid::Write(MathFPGA::Measure::GiveSpec().c_str(), 344, 170, Color::WHITE);
+        FontMid::Write(MathFPGA::Measure::GiveUnits().c_str(), 344, 170, Color::WHITE);
     }
 
     if ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) ||

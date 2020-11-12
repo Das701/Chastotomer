@@ -385,7 +385,7 @@ String MathFPGA::Measure::GiveData()
 }
 
 
-String MathFPGA::Measure::GiveSpec() //-V2008
+String MathFPGA::Measure::GiveUnits() //-V2008
 {
     if (ModeMeasureDuration::Current().Is_Ndt_1ns())
     {

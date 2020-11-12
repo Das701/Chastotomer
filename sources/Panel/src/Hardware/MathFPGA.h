@@ -24,7 +24,7 @@ struct MathFPGA
     friend struct MathFPGA;
 
         static String GiveData();
-        static String GiveSpec();
+        static String GiveUnits();
 
         static void AppendDataFrequency(uint frequencyA, uint frequencyB);
 
