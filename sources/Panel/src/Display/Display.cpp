@@ -128,7 +128,7 @@ static void DrawPartScreen(int num)
 
     if (num == 0)
     {
-        Text(String("%d", timeFull).c_str()).Write(440, 0, Color::WHITE);
+        Text(String("%d", timeFull)).Write(440, 0, Color::WHITE);
     }
 
     DrawScreen();

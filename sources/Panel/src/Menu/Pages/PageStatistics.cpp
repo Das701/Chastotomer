@@ -67,7 +67,7 @@ void PageStatistics::Draw()
 
     for (int i = startElement; i < FPGA::Comparator::values.Size(); i++)
     {
-        Text(String("%d - %f", i, FPGA::Comparator::values[i]).c_str()).Write(x0 + 1, y0 + 15 * (i - startElement), Color::WHITE);
+        Text(String("%d - %f", i, FPGA::Comparator::values[i])).Write(x0 + 1, y0 + 15 * (i - startElement), Color::WHITE);
     }
 
     double min = 1e100;
@@ -103,6 +103,6 @@ void PageStatistics::Draw()
         Line().Draw(x1, y1, x2, y2);
     }
 
-    Text(String("%f", max).c_str()).Write(0, 0);
-    Text(String("%f", min).c_str()).Write(0, 10 + height);
+    Text(String("%f", max)).Write(0, 0);
+    Text(String("%f", min)).Write(0, 10 + height);
 }
