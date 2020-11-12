@@ -457,13 +457,13 @@ bool FPGA::Comparator::Stack::AppendValue(double value)
         return true;
     }
 
-    if(value != 0.0)
+    if(value != 0.0) //-V2550 //-V550
     {
         for (int i = 0; i < 5; i++)
         {
             double fromEnd = GetFromEnd(i);
             
-            if(fromEnd == 0.0)
+            if(fromEnd == 0.0) //-V2550 //-V550
             {
                 continue;
             }
