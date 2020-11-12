@@ -67,10 +67,7 @@
         WRITE_COMMAND(x[i]);                                                            \
     }
 
-uint FPGA::fpgaTimer = 0;
 uint FPGA::fpgaIdent = 0;
-uint FPGA::fpgaCAL1 = 0;
-uint FPGA::fpgaCAL2 = 0;
 
 static char encData[10];
 static bool autoMode = false;
@@ -131,22 +128,7 @@ void FPGA::Update() //-V2008
     {
         if (TypeMeasure::Current().IsDuration() && ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
-            if (Read_FLAG != 0)
-            {
-                Set_CS;
-
-                CYCLE_READ_PIN_B14(3, fpgaIdent, false); //-V525
-
-                CYCLE_READ_PIN_B14(24, fpgaTimer, false);
-
-                CYCLE_READ_PIN_B14(24, fpgaCAL1, false);
-
-                CYCLE_READ_PIN_B14(24, fpgaCAL2, false);
-
-                Reset_CS;
-
-                HAL_TIM::DelayUS(8);
-            }
+            ReadInterpolator();
         }
         else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()))
         {
@@ -236,6 +218,28 @@ void FPGA::Update() //-V2008
                 HAL_TIM::DelayUS(8);
             }
         }
+    }
+}
+
+
+void FPGA::ReadInterpolator()
+{
+    if (Read_FLAG != 0)
+    {
+        uint fpgaTimer = 0;
+        uint fpgaCAL1 = 0;
+        uint fpgaCAL2 = 0;
+
+        Set_CS;
+        CYCLE_READ_PIN_B14(3, fpgaIdent, false); //-V525
+        CYCLE_READ_PIN_B14(24, fpgaTimer, false);
+        CYCLE_READ_PIN_B14(24, fpgaCAL1, false);
+        CYCLE_READ_PIN_B14(24, fpgaCAL2, false);
+        Reset_CS;
+
+        MathFPGA::Interpolator::value = (float)(100 * fpgaTimer) / (float)(fpgaCAL2 - fpgaCAL1);
+
+        HAL_TIM::DelayUS(8);
     }
 }
 

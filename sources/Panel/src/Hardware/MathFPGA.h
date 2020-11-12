@@ -10,9 +10,9 @@ struct MathFPGA
     static int NA; //-V707
     static int NB; //-V707
 
-    struct Interpolation
+    struct Interpolator
     {
-        static float Calculate();
+        static float value;
     };
 
     struct DutyCycle

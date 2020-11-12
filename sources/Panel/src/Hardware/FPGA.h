@@ -37,8 +37,7 @@ friend struct MathFPGA;
 
 private:
 
-    static uint fpgaTimer;
+    static void ReadInterpolator();
+
     static uint fpgaIdent;
-    static uint fpgaCAL1;
-    static uint fpgaCAL2;
 };

@@ -12,6 +12,8 @@
 
 int    MathFPGA::NA = 0; //-V707
 int    MathFPGA::NB = 0; //-V707
+
+float  MathFPGA::Interpolator::value = 0.0F;
        
 uint   MathFPGA::Auto::fpgaMin = 0;
 uint   MathFPGA::Auto::fpgaMid = 0;
@@ -30,6 +32,7 @@ uint      MathFPGA::Measure::fpgaFrequencyB = 0;
 ValueNANO MathFPGA::Measure::decDataA(0);
 ValueNANO MathFPGA::Measure::decDataB(0);
 ValueNANO MathFPGA::Measure::decDataC(0);
+
 
 
 void MathFPGA::Measure::Calculate()
@@ -307,12 +310,6 @@ void MathFPGA::DecToBin(int dec, char *bin)
 }
 
 
-float MathFPGA::Interpolation::Calculate()
-{
-    return (float)(100 * FPGA::fpgaTimer) / (float)(FPGA::fpgaCAL2 - FPGA::fpgaCAL1);
-}
-
-
 String MathFPGA::Measure::GiveData()
 {
     if (FPGA::IsOverloaded())
@@ -352,7 +349,7 @@ String MathFPGA::Measure::GiveData()
         }
         else if (ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
-            return String("%10.2f", MathFPGA::Interpolation::Calculate());
+            return String("%10.2f", MathFPGA::Interpolator::value);
         }
         else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()))
         {

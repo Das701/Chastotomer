@@ -22,6 +22,7 @@ public:
 class Subject
 {
 public:
+
     Subject() : numObservers(0)
     {
         for (int i = 0; i < MAX_OBSERVERS; i++)
@@ -29,9 +30,11 @@ public:
             observers[i] = nullptr;
         }
     };
+
     void AddObserver(Observer *observer) { observers[numObservers++] = observer; }
 
 protected:
+
     void Event(EventType::E event)
     {
         for (int i = 0; i < numObservers; i++)
