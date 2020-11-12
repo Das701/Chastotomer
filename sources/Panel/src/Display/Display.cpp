@@ -23,8 +23,7 @@
 #include <cstring>
 
 
-using namespace Display::Primitives;
-using Display::Text;
+using namespace Primitives;
 
 
 // Нарисовать подсказку

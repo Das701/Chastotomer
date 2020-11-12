@@ -8,7 +8,8 @@
 #include <wx/wx.h>
 #pragma warning(pop)
 
-using namespace Display::Primitives;
+
+using namespace Primitives;
 
 
 extern wxMemoryDC memDC;

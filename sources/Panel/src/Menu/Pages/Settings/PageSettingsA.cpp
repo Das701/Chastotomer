@@ -9,8 +9,9 @@
 #include "Menu/Pages/Modes/PagesModes.h"
 #include <cstring>
 
-using namespace Display::Primitives;
-using namespace Display;
+
+using namespace Primitives;
+
 
 extern Switch sSync;
 extern Item *items[7];

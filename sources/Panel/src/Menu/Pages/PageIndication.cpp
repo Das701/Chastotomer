@@ -7,8 +7,8 @@
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/MenuItemsDef.h"
 
-using namespace Display::Primitives;
-using namespace Display;
+using namespace Primitives;
+
 extern Item *items[7];
 static bool onceLaunch = false;
 

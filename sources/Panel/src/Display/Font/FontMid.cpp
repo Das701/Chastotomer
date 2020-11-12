@@ -34,7 +34,7 @@
 #include "Display/Font/FontMid.h"
 #include "Display/Primitives.h"
 #include "Display/Display.h"
-using namespace Display::Primitives;
+using namespace Primitives;
 
 static const uint16_t	FontMidRow[] = {
 	0x0000,		//	0000'0000'0000'0000		s16

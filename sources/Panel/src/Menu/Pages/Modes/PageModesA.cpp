@@ -11,8 +11,9 @@
 #include "Menu/MenuItems.h"
 #include "Utils/Math.h"
 
-using namespace Display::Primitives;
-using namespace Display;
+
+using namespace Primitives;
+
 
 extern Item *items[7];
 extern Switch sModeFrequency;

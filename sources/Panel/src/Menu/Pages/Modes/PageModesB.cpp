@@ -8,8 +8,8 @@
 #include "Menu/Pages/Modes/PagesModes.h"
 
 
-using namespace Display::Primitives;
-using namespace Display;
+using namespace Primitives;
+
 
 extern Item *items[7];
 extern Switch sModeFrequency;       

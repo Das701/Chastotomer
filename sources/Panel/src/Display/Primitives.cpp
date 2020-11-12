@@ -2,7 +2,7 @@
 #include "Display/Primitives.h"
 
 
-using namespace Display::Primitives;
+using namespace Primitives;
 
 
 void Rectangle::FillRounded(int x, int y, int round, Color colorFill, Color colorBound)

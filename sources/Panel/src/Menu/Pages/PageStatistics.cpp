@@ -10,8 +10,7 @@
 #include "Utils/String.h"
 
 
-using namespace Display::Primitives;
-using namespace Display;
+using namespace Primitives;
 
 
 DEF_BUTTON(bClear, "Очистить", PageStatistics::Clear);

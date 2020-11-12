@@ -31,7 +31,7 @@
 #undef pString
 
 
-using namespace Display::Primitives;
+using namespace Primitives;
 
 
 // Здесь хранятся указатели на кнопки

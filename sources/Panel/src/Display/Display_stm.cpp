@@ -10,7 +10,7 @@
 #include <cstdlib>
 
 
-using namespace Display::Primitives;
+using namespace Primitives;
 
 
 #define CS_OPEN         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
@@ -22,7 +22,7 @@ using namespace Display::Primitives;
 #define SET_RES_LOW     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET)
 #define SET_RES_HI      HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET)
 
-using namespace Display::Primitives;
+using namespace Primitives;
 
 /// В этом буфере будем рисовать. Ширина равна 480 / 2 потому, что в байте хранятся 2 пикселя с 1 из 16-ти возможных градация каждая.
 #define WIDTH_BUFFER    (480)

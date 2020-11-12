@@ -14,9 +14,7 @@
 #include <cstring>
 
 
-using namespace Display::Primitives;
-using namespace Display;
-
+using namespace Primitives;
 
 
 int Enumeration::NumStates() const

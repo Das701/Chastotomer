@@ -6,8 +6,7 @@
 #include <cstring>
 
 
-using namespace Display;
-using namespace Display::Primitives;
+using namespace Primitives;
 
 
 

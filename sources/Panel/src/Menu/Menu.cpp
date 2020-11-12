@@ -17,7 +17,6 @@
 #include "Utils/StringUtils.h"
 #include <cstring>
 
-using namespace Display;
 
 // ќткрывает страницу, соответствующую воздействию control. ¬озвращает false, если дл€ воздействи€ нет соответствующей страницы
 static bool OpenPage(Control control);

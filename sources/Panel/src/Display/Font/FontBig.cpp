@@ -19,7 +19,7 @@
 #include "Display/Font/FontBig.h"
 #include "Display/Primitives.h"
 #include "Display/Display.h"
-using namespace Display::Primitives;
+using namespace Primitives;
 
 /*!*****************************************************************************
   @brief	Character rows array (32-bit wide)
