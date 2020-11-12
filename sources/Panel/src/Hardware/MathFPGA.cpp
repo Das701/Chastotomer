@@ -628,18 +628,11 @@ char *MathFPGA::Measure::GiveSpec() //-V2008
 
 char *MathFPGA::Measure::GiveIdent()
 {
-    static char identInfo[10] = { 0 };
+    static char result[10];
 
-    if (FPGA::dataIdent[0] == 0)        { std::strcpy(identInfo, "0"); }
-    else                                { std::strcpy(identInfo, "1"); }
+    std::sprintf(result, "%d", FPGA::fpgaIdent);
 
-    for (int i = 1; i < 4; i++)
-    {
-        if (FPGA::dataIdent[i] == 0)    { std::strcat(identInfo, "0"); }
-        else                            { std::strcat(identInfo, "1"); }
-    }
-
-    return identInfo;
+    return result;
 }
 
 

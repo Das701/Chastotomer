@@ -51,13 +51,13 @@
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);                              \
     HAL_TIM::DelayUS(2);
 
-#define  CYCLE_READ_PIN_B14_BIN(num, x)                                                 \
+#define  CYCLE_READ_PIN_B14_BIN(num, x, verifyOverload)                                 \
     x = 0;                                                                              \
     for (int i = num - 1; i >= 0; i--)                                                  \
     {                                                                                   \
         READ_PIN_B14_BIN(x, i);                                                         \
     }                                                                                   \
-    isOverloaded = (x & 1U) != 0;                                                       \
+    if(verifyOverload) { isOverloaded = (x & 1U) != 0; };                               \
     Display::Refresh();
 
 
@@ -75,7 +75,7 @@
     }
 
 uint FPGA::fpgaTimer = 0;
-char FPGA::dataIdent[4] = { 0 };
+uint FPGA::fpgaIdent = 0;
 char FPGA::dataCAL1[24] = { 0 };
 char FPGA::dataCAL2[24] = { 0 };
 
@@ -119,7 +119,7 @@ void FPGA::Update()
         {
             Set_CS;
 
-            CYCLE_READ_PIN_B14(3, dataIdent);
+            CYCLE_READ_PIN_B14_BIN(3, fpgaIdent, false);
 
             CYCLE_READ_PIN_B14(10, MathFPGA::Auto::dataMin);
 
@@ -140,9 +140,9 @@ void FPGA::Update()
             {
                 Set_CS;
 
-                CYCLE_READ_PIN_B14(3, dataIdent);
+                CYCLE_READ_PIN_B14_BIN(3, fpgaIdent, false);
 
-                CYCLE_READ_PIN_B14_BIN(24, fpgaTimer);
+                CYCLE_READ_PIN_B14_BIN(24, fpgaTimer, false);
 
                 CYCLE_READ_PIN_B14(24, dataCAL1);
 
@@ -159,9 +159,9 @@ void FPGA::Update()
             {
                 Set_CS;
 
-                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::DutyCycle::fpgaPeriod);
+                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::DutyCycle::fpgaPeriod, true);
 
-                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::DutyCycle::fpgaDuration);
+                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::DutyCycle::fpgaDuration, true);
 
                 Reset_CS;
 
@@ -179,9 +179,9 @@ void FPGA::Update()
             {
                 Set_CS;
 
-                CYCLE_READ_PIN_B14(3, dataIdent);
+                CYCLE_READ_PIN_B14_BIN(3, fpgaIdent, false);
 
-                CYCLE_READ_PIN_B14_BIN(32, decFx);
+                CYCLE_READ_PIN_B14_BIN(32, decFx, false);
 
                 CYCLE_READ_PIN_B14(16, comparatorTizm);
 
@@ -226,12 +226,12 @@ void FPGA::Update()
             {
                 Set_CS;
 
-                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::Measure::fpgaFrequencyA);
+                CYCLE_READ_PIN_B14_BIN(32, MathFPGA::Measure::fpgaFrequencyA, true);
               
                 if((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) &&
                     PageModesA::RelationCheck())
                 {
-                    CYCLE_READ_PIN_B14_BIN(32, MathFPGA::Measure::fpgaFrequencyB);
+                    CYCLE_READ_PIN_B14_BIN(32, MathFPGA::Measure::fpgaFrequencyB, true);
                 }
 
                 Reset_CS;
@@ -340,7 +340,7 @@ void FPGA::ReadCalibNumber()
 
     Set_CS;
 
-    CYCLE_READ_PIN_B14(3, dataIdent);
+    CYCLE_READ_PIN_B14_BIN(3, fpgaIdent, false);
 
     CYCLE_READ_PIN_B14(10, calibBin);
 

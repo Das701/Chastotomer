@@ -23,7 +23,7 @@ friend struct MathFPGA;
 private:
 
     static uint fpgaTimer;
-    static char dataIdent[4];
+    static uint fpgaIdent;
     static char dataCAL1[24];
     static char dataCAL2[24];
 };
