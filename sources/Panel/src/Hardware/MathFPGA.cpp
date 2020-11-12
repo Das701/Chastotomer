@@ -21,8 +21,6 @@ uint   MathFPGA::Auto::fpgaMax = 0;
        
 float  MathFPGA::FillFactor::value = 0.0F;
 int    MathFPGA::FillFactor::zeroes = 0;
-uint   MathFPGA::FillFactor::fpgaDuration = 0;
-uint   MathFPGA::FillFactor::fpgaPeriod = 0;
        
 int       MathFPGA::Measure::decDA = 1;
 int       MathFPGA::Measure::emptyZeros = 0;
@@ -271,9 +269,9 @@ String MathFPGA::Auto::Give()
 }
 
 
-void MathFPGA::FillFactor::Calculate()
+void MathFPGA::FillFactor::Calculate(uint period, uint duration)
 {
-    value = (float)fpgaDuration / (float)fpgaPeriod;
+    value = (float)duration / (float)period;
 
     if (ModeMeasureDuration::Current().Is_Phase())
     {
@@ -353,14 +351,12 @@ String MathFPGA::Measure::GiveData()
         }
         else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_FillFactor() || ModeMeasureDuration::Current().Is_Phase()))
         {
-            FillFactor::Calculate();
-
             if (ModeMeasureDuration::Current().Is_Phase())
             {
-                return String("%10.3f", MathFPGA::FillFactor::value);
+                return String("%10.3f", MathFPGA::FillFactor::GetValue());
             }
             
-            return String("%10.7f", MathFPGA::FillFactor::value);
+            return String("%10.7f", MathFPGA::FillFactor::GetValue());
         }
         else
         {

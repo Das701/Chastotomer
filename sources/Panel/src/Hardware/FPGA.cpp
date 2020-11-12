@@ -150,13 +150,15 @@ void FPGA::ReadFillFactorPhase()
 {
     if (Read_FLAG != 0)
     {
+        uint period = 0;
+        uint duration = 0;
+
         Set_CS;
-
-        CYCLE_READ_PIN_B14(32, MathFPGA::FillFactor::fpgaPeriod, true);
-
-        CYCLE_READ_PIN_B14(32, MathFPGA::FillFactor::fpgaDuration, true);
-
+        CYCLE_READ_PIN_B14(32, period, true);
+        CYCLE_READ_PIN_B14(32, duration, true);
         Reset_CS;
+
+        MathFPGA::FillFactor::Calculate(period, duration);
 
         HAL_TIM::DelayUS(8);
     }

@@ -15,19 +15,6 @@ struct MathFPGA
         static float value;
     };
 
-    struct FillFactor
-    {
-    friend struct FPGA;
-
-        static void Calculate();
-        static float value;
-        static int zeroes;
-
-    private:
-        static uint fpgaDuration;               // —читанное из FPGA значение
-        static uint fpgaPeriod;                 // —читанное из FPGA значение
-    };
-
     struct Measure
     {
     friend struct FPGA;
@@ -35,7 +22,6 @@ struct MathFPGA
 
         static String GiveData();
         static String GiveSpec();
-        static String GiveIdent();
 
         static void Calculate();
         static void BinToDec();
@@ -56,6 +42,16 @@ struct MathFPGA
         static int CalculateFrequency(int &manualZeros);
         static int CalculatePeriod();
         static int CalculateDuration();
+    };
+
+    struct FillFactor
+    {
+    friend struct MathFPGA::Measure;
+        static void Calculate(uint period, uint duration);
+        static float GetValue() { return value; }
+    private:
+        static float value;
+        static int zeroes;
     };
 
     struct Auto
