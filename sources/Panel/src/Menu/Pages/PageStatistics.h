@@ -14,6 +14,4 @@ public:
     static void AppendValue(double value);
     static void Clear();
     static void Draw();
-
-    static Stack<double> values;
 };

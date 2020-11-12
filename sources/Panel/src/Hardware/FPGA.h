@@ -1,5 +1,6 @@
 #pragma once
 #include "defines.h"
+#include "Utils/Stack.h"
 
 
 struct FPGA
@@ -19,6 +20,18 @@ friend struct MathFPGA;
 
     // Возвращает true в случае переполнения
     static bool IsOverloaded();
+
+    struct Comparator
+    {
+        class Stack : public ::Stack<double>
+        {
+        public:
+            Stack(int size) : ::Stack<double>(size) {};
+        private:
+        };
+
+        static Stack values;
+    };
 
 private:
 

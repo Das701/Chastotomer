@@ -72,6 +72,9 @@ static int NAC = 0;
 static bool isOverloaded = false;
 
 
+FPGA::Comparator::Stack FPGA::Comparator::values(400);
+
+
 void FPGA::Init()
 {
     __HAL_RCC_GPIOB_CLK_ENABLE();
