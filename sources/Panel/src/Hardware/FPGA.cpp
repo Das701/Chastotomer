@@ -81,8 +81,7 @@ uint FPGA::fpgaCAL2 = 0;
 
 static char encData[10];
 static bool autoMode = false;
-static char calibBin[10];
-static int calibNumber = 0;
+static uint fpgaCalib = 0;
 static int NAC = 0;
 
 static bool isOverloaded = false;
@@ -343,24 +342,11 @@ void FPGA::ReadCalibNumber()
 
     CYCLE_READ_PIN_B14_BIN(3, fpgaIdent, false);
 
-    CYCLE_READ_PIN_B14(10, calibBin);
+    CYCLE_READ_PIN_B14_BIN(10, fpgaCalib, false);
 
     Reset_CS;
 
     HAL_TIM::DelayUS(8);
-
-    int len = 10;
-    calibNumber = 0;
-    int base = 1;
-
-    for (int i = len - 1; i >= 0; i--)
-    {
-        if (calibBin[i] == 1)
-        {
-            calibNumber += base;
-        }
-        base = base * 2;
-    }
 }
 
 
@@ -370,13 +356,14 @@ void FPGA::WriteData()
 
     if(PageIndication::calibration.Is(Calibration::Pressed))
     {
-        if(calibNumber + NAC < 0)
+        if((int)fpgaCalib + NAC < 0)
         {
-            calibNumber = 0;
+            fpgaCalib = 0;
             NAC = 0;
         }
-        calibNumber = calibNumber + NAC;
-        MathFPGA::DecToBin(calibNumber, encData);
+
+        fpgaCalib = (uint)((int)fpgaCalib + NAC);
+        MathFPGA::DecToBin((int)fpgaCalib, encData);
         NAC = 0;
     }
     else
@@ -438,7 +425,7 @@ void FPGA::WriteData()
 
 int FPGA::CalibNumber()
 {
-    return calibNumber;
+    return (int)fpgaCalib;
 }
 
 
