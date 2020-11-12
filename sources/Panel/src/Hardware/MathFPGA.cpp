@@ -23,7 +23,6 @@ int    MathFPGA::DutyCycle::zeroes = 0;
 uint   MathFPGA::DutyCycle::fpgaDuration = 0;
 uint   MathFPGA::DutyCycle::fpgaPeriod = 0;
        
-bool   MathFPGA::Interpolation::enabled = false;
 float  MathFPGA::Interpolation::value = 0.0F;
 
 int       MathFPGA::Measure::decDA = 1;

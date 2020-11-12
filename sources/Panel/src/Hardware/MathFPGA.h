@@ -13,8 +13,6 @@ struct MathFPGA
     {
         static void Calculate();
         static float value;
-    private:
-        static bool enabled;
     };
 
     struct DutyCycle
