@@ -67,11 +67,11 @@
         WRITE_COMMAND(x[i]);                                                            \
     }
 
-static uint ident = 0;      // Это значение считывается непосредствено из FPGA
+static uint ident = 0;      // Это значение считывается непосредственно из FPGA
+static uint kCalib = 0;     // Это значение считывается непосредственно из FPGA
 
 static char encData[10];
 static bool autoMode = false;
-static uint fpgaCalib = 0;
 static int NAC = 0;
 
 static bool isOverloaded = false;
@@ -357,7 +357,7 @@ void FPGA::ReadCalibNumber()
 
     CYCLE_READ_PIN_B14(3, ident, false);
 
-    CYCLE_READ_PIN_B14(10, fpgaCalib, false);
+    CYCLE_READ_PIN_B14(10, kCalib, false);
 
     Reset_CS;
 
@@ -371,14 +371,14 @@ void FPGA::WriteData()
 
     if(PageIndication::calibration.Is(Calibration::Pressed))
     {
-        if((int)fpgaCalib + NAC < 0)
+        if((int)kCalib + NAC < 0)
         {
-            fpgaCalib = 0;
+            kCalib = 0;
             NAC = 0;
         }
 
-        fpgaCalib = (uint)((int)fpgaCalib + NAC);
-        MathFPGA::DecToBin((int)fpgaCalib, encData);
+        kCalib = (uint)((int)kCalib + NAC);
+        MathFPGA::DecToBin((int)kCalib, encData);
         NAC = 0;
     }
     else
@@ -440,7 +440,7 @@ void FPGA::WriteData()
 
 int FPGA::CalibNumber()
 {
-    return (int)fpgaCalib;
+    return (int)kCalib;
 }
 
 
