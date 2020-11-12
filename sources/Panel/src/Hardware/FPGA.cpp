@@ -469,20 +469,11 @@ bool FPGA::Comparator::Stack::AppendValue(double value)
         {
             double fromEnd = GetFromEnd(i);
             
-            if(fromEnd == 0.0) //-V2550 //-V550
-            {
-                continue;
-            }
+            if(fromEnd == 0.0) { continue; }                //-V2550 //-V550
     
-            if (value / 10 > fromEnd)
-            {
-                return false;
-            }
+            if (value / 10 > fromEnd) { return false; }     // »збавл€емс€ от слишком больших значений
     
-            if (value * 10 < fromEnd)
-            {
-                return false;
-            }
+            if (value * 10 < fromEnd) { return false; }     // ¬ыкидываем слишком маленькие значени€
         }
     }
 
