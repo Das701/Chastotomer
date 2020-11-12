@@ -41,7 +41,7 @@ file(GLOB HARDWARE_USBD       src/Hardware/USBD/*
                               ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
                               ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c)
 file(GLOB KEYBOARD            src/Keyboard/*.h src/Keyboard/*.cpp)
-file(GLOB MENU                src/Menu/*.h src/Menu/*.cpp)
+file(GLOB MENU                src/Menu/*.h src/Menu/*.cpp src/Menu/*.txt)
 file(GLOB MENU_PAGES          src/Menu/Pages/*.h
                               src/Menu/Pages/*.cpp)
 file(GLOB MENU_PAGES_MODES    src/Menu/Pages/Modes/*)

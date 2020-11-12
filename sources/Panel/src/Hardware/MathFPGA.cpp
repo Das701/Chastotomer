@@ -73,9 +73,9 @@ int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
 
     if (mode.IsT_1())
     {
-        manualZeros = 10 * PageModesA::periodTimeLabels.ToZeros() / 1000 * PageModesA::numberPeriods.ToAbs();
+        manualZeros = 10 * PageModesA::timeLabels.ToZeros() / 1000 * PageModesA::numberPeriods.ToAbs();
 
-        decDataA.Div((uint)PageModesA::periodTimeLabels.ToZeros());
+        decDataA.Div((uint)PageModesA::timeLabels.ToZeros());
 
         double test1 = decDataA.ToDouble();
 
@@ -182,11 +182,11 @@ int MathFPGA::Measure::CalculatePeriod()
     }
     else
     {
-        if (PageModesA::periodTimeLabels.IsT_7() || PageModesA::periodTimeLabels.IsT_4())
+        if (PageModesA::timeLabels.IsT_7() || PageModesA::timeLabels.IsT_4())
         {
             result *= 10;
         }
-        else if (PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
+        else if (PageModesA::timeLabels.IsT_8() || PageModesA::timeLabels.IsT_5())
         {
             result *= 100;
         }
@@ -200,11 +200,11 @@ int MathFPGA::Measure::CalculatePeriod()
 
 int MathFPGA::Measure::CalculateDuration()
 {
-    if (PageModesA::periodTimeLabels.IsT_7())
+    if (PageModesA::timeLabels.IsT_7())
     {
         return 10;
     }
-    else if (PageModesA::periodTimeLabels.IsT_8() || PageModesA::periodTimeLabels.IsT_5())
+    else if (PageModesA::timeLabels.IsT_8() || PageModesA::timeLabels.IsT_5())
     {
         return 100;
     }

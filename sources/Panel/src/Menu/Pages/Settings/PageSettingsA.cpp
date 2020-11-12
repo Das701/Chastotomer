@@ -96,10 +96,10 @@ DEF_SWITCH_UGO_2(sDivider,
 
 static void OnPress_TimeLabels()
 {
-    uint8 period = PageModesA::periodTimeLabels.value;
+    uint8 period = PageModesA::timeLabels.value;
 
-    PageModesB::periodTimeLabels.value = period;
-    PageModesC::periodTimeLabels.value = period;
+    PageModesB::timeLabels.value = period;
+    PageModesC::timeLabels.value = period;
 
     FreqMeter::LoadPeriodTimeLabels();
 }
@@ -108,7 +108,7 @@ static void OnPress_TimeLabels()
 DEF_SWITCH_6(sPeriodTimeLabels,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    PageModesA::periodTimeLabels,  OnPress_TimeLabels
+    PageModesA::timeLabels,  OnPress_TimeLabels
 );
 
 

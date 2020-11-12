@@ -37,7 +37,7 @@ ModeMeasureDuration   PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
 static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { true, true, false, false, false, false, false, false, true};
 ModeMeasureCountPulse PageModesA::modeMeasureCountPulse(ModeMeasureCountPulse::AtC, correctModeMeasureCountPulse, ModeMeasureCountPulse::Count);
 
-PeriodTimeLabels      PageModesA::periodTimeLabels(PeriodTimeLabels::T_8);
+PeriodTimeLabels      PageModesA::timeLabels(PeriodTimeLabels::T_8);
 NumberPeriods         PageModesA::numberPeriods(NumberPeriods::_1);
 TimeMeasure           PageModesA::timeMeasure(TimeMeasure::_1ms);
 
@@ -291,10 +291,10 @@ DEF_SWITCH_3(sModeCountPulse,
 
 static void OnPress_TimeLabels()
 {
-    uint8 period = PageModesA::periodTimeLabels.value;
+    uint8 period = PageModesA::timeLabels.value;
 
-    PageModesB::periodTimeLabels.value = period;
-    PageModesC::periodTimeLabels.value = period;
+    PageModesB::timeLabels.value = period;
+    PageModesC::timeLabels.value = period;
 
     FreqMeter::LoadPeriodTimeLabels();
 }
@@ -303,7 +303,7 @@ static void OnPress_TimeLabels()
 DEF_SWITCH_6(sPeriodTimeLabels,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    PageModesA::periodTimeLabels, OnPress_TimeLabels
+    PageModesA::timeLabels, OnPress_TimeLabels
 );
 
 

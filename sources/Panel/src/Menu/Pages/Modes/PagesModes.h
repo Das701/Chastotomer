@@ -36,7 +36,7 @@ public:
     static ModeMeasurePeriod     modeMeasurePeriod;          // Режим измерения периода
     static ModeMeasureDuration   modeMeasureDuration;        // Режим измерения длительности
     static ModeMeasureCountPulse modeMeasureCountPulse;      // Режим счёта импульсов
-    static PeriodTimeLabels      periodTimeLabels;           // Период меток времени
+    static PeriodTimeLabels      timeLabels;           // Период меток времени
     static TimeMeasure           timeMeasure;                // Время счета
     static NumberPeriods         numberPeriods;              // Число периодов измерения
 };
@@ -65,7 +65,7 @@ struct PageModesB
     static ModeMeasurePeriod     modeMeasurePeriod;     // Режим измерения периода
     static ModeMeasureDuration   modeMeasureDuration;   // Режим измерения длительности
     static ModeMeasureCountPulse modeMeasureCountPulse; // Режим счёта импульсов
-    static PeriodTimeLabels      periodTimeLabels;      // Период меток времени
+    static PeriodTimeLabels      timeLabels;            // Период меток времени
     static TimeMeasure           timeMeasure;           // Время счета
     static NumberPeriods         numberPeriods;         // Число периодов измерения
 };
@@ -88,7 +88,7 @@ struct PageModesC
     static TypeMeasure           typeMeasure;           // Тип измерения
     static ModeMeasureFrequency  modeMeasureFrequency;  // Режим измерения частоты
     static ModeMeasureCountPulse modeMeasureCountPulse; // Режим счёта импульсов
-    static PeriodTimeLabels      periodTimeLabels;      // Период меток времени
+    static PeriodTimeLabels      timeLabels;            // Период меток времени
     static TimeMeasure           timeMeasure;           // Время счета
     static NumberPeriods         numberPeriods;         // Число периодов измерения
 };
