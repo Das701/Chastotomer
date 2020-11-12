@@ -3,6 +3,9 @@
 #include "Display/Colors.h"
 
 
+class String;
+
+
 namespace Display
 {
     class Text
@@ -10,6 +13,7 @@ namespace Display
     public:
         Text(char *text);
         Text(const char *text);
+        Text(const String &text);
         ~Text();
         int Write(int x, int y, Color color);
         int Write(int x, int y);

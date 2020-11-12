@@ -28,6 +28,12 @@ Text::Text(const char *t)
 }
 
 
+Text::Text(const String &text)
+{
+    Text(text.c_str());
+}
+
+
 Text::~Text()
 {
     delete []text;

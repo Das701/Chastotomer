@@ -1,4 +1,5 @@
 #pragma once
+#include "Utils/String.h"
 
 
 class Item;
@@ -10,7 +11,7 @@ public:
     // Создаёт подсказку для item
     static void Create(const Item *item);
     // Возвращает текст подсказки
-    static char *Text();
+    static String Text();
     // Возвращает итем, для которого действует подсказка
     static const Item *UnderItem();
     // Спрятать подсказку

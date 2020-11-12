@@ -89,7 +89,7 @@ Control Keyboard::NextControl()
 }
 
 
-const char *Control::Name()
+String Control::Name() const
 {
     static const char *names[Control::E::Count] =
     {
@@ -108,5 +108,5 @@ const char *Control::Name()
 /* 13 */   "NULL"
     };
 
-    return names[value];
+    return String(names[value]);
 }

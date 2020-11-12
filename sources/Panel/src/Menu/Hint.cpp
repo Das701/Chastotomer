@@ -21,9 +21,9 @@ void Hint::Create(const Item *i)
 }
 
 
-char *Hint::Text()
+String Hint::Text()
 {
-    return TIME_MS <  timeHideHint ? hint : "";
+    return TIME_MS <  timeHideHint ? String(hint) : String("");
 }
 
 
