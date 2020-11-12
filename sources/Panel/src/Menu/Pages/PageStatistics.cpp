@@ -38,12 +38,6 @@ static Page pageShowStatistics(items, nullptr);
 Page *PageStatistics::self = &pageShowStatistics;
 
 
-void PageStatistics::AppendValue(double value)
-{
-    FPGA::Comparator::values.Push(value);
-}
-
-
 void PageStatistics::Clear()
 {
     FPGA::Comparator::values.Clear();

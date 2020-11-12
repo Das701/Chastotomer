@@ -11,7 +11,6 @@ public:
 
     static Page *self;
 
-    static void AppendValue(double value);
     static void Clear();
     static void Draw();
 };

@@ -204,7 +204,7 @@ void FPGA::Update() //-V2008
 
                     MathFPGA::Measure::valueComparator = k;
 
-                    PageStatistics::AppendValue(k.ToDouble());
+                    Comparator::values.Push(k.ToDouble());
                 }
             }
         }
