@@ -169,18 +169,18 @@ void FPGA::ReadInterpolator()
 {
     if (Read_FLAG != 0)
     {
-        uint fpgaTimer = 0;
-        uint fpgaCAL1 = 0;
-        uint fpgaCAL2 = 0;
+        uint timer = 0;
+        uint cal1 = 0;
+        uint cal2 = 0;
 
         Set_CS;
         CYCLE_READ_PIN_B14(3, fpgaIdent, false); //-V525
-        CYCLE_READ_PIN_B14(24, fpgaTimer, false);
-        CYCLE_READ_PIN_B14(24, fpgaCAL1, false);
-        CYCLE_READ_PIN_B14(24, fpgaCAL2, false);
+        CYCLE_READ_PIN_B14(24, timer, false);
+        CYCLE_READ_PIN_B14(24, cal1, false);
+        CYCLE_READ_PIN_B14(24, cal2, false);
         Reset_CS;
 
-        MathFPGA::Interpolator::value = (float)(100 * fpgaTimer) / (float)(fpgaCAL2 - fpgaCAL1);
+        MathFPGA::Interpolator::Calculate(timer, cal1, cal2);
 
         HAL_TIM::DelayUS(8);
     }

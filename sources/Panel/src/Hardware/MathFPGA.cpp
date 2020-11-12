@@ -347,7 +347,7 @@ String MathFPGA::Measure::GiveData()
         }
         else if (ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
-            return String("%10.2f", MathFPGA::Interpolator::value);
+            return String("%10.2f", MathFPGA::Interpolator::GetValue());
         }
         else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_FillFactor() || ModeMeasureDuration::Current().Is_Phase()))
         {
@@ -486,4 +486,10 @@ void MathFPGA::Auto::Refresh()
         fpgaMid = 0;
         fpgaMax = 0;
     }
+}
+
+
+void MathFPGA::Interpolator::Calculate(uint timer, uint cal1, uint cal2)
+{
+    value = (float)(100 * timer) / (float)(cal2 - cal1);
 }

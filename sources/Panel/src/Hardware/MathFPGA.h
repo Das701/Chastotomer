@@ -12,6 +12,9 @@ struct MathFPGA
 
     struct Interpolator
     {
+        static void Calculate(uint timer, uint cal1, uint cal2);
+        static float GetValue() { return value; };
+    private:
         static float value;
     };
 
