@@ -231,46 +231,6 @@ void MathFPGA::Measure::BinToDec()
 }
 
 
-uint MathFPGA::BinToUint32(const char bin[32])
-{
-    int base = 1;
-
-    uint result = 0;
-
-    for (int i = 31; i >= 0; i--)
-    {
-        if (bin[i] == 1)
-        {
-            result += base;
-        }
-
-        base *= 2;
-    }
-
-    return result;
-}
-
-
-uint16 MathFPGA::BinToUint16(const char bin[16])
-{
-    int base = 1;
-
-    uint16 result = 0;
-
-    for (int i = 15; i >= 0; i--)
-    {
-        if (bin[i] == 1)
-        {
-            result += (uint16)base;
-        }
-
-        base *= 2;
-    }
-
-    return (uint16)result;
-}
-
-
 int MathFPGA::Auto::Mid()
 {
     return (int)fpgaMid;
@@ -365,16 +325,11 @@ float MathFPGA::Interpolation::Calculate()
 }
 
 
-char *MathFPGA::Measure::GiveData()
+String MathFPGA::Measure::GiveData()
 {
-    static char result[40] = { 0 };
-
-    result[0] = 0;
-
     if (FPGA::IsOverloaded())
     {
-        std::strcpy(result, "оепеонкмемхе");
-        return result;
+        return String("оепеонкмемхе");
     }
 
     if (TypeMeasure::Current().IsCountPulse())
@@ -392,9 +347,7 @@ char *MathFPGA::Measure::GiveData()
             decDataA.Div((uint)PageModesA::numberPeriods.ToAbs());
         }
 
-        std::sprintf(result, "%10.0f", decDataA.ToFloat());
-
-        return result;
+        return String("%10.0f", decDataA.ToFloat());
     }
     else
     {
@@ -402,32 +355,27 @@ char *MathFPGA::Measure::GiveData()
         {
             BinToDec();
             decDataA.Div(2);
-            std::sprintf(result, "%10.0f", decDataA.ToFloat());
 
-            return result;
+            return String("%10.0f", decDataA.ToFloat());
         }
         else if (ModeMeasureFrequency::Current().IsComparator())
         {
-            std::sprintf(result, "%s", valueComparator.ToString());
-
-            return result;
+            return String("%s", valueComparator.ToString());
         }
         else if (ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
-            static char procDataInterpol[30] = { 0 };
-            std::sprintf(procDataInterpol, "%10.2f", MathFPGA::Interpolation::Calculate());
-            return procDataInterpol;
+            return String("%10.2f", MathFPGA::Interpolation::Calculate());
         }
         else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()))
         {
             DutyCycle::Calculate();
 
-            static char procDataDcycle[30] = { 0 };
-
-            if (ModeMeasureDuration::Current().Is_Phase())  { std::sprintf(procDataDcycle, "%10.3f", MathFPGA::DutyCycle::value); }
-            else                                            { std::sprintf(procDataDcycle, "%10.7f", MathFPGA::DutyCycle::value); }
-
-            return procDataDcycle;
+            if (ModeMeasureDuration::Current().Is_Phase())
+            {
+                return String("%10.3f", MathFPGA::DutyCycle::value);
+            }
+            
+            return String("%10.7f", MathFPGA::DutyCycle::value);
         }
         else
         {
@@ -442,25 +390,25 @@ char *MathFPGA::Measure::GiveData()
                 emptyZeros /= 10;
             }
 
+            emptyZeros = 1;
+
             if (pow < 10)
             {
                 char format[10];
                 std::strcpy(format, "%10.0f");
                 format[4] = (char)(pow | 0x30);
-                std::sprintf(result, format, decDataA.ToFloat());
+
+                return String(format, decDataA.ToFloat());
             }
             else
             {
                 char format[10];
                 std::strcpy(format, "%10.10f");
                 format[5] = (char)((pow - 10) | 0x30);
-                std::sprintf(result, format, decDataA.ToFloat());
+
+                return String(format, decDataA.ToFloat());
             }
-
-            emptyZeros = 1;
         }
-
-        return result;
     }
 }
 

@@ -302,18 +302,18 @@ static void DrawData()
 {
     if (Display::InDrawingPart(150, 50))
     {
-        char *data = MathFPGA::Measure::GiveData();
+        String data = MathFPGA::Measure::GiveData();
 
         if (data[0] != 0)
         {
             if (std::isdigit(data[0]) != 0 || data[0] == ' ')
             {
-                FontBig::Write(MathFPGA::Measure::GiveData(), 10, 150, Color::WHITE);
+                FontBig::Write(data.c_str(), 10, 150, Color::WHITE);
             }
             else
             {
                 Font::Set(TypeFont::GOSTB28B);
-                Text(String(data).c_str()).Write(50, 165, Color::WHITE);
+                Text(data.c_str()).Write(50, 165, Color::WHITE);
                 Font::Set(TypeFont::GOST16B);
             }
         }

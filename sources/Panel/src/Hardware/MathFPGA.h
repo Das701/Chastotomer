@@ -1,4 +1,5 @@
 #pragma once
+#include "Utils/String.h"
 #include "Utils/Value.h"
 
 
@@ -32,7 +33,7 @@ struct MathFPGA
     friend struct FPGA;
     friend struct MathFPGA;
 
-        static char *GiveData();
+        static String GiveData();
         static char *GiveSpec();
         static char *GiveIdent();
 
@@ -74,9 +75,4 @@ struct MathFPGA
         static uint fpgaMid;
         static uint fpgaMax;
     };
-
-public:
-
-    static uint BinToUint32(const char bin[32]);
-    static uint16 BinToUint16(const char bin[16]);
 };
