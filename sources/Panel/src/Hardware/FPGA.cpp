@@ -107,22 +107,7 @@ void FPGA::Update() //-V2008
 {
     if(autoMode)
     {
-        if(Read_FLAG != 0)
-        {
-            Set_CS;
-
-            CYCLE_READ_PIN_B14(3, fpgaIdent, false);
-
-            CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMin, false);
-
-            CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMid, false);
-
-            CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMax, false);
-
-            Reset_CS;
-
-            HAL_TIM::DelayUS(8);
-        }
+        ReadAutoMode();
     }
     else
     {
@@ -238,6 +223,22 @@ void FPGA::ReadInterpolator()
         Reset_CS;
 
         MathFPGA::Interpolator::value = (float)(100 * fpgaTimer) / (float)(fpgaCAL2 - fpgaCAL1);
+
+        HAL_TIM::DelayUS(8);
+    }
+}
+
+
+void FPGA::ReadAutoMode()
+{
+    if (Read_FLAG != 0)
+    {
+        Set_CS;
+        CYCLE_READ_PIN_B14(3, fpgaIdent, false);
+        CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMin, false);
+        CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMid, false);
+        CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMax, false);
+        Reset_CS;
 
         HAL_TIM::DelayUS(8);
     }

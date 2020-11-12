@@ -38,6 +38,7 @@ friend struct MathFPGA;
 private:
 
     static void ReadInterpolator();
+    static void ReadAutoMode();
 
     static uint fpgaIdent;
 };
