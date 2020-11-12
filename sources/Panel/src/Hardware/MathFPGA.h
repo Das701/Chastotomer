@@ -18,15 +18,11 @@ struct MathFPGA
     {
     friend struct FPGA;
 
-        static void Enable();
-        static void Disable();
-        static bool IsEnabled();
         static void Calculate();
         static float value;
         static int zeroes;
 
     private:
-        static bool enabled;
         static uint fpgaDuration;               // —читанное из FPGA значение
         static uint fpgaPeriod;                 // —читанное из FPGA значение
     };

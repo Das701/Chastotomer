@@ -17,7 +17,6 @@ uint   MathFPGA::Auto::fpgaMin = 0;
 uint   MathFPGA::Auto::fpgaMid = 0;
 uint   MathFPGA::Auto::fpgaMax = 0;
        
-bool   MathFPGA::DutyCycle::enabled = false;
 float  MathFPGA::DutyCycle::value = 0.0F;
 int    MathFPGA::DutyCycle::zeroes = 0;
 uint   MathFPGA::DutyCycle::fpgaDuration = 0;
@@ -419,7 +418,7 @@ char *MathFPGA::Measure::GiveData()
             std::sprintf(procDataInterpol, "%10.2f", MathFPGA::Interpolation::Calculate());
             return procDataInterpol;
         }
-        else if ((ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()) && DutyCycle::IsEnabled())
+        else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()))
         {
             DutyCycle::Calculate();
 
@@ -569,22 +568,4 @@ void MathFPGA::Auto::Refresh()
         fpgaMid = 0;
         fpgaMax = 0;
     }
-}
-
-
-void MathFPGA::DutyCycle::Enable()
-{
-    enabled = true;
-}
-
-
-void MathFPGA::DutyCycle::Disable()
-{
-    enabled = false;
-}
-
-
-bool MathFPGA::DutyCycle::IsEnabled()
-{
-    return enabled;
 }

@@ -137,8 +137,7 @@ void FPGA::Update() //-V2008
                 HAL_TIM::DelayUS(8);
             }
         }
-        else if(TypeMeasure::Current().IsDuration() && MathFPGA::DutyCycle::IsEnabled() &&
-            (ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()))
+        else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()))
         {
             if (Read_FLAG != 0)
             {

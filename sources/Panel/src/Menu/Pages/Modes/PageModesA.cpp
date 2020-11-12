@@ -176,8 +176,6 @@ void PageModesA::OnChanged_ModeFrequency()
         PageModesA::RelationOff();
     }
 
-    MathFPGA::DutyCycle::Disable();
-
     ModeMeasureFrequency::LoadToFPGA();
 }
 
@@ -212,8 +210,7 @@ void PageModesA::OnChanged_ModePeriod()
     }
 
     PageModesA::RelationOff();
-    MathFPGA::DutyCycle::Disable();
-
+    
     ModeMeasurePeriod::LoadToFPGA();
 }
 
@@ -234,20 +231,17 @@ void PageModesA::OnChanged_ModeDuration()
     switch (PageModesA::modeMeasureDuration.value)
     {
     case ModeMeasureDuration::Ndt_1ns:
-        MathFPGA::DutyCycle::Disable();
         items[2] = nullptr;
         break;
 
     case ModeMeasureDuration::DutyCycle:
     case ModeMeasureDuration::Phase:
-        MathFPGA::DutyCycle::Enable();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
         break;
 
     case ModeMeasureDuration::Ndt:
     case ModeMeasureDuration::Ndt2:
-        MathFPGA::DutyCycle::Disable();
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
         break;
@@ -287,7 +281,6 @@ void PageModesA::OnChanged_ModeCountPulse()
     }
 
     PageModesA::RelationOff();
-    MathFPGA::DutyCycle::Disable();
 
     ModeMeasureCountPulse::LoadToFPGA();
 }
