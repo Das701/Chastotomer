@@ -107,20 +107,32 @@ void Page::Draw(int x, int y, int, bool)
 
 int Page::WidthItem(int num) const
 {
-    if (IsPageModes())
+    if (IsPageModes() && (num == 0))
     {
-        if (num == 0)
-        {
-            return ((Display::WIDTH - 1) / 6) * 2 - 50;
-        }
+        return ((Display::WIDTH - 1) / 6) * 2 - 50;
     }
 
     int result = ((num % 2) == 0) ? ((Display::WIDTH - 1) / 6) : (Display::WIDTH / 6);
 
-    if (num == 5)
+    if (NumItems() == 5)
     {
-        result += 3;
+        result = ((num % 2) == 0) ? ((Display::WIDTH - 1) / 5) : (Display::WIDTH / 5);
+
+        if (num == 4) { result += 3; }
+
+        return result;
     }
+
+    if (NumItems() == 4)
+    {
+        result = ((num % 2) == 0) ? ((Display::WIDTH - 1) / 4) : (Display::WIDTH / 4);
+
+        if (num == 3) { result += 2; }
+
+        return result;
+    }
+
+    if (num == 5) { result += 3; }
 
     return result;
 }
