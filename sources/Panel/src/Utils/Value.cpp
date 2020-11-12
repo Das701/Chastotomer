@@ -936,7 +936,7 @@ pString ValuePICO::ToString() const
 
     int count = 0;
 
-    while (val.value != 0 && count < 4)
+    while (count < 4)
     {
         val.Mul(10);
         

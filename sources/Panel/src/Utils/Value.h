@@ -109,7 +109,6 @@ struct ValuePICO //-V690
     void SetSign(int sign);
 
     // Возращает строку значения
-    // 
     pString ToString() const;
 
     double ToDouble() const;

@@ -77,7 +77,6 @@ void PageModesA::PressSetup()
         items[1] = &sModeCountPulse;
         break;
     }
-
 }
 
 
