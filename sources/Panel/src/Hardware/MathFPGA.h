@@ -66,7 +66,7 @@ struct MathFPGA
         static int Min();
         static int Max();
 
-        static char *Give();
+        static String Give();
 
         static void Refresh();
 

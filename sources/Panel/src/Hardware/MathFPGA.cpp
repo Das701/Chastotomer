@@ -249,20 +249,8 @@ int MathFPGA::Auto::Max()
 }
 
 
-char *MathFPGA::Auto::Give()
+String MathFPGA::Auto::Give()
 {
-    static char result[20] = { 0 };
-
-    char minAutoData[7] = { 0 };
-    char maxAutoData[7] = { 0 };
-
-    SU::Int2String(((int)fpgaMin - 512) * 2, minAutoData);
-    SU::Int2String(((int)fpgaMax - 512) * 2, maxAutoData);
-    std::strcpy(result, "Макс ");
-    std::strcat(result, maxAutoData);
-    std::strcat(result, " Мин ");
-    std::strcat(result, minAutoData);
-
     if (CURRENT_CHANNEL_IS_A)
     {
         LEVEL_SYNCH_A = ((int)fpgaMid - 512) * 2;
@@ -276,7 +264,13 @@ char *MathFPGA::Auto::Give()
 
     }
 
-    return result;
+    char minAutoData[7] = { 0 };
+    char maxAutoData[7] = { 0 };
+
+    SU::Int2String(((int)fpgaMin - 512) * 2, minAutoData);
+    SU::Int2String(((int)fpgaMax - 512) * 2, maxAutoData);
+
+    return String("Макс %s Мин %s", maxAutoData, minAutoData);
 }
 
 
