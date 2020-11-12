@@ -20,7 +20,6 @@ public:
 
     static bool WordEqualZeroString(Word *word, char* string);
 
-    static char *Db2String(float value, int numDigits, char bufferOut[20]);
     // Сравнивает две строки. Число символов берётся из str1
     static bool EqualsStrings(const char *str1, const char *str2);
 
