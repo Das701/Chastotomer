@@ -34,7 +34,7 @@ struct MathFPGA
     friend struct MathFPGA;
 
         static String GiveData();
-        static char *GiveSpec();
+        static String GiveSpec();
         static char *GiveIdent();
 
         static void Calculate();

@@ -413,26 +413,26 @@ String MathFPGA::Measure::GiveData()
 }
 
 
-char *MathFPGA::Measure::GiveSpec() //-V2008
+String MathFPGA::Measure::GiveSpec() //-V2008
 {
-    static char result[10] = { 0 };
-
     if (ModeMeasureDuration::Current().Is_Ndt_1ns())
     {
-        std::strcpy(result, " ns");
+        return String(" ns");
     }
     else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()))
     {
         if (ModeMeasureDuration::Current().Is_Phase())
         {
-            std::strcpy(result, " $");
+            return String(" $");
         }
         else
         {
-            std::strcpy(result, " E-0");
+            String result(" E-0");
             result[3] = (char)(DutyCycle::zeroes | 0x30);
 
             DutyCycle::zeroes = 0;
+
+            return result;
         }
     }
     else
@@ -441,7 +441,7 @@ char *MathFPGA::Measure::GiveSpec() //-V2008
             ModeMeasureFrequency::Current().IsTachometer() ||
             TypeMeasure::Current().IsCountPulse())
         {
-            std::strcpy(result, " ");
+            return String(" ");
         }
         else
         {
@@ -449,29 +449,29 @@ char *MathFPGA::Measure::GiveSpec() //-V2008
             {
                 if (ModeMeasureFrequency::Current().IsT_1())
                 {
-                    if (decDA < 1000)           { std::strcpy(result, " Hz");  }
-                    else if (decDA < 1000000)   { std::strcpy(result, " kHz"); }
-                    else                        { std::strcpy(result, " MHz"); }
+                    if (decDA < 1000)           { return String(" Hz");  }
+                    else if (decDA < 1000000)   { return String(" kHz"); }
+                    else                        { return String(" MHz"); }
                 }
                 else if (PageModesA::modeMeasureFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
                 {
-                    std::strcpy(result, " E-6");
+                    return String(" E-6");
                 }
                 else
                 {
                     if (CURRENT_CHANNEL_IS_C)
                     {
-                        if (decDataC.ToUINT64() / 2 < 10000)    { std::strcpy(result, " MHz"); }
-                        else                                    { std::strcpy(result, " GHz"); }
+                        if (decDataC.ToUINT64() / 2 < 10000)    { return String(" MHz"); }
+                        else                                    { return String(" GHz"); }
                     }
                     else if (CURRENT_CHANNEL_IS_D)   
                     {
-                        std::strcpy(result, " GHz");
+                        return String(" GHz");
                     }
                     else
                     {
-                        if (decDA < 1000)           { std::strcpy(result, " kHz"); }
-                        else                        { std::strcpy(result, " MHz"); }
+                        if (decDA < 1000)           { return String(" kHz"); }
+                        else                        { return String(" MHz"); }
                     }
                 }
             }
@@ -480,21 +480,20 @@ char *MathFPGA::Measure::GiveSpec() //-V2008
                 if ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsF_1()) ||
                     (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsF_1()))
                 {
-                    if (decDA >= 1000)      { std::strcpy(result, " ns"); }
-                    else if (decDA <= 1)    { std::strcpy(result, " ms"); }
-                    else                    { std::strcpy(result, " us"); }
+                    if (decDA >= 1000)      { return String(" ns"); }
+                    else if (decDA <= 1)    { return String(" ms"); }
+                    else                    { return String(" us"); }
                 }
                 else
                 {
                     PeriodTimeLabels &current = PeriodTimeLabels::Current();
 
-                    if (current.IsT_3() || current.IsT_4() || current.IsT_5())  { std::strcpy(result, " ms"); }
-                    else                                                        { std::strcpy(result, " us"); }
+                    if (current.IsT_3() || current.IsT_4() || current.IsT_5())  { return String(" ms"); }
+                    else                                                        { return String(" us"); }
                 }
             }
         }
     }
-    return result;
 }
 
 
