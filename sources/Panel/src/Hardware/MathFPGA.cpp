@@ -19,10 +19,10 @@ uint   MathFPGA::Auto::fpgaMin = 0;
 uint   MathFPGA::Auto::fpgaMid = 0;
 uint   MathFPGA::Auto::fpgaMax = 0;
        
-float  MathFPGA::DutyCycle::value = 0.0F;
-int    MathFPGA::DutyCycle::zeroes = 0;
-uint   MathFPGA::DutyCycle::fpgaDuration = 0;
-uint   MathFPGA::DutyCycle::fpgaPeriod = 0;
+float  MathFPGA::FillFactor::value = 0.0F;
+int    MathFPGA::FillFactor::zeroes = 0;
+uint   MathFPGA::FillFactor::fpgaDuration = 0;
+uint   MathFPGA::FillFactor::fpgaPeriod = 0;
        
 int       MathFPGA::Measure::decDA = 1;
 int       MathFPGA::Measure::emptyZeros = 0;
@@ -271,7 +271,7 @@ String MathFPGA::Auto::Give()
 }
 
 
-void MathFPGA::DutyCycle::Calculate()
+void MathFPGA::FillFactor::Calculate()
 {
     value = (float)fpgaDuration / (float)fpgaPeriod;
 
@@ -353,14 +353,14 @@ String MathFPGA::Measure::GiveData()
         }
         else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_FillFactor() || ModeMeasureDuration::Current().Is_Phase()))
         {
-            DutyCycle::Calculate();
+            FillFactor::Calculate();
 
             if (ModeMeasureDuration::Current().Is_Phase())
             {
-                return String("%10.3f", MathFPGA::DutyCycle::value);
+                return String("%10.3f", MathFPGA::FillFactor::value);
             }
             
-            return String("%10.7f", MathFPGA::DutyCycle::value);
+            return String("%10.7f", MathFPGA::FillFactor::value);
         }
         else
         {
@@ -413,9 +413,9 @@ String MathFPGA::Measure::GiveSpec() //-V2008
         else
         {
             String result(" E-0");
-            result[3] = (char)(DutyCycle::zeroes | 0x30);
+            result[3] = (char)(FillFactor::zeroes | 0x30);
 
-            DutyCycle::zeroes = 0;
+            FillFactor::zeroes = 0;
 
             return result;
         }

@@ -152,9 +152,9 @@ void FPGA::ReadFillFactorPhase()
     {
         Set_CS;
 
-        CYCLE_READ_PIN_B14(32, MathFPGA::DutyCycle::fpgaPeriod, true);
+        CYCLE_READ_PIN_B14(32, MathFPGA::FillFactor::fpgaPeriod, true);
 
-        CYCLE_READ_PIN_B14(32, MathFPGA::DutyCycle::fpgaDuration, true);
+        CYCLE_READ_PIN_B14(32, MathFPGA::FillFactor::fpgaDuration, true);
 
         Reset_CS;
 

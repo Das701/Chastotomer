@@ -15,7 +15,7 @@ struct MathFPGA
         static float value;
     };
 
-    struct DutyCycle
+    struct FillFactor
     {
     friend struct FPGA;
 
