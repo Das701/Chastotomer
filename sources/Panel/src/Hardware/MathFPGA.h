@@ -11,8 +11,7 @@ struct MathFPGA
 
     struct Interpolation
     {
-        static void Calculate();
-        static float value;
+        static float Calculate();
     };
 
     struct DutyCycle

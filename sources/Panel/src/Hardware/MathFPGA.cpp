@@ -23,8 +23,6 @@ int    MathFPGA::DutyCycle::zeroes = 0;
 uint   MathFPGA::DutyCycle::fpgaDuration = 0;
 uint   MathFPGA::DutyCycle::fpgaPeriod = 0;
        
-float  MathFPGA::Interpolation::value = 0.0F;
-
 int       MathFPGA::Measure::decDA = 1;
 int       MathFPGA::Measure::emptyZeros = 0;
 ValuePICO MathFPGA::Measure::valueComparator(0);
@@ -362,9 +360,9 @@ void MathFPGA::DecToBin(int dec, char *bin)
 }
 
 
-void MathFPGA::Interpolation::Calculate()
+float MathFPGA::Interpolation::Calculate()
 {
-    value = (float)(100 * FPGA::fpgaTimer) / (float)(FPGA::fpgaCAL2 - FPGA::fpgaCAL1);
+    return (float)(100 * FPGA::fpgaTimer) / (float)(FPGA::fpgaCAL2 - FPGA::fpgaCAL1);
 }
 
 
@@ -419,7 +417,7 @@ char *MathFPGA::Measure::GiveData()
         {
             MathFPGA::Interpolation::Calculate();
             static char procDataInterpol[30] = { 0 };
-            std::sprintf(procDataInterpol, "%10.2f", MathFPGA::Interpolation::value);
+            std::sprintf(procDataInterpol, "%10.2f", MathFPGA::Interpolation::Calculate());
             return procDataInterpol;
         }
         else if ((ModeMeasureDuration::Current().Is_DutyCycle() || ModeMeasureDuration::Current().Is_Phase()) && DutyCycle::IsEnabled())
