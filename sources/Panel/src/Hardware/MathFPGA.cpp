@@ -482,12 +482,6 @@ String MathFPGA::Measure::GiveSpec() //-V2008
 }
 
 
-String MathFPGA::Measure::GiveIdent()
-{
-    return String("%ud", FPGA::fpgaIdent);
-}
-
-
 void MathFPGA::Auto::Refresh()
 {
     for (int i = 0; i < 10; i++)

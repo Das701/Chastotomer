@@ -1,6 +1,7 @@
 #pragma once
 #include "defines.h"
 #include "Utils/Stack.h"
+#include "Utils/String.h"
 
 
 struct FPGA
@@ -17,6 +18,7 @@ friend struct MathFPGA;
     static bool AutoMode();
     static int CalibNumber();
     static void ReadCalibNumber();
+    static String GiveIdent();
 
     // Возвращает true в случае переполнения
     static bool IsOverloaded();
@@ -41,6 +43,4 @@ private:
     static void ReadAutoMode();
     static void ReadComparator();
     static void ReadFillFactorPhase();
-
-    static uint fpgaIdent;
 };

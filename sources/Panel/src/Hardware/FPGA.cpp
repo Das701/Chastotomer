@@ -67,7 +67,7 @@
         WRITE_COMMAND(x[i]);                                                            \
     }
 
-uint FPGA::fpgaIdent = 0;
+static uint fpgaIdent = 0;
 
 static char encData[10];
 static bool autoMode = false;
@@ -494,4 +494,10 @@ double FPGA::Comparator::Stack::GetFromEnd(int fromEnd)
     }
 
     return (*this)[Size() - 1 - fromEnd];
+}
+
+
+String FPGA::GiveIdent()
+{
+    return String("%ud", fpgaIdent);
 }
