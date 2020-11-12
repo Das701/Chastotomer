@@ -25,5 +25,5 @@ private:
     static uint fpgaTimer;
     static uint fpgaIdent;
     static uint fpgaCAL1;
-    static char dataCAL2[24];
+    static uint fpgaCAL2;
 };

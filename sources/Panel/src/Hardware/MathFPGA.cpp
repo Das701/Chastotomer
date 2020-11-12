@@ -365,21 +365,7 @@ void MathFPGA::DecToBin(int dec, char *bin)
 
 void MathFPGA::Interpolation::Calculate()
 {
-    static int decCAL2 = 0;
-
-    int base3 = 1;
-    int len = 24;
-
-    for (int i = len - 1; i >= 0; i--)
-    {
-        if (FPGA::dataCAL2[i] == 1)
-        {
-            decCAL2 += base3;
-        }
-        base3 *= 2;
-    }
-
-    value = (float)(100 * FPGA::fpgaTimer) / (float)(decCAL2 - FPGA::fpgaCAL1);
+    value = (float)(100 * FPGA::fpgaTimer) / (float)(FPGA::fpgaCAL2 - FPGA::fpgaCAL1);
 }
 
 
