@@ -36,7 +36,7 @@ public:
     static ModeMeasurePeriod     modeMeasurePeriod;          // Режим измерения периода
     static ModeMeasureDuration   modeMeasureDuration;        // Режим измерения длительности
     static ModeMeasureCountPulse modeMeasureCountPulse;      // Режим счёта импульсов
-    static PeriodTimeLabels      timeLabels;           // Период меток времени
+    static PeriodTimeLabels      timeLabels;                 // Период меток времени
     static TimeMeasure           timeMeasure;                // Время счета
     static NumberPeriods         numberPeriods;              // Число периодов измерения
 };
