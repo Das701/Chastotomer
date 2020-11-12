@@ -117,18 +117,7 @@ void FPGA::Update() //-V2008
         }
         else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_FillFactor() || ModeMeasureDuration::Current().Is_Phase()))
         {
-            if (Read_FLAG != 0)
-            {
-                Set_CS;
-
-                CYCLE_READ_PIN_B14(32, MathFPGA::DutyCycle::fpgaPeriod, true);
-
-                CYCLE_READ_PIN_B14(32, MathFPGA::DutyCycle::fpgaDuration, true);
-
-                Reset_CS;
-
-                HAL_TIM::DelayUS(8);
-            }
+            ReadFillFactorPhase();
         }
         else if (CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsComparator() && PageModesA::typeMeasure.IsFrequency())) 
         {
@@ -153,6 +142,23 @@ void FPGA::Update() //-V2008
                 HAL_TIM::DelayUS(8);
             }
         }
+    }
+}
+
+
+void FPGA::ReadFillFactorPhase()
+{
+    if (Read_FLAG != 0)
+    {
+        Set_CS;
+
+        CYCLE_READ_PIN_B14(32, MathFPGA::DutyCycle::fpgaPeriod, true);
+
+        CYCLE_READ_PIN_B14(32, MathFPGA::DutyCycle::fpgaDuration, true);
+
+        Reset_CS;
+
+        HAL_TIM::DelayUS(8);
     }
 }
 

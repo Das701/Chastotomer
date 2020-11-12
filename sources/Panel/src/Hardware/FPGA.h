@@ -40,6 +40,7 @@ private:
     static void ReadInterpolator();
     static void ReadAutoMode();
     static void ReadComparator();
+    static void ReadFillFactorPhase();
 
     static uint fpgaIdent;
 };

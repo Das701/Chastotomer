@@ -27,9 +27,9 @@ Text::Text(const char *t)
 }
 
 
-Text::Text(const String &text)
+Text::Text(const String &t)
 {
-    Create(text.c_str());
+    Create(t.c_str());
 }
 
 
