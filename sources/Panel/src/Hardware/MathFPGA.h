@@ -81,11 +81,10 @@ struct MathFPGA
         static void Refresh();
 
     private:
-        static char dataMin[10];
+        static uint fpgaMin;
         static char dataMid[10];
         static uint fpgaMax;
 
-        static int decMin;
         static int decMid;
     };
 

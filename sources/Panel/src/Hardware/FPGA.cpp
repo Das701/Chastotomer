@@ -121,7 +121,7 @@ void FPGA::Update()
 
             CYCLE_READ_PIN_B14_BIN(3, fpgaIdent, false);
 
-            CYCLE_READ_PIN_B14(10, MathFPGA::Auto::dataMin);
+            CYCLE_READ_PIN_B14_BIN(10, MathFPGA::Auto::fpgaMin, false);
 
             CYCLE_READ_PIN_B14(10, MathFPGA::Auto::dataMid);
 

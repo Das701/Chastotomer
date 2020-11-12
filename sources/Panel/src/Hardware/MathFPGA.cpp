@@ -13,10 +13,9 @@
 int    MathFPGA::NA = 0; //-V707
 int    MathFPGA::NB = 0; //-V707
        
-char   MathFPGA::Auto::dataMin[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+uint   MathFPGA::Auto::fpgaMin = 0;
 char   MathFPGA::Auto::dataMid[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 uint   MathFPGA::Auto::fpgaMax = 0;
-int    MathFPGA::Auto::decMin = 0;
 int    MathFPGA::Auto::decMid = 0;
        
 bool   MathFPGA::DutyCycle::enabled = false;
@@ -279,20 +278,9 @@ uint16 MathFPGA::BinToUint16(const char bin[16])
 
 void MathFPGA::Auto::Calculate()
 {
-    decMin = 0;
     decMid = 0;
-    int base1 = 1;
     int base2 = 1;
     int len = 10;
-
-    for (int i = len - 1; i >= 0; i--)
-    {
-        if (dataMin[i] == 1)
-        {
-            decMin += base1;
-        }
-        base1 *= 2;
-    }
 
     for (int i = len - 1; i >= 0; i--)
     {
@@ -314,8 +302,7 @@ int MathFPGA::Auto::Mid()
 
 int MathFPGA::Auto::Min()
 {
-    Calculate();
-    return decMin;
+    return (int)fpgaMin;
 }
 
 
@@ -333,7 +320,7 @@ char *MathFPGA::Auto::Give()
     char maxAutoData[7] = { 0 };
 
     Auto::Calculate();
-    SU::Int2String((decMin - 512) * 2, minAutoData);
+    SU::Int2String(((int)fpgaMin - 512) * 2, minAutoData);
     SU::Int2String(((int)fpgaMax - 512) * 2, maxAutoData);
     std::strcpy(result, "Макс ");
     std::strcat(result, maxAutoData);
@@ -627,7 +614,7 @@ void MathFPGA::Auto::Refresh()
 {
     for (int i = 0; i < 10; i++)
     {
-        dataMin[i] = 0;
+        fpgaMin = 0;
         dataMid[i] = 0;
         fpgaMax = 0;
     }
