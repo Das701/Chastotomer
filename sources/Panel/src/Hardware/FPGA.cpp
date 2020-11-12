@@ -170,13 +170,13 @@ void FPGA::Update()
         }
         else if (CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsComparator() && PageModesA::typeMeasure.IsFrequency())) 
         {
-            uint decFx = 0;
-
-            static char comparatorNkal[16] = { 0 };
-
             if (Read_FLAG != 0)
             {
+                uint decFx = 0;
+
                 uint fpgaTizm = 0;
+
+                uint fpgaNkal = 0;
 
                 Set_CS;
 
@@ -186,13 +186,13 @@ void FPGA::Update()
 
                 CYCLE_READ_PIN_B14_BIN(16, fpgaTizm, false);
 
-                CYCLE_READ_PIN_B14(16, comparatorNkal);
+                CYCLE_READ_PIN_B14_BIN(16, fpgaNkal, false);
 
                 Reset_CS;
 
                 HAL_TIM::DelayUS(8);
 
-                int decNkal = MathFPGA::BinToUint16(comparatorNkal);
+                int decNkal = (int)fpgaNkal;
 
                 if (decNkal != 0)
                 {
