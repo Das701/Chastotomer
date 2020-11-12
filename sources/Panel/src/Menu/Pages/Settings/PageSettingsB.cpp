@@ -142,11 +142,23 @@ static void OnPress_TimeMeasure()
 }
 
 // Выбор времени измерения
+#ifdef USE_1000s
+
 DEF_SWITCH_7(sTimeMeasure,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
     PageModesA::timeMeasure, OnPress_TimeMeasure
 );
+
+#else
+
+DEF_SWITCH_6(sTimeMeasure,
+    "Время", "Время счёта",
+    "1ms", "10ms", "100ms", "1s", "10s", "100s",
+    PageModesA::timeMeasure, OnPress_TimeMeasure
+);
+
+#endif
 
 
 static void OnPress_Sync()

@@ -336,11 +336,23 @@ static void OnPress_TimeMeasure()
 }
 
 // Выбор времени измерения
+#ifdef USE_1000s
+
 DEF_SWITCH_7(sTimeMeasure,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
     PageModesA::timeMeasure, OnPress_TimeMeasure
 );
+
+#else
+
+DEF_SWITCH_6(sTimeMeasure,
+    "Время", "Время счёта",
+    "1ms", "10ms", "100ms", "1s", "10s", "100s",
+    PageModesA::timeMeasure, OnPress_TimeMeasure
+);
+
+#endif
 
 
 static void OnPress_NumberPeriods()
@@ -371,12 +383,26 @@ static void OnPress_NumberPeriods()
 }
 
 // Выбор числа усредняемых периодов входного сигнала
+#ifdef USE_1000K
+
 DEF_SWITCH_7(sNumberPeriods,
     "N", "Число периодов измерения",
     "1", "10", "100", "1K", "10K", "100K", "1000K",
     PageModesA::numberPeriods,
     OnPress_NumberPeriods
 );
+
+#else
+
+DEF_SWITCH_6(sNumberPeriods,
+    "N", "Число периодов измерения",
+    "1", "10", "100", "1K", "10K", "100K",
+    PageModesA::numberPeriods,
+    OnPress_NumberPeriods
+);
+
+#endif
+
 
 bool PageModesA::StartStop()
 {

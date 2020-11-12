@@ -293,12 +293,25 @@ static void OnPress_TimeMeasure()
     FreqMeter::LoadTimeMeasure();
 }
 
+
 // Выбор времени измерения
+#ifdef USE_1000s
+
 DEF_SWITCH_7(sTimeMeasure,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
     PageModesB::timeMeasure, OnPress_TimeMeasure
 );
+
+#else
+
+DEF_SWITCH_6(sTimeMeasure,
+    "Время", "Время счёта",
+    "1ms", "10ms", "100ms", "1s", "10s", "100s",
+    PageModesB::timeMeasure, OnPress_TimeMeasure
+);
+
+#endif
 
 
 static void OnPress_NumberPeriodsB()
@@ -329,12 +342,26 @@ static void OnPress_NumberPeriodsB()
 }
 
 // Выбор числа усредняемых периодов входного сигнала
+
+#ifdef USE_1000K
+
 DEF_SWITCH_7(sNumberPeriods,
     "N", "Число периодов измерения",
     "1", "10", "100", "1K", "10K", "100K", "1000K",
     PageModesB::numberPeriods,
     OnPress_NumberPeriodsB
 );
+
+#else
+
+DEF_SWITCH_6(sNumberPeriods,
+    "N", "Число периодов измерения",
+    "1", "10", "100", "1K", "10K", "100K",
+    PageModesB::numberPeriods,
+    OnPress_NumberPeriodsB
+);
+
+#endif
 
 
 

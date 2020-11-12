@@ -1,5 +1,11 @@
 #pragma once
 
+// Нужно раскомментировать, чтобы был доступен предел "1000с"
+//#define USE_1000s
+
+// Нужно раскомментировать, чтобы был доступен предел "1000K"
+//#define USE_1000K
+
 typedef unsigned short         uint16;
 typedef signed short           int16;
 typedef unsigned char          uint8;
