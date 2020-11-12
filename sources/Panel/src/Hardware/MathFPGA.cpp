@@ -360,7 +360,7 @@ String MathFPGA::Measure::GiveData()
         }
         else if (ModeMeasureFrequency::Current().IsComparator())
         {
-            return String("%s", valueComparator.ToString());
+            return valueComparator.ToString();
         }
         else if (ModeMeasureDuration::Current().Is_Ndt_1ns())
         {

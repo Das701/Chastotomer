@@ -895,9 +895,9 @@ void ValuePICO::SetSign(int sign)
 }
 
 
-pString ValuePICO::ToString() const
+String ValuePICO::ToString() const
 {
-    static char buffer[50];
+    char buffer[50];
 
     char symbol[2] = { 0, 0 };
 
@@ -951,7 +951,7 @@ pString ValuePICO::ToString() const
         val.Sub(ValuePICO(integer));
     }
 
-    return buffer;
+    return String(buffer);
 }
 
 

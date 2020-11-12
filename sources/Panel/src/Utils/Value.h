@@ -1,4 +1,5 @@
 #pragma once
+#include "Utils/String.h"
 
 
 struct Order
@@ -109,7 +110,7 @@ struct ValuePICO //-V690
     void SetSign(int sign);
 
     // Возращает строку значения
-    pString ToString() const;
+    String ToString() const;
 
     double ToDouble() const;
 
