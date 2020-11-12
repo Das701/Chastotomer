@@ -24,6 +24,7 @@ int    MathFPGA::FillFactor::zeroes = 0;
        
 int       MathFPGA::Measure::decDA = 1;
 int       MathFPGA::Measure::emptyZeros = 0;
+int       MathFPGA::Measure::pow = 0;
 ValuePICO MathFPGA::Measure::valueComparator(0);
 ValueNANO MathFPGA::Measure::decDataA(0);
 ValueNANO MathFPGA::Measure::decDataB(0);
@@ -62,6 +63,17 @@ void MathFPGA::Measure::Calculate()
     {
         emptyZeros = manualZeros;
     }
+
+    pow = 0;
+
+    while (emptyZeros >= 10)
+    {
+        pow++;
+        emptyZeros /= 10;
+    }
+
+    emptyZeros = 1;
+
 }
 
 
@@ -227,6 +239,8 @@ void MathFPGA::Measure::AppendDataFrequency(uint frequencyA, uint frequencyB)
         decDataA.Mul(64);
         decDataA.Div(100);
     }
+
+    Calculate();
 }
 
 
@@ -356,18 +370,6 @@ String MathFPGA::Measure::GiveData()
         }
         else
         {
-            Calculate();
-
-            int pow = 0;
-
-            while (emptyZeros >= 10)
-            {
-                pow++;
-                emptyZeros /= 10;
-            }
-
-            emptyZeros = 1;
-
             if (pow < 10)
             {
                 char format[10];

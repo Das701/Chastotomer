@@ -26,14 +26,13 @@ struct MathFPGA
         static String GiveData();
         static String GiveSpec();
 
-        static void Calculate();
-
         static void AppendDataFrequency(uint frequencyA, uint frequencyB);
 
     private:
 
         static int decDA;
         static int emptyZeros;
+        static int pow;
 
         static ValuePICO valueComparator;       // Рассчитанное значение компаратора
 
@@ -44,6 +43,8 @@ struct MathFPGA
         static int CalculateFrequency(int &manualZeros);
         static int CalculatePeriod();
         static int CalculateDuration();
+
+        static void Calculate();
     };
 
     struct FillFactor
