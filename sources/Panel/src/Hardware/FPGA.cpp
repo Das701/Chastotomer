@@ -45,6 +45,14 @@
     if(verifyOverload) { isOverloaded = (x & 1U) != 0; };                               \
     Display::Refresh();
 
+#define  CYCLE_READ_PIN_B14_NO_REFRESH(num, x, verifyOverload)                          \
+    x = 0;                                                                              \
+    for (int i = num - 1; i >= 0; i--)                                                  \
+    {                                                                                   \
+        READ_PIN_B14(x, i);                                                             \
+    }                                                                                   \
+    if(verifyOverload) { isOverloaded = (x & 1U) != 0; };
+
 
 #define WRITE_COMMAND(x)                                                                \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, (x == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);    \
@@ -160,20 +168,18 @@ void FPGA::Update() //-V2008
             if (Read_FLAG != 0)
             {
                 uint decFx = 0;
-
                 uint fpgaTizm = 0;
-
                 uint fpgaNkal = 0;
 
                 Set_CS;
 
-                CYCLE_READ_PIN_B14(3, fpgaIdent, false);
+                CYCLE_READ_PIN_B14_NO_REFRESH(3, fpgaIdent, false);
 
-                CYCLE_READ_PIN_B14(32, decFx, false);
+                CYCLE_READ_PIN_B14_NO_REFRESH(32, decFx, false);
 
-                CYCLE_READ_PIN_B14(16, fpgaTizm, false);
+                CYCLE_READ_PIN_B14_NO_REFRESH(16, fpgaTizm, false);
 
-                CYCLE_READ_PIN_B14(16, fpgaNkal, false);
+                CYCLE_READ_PIN_B14_NO_REFRESH(16, fpgaNkal, false);
 
                 Reset_CS;
 
@@ -204,7 +210,10 @@ void FPGA::Update() //-V2008
 
                     MathFPGA::Measure::valueComparator = k;
 
-                    Comparator::values.Push(k.ToDouble());
+                    if (Comparator::values.AppendValue(k.ToDouble()))
+                    {
+                        Display::Refresh();
+                    }
                 }
             }
         }
@@ -420,4 +429,57 @@ int FPGA::CalibNumber()
 bool FPGA::IsOverloaded()
 {
     return isOverloaded;
+}
+
+
+bool FPGA::Comparator::Stack::AppendValue(double value)
+{
+    if (value > 1e5)
+    {
+        return false;
+    }
+
+    if (Size() < 5)
+    {
+        Push(value);
+        return true;
+    }
+
+    if(value != 0.0)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            double fromEnd = GetFromEnd(i);
+            
+            if(fromEnd == 0.0)
+            {
+                continue;
+            }
+    
+            if (value / 10 > fromEnd)
+            {
+                return false;
+            }
+    
+            if (value * 10 < fromEnd)
+            {
+                return false;
+            }
+        }
+    }
+
+    Push(value);
+
+    return true;
+}
+
+
+double FPGA::Comparator::Stack::GetFromEnd(int fromEnd)
+{
+    if (fromEnd < 0 || fromEnd > (Size() - 1))
+    {
+        return -1.0;
+    }
+
+    return (*this)[Size() - 1 - fromEnd];
 }
