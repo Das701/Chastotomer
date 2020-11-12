@@ -57,6 +57,7 @@
     {                                                                                   \
         READ_PIN_B14_BIN(x, i);                                                         \
     }                                                                                   \
+    isOverloaded = (x & 1U) != 0;                                                       \
     Display::Refresh();
 
 
@@ -227,8 +228,6 @@ void FPGA::Update()
 
                 CYCLE_READ_PIN_B14_BIN(32, MathFPGA::Measure::fpgaFrequencyA);
               
-                isOverloaded = (MathFPGA::Measure::fpgaFrequencyA & (1U << 31)) != 0;
-
                 if((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) &&
                     PageModesA::RelationCheck())
                 {
