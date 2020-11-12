@@ -71,7 +71,6 @@ struct MathFPGA
     {
     friend struct FPGA;
 
-        static void Calculate();
         static int Mid();
         static int Min();
         static int Max();
@@ -82,10 +81,8 @@ struct MathFPGA
 
     private:
         static uint fpgaMin;
-        static char dataMid[10];
+        static uint fpgaMid;
         static uint fpgaMax;
-
-        static int decMid;
     };
 
 public:

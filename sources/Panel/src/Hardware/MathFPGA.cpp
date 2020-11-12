@@ -14,9 +14,8 @@ int    MathFPGA::NA = 0; //-V707
 int    MathFPGA::NB = 0; //-V707
        
 uint   MathFPGA::Auto::fpgaMin = 0;
-char   MathFPGA::Auto::dataMid[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+uint   MathFPGA::Auto::fpgaMid = 0;
 uint   MathFPGA::Auto::fpgaMax = 0;
-int    MathFPGA::Auto::decMid = 0;
        
 bool   MathFPGA::DutyCycle::enabled = false;
 float  MathFPGA::DutyCycle::value = 0.0F;
@@ -276,27 +275,9 @@ uint16 MathFPGA::BinToUint16(const char bin[16])
 }
 
 
-void MathFPGA::Auto::Calculate()
-{
-    decMid = 0;
-    int base2 = 1;
-    int len = 10;
-
-    for (int i = len - 1; i >= 0; i--)
-    {
-        if (dataMid[i] == 1)
-        {
-            decMid += base2;
-        }
-        base2 *= 2;
-    }
-}
-
-
 int MathFPGA::Auto::Mid()
 {
-    Calculate();
-    return decMid;
+    return (int)fpgaMid;
 }
 
 
@@ -319,7 +300,6 @@ char *MathFPGA::Auto::Give()
     char minAutoData[7] = { 0 };
     char maxAutoData[7] = { 0 };
 
-    Auto::Calculate();
     SU::Int2String(((int)fpgaMin - 512) * 2, minAutoData);
     SU::Int2String(((int)fpgaMax - 512) * 2, maxAutoData);
     std::strcpy(result, "Макс ");
@@ -329,14 +309,14 @@ char *MathFPGA::Auto::Give()
 
     if (CURRENT_CHANNEL_IS_A)
     {
-        LEVEL_SYNCH_A = (decMid - 512) * 2;
-        NA = decMid - 512;
+        LEVEL_SYNCH_A = ((int)fpgaMid - 512) * 2;
+        NA = (int)fpgaMid - 512;
     }
 
     if (CURRENT_CHANNEL_IS_B)
     {
-        LEVEL_SYNCH_B = (decMid - 512) * 2;
-        NB = decMid - 512;
+        LEVEL_SYNCH_B = ((int)fpgaMid - 512) * 2;
+        NB = (int)fpgaMid - 512;
 
     }
 
@@ -615,7 +595,7 @@ void MathFPGA::Auto::Refresh()
     for (int i = 0; i < 10; i++)
     {
         fpgaMin = 0;
-        dataMid[i] = 0;
+        fpgaMid = 0;
         fpgaMax = 0;
     }
 }
