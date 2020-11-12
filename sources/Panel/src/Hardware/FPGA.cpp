@@ -125,7 +125,7 @@ void FPGA::Update()
 
             CYCLE_READ_PIN_B14(10, MathFPGA::Auto::dataMid);
 
-            CYCLE_READ_PIN_B14(10, MathFPGA::Auto::dataMax);
+            CYCLE_READ_PIN_B14_BIN(10, MathFPGA::Auto::fpgaMax, false);
 
             Reset_CS;
 
