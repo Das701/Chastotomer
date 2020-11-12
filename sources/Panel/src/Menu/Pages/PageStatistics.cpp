@@ -13,33 +13,7 @@ using namespace Display::Primitives;
 using namespace Display;
 
 
-struct ModeShow : public Enumeration
-{
-    enum E
-    {
-        Full,       // Показывать полный вид - от 0 до максимального значения
-        Parth       // Показывать частичный вид - от минимального до максимального значения
-    };
-
-    explicit ModeShow(E v) : Enumeration((uint8)v) {};
-};
-
-
-static ModeShow modeShow(ModeShow::Full);
-
 Stack<double> PageStatistics::values(440);
-
-
-static void OnPress_ModeShow()
-{
-    Display::Refresh();
-}
-
-DEF_SWITCH_2(sModeShow,
-    "Вид", "Вид",
-    "Полный", "Частичный",
-    modeShow, OnPress_ModeShow
-);
 
 
 DEF_BUTTON(bClear, "Очистить", PageStatistics::Clear);
@@ -55,7 +29,6 @@ DEF_BUTTON(bExit, "Выход", OnPress_Exit);
 
 static Item *items[7] =
 {
-    &sModeShow,
     &bClear,
     &bExit,
     nullptr
@@ -113,11 +86,6 @@ void PageStatistics::Draw()
         if (values[i] < min) { min = values[i]; }
 
         if (values[i] > max) { max = values[i]; }
-    }
-
-    if (modeShow.Is(ModeShow::Full))
-    {
-        min = 0.0;
     }
 
     float stepX = (float)width / (float)(values.Size() - 1);
