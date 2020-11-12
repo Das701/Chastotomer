@@ -1,5 +1,6 @@
 #pragma once
 #include "defines.h"
+#include "Utils/String.h"
 
 
 struct Control
@@ -36,7 +37,7 @@ struct Control
 
     Control(E v = None, Action::E a = Action::Press) : value(v), action(a) {};
 
-    const char *Name();
+    String Name() const;
 
     bool IsRotateGovernor() const { return (value == GovLeft) || (value == GovRight); }
 };

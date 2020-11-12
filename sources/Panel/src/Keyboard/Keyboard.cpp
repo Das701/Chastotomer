@@ -335,7 +335,7 @@ Control Keyboard::NextControl()
 }
 
 
-const char *Control::Name()
+String Control::Name() const
 {
     static const char *names[] =
     {
@@ -365,7 +365,7 @@ const char *Control::Name()
         "NULL"
     };
 
-    return names[value];
+    return String(names[value]);
 }
 
 
