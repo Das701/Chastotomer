@@ -18,7 +18,7 @@ public:
     // Эта команда сразу преобразует к верхенму регистру слово.
     static bool GetWord(const char *string, Word *word, const int numWord);
 
-    static bool WordEqualZeroString(Word *word, char* string);
+    static bool WordEqualZeroString(Word *word, pCHAR string);
 
     // Сравнивает две строки. Число символов берётся из str1
     static bool EqualsStrings(const char *str1, const char *str2);
