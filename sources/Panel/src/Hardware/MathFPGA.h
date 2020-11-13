@@ -68,7 +68,7 @@ struct MathFPGA
 
     struct FillFactor
     {
-    friend struct MathFPGA::Measure;
+        friend struct Measure;
         static void Calculate(uint period, uint duration);
         static float GetValue() { return value; }
     private:

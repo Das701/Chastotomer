@@ -152,7 +152,7 @@ void FPGA::Update() //-V2008
             }
         }
     }
-}
+} 
 
 
 void FPGA::ReadFillFactorPhase()
