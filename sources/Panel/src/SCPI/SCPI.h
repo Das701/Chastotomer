@@ -12,13 +12,13 @@
 
 class String;
 
-typedef const char *(*FuncSCPI)(pCHAR);
+typedef pCHAR (*FuncSCPI)(pCHAR);
 
 
 // Структура, соотвествующая узлу дерева.
 struct StructSCPI
 {
-    const char *key;            // Ключевое слово узла (морфема)
+    pCHAR key;            // Ключевое слово узла (морфема)
 
     const StructSCPI *strct;    // Если структура имеет тип Node, то здесь хранится массив потомков - StructSCPI *structs.
 
@@ -40,7 +40,7 @@ struct StructSCPI
 #define SCPI_RUN_IF_END(func) if(end) { SCPI_PROLOG(end) func; SCPI_EPILOG(end) }
 
 #define SCPI_REQUEST(func)                          \
-    const char *end = SCPI::BeginWith(buffer, "?"); \
+    pCHAR end = SCPI::BeginWith(buffer, "?");       \
     SCPI_RUN_IF_END(func)
 
 #define SCPI_PROCESS_ARRAY(names, func)             \
@@ -65,12 +65,12 @@ namespace SCPI
 
     const int SIZE_SEPARATOR = 1;
 
-    void AppendNewData(const char *buffer, int length);
+    void AppendNewData(pCHAR buffer, int length);
 
     void Update();
     
     // Возвращает true, если указатель указывает на завершающую последовательность
-    bool IsLineEnding(const char **bufer);
+    bool IsLineEnding(pCHAR *bufer);
     
     // Послать ответ м в конце дописать 0x0D, если нет
     void SendAnswer(pCHAR message);
@@ -85,14 +85,12 @@ namespace SCPI
     
     // Если строка buffer начинается с последовательности символов word, то возвращает указатель на символ, следующий за последним символом последовательности word.
     // Иначе возвращает nullptr.
-    const char *BeginWith(const char *buffer, const char *word);
+    const char *BeginWith(pCHAR buffer, pCHAR word);
     
     // Послать сообщение об ошибочных символах, если таковые имеются
     void SendBadSymbols();
 
-    bool Test();
-
-    void ProcessHint(String *message, const char *const *names); //-V2504
+    void ProcessHint(String *message, pCHAR const *names); //-V2504
 };
 
 

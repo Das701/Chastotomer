@@ -34,7 +34,7 @@ static String data;
 
 static String badSymbols;
 
-void SCPI::AppendNewData(const char *buffer, int size)
+void SCPI::AppendNewData(pCHAR buffer, int size)
 {
     data.Append(buffer, size);
 
@@ -95,7 +95,7 @@ static const char *Process(const char *buffer, const StructSCPI strct[]) //-V250
 }
 
 
-const char *SCPI::BeginWith(const char *buffer, const char *word)
+const char *SCPI::BeginWith(pCHAR buffer, pCHAR word)
 {
     while (*word)
     {
@@ -145,7 +145,7 @@ static const char *ProcessLeaf(const char *begin, const StructSCPI *node)
 }
 
 
-bool SCPI::IsLineEnding(const char **buffer)
+bool SCPI::IsLineEnding(pCHAR *buffer)
 {
     bool result = (**buffer == 0x0D);
 
@@ -244,7 +244,7 @@ static bool IsBeginCommand(const char &symbol)
 }
 
 
-void SCPI::ProcessHint(String *message, const char *const *names)
+void SCPI::ProcessHint(String *message, pCHAR const *names)
 {
     message->Append(" {");
     for(int i = 0; i < names[i][0] != 0; i++)
