@@ -93,7 +93,7 @@ namespace FreqMeter
    
     void LoadAuto();
     
-    void LoadMeasure();
+//    void LoadMeasure();
     
     void UnloadAuto();
     

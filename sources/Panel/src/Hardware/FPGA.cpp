@@ -275,6 +275,8 @@ void FPGA::ReadComparator()
                 values.Push(k.ToDouble());
             }
         }
+
+        MathFPGA::Measure::SetValidData();
     }
 }
 

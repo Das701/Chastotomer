@@ -24,6 +24,7 @@ int    MathFPGA::FillFactor::zeroes = 0;
        
 int       MathFPGA::Measure::decDA = 1;
 ValuePICO MathFPGA::Measure::valueComparator(0);
+bool      MathFPGA::Measure::isEmpty = true;
 ValueNANO MathFPGA::Measure::decDataA(0);
 ValueNANO MathFPGA::Measure::decDataB(0);
 ValueNANO MathFPGA::Measure::decDataC(0);
@@ -192,6 +193,8 @@ void MathFPGA::Measure::AppendDataFrequency(uint frequencyA, uint frequencyB)
         decDataA.Mul(64);
         decDataA.Div(100);
     }
+
+    SetValidData();
 }
 
 
@@ -234,6 +237,8 @@ String MathFPGA::Auto::Give()
 
 void MathFPGA::FillFactor::Calculate(uint period, uint duration)
 {
+    MathFPGA::Measure::SetValidData();
+
     value = (float)duration / (float)period;
 
     if (ModeMeasureDuration::Current().Is_Phase())
@@ -306,6 +311,11 @@ void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
 
 String MathFPGA::Measure::GiveData()
 {
+    if (isEmpty)
+    {
+        return String(".......................................................");
+    }
+
     if (FPGA::IsOverloaded() && !ModeMeasureFrequency::Current().IsTachometer())
     {
         return String("оепеонкмемхе");
@@ -483,5 +493,7 @@ void MathFPGA::Auto::Refresh()
 
 void MathFPGA::Interpolator::Calculate(uint timer, uint cal1, uint cal2)
 {
+    MathFPGA::Measure::SetValidData();
+
     value = (float)(100 * timer) / (float)(cal2 - cal1);
 }

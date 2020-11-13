@@ -2,6 +2,7 @@
 #include "FreqMeter.h"
 #include "Settings.h"
 #include "Hardware/FPGA.h"
+#include "Hardware/MathFPGA.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/Modes/Modes.h"
@@ -38,6 +39,8 @@ void Channel::LoadCurrentToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -72,6 +75,8 @@ void RefGenerator::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -91,6 +96,8 @@ void LaunchSource::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -168,6 +175,8 @@ void ModeMeasureFrequency::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -185,6 +194,8 @@ void ModeMeasurePeriod::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -217,6 +228,8 @@ void ModeMeasureDuration::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -251,6 +264,8 @@ void ModeMeasureCountPulse::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -272,6 +287,8 @@ void FreqMeter::LoadPeriodTimeLabels()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -295,6 +312,8 @@ void FreqMeter::LoadTimeMeasure()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -318,6 +337,8 @@ void FreqMeter::LoadNumerPeriodsMeasure()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -334,6 +355,8 @@ void InputImpedance::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -349,6 +372,8 @@ void ModeFront::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -364,6 +389,8 @@ void Divider::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -382,6 +409,8 @@ void TypeSynch::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 
@@ -414,14 +443,14 @@ void FreqMeter::UnloadAuto()
 }
 
 
-void FreqMeter::LoadMeasure()
-{
-    char command[4] = { 1, 1, 1, 1 };
-
-    DEFINE_ARGUMENT;
-
-    FPGA::WriteCommand(command, argument);
-}
+//void FreqMeter::LoadMeasure()
+//{
+//    char command[4] = { 1, 1, 1, 1 };
+//
+//    DEFINE_ARGUMENT;
+//
+//    FPGA::WriteCommand(command, argument);
+//}
 
 
 void FreqMeter::LoadOneTime()
@@ -477,6 +506,8 @@ void ModeTest::Switch()
     Event(EventType::ModeTestChanged);
 
     FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Measure::ClearData();
 }
 
 

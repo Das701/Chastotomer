@@ -26,6 +26,9 @@ struct MathFPGA
         static String GiveData();
         static String GiveUnits();
 
+        static void ClearData() { isEmpty = true; }
+        static void SetValidData() { isEmpty = false; }
+
         static void AppendDataFrequency(uint frequencyA, uint frequencyB);
 
     private:
@@ -37,6 +40,8 @@ struct MathFPGA
         static ValueNANO decDataA;
         static ValueNANO decDataB;
         static ValueNANO decDataC;
+
+        static bool isEmpty;                    // Установленное в true значение означает, что данных для отображения нет
 
         static int CalculateFrequency(int &manualZeros);
         static int CalculatePeriod();
