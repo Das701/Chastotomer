@@ -223,7 +223,7 @@ int Font::GetSpacing()
 }
 
 
-int Font::GetLengthSymbols(char *start, int num)
+int Font::GetLengthSymbols(pCHAR start, int num)
 {
     int result = 0;
 
@@ -242,7 +242,7 @@ int Font::GetLengthSymbols(char *start, int num)
 }
 
 
-int Font::GetLengthText(char *text)
+int Font::GetLengthText(pCHAR text)
 {
     return GetLengthSymbols(text, (int)std::strlen(text));
 }

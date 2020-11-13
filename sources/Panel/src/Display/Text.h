@@ -9,8 +9,7 @@ class String;
 class Text
 {
 public:
-    Text(char *text);
-    Text(const char *text);
+    Text(pCHAR text);
     Text(const String &text);
     ~Text();
     int Write(int x, int y, Color color);
@@ -22,7 +21,7 @@ public:
 private:
     char *text;
 
-    void Create(const char *text);
+    void Create(pCHAR text);
     int WriteSymbol(int x, int y, uint8 symbol) const;
     // ¬озвращает количество слов в строке
     int NumWords() const;

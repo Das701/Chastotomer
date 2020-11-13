@@ -10,19 +10,13 @@ using namespace Primitives;
 
 
 
-Text::Text(char *t)
+Text::Text(pCHAR t)
 {
     if (t == nullptr)
     {
         t = t;
     }
 
-    Create(t);
-}
-
-
-Text::Text(const char *t)
-{
     Create(t);
 }
 
