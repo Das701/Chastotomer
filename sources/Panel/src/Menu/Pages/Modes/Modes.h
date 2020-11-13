@@ -1,4 +1,5 @@
 #pragma once
+#include "Hardware/HAL/HAL.h"
 #include "Menu/MenuItems.h"
 
 
@@ -200,8 +201,16 @@ struct TimeMeasure : public Enumeration
 
     struct ProgressBar
     {
+        // Возвращает true, если требуется отрисовка
+        static bool IsDrawable();
+
         // Нарисовать прогресс-бар прошедшего от запуска времени
         static void Draw(int x, int y);
+
+        static void Reset() { timeStart = TIME_MS; };
+
+    private:
+        static uint timeStart;
     };
 };
 

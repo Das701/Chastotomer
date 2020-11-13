@@ -201,6 +201,16 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
     }
 
     isEmpty = false;
+
+    TimeMeasure::ProgressBar::Reset();
+}
+
+
+void MathFPGA::Measure::ClearFlagValidData()
+{
+    isEmpty = true;
+
+    TimeMeasure::ProgressBar::Reset();
 }
 
 

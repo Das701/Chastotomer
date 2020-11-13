@@ -473,3 +473,22 @@ void PageModesA::ResetModeCurrentMeasure()
     case TypeMeasure::CountPulse: modeMeasureCountPulse.value = 0;    break;
     }
 }
+
+
+bool CurrentPageModes::ConsistTimeMeasure()
+{
+    if (TypeMeasure::Current().IsFrequency())
+    {
+        if (ModeMeasureFrequency::Current().IsFrequency() || ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC())
+        {
+            return true;
+        }
+    }
+
+    if (TypeMeasure::Current().IsPeriod() && ModeMeasurePeriod::Current().IsF_1())
+    {
+        return true;
+    }
+
+    return false;
+}

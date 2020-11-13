@@ -33,7 +33,7 @@ struct MathFPGA
         static void SetNewData(TypeData::E type, uint value1, uint value2, uint value3 = 0);
 
         // Установка признака того, что настройки изменились и нет корректных данных (для GiveData())
-        static void ClearFlagValidData() { isEmpty = true;  }
+        static void ClearFlagValidData();
 
     private:
 

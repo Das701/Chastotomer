@@ -3,6 +3,13 @@
 #include "Menu/Pages/Modes/Modes.h"
 
 
+struct CurrentPageModes
+{
+    // Возвращает true, если текущая страница режимов содержит время измерения
+    static bool ConsistTimeMeasure();
+};
+
+
 class PageModesA
 {
 friend struct PageModes;

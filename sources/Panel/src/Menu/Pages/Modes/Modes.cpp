@@ -5,6 +5,9 @@
 #include "Menu/Pages/Modes/PagesModes.h"
 
 
+uint TimeMeasure::ProgressBar::timeStart = 0U;
+
+
 bool ModeMeasureCountPulse::IsFromPeriod() const
 {
     return (value == ATB) || (value == BTA) || (value == CTA) || (value == CTB);
@@ -304,7 +307,20 @@ PeriodTimeLabels &PeriodTimeLabels::Current()
 
 void TimeMeasure::ProgressBar::Draw(int x, int y)
 {
-    int width = Display::WIDTH;
+    if (IsDrawable())
+    {
+        int width = Display::WIDTH;
 
-    Primitives::Rectangle(width, 5).Fill(x, y, Color::WHITE);
+        int timeCycle = TimeMeasure::Current().ToMS();
+
+        float part = ((float)(TIME_MS - timeStart) / timeCycle);
+
+        Primitives::Rectangle((int)(width * part), 5).Fill(x, y, Color::GRAY_20);
+    }
+}
+
+
+bool TimeMeasure::ProgressBar::IsDrawable()
+{
+    return CurrentPageModes::ConsistTimeMeasure() && TimeMeasure::Current().value > TimeMeasure::_100ms;
 }

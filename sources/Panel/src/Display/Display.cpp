@@ -95,6 +95,11 @@ void Display::Update()
 {
     static uint lastUpdate = 0;
 
+    if (TimeMeasure::ProgressBar::IsDrawable())
+    {
+        needRedraw = true;
+    }
+
     if (needRedraw ||
         ((TIME_MS - lastUpdate) > 1000))
     {
