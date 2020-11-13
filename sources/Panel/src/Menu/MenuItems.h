@@ -15,7 +15,7 @@ struct Enumeration
     int numStates;
     explicit Enumeration(uint8 v, const bool *_correct = nullptr, int states = 0) : value(v), names(nullptr), ugo(nullptr), correct(_correct), numStates(states) {}
     operator int()         { return (int)value; }
-    char *ToText() const;
+    String ToString() const;
     char *UGO() const;
     int NumStates() const;
     bool Is(uint8 v) const { return value == v; }

@@ -287,7 +287,7 @@ static void DrawInfo()
       || PageModesB::typeMeasure.IsPeriod() || (PageModesB::typeMeasure.IsDuration() && !PageModesA::modeMeasureDuration.Is_Ndt_1ns()))
     {
         Text("Метки").Write(430, 140);
-        Text(PageModesA::timeLabels.ToText()).Write(430, 160);
+        Text(PageModesA::timeLabels.ToString()).Write(430, 160);
         
     }
 

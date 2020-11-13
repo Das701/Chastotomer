@@ -37,11 +37,11 @@ int Enumeration::NumStates() const
 }
 
 
-char *Enumeration::ToText() const
+String Enumeration::ToString() const
 {
     if (correct == nullptr)
     {
-        return names[value];
+        return String(names[value]);
     }
 
     int counter = -1;
@@ -54,7 +54,7 @@ char *Enumeration::ToText() const
         }
     }
 
-    return names[counter];
+    return String(names[counter]);
 }
 
 
@@ -288,7 +288,7 @@ void Switch::CreateHint(String &h) const
     h.Free();
     h.Append(hint);
     h.Append(": ");
-    h.Append(state->ToText());
+    h.Append(state->ToString().c_str());
 }
 
 
