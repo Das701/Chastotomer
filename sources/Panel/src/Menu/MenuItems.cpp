@@ -225,7 +225,6 @@ bool Switch::OnControl(const Control &control)
     {
         if (control.action.IsPress() && (control.value == Control::GovButton))
         {
-
             if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
             {
                 NextChoice();
@@ -238,7 +237,6 @@ bool Switch::OnControl(const Control &control)
 
         if (control.action.IsPress() && (control.value == Control::Enter))
         {
-
             if (PageIndication::launchSource == LaunchSource::OneTime)
             {
                 PageIndication::OnceLaunchSwitchTrue();
@@ -252,10 +250,7 @@ bool Switch::OnControl(const Control &control)
             }
             else
             {
-                if (Hint::Text()[0] != 0 && Hint::UnderItem() == this)
-                {
-                    NextChoice();
-                }
+                NextChoice();
 
                 Hint::Create(this);
 
