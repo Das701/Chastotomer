@@ -26,6 +26,7 @@ add_compile_options(/wd4820)    # 'N' bytes padding added after data member
 add_compile_options(/wd4996)    # This function or variable may be unsafe
 add_compile_options(/wd5027)    # move assignment operator was implicitly defined as deleted
 add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
+add_compile_options(/wd26812)
 
 
 file(GLOB HAL                 ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Inc/*.h

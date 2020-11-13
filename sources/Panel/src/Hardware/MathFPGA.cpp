@@ -179,6 +179,16 @@ int MathFPGA::Measure::CalculateDuration()
 }
 
 
+void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2)
+{
+    switch (type)
+    {
+    case TypeData::MainCounters:
+        break;
+    }
+}
+
+
 void MathFPGA::Measure::AppendDataFrequency(uint frequencyA, uint frequencyB)
 {
     decDataA.FromDouble((double)frequencyA);
@@ -194,7 +204,7 @@ void MathFPGA::Measure::AppendDataFrequency(uint frequencyA, uint frequencyB)
         decDataA.Div(100);
     }
 
-    SetValidData();
+    SetFlagValidData();
 }
 
 
@@ -237,7 +247,7 @@ String MathFPGA::Auto::Give()
 
 void MathFPGA::FillFactor::Calculate(uint period, uint duration)
 {
-    MathFPGA::Measure::SetValidData();
+    MathFPGA::Measure::SetFlagValidData();
 
     value = (float)duration / (float)period;
 
@@ -493,7 +503,7 @@ void MathFPGA::Auto::Refresh()
 
 void MathFPGA::Interpolator::Calculate(uint timer, uint cal1, uint cal2)
 {
-    MathFPGA::Measure::SetValidData();
+    MathFPGA::Measure::SetFlagValidData();
 
     value = (float)(100 * timer) / (float)(cal2 - cal1);
 }

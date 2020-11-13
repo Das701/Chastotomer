@@ -276,7 +276,7 @@ void FPGA::ReadComparator()
             }
         }
 
-        MathFPGA::Measure::SetValidData();
+        MathFPGA::Measure::SetFlagValidData();
     }
 }
 

@@ -10,26 +10,28 @@ struct MathFPGA
     static int NA; //-V707
     static int NB; //-V707
 
-    struct Interpolator
-    {
-        static void Calculate(uint timer, uint cal1, uint cal2);
-        static float GetValue() { return value; };
-    private:
-        static float value;
-    };
-
     struct Measure
     {
-    friend struct FPGA;
-    friend struct MathFPGA;
+        friend struct FPGA;
+        friend struct MathFPGA;
 
         static String GiveData();
         static String GiveUnits();
 
-        static void ClearData() { isEmpty = true; }
-        static void SetValidData() { isEmpty = false; }
+        struct TypeData
+        {
+            enum E
+            {
+                MainCounters        // Главные счётчики, для большинства измерений
+            };
+        };
 
-        static void AppendDataFrequency(uint frequencyA, uint frequencyB);
+        static void SetNewData(TypeData::E type, uint value1, uint value2);
+
+        // Установка признака того, что настройки изменились и нет корректных данных (для GiveData())
+        static void ClearFlagValidData() { isEmpty = true;  }
+        // Установка признака того, что получены корректные данные (для GiveData())
+        static void SetFlagValidData() { isEmpty = false;  }
 
     private:
 
@@ -43,12 +45,24 @@ struct MathFPGA
 
         static bool isEmpty;                    // Установленное в true значение означает, что данных для отображения нет
 
+        static void AppendDataFrequency(uint frequencyA, uint frequencyB);
+
         static int CalculateFrequency(int &manualZeros);
         static int CalculatePeriod();
         static int CalculateDuration();
 
         static void Calculate(int &emptyZeroes, ValueNANO &data);
     };
+
+
+    struct Interpolator
+    {
+        static void Calculate(uint timer, uint cal1, uint cal2);
+        static float GetValue() { return value; };
+    private:
+        static float value;
+    };
+
 
     struct FillFactor
     {
@@ -59,6 +73,7 @@ struct MathFPGA
         static float value;
         static int zeroes;
     };
+
 
     struct Auto
     {
