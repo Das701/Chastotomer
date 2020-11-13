@@ -316,7 +316,7 @@ void MathFPGA::DecToBin(int dec, char *bin)
 
 String MathFPGA::Measure::GiveData()
 {
-    if (FPGA::IsOverloaded())
+    if (FPGA::IsOverloaded() && !ModeMeasureFrequency::Current().IsTachometer())
     {
         return String("оепеонкмемхе");
     }
@@ -325,14 +325,16 @@ String MathFPGA::Measure::GiveData()
     {
         decDataA.Div(2);
 
+        float value = decDataA.ToFloat() / 2.0F;
+
         if (CURRENT_CHANNEL_IS_C)
         {
-            decDataA.Mul(100);
+            value *= 100.0F;
         }
 
         if (ModeMeasureCountPulse::Current().IsFromPeriod())
         {
-            decDataA.Div((uint)PageModesA::numberPeriods.ToAbs());
+            value /= (float)PageModesA::numberPeriods.ToAbs();
         }
 
         return String("%10.0f", decDataA.ToFloat());
@@ -341,9 +343,7 @@ String MathFPGA::Measure::GiveData()
     {
         if (ModeMeasureFrequency::Current().IsTachometer())
         {
-            decDataA.Div(2);
-
-            return String("%10.0f", decDataA.ToFloat());
+            return String("%10.0f", decDataA.ToFloat() / 2.0F);
         }
         else if (ModeMeasureFrequency::Current().IsComparator())
         {
