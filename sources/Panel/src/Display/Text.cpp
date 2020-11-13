@@ -33,7 +33,7 @@ Text::~Text()
 }
 
 
-void Text::Create(const char *_text)
+void Text::Create(pCHAR _text)
 {
     uint numSymbols = std::strlen(_text);
 
@@ -68,11 +68,11 @@ int Text::Write(int x, int y)
 }
 
 
-int Text::WriteSymbols(char* start, int num, int x, int y) const
+int Text::WriteSymbols(pCHAR start, int num, int x, int y) const
 {
     if (Display::InDrawingPart(y, Font::GetHeight()))
     {
-        char *p = start;
+        pCHAR p = start;
 
         for (int i = 0; i < num; i++)
         {
@@ -107,7 +107,7 @@ int Text::Write(int x, int y, int width)
 }
 
 
-void Text::WriteSymbols(char *start, int num, int x, int y, int width, Color color) const
+void Text::WriteSymbols(pCHAR start, int num, int x, int y, int width, Color color) const
 {
     color.SetAsCurrent();
 
@@ -115,7 +115,7 @@ void Text::WriteSymbols(char *start, int num, int x, int y, int width, Color col
 }
 
 
-void Text::WriteSymbols(char *start, int num, int x, int y, int width) const
+void Text::WriteSymbols(pCHAR start, int num, int x, int y, int width) const
 {
     int length = Font::GetLengthSymbols(start, num);
 
@@ -144,7 +144,7 @@ void Text::WriteInCenterRect(int x, int y, int width, int height)
     }
     else if (numWords == 2)
     {
-        char *start = 0;
+        pCHAR start = 0;
         int num = 0;
 
         GetWord(0, start, num);
@@ -243,7 +243,7 @@ int Text::NumWords() const
 }
 
 
-void Text::GetWord(int numWord, char *(&start), int &num)
+void Text::GetWord(int numWord, pCHAR (&start), int &num)
 {
     char *p = text;
 
