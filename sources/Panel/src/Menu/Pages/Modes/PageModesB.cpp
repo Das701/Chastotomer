@@ -379,10 +379,10 @@ static void OnChanged_ModeTest()
     switch (PageModesB::typeMeasure.value)
     {
     case TypeMeasure::Frequency:
-        FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
+        items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
         break;
     case TypeMeasure::Period:
-        FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
+        items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
         break;
     }
 
