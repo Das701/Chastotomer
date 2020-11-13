@@ -179,12 +179,16 @@ int MathFPGA::Measure::CalculateDuration()
 }
 
 
-void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2)
+void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3)
 {
     switch (type)
     {
     case TypeData::MainCounters:
         AppendDataMainCounters(value1, value2);
+        break;
+
+    case TypeData::Interpolator:
+        Interpolator::Calculate(value1, value2, value3);
         break;
     }
 }

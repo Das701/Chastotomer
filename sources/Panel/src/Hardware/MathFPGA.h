@@ -22,11 +22,12 @@ struct MathFPGA
         {
             enum E
             {
-                MainCounters        // Главные счётчики, для большинства измерений
+                MainCounters,   // Главные счётчики, для большинства измерений
+                Interpolator    // Данные интерполятора
             };
         };
 
-        static void SetNewData(TypeData::E type, uint value1, uint value2);
+        static void SetNewData(TypeData::E type, uint value1, uint value2, uint value3 = 0);
 
         // Установка признака того, что настройки изменились и нет корректных данных (для GiveData())
         static void ClearFlagValidData() { isEmpty = true;  }
@@ -57,9 +58,10 @@ struct MathFPGA
 
     struct Interpolator
     {
-        static void Calculate(uint timer, uint cal1, uint cal2);
+        friend struct Measure;
         static float GetValue() { return value; };
     private:
+        static void Calculate(uint timer, uint cal1, uint cal2);
         static float value;
     };
 
