@@ -300,3 +300,11 @@ PeriodTimeLabels &PeriodTimeLabels::Current()
 
     return *periods[CURRENT_CHANNEL];
 }
+
+
+void TimeMeasure::ProgressBar::Draw(int x, int y)
+{
+    int width = Display::WIDTH;
+
+    Primitives::Rectangle(width, 5).Fill(x, y, Color::WHITE);
+}

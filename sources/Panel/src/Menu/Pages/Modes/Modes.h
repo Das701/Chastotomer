@@ -197,6 +197,12 @@ struct TimeMeasure : public Enumeration
     bool Is10ms() const { return (value == _10ms); }
     // Возвращает TimeMeasure::E для текущего канала
     static TimeMeasure &Current();
+
+    struct ProgressBar
+    {
+        // Нарисовать прогресс-бар прошедшего от запуска времени
+        static void Draw(int x, int y);
+    };
 };
 
 // Число периодов

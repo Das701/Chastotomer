@@ -168,6 +168,8 @@ static void DrawScreen()
         
         DrawData();
 
+        TimeMeasure::ProgressBar::Draw(0, 0);
+
         if (ModeMeasureFrequency::Current().IsComparator())
         {
             int y = 93;
