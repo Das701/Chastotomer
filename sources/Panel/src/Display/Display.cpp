@@ -178,19 +178,34 @@ static void DrawScreen()
 
             int width = 90;
 
-            for (int i = 0; i < FPGA::sFX.Size(); i++)
+            if (FPGA::sFX.Size() > 0)
             {
-                Text(String("%u", FPGA::sFX[i])).Write(10 + width * (i + 1), y);
+                int counter = 0;
+                
+                for (int i = FPGA::sFX.Size() - 1; i > FPGA::sFX.Size() - 5 && i >= 0; i--)
+                {
+                    Text(String("%u", FPGA::sFX[i])).Write(10 + width * (counter++ + 1), y);
+                }
             }
 
-            for (int i = 0; i < FPGA::sTIZM.Size(); i++)
+            if (FPGA::sTIZM.Size() > 0)
             {
-                Text(String("%u", FPGA::sTIZM[i])).Write(10 + width * (i + 1), y + dY);
+                int counter = 0;
+                
+                for (int i = FPGA::sTIZM.Size() - 1; i > FPGA::sTIZM.Size() - 5 && i >= 0; i--)
+                {
+                    Text(String("%u", FPGA::sTIZM[i])).Write(10 + width * (counter++ + 1), y + dY);
+                }
             }
 
-            for (int i = 0; i < FPGA::sNKAL.Size(); i++)
+            if (FPGA::sNKAL.Size() > 0)
             {
-                Text(String("%u", FPGA::sNKAL[i])).Write(10 + width * (i + 1), y + 2 * dY);
+                int counter = 0;
+                
+                for (int i = FPGA::sNKAL.Size() - 1; i > FPGA::sNKAL.Size() - 5 && i >= 0; i--)
+                {
+                    Text(String("%u", FPGA::sNKAL[i])).Write(10 + width * (counter++ + 1), y + 2 * dY);
+                }
             }
         }
     }
