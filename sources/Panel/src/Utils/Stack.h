@@ -24,6 +24,8 @@ public:
 
     void Clear() { numElements = 0; };
 
+    bool IsFull() const { return numElements == size; }
+
 private:
     T *buffer;
     int size;

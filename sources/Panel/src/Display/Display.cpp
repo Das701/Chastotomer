@@ -181,30 +181,13 @@ static void DrawScreen()
             if (FPGA::sFX.Size() > 0)
             {
                 int counter = 0;
-                
+
                 for (int i = FPGA::sFX.Size() - 1; i > FPGA::sFX.Size() - 5 && i >= 0; i--)
                 {
-                    Text(String("%u", FPGA::sFX[i])).Write(10 + width * (counter++ + 1), y);
-                }
-            }
-
-            if (FPGA::sTIZM.Size() > 0)
-            {
-                int counter = 0;
-                
-                for (int i = FPGA::sTIZM.Size() - 1; i > FPGA::sTIZM.Size() - 5 && i >= 0; i--)
-                {
-                    Text(String("%u", FPGA::sTIZM[i])).Write(10 + width * (counter++ + 1), y + dY);
-                }
-            }
-
-            if (FPGA::sNKAL.Size() > 0)
-            {
-                int counter = 0;
-                
-                for (int i = FPGA::sNKAL.Size() - 1; i > FPGA::sNKAL.Size() - 5 && i >= 0; i--)
-                {
-                    Text(String("%u", FPGA::sNKAL[i])).Write(10 + width * (counter++ + 1), y + 2 * dY);
+                    Text(String("%u", FPGA::sFX[i])).Write(10 + width * (counter + 1), y);
+                    Text(String("%u", FPGA::sTIZM[i])).Write(10 + width * (counter + 1), y + dY);
+                    Text(String("%u", FPGA::sNKAL[i])).Write(10 + width * (counter + 1), y + 2 * dY);
+                    Text(String("%.3e", FPGA::values[i])).Write(10 + width * (counter++ + 1), y + 3 * dY);
                 }
             }
         }

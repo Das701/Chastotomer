@@ -212,9 +212,10 @@ void FPGA::ReadAutoMode()
 }
 
 
-Stack<uint> FPGA::sFX(10);
-Stack<uint> FPGA::sTIZM(10);
-Stack<uint> FPGA::sNKAL(10);
+Stack<uint> FPGA::sFX(50);
+Stack<uint> FPGA::sTIZM(50);
+Stack<uint> FPGA::sNKAL(50);
+Stack<double> FPGA::values(50);
 
 
 void FPGA::ReadComparator()
@@ -261,9 +262,17 @@ void FPGA::ReadComparator()
             }
             else
             {
+                if (sFX.IsFull())
+                {
+                    sFX.Clear();
+                    sTIZM.Clear();
+                    sNKAL.Clear();
+                }
+
                 sFX.Push(fx);
                 sTIZM.Push(tizm);
                 sNKAL.Push(nkal);
+                values.Push(k.ToDouble());
             }
         }
     }

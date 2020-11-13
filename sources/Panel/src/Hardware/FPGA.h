@@ -34,6 +34,7 @@ friend struct MathFPGA;
     static Stack<uint> sFX;
     static Stack<uint> sTIZM;
     static Stack<uint> sNKAL;
+    static Stack<double> values;
 
     struct Comparator
     {
