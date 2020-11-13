@@ -184,6 +184,7 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
     switch (type)
     {
     case TypeData::MainCounters:
+        AppendDataFrequency(value1, value2);
         break;
     }
 }

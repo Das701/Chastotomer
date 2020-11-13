@@ -146,7 +146,7 @@ void FPGA::Update() //-V2008
 
                 Reset_CS;
 
-                MathFPGA::Measure::AppendDataFrequency(frequencyA, frequencyB);
+                MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, frequencyA, frequencyB);
 
                 HAL_TIM::DelayUS(8);
             }
