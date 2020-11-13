@@ -49,9 +49,9 @@ struct MathFPGA
 
         static void AppendDataMainCounters(uint counterA, uint counterB);
 
-        static int CalculateFrequency(int &manualZeros);
-        static int CalculatePeriod();
-        static int CalculateDuration();
+        static int CalculateFrequencyEmptyZeros(int &manualZeros);
+        static int CalculatePeriodEmptyZeros();
+        static int CalculateDurationEmptyZeros();
 
         static void Calculate(int &emptyZeroes, ValueNANO &data);
     };

@@ -42,7 +42,7 @@ ValueNANO MathFPGA::Measure::decDataC(0);
 ValuePICO MathFPGA::Comparator::value(0);
 
 
-int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
+int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 {
     int result = 0;
 
@@ -137,7 +137,7 @@ int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
 }
 
 
-int MathFPGA::Measure::CalculatePeriod()
+int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 {
     int result = 1;
 
@@ -175,7 +175,7 @@ int MathFPGA::Measure::CalculatePeriod()
 }
 
 
-int MathFPGA::Measure::CalculateDuration()
+int MathFPGA::Measure::CalculateDurationEmptyZeros()
 {
     if (PageModesA::timeLabels.IsT_7())
     {
@@ -371,15 +371,15 @@ void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
 
     if (TypeMeasure::Current().IsFrequency())
     {
-        emptyZeros = CalculateFrequency(manualZeros);
+        emptyZeros = CalculateFrequencyEmptyZeros(manualZeros);
     }
     else if (TypeMeasure::Current().IsDuration())
     {
-        emptyZeros = CalculateDuration();
+        emptyZeros = CalculateDurationEmptyZeros();
     }
     else if (TypeMeasure::Current().IsPeriod())
     {
-        emptyZeros = CalculatePeriod();
+        emptyZeros = CalculatePeriodEmptyZeros();
     }
 
     data = decDataA;
