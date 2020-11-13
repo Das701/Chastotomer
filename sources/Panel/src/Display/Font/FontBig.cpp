@@ -743,7 +743,7 @@ void FontBig::Write(char *text, int x, int y, Color color)
   @param	foreground - palette for foreground (lower byte)
   @return	width of symbol in pixels (for proportional string printing)
 */
-uint32_t FontBig::WriteSymbol(uint8_t symbol, int x, int y, Color color)
+uint FontBig::WriteSymbol(uint8 symbol, int x, int y, Color color)
 {
 	//	assert(0x30 <= symbol && symbol <= 0x39);
 	bool falsecheck = false;
