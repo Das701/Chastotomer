@@ -31,6 +31,10 @@ friend struct MathFPGA;
     static uint tizm;
     static uint nkal;
 
+    static Stack<uint> sFX;
+    static Stack<uint> sTIZM;
+    static Stack<uint> sNKAL;
+
     struct Comparator
     {
         class Stack : public ::Stack<double>

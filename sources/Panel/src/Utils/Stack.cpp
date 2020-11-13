@@ -7,6 +7,7 @@
 template class Stack<int8>;
 template class Stack<char>;
 template class Stack<double>;
+template class Stack<uint>;
 
 
 template <typename T>

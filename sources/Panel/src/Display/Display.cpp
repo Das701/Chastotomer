@@ -172,9 +172,28 @@ static void DrawScreen()
         {
             int y = 93;
             int dY = 16;
-            Text(String("%d", FPGA::fx)).Write(10, y, Color::BLACK);
-            Text(String("%d", FPGA::tizm)).Write(10, y + dY);
-            Text(String("%d", FPGA::nkal)).Write(10, y + 2 * dY);
+            Text(String("%u", FPGA::fx)).Write(10, y, Color::BLACK);
+            Text(String("%u", FPGA::tizm)).Write(10, y + dY);
+            Text(String("%u", FPGA::nkal)).Write(10, y + 2 * dY);
+
+            int width = 90;
+
+            for (int i = 0; i < FPGA::sFX.Size(); i++)
+            {
+                Text(String("%u", FPGA::sFX[i])).Write(10 + width * (i + 1), y);
+            }
+
+            width = 70;
+
+            for (int i = 0; i < FPGA::sTIZM.Size(); i++)
+            {
+                Text(String("%u", FPGA::sTIZM[i])).Write(10 + width * (i + 1), y + dY);
+            }
+
+            for (int i = 0; i < FPGA::sNKAL.Size(); i++)
+            {
+                Text(String("%u", FPGA::sNKAL[i])).Write(10 + width * (i + 1), y + 2 * dY);
+            }
         }
     }
 }

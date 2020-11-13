@@ -212,6 +212,11 @@ void FPGA::ReadAutoMode()
 }
 
 
+Stack<uint> FPGA::sFX(10);
+Stack<uint> FPGA::sTIZM(10);
+Stack<uint> FPGA::sNKAL(10);
+
+
 void FPGA::ReadComparator()
 {
     if (Read_FLAG != 0)
@@ -222,6 +227,21 @@ void FPGA::ReadComparator()
         CYCLE_READ_PIN_B14_NO_REFRESH(16, tizm, false);
         CYCLE_READ_PIN_B14_NO_REFRESH(16, nkal, false);
         Reset_CS;
+
+        if (fx > 6000000)
+        {
+            sFX.Push(fx);
+        }
+
+        if (tizm > 10 && tizm < 60000)
+        {
+            sTIZM.Push(tizm);
+        }
+
+        if ((nkal != 0) && (nkal < 1500 || nkal > 2000))
+        {
+            sNKAL.Push(nkal);
+        }
 
         HAL_TIM::DelayUS(8);
 
