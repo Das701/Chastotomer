@@ -27,29 +27,6 @@ friend struct MathFPGA;
     // Возвращает true в случае переполнения
     static bool IsOverloaded();
 
-    static uint fx;
-    static uint tizm;
-    static uint nkal;
-
-    static Stack<uint> sFX;
-    static Stack<uint> sTIZM;
-    static Stack<uint> sNKAL;
-    static Stack<double> values;
-
-    struct Comparator
-    {
-        class Stack : public ::Stack<double>
-        {
-        public:
-            Stack(int size) : ::Stack<double>(size) {};
-            bool AppendValue(double value);
-            double GetFromEnd(int fromEnd);
-        private:
-        };
-
-        static Stack values;
-    };
-
 private:
 
     static void ReadInterpolator();

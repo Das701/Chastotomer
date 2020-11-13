@@ -1,4 +1,5 @@
 #pragma once
+#include "Utils/Stack.h"
 #include "Utils/String.h"
 #include "Utils/Value.h"
 
@@ -96,5 +97,30 @@ struct MathFPGA
         static uint fpgaMin;
         static uint fpgaMid;
         static uint fpgaMax;
+    };
+
+
+    static uint curFX;
+    static uint curTIZM;
+    static uint curNKAL;
+
+    static Stack<uint> sFX;
+    static Stack<uint> sTIZM;
+    static Stack<uint> sNKAL;
+    static Stack<double> values;
+
+
+    struct Comparator
+    {
+        class Stack : public ::Stack<double>
+        {
+        public:
+            Stack(int size) : ::Stack<double>(size) {};
+            bool AppendValue(double value);
+            double GetFromEnd(int fromEnd);
+        private:
+        };
+
+        static Stack values;
     };
 };

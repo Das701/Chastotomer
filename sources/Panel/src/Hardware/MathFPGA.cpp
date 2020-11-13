@@ -14,6 +14,16 @@
 int    MathFPGA::NA = 0; //-V707
 int    MathFPGA::NB = 0; //-V707
 
+uint MathFPGA::curFX = 0;
+uint MathFPGA::curTIZM = 0;
+uint MathFPGA::curNKAL = 0;
+
+Stack<uint> MathFPGA::sFX(50);
+Stack<uint> MathFPGA::sTIZM(50);
+Stack<uint> MathFPGA::sNKAL(50);
+Stack<double> MathFPGA::values(50);
+
+
 float  MathFPGA::Interpolator::value = 0.0F;
        
 uint   MathFPGA::Auto::fpgaMin = 0;
@@ -205,6 +215,10 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 
 void MathFPGA::Measure::CalculateComparator(uint fx, uint tizm, uint nkal)
 {
+    curFX = fx;
+    curTIZM = tizm;
+    curNKAL = nkal;
+
     int decNkal = (int)nkal;
 
     if (decNkal != 0)
@@ -230,23 +244,23 @@ void MathFPGA::Measure::CalculateComparator(uint fx, uint tizm, uint nkal)
 
         MathFPGA::Measure::valueComparator = k;
 
-        if (FPGA::Comparator::values.AppendValue(k.ToDouble()))
+        if (MathFPGA::Comparator::values.AppendValue(k.ToDouble()))
         {
             Display::Refresh();
         }
         else
         {
-            if (FPGA::sFX.IsFull())
+            if (MathFPGA::sFX.IsFull())
             {
-                FPGA::sFX.Clear();
-                FPGA::sTIZM.Clear();
-                FPGA::sNKAL.Clear();
+                MathFPGA::sFX.Clear();
+                MathFPGA::sTIZM.Clear();
+                MathFPGA::sNKAL.Clear();
             }
 
-            FPGA::sFX.Push(fx);
-            FPGA::sTIZM.Push(tizm);
-            FPGA::sNKAL.Push(nkal);
-            FPGA::values.Push(k.ToDouble());
+            MathFPGA::sFX.Push(fx);
+            MathFPGA::sTIZM.Push(tizm);
+            MathFPGA::sNKAL.Push(nkal);
+            MathFPGA::values.Push(k.ToDouble());
         }
     }
 

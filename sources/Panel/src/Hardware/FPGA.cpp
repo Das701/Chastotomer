@@ -77,12 +77,7 @@ static int NAC = 0;
 static bool isOverloaded = false;
 
 
-uint FPGA::fx = 0;
-uint FPGA::tizm = 0;
-uint FPGA::nkal = 0;
-
-
-FPGA::Comparator::Stack FPGA::Comparator::values(400);
+MathFPGA::Comparator::Stack MathFPGA::Comparator::values(400);
 
 
 void FPGA::Init()
@@ -212,16 +207,14 @@ void FPGA::ReadAutoMode()
 }
 
 
-Stack<uint> FPGA::sFX(50);
-Stack<uint> FPGA::sTIZM(50);
-Stack<uint> FPGA::sNKAL(50);
-Stack<double> FPGA::values(50);
-
-
 void FPGA::ReadComparator()
 {
     if (Read_FLAG != 0)
     {
+        uint fx = 0;
+        uint tizm = 0;
+        uint nkal = 0;
+
         Set_CS;
         CYCLE_READ_PIN_B14_NO_REFRESH(3, ident, false);
         CYCLE_READ_PIN_B14_NO_REFRESH(32, fx, false);
@@ -428,7 +421,7 @@ bool FPGA::IsOverloaded()
 }
 
 
-bool FPGA::Comparator::Stack::AppendValue(double value)
+bool MathFPGA::Comparator::Stack::AppendValue(double value)
 {
     if (value > 1e5)
     {
@@ -461,7 +454,7 @@ bool FPGA::Comparator::Stack::AppendValue(double value)
 }
 
 
-double FPGA::Comparator::Stack::GetFromEnd(int fromEnd)
+double MathFPGA::Comparator::Stack::GetFromEnd(int fromEnd)
 {
     if (fromEnd < 0 || fromEnd > (Size() - 1))
     {
