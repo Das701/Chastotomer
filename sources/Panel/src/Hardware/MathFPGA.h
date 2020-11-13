@@ -22,9 +22,10 @@ struct MathFPGA
         {
             enum E
             {
-                MainCounters,   // Главные счётчики, для большинства измерений
-                Interpolator,   // Данные интерполятора
-                FillFactorPhase // Данные для коэффициента заполнения и фазы
+                MainCounters,       // Главные счётчики, для большинства измерений
+                Interpolator,       // Данные интерполятора
+                FillFactorPhase,    // Данные для коэффициента заполнения и фазы
+                Comparator
             };
         };
 
@@ -52,6 +53,7 @@ struct MathFPGA
         static int CalculateFrequency(int &manualZeros);
         static int CalculatePeriod();
         static int CalculateDuration();
+        static void CalculateComparator(uint fx, uint tizm, uint nkal);
 
         static void Calculate(int &emptyZeroes, ValueNANO &data);
     };

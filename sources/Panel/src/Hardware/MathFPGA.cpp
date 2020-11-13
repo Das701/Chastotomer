@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Settings.h"
+#include "Display/Display.h"
 #include "Hardware/FPGA.h"
 #include "Hardware/MathFPGA.h"
 #include "Menu/Pages/PageStatistics.h"
@@ -194,7 +195,62 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
     case TypeData::FillFactorPhase:
         FillFactor::Calculate(value1, value2);
         break;
+
+    case TypeData::Comparator:
+        CalculateComparator(value1, value2, value3);
+        break;
     }
+}
+
+
+void MathFPGA::Measure::CalculateComparator(uint fx, uint tizm, uint nkal)
+{
+    int decNkal = (int)nkal;
+
+    if (decNkal != 0)
+    {
+        int decTizm = (int)tizm;
+
+        if ((tizm & (1U << 15)) != 0)
+        {
+            decTizm -= 65536;
+        }
+
+        ValuePICO dx(decTizm);
+        dx.Div((uint)decNkal);
+        dx.Div(2 * 5000000);
+
+        ValuePICO k(5000000);
+        k.Sub(ValuePICO((int)fx));
+        k.Div(5000000);
+        k.Sub(dx);
+        k.Mul(1000000);
+
+        k.SetSign(1);
+
+        MathFPGA::Measure::valueComparator = k;
+
+        if (FPGA::Comparator::values.AppendValue(k.ToDouble()))
+        {
+            Display::Refresh();
+        }
+        else
+        {
+            if (FPGA::sFX.IsFull())
+            {
+                FPGA::sFX.Clear();
+                FPGA::sTIZM.Clear();
+                FPGA::sNKAL.Clear();
+            }
+
+            FPGA::sFX.Push(fx);
+            FPGA::sTIZM.Push(tizm);
+            FPGA::sNKAL.Push(nkal);
+            FPGA::values.Push(k.ToDouble());
+        }
+    }
+
+    MathFPGA::Measure::SetFlagValidData();
 }
 
 

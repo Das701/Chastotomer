@@ -229,54 +229,9 @@ void FPGA::ReadComparator()
         CYCLE_READ_PIN_B14_NO_REFRESH(16, nkal, false);
         Reset_CS;
 
+        MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Comparator, fx, tizm, nkal);
+
         HAL_TIM::DelayUS(8);
-
-        int decNkal = (int)nkal;
-
-        if (decNkal != 0)
-        {
-            int decTizm = (int)tizm;
-
-            if ((tizm & (1U << 15)) != 0)
-            {
-                decTizm -= 65536;
-            }
-
-            ValuePICO dx(decTizm);
-            dx.Div((uint)decNkal);
-            dx.Div(2 * 5000000);
-
-            ValuePICO k(5000000);
-            k.Sub(ValuePICO((int)fx));
-            k.Div(5000000);
-            k.Sub(dx);
-            k.Mul(1000000);
-
-            k.SetSign(1);
-
-            MathFPGA::Measure::valueComparator = k;
-
-            if (Comparator::values.AppendValue(k.ToDouble()))
-            {
-                Display::Refresh();
-            }
-            else
-            {
-                if (sFX.IsFull())
-                {
-                    sFX.Clear();
-                    sTIZM.Clear();
-                    sNKAL.Clear();
-                }
-
-                sFX.Push(fx);
-                sTIZM.Push(tizm);
-                sNKAL.Push(nkal);
-                values.Push(k.ToDouble());
-            }
-        }
-
-        MathFPGA::Measure::SetFlagValidData();
     }
 }
 
