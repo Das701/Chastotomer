@@ -34,8 +34,6 @@ struct MathFPGA
 
         // Установка признака того, что настройки изменились и нет корректных данных (для GiveData())
         static void ClearFlagValidData() { isEmpty = true;  }
-        // Установка признака того, что получены корректные данные (для GiveData())
-        static void SetFlagValidData() { isEmpty = false;  }
 
     private:
 

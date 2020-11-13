@@ -194,22 +194,13 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 {
     switch (type)
     {
-    case TypeData::MainCounters:
-        AppendDataMainCounters(value1, value2);
-        break;
-
-    case TypeData::Interpolator:
-        Interpolator::Calculate(value1, value2, value3);
-        break;
-
-    case TypeData::FillFactorPhase:
-        FillFactor::Calculate(value1, value2);
-        break;
-
-    case TypeData::Comparator:
-        Comparator::Calculate(value1, value2, value3);
-        break;
+    case TypeData::MainCounters:        AppendDataMainCounters(value1, value2);             break;
+    case TypeData::Interpolator:        Interpolator::Calculate(value1, value2, value3);    break;
+    case TypeData::FillFactorPhase:     FillFactor::Calculate(value1, value2);              break;
+    case TypeData::Comparator:          Comparator::Calculate(value1, value2, value3);      break;
     }
+
+    isEmpty = false;
 }
 
 
@@ -263,8 +254,6 @@ void MathFPGA::Comparator::Calculate(uint fx, uint tizm, uint nkal)
             MathFPGA::values.Push(k.ToDouble());
         }
     }
-
-    MathFPGA::Measure::SetFlagValidData();
 }
 
 
@@ -282,8 +271,6 @@ void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
         decDataA.Mul(64);
         decDataA.Div(100);
     }
-
-    SetFlagValidData();
 }
 
 
@@ -326,8 +313,6 @@ String MathFPGA::Auto::Give()
 
 void MathFPGA::FillFactor::Calculate(uint period, uint duration)
 {
-    MathFPGA::Measure::SetFlagValidData();
-
     value = (float)duration / (float)period;
 
     if (ModeMeasureDuration::Current().Is_Phase())
@@ -582,7 +567,5 @@ void MathFPGA::Auto::Refresh()
 
 void MathFPGA::Interpolator::Calculate(uint timer, uint cal1, uint cal2)
 {
-    MathFPGA::Measure::SetFlagValidData();
-
     value = (float)(100 * timer) / (float)(cal2 - cal1);
 }
