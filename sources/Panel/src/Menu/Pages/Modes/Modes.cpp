@@ -313,9 +313,9 @@ void TimeMeasure::ProgressBar::Draw(int x, int y)
 
         int timeCycle = TimeMeasure::Current().ToMS();
 
-        float part = ((float)(TIME_MS - timeStart) / timeCycle);
+        float part = ((float)(TIME_MS - timeStart) / (float)timeCycle);
 
-        Primitives::Rectangle((int)(width * part), 5).Fill(x, y, Color::GRAY_20);
+        Primitives::Rectangle((int)((float)width * part), 5).Fill(x, y, Color::GRAY_20);
     }
 }
 
