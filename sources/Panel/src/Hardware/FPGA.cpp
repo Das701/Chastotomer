@@ -228,21 +228,6 @@ void FPGA::ReadComparator()
         CYCLE_READ_PIN_B14_NO_REFRESH(16, nkal, false);
         Reset_CS;
 
-        if (fx > 6000000)
-        {
-            sFX.Push(fx);
-        }
-
-        if (tizm > 10 && tizm < 60000)
-        {
-            sTIZM.Push(tizm);
-        }
-
-        if ((nkal != 0) && (nkal < 1500 || nkal > 2000))
-        {
-            sNKAL.Push(nkal);
-        }
-
         HAL_TIM::DelayUS(8);
 
         int decNkal = (int)nkal;
@@ -273,6 +258,12 @@ void FPGA::ReadComparator()
             if (Comparator::values.AppendValue(k.ToDouble()))
             {
                 Display::Refresh();
+            }
+            else
+            {
+                sFX.Push(fx);
+                sTIZM.Push(tizm);
+                sNKAL.Push(nkal);
             }
         }
     }

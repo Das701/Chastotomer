@@ -183,8 +183,6 @@ static void DrawScreen()
                 Text(String("%u", FPGA::sFX[i])).Write(10 + width * (i + 1), y);
             }
 
-            width = 70;
-
             for (int i = 0; i < FPGA::sTIZM.Size(); i++)
             {
                 Text(String("%u", FPGA::sTIZM[i])).Write(10 + width * (i + 1), y + dY);
