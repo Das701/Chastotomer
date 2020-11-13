@@ -378,8 +378,12 @@ static void OnChanged_ModeTest()
 {
     switch (PageModesB::typeMeasure.value)
     {
-    case TypeMeasure::Frequency: PageModesB::OnChanged_ModeFrequency(); break;
-    case TypeMeasure::Period:    PageModesB::OnChanged_ModePeriod();    break;
+    case TypeMeasure::Frequency:
+        FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
+        break;
+    case TypeMeasure::Period:
+        FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
+        break;
     }
 
     PageModesB::self->VerifySelectedItem();

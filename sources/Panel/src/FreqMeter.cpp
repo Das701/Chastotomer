@@ -474,9 +474,9 @@ void ModeTest::Switch()
         value = ModeTest::Enabled;
     }
 
-    FPGA::WriteCommand(command, argument);
-
     Event(EventType::ModeTestChanged);
+
+    FPGA::WriteCommand(command, argument);
 }
 
 
