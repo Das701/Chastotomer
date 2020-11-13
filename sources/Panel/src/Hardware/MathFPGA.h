@@ -45,7 +45,7 @@ struct MathFPGA
 
         static bool isEmpty;                    // Установленное в true значение означает, что данных для отображения нет
 
-        static void AppendDataFrequency(uint frequencyA, uint frequencyB);
+        static void AppendDataMainCounters(uint counterA, uint counterB);
 
         static int CalculateFrequency(int &manualZeros);
         static int CalculatePeriod();

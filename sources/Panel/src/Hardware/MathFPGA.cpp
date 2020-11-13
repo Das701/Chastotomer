@@ -184,19 +184,19 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
     switch (type)
     {
     case TypeData::MainCounters:
-        AppendDataFrequency(value1, value2);
+        AppendDataMainCounters(value1, value2);
         break;
     }
 }
 
 
-void MathFPGA::Measure::AppendDataFrequency(uint frequencyA, uint frequencyB)
+void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
 {
-    decDataA.FromDouble((double)frequencyA);
+    decDataA.FromDouble((double)counterA);
 
     if ((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) && PageModesA::RelationCheck())
     {
-        decDataB.FromDouble(frequencyB);
+        decDataB.FromDouble(counterB);
     }
 
     if (CURRENT_CHANNEL_IS_C)
