@@ -31,7 +31,6 @@ struct MathFPGA
     private:
 
         static int decDA;
-        static int pow;
 
         static ValuePICO valueComparator;       // Рассчитанное значение компаратора
 
@@ -43,7 +42,7 @@ struct MathFPGA
         static int CalculatePeriod();
         static int CalculateDuration();
 
-        static void Calculate();
+        static void Calculate(int &emptyZeroes, ValueNANO &data);
     };
 
     struct FillFactor

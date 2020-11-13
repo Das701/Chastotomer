@@ -23,52 +23,11 @@ float  MathFPGA::FillFactor::value = 0.0F;
 int    MathFPGA::FillFactor::zeroes = 0;
        
 int       MathFPGA::Measure::decDA = 1;
-int       MathFPGA::Measure::pow = 0;
 ValuePICO MathFPGA::Measure::valueComparator(0);
 ValueNANO MathFPGA::Measure::decDataA(0);
 ValueNANO MathFPGA::Measure::decDataB(0);
 ValueNANO MathFPGA::Measure::decDataC(0);
 
-
-
-void MathFPGA::Measure::Calculate()
-{
-    int emptyZeros = 0;
-    int manualZeros = 1;
-
-    if (TypeMeasure::Current().IsFrequency())
-    {
-        emptyZeros = CalculateFrequency(manualZeros);
-    }
-    else if (TypeMeasure::Current().IsDuration())
-    {
-        emptyZeros = CalculateDuration();
-    }
-    else if (TypeMeasure::Current().IsPeriod())
-    {
-        emptyZeros = CalculatePeriod();
-    }
-
-    if (CURRENT_CHANNEL_IS_D)
-    {
-        decDataA.FromDouble(decDataC.ToDouble() * 2.0);
-    }
-
-    decDataA.Div((uint)(2 * emptyZeros));
-
-    if (manualZeros != 1) //-V1051
-    {
-        emptyZeros = manualZeros;
-    }
-
-    pow = 0;
-
-    while (emptyZeros >= 10)
-    {
-        pow++;
-        emptyZeros /= 10;
-    }
-}
 
 
 int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
@@ -233,8 +192,6 @@ void MathFPGA::Measure::AppendDataFrequency(uint frequencyA, uint frequencyB)
         decDataA.Mul(64);
         decDataA.Div(100);
     }
-
-    Calculate();
 }
 
 
@@ -314,6 +271,39 @@ void MathFPGA::DecToBin(int dec, char *bin)
 }
 
 
+void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
+{
+    int manualZeros = 1;
+
+    if (TypeMeasure::Current().IsFrequency())
+    {
+        emptyZeros = CalculateFrequency(manualZeros);
+    }
+    else if (TypeMeasure::Current().IsDuration())
+    {
+        emptyZeros = CalculateDuration();
+    }
+    else if (TypeMeasure::Current().IsPeriod())
+    {
+        emptyZeros = CalculatePeriod();
+    }
+
+    data = decDataA;
+
+    if (CURRENT_CHANNEL_IS_D)
+    {
+        data.FromDouble(decDataC.ToDouble() * 2.0);
+    }
+
+    data.Div((uint)(2 * emptyZeros));
+
+    if (manualZeros != 1) //-V1051
+    {
+        emptyZeros = manualZeros;
+    }
+}
+
+
 String MathFPGA::Measure::GiveData()
 {
     if (FPGA::IsOverloaded() && !ModeMeasureFrequency::Current().IsTachometer())
@@ -323,8 +313,6 @@ String MathFPGA::Measure::GiveData()
 
     if (TypeMeasure::Current().IsCountPulse())
     {
-        decDataA.Div(2);
-
         float value = decDataA.ToFloat() / 2.0F;
 
         if (CURRENT_CHANNEL_IS_C)
@@ -364,13 +352,26 @@ String MathFPGA::Measure::GiveData()
         }
         else
         {
+            int emptyZeros = 0;
+            ValueNANO data(0);
+
+            Calculate(emptyZeros, data);
+
+            int pow = 0;
+
+            while (emptyZeros >= 10)
+            {
+                pow++;
+                emptyZeros /= 10;
+            }
+
             if (pow < 10)
             {
                 char format[10];
                 std::strcpy(format, "%10.0f");
                 format[4] = (char)(pow | 0x30);
 
-                return String(format, decDataA.ToFloat());
+                return String(format, data.ToFloat());
             }
             else
             {
@@ -378,7 +379,7 @@ String MathFPGA::Measure::GiveData()
                 std::strcpy(format, "%10.10f");
                 format[5] = (char)((pow - 10) | 0x30);
 
-                return String(format, decDataA.ToFloat());
+                return String(format, data.ToFloat());
             }
         }
     }

@@ -26,10 +26,10 @@ private:
     // Возвращает количество слов в строке
     int NumWords() const;
     // Возвращает информацию о слове numWord
-    void GetWord(int numWord, pCHAR (&start), int &num);
+    void GetWord(int numWord, char *(&start), int &num);
     // Нарисовать num символов, начиная с адреса start
-    int WriteSymbols(pCHAR start, int num, int x, int y) const;
+    int WriteSymbols(char *start, int num, int x, int y) const;
     // Нарисовать num символов, начиная с адреса старт, в поле шириной width символов
-    void WriteSymbols(pCHAR start, int num, int x, int y, int width, Color color) const;
-    void WriteSymbols(pCHAR start, int num, int x, int y, int width) const;
+    void WriteSymbols(char *start, int num, int x, int y, int width, Color color) const;
+    void WriteSymbols(char *start, int num, int x, int y, int width) const;
 };
