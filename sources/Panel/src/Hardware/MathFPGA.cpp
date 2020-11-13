@@ -400,7 +400,7 @@ String MathFPGA::Measure::GiveData()
         return String(".......................................................");
     }
 
-    if (FPGA::IsOverloaded() && !ModeMeasureFrequency::Current().IsTachometer())
+    if (FPGA::IsOverloaded())
     {
         return String("оепеонкмемхе");
     }

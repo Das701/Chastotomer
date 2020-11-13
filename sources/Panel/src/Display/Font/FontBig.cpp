@@ -729,8 +729,12 @@ void FontBig::Write(char *text, int x, int y, Color color)
 {
 	while (*text)
 	{
-		uint32_t space = WriteSymbol((uint8)*text, x, y, color);
-		x += space;
+		uint8 symbol = (uint8)*text;
+
+		uint space = WriteSymbol(symbol, x, y, color);
+
+		x += (symbol >= '0' && symbol <= '9') ? 33 : space;
+
 		text++;
 	}
 }
