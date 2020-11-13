@@ -190,6 +190,10 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
     case TypeData::Interpolator:
         Interpolator::Calculate(value1, value2, value3);
         break;
+
+    case TypeData::FillFactorPhase:
+        FillFactor::Calculate(value1, value2);
+        break;
     }
 }
 

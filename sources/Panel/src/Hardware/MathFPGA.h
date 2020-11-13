@@ -23,7 +23,8 @@ struct MathFPGA
             enum E
             {
                 MainCounters,   // Главные счётчики, для большинства измерений
-                Interpolator    // Данные интерполятора
+                Interpolator,   // Данные интерполятора
+                FillFactorPhase // Данные для коэффициента заполнения и фазы
             };
         };
 
@@ -69,11 +70,11 @@ struct MathFPGA
     struct FillFactor
     {
         friend struct Measure;
-        static void Calculate(uint period, uint duration);
         static float GetValue() { return value; }
     private:
         static float value;
         static int zeroes;
+        static void Calculate(uint period, uint duration);
     };
 
 

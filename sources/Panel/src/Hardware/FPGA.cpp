@@ -167,7 +167,7 @@ void FPGA::ReadFillFactorPhase()
         CYCLE_READ_PIN_B14(32, duration, true);
         Reset_CS;
 
-        MathFPGA::FillFactor::Calculate(period, duration);
+        MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::FillFactorPhase, period, duration);
 
         HAL_TIM::DelayUS(8);
     }
