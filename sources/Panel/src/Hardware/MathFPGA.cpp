@@ -34,12 +34,12 @@ float  MathFPGA::FillFactor::value = 0.0F;
 int    MathFPGA::FillFactor::zeroes = 0;
        
 int       MathFPGA::Measure::decDA = 1;
-ValuePICO MathFPGA::Measure::valueComparator(0);
 bool      MathFPGA::Measure::isEmpty = true;
 ValueNANO MathFPGA::Measure::decDataA(0);
 ValueNANO MathFPGA::Measure::decDataB(0);
 ValueNANO MathFPGA::Measure::decDataC(0);
 
+ValuePICO MathFPGA::Comparator::value(0);
 
 
 int MathFPGA::Measure::CalculateFrequency(int &manualZeros)
@@ -207,13 +207,13 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
         break;
 
     case TypeData::Comparator:
-        CalculateComparator(value1, value2, value3);
+        Comparator::Calculate(value1, value2, value3);
         break;
     }
 }
 
 
-void MathFPGA::Measure::CalculateComparator(uint fx, uint tizm, uint nkal)
+void MathFPGA::Comparator::Calculate(uint fx, uint tizm, uint nkal)
 {
     curFX = fx;
     curTIZM = tizm;
@@ -242,7 +242,7 @@ void MathFPGA::Measure::CalculateComparator(uint fx, uint tizm, uint nkal)
 
         k.SetSign(1);
 
-        MathFPGA::Measure::valueComparator = k;
+        value = k;
 
         if (MathFPGA::Comparator::values.AppendValue(k.ToDouble()))
         {
@@ -434,20 +434,20 @@ String MathFPGA::Measure::GiveData()
         }
         else if (ModeMeasureFrequency::Current().IsComparator())
         {
-            return valueComparator.ToString();
+            return Comparator::value.ToString();
         }
         else if (ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
-            return String("%10.2f", MathFPGA::Interpolator::GetValue());
+            return String("%10.2f", MathFPGA::Interpolator::value);
         }
         else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_FillFactor() || ModeMeasureDuration::Current().Is_Phase()))
         {
             if (ModeMeasureDuration::Current().Is_Phase())
             {
-                return String("%10.3f", MathFPGA::FillFactor::GetValue());
+                return String("%10.3f", MathFPGA::FillFactor::value);
             }
             
-            return String("%10.7f", MathFPGA::FillFactor::GetValue());
+            return String("%10.7f", MathFPGA::FillFactor::value);
         }
         else
         {

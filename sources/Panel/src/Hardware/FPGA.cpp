@@ -421,20 +421,20 @@ bool FPGA::IsOverloaded()
 }
 
 
-bool MathFPGA::Comparator::Stack::AppendValue(double value)
+bool MathFPGA::Comparator::Stack::AppendValue(double val)
 {
-    if (value > 1e5)
+    if (val > 1e5)
     {
         return false;
     }
 
     if (Size() < 5)
     {
-        Push(value);
+        Push(val);
         return true;
     }
 
-    if(value != 0.0) //-V2550 //-V550
+    if(val != 0.0) //-V2550 //-V550
     {
         for (int i = 0; i < 5; i++)
         {
@@ -442,13 +442,13 @@ bool MathFPGA::Comparator::Stack::AppendValue(double value)
             
             if(fromEnd == 0.0) { continue; }                //-V2550 //-V550
     
-            if (value / 10 > fromEnd) { return false; }     // »збавл€емс€ от слишком больших значений
+            if (val / 10 > fromEnd) { return false; }     // »збавл€емс€ от слишком больших значений
     
-            if (value * 10 < fromEnd) { return false; }     // ¬ыкидываем слишком маленькие значени€
+            if (val * 10 < fromEnd) { return false; }     // ¬ыкидываем слишком маленькие значени€
         }
     }
 
-    Push(value);
+    Push(val);
 
     return true;
 }
