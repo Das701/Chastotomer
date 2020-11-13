@@ -8,7 +8,7 @@ static void OnPress_Information()
 
 }
 
-DEF_BUTTON(bInformation, "»нфо", OnPress_Information);
+DEF_BUTTON(bInformation, "»нфо", "¬ывод системной информации", OnPress_Information);
 
 
 static void OnPress_ResetSettings()
@@ -16,7 +16,7 @@ static void OnPress_ResetSettings()
 
 }
 
-DEF_BUTTON(bResetSettings, "—брос настроек", OnPress_ResetSettings);
+DEF_BUTTON(bResetSettings, "—брос настроек", "—брос настроек в состо€ние по умолчанию", OnPress_ResetSettings);
 
 
 static void OnPress_Language()
@@ -24,7 +24,7 @@ static void OnPress_Language()
 
 }
 
-DEF_BUTTON(bLanguage, "язык", OnPress_Language);
+DEF_BUTTON(bLanguage, "язык", "¬ыбор €зыка интерфейса", OnPress_Language);
 
 
 static void OnPress_ResetMode()
@@ -32,7 +32,7 @@ static void OnPress_ResetMode()
 
 }
 
-DEF_BUTTON(bResetMode, "—брос режима", OnPress_ResetMode);
+DEF_BUTTON(bResetMode, "—брос режима", "", OnPress_ResetMode);
 
 
 static Item *items[7] =

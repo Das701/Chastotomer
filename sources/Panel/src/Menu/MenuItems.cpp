@@ -291,6 +291,12 @@ void Switch::CreateHint(char buffer[100]) const
 }
 
 
+void Button::CreateHint(char buffer[100]) const
+{
+    std::strcpy(buffer, hint);
+}
+
+
 Color Item::ColorBackground(bool selected)
 {
     return selected ? Color::GRAY_75 : Color::GRAY_10;

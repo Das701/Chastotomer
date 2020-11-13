@@ -27,6 +27,7 @@ class Item
 {
     friend class Hint;
 public:
+    Item(char *_hint) : hint(_hint) {}
     virtual ~Item() {};
 
     static const int HEIGHT = 35;
@@ -54,7 +55,7 @@ private:
 class Button : public Item
 {
 public:
-    Button(char *_text, void (*funcPress)()) : text(_text), funcOnPress(funcPress) {};
+    Button(char *_text, char *_hint, void (*funcPress)()) : Item(_hint), text(_text), funcOnPress(funcPress) {};
 
     virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &control);
@@ -63,7 +64,7 @@ private:
     char *text;
     void (*funcOnPress)();
 
-    virtual void CreateHint(char [100]) const {};
+    virtual void CreateHint(char [100]) const;
 };
 
 
@@ -73,11 +74,10 @@ class Switch : public Item
 public:
 
     Switch(char *_text, char *_hint, char **_names, char **_ugo, Enumeration *_state, void(*_onClick)()) :
-        text(_text), funcOnPress(_onClick), state(_state)
+        Item(_hint), text(_text), funcOnPress(_onClick), state(_state)
     {
         state->names = _names;
         state->ugo = _ugo;
-        hint = _hint;
     };
     virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &control);
@@ -96,7 +96,7 @@ private:
 class Page : public Item, public Observer
 {
 public:
-    Page(Item **_items, void (*_onEvent)(EventType::E)) : selectedItem(0), items(_items), onEvent(_onEvent) {};
+    Page(Item **_items, void (*_onEvent)(EventType::E)) : Item(""), selectedItem(0), items(_items), onEvent(_onEvent) {};
 
     virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &) { return false; };
