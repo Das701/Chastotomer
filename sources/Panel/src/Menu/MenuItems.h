@@ -47,7 +47,7 @@ protected:
 
 private:
     // Создать подсказку для итема
-    virtual void CreateHint(char buffer[100]) const = 0;
+    virtual void CreateHint(String &hint) const = 0;
 };
 
 
@@ -64,7 +64,7 @@ private:
     char *text;
     void (*funcOnPress)();
 
-    virtual void CreateHint(char [100]) const;
+    virtual void CreateHint(String &hint) const;
 };
 
 
@@ -86,7 +86,7 @@ private:
     char        *text;              // Надпись на переключателе
     void       (*funcOnPress)();    // Эта функция вызывается после изменения состояния переключателя
     Enumeration *state;             // Адрес переменной с состоянием переключателя
-    virtual void CreateHint(char buffer[100]) const;
+    virtual void CreateHint(String &hint) const;
     // Переключить в следующее состояние
     void  NextChoice();
 };
@@ -129,7 +129,7 @@ private:
     // Возвращает количество итемов на странице
     int NumItems() const;
 
-    virtual void CreateHint(char buffer[100]) const { buffer[0] = 0; };
+    virtual void CreateHint(String &_hint) const { _hint.Free(); };
 
     // Возвращает ширину элемента меню с номером num
     int WidthItem(int num) const;

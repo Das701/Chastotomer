@@ -283,17 +283,19 @@ void Button::Draw(int x, int y, int width, bool selected)
 }
 
 
-void Switch::CreateHint(char buffer[100]) const
+void Switch::CreateHint(String &h) const
 {
-    std::strcpy(buffer, hint);
-    std::strcat(buffer, ": ");
-    std::strcat(buffer, state->ToText());
+    h.Free();
+    h.Append(hint);
+    h.Append(": ");
+    h.Append(state->ToText());
 }
 
 
-void Button::CreateHint(char buffer[100]) const
+void Button::CreateHint(String &h) const
 {
-    std::strcpy(buffer, hint);
+    h.Free();
+    h.Append(hint);
 }
 
 
