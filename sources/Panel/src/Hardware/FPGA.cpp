@@ -77,6 +77,11 @@ static int NAC = 0;
 static bool isOverloaded = false;
 
 
+uint FPGA::fx = 0;
+uint FPGA::tizm = 0;
+uint FPGA::nkal = 0;
+
+
 FPGA::Comparator::Stack FPGA::Comparator::values(400);
 
 
@@ -211,10 +216,6 @@ void FPGA::ReadComparator()
 {
     if (Read_FLAG != 0)
     {
-        uint fx = 0;
-        uint tizm = 0;
-        uint nkal = 0;
-
         Set_CS;
         CYCLE_READ_PIN_B14_NO_REFRESH(3, ident, false);
         CYCLE_READ_PIN_B14_NO_REFRESH(32, fx, false);

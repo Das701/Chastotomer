@@ -27,6 +27,10 @@ friend struct MathFPGA;
     // Возвращает true в случае переполнения
     static bool IsOverloaded();
 
+    static uint fx;
+    static uint tizm;
+    static uint nkal;
+
     struct Comparator
     {
         class Stack : public ::Stack<double>

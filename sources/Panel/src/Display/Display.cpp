@@ -167,6 +167,15 @@ static void DrawScreen()
         Menu::Draw();
         
         DrawData();
+
+        if (ModeMeasureFrequency::Current().IsComparator())
+        {
+            int y = 93;
+            int dY = 16;
+            Text(String("%d", FPGA::fx)).Write(10, y, Color::BLACK);
+            Text(String("%d", FPGA::tizm)).Write(10, y + dY);
+            Text(String("%d", FPGA::nkal)).Write(10, y + 2 * dY);
+        }
     }
 }
 
