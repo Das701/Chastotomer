@@ -87,16 +87,6 @@ struct MathFPGA
     };
 
 
-    static uint curFX;
-    static uint curTIZM;
-    static uint curNKAL;
-
-    static Stack<uint> sFX;
-    static Stack<uint> sTIZM;
-    static Stack<uint> sNKAL;
-    static Stack<double> values;
-
-
     struct Comparator
     {
         friend struct Measure;

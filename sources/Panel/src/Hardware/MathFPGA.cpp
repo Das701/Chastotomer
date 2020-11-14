@@ -17,16 +17,6 @@ int    MathFPGA::NB = 0; //-V707
 bool MathFPGA::Validator::isEmpty = true;
 uint MathFPGA::Validator::timeClearedFlag = 0;
 
-uint MathFPGA::curFX = 0;
-uint MathFPGA::curTIZM = 0;
-uint MathFPGA::curNKAL = 0;
-
-Stack<uint> MathFPGA::sFX(50);
-Stack<uint> MathFPGA::sTIZM(50);
-Stack<uint> MathFPGA::sNKAL(50);
-Stack<double> MathFPGA::values(50);
-
-
 float  MathFPGA::Interpolator::value = 0.0F;
        
 uint   MathFPGA::Auto::fpgaMin = 0;
@@ -232,10 +222,6 @@ bool MathFPGA::Validator::DataIsValid()
 
 void MathFPGA::Comparator::Calculate(uint fx, uint tizm, uint nkal)
 {
-    curFX = fx;
-    curTIZM = tizm;
-    curNKAL = nkal;
-
     int decNkal = (int)nkal;
 
     if (decNkal != 0)
@@ -264,20 +250,6 @@ void MathFPGA::Comparator::Calculate(uint fx, uint tizm, uint nkal)
         if (MathFPGA::Comparator::values.AppendValue(k.ToDouble()))
         {
             Display::Refresh();
-        }
-        else
-        {
-            if (MathFPGA::sFX.IsFull())
-            {
-                MathFPGA::sFX.Clear();
-                MathFPGA::sTIZM.Clear();
-                MathFPGA::sNKAL.Clear();
-            }
-
-            MathFPGA::sFX.Push(fx);
-            MathFPGA::sTIZM.Push(tizm);
-            MathFPGA::sNKAL.Push(nkal);
-            MathFPGA::values.Push(k.ToDouble());
         }
     }
 }

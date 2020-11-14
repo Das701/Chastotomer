@@ -209,30 +209,6 @@ static void DrawScreen()
         //Indicator::Test(10, 150, Color::WHITE);
 
         TimeMeasure::ProgressBar::Draw(0, 0);
-
-        if (ModeMeasureFrequency::Current().IsComparator())
-        {
-            int y = 93;
-            int dY = 16;
-            Text(String("%u", MathFPGA::curFX)).Write(10, y, Color::BLACK);
-            Text(String("%u", MathFPGA::curTIZM)).Write(10, y + dY);
-            Text(String("%u", MathFPGA::curNKAL)).Write(10, y + 2 * dY);
-
-            int width = 90;
-
-            if (MathFPGA::sFX.Size() > 0)
-            {
-                int counter = 0;
-
-                for (int i = MathFPGA::sFX.Size() - 1; i > MathFPGA::sFX.Size() - 5 && i >= 0; i--)
-                {
-                    Text(String("%u", MathFPGA::sFX[i])).Write(10 + width * (counter + 1), y);
-                    Text(String("%u", MathFPGA::sTIZM[i])).Write(10 + width * (counter + 1), y + dY);
-                    Text(String("%u", MathFPGA::sNKAL[i])).Write(10 + width * (counter + 1), y + 2 * dY);
-                    Text(String("%.3e", MathFPGA::values[i])).Write(10 + width * (counter++ + 1), y + 3 * dY);
-                }
-            }
-        }
     }
 }
 
