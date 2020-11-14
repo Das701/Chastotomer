@@ -509,6 +509,16 @@
               <FilePath>.\src\FreqMeter.cpp</FilePath>
             </File>
             <File>
+              <FileName>Log.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Log.h</FilePath>
+            </File>
+            <File>
+              <FileName>Log_stm.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Log_stm.cpp</FilePath>
+            </File>
+            <File>
               <FileName>Settings.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings.h</FilePath>
@@ -532,6 +542,16 @@
               <FileName>Colors.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Colors.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Console.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Console.h</FilePath>
+            </File>
+            <File>
+              <FileName>Console.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Console.cpp</FilePath>
             </File>
             <File>
               <FileName>Display.h</FileName>
@@ -1555,6 +1575,16 @@
               <FilePath>.\src\FreqMeter.cpp</FilePath>
             </File>
             <File>
+              <FileName>Log.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Log.h</FilePath>
+            </File>
+            <File>
+              <FileName>Log_stm.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Log_stm.cpp</FilePath>
+            </File>
+            <File>
               <FileName>Settings.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings.h</FilePath>
@@ -1578,6 +1608,16 @@
               <FileName>Colors.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Colors.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Console.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Console.h</FilePath>
+            </File>
+            <File>
+              <FileName>Console.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Console.cpp</FilePath>
             </File>
             <File>
               <FileName>Display.h</FileName>

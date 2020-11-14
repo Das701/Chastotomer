@@ -39,12 +39,14 @@ add_compile_options(/wd26812)
 file(GLOB VS_HAL              ../../common/_VS_KEIL/HAL/*)
 file(GLOB SRC                 ../../Panel/src/defines.h
                               ../../Panel/src/FreqMeter.*
+                              ../../Panel/src/Log.h
                               ../../Panel/src/Settings.*
                                           src/Application_win.*
                                           src/main_win.cpp)
 file(GLOB DISPLAY                         src/Display/Display_win.cpp
                                           src/Display/Colors_win.cpp
                               ../../Panel/src/Display/Colors.*
+                              ../../Panel/src/Display/Console.*
                               ../../Panel/src/Display/Display.*
                               ../../Panel/src/Display/Indicator.*
                               ../../Panel/src/Display/Primitives.*
