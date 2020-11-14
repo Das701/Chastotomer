@@ -7,7 +7,7 @@
 #include <cstdio>
 
 
-#define S_DBG_NUM_STRINGS_IN_CONSOLE 10
+#define S_DBG_NUM_STRINGS_IN_CONSOLE 9
 
 
 char Console::buffer[10][100];
@@ -45,7 +45,7 @@ void Console::Draw()
     for (int i = 0; i < stringInConsole; i++)
     {
         Text(String(buffer[i]).c_str()).Write(1, y, Color::BLACK);
-        y += 6;
+        y += 15;
     }
 
     inProcessDraw = false;

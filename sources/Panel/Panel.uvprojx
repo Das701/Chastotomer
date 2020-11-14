@@ -514,9 +514,9 @@
               <FilePath>.\src\Log.h</FilePath>
             </File>
             <File>
-              <FileName>Log_stm.cpp</FileName>
+              <FileName>Log.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Log_stm.cpp</FilePath>
+              <FilePath>.\src\Log.cpp</FilePath>
             </File>
             <File>
               <FileName>Settings.h</FileName>
@@ -1580,9 +1580,9 @@
               <FilePath>.\src\Log.h</FilePath>
             </File>
             <File>
-              <FileName>Log_stm.cpp</FileName>
+              <FileName>Log.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Log_stm.cpp</FilePath>
+              <FilePath>.\src\Log.cpp</FilePath>
             </File>
             <File>
               <FileName>Settings.h</FileName>

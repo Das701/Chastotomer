@@ -1,6 +1,8 @@
 #include "defines.h"
+#include "Log.h"
 #include "FreqMeter.h"
 #include "Settings.h"
+#include "Display/Console.h"
 #include "Display/Display.h"
 #include "Display/Indicator.h"
 #include "Display/Primitives.h"
@@ -154,6 +156,13 @@ static void DrawPartScreen(int num)
     Display::BeginScene();
 
     DrawScreen();
+
+    if (num == 0)
+    {
+        static int counter = 0;
+        LOG_WRITE("Update %d", counter++);
+        Console::Draw();
+    }
 
     if (num == 0)
     {

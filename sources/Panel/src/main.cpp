@@ -1,3 +1,4 @@
+#include "Log.h"
 #include "Display/Display.h"
 #include "Hardware/FPGA.h"
 #include "Hardware/VCP.h"

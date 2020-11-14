@@ -39,7 +39,7 @@ add_compile_options(/wd26812)
 file(GLOB VS_HAL              ../../common/_VS_KEIL/HAL/*)
 file(GLOB SRC                 ../../Panel/src/defines.h
                               ../../Panel/src/FreqMeter.*
-                              ../../Panel/src/Log.h
+                              ../../Panel/src/Log.*
                               ../../Panel/src/Settings.*
                                           src/Application_win.*
                                           src/main_win.cpp)
