@@ -76,17 +76,10 @@ static void DrawHLine(int x, int y, DirectH direct)
 }
 
 
-//void Indicator::Draw(int x, int y)
-//{
-//    static const int numSymbols = 10;
-//
-//    static const int dX = 5;
-//
-//    for (int i = 0; i < numSymbols; i++)
-//    {
-//        DrawDigit(x + (width + dX) * i, y, (uint8)i);
-//    }
-//}
+void Indicator::Test(int x, int y, Color color)
+{
+    DrawData("123456789.0", x, y, color);
+}
 
 
 void Indicator::DrawData(pString text, int x, int y, Color color)
@@ -102,6 +95,11 @@ void Indicator::DrawData(pString text, int x, int y, Color color)
             DrawDigit(x, y, (uint8)(*pointer - 0x30));
 
             x += width + 7;
+        }
+        else if (*pointer == '.')
+        {
+            Rectangle(8, 8).Fill(x - 5, y + sizeLine * 1.7F);
+            x += 7;
         }
 
         pointer++;

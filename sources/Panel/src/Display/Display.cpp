@@ -51,7 +51,10 @@ static int topRow = 0;
 
 
 static uint timeStart = 0;
-static uint timeFull = 0;
+static uint timeFrame = 0;
+static uint fps = 0;                // Столько кадров отрисовано за последнюю секунду
+static uint beginSecond = 0;        // В это время началась последняя секунда
+static uint timePaint = 0;          // Время отрисовки за секунду
 
 
 static int topDraw = 0;             // Верхний у отрисовываемой части экрана
@@ -94,7 +97,14 @@ void Display::Refresh()
 
 void Display::Update()
 {
+    if (beginSecond == 0)
+    {
+        beginSecond = TIME_MS;
+    }
+
     static uint lastUpdate = 0;
+    static uint currentFramesInSec = 0;         // Столько кадров отрисовано за текущую секунду
+    static uint currentTimePaintInSec = 0;      // Столько времени потрачено на отрисовку за текущую секунду
 
     if (TimeMeasure::ProgressBar::IsDrawable())
     {
@@ -111,12 +121,24 @@ void Display::Update()
             DrawPartScreen(i);
         }
 
-        timeFull = TIME_MS - timeStart;
+        timeFrame = TIME_MS - timeStart;
 
         lastUpdate = TIME_MS;
+
+        currentFramesInSec++;
+        currentTimePaintInSec += timeFrame;
     }
 
     needRedraw = false;
+
+    if (TIME_MS >= beginSecond + 1000)
+    {
+        fps = currentFramesInSec;
+        currentFramesInSec = 0;
+        beginSecond = TIME_MS;
+        timePaint = currentTimePaintInSec;
+        currentTimePaintInSec = 0;
+    }
 }
 
 
@@ -131,18 +153,20 @@ static void DrawPartScreen(int num)
 
     Display::BeginScene();
 
+    DrawScreen();
+
     if (num == 0)
     {
-        Text(String("%d", timeFull)).Write(440, 0, Color::WHITE);
+        Text(String("%d", timeFrame)).Write(440, 0, Color::BLACK);
+        Text(String("%d", fps)).Write(440, 15);
+        Text(String("%d", timePaint)).Write(440, 30);
     }
-
-    DrawScreen();
 
     Display::EndScene();
 
     if (num == Display::NUM_PARTS)
     {
-        timeFull = TIME_MS - timeStart;
+        timeFrame = TIME_MS - timeStart;
     }
 }
 
