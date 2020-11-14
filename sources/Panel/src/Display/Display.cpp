@@ -364,7 +364,7 @@ static void DrawData()
             if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
             {
                 //FontBig::Write(data.c_str(), 10, 150, Color::WHITE);
-                Indicator::DrawDataAboutRight(data.c_str(), 360, 150, Color::WHITE);
+                Indicator::DrawDataAboutRight(data.c_str(), 360, 150, Color::WHITE, Color::GREEN_10);
             }
             else
             {

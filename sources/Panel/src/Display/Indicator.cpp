@@ -11,28 +11,24 @@ static const int sizeLine = 26;
 static const int width = sizeLine + 2;
 static const int height = sizeLine * 2;
 
-static const bool BOLD = true;
-
 static const int bold = 2;
 
 
-enum DirectV
+Color Indicator::colorDraw(Color::WHITE);
+Color Indicator::colorBack(Color::BLACK);
+
+
+
+void Indicator::DrawVLine(int x, int y, DirectV direct, DirectH directH, bool visible)
 {
-    Left,
-    Right
-};
+    if (!visible)
+    {
+        return;
+    }
 
+    if (visible)  { colorDraw.SetAsCurrent(); }
+    else          { colorBack.SetAsCurrent(); }
 
-enum DirectH
-{
-    Up,
-    Mid,
-    Down
-};
-
-
-static void DrawVLine(int x, int y, DirectV direct, DirectH directH)
-{
     y--;
 
     if (direct == Right)
@@ -54,8 +50,16 @@ static void DrawVLine(int x, int y, DirectV direct, DirectH directH)
 }
 
 
-static void DrawHLine(int x, int y, DirectH direct)
+void Indicator::DrawHLine(int x, int y, DirectH direct, bool visible)
 {
+    if (!visible)
+    {
+        return;
+    }
+
+    if (visible) { colorDraw.SetAsCurrent(); }
+    else         { colorBack.SetAsCurrent(); }
+
     x--;
 
     if (direct == Mid)
@@ -76,15 +80,16 @@ static void DrawHLine(int x, int y, DirectH direct)
 }
 
 
-void Indicator::Test(int x, int y, Color color)
+void Indicator::Test(int x, int y, Color cDraw, Color cBack)
 {
-    DrawData("-123456789.0", x, y, color);
+    DrawData("-123456789.0", x, y, cDraw, cBack);
 }
 
 
-void Indicator::DrawData(pString text, int x, int y, Color color)
+void Indicator::DrawData(pString text, int x, int y, Color cDraw, Color cBack)
 {
-    color.SetAsCurrent();
+    colorDraw = cDraw;
+    colorBack = cBack;
 
     pCHAR pointer = text;
 
@@ -94,7 +99,7 @@ void Indicator::DrawData(pString text, int x, int y, Color color)
         {
             DrawDigit(x, y, (uint8)(*pointer - 0x30));
 
-            x += DeltaX(*pointer);
+            x += DeltaX((uint8)*pointer);
         }
         else if (*pointer == '-')
         {
@@ -103,7 +108,7 @@ void Indicator::DrawData(pString text, int x, int y, Color color)
         }
         else if (*pointer == '.')
         {
-            Rectangle(8, 8).Fill(x - 5, y + sizeLine * 1.7F);
+            Rectangle(8, 8).Fill(x - 5, y + (int)(sizeLine * 1.7F));
             x += DeltaX('.');
         }
 
@@ -112,7 +117,7 @@ void Indicator::DrawData(pString text, int x, int y, Color color)
 }
 
 
-void Indicator::DrawDataAboutRight(pString text, int xRight, int y, Color color)
+void Indicator::DrawDataAboutRight(pString text, int xRight, int y, Color cDraw, Color cBack)
 {
     pCHAR pointer = text;
 
@@ -120,11 +125,11 @@ void Indicator::DrawDataAboutRight(pString text, int xRight, int y, Color color)
 
     while (*pointer != '\0')
     {
-        length += DeltaX(*pointer);
+        length += DeltaX((uint8)*pointer);
         pointer++;
     }
 
-    DrawData(text, xRight - length, y, color);
+    DrawData(text, xRight - length, y, cDraw, cBack);
 }
 
 
@@ -159,7 +164,7 @@ void Indicator::DrawDigit(int x, int y, uint8 symbol)
 #define SEG_F 5
 #define SEG_G 6
 
-    static const bool segments[10][7] =
+    static const bool segments[11][7] =
     { //   A      B      C      D      E      F      G
         {true,  true,  true,  true,  true,  true,  false},    // 0
         {false, true,  true,  false, false, false, false},    // 1
@@ -170,22 +175,22 @@ void Indicator::DrawDigit(int x, int y, uint8 symbol)
         {true,  false, true,  true,  true,  true,  true},     // 6
         {true,  true,  true,  false, false, false, false},    // 7
         {true,  true,  true,  true,  true,  true,  true},     // 8
-        {true,  true,  true,  true,  false,  true,  true}     // 9
+        {true,  true,  true,  true,  false, true,  true},     // 9
+        {false, false, false, false, false, false, true}      // '-'
     };
 
     if (symbol == '-')
     {
-        DrawHLine(x + d + 2, y + height / 2, Mid);
-        return;
+        symbol = 10;
     }
 
-    if (segments[symbol][SEG_F])    DrawVLine(x + d, y + d + 2, Left, Up);
-    if (segments[symbol][SEG_E])    DrawVLine(x + d, y + height / 2 + 2, Left, Down);
+    DrawVLine(x + d, y + d + 2, Left, Up, segments[symbol][SEG_F]);
+    DrawVLine(x + d, y + height / 2 + 2, Left, Down, segments[symbol][SEG_E]);
 
-    if (segments[symbol][SEG_B])    DrawVLine(x + width - 2, y + d + 2, Right, Up);
-    if (segments[symbol][SEG_C])    DrawVLine(x + width - 2, y + height / 2 + 2, Right, Down);
+    DrawVLine(x + width - 2, y + d + 2, Right, Up, segments[symbol][SEG_B]);
+    DrawVLine(x + width - 2, y + height / 2 + 2, Right, Down, segments[symbol][SEG_C]);
 
-    if (segments[symbol][SEG_A])    DrawHLine(x + d + 2, y + d, Up);
-    if (segments[symbol][SEG_G])    DrawHLine(x + d + 2, y + height / 2, Mid);
-    if (segments[symbol][SEG_D])    DrawHLine(x + d + 2, y + height, Down);
+    DrawHLine(x + d + 2, y + d, Up, segments[symbol][SEG_A]);
+    DrawHLine(x + d + 2, y + height / 2, Mid, segments[symbol][SEG_G]);
+    DrawHLine(x + d + 2, y + height, Down, segments[symbol][SEG_D]);
 }
