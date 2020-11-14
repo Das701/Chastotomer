@@ -608,6 +608,26 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\FontBig.h</FilePath>
             </File>
+            <File>
+              <FileName>fontGOSTAU16BOLD.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\fontGOSTAU16BOLD.inc</FilePath>
+            </File>
+            <File>
+              <FileName>fontGOSTAU16BOLD.xml</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\fontGOSTAU16BOLD.xml</FilePath>
+            </File>
+            <File>
+              <FileName>fontGOSTB28B.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\fontGOSTB28B.inc</FilePath>
+            </File>
+            <File>
+              <FileName>fontGOSTB28B.xml</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\fontGOSTB28B.xml</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1623,6 +1643,26 @@
               <FileName>FontBig.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\FontBig.h</FilePath>
+            </File>
+            <File>
+              <FileName>fontGOSTAU16BOLD.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\fontGOSTAU16BOLD.inc</FilePath>
+            </File>
+            <File>
+              <FileName>fontGOSTAU16BOLD.xml</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\fontGOSTAU16BOLD.xml</FilePath>
+            </File>
+            <File>
+              <FileName>fontGOSTB28B.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\fontGOSTB28B.inc</FilePath>
+            </File>
+            <File>
+              <FileName>fontGOSTB28B.xml</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\fontGOSTB28B.xml</FilePath>
             </File>
           </Files>
         </Group>
