@@ -159,7 +159,6 @@ static void DrawPartScreen(int num)
 
     if (num == 0)
     {
-        LOG_WRITE("Update");
         Console::Draw();
     }
 

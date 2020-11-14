@@ -453,6 +453,8 @@ String MathFPGA::Measure::GiveData()
                 std::strcpy(format, "%10.0f");
                 format[4] = (char)(pow | 0x30);
 
+//                LOG_WRITE("%d, zeroes = %d, data = %f", __LINE__, emptyZeros, data.ToFloat());
+
                 return String(format, data.ToFloat());
             }
             else
@@ -460,6 +462,8 @@ String MathFPGA::Measure::GiveData()
                 char format[10];
                 std::strcpy(format, "%10.10f");
                 format[5] = (char)((pow - 10) | 0x30);
+
+//                LOG_WRITE("%d, pow = %d, data = %f", __LINE__, pow, data.ToFloat());
 
                 return String(format, data.ToFloat());
             }
