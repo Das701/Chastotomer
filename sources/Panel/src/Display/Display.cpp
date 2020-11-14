@@ -198,6 +198,8 @@ static void DrawScreen()
         
         DrawData();
 
+        //Indicator::Test(10, 150, Color::WHITE);
+
         TimeMeasure::ProgressBar::Draw(0, 0);
 
         if (ModeMeasureFrequency::Current().IsComparator())
@@ -359,10 +361,10 @@ static void DrawData()
 
         if (data[0] != 0)
         {
-            if (std::isdigit(data[0]) != 0 || data[0] == ' ')
+            if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
             {
                 //FontBig::Write(data.c_str(), 10, 150, Color::WHITE);
-                Indicator::DrawData(data.c_str(), 10, 150, Color::WHITE);
+                Indicator::DrawDataAboutRight(data.c_str(), 360, 150, Color::WHITE);
             }
             else
             {
@@ -375,7 +377,7 @@ static void DrawData()
 
     if (Display::InDrawingPart(170, 50))
     {
-        FontMid::Write(MathFPGA::Measure::GiveUnits().c_str(), 344, 170, Color::WHITE);
+        FontMid::Write(MathFPGA::Measure::GiveUnits().c_str(), 360, 170, Color::WHITE);
     }
 
     if ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) ||

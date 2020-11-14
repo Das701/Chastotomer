@@ -397,7 +397,7 @@ String MathFPGA::Measure::GiveData()
 {
     if (isEmpty)
     {
-        return String(".......................................................");
+        return String("----------");
     }
 
     if (FPGA::IsOverloaded())
