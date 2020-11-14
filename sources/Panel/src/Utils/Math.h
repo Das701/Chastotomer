@@ -25,4 +25,6 @@ namespace Math
     template<class T> void CircleDecrease(T *value, T min, T max);
 
     template<class T> T Min(T x1, T x2)  { return (x1 < x2) ? x1 : x2;  }
+
+    template<class T> void Swap(T &x1, T &x2) { T temp = x1; x1 = x2; x2 = temp; }
 };

@@ -4,6 +4,7 @@
 #include "Display/Font/Font.h"
 #include "GUI/GovernorGUI.h"
 #include "Keyboard/Keyboard.h"
+#include "Utils/Math.h"
 
 #pragma warning(push, 0)
 #undef CRC
@@ -98,15 +99,23 @@ void Display::Init()
 
     unsigned char *pointer = buffer;
 
+    Color color1 = Color::GREEN_10;
+    Color color2 = Color::GREEN_25;
+
     for (int i = 0; i < Display::WIDTH * Display::HEIGHT; i += 2)
     {
-        *pointer++ = RED_FROM_COLOR(COLOR(Color::GREEN_10.value));
-        *pointer++ = GREEN_FROM_COLOR(COLOR(Color::GREEN_10.value));
-        *pointer++ = BLUE_FROM_COLOR(COLOR(Color::GREEN_10.value));
+        *pointer++ = RED_FROM_COLOR(COLOR(color1.value));
+        *pointer++ = GREEN_FROM_COLOR(COLOR(color1.value));
+        *pointer++ = BLUE_FROM_COLOR(COLOR(color1.value));
 
-        *pointer++ = RED_FROM_COLOR(COLOR(Color::GREEN_25.value));
-        *pointer++ = GREEN_FROM_COLOR(COLOR(Color::GREEN_25.value));
-        *pointer++ = BLUE_FROM_COLOR(COLOR(Color::GREEN_25.value));
+        *pointer++ = RED_FROM_COLOR(COLOR(color2.value));
+        *pointer++ = GREEN_FROM_COLOR(COLOR(color2.value));
+        *pointer++ = BLUE_FROM_COLOR(COLOR(color2.value));
+
+        if (i % Display::WIDTH == 0)
+        {
+            Math::Swap(color1, color2);
+        }
     }
 
     wxImage image;
