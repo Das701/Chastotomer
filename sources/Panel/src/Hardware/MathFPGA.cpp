@@ -239,15 +239,14 @@ void MathFPGA::Validator::SetInvalidData()
     isEmpty = true;
     timeClearedFlag = TIME_MS;
     TimeMeasure::ProgressBar::Reset();
+    Data::SetDigits(String("----------"));
+    Data::SetUnits(String(""));
 }
 
 
 void MathFPGA::Validator::SetValidData()
 {
-    if (TIME_MS - timeClearedFlag > 200)
-    {
-        isEmpty = false;
-    }
+    isEmpty = false;
 }
 
 bool MathFPGA::Validator::DataIsValid()
@@ -419,12 +418,6 @@ void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
 
 void MathFPGA::Measure::CalculateNewData()
 {
-    if (!MathFPGA::Validator::DataIsValid())
-    {
-        Data::SetDigits(String("----------"));
-        return;
-    }
-
     if (FPGA::IsOverloaded())
     {
         Data::SetDigits(String("оепеонкмемхе"));
