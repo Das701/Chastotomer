@@ -49,6 +49,7 @@ file(GLOB DISPLAY                         src/Display/Display_win.cpp
                               ../../Panel/src/Display/Display.*
                               ../../Panel/src/Display/Primitives.*
                                           src/Display/Primitives_win.cpp
+                              ../../Panel/src/Display/Symbols.*
                               ../../Panel/src/Display/Text.*)
 file(GLOB DISPLAY_FONT        ../../Panel/src/Display/Font/*)
 file(GLOB FREQMETER           ../../Panel/src/FreqMeter/*)

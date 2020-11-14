@@ -4,6 +4,7 @@
 #include "Menu/Pages/Settings/PagesSettings.h"
 #include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
+#include "Display/Symbols.h"
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/Modes/PagesModes.h"
@@ -33,7 +34,7 @@ static void OnPress_Couple()
 DEF_SWITCH_UGO_2(sCouple,
     "Вход", "Вход",
     "Открытый вход", "Закрытый вход",
-    "\x81", "\x80",
+    SYMBOL_DC_IN_QUOTES, SYMBOL_AC_IN_QUOTES,
     PageSettingsA::couple, OnPress_Couple
 );
 
@@ -71,11 +72,12 @@ static void OnPress_Front()
     ModeFront::LoadToFPGA();
 }
 
+
 // Выбор фронта синхронизации текущего канала
 DEF_SWITCH_UGO_2(sFront,
     "\x82/\x83", "Выбор типа синхронизации",
     "Фронт", "Срез",
-    "\x82", "\x83",
+    SYMBOL_FRONT_IN_QUOTES, SYMBOL_RISE_IN_QUOTES,
     PageSettingsA::modeFront, OnPress_Front
 );
 
