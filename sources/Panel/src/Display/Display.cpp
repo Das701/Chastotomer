@@ -152,16 +152,57 @@ static const int width = sizeLine + 2;
 static const int height = sizeLine * 2;
 
 
+#define BOLD
 
-static void DrawVLine(int x, int y)
+enum DirectV
 {
-    VLine(sizeLine).Draw(x, y);
+    Left,
+    Right
+};
+
+static void DrawVLine(int x, int y, DirectV direct)
+{
+    VLine(sizeLine - 4).Draw(x, y);
+
+    if (direct == Left)
+    {
+        VLine(sizeLine - 2).Draw(x - 1, y - 1);
+        VLine(sizeLine - 6).Draw(x + 1, y + 1);
+    }
+    else if (direct == Right)
+    {
+        VLine(sizeLine - 2).Draw(x + 1, y - 1);
+        VLine(sizeLine - 6).Draw(x - 1, y + 1);
+    }
 }
 
 
-static void DrawHLine(int x, int y)
+enum DirectH
 {
-    HLine(sizeLine).Draw(x, y);
+    Up,
+    Mid,
+    Down
+};
+
+static void DrawHLine(int x, int y, DirectH direct)
+{
+    HLine(sizeLine - 4).Draw(x, y);
+
+    if (direct == Up)
+    {
+        HLine(sizeLine - 2).Draw(x - 1, y - 1);
+        HLine(sizeLine - 6).Draw(x + 1, y + 1);
+    }
+    else if (direct == Mid)
+    {
+        HLine(sizeLine - 6).Draw(x + 1, y - 1);
+        HLine(sizeLine - 6).Draw(x + 1, y + 1);
+    }
+    else if (direct == Down)
+    {
+        HLine(sizeLine - 2).Draw(x - 1, y + 1);
+        HLine(sizeLine - 6).Draw(x + 1, y - 1);
+    }
 }
 
 
@@ -195,14 +236,15 @@ static void DrawDigit(int x, int y, uint8 symbol)
         {true,  true,  true,  true,  false,  true,  true}      // 9
     };
 
-    if (segments[symbol][SEG_F])    DrawVLine(x + d, y + d);
-    if (segments[symbol][SEG_E])    DrawVLine(x + d, y + height / 2);
-    if (segments[symbol][SEG_B])    DrawVLine(x + width - 2, y + d);
-    if (segments[symbol][SEG_C])    DrawVLine(x + width - 2, y + height / 2);
+    if (segments[symbol][SEG_F])    DrawVLine(x + d, y + d + 2, Left);
+    if (segments[symbol][SEG_E])    DrawVLine(x + d, y + height / 2 + 2, Left);
 
-    if (segments[symbol][SEG_A])    DrawHLine(x + d, y + d);
-    if (segments[symbol][SEG_G])    DrawHLine(x + d, y + height / 2);
-    if (segments[symbol][SEG_D])    DrawHLine(x + d, y + height);
+    if (segments[symbol][SEG_B])    DrawVLine(x + width - 2, y + d + 2, Right);
+    if (segments[symbol][SEG_C])    DrawVLine(x + width - 2, y + height / 2 + 2, Right);
+
+    if (segments[symbol][SEG_A])    DrawHLine(x + d + 2, y + d, Up);
+    if (segments[symbol][SEG_G])    DrawHLine(x + d + 2, y + height / 2, Mid);
+    if (segments[symbol][SEG_D])    DrawHLine(x + d + 2, y + height, Down);
 }
 
 
