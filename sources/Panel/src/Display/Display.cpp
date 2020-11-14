@@ -172,9 +172,7 @@ static void DrawScreen()
         
         Menu::Draw();
         
-        //DrawData();
-
-        Indicator::Draw(10, 150);
+        DrawData();
 
         TimeMeasure::ProgressBar::Draw(0, 0);
 
@@ -339,7 +337,8 @@ static void DrawData()
         {
             if (std::isdigit(data[0]) != 0 || data[0] == ' ')
             {
-                FontBig::Write(data.c_str(), 10, 150, Color::WHITE);
+                //FontBig::Write(data.c_str(), 10, 150, Color::WHITE);
+                Indicator::DrawData(data.c_str(), 10, 150, Color::WHITE);
             }
             else
             {

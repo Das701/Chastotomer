@@ -22,8 +22,29 @@ enum DirectV
     Right
 };
 
-static void DrawVLine(int x, int y, DirectV direct)
+
+enum DirectH
 {
+    Up,
+    Mid,
+    Down
+};
+
+
+static void DrawVLine(int x, int y, DirectV direct, DirectH directH)
+{
+    y--;
+
+    if (direct == Right)
+    {
+        x -= 2;
+    }
+
+    if (directH == Down)
+    {
+        y -= 2;
+    }
+
     VLine(sizeLine - 4).Draw(x, y);
     for (int i = 0; i < bold; i++)
     {
@@ -33,15 +54,19 @@ static void DrawVLine(int x, int y, DirectV direct)
 }
 
 
-enum DirectH
-{
-    Up,
-    Mid,
-    Down
-};
-
 static void DrawHLine(int x, int y, DirectH direct)
 {
+    x--;
+
+    if (direct == Mid)
+    {
+        y -= 2;
+    }
+    else if (direct == Down)
+    {
+        y -= 5;
+    }
+
     HLine(sizeLine - 4).Draw(x, y);
     for (int i = 0; i < bold; i++)
     {
@@ -51,25 +76,41 @@ static void DrawHLine(int x, int y, DirectH direct)
 }
 
 
-void Indicator::Draw(int x, int y)
+//void Indicator::Draw(int x, int y)
+//{
+//    static const int numSymbols = 10;
+//
+//    static const int dX = 5;
+//
+//    for (int i = 0; i < numSymbols; i++)
+//    {
+//        DrawDigit(x + (width + dX) * i, y, (uint8)i);
+//    }
+//}
+
+
+void Indicator::DrawData(pString text, int x, int y, Color color)
 {
-    static const int numSymbols = 10;
+    color.SetAsCurrent();
 
-    static const int dX = 5;
+    pCHAR pointer = text;
 
-    for (int i = 0; i < numSymbols; i++)
+    while (*pointer != '\0')
     {
-        DrawDigit(x + (width + dX) * i, y, (uint8)i);
+        if (*pointer >= '0' && *pointer <= '9')
+        {
+            DrawDigit(x, y, (uint8)(*pointer - 0x30));
+
+            x += width + 7;
+        }
+
+        pointer++;
     }
 }
 
 
 void Indicator::DrawDigit(int x, int y, uint8 symbol)
 {
-    Rectangle(width, height).Draw(x, y, Color::GRAY_20);
-
-    Color::WHITE.SetAsCurrent();
-
     int d = 1;
 
 #define SEG_A 0
@@ -94,11 +135,11 @@ void Indicator::DrawDigit(int x, int y, uint8 symbol)
         {true,  true,  true,  true,  false,  true,  true}      // 9
     };
 
-    if (segments[symbol][SEG_F])    DrawVLine(x + d, y + d + 2, Left);
-    if (segments[symbol][SEG_E])    DrawVLine(x + d, y + height / 2 + 2, Left);
+    if (segments[symbol][SEG_F])    DrawVLine(x + d, y + d + 2, Left, Up);
+    if (segments[symbol][SEG_E])    DrawVLine(x + d, y + height / 2 + 2, Left, Down);
 
-    if (segments[symbol][SEG_B])    DrawVLine(x + width - 2, y + d + 2, Right);
-    if (segments[symbol][SEG_C])    DrawVLine(x + width - 2, y + height / 2 + 2, Right);
+    if (segments[symbol][SEG_B])    DrawVLine(x + width - 2, y + d + 2, Right, Up);
+    if (segments[symbol][SEG_C])    DrawVLine(x + width - 2, y + height / 2 + 2, Right, Down);
 
     if (segments[symbol][SEG_A])    DrawHLine(x + d + 2, y + d, Up);
     if (segments[symbol][SEG_G])    DrawHLine(x + d + 2, y + height / 2, Mid);
