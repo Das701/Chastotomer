@@ -146,6 +146,82 @@ static void DrawPartScreen(int num)
 }
 
 
+static const int sizeLine = 30;
+
+static const int width = sizeLine + 2;
+static const int height = sizeLine * 2;
+
+
+
+static void DrawVLine(int x, int y)
+{
+    VLine(sizeLine).Draw(x, y);
+}
+
+
+static void DrawHLine(int x, int y)
+{
+    HLine(sizeLine).Draw(x, y);
+}
+
+
+static void DrawDigit(int x, int y, uint8 symbol)
+{
+    Rectangle(width, height).Draw(x, y, Color::GRAY_20);
+
+    Color::WHITE.SetAsCurrent();
+
+    int d = 1;
+
+#define SEG_A 0
+#define SEG_B 1
+#define SEG_C 2
+#define SEG_D 3
+#define SEG_E 4
+#define SEG_F 5
+#define SEG_G 6
+
+    static const bool segments[10][7] =
+    { //   A      B      C      D      E      F      G
+        {true,  true,  true,  true,  true,  true,  false},     // 0
+        {false, true,  true,  false, false, false, false},     // 1
+        {true,  true,  false, true,  true,  false, true},     // 2
+        {true,  true,  true,  true,  false, false, true},     // 3
+        {false, true,  true,  false, false, true,  true},     // 4
+        {true,  false, true,  true,  false, true,  true},     // 5
+        {true,  false, true,  true,  true,  true,  true},     // 6
+        {true,  true,  true,  false, false, false, false},     // 7
+        {true,  true,  true,  true,  true,  true,  true},     // 8
+        {true,  true,  true,  true,  false,  true,  true}      // 9
+    };
+
+    if (segments[symbol][SEG_F])    DrawVLine(x + d, y + d);
+    if (segments[symbol][SEG_E])    DrawVLine(x + d, y + height / 2);
+    if (segments[symbol][SEG_B])    DrawVLine(x + width - 2, y + d);
+    if (segments[symbol][SEG_C])    DrawVLine(x + width - 2, y + height / 2);
+
+    if (segments[symbol][SEG_A])    DrawHLine(x + d, y + d);
+    if (segments[symbol][SEG_G])    DrawHLine(x + d, y + height / 2);
+    if (segments[symbol][SEG_D])    DrawHLine(x + d, y + height);
+}
+
+
+static void DrawIndicator()
+{
+    static const int numSymbols = 10;
+
+    static const int dX = 5;
+
+    static const int x0 = 10;
+    static const int y0 = 150;
+
+    for (int i = 0; i < numSymbols; i++)
+    {
+        DrawDigit(x0 + (width + dX) * i, y0, (uint8)i);
+    }
+}
+
+
 static void DrawScreen()
 {
     if(PageIndication::calibration.Is(Calibration::Pressed))
@@ -171,7 +247,9 @@ static void DrawScreen()
         
         Menu::Draw();
         
-        DrawData();
+        //DrawData();
+
+        DrawIndicator();
 
         TimeMeasure::ProgressBar::Draw(0, 0);
 
