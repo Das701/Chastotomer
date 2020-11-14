@@ -14,6 +14,9 @@
 int    MathFPGA::NA = 0; //-V707
 int    MathFPGA::NB = 0; //-V707
 
+bool MathFPGA::Validator::isEmpty = true;
+uint MathFPGA::Validator::timeClearedFlag = 0;
+
 uint MathFPGA::curFX = 0;
 uint MathFPGA::curTIZM = 0;
 uint MathFPGA::curNKAL = 0;
@@ -34,7 +37,6 @@ float  MathFPGA::FillFactor::value = 0.0F;
 int    MathFPGA::FillFactor::zeroes = 0;
        
 int       MathFPGA::Measure::decDA = 1;
-bool      MathFPGA::Measure::isEmpty = true;
 ValueNANO MathFPGA::Measure::decDataA(0);
 ValueNANO MathFPGA::Measure::decDataB(0);
 ValueNANO MathFPGA::Measure::decDataC(0);
@@ -200,17 +202,31 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
     case TypeData::Comparator:          Comparator::Calculate(value1, value2, value3);      break;
     }
 
-    isEmpty = false;
+    Validator::SetValidData();
 
     TimeMeasure::ProgressBar::Reset();
 }
 
 
-void MathFPGA::Measure::ClearFlagValidData()
+void MathFPGA::Validator::SetInvalidData()
 {
     isEmpty = true;
-
+    timeClearedFlag = TIME_MS;
     TimeMeasure::ProgressBar::Reset();
+}
+
+
+void MathFPGA::Validator::SetValidData()
+{
+    if (TIME_MS - timeClearedFlag > 200)
+    {
+        isEmpty = false;
+    }
+}
+
+bool MathFPGA::Validator::DataIsValid()
+{
+    return !isEmpty;
 }
 
 
@@ -395,7 +411,7 @@ void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
 
 String MathFPGA::Measure::GiveData()
 {
-    if (isEmpty)
+    if (!MathFPGA::Validator::DataIsValid())
     {
         return String("----------");
     }

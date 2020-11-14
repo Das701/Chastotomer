@@ -11,6 +11,24 @@ struct MathFPGA
     static int NA; //-V707
     static int NB; //-V707
 
+    // Структура отвечает за валидность данных
+    struct Validator
+    {
+        // Установка признака того, что настройки изменились и нет корректных данных (для GiveData())
+        static void SetInvalidData();
+
+        // Установка признака того, что данным можно доверять
+        static void SetValidData();
+
+        // Возвращает true, если данные валидны
+        static bool DataIsValid();
+
+    private:
+
+        static bool isEmpty;            // Установленное в true значение означает, что данных для отображения нет
+        static uint timeClearedFlag;    // Время, когда данные были очищены
+    };
+
     struct Measure
     {
         friend struct FPGA;
@@ -32,9 +50,6 @@ struct MathFPGA
 
         static void SetNewData(TypeData::E type, uint value1, uint value2, uint value3 = 0);
 
-        // Установка признака того, что настройки изменились и нет корректных данных (для GiveData())
-        static void ClearFlagValidData();
-
     private:
 
         static int decDA;
@@ -42,8 +57,6 @@ struct MathFPGA
         static ValueNANO decDataA;
         static ValueNANO decDataB;
         static ValueNANO decDataC;
-
-        static bool isEmpty;                    // Установленное в true значение означает, что данных для отображения нет
 
         static void AppendDataMainCounters(uint counterA, uint counterB);
 

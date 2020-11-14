@@ -40,7 +40,7 @@ void Channel::LoadCurrentToFPGA()
 
     FPGA::WriteCommand(command, argument);
 
-    MathFPGA::Measure::ClearFlagValidData();
+    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -76,7 +76,7 @@ void RefGenerator::LoadToFPGA()
 
     FPGA::WriteCommand(command, argument);
 
-    MathFPGA::Measure::ClearFlagValidData();
+    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -97,7 +97,7 @@ void LaunchSource::LoadToFPGA()
 
     FPGA::WriteCommand(command, argument);
 
-    MathFPGA::Measure::ClearFlagValidData();
+    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -176,7 +176,7 @@ void ModeMeasureFrequency::LoadToFPGA()
 
     FPGA::WriteCommand(command, argument);
 
-    MathFPGA::Measure::ClearFlagValidData();
+    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -195,7 +195,7 @@ void ModeMeasurePeriod::LoadToFPGA()
 
     FPGA::WriteCommand(command, argument);
 
-    MathFPGA::Measure::ClearFlagValidData();
+    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -229,7 +229,7 @@ void ModeMeasureDuration::LoadToFPGA()
 
     FPGA::WriteCommand(command, argument);
 
-    MathFPGA::Measure::ClearFlagValidData();
+    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -265,7 +265,7 @@ void ModeMeasureCountPulse::LoadToFPGA()
 
     FPGA::WriteCommand(command, argument);
 
-    MathFPGA::Measure::ClearFlagValidData();
+    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -288,7 +288,7 @@ void FreqMeter::LoadPeriodTimeLabels()
 
     FPGA::WriteCommand(command, argument);
 
-    MathFPGA::Measure::ClearFlagValidData();
+    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -313,7 +313,7 @@ void FreqMeter::LoadTimeMeasure()
 
     FPGA::WriteCommand(command, argument);
 
-    MathFPGA::Measure::ClearFlagValidData();
+    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -338,7 +338,7 @@ void FreqMeter::LoadNumerPeriodsMeasure()
 
     FPGA::WriteCommand(command, argument);
 
-    MathFPGA::Measure::ClearFlagValidData();
+    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -355,8 +355,6 @@ void InputImpedance::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
-
-    MathFPGA::Measure::ClearFlagValidData();
 }
 
 
@@ -372,8 +370,6 @@ void ModeFront::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
-
-    MathFPGA::Measure::ClearFlagValidData();
 }
 
 
@@ -389,8 +385,6 @@ void Divider::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
-
-    MathFPGA::Measure::ClearFlagValidData();
 }
 
 
@@ -409,8 +403,6 @@ void TypeSynch::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command, argument);
-
-    MathFPGA::Measure::ClearFlagValidData();
 }
 
 
@@ -507,7 +499,7 @@ void ModeTest::Switch()
 
     FPGA::WriteCommand(command, argument);
 
-    MathFPGA::Measure::ClearFlagValidData();
+    MathFPGA::Validator::SetInvalidData();
 }
 
 
