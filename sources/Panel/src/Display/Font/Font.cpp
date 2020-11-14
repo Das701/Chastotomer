@@ -1,9 +1,7 @@
 #include "defines.h"
 #include "Display/Font/Font.h"
-#include "Display/Font/fontGOST16B.inc"
-//#include "Display/Font/fontGOSTB18B.inc"
-//#include "Display/Font/fontGOSTB20B.inc"
 #include "Display/Font/fontGOSTB28B.inc"
+#include "Display/Font/fontGOSTAU16BOLD.inc"
 #include "Hardware/HAL/HAL.h"
 #include <cstring>
 
@@ -111,12 +109,8 @@ void Font::Set(const TypeFont::E typeFont)
 {
     switch (typeFont)
     {
-    case TypeFont::GOST16B:   font = fontGOST16B;   break;
-//    case TypeFont::GOSTB18B:  font = fontGOSTB18B;  break;
-//    case TypeFont::GOSTB20B:  font = fontGOSTB20B;  break;
-    case TypeFont::GOSTB28B:  font = fontGOSTB28B;  break;
-    case TypeFont::GOSTB18B:
-    case TypeFont::GOSTB20B:
+    case TypeFont::GOSTAU16BOLD:  font = fontGOSTAU16BOLD;   break;
+    case TypeFont::GOSTB28B:      font = fontGOSTB28B;       break;
     case TypeFont::None:
     case TypeFont::Count:
         break;
@@ -128,7 +122,7 @@ uint8 Font::GetWidth(uint8 num)
 {
     if (num == 0x20)
     {
-        if (font == fontGOST16B)
+        if (font == fontGOSTAU16BOLD)
         {
             return 10;
         }

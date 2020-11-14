@@ -342,7 +342,7 @@ static void DrawData()
             {
                 Font::Set(TypeFont::GOSTB28B);
                 Text(data.c_str()).Write(50, 165, Color::WHITE);
-                Font::Set(TypeFont::GOST16B);
+                Font::Set(TypeFont::GOSTAU16BOLD);
             }
         }
     }

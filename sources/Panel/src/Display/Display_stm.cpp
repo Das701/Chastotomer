@@ -134,7 +134,7 @@ void Display::Init()
     
     HAL_FSMC::WriteCommand(0x2c);
 
-    Font::Set(TypeFont::GOST16B);
+    Font::Set(TypeFont::GOSTAU16BOLD);
 
     Font::SetSpacing(2);
 

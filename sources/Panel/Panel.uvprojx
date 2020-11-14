@@ -608,11 +608,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\FontBig.h</FilePath>
             </File>
-            <File>
-              <FileName>fontGOST16B.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOST16B.inc</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1628,11 +1623,6 @@
               <FileName>FontBig.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\FontBig.h</FilePath>
-            </File>
-            <File>
-              <FileName>fontGOST16B.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\fontGOST16B.inc</FilePath>
             </File>
           </Files>
         </Group>

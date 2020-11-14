@@ -6,9 +6,7 @@ struct TypeFont
 {
     enum E
     {
-        GOST16B,
-        GOSTB18B,
-        GOSTB20B,
+        GOSTAU16BOLD,
         GOSTB28B,
         Count,
         None
