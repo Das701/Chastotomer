@@ -340,7 +340,7 @@ static void DrawData()
 {
     if (Display::InDrawingPart(150, 50))
     {
-        String data = MathFPGA::Measure::GiveData();
+        String data = MathFPGA::Data::GiveDigits();
 
         if (data[0] != 0)
         {
@@ -360,7 +360,7 @@ static void DrawData()
 
     if (Display::InDrawingPart(170, 50))
     {
-        FontMid::Write(MathFPGA::Measure::GiveUnits().c_str(), 360, 170, Color::WHITE);
+        FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 360, 170, Color::WHITE);
     }
 
     if ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) ||

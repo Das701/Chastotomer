@@ -1,4 +1,5 @@
 #pragma once
+#include "Hardware/HAL/HAL.h"
 #include "Utils/Stack.h"
 #include "Utils/String.h"
 #include "Utils/Value.h"
@@ -6,6 +7,22 @@
 
 struct MathFPGA
 {
+    struct Data
+    {
+        friend struct MathFPGA;
+
+        static String GiveDigits();
+        static String GiveUnits();
+
+    private:
+
+        static void SetDigits(const String &digits);
+        static void SetUnits(const String &units);
+
+        static char digits[30];
+        static char units[10];
+    };
+
     static void DecToBin(int dec, char *bin);
 
     static int NA; //-V707
@@ -23,6 +40,9 @@ struct MathFPGA
         // Возвращает true, если данные валидны
         static bool DataIsValid();
 
+        // Возвращает true, если прошло слишком мало времени после последнего изменения настроек
+        static bool VerySmallTime() { return TIME_MS - timeClearedFlag < 200; };
+
     private:
 
         static bool isEmpty;            // Установленное в true значение означает, что данных для отображения нет
@@ -33,9 +53,6 @@ struct MathFPGA
     {
         friend struct FPGA;
         friend struct MathFPGA;
-
-        static String GiveData();
-        static String GiveUnits();
 
         struct TypeData
         {
@@ -65,6 +82,9 @@ struct MathFPGA
         static int CalculateDurationEmptyZeros();
 
         static void Calculate(int &emptyZeroes, ValueNANO &data);
+
+        static void CalculateNewData();
+        static void CalculateUnits();
     };
 
 

@@ -14,6 +14,9 @@
 int    MathFPGA::NA = 0; //-V707
 int    MathFPGA::NB = 0; //-V707
 
+char MathFPGA::Data::digits[30];
+char MathFPGA::Data::units[10];
+
 bool MathFPGA::Validator::isEmpty = true;
 uint MathFPGA::Validator::timeClearedFlag = 0;
 
@@ -32,6 +35,30 @@ ValueNANO MathFPGA::Measure::decDataB(0);
 ValueNANO MathFPGA::Measure::decDataC(0);
 
 ValuePICO MathFPGA::Comparator::value(0);
+
+
+String MathFPGA::Data::GiveDigits()
+{
+    return String(digits);
+}
+
+
+String MathFPGA::Data::GiveUnits()
+{
+    return String(units);
+}
+
+
+void MathFPGA::Data::SetDigits(const String &_digits)
+{
+    std::strcpy(digits, _digits.c_str());
+}
+
+
+void MathFPGA::Data::SetUnits(const String &_units)
+{
+    std::strcpy(units, _units.c_str());
+}
 
 
 int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
@@ -184,6 +211,11 @@ int MathFPGA::Measure::CalculateDurationEmptyZeros()
 
 void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3)
 {
+    if (Validator::VerySmallTime())
+    {
+        return;
+    }
+
     switch (type)
     {
     case TypeData::MainCounters:        AppendDataMainCounters(value1, value2);             break;
@@ -191,6 +223,10 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
     case TypeData::FillFactorPhase:     FillFactor::Calculate(value1, value2);              break;
     case TypeData::Comparator:          Comparator::Calculate(value1, value2, value3);      break;
     }
+
+    CalculateNewData();
+
+    CalculateUnits();
 
     Validator::SetValidData();
 
@@ -381,16 +417,18 @@ void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
 }
 
 
-String MathFPGA::Measure::GiveData()
+void MathFPGA::Measure::CalculateNewData()
 {
     if (!MathFPGA::Validator::DataIsValid())
     {
-        return String("----------");
+        Data::SetDigits(String("----------"));
+        return;
     }
 
     if (FPGA::IsOverloaded())
     {
-        return String("оепеонкмемхе");
+        Data::SetDigits(String("оепеонкмемхе"));
+        return;
     }
 
     if (TypeMeasure::Current().IsCountPulse())
@@ -407,30 +445,30 @@ String MathFPGA::Measure::GiveData()
             value /= (float)PageModesA::numberPeriods.ToAbs();
         }
 
-        return String("%10.0f", decDataA.ToFloat());
+        Data::SetDigits(String("%10.0f", decDataA.ToFloat()));
     }
     else
     {
         if (ModeMeasureFrequency::Current().IsTachometer())
         {
-            return String("%10.0f", decDataA.ToFloat() / 2.0F);
+            Data::SetDigits(String("%10.0f", decDataA.ToFloat() / 2.0F));
         }
         else if (ModeMeasureFrequency::Current().IsComparator())
         {
-            return Comparator::value.ToString();
+            Data::SetDigits(Comparator::value.ToString());
         }
         else if (ModeMeasureDuration::Current().Is_Ndt_1ns())
         {
-            return String("%10.2f", MathFPGA::Interpolator::value);
+            Data::SetDigits(String("%10.2f", MathFPGA::Interpolator::value));
         }
         else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_FillFactor() || ModeMeasureDuration::Current().Is_Phase()))
         {
             if (ModeMeasureDuration::Current().Is_Phase())
             {
-                return String("%10.3f", MathFPGA::FillFactor::value);
+                Data::SetDigits(String("%10.3f", MathFPGA::FillFactor::value));
             }
             
-            return String("%10.7f", MathFPGA::FillFactor::value);
+            Data::SetDigits(String("%10.7f", MathFPGA::FillFactor::value));
         }
         else
         {
@@ -453,9 +491,7 @@ String MathFPGA::Measure::GiveData()
                 std::strcpy(format, "%10.0f");
                 format[4] = (char)(pow | 0x30);
 
-//                LOG_WRITE("%d, zeroes = %d, data = %f", __LINE__, emptyZeros, data.ToFloat());
-
-                return String(format, data.ToFloat());
+                Data::SetDigits(String(format, data.ToFloat()));
             }
             else
             {
@@ -463,26 +499,24 @@ String MathFPGA::Measure::GiveData()
                 std::strcpy(format, "%10.10f");
                 format[5] = (char)((pow - 10) | 0x30);
 
-//                LOG_WRITE("%d, pow = %d, data = %f", __LINE__, pow, data.ToFloat());
-
-                return String(format, data.ToFloat());
+                Data::SetDigits(String(format, data.ToFloat()));
             }
         }
     }
 }
 
 
-String MathFPGA::Measure::GiveUnits() //-V2008
+void MathFPGA::Measure::CalculateUnits()
 {
     if (ModeMeasureDuration::Current().Is_Ndt_1ns())
     {
-        return String(" ns");
+        Data::SetUnits(String(" ns"));
     }
     else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_FillFactor() || ModeMeasureDuration::Current().Is_Phase()))
     {
         if (ModeMeasureDuration::Current().Is_Phase())
         {
-            return String(" $");
+            Data::SetUnits(String(" $"));
         }
         else
         {
@@ -491,7 +525,7 @@ String MathFPGA::Measure::GiveUnits() //-V2008
 
             FillFactor::zeroes = 0;
 
-            return result;
+            Data::SetUnits(result);
         }
     }
     else
@@ -500,7 +534,7 @@ String MathFPGA::Measure::GiveUnits() //-V2008
             ModeMeasureFrequency::Current().IsTachometer() ||
             TypeMeasure::Current().IsCountPulse())
         {
-            return String(" ");
+            Data::SetUnits(String(" "));
         }
         else
         {
@@ -508,29 +542,29 @@ String MathFPGA::Measure::GiveUnits() //-V2008
             {
                 if (ModeMeasureFrequency::Current().IsT_1())
                 {
-                    if (decDA < 1000)           { return String(" Hz");  }
-                    else if (decDA < 1000000)   { return String(" kHz"); }
-                    else                        { return String(" MHz"); }
+                    if (decDA < 1000)           { Data::SetUnits(String(" Hz"));  }
+                    else if (decDA < 1000000)   { Data::SetUnits(String(" kHz")); }
+                    else                        { Data::SetUnits(String(" MHz")); }
                 }
                 else if (PageModesA::modeMeasureFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
                 {
-                    return String(" E-6");
+                    Data::SetUnits(String(" E-6"));
                 }
                 else
                 {
                     if (CURRENT_CHANNEL_IS_C)
                     {
-                        if (decDataC.ToUINT64() / 2 < 10000)    { return String(" MHz"); }
-                        else                                    { return String(" GHz"); }
+                        if (decDataC.ToUINT64() / 2 < 10000)    { Data::SetUnits(String(" MHz")); }
+                        else                                    { Data::SetUnits(String(" GHz")); }
                     }
                     else if (CURRENT_CHANNEL_IS_D)   
                     {
-                        return String(" GHz");
+                        Data::SetUnits(String(" GHz"));
                     }
                     else
                     {
-                        if (decDA < 1000)           { return String(" kHz"); }
-                        else                        { return String(" MHz"); }
+                        if (decDA < 1000)           { Data::SetUnits(String(" kHz")); }
+                        else                        { Data::SetUnits(String(" MHz")); }
                     }
                 }
             }
@@ -539,16 +573,16 @@ String MathFPGA::Measure::GiveUnits() //-V2008
                 if ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsF_1()) ||
                     (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsF_1()))
                 {
-                    if (decDA >= 1000)      { return String(" ns"); }
-                    else if (decDA <= 1)    { return String(" ms"); }
-                    else                    { return String(" us"); }
+                    if (decDA >= 1000)      { Data::SetUnits(String(" ns")); }
+                    else if (decDA <= 1)    { Data::SetUnits(String(" ms")); }
+                    else                    { Data::SetUnits(String(" us")); }
                 }
                 else
                 {
                     PeriodTimeLabels &current = PeriodTimeLabels::Current();
 
-                    if (current.IsT_3() || current.IsT_4() || current.IsT_5())  { return String(" ms"); }
-                    else                                                        { return String(" us"); }
+                    if (current.IsT_3() || current.IsT_4() || current.IsT_5())  { Data::SetUnits(String(" ms")); }
+                    else                                                        { Data::SetUnits(String(" us")); }
                 }
             }
         }
