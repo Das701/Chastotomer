@@ -176,8 +176,6 @@ void Display::EndScene()
     {
         int numPart = (Display::HEIGHT / Display::NUM_PARTS) / TopRow();
 
-        VCP::SendDataSynch(&numPart, 4);
-
         uint data[WIDTH_BUFFER];
 
         for (int row = 0; row < HEIGHT_BUFFER; row++)
