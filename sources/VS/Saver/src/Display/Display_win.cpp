@@ -106,7 +106,25 @@ void Display::BeginScene()
 
 void Display::Draw(uint *buffer)
 {
-    wxBitmap bmp((const char *)buffer, 480, 272);
+    memDC.SelectObject(bitmap);
+    wxBrush brush({ 0, 0, 0 }, wxTRANSPARENT);
+    memDC.SetBrush(brush);
+
+    static unsigned char data[480 * 272 * 3];
+
+    unsigned char *pointer = data;
+
+    for (int i = 0; i < 480 * 272; i++)
+    {
+        *pointer++ = buffer[i] & 0xFF;
+        *pointer++ = (buffer[i] >> 8) & 0xFF;
+        *pointer++ = (buffer[i] >> 16) & 0xFF;
+    }
+
+    wxImage image(480, 272, data, true);
+
+    static wxBitmap bmp(image);
+
     memDC.DrawBitmap(bmp, 0, 0);
     memDC.SelectObject(wxNullBitmap);
     screen->Refresh();
