@@ -17,7 +17,6 @@ static int pulseCountLeft = 0;
 
 #define PIN_SL1  GPIO_PIN_8
 #define PORT_SL1 GPIOB
-
 #define PIN_SL2  GPIO_PIN_7
 #define PORT_SL2 GPIOB
 
@@ -269,30 +268,6 @@ static void InitPins()
 
 static void InitTimer()
 {
-    __HAL_RCC_TIM4_CLK_ENABLE();
-
-    // Инициализируем таймер, по прерываниям которого будем опрашивать клавиатуру
-    HAL_NVIC_SetPriority(TIM4_IRQn, 0, 1);
-
-    HAL_NVIC_EnableIRQ(TIM4_IRQn);
-
-    handleTIM4.Instance = TIM4;
-    handleTIM4.Init.Period = TIME_UPDATE_KEYBOARD * 10 - 1;
-    handleTIM4.Init.Prescaler = (uint)((SystemCoreClock / 2) / 10000) - 1;
-    handleTIM4.Init.ClockDivision = 0;
-    handleTIM4.Init.CounterMode = TIM_COUNTERMODE_UP;
-
-    if (HAL_TIM_Base_Init(&handleTIM4) != HAL_OK)
-    {
-        HAL::ERROR_HANDLER();
-    }
-
-    if (HAL_TIM_Base_Start_IT(&handleTIM4) != HAL_OK)
-    {
-        HAL::ERROR_HANDLER();
-    }
-
-    Set_All_SL(1);
 }
 
 

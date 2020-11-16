@@ -36,60 +36,27 @@ add_compile_options(/wd5219)
 add_compile_options(/wd26821)
 add_compile_options(/wd26812)
 
-file(GLOB VS_HAL              ../../common/_VS_KEIL/HAL/*)
 file(GLOB SRC                 ../../Panel/src/defines.h
-                              ../../Panel/src/FreqMeter.*
-                              ../../Panel/src/Log.*
-                              ../../Panel/src/Settings.*
                                           src/Application_win.*
                                           src/main_win.cpp)
-                              ../../Panel/src/Display/Colors.*
-                              ../../Panel/src/Display/Console.*
-                              ../../Panel/src/Display/Display.*
-                              ../../Panel/src/Display/Indicator.*
-                              ../../Panel/src/Display/Primitives.*
-                              ../../Panel/src/Display/Symbols.*
-                              ../../Panel/src/Display/Text.*)
-file(GLOB DISPLAY_FONT        ../../Panel/src/Display/Font/*.h
-                              ../../Panel/src/Display/Font/*.cpp
-                              ../../Panel/src/Display/Font/*.inc
-                              ../../Panel/src/Display/Font/*.xml)
-file(GLOB FREQMETER           ../../Panel/src/FreqMeter/*)
-file(GLOB HARDWARE            ../../Panel/src/Hardware/*FPGA.*
-                              ../../Panel/src/Hardware/VCP.h
-                                          src/Hardware/VCP_win.cpp)
+file(GLOB DISPLAY             ../../Panel/src/Display/Colors.*
+                                          src/Display/Display_win.*)
 file(GLOB KEYBOARD            ../../Panel/src/Keyboard/Keyboard.h
                                           src/Keyboard/Keyboard_win.cpp)
-file(GLOB MENU                ../../Panel/src/Menu/*.h
-                              ../../Panel/src/Menu/*.cpp
-                              ../../Panel/src/Menu/*.txt)
-file(GLOB MENU_PAGES          ../../Panel/src/Menu/Pages/*.h
-                              ../../Panel/src/Menu/Pages/*.cpp)
-file(GLOB MENU_PAGES_MODES    ../../Panel/src/Menu/Pages/Modes/*.h
-                              ../../Panel/src/Menu/Pages/Modes/*.cpp)
-file(GLOB MENU_PAGES_SETTINGS ../../Panel/src/Menu/Pages/Settings/*.h
-                              ../../Panel/src/Menu/Pages/Settings/*.cpp)
-file(GLOB SCPI                ../../Panel/src/SCPI/*)
-file(GLOB UTILS               ../../Panel/src/Utils/*)
+file(GLOB GUI                             src/GUI/*)
+file(GLOB UTILS               ../../Panel/src/Utils/Buffer.*
+                              ../../Panel/src/Utils/Stack.*
+                              ../../Panel/src/Utils/String.*
+                              ../../Panel/src/Utils/StringUtils.*)
 
-source_group(_VS\\HAL              FILES ${VS_HAL})
-source_group(src                   FILES ${SRC})
-source_group(Display               FILES ${DISPLAY})
-source_group(Display\\Font         FILES ${DISPLAY_FONT})
-source_group(FreqMeter             FILES ${FREQMETER})
-source_group(GUI                   FILES ${GUI})
-source_group(Hardware              FILES ${HARDWARE})
-source_group(Hardware\\HAL         FILES ${HARDWARE_HAL})
-source_group(Keyboard              FILES ${KEYBOARD})
-source_group(Menu                  FILES ${MENU})
-source_group(Menu\\Pages           FILES ${MENU_PAGES})
-source_group(Menu\\Pages\\Modes    FILES ${MENU_PAGES_MODES})
-source_group(Menu\\Pages\\Settings FILES ${MENU_PAGES_SETTINGS})
-source_group(SCPI                  FILES ${SCPI})
-source_group(Utils                 FILES ${UTILS})
+source_group(src               FILES ${SRC})
+source_group(Display           FILES ${DISPLAY})
+source_group(Keyboard          FILES ${KEYBOARD})
+source_group(GUI               FILES ${GUI})
+source_group(Utils             FILES ${UTILS})
 
-add_executable(Saver ${VS_HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${FREQMETER} ${GUI} ${HARDWARE_HAL} ${KEYBOARD} ${MENU}
-                        ${MENU_PAGES} ${MENU_PAGES_MODES} ${MENU_PAGES_SETTINGS} ${SCPI} ${UTILS})
+
+add_executable(Saver ${SRC} ${DISPLAY} ${GUI} ${KEYBOARD} ${UTILS})
 
 target_link_libraries(Saver ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
 target_link_libraries(Saver ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxmsw31ud_core)

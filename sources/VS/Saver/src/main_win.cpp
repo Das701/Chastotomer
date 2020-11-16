@@ -7,15 +7,11 @@
 
 void init()
 {
-	HAL::Init();
 	Display::Init();
 	Keyboard::Init();
-	Menu::Init();
 }
 
 
 void update()
 {
-	Menu::Update();
-	Display::Update();
 }

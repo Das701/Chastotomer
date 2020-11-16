@@ -91,39 +91,6 @@ void Display::Init()
 {
     CreateFrame();
 
-    Font::Set(TypeFont::GOSTAU16BOLD);
-
-    Font::SetSpacing(2);
-
-    static unsigned char buffer[Display::WIDTH * Display::HEIGHT * 3];
-
-    unsigned char *pointer = buffer;
-
-    Color color1 = Color::GREEN_10;
-    Color color2 = Color::GREEN_25;
-
-    for (int i = 0; i < Display::WIDTH * Display::HEIGHT; i += 2)
-    {
-        *pointer++ = RED_FROM_COLOR(COLOR(color1.value));
-        *pointer++ = GREEN_FROM_COLOR(COLOR(color1.value));
-        *pointer++ = BLUE_FROM_COLOR(COLOR(color1.value));
-
-        *pointer++ = RED_FROM_COLOR(COLOR(color2.value));
-        *pointer++ = GREEN_FROM_COLOR(COLOR(color2.value));
-        *pointer++ = BLUE_FROM_COLOR(COLOR(color2.value));
-
-        if (i % Display::WIDTH == 0)
-        {
-            Math::Swap(color1, color2);
-        }
-    }
-
-    wxImage image;
-    image.Create(Display::WIDTH, Display::HEIGHT, buffer, true);
-
-    static wxBitmap bmp(image);
-
-    backgroundBMP = &bmp;
 }
 
 
