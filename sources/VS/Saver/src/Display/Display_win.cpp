@@ -106,7 +106,7 @@ void Display::BeginScene()
 
 void Display::Draw(uint *buffer)
 {
-    wxBitmap bmp((const char *)buffer, 480, 472);
+    wxBitmap bmp((const char *)buffer, 480, 272);
     memDC.DrawBitmap(bmp, 0, 0);
     memDC.SelectObject(wxNullBitmap);
     screen->Refresh();

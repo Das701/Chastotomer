@@ -23,6 +23,9 @@ void update()
 
 	static uint displayFrame[SIZE_FRAME];
 
+	uint *pointer = displayFrame;
+	pointer = pointer;
+
 	if (clock() > time + 1000)
 	{
 		ComPort::Send(":picture\x0d");

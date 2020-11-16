@@ -22,13 +22,6 @@ bool ComPort::Open()
         {
             RS232_SendBuf(i, message, 6);
 
-            clock_t time = clock();
-
-            while (clock() < time + 100)
-            {
-
-            }
-
             int n = RS232_PollComport(i, buffer, 4095);
 
             if (n > 0)
@@ -79,7 +72,7 @@ int ComPort::Receive(char *buffer, int size)
 
         while (received < size)
         {
-            int newBytes = RS232_PollComport(openedPort, reinterpret_cast<unsigned char *>(buffer), size - received);
+            int newBytes = RS232_PollComport(openedPort, reinterpret_cast<unsigned char *>(buffer + received), size - received);
             received += newBytes;
         }
 

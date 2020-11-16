@@ -37,6 +37,7 @@ void VCP::SendDataAsynch(const uint8 *buffer, uint size)
         if (size < 64)
         {
             Send64BytesOrLess(buffer, size);
+            size = 0;
         }
         else
         {
