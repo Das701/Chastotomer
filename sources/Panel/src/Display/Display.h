@@ -29,4 +29,12 @@ struct Display
 
     // Возвращает true, если прямоугльник находится в отрисовываемой в данный момент времени части экрана
     static bool InDrawingPart(int y, int height);
+
+    // Отрисовать очередную часть экрана
+    static void DrawPartScreen(int num, bool debugInfo);
+
+    static void SendToSCPI();
+
+private:
+    static bool sendToSCPI;     // Если true, то надо посылать в SCPI
 };

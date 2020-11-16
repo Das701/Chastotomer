@@ -1,7 +1,9 @@
 #include "defines.h"
+#include "Display/Colors.h"
 #include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
+#include "Hardware/VCP.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Math.h"
 #include "Utils/String.h"
@@ -169,6 +171,30 @@ void Display::BeginScene()
 void Display::EndScene()
 {
     HAL_FSMC::SendBuffer(buffer[0], TopRow());
+
+    if (sendToSCPI)
+    {
+        int numPart = (Display::HEIGHT / Display::NUM_PARTS) / TopRow();
+
+        VCP::SendDataSynch(&numPart, 4);
+
+        uint data[WIDTH_BUFFER];
+
+        for (int row = 0; row < HEIGHT_BUFFER; row++)
+        {
+            for (int col = 0; col < WIDTH_BUFFER; col++)
+            {
+                data[col] = COLOR(buffer[row][col]);
+            }
+
+            VCP::SendDataSynch(data, WIDTH_BUFFER * 4);
+        }
+
+        if (numPart == NUM_PARTS - 1)
+        {
+            sendToSCPI = false;
+        }
+    }
 }
 
 

@@ -38,9 +38,6 @@ static void DrawScreen();
 static void DrawInfo();
 static void DrawData();
 
-// Отрисовать очередную часть экрана
-static void DrawPartScreen(int num);
-
 static void SetTopRow(int i);
 
 
@@ -60,6 +57,9 @@ static uint timePaint = 0;          // Время отрисовки за секунду
 
 static int topDraw = 0;             // Верхний у отрисовываемой части экрана
 static int bottomhDraw = 0;         // Нижний у отрисовываемой части экрана
+
+
+bool Display::sendToSCPI = false;
 
 
 bool Display::DrawWelcomeScreen()
@@ -119,7 +119,7 @@ void Display::Update()
 
         for (int i = 0; i < NUM_PARTS; i++)
         {
-            DrawPartScreen(i);
+            DrawPartScreen(i, true);
         }
 
         timeFrame = TIME_MS - timeStart;
@@ -143,7 +143,7 @@ void Display::Update()
 }
 
 
-static void DrawPartScreen(int num)
+void Display::DrawPartScreen(int num, bool debugInfo)
 {
     SetTopRow(num);
 
@@ -161,7 +161,7 @@ static void DrawPartScreen(int num)
         Console::Draw();
     }
 
-    if (num == 0)
+    if (num == 0 && debugInfo)
     {
         Text(String("%d", timeFrame)).Write(440, 0, Color::BLACK);
         Text(String("%d", fps)).Write(440, 15);
@@ -376,6 +376,12 @@ int Display::TopRow()
 }
 
 
+void Display::SendToSCPI()
+{
+    sendToSCPI = true;
+}
+
+
 #ifdef WIN32
 
 bool Display::InDrawingPart(int, int)
@@ -408,3 +414,4 @@ bool Display::InDrawingPart(int y, int height)
 #endif
 
 }
+

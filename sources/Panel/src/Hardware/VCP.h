@@ -19,7 +19,7 @@ public:
 
     static void SendDataAsynch(const uint8 *data, uint size);
 
-    static void SendDataSynch(const void *data, uint size = 0);
+    static void SendDataSynch(const void *data, uint size);
     // Передаётся строка без завершающего нуля
     static void SendStringAsynch(const char *data);
     // Передаётся строка без завершающего нуля

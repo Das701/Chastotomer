@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Display/Display.h"
 #include "SCPI/SCPI.h"
 #include "Utils/String.h"
 
@@ -12,7 +13,7 @@ const StructSCPI SCPI::head[] =
 {
     SCPI_LEAF("*IDN?",   FuncIDN),
     SCPI_LEAF("*RST",    FuncReset),
-    SCPI_LEAF("PICTURE", FuncPicture),
+    SCPI_LEAF(":PICTURE", FuncPicture),
     SCPI_NODE(":INPUT",  SCPI::input),
     SCPI_EMPTY()
 };
@@ -31,6 +32,8 @@ static pCHAR FuncIDN(pCHAR buffer)
 static pCHAR FuncPicture(pCHAR buffer)
 {
     SCPI_PROLOG(buffer);
+
+    Display::SendToSCPI();
 
     SCPI_EPILOG(buffer);
 }
