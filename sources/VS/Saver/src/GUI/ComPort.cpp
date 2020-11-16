@@ -2,6 +2,7 @@
 #include "GUI/ComPort.h"
 #include "GUI/rs232.h"
 #include <cstring>
+#include <ctime>
 
 
 static int openedPort = -1;
@@ -13,13 +14,20 @@ bool ComPort::Open()
 
     uint8 buffer[4096];
 
-    uint8 message[] = "*idn?\0xd";
+    uint8 message[] = "*idn?\x0d";
 
     for (int i = 0; i < 30; i++)
     {
         if (RS232_OpenComport(i, 115200, mode, 0) == 0)
         {
-            RS232_SendBuf(i, message, 5);
+            RS232_SendBuf(i, message, 6);
+
+            clock_t time = clock();
+
+            while (clock() < time + 100)
+            {
+
+            }
 
             int n = RS232_PollComport(i, buffer, 4095);
 
@@ -63,9 +71,18 @@ void ComPort::Send(pCHAR buffer)
 
 int ComPort::Receive(char *buffer, int size)
 {
+    int received = 0;
+    clock_t startTime = clock();
+
     if (IsOpened())
     {
-        return RS232_PollComport(openedPort, reinterpret_cast<unsigned char *>(buffer), size);
+        while (received < size && clock() < startTime + 1000)
+        {
+            int newBytes = RS232_PollComport(openedPort, reinterpret_cast<unsigned char *>(buffer), size - received);
+            received += newBytes;
+        }
+
+        return received;
     }
 
     return 0;

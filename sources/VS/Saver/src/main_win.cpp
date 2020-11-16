@@ -17,7 +17,7 @@ void init()
 
 void update()
 {
-	static uint time = 0;
+	static clock_t time = 0;
 
 #define SIZE_FRAME (272 * 480)
 
@@ -25,9 +25,11 @@ void update()
 
 	if (clock() > time + 1000)
 	{
-		ComPort::Send(":PICTURE\x0d");
+		ComPort::Send(":picture\x0d");
 
-		ComPort::Receive((char *)displayFrame, SIZE_FRAME / 4);
+		int received = ComPort::Receive((char *)displayFrame, 10);
+
+		received = received;
 
 		Display::Draw(displayFrame);
 
