@@ -39,6 +39,7 @@ private:
 public:
     void OnDown(wxCommandEvent &event);
     void OnUp(wxCommandEvent &event);
+    void OnSavePicture(wxCommandEvent &event);
 
     static Frame *self;
 };

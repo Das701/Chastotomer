@@ -48,6 +48,11 @@ void Frame::OnDown(wxCommandEvent &event)
 }
 
 
+void Frame::OnSavePicture(wxCommandEvent &)
+{
+}
+
+
 void Frame::OnUp(wxCommandEvent &event)
 {
     Control::E key = (Control::E)event.GetId();

@@ -168,6 +168,10 @@ static void CreateButtons(Frame *frame)
     }
 
     governor = new GovernorGUI(frame, { 700, 150 });
+
+    wxButton *button = new wxButton(frame, wxID_ANY, wxT("Сохранить"), { 500, 200 }, size);
+
+    button->Connect(wxID_ANY, wxEVT_LEFT_DOWN, wxCommandEventHandler(Frame::OnSavePicture));
 }
 
 
