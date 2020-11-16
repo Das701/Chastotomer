@@ -13,7 +13,7 @@ bool ComPort::Open()
 
     uint8 buffer[4096];
 
-    uint8 message[] = "Test string";
+    uint8 message[] = "*idn?\0xd";
 
     for (int i = 0; i < 30; i++)
     {

@@ -25,9 +25,9 @@ void update()
 
 	if (clock() > time + 1000)
 	{
-		ComPort::Send(":PICTURE");
+		ComPort::Send(":PICTURE\x0d");
 
-		ComPort::Receive((char *)displayFrame, SIZE_FRAME);
+		ComPort::Receive((char *)displayFrame, SIZE_FRAME / 4);
 
 		Display::Draw(displayFrame);
 
