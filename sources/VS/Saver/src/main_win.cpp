@@ -12,6 +12,8 @@ void init()
 	Display::Init();
 	Keyboard::Init();
 	ComPort::Open();
+	//ComPort::Send("*idn?\x0d");
+    ComPort::Send(":PICTURE\x0d");
 }
 
 
@@ -27,7 +29,7 @@ void update()
 	{
 		ComPort::Send(":picture\x0d");
 
-		int received = ComPort::Receive((char *)displayFrame, 10);
+     	int received = ComPort::Receive((char *)displayFrame, SIZE_FRAME * 4);
 
 		received = received;
 

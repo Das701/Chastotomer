@@ -40,6 +40,9 @@ public:
     void OnDown(wxCommandEvent &event);
     void OnUp(wxCommandEvent &event);
     void OnSavePicture(wxCommandEvent &event);
+    void OnTimerComPort(wxTimerEvent &);
 
     static Frame *self;
+
+    wxTimer timerComPort;
 };

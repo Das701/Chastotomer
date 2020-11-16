@@ -1,4 +1,5 @@
 #include "Application_win.h"
+#include "GUI/ComPort.h"
 
 #undef main
 
@@ -34,8 +35,6 @@ wxIMPLEMENT_APP_NO_MAIN(Application);
 
 
 Frame *Frame::self = nullptr;
-
-
 
 int main(int argc, char **argv)
 {
@@ -88,6 +87,22 @@ Frame::Frame(const wxString& title)
     timerLongPress.SetOwner(this, TIMER_LONG_ID);
 
     self = this;
+
+    timerComPort.Bind(wxEVT_TIMER, &Frame::OnTimerComPort, this);
+    timerComPort.Start(10);
+}
+
+
+void Frame::OnTimerComPort(wxTimerEvent &)
+{
+//    static uint displayFrame[272 * 480];
+//
+//    int received = ComPort::Receive((char *)displayFrame, 272 * 480 * 4);
+//
+//    if (received != 0)
+//    {
+//        received = received;
+//    }
 }
 
 

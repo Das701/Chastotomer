@@ -175,17 +175,17 @@ void Display::EndScene()
     if (sendToSCPI)
     {
         int numPart = (Display::HEIGHT / Display::NUM_PARTS) / TopRow();
-
+        
         uint data[WIDTH_BUFFER];
-
+        
         for (int row = 0; row < HEIGHT_BUFFER; row++)
         {
             for (int col = 0; col < WIDTH_BUFFER; col++)
             {
                 data[col] = COLOR(buffer[row][col]);
             }
-
-            VCP::SendDataSynch(data, WIDTH_BUFFER * 4);
+        
+            VCP::SendDataAsynch((const uint8 *)data, WIDTH_BUFFER * 4);
         }
 
         if (numPart == NUM_PARTS - 1)
