@@ -629,16 +629,6 @@
               <FilePath>.\src\Display\Font\FontMid.h</FilePath>
             </File>
             <File>
-              <FileName>FontBig.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Font\FontBig.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>FontBig.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\FontBig.h</FilePath>
-            </File>
-            <File>
               <FileName>fontGOSTAU16BOLD.inc</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\fontGOSTAU16BOLD.inc</FilePath>
@@ -1693,16 +1683,6 @@
               <FileName>FontMid.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\FontMid.h</FilePath>
-            </File>
-            <File>
-              <FileName>FontBig.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Font\FontBig.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>FontBig.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Font\FontBig.h</FilePath>
             </File>
             <File>
               <FileName>fontGOSTAU16BOLD.inc</FileName>

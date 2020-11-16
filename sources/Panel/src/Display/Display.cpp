@@ -7,7 +7,6 @@
 #include "Display/Indicator.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
-#include "Display/Font/FontBig.h"
 #include "Display/Font/FontMid.h"
 #include "Hardware/FPGA.h"
 #include "Hardware/MathFPGA.h"

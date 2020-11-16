@@ -22,7 +22,7 @@
 static bool OpenPage(Control control);
 
 // Обработка события клаиатуры
-static bool OnControl(const Control &control);
+static void OnControl(const Control &control);
 
 // Текущая отображаемая страница меню
 static Page *openedPage = PageModesA::self;
@@ -47,8 +47,6 @@ bool Menu::Update()
     {
         Control control = Keyboard::NextControl();
 
-        bool processed = false;
-
         if (PageIndication::calibration.IsPressed())
         {
         }
@@ -61,27 +59,19 @@ bool Menu::Update()
                     LevelSynch::Change(CURRENT_CHANNEL, -2);
                     FPGA::DecreaseN();
                     FPGA::WriteData();
-                    processed = true;
                 }
                 else if (control.value == Control::GovRight)
                 {
                     LevelSynch::Change(CURRENT_CHANNEL, 2);
                     FPGA::IncreaseN();
                     FPGA::WriteData();
-                    processed = true;
                 }
             }
         }
 
-        if (!processed)
-        {
-            processed = OnControl(control);
-        }
+        OnControl(control);
 
-        if (!processed)
-        {
-            OpenPage(control);
-        }
+        OpenPage(control);
 
         Display::Refresh();
 
@@ -247,20 +237,16 @@ void Menu::SetOpenedPage(Page *page)
 }
 
 
-static bool OnControl(const Control &control) //-V2008
+static void OnControl(const Control &control) //-V2008
 {
-    bool result = false;
-
     switch (control.value)
     {
     case Control::Right:
         openedPage->SelectNextItem();
-        result = true;
         break;
 
     case Control::Left:
         openedPage->SelectPrevItem();
-        result = true;
         break;
 
     case Control::GovLeft:
@@ -283,7 +269,7 @@ static bool OnControl(const Control &control) //-V2008
     case Control::Enter:
         if (openedPage->SelectedItem())
         {
-            result = openedPage->SelectedItem()->OnControl(control);
+            openedPage->SelectedItem()->OnControl(control);
         }
         break;
 
@@ -329,14 +315,10 @@ static bool OnControl(const Control &control) //-V2008
     case Control::Service:
     case Control::Count:
     case Control::None:
-        break;
-
     default:
         // никаких действий по умолчанию производить не требуется
         break;
     }
-
-    return result;
 }
 
 
