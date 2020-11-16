@@ -29,6 +29,8 @@ void update()
 
 		ComPort::Receive((char *)displayFrame, SIZE_FRAME);
 
+		Display::Draw(displayFrame);
+
 		time = clock();
 	}
 }

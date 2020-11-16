@@ -19,6 +19,8 @@ struct Display
 
     static void BeginScene();
 
+    static void Draw(uint *buffer);
+
     static void EndScene();
 
     static bool DrawWelcomeScreen();
