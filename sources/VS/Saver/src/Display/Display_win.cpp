@@ -20,6 +20,7 @@
 #define pString const char * const
 
 #include <wx/display.h>
+#include <wx/file.h>
 #pragma warning(pop)
 
 #undef uint   
@@ -42,6 +43,8 @@ static GovernorGUI *governor = nullptr;
 
 static bool needStartTimerLong = false;
 static bool needStopTimerLong = false;
+
+static bool saveToFile = false;
 
 // Здесь имя нажатой кнопки
 static Control::E pressedKey = Control::None;
@@ -104,6 +107,12 @@ void Display::BeginScene()
 }
 
 
+void Frame::OnSavePicture(wxCommandEvent &)
+{
+    saveToFile = true;
+}
+
+
 void Display::Draw(uint *buffer)
 {
     memDC.SelectObject(bitmap);
@@ -128,6 +137,31 @@ void Display::Draw(uint *buffer)
     memDC.DrawBitmap(bmp, 0, 0);
     memDC.SelectObject(wxNullBitmap);
     screen->Refresh();
+
+    if (saveToFile)
+    {
+        static int counter = 0;
+
+        String name("screens\\Screen%03d.bmp", counter);
+
+        while (true)
+        {
+            wxFile file;
+
+            if (!file.Access(name.c_str(), wxFile::read))
+            {
+                break;
+            }
+
+            file.Close();
+
+            counter++;
+
+            name.Set(TypeConversionString::None, "screens\\Screen%03d.bmp", counter);
+        }
+
+        bmp.SaveFile(name.c_str(), wxBITMAP_TYPE_BMP);
+    }
 }
 
 

@@ -5,6 +5,7 @@
 #include "Menu/Menu.h"
 #include "GUI/ComPort.h"
 #include <ctime>
+#include <cstring>
 
 
 void init()
@@ -28,11 +29,16 @@ void update()
 
 	if (clock() > time + 1000)
 	{
+        while (ComPort::Receive((char *)displayFrame, 100, 0) != 0)
+        {
+
+        }
+
+		std::memset(displayFrame, 0, SIZE_FRAME * 4);
+
 		ComPort::Send(":picture\x0d");
 
-     	int received = ComPort::Receive((char *)displayFrame, SIZE_FRAME * 4);
-
-		received = received;
+     	ComPort::Receive((char *)displayFrame, SIZE_FRAME * 4, 10000);
 
 		Display::Draw(displayFrame);
 
