@@ -73,7 +73,17 @@ int ComPort::Receive(char *buffer, int size)
 {
     if (IsOpened())
     {
-        return RS232_PollComport(openedPort, reinterpret_cast<unsigned char *>(buffer), size);
+        clock_t startTime = clock();
+
+        int received = 0;
+
+        while (received < size)
+        {
+            int newBytes = RS232_PollComport(openedPort, reinterpret_cast<unsigned char *>(buffer), size - received);
+            received += newBytes;
+        }
+
+        return received;
     }
 
     return 0;

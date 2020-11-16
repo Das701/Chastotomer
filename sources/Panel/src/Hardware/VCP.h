@@ -19,6 +19,8 @@ public:
 
     static void SendDataAsynch(const uint8 *data, uint size);
 
+    static void Send64BytesOrLess(const uint8 *buffer, uint size);
+
     static void SendDataSynch(const void *data, uint size);
     // Передаётся строка без завершающего нуля
     static void SendStringAsynch(const char *data);

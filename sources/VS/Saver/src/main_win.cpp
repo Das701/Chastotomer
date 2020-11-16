@@ -12,8 +12,6 @@ void init()
 	Display::Init();
 	Keyboard::Init();
 	ComPort::Open();
-	//ComPort::Send("*idn?\x0d");
-    ComPort::Send(":PICTURE\x0d");
 }
 
 

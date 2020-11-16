@@ -17,16 +17,34 @@ void VCP::Init()
 } 
 
 
-void VCP::SendDataAsynch(const uint8 *buffer, uint size)
+void VCP::Send64BytesOrLess(const uint8 *buffer, uint size)
 {
 #define SIZE_BUFFER 64U
     static uint8 trBuf[SIZE_BUFFER];
 
     size = Math::Min(size, SIZE_BUFFER);
-    while (!HAL_USBD::PrevSendingComplete())  {};
+    while (!HAL_USBD::PrevSendingComplete()) {};
     std::memcpy(trBuf, buffer, (uint)size);
 
     HAL_USBD::SetBufferTX(trBuf, size);
+}
+
+
+void VCP::SendDataAsynch(const uint8 *buffer, uint size)
+{
+    while (size != 0)
+    {
+        if (size < 64)
+        {
+            Send64BytesOrLess(buffer, size);
+        }
+        else
+        {
+            Send64BytesOrLess(buffer, 64);
+            size -= 64;
+            buffer += 64;
+        }
+    }
 }
 
 
