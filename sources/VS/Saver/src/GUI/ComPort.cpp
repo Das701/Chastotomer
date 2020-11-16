@@ -66,8 +66,6 @@ int ComPort::Receive(char *buffer, int size)
 {
     if (IsOpened())
     {
-        clock_t startTime = clock();
-
         int received = 0;
 
         while (received < size)
