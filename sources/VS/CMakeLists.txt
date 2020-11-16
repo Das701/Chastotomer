@@ -20,3 +20,4 @@ project (FreqMeter_GUI)
 set (TARGET_NAME FreqMeter_GUI)
 
 add_subdirectory(Panel)
+add_subdirectory(Saver)
