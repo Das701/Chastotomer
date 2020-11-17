@@ -141,7 +141,7 @@ void PageModesB::OnChanged_ModeFrequency()
 // Выбор режима измерения частоты, отношения частот, "тахометра"
 DEF_SWITCH_5(sModeFrequency,
     "Режим", "Измерение частоты",
-    "Частота", "f(B)/f(A)", "f(B)/f(C)", "f=1/T", "Тахометр",
+    "Частота", "f=1/T", "f(B)/f(A)", "f(B)/f(C)", "Тахометр",
     PageModesB::modeMeasureFrequency, PageModesB::OnChanged_ModeFrequency
 );
 

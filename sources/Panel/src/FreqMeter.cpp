@@ -163,8 +163,7 @@ void ModeMeasureFrequency::LoadToFPGA()
         argument[5] = 1;
         argument[4] = 1;
     }
-    else if ((PageModesA::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::modeMeasureFrequency.IsTachometer() && CURRENT_CHANNEL_IS_B))
+    else if (ModeMeasureFrequency::Current().IsTachometer())
     {
         argument[3] = 1;
     }
