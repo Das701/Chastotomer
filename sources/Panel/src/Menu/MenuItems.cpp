@@ -107,9 +107,9 @@ void Page::Draw(int x, int y, int, bool)
 
 int Page::WidthItem(int num) const
 {
-    if (IsPageModes() && (num == 0))
+    if (IsPageModes())
     {
-        return ((Display::WIDTH - 1) / 6) * 2 - 50;
+        return (Display::WIDTH / 4);
     }
 
     int result = ((num % 2) == 0) ? ((Display::WIDTH - 1) / 6) : (Display::WIDTH / 6);

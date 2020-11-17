@@ -354,12 +354,6 @@ static void DrawData()
     {
         FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 360, 170, Color::WHITE);
     }
-
-    if ((CURRENT_CHANNEL_IS_A && PageModesA::modeMeasureFrequency.IsTachometer()) ||
-        (CURRENT_CHANNEL_IS_B && PageModesB::modeMeasureFrequency.IsTachometer()))
-    {
-        Text("60s").Write(2, 87, 60, Color::WHITE);
-    }
 }
 
 
