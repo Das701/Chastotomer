@@ -98,7 +98,7 @@ void CurrentModeMeasure::DrawParameters(int x, int y)
     { nullptr,                    &PageModes::numberPeriods,  nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr }             // TypeMeasure::CountPulse
 },                                                                                                                                                                 
 {                                                                                                                                                                  
-    { &PageModes::timeMeasure,    &PageModes::timeMeasure,    &PageModes::numberPeriods,  &PageModes::numberPeriods,  nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Frequency
+    { &PageModes::timeMeasure,    &PageModes::numberPeriods,  &PageModes::numberPeriods,  &PageModes::numberPeriods,  nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Frequency
     { &PageModes::numberPeriods,  &PageModes::timeMeasure,    nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Period
     { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Duration
     { nullptr,                    &PageModes::numberPeriods,  nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }  // TypeMeasure::CountPulse
