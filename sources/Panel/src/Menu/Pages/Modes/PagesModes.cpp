@@ -3,6 +3,7 @@
 #include "Settings.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
+#include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/Modes/PagesModes.h"
 
 
@@ -23,6 +24,29 @@ bool CurrentPageModes::ConsistTimeMeasure()
 
     return false;
 }
+
+
+// Выбор времени измерения
+#ifdef USE_1000s
+
+DEF_SWITCH_7(sTimeMeasure,
+    "Время", "Время счёта",
+    "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
+    PageModes::timeMeasure, TimeMeasure::LoadToFPGA
+);
+
+#else
+
+DEF_SWITCH_6(sTimeMeasure,
+    "Время", "Время счёта",
+    "1ms", "10ms", "100ms", "1s", "10s", "100s",
+    PageModes::timeMeasure, TimeMeasure::LoadToFPGA
+);
+
+#endif
+
+
+Switch *PageModes::switchTimeMeasue = &sTimeMeasure;
 
 
 #ifdef WIN32

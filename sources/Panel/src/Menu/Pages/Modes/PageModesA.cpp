@@ -21,7 +21,6 @@ extern Switch sModePeriod;
 extern Switch sModeDuration;
 extern Switch sModeCountPulse;
 extern Switch sPeriodTimeLabels;
-extern Switch sTimeMeasure;
 extern Switch sNumberPeriods;
 
 static bool relationOn = false;
@@ -135,7 +134,7 @@ void PageModesA::OnChanged_ModeFrequency()
 
     if (PageModesA::modeMeasureFrequency.IsFrequency())
     {
-        items[2] = &sTimeMeasure;
+        items[2] = PageModes::switchTimeMeasue;
         items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
         items[4] = nullptr;
         PageModesA::RelationOff();
@@ -148,7 +147,7 @@ void PageModesA::OnChanged_ModeFrequency()
     }
     else if (PageModesA::modeMeasureFrequency.IsRatioAC())
     {
-        items[2] = &sTimeMeasure;
+        items[2] = PageModes::switchTimeMeasue;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
@@ -200,7 +199,7 @@ void PageModesA::OnChanged_ModePeriod()
     }
     else if (PageModesA::modeMeasurePeriod.IsF_1())
     {
-        items[2] = &sTimeMeasure;
+        items[2] = PageModes::switchTimeMeasue;
         items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
         items[4] = nullptr;
     }

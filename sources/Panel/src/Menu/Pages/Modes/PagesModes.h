@@ -23,6 +23,8 @@ public:
     static TimeMeasure       timeMeasure;    // Время счета
     static NumberPeriods     numberPeriods;  // Число периодов измерения
 
+    static Switch *switchTimeMeasue;
+
 private:
     static bool IsActiveTimeLabels(TypeMeasure *type, int mode);
     static bool IsActiveTimeMeasure(TypeMeasure *type, int mode);
