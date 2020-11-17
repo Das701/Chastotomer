@@ -39,43 +39,34 @@ int Enumeration::NumStates() const
 
 String Enumeration::ToString() const
 {
+    return String(names[IndexName()]);
+}
+
+
+int Enumeration::IndexName() const
+{
     if (correct == nullptr)
     {
-        return String(names[value]);
+        return value;
     }
 
-    int counter = -1;
+    int index = 0;
 
-    for (int i = 0; i <= value; i++)
+    for (int i = 0; i < value; i++)
     {
         if (correct[i])
         {
-            counter++;
+            index++;
         }
     }
 
-    return String(names[counter]);
+    return index;
 }
 
 
 char *Enumeration::UGO() const
 {
-    if (correct == nullptr)
-    {
-        return ugo[value];
-    }
-
-    int counter = -1;
-
-    for (int i = 0; i <= value; i++)
-    {
-        if (correct[i])
-        {
-            counter++;
-        }
-    }
-
-    return ugo[value];
+    return ugo[IndexName()];
 }
 
 

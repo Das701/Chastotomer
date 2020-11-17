@@ -21,6 +21,8 @@ struct Enumeration
     String ToString() const;
     char *UGO() const;
     int NumStates() const;
+    // Возвращает индекс из массива names, соотвествующий текущему value
+    int IndexName() const;
     bool Is(uint8 v) const { return value == v; }
 };
 

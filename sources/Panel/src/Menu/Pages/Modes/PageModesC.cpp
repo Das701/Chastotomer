@@ -133,7 +133,7 @@ void PageModesC::ResetModeCurrentMeasure()
 {
     switch (typeMeasure)
     {
-    case TypeMeasure::Frequency:  modeMeasureFrequency.value = 0;  break;
-    case TypeMeasure::CountPulse: modeMeasureCountPulse.value = 0; break;
+    case TypeMeasure::Frequency:  modeMeasureFrequency.value = 0;                           break;
+    case TypeMeasure::CountPulse: modeMeasureCountPulse.value = ModeMeasureCountPulse::CtA; break;
     }
 }
