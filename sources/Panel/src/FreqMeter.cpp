@@ -275,7 +275,7 @@ void FreqMeter::LoadPeriodTimeLabels()
 
     DEFINE_ARGUMENT;
 
-    switch (PeriodTimeLabels::Current().value)
+    switch (PageModes::timeLabels.value)
     {
     case PeriodTimeLabels::T_7:     argument[5] = 1;    break;
     case PeriodTimeLabels::T_6:     argument[4] = 1;    break;
@@ -298,7 +298,7 @@ void FreqMeter::LoadTimeMeasure()
 
     DEFINE_ARGUMENT;
 
-    switch (TimeMeasure::Current().value)
+    switch (PageModes::timeMeasure.value)
     {
     case TimeMeasure::_10ms:    argument[5] = 1;  break;
     case TimeMeasure::_100ms:   argument[4] = 1;  break;
@@ -323,7 +323,7 @@ void FreqMeter::LoadNumerPeriodsMeasure()
 
     DEFINE_ARGUMENT;
 
-    switch (NumberPeriods::Current().value)
+    switch (PageModes::numberPeriods.value)
     {
     case NumberPeriods::_10:    argument[5] = 1;    break;
     case NumberPeriods::_100:   argument[4] = 1;    break;

@@ -7,6 +7,10 @@
 
 uint TimeMeasure::ProgressBar::timeStart = 0U;
 
+PeriodTimeLabels PageModes::timeLabels(PeriodTimeLabels::T_8);
+NumberPeriods    PageModes::numberPeriods(NumberPeriods::_1);
+TimeMeasure      PageModes::timeMeasure(TimeMeasure::_1ms);
+
 
 bool ModeMeasureCountPulse::IsFromPeriod() const
 {
@@ -78,29 +82,29 @@ void CurrentModeMeasure::DrawParameters(int x, int y)
     static const Enumeration *const modes[Channel::Count - 1][TypeMeasure::Count][ModeMeasureFrequency::Count] =
     {
 {//   Frequency                   T_1                         RatioAB                     RatioAC                                                         Tachometer Comparator // ModeMeasureFrequency
-    { &PageModesA::timeMeasure,   &PageModesA::numberPeriods, &PageModesA::numberPeriods, &PageModesA::timeMeasure,   nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr},  // TypeMeasure::Frequency
+    { &PageModes::timeMeasure,    &PageModes::numberPeriods,  &PageModes::numberPeriods,  &PageModes::timeMeasure,    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr},  // TypeMeasure::Frequency
  //   Period                      F_1                                                                                                                                          
-    { &PageModesA::numberPeriods, &PageModesA::timeMeasure},                                                                                                                    // TypeMeasure::Period
+    { &PageModes::numberPeriods,  &PageModes::timeMeasure},                                                                                                                     // TypeMeasure::Period
  //   Ndt                         Ndt_1ns                     ndt2                        FillFactor                  Phase
     { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr },                                                // TypeMeasure::Duration
  //   AtC                         ATB                                                                                                                     StartStop
-    { nullptr,                    &PageModesA::numberPeriods, nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr }             // TypeMeasure::CountPulse
+    { nullptr,                    &PageModes::numberPeriods,  nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr }             // TypeMeasure::CountPulse
 },                                                                                                                                                                 
 {                                                                                                                                                                  
-    { &PageModesA::timeMeasure,   &PageModesA::timeMeasure,   &PageModesA::numberPeriods, &PageModesA::numberPeriods, nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Frequency
-    { &PageModesA::numberPeriods, &PageModesA::timeMeasure,   nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Period
+    { &PageModes::timeMeasure,    &PageModes::timeMeasure,    &PageModes::numberPeriods,  &PageModes::numberPeriods,  nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Frequency
+    { &PageModes::numberPeriods,  &PageModes::timeMeasure,    nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Period
     { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Duration
-    { nullptr,                    &PageModesA::numberPeriods, nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }  // TypeMeasure::CountPulse
+    { nullptr,                    &PageModes::numberPeriods,  nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }  // TypeMeasure::CountPulse
 },                                                                                                                                                                 
 {                                                                                                                                                                  
-    { &PageModesC::timeMeasure,   &PageModesC::numberPeriods, &PageModesC::numberPeriods, nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Frequency
+    { &PageModes::timeMeasure,    &PageModes::numberPeriods,  &PageModes::numberPeriods, nullptr,                     nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Frequency
     { },                                                                                                                                                                        // TypeMeasure::Period
     { },                                                                                                                                                                        // TypeMeasure::Duration
     { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }  // TypeMeasure::CountPulse
 }
     };
 
-    const Enumeration *mode = &PageModesD::timeMeasure;
+    const Enumeration *mode = &PageModes::timeMeasure;
 
     if (!CURRENT_CHANNEL_IS_D)
     {
@@ -182,34 +186,34 @@ int NumberPeriods::ToAbs() const
 }
 
 
-TimeMeasure &TimeMeasure::Current()
-{
-    static TimeMeasure *const times[Channel::Count] =
-    {
-        &PageModesA::timeMeasure,
-        &PageModesB::timeMeasure,
-        &PageModesC::timeMeasure,
-        &PageModesD::timeMeasure
-    };
+//TimeMeasure &TimeMeasure::Current()
+//{
+//    static TimeMeasure *const times[Channel::Count] =
+//    {
+//        &PageModesA::timeMeasure,
+//        &PageModesB::timeMeasure,
+//        &PageModesC::timeMeasure,
+//        &PageModesD::timeMeasure
+//    };
+//
+//    return *times[CURRENT_CHANNEL];
+//}
 
-    return *times[CURRENT_CHANNEL];
-}
 
-
-NumberPeriods &NumberPeriods::Current()
-{
-    static NumberPeriods empty(NumberPeriods::Count);
-
-    static NumberPeriods *const numbers[Channel::Count] =
-    {
-        &PageModesA::numberPeriods,
-        &PageModesB::numberPeriods,
-        &PageModesC::numberPeriods,
-        &empty
-    };
-
-    return *numbers[CURRENT_CHANNEL];
-}
+//NumberPeriods &NumberPeriods::Current()
+//{
+//    static NumberPeriods empty(NumberPeriods::Count);
+//
+//    static NumberPeriods *const numbers[Channel::Count] =
+//    {
+//        &PageModesA::numberPeriods,
+//        &PageModesB::numberPeriods,
+//        &PageModesC::numberPeriods,
+//        &empty
+//    };
+//
+//    return *numbers[CURRENT_CHANNEL];
+//}
 
 
 ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
@@ -289,29 +293,13 @@ ModeMeasureDuration &ModeMeasureDuration::Current()
 }
 
 
-PeriodTimeLabels &PeriodTimeLabels::Current()
-{
-    static PeriodTimeLabels empty(PeriodTimeLabels::Count);
-
-    static PeriodTimeLabels *const periods[Channel::Count] =
-    {
-        &PageModesA::timeLabels,
-        &PageModesB::timeLabels,
-        &PageModesC::timeLabels,
-        &empty
-    };
-
-    return *periods[CURRENT_CHANNEL];
-}
-
-
 void TimeMeasure::ProgressBar::Draw(int x, int y)
 {
     if (IsDrawable())
     {
         int width = Display::WIDTH;
 
-        int timeCycle = TimeMeasure::Current().ToMS();
+        int timeCycle = PageModes::timeMeasure.ToMS();
 
         float part = ((float)(TIME_MS - timeStart) / (float)timeCycle);
 
@@ -322,5 +310,5 @@ void TimeMeasure::ProgressBar::Draw(int x, int y)
 
 bool TimeMeasure::ProgressBar::IsDrawable()
 {
-    return CurrentPageModes::ConsistTimeMeasure() && TimeMeasure::Current().value > TimeMeasure::_100ms;
+    return CurrentPageModes::ConsistTimeMeasure() && PageModes::timeMeasure.value > TimeMeasure::_100ms;
 }

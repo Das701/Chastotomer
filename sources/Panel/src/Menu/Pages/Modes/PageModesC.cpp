@@ -24,9 +24,6 @@ static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { t
 ModeMeasureFrequency  PageModesC::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
 static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
 ModeMeasureCountPulse PageModesC::modeMeasureCountPulse(ModeMeasureCountPulse::CtA, correctModeMeasureCountPulse, ModeMeasureCountPulse::Count);
-PeriodTimeLabels      PageModesC::timeLabels(PeriodTimeLabels::T_8);
-NumberPeriods         PageModesC::numberPeriods(NumberPeriods::_1);
-TimeMeasure           PageModesC::timeMeasure(TimeMeasure::_1ms);
 
 
 void PageModesC::OnChanged_TypeMeasure()
@@ -124,11 +121,6 @@ DEF_SWITCH_4(sModeCountPulseC,
 
 static void OnPress_TimeLabelsC()
 {
-    uint8 period = PageModesC::timeLabels.value;
-
-    PageModesA::timeLabels.value = period;
-    PageModesB::timeLabels.value = period;
-
     FreqMeter::LoadPeriodTimeLabels();
 }
 
@@ -136,35 +128,12 @@ static void OnPress_TimeLabelsC()
 DEF_SWITCH_6(sPeriodTimeLabelsC,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    PageModesC::timeLabels, OnPress_TimeLabelsC
+    PageModes::timeLabels, OnPress_TimeLabelsC
 );
 
 
 static void OnPress_TimeMeasure()
 {
-    uint8 time = PageModesC::timeMeasure.value;
-
-    PageModesA::timeMeasure.value = time;
-    PageModesB::timeMeasure.value = time;
-    PageModesD::timeMeasure.value = time;
-
-    static const uint8 periods[TimeMeasure::Count] =
-    {
-        NumberPeriods::_1,
-        NumberPeriods::_10,
-        NumberPeriods::_100,
-        NumberPeriods::_1K,
-        NumberPeriods::_10K,
-        NumberPeriods::_100K,
-        NumberPeriods::_1000K
-    };
-
-    uint8 period = periods[time];
-
-    PageModesA::numberPeriods.value = period;
-    PageModesB::numberPeriods.value = period;
-    PageModesC::numberPeriods.value = period;
-
     FreqMeter::LoadTimeMeasure();
 }
 
@@ -175,16 +144,15 @@ static void OnPress_TimeMeasure()
 DEF_SWITCH_7(sTimeMeasureC,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
-    PageModesC::timeMeasure, OnPress_TimeMeasure
+    PageModes::timeMeasure, OnPress_TimeMeasure
 );
-
 
 #else
 
 DEF_SWITCH_6(sTimeMeasureC,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s",
-    PageModesC::timeMeasure, OnPress_TimeMeasure
+    PageModes::timeMeasure, OnPress_TimeMeasure
 );
 
 #endif
@@ -192,28 +160,6 @@ DEF_SWITCH_6(sTimeMeasureC,
 
 static void OnPress_NumberPeriodsC()
 {
-    uint8 period = PageModesC::numberPeriods.value;
-
-    PageModesA::numberPeriods.value = period;
-    PageModesB::numberPeriods.value = period;
-
-    static const uint8 times[NumberPeriods::Count] =
-    {
-        TimeMeasure::_1ms,
-        TimeMeasure::_10ms,
-        TimeMeasure::_100ms,
-        TimeMeasure::_1s,
-        TimeMeasure::_10s,
-        TimeMeasure::_100s,
-        TimeMeasure::_1000s
-    };
-
-    uint8 time = times[PageModesC::numberPeriods.value];
-
-    PageModesA::timeMeasure.value = time;
-    PageModesB::timeMeasure.value = time;
-    PageModesC::timeMeasure.value = time;
-
     FreqMeter::LoadNumerPeriodsMeasure();
 }
 
@@ -223,7 +169,7 @@ static void OnPress_NumberPeriodsC()
 DEF_SWITCH_7(sNumberPeriodsC,
     "N", "Число периодов измерения",
     "1", "10", "100", "1K", "10K", "100K", "1000K",
-    PageModesC::numberPeriods,
+    PageModes::numberPeriods,
     OnPress_NumberPeriodsC
 );
 
@@ -232,7 +178,7 @@ DEF_SWITCH_7(sNumberPeriodsC,
 DEF_SWITCH_6(sNumberPeriodsC,
     "N", "Число периодов измерения",
     "1", "10", "100", "1K", "10K", "100K",
-    PageModesC::numberPeriods,
+    PageModes::numberPeriods,
     OnPress_NumberPeriodsC
 );
 

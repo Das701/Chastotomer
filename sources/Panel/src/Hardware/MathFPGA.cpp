@@ -69,13 +69,13 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 
     if (mode.IsT_1())
     {
-        manualZeros = 10 * PageModesA::timeLabels.ToZeros() / 1000 * PageModesA::numberPeriods.ToAbs();
+        manualZeros = 10 * PageModes::timeLabels.ToZeros() / 1000 * PageModes::numberPeriods.ToAbs();
 
-        decDataA.Div((uint)PageModesA::timeLabels.ToZeros());
+        decDataA.Div((uint)PageModes::timeLabels.ToZeros());
 
         double test1 = decDataA.ToDouble();
 
-        double test2 = test1 / PageModesA::numberPeriods.ToAbs();
+        double test2 = test1 / PageModes::numberPeriods.ToAbs();
 
         decDataA.FromDouble((float)(4 / test2));
 
@@ -89,16 +89,16 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
     }
     else if (mode.IsRatioAB() || mode.IsRatioBA())
     {
-        result = PageModesA::numberPeriods.ToAbs();
+        result = PageModes::numberPeriods.ToAbs();
     }
     else if (mode.IsRatioCA() || mode.IsRatioCB())
     {
         decDataA.Mul(100);
-        result = PageModesC::numberPeriods.ToAbs();
+        result = PageModes::numberPeriods.ToAbs();
     }
     else if (mode.IsRatioAC() || mode.IsRatioBC())
     {
-        int sT = PageModesA::timeMeasure.ToMS();
+        int sT = PageModes::timeMeasure.ToMS();
 
         decDataA.FromDouble(decDataA.ToDouble() / decDataB.ToDouble() / 32);
         manualZeros = 1000000 * sT;
@@ -106,8 +106,8 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
     }
     else
     {
-        int mhz = 1000 * PageModesA::timeMeasure.ToMS();
-        int khz = PageModesA::timeMeasure.ToMS();
+        int mhz = 1000 * PageModes::timeMeasure.ToMS();
+        int khz = PageModes::timeMeasure.ToMS();
 
         if (((decDataA.ToDouble() / (float)khz) / 2.0F) < 1000.0F)
         {
@@ -162,7 +162,7 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 
     if (ModeMeasurePeriod::Current().IsF_1())
     {
-        int sT = PageModesA::timeMeasure.ToMS();
+        int sT = PageModes::timeMeasure.ToMS();
 
         decDA = (int)(decDataA.ToDouble() / (2.0 * (double)sT));
         decDataA.FromDouble(4 / decDataA.ToDouble());
@@ -178,16 +178,16 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
     }
     else
     {
-        if (PageModesA::timeLabels.IsT_7() || PageModesA::timeLabels.IsT_4())
+        if (PageModes::timeLabels.IsT_7() || PageModes::timeLabels.IsT_4())
         {
             result *= 10;
         }
-        else if (PageModesA::timeLabels.IsT_8() || PageModesA::timeLabels.IsT_5())
+        else if (PageModes::timeLabels.IsT_8() || PageModes::timeLabels.IsT_5())
         {
             result *= 100;
         }
 
-        result *= PageModesA::numberPeriods.ToAbs();
+        result *= PageModes::numberPeriods.ToAbs();
     }
 
     return result;
@@ -196,11 +196,11 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 
 int MathFPGA::Measure::CalculateDurationEmptyZeros()
 {
-    if (PageModesA::timeLabels.IsT_7())
+    if (PageModes::timeLabels.IsT_7())
     {
         return 10;
     }
-    else if (PageModesA::timeLabels.IsT_8() || PageModesA::timeLabels.IsT_5())
+    else if (PageModes::timeLabels.IsT_8() || PageModes::timeLabels.IsT_5())
     {
         return 100;
     }
@@ -435,7 +435,7 @@ void MathFPGA::Measure::CalculateNewData()
 
         if (ModeMeasureCountPulse::Current().IsFromPeriod())
         {
-            value /= (float)PageModesA::numberPeriods.ToAbs();
+            value /= (float)PageModes::numberPeriods.ToAbs();
         }
 
         Data::SetDigits(String("%10.0f", decDataA.ToFloat()));
@@ -572,7 +572,7 @@ void MathFPGA::Measure::CalculateUnits()
                 }
                 else
                 {
-                    PeriodTimeLabels &current = PeriodTimeLabels::Current();
+                    PeriodTimeLabels &current = PageModes::timeLabels;
 
                     if (current.IsT_3() || current.IsT_4() || current.IsT_5())  { Data::SetUnits(String(" ms")); }
                     else                                                        { Data::SetUnits(String(" us")); }

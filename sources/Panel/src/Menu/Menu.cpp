@@ -187,7 +187,7 @@ String Menu::ChannelSettings()
         }
         else
         {
-            switch (PeriodTimeLabels::Current().value)
+            switch (PageModes::timeLabels.value)
             {
             case PeriodTimeLabels::T_3:     std::strcat(settings, "x10-3");     break;
             case PeriodTimeLabels::T_4:     std::strcat(settings, "x10-4");     break;
@@ -214,7 +214,7 @@ String Menu::ChannelSettings()
         }
         else
         {
-            switch (PeriodTimeLabels::Current().value)
+            switch (PageModes::timeLabels.value)
             {
             case PeriodTimeLabels::T_3:     std::strcat(settings, "x10-3");     break;
             case PeriodTimeLabels::T_4:     std::strcat(settings, "x10-4");     break;

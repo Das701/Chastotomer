@@ -19,17 +19,10 @@ static const bool correctTypeMeasure[TypeMeasure::Count] = { true, false, false,
 TypeMeasure          PageModesD::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure, TypeMeasure::Count);
 static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, false, false, false, false};
 ModeMeasureFrequency PageModesD::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
-TimeMeasure          PageModesD::timeMeasure(TimeMeasure::_1ms);
 
 
 static void OnPress_TimeMeasure()
 {
-    uint8 time = PageModesD::timeMeasure.value;
-
-    PageModesA::timeMeasure.value = time;
-    PageModesB::timeMeasure.value = time;
-    PageModesC::timeMeasure.value = time;
-
     FreqMeter::LoadTimeMeasure();
 }
 
@@ -40,7 +33,7 @@ static void OnPress_TimeMeasure()
 DEF_SWITCH_7(sTimeMeasureD,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
-    PageModesD::timeMeasure, OnPress_TimeMeasure
+    PageModes::timeMeasure, OnPress_TimeMeasure
 );
 
 #else
@@ -48,7 +41,7 @@ DEF_SWITCH_7(sTimeMeasureD,
 DEF_SWITCH_6(sTimeMeasureD,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s",
-    PageModesD::timeMeasure, OnPress_TimeMeasure
+    PageModes::timeMeasure, OnPress_TimeMeasure
 );
 
 #endif

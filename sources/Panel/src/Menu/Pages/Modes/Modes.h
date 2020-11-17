@@ -3,22 +3,6 @@
 #include "Menu/MenuItems.h"
 
 
-struct CurrentModeMeasure
-{
-    static Enumeration &ToEnumeration();
-    static void Draw(int x, int y);
-    static void DrawParameters(int x, int y);
-};
-
-
-// Здесь функции общие для всех страниц режимов каналов
-struct PageModes
-{
-    // Сброс режима текущего измерения
-    static void ResetModeCurrentMeasure();
-};
-
-
 struct TypeMeasure : public Enumeration
 {
     enum E
@@ -168,7 +152,7 @@ struct PeriodTimeLabels : public Enumeration
 
     explicit PeriodTimeLabels(E v) : Enumeration((uint8)v) {};
     // Возвращает PeriodTimeLabels для текущего канала
-    static PeriodTimeLabels &Current();
+//    static PeriodTimeLabels &Current();
     int ToZeros() const;
     bool IsT_3() const { return (value == T_3); }
     bool IsT_4() const { return (value == T_4); }
@@ -196,8 +180,8 @@ struct TimeMeasure : public Enumeration
     explicit TimeMeasure(E v) : Enumeration((uint8)v) {};
     int ToMS() const;
     bool Is10ms() const { return (value == _10ms); }
-    // Возвращает TimeMeasure::E для текущего канала
-    static TimeMeasure &Current();
+//    // Возвращает TimeMeasure::E для текущего канала
+//    static TimeMeasure &Current();
 
     struct ProgressBar
     {
@@ -232,5 +216,25 @@ struct NumberPeriods : public Enumeration
     explicit NumberPeriods(E v) : Enumeration((uint8)v) {};
     int ToAbs() const;
     // Возвращает NumberPeriods для текущего канала
-    static NumberPeriods &Current();
+//    static NumberPeriods &Current();
+};
+
+
+struct CurrentModeMeasure
+{
+    static Enumeration &ToEnumeration();
+    static void Draw(int x, int y);
+    static void DrawParameters(int x, int y);
+};
+
+
+// Здесь функции общие для всех страниц режимов каналов
+struct PageModes
+{
+    // Сброс режима текущего измерения
+    static void ResetModeCurrentMeasure();
+
+    static PeriodTimeLabels  timeLabels;     // Период меток времени
+    static TimeMeasure       timeMeasure;    // Время счета
+    static NumberPeriods     numberPeriods;  // Число периодов измерения
 };
