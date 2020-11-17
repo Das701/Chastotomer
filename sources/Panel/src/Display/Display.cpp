@@ -4,9 +4,9 @@
 #include "Settings.h"
 #include "Display/Console.h"
 #include "Display/Display.h"
-#include "Display/Indicator.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
+#include "Display/Font/FontBig.h"
 #include "Display/Font/FontMid.h"
 #include "Hardware/FPGA.h"
 #include "Hardware/MathFPGA.h"
@@ -145,6 +145,8 @@ void Display::Update()
 
 void Display::DrawPartScreen(int num, bool debugInfo)
 {
+    debugInfo = false;
+    
     SetTopRow(num);
 
     if (num == 0)
@@ -345,8 +347,7 @@ static void DrawData()
         {
             if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
             {
-                //FontBig::Write(data.c_str(), 10, 150, Color::WHITE);
-                Indicator::DrawDataAboutRight(data.c_str(), 360, 150, Color::WHITE, Color::GREEN_10);
+                FontBig::Write(data.c_str(), 10, 150, Color::WHITE);
             }
             else
             {

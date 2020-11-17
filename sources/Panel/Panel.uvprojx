@@ -569,16 +569,6 @@
               <FilePath>.\src\Display\Display_stm.cpp</FilePath>
             </File>
             <File>
-              <FileName>Indicator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Indicator.h</FilePath>
-            </File>
-            <File>
-              <FileName>Indicator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Indicator.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Primitives.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Primitives.h</FilePath>
@@ -609,24 +599,34 @@
           <GroupName>Display/Font</GroupName>
           <Files>
             <File>
-              <FileName>Font.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Font\Font.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Font.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\Font.h</FilePath>
             </File>
             <File>
-              <FileName>FontMid.cpp</FileName>
+              <FileName>Font.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Display\Font\FontMid.cpp</FilePath>
+              <FilePath>.\src\Display\Font\Font.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FontBig.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\FontBig.h</FilePath>
+            </File>
+            <File>
+              <FileName>FontBig.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Font\FontBig.cpp</FilePath>
             </File>
             <File>
               <FileName>FontMid.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\FontMid.h</FilePath>
+            </File>
+            <File>
+              <FileName>FontMid.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Font\FontMid.cpp</FilePath>
             </File>
             <File>
               <FileName>fontGOSTAU16BOLD.inc</FileName>
@@ -1625,16 +1625,6 @@
               <FilePath>.\src\Display\Display_stm.cpp</FilePath>
             </File>
             <File>
-              <FileName>Indicator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Indicator.h</FilePath>
-            </File>
-            <File>
-              <FileName>Indicator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Indicator.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Primitives.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Primitives.h</FilePath>
@@ -1665,24 +1655,34 @@
           <GroupName>Display/Font</GroupName>
           <Files>
             <File>
-              <FileName>Font.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Font\Font.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Font.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\Font.h</FilePath>
             </File>
             <File>
-              <FileName>FontMid.cpp</FileName>
+              <FileName>Font.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Display\Font\FontMid.cpp</FilePath>
+              <FilePath>.\src\Display\Font\Font.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FontBig.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\FontBig.h</FilePath>
+            </File>
+            <File>
+              <FileName>FontBig.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Font\FontBig.cpp</FilePath>
             </File>
             <File>
               <FileName>FontMid.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\FontMid.h</FilePath>
+            </File>
+            <File>
+              <FileName>FontMid.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Font\FontMid.cpp</FilePath>
             </File>
             <File>
               <FileName>fontGOSTAU16BOLD.inc</FileName>
