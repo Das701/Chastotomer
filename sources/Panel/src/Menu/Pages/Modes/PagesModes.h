@@ -7,7 +7,6 @@ struct CurrentPageModes
 {
     // Возвращает true, если текущая страница режимов содержит время измерения
     static bool ConsistTimeMeasure();
-    static void DrawParameters(int x, int y);
 };
 
 
@@ -18,9 +17,16 @@ public:
     // Сброс режима текущего измерения
     static void ResetModeCurrentMeasure();
 
+    static void DrawParameters(int x, int y);
+
     static PeriodTimeLabels  timeLabels;     // Период меток времени
     static TimeMeasure       timeMeasure;    // Время счета
     static NumberPeriods     numberPeriods;  // Число периодов измерения
+
+private:
+    static bool IsActiveTimeLabels(TypeMeasure *type, int mode);
+    static bool IsActiveTimeMeasure(TypeMeasure *type, int mode);
+    static bool IsActiveNumberPeriods(TypeMeasure *type, int mode);
 };
 
 

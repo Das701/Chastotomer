@@ -5,6 +5,9 @@
 #include "Utils/Observer.h"
 
 
+struct TypeMeasure;
+
+
 struct Enumeration
 {
     uint8  value;           // Текущее состояние перечисления
@@ -125,8 +128,9 @@ public:
     // Номер выбранного итема
     int selectedItem;
 
-    // Функция действительна для страниц режимов каналов
-    int GetTypeMeasure() const;
+    // Функции действительны для страниц режимов каналов
+    TypeMeasure *GetTypeMeasure() const;
+    int GetModeMeasure() const;
 
 private:
 

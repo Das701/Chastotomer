@@ -315,9 +315,17 @@ void Page::OnEvent(EventType::E event)
 }
 
 
-int Page::GetTypeMeasure() const
+TypeMeasure *Page::GetTypeMeasure() const
 {
     Switch *item = (Switch *)items[0];
+
+    return (TypeMeasure *)item->state;
+}
+
+
+int Page::GetModeMeasure() const
+{
+    Switch *item = (Switch *)items[1];
 
     Enumeration *state = item->state;
 

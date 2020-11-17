@@ -22,7 +22,25 @@ bool CurrentPageModes::ConsistTimeMeasure()
 }
 
 
-void CurrentPageModes::DrawParameters(int, int)
+bool PageModes::IsActiveTimeLabels(TypeMeasure *type, int mode)
+{
+    return false;
+}
+
+
+bool PageModes::IsActiveTimeMeasure(TypeMeasure *type, int mode)
+{
+    return false;
+}
+
+
+bool PageModes::IsActiveNumberPeriods(TypeMeasure *type, int mode)
+{
+    return false;
+}
+
+
+void PageModes::DrawParameters(int, int)
 {
     Page *pages[Channel::Count] =
     {
@@ -35,33 +53,22 @@ void CurrentPageModes::DrawParameters(int, int)
     Page &page = *pages[CURRENT_CHANNEL];
 
 
-    TypeMeasure::E type = (TypeMeasure::E)page.GetTypeMeasure();
+    TypeMeasure *type = page.GetTypeMeasure();
 
+    int mode = page.GetModeMeasure();
 
+    if (IsActiveTimeLabels(type, mode))
+    {
 
+    }
 
-//    TypeMeasure *types[Channel::Count] =
-//    {
-//        &PageModesA::typeMeasure,
-//        &PageModesB::typeMeasure,
-//        &PageModesC::typeMeasure,
-//        &PageModesD::typeMeasure
-//    };
-//
-//    
-//
-//    static const bool enabledTimeLabels[TypeMeasure::Count][ModeMeasureFrequency::Count] =
-//    {
-//        false
-//    };
-//
-//    static const bool enabledTimeMeasure[TypeMeasure::Count][ModeMeasureFrequency::Count] =
-//    {
-//        false
-//    };
-//
-//    static const bool enabeldNumberPeriods[TypeMeasure::Count][ModeMeasureFrequency::Count] =
-//    {
-//        false
-//    };
+    if (IsActiveTimeMeasure(type, mode))
+    {
+
+    }
+
+    if (IsActiveNumberPeriods(type, mode))
+    {
+
+    }
 }
