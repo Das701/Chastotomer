@@ -87,9 +87,12 @@ static void SetCurrentChannel(const Control &control)
 {
     if (control.value == Control::Channels)
     {
+        bool loadToFPGA = false;
+        
         if (Menu::OpenedPage()->IsPageSettings())
         {
             Math::CircleIncrease<uint8>((uint8 *)&CURRENT_CHANNEL, 0, Channel::Count - 1);
+            loadToFPGA = true;
         }
 
         if (CURRENT_CHANNEL_IS_A)       { openedPage = PageSettingsA::self; }
@@ -99,7 +102,10 @@ static void SetCurrentChannel(const Control &control)
 
         Hint::Hide();
 
-        Channel::LoadCurrentToFPGA();
+        if(loadToFPGA)
+        {
+            Channel::LoadCurrentToFPGA();
+        }
     }
 
     if (control.value == Control::Mode)
@@ -110,8 +116,6 @@ static void SetCurrentChannel(const Control &control)
         else if (CURRENT_CHANNEL_IS_D) { openedPage = PageModesD::self; }
 
         Hint::Hide();
-
-        Channel::LoadCurrentToFPGA();
     }
 }
 
