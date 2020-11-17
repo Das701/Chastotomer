@@ -194,7 +194,7 @@ static void DrawScreen()
         
         CurrentModeMeasure::Draw(120, 57);
 
-        CurrentModeMeasure::DrawParameters(270, 57);
+        PageModes::DrawParameters(270, 57);
         
         DrawHint(10, Display::HEIGHT - Item::HEIGHT - 30);
         

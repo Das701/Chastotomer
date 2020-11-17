@@ -76,61 +76,6 @@ void CurrentModeMeasure::Draw(int x, int y)
 }
 
 
-void CurrentModeMeasure::DrawParameters(int x, int y)
-{
-    static const Enumeration *const types[Channel::Count][4] =
-    {
-        { &PageModesA::modeMeasureFrequency, &PageModesA::modeMeasurePeriod,     &PageModesA::modeMeasureDuration, &PageModesA::modeMeasureCountPulse },
-        { &PageModesB::modeMeasureFrequency, &PageModesB::modeMeasurePeriod,     &PageModesB::modeMeasureDuration, &PageModesB::modeMeasureCountPulse },
-        { &PageModesC::modeMeasureFrequency, &PageModesC::modeMeasureCountPulse, nullptr,                          nullptr },
-        { nullptr,                           nullptr,                            nullptr,                          nullptr }
-    };
-
-    static const Enumeration *const modes[Channel::Count - 1][TypeMeasure::Count][ModeMeasureFrequency::Count] =
-    {
-{//   Frequency                   T_1                         RatioAB                     RatioAC                                                         Tachometer Comparator // ModeMeasureFrequency
-    { &PageModes::timeMeasure,    &PageModes::numberPeriods,  &PageModes::numberPeriods,  &PageModes::timeMeasure,    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr},  // TypeMeasure::Frequency
- //   Period                      F_1                                                                                                                                          
-    { &PageModes::numberPeriods,  &PageModes::timeMeasure},                                                                                                                     // TypeMeasure::Period
- //   Ndt                         Ndt_1ns                     ndt2                        FillFactor                  Phase
-    { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr },                                                // TypeMeasure::Duration
- //   AtC                         ATB                                                                                                                     StartStop
-    { nullptr,                    &PageModes::numberPeriods,  nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr }             // TypeMeasure::CountPulse
-},                                                                                                                                                                 
-{                                                                                                                                                                  
-    { &PageModes::timeMeasure,    &PageModes::numberPeriods,  &PageModes::numberPeriods,  &PageModes::numberPeriods,  nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Frequency
-    { &PageModes::numberPeriods,  &PageModes::timeMeasure,    nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Period
-    { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Duration
-    { nullptr,                    &PageModes::numberPeriods,  nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }  // TypeMeasure::CountPulse
-},                                                                                                                                                                 
-{                                                                                                                                                                  
-    { &PageModes::timeMeasure,    &PageModes::numberPeriods,  &PageModes::numberPeriods, nullptr,                     nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }, // TypeMeasure::Frequency
-    { },                                                                                                                                                                        // TypeMeasure::Period
-    { },                                                                                                                                                                        // TypeMeasure::Duration
-    { nullptr,                    nullptr,                    nullptr,                    nullptr,                    nullptr, nullptr, nullptr, nullptr, nullptr,   nullptr }  // TypeMeasure::CountPulse
-}
-    };
-
-    const Enumeration *mode = &PageModes::timeMeasure;
-
-    if (!CURRENT_CHANNEL_IS_D)
-    {
-        mode = modes[CURRENT_CHANNEL]
-                    [TypeMeasure::Current().value]
-                    [types[CURRENT_CHANNEL][TypeMeasure::Current().value]->value];
-    }
-
-    if (mode)
-    {
-        int width = 60;
-
-        Primitives::Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
-
-        Text(mode->ToString()).Write(x + 2, y + 7, width, Color::WHITE);
-    }
-}
-
-
 void TypeMeasure::Draw(int x, int y) const
 {
     int width = 100;

@@ -1,6 +1,8 @@
 #include "defines.h"
 #include "FreqMeter.h"
 #include "Settings.h"
+#include "Display/Primitives.h"
+#include "Display/Text.h"
 #include "Menu/Pages/Modes/PagesModes.h"
 
 
@@ -146,7 +148,15 @@ bool PageModes::IsActiveNumberPeriods(TypeMeasure *type, int m)
 #endif
 
 
-void PageModes::DrawParameters(int, int)
+static void DrawValue(Enumeration &param, int x, int y)
+{
+    int width = 60;
+    Primitives::Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
+    Text(param.ToString()).Write(x + 2, y + 7, width, Color::WHITE);
+}
+
+
+void PageModes::DrawParameters(int x, int y)
 {
     Page *pages[Channel::Count] =
     {
@@ -163,18 +173,20 @@ void PageModes::DrawParameters(int, int)
 
     int mode = page.GetModeMeasure();
 
+    int dX = 70;
+
     if (IsActiveTimeLabels(type, mode))
     {
-
+        DrawValue(PageModes::timeLabels, x, y);
     }
 
     if (IsActiveTimeMeasure(type, mode))
     {
-
+        DrawValue(PageModes::timeMeasure, x + dX, y);
     }
 
     if (IsActiveNumberPeriods(type, mode))
     {
-
+        DrawValue(PageModes::numberPeriods, x + 2 * dX, y);
     }
 }
