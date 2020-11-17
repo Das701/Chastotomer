@@ -161,7 +161,7 @@ void PageModesA::OnChanged_ModeFrequency()
     }
     else if (PageModesA::modeMeasureFrequency.IsTachometer())
     {
-        items[2] = &sPeriodTimeLabels;
+        items[2] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
         items[3] = nullptr;
         PageModesA::RelationOff();
     }
@@ -362,16 +362,23 @@ static Item *items[7] =
 
 static void OnChanged_ModeTest()
 {
+    bool test = FreqMeter::modeTest.IsEnabled();
+
     switch(PageModesA::typeMeasure.value)
     {
     case TypeMeasure::Frequency:
         if (PageModesA::modeMeasureFrequency.IsFrequency())
         {
-            items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
+            items[3] = test ? &sPeriodTimeLabels : nullptr;
+        }
+        else if (PageModesA::modeMeasureFrequency.IsTachometer())
+        {
+            items[2] = test ? &sPeriodTimeLabels : nullptr;
         }
         break;
+
     case TypeMeasure::Period:
-        items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
+        items[3] = test ? &sPeriodTimeLabels : nullptr;
         break;
     }
 

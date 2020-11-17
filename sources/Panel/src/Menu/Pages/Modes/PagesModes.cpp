@@ -43,7 +43,8 @@ bool PageModes::IsActiveTimeLabels(TypeMeasure *type, int m)
         case ModeMeasureFrequency::RatioCA:
         case ModeMeasureFrequency::RatioCB:     return true;
 
-        case ModeMeasureFrequency::Frequency:
+        case ModeMeasureFrequency::Frequency:   return CURRENT_CHANNEL_IS_A_OR_B ? FreqMeter::modeTest.IsEnabled() : false;
+
         case ModeMeasureFrequency::Tachometer:  return FreqMeter::modeTest.IsEnabled();
         }
     }
