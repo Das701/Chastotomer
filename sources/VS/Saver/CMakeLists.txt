@@ -55,6 +55,7 @@ add_compile_options(/wd4571)    # Informational: catch(...) semantics changed si
 add_compile_options(/wd4625)    # 'xxx': copy constructor was implicitly defined as deleted
 add_compile_options(/wd4626)    # 'xxx': assignment operator was implicitly defined as deleted
 add_compile_options(/wd4710)    # function not inlined
+add_compile_options(/wd4711)    # function 'function' selected for inline expansion
 add_compile_options(/wd4774)    # 'xxx' : format string expected in argument Y is not a string literal
 add_compile_options(/wd4820)    # 'xxx': 'y' bytes padding added after data member 'zzz'
 add_compile_options(/wd4996)    # 'xxx': This function or variable may be unsafe. Consider using yyy instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS
