@@ -271,11 +271,6 @@ DEF_SWITCH_6(sTimeMeasure,
 #endif
 
 
-static void OnPress_NumberPeriodsB()
-{
-    FreqMeter::LoadNumerPeriodsMeasure();
-}
-
 // Выбор числа усредняемых периодов входного сигнала
 
 #ifdef USE_1000K
@@ -283,8 +278,7 @@ static void OnPress_NumberPeriodsB()
 DEF_SWITCH_7(sNumberPeriods,
     "N", "Число периодов измерения",
     "1", "10", "100", "1K", "10K", "100K", "1000K",
-    PageModes::numberPeriods,
-    OnPress_NumberPeriodsB
+    PageModes::numberPeriods, NumberPeriods::LoadToFPGA
 );
 
 #else
@@ -292,8 +286,7 @@ DEF_SWITCH_7(sNumberPeriods,
 DEF_SWITCH_6(sNumberPeriods,
     "N", "Число периодов измерения",
     "1", "10", "100", "1K", "10K", "100K",
-    PageModes::numberPeriods,
-    OnPress_NumberPeriodsB
+    PageModes::numberPeriods, NumberPeriods::LoadToFPGA
 );
 
 #endif

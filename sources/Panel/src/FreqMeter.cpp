@@ -317,7 +317,7 @@ void TimeMeasure::LoadToFPGA()
 }
 
 
-void FreqMeter::LoadNumerPeriodsMeasure()
+void NumberPeriods::LoadToFPGA()
 {
     char command[4] = { 1, 0, 0, 0 };
 
