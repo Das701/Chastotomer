@@ -119,16 +119,11 @@ DEF_SWITCH_4(sModeCountPulseC,
 );
 
 
-static void OnPress_TimeLabelsC()
-{
-    FreqMeter::LoadPeriodTimeLabels();
-}
-
 // Выбор периода меток времени
 DEF_SWITCH_6(sPeriodTimeLabelsC,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    PageModes::timeLabels, OnPress_TimeLabelsC
+    PageModes::timeLabels, PeriodTimeLabels::LoadToFPGA
 );
 
 

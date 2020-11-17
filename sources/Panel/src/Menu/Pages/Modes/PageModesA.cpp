@@ -285,21 +285,11 @@ DEF_SWITCH_3(sModeCountPulse,
 );
 
 
-static void OnPress_TimeLabels()
-{
-    uint8 period = PageModes::timeLabels.value;
-
-    PageModes::timeLabels.value = period;
-    PageModes::timeLabels.value = period;
-
-    FreqMeter::LoadPeriodTimeLabels();
-}
-
 // Выбор периода меток времени
 DEF_SWITCH_6(sPeriodTimeLabels,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    PageModes::timeLabels, OnPress_TimeLabels
+    PageModes::timeLabels, PeriodTimeLabels::LoadToFPGA
 );
 
 

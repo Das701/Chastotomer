@@ -151,8 +151,6 @@ struct PeriodTimeLabels : public Enumeration
     };
 
     explicit PeriodTimeLabels(E v) : Enumeration((uint8)v) {};
-    // Возвращает PeriodTimeLabels для текущего канала
-//    static PeriodTimeLabels &Current();
     int ToZeros() const;
     bool IsT_3() const { return (value == T_3); }
     bool IsT_4() const { return (value == T_4); }
@@ -160,6 +158,8 @@ struct PeriodTimeLabels : public Enumeration
     bool IsT_6() const { return (value == T_6); }
     bool IsT_7() const { return (value == T_7); }
     bool IsT_8() const { return (value == T_8); }
+
+    static void LoadToFPGA();
 };
 
 // Время счёта

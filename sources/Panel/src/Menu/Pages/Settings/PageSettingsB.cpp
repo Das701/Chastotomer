@@ -95,16 +95,11 @@ DEF_SWITCH_UGO_2(sDivider,
 );
 
 
-static void OnPress_TimeLabels()
-{
-    FreqMeter::LoadPeriodTimeLabels();
-}
-
 // Выбор периода меток времени
 DEF_SWITCH_6(sPeriodTimeLabels,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    PageModes::timeLabels,  OnPress_TimeLabels
+    PageModes::timeLabels,  PeriodTimeLabels::LoadToFPGA
 );
 
 

@@ -269,7 +269,7 @@ void ModeMeasureCountPulse::LoadToFPGA()
 }
 
 
-void FreqMeter::LoadPeriodTimeLabels()
+void PeriodTimeLabels::LoadToFPGA()
 {
     char command[4] = { 0, 1, 1, 1 };
 

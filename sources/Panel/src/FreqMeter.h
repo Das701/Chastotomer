@@ -78,9 +78,6 @@ namespace FreqMeter
 {
     extern ModeTest modeTest;
 
-    // Загрузка периода меток времени
-    void LoadPeriodTimeLabels();
-
     // Загрузка времени измерения
     void LoadTimeMeasure();
 
