@@ -326,28 +326,70 @@ int Page::GetModeMeasure() const
 
 bool Page::ExistTypeMeasure(uint8 type) const
 {
-    return true;
+    Switch *item = (Switch *)items[0];
+
+    return item->state->correct[type];
 }
 
 
 void Page::ResetTypeAndModeMeasure()
 {
+    Switch *type = (Switch *)items[0];
 
+    if (type->state->correct == nullptr)
+    {
+        type->state->value = 0;
+    }
+    else
+    {
+        for (int i = 0; i < type->state->numStates; i++)
+        {
+            if (type->state->correct[i])
+            {
+                type->state->value = (uint8)i;
+            }
+        }
+    }
+
+    ResetModeMeasure();
 }
 
 
 bool Page::ExistModeMeasure(int mode) const
 {
-    return true;
+    Switch *item = (Switch *)items[1];
+
+    return item->state->correct[mode];
 }
 
 void Page::ResetModeMeasure()
 {
+    Switch *mode = (Switch *)items[1];
 
+    if (mode->state->correct == nullptr)
+    {
+        mode->state->value = 0;
+    }
+    else
+    {
+        for (int i = 0; i < mode->state->numStates; i++)
+        {
+            if (mode->state->correct[i])
+            {
+                mode->state->value = (uint8)i;
+            }
+        }
+    }
 }
 
 
-void Page::SetTypeAndModeMeasure(TypeMeasure *type, int mode)
+void Page::SetTypeAndModeMeasure(TypeMeasure *t, int m)
 {
+    Switch *type = (Switch *)items[0];
 
+    type->state->value = t->value;
+
+    Switch *mode = (Switch *)items[1];
+
+    mode->state->value = (uint8)m;
 }
