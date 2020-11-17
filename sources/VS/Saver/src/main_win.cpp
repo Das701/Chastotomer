@@ -7,6 +7,7 @@
 #include "Application_win.h"
 #include <ctime>
 #include <cstring>
+#include <cstdio>
 
 
 void init()
@@ -45,7 +46,7 @@ void update()
 
 			ComPort::Send(":picture\x0d");
 
-			ComPort::Receive((char *)displayFrame, SIZE_FRAME * 4, 10000);
+			printf("%d", ComPort::Receive((char *)displayFrame, SIZE_FRAME * 4, 20000));
 
 			Display::Draw(displayFrame);
 
