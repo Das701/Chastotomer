@@ -63,9 +63,16 @@ void CurrentModeMeasure::Draw(int x, int y)
 {
     int width = 120;
 
+    String text = ToEnumeration().ToString();
+
+    if (Font::GetLengthText(text.c_str()) > 110)
+    {
+        width = Font::GetLengthText(text.c_str()) + 18;
+    }
+
     Primitives::Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
 
-    Text(ToEnumeration().ToString()).Write(x + 10, y + 10, Color::WHITE);
+    Text(text).Write(x + 10, y + 10, Color::WHITE);
 }
 
 
