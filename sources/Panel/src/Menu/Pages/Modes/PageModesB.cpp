@@ -16,7 +16,6 @@ extern Switch sModeFrequency;
 extern Switch sModePeriod;
 extern Switch sModeDuration;
 extern Switch sModeCountPulse;
-extern Switch sNumberPeriods;
 
 
 static const bool correctTypeMeasure[TypeMeasure::Count] = { true, true, true, true };
@@ -109,7 +108,7 @@ void PageModesB::OnChanged_ModeFrequency()
     }
     else if (PageModesB::modeMeasureFrequency.IsRatioBA())
     {
-        items[2] = &sNumberPeriods;
+        items[2] = PageModes::switchNumberPeriods;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
@@ -121,7 +120,7 @@ void PageModesB::OnChanged_ModeFrequency()
     }
     else if (PageModesB::modeMeasureFrequency.IsT_1())
     {
-        items[2] = &sNumberPeriods;
+        items[2] = PageModes::switchNumberPeriods;
         items[3] = PageModes::switchTimeLabels;
         items[4] = nullptr;
         PageModesA::RelationOff();
@@ -150,7 +149,7 @@ void PageModesB::OnChanged_ModePeriod()
 
     if (PageModesB::modeMeasurePeriod.IsPeriod())
     {
-        items[2] = &sNumberPeriods;
+        items[2] = PageModes::switchNumberPeriods;
         items[3] = PageModes::switchTimeLabels;
         items[4] = nullptr;
     }
@@ -219,7 +218,7 @@ void PageModesB::OnChanged_ModeCountPulse()
         break;
 
     case ModeMeasureCountPulse::BTA:
-        items[2] = &sNumberPeriods;
+        items[2] = PageModes::switchNumberPeriods;
         items[3] = nullptr;
         break;
 
@@ -239,28 +238,6 @@ DEF_SWITCH_3(sModeCountPulse,
     "B(tA)", "B(TA)", "Старт/Стоп",
     PageModesB::modeMeasureCountPulse, PageModesB::OnChanged_ModeCountPulse
 );
-
-
-// Выбор числа усредняемых периодов входного сигнала
-
-#ifdef USE_1000K
-
-DEF_SWITCH_7(sNumberPeriods,
-    "N", "Число периодов измерения",
-    "1", "10", "100", "1K", "10K", "100K", "1000K",
-    PageModes::numberPeriods, NumberPeriods::LoadToFPGA
-);
-
-#else
-
-DEF_SWITCH_6(sNumberPeriods,
-    "N", "Число периодов измерения",
-    "1", "10", "100", "1K", "10K", "100K",
-    PageModes::numberPeriods, NumberPeriods::LoadToFPGA
-);
-
-#endif
-
 
 
 static Item *items[7] =

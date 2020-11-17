@@ -24,6 +24,7 @@ public:
     static PeriodTimeLabels  timeLabels;     // Период меток времени
 
     static Switch *switchTimeMeasue;
+    static Switch *switchNumberPeriods;
     static Switch *switchTimeLabels;
 
 private:

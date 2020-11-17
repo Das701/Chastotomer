@@ -20,7 +20,6 @@ extern Switch sModeFrequency;
 extern Switch sModePeriod;
 extern Switch sModeDuration;
 extern Switch sModeCountPulse;
-extern Switch sNumberPeriods;
 
 static bool relationOn = false;
 static bool startStop = false;
@@ -140,7 +139,7 @@ void PageModesA::OnChanged_ModeFrequency()
     }
     else if (PageModesA::modeMeasureFrequency.IsRatioAB())
     {
-        items[2] = &sNumberPeriods;
+        items[2] = PageModes::switchNumberPeriods;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
@@ -152,7 +151,7 @@ void PageModesA::OnChanged_ModeFrequency()
     }
     else if (PageModesA::modeMeasureFrequency.IsT_1())
     {
-        items[2] = &sNumberPeriods;
+        items[2] = PageModes::switchNumberPeriods;
         items[3] = PageModes::switchTimeLabels;
         items[4] = nullptr;
         PageModesA::RelationOff();
@@ -192,7 +191,7 @@ void PageModesA::OnChanged_ModePeriod()
 
     if (PageModesA::modeMeasurePeriod.IsPeriod())
     {
-        items[2] = &sNumberPeriods;
+        items[2] = PageModes::switchNumberPeriods;
         items[3] = PageModes::switchTimeLabels;
         items[4] = nullptr;
     }
@@ -261,7 +260,7 @@ void PageModesA::OnChanged_ModeCountPulse()
         break;
 
     case ModeMeasureCountPulse::ATB:
-        items[2] = &sNumberPeriods;
+        items[2] = PageModes::switchNumberPeriods;
         items[3] = nullptr;
         break;
 
@@ -281,26 +280,6 @@ DEF_SWITCH_3(sModeCountPulse,
     "А(tB)", "А(TB)", "Старт/Стоп",
     PageModesA::modeMeasureCountPulse, PageModesA::OnChanged_ModeCountPulse
 );
-
-
-// Выбор числа усредняемых периодов входного сигнала
-#ifdef USE_1000K
-
-DEF_SWITCH_7(sNumberPeriods,
-    "N", "Число периодов измерения",
-    "1", "10", "100", "1K", "10K", "100K", "1000K",
-    PageModes::numberPeriods, NumberPeriods::LoadToFPGA
-);
-
-#else
-
-DEF_SWITCH_6(sNumberPeriods,
-    "N", "Число периодов измерения",
-    "1", "10", "100", "1K", "10K", "100K",
-    PageModes::numberPeriods, NumberPeriods::LoadToFPGA
-);
-
-#endif
 
 
 bool PageModesA::StartStop()

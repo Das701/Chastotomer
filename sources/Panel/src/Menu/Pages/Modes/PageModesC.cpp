@@ -13,7 +13,6 @@ using namespace Primitives;
 extern Item *items[7];
 extern Switch sModeFrequency;
 extern Switch sModeCountPulse;
-extern Switch sNumberPeriods;
 
 
 static const bool correctTypeMeasure[TypeMeasure::Count] = { true, false, false, true };
@@ -65,7 +64,7 @@ void PageModesC::OnChanged_ModeFrequency()
 
     case ModeMeasureFrequency::RatioCA:
     case ModeMeasureFrequency::RatioCB:
-        items[2] = &sNumberPeriods;
+        items[2] = PageModes::switchNumberPeriods;
         items[3] = PageModes::switchTimeLabels;
         items[4] = nullptr;
         break;
@@ -97,7 +96,7 @@ void PageModesC::OnChanged_ModeCountPulse()
 
     case ModeMeasureCountPulse::CTA:
     case ModeMeasureCountPulse::CTB:
-        items[2] = &sNumberPeriods;
+        items[2] = PageModes::switchNumberPeriods;
         items[3] = nullptr;
         break;
     }
@@ -115,26 +114,6 @@ DEF_SWITCH_4(sModeCountPulse,
     "C(tA)", "C(tB)", "C(TA)", "C(TB)",
     PageModesC::modeMeasureCountPulse, PageModesC::OnChanged_ModeCountPulse
 );
-
-
-// Выбор числа усредняемых периодов входного сигнала
-#ifdef USE_1000K
-
-DEF_SWITCH_7(sNumberPeriods,
-    "N", "Число периодов измерения",
-    "1", "10", "100", "1K", "10K", "100K", "1000K",
-    PageModes::numberPeriods, NumberPeriods::LoadToFPGA
-);
-
-#else
-
-DEF_SWITCH_6(sNumberPeriods,
-    "N", "Число периодов измерения",
-    "1", "10", "100", "1K", "10K", "100K",
-    PageModes::numberPeriods, NumberPeriods::LoadToFPGA
-);
-
-#endif
 
 
 static Item *items[7] =
