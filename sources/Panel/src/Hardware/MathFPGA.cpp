@@ -75,9 +75,16 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 
         double test1 = decDataA.ToDouble();
 
-        double test2 = test1 / PageModes::numberPeriods.ToAbs();
+        if (test1 == 0.0)
+        {
+            decDataA.FromDouble(0.0F);
+        }
+        else
+        {
+            double test2 = test1 / PageModes::numberPeriods.ToAbs();
 
-        decDataA.FromDouble((float)(4 / test2));
+            decDataA.FromDouble((float)(4 / test2));
+        }
 
         decDA = (int)(decDataA.ToDouble() / 2.0);
 
@@ -165,7 +172,15 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
         int sT = PageModes::timeMeasure.ToMS();
 
         decDA = (int)(decDataA.ToDouble() / (2.0 * (double)sT));
-        decDataA.FromDouble(4 / decDataA.ToDouble());
+
+        if (decDataA.ToDouble() == 0.0)
+        {
+            decDataA.FromDouble(0.0);
+        }
+        else
+        {
+            decDataA.FromDouble(4 / decDataA.ToDouble());
+        }
 
         decDataA.Mul((uint)sT);
         decDataA.Mul((uint)sT);
@@ -460,8 +475,10 @@ void MathFPGA::Measure::CalculateNewData()
             {
                 Data::SetDigits(String("%10.3f", MathFPGA::FillFactor::value));
             }
-            
-            Data::SetDigits(String("%10.7f", MathFPGA::FillFactor::value));
+            else
+            {
+                Data::SetDigits(String("%10.7f", MathFPGA::FillFactor::value));
+            }
         }
         else
         {
@@ -469,6 +486,9 @@ void MathFPGA::Measure::CalculateNewData()
             ValueNANO data(0);
 
             Calculate(emptyZeros, data);
+            
+            volatile float value = data.ToFloat();
+            value = value;
 
             int pow = 0;
 

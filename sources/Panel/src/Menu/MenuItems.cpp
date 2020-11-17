@@ -313,3 +313,13 @@ void Page::OnEvent(EventType::E event)
         onEvent(event);
     }
 }
+
+
+int Page::GetTypeMeasure() const
+{
+    Switch *item = (Switch *)items[0];
+
+    Enumeration *state = item->state;
+
+    return state->value;
+}

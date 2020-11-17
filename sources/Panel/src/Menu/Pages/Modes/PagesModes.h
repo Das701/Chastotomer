@@ -26,8 +26,6 @@ public:
 
 class PageModesA
 {
-friend class PageModes;
-
 public:
 
     static Page *self;
@@ -51,7 +49,7 @@ public:
     static void OnChanged_ModePeriod();
     static void OnChanged_ModeDuration();
     static void OnChanged_ModeCountPulse();
-    
+
     static TypeMeasure           typeMeasure;                // Тип измерения
     static ModeMeasureFrequency  modeMeasureFrequency;       // Режим измерения частоты
     static ModeMeasurePeriod     modeMeasurePeriod;          // Режим измерения периода

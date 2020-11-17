@@ -205,7 +205,7 @@ void PageModesB::OnChanged_ModeDuration()
 // Выбор режима измерения длительности импульсов, интервалов, коэффициента заполнения, разности фаз
 DEF_SWITCH_5(sModeDuration,
     "Режим", "Измерение длительности",
-    "ndt", "ndt/1нс", "СтартА-СтопВ", "Коэфф. зап.", "Фаза",
+    "ndt", "ndt/1нс", "СтартB-СтопA", "Коэфф. зап.", "Фаза",
     PageModesB::modeMeasureDuration, PageModesB::OnChanged_ModeDuration
 );
 

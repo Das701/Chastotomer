@@ -24,15 +24,21 @@ bool CurrentPageModes::ConsistTimeMeasure()
 
 void CurrentPageModes::DrawParameters(int, int)
 {
-//    Page *pages[Channel::Count] =
-//    {
-//        PageModesA::self,
-//        PageModesB::self,
-//        PageModesC::self,
-//        PageModesD::self
-//    };
-//
-//    Page &page = *pages[CURRENT_CHANNEL];
+    Page *pages[Channel::Count] =
+    {
+        PageModesA::self,
+        PageModesB::self,
+        PageModesC::self,
+        PageModesD::self
+    };
+
+    Page &page = *pages[CURRENT_CHANNEL];
+
+
+    TypeMeasure::E type = (TypeMeasure::E)page.GetTypeMeasure();
+
+
+
 
 //    TypeMeasure *types[Channel::Count] =
 //    {

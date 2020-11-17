@@ -71,6 +71,7 @@ private:
 
 class Switch : public Item
 {
+    friend class Page;
 public:
 
     Switch(char *_text, char *_hint, char **_names, char **_ugo, Enumeration *_state, void(*_onClick)()) :
@@ -123,6 +124,9 @@ public:
 
     // Номер выбранного итема
     int selectedItem;
+
+    // Функция действительна для страниц режимов каналов
+    int GetTypeMeasure() const;
 
 private:
 
