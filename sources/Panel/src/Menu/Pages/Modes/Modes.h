@@ -178,10 +178,12 @@ struct TimeMeasure : public Enumeration
     };
 
     explicit TimeMeasure(E v) : Enumeration((uint8)v) {};
+
     int ToMS() const;
+
     bool Is10ms() const { return (value == _10ms); }
-//    // Возвращает TimeMeasure::E для текущего канала
-//    static TimeMeasure &Current();
+
+    static void LoadToFPGA();
 
     struct ProgressBar
     {

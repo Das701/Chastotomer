@@ -292,7 +292,7 @@ void PeriodTimeLabels::LoadToFPGA()
 }
 
 
-void FreqMeter::LoadTimeMeasure()
+void TimeMeasure::LoadToFPGA()
 {
     char command[4] = { 1, 0, 0, 0 };
 
