@@ -97,7 +97,6 @@ void PageModesC::OnChanged_ModeCountPulse()
     case ModeMeasureCountPulse::CTA:
     case ModeMeasureCountPulse::CTB:
         items[2] = PageModes::switchNumberPeriods;
-        items[3] = nullptr;
         break;
     }
 

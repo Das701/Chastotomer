@@ -46,9 +46,11 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
     }
     else if (CURRENT_CHANNEL_IS_C)
     {
-        static Enumeration *const modesC[2] =
+        static Enumeration *const modesC[4] =
         {
             &PageModesC::modeMeasureFrequency,
+            nullptr,
+            nullptr,
             &PageModesC::modeMeasureCountPulse
         };
 
@@ -62,6 +64,8 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
 void CurrentModeMeasure::Draw(int x, int y)
 {
     int width = 120;
+
+    static Enumeration &e = ToEnumeration();
 
     String text = ToEnumeration().ToString();
 
