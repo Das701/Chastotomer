@@ -13,14 +13,19 @@ void init()
 {
 	Display::Init();
 	Keyboard::Init();
-	for (int i = 0; i < 10; i++)
-	{
-		ComPort::Open();
-		if (ComPort::IsOpened())
-		{
-			break;
-		}
-	}
+}
+
+
+static void OpenPort()
+{
+    for (int i = 0; i < 10; i++)
+    {
+        ComPort::Open();
+        if (ComPort::IsOpened())
+        {
+            break;
+        }
+    }
 }
 
 
@@ -30,24 +35,23 @@ void update()
 
 	static uint displayFrame[SIZE_FRAME];
 
-	uint *pointer = displayFrame;
-	pointer = pointer;
-
 	if (Frame::Self()->needSave)
 	{
-        while (ComPort::Receive((char *)displayFrame, 100, 0) != 0)
-        {
+		OpenPort();
 
-        }
+		if (ComPort::IsOpened())
+		{
+			std::memset(displayFrame, 0, SIZE_FRAME * 4);
 
-		std::memset(displayFrame, 0, SIZE_FRAME * 4);
+			ComPort::Send(":picture\x0d");
 
-		ComPort::Send(":picture\x0d");
+			ComPort::Receive((char *)displayFrame, SIZE_FRAME * 4, 10000);
 
-     	ComPort::Receive((char *)displayFrame, SIZE_FRAME * 4, 10000);
+			Display::Draw(displayFrame);
 
-		Display::Draw(displayFrame);
+			Frame::Self()->needSave = false;
 
-		Frame::Self()->needSave = false;
+			ComPort::Close();
+		}
 	}
 }
