@@ -49,6 +49,17 @@ DEF_SWITCH_6(sTimeMeasure,
 Switch *PageModes::switchTimeMeasue = &sTimeMeasure;
 
 
+// Выбор периода меток времени
+DEF_SWITCH_6(sTimeLabels,
+    "Метки", "Длительность временных меток",
+    "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
+    PageModes::timeLabels, PeriodTimeLabels::LoadToFPGA
+);
+
+
+Switch *PageModes::switchTimeLabels = &sTimeLabels;
+
+
 #ifdef WIN32
 #pragma warning(push)
 #pragma warning(disable: 4062)

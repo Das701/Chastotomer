@@ -19,11 +19,12 @@ public:
 
     static void DrawParameters(int x, int y);
 
-    static PeriodTimeLabels  timeLabels;     // Период меток времени
     static TimeMeasure       timeMeasure;    // Время счета
     static NumberPeriods     numberPeriods;  // Число периодов измерения
+    static PeriodTimeLabels  timeLabels;     // Период меток времени
 
     static Switch *switchTimeMeasue;
+    static Switch *switchTimeLabels;
 
 private:
     static bool IsActiveTimeLabels(TypeMeasure *type, int mode);

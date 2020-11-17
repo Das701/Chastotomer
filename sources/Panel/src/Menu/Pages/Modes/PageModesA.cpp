@@ -20,7 +20,6 @@ extern Switch sModeFrequency;
 extern Switch sModePeriod;
 extern Switch sModeDuration;
 extern Switch sModeCountPulse;
-extern Switch sPeriodTimeLabels;
 extern Switch sNumberPeriods;
 
 static bool relationOn = false;
@@ -135,7 +134,7 @@ void PageModesA::OnChanged_ModeFrequency()
     if (PageModesA::modeMeasureFrequency.IsFrequency())
     {
         items[2] = PageModes::switchTimeMeasue;
-        items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
+        items[3] = FreqMeter::modeTest.IsEnabled() ? PageModes::switchTimeLabels : nullptr;
         items[4] = nullptr;
         PageModesA::RelationOff();
     }
@@ -153,14 +152,14 @@ void PageModesA::OnChanged_ModeFrequency()
     }
     else if (PageModesA::modeMeasureFrequency.IsT_1())
     {
-        items[2] = &sPeriodTimeLabels;
-        items[3] = &sNumberPeriods;
+        items[2] = &sNumberPeriods;
+        items[3] = PageModes::switchTimeLabels;
         items[4] = nullptr;
         PageModesA::RelationOff();
     }
     else if (PageModesA::modeMeasureFrequency.IsTachometer())
     {
-        items[2] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
+        items[2] = FreqMeter::modeTest.IsEnabled() ? PageModes::switchTimeLabels : nullptr;
         items[3] = nullptr;
         PageModesA::RelationOff();
     }
@@ -193,14 +192,14 @@ void PageModesA::OnChanged_ModePeriod()
 
     if (PageModesA::modeMeasurePeriod.IsPeriod())
     {
-        items[2] = &sPeriodTimeLabels;
-        items[3] = &sNumberPeriods; 
+        items[2] = &sNumberPeriods;
+        items[3] = PageModes::switchTimeLabels;
         items[4] = nullptr;
     }
     else if (PageModesA::modeMeasurePeriod.IsF_1())
     {
         items[2] = PageModes::switchTimeMeasue;
-        items[3] = FreqMeter::modeTest.IsEnabled() ? &sPeriodTimeLabels : nullptr;
+        items[3] = FreqMeter::modeTest.IsEnabled() ? PageModes::switchTimeLabels : nullptr;
         items[4] = nullptr;
     }
 
@@ -233,7 +232,7 @@ void PageModesA::OnChanged_ModeDuration()
     case ModeMeasureDuration::Ndt2:
     case ModeMeasureDuration::FillFactor:
     case ModeMeasureDuration::Phase:
-        items[2] = &sPeriodTimeLabels; 
+        items[2] = PageModes::switchTimeLabels; 
         items[3] = nullptr;
         break;
     }
@@ -281,14 +280,6 @@ DEF_SWITCH_3(sModeCountPulse,
     "Режим", "Счёт числа импульсов",
     "А(tB)", "А(TB)", "Старт/Стоп",
     PageModesA::modeMeasureCountPulse, PageModesA::OnChanged_ModeCountPulse
-);
-
-
-// Выбор периода меток времени
-DEF_SWITCH_6(sPeriodTimeLabels,
-    "Метки", "Длительность временных меток",
-    "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    PageModes::timeLabels, PeriodTimeLabels::LoadToFPGA
 );
 
 
@@ -348,16 +339,16 @@ static void OnChanged_ModeTest()
     case TypeMeasure::Frequency:
         if (PageModesA::modeMeasureFrequency.IsFrequency())
         {
-            items[3] = test ? &sPeriodTimeLabels : nullptr;
+            items[3] = test ? PageModes::switchTimeLabels : nullptr;
         }
         else if (PageModesA::modeMeasureFrequency.IsTachometer())
         {
-            items[2] = test ? &sPeriodTimeLabels : nullptr;
+            items[2] = test ? PageModes::switchTimeLabels : nullptr;
         }
         break;
 
     case TypeMeasure::Period:
-        items[3] = test ? &sPeriodTimeLabels : nullptr;
+        items[3] = test ? PageModes::switchTimeLabels : nullptr;
         break;
     }
 
