@@ -904,6 +904,11 @@
               <FilePath>.\src\Menu\Pages\Modes\PagesModes.h</FilePath>
             </File>
             <File>
+              <FileName>PagesModes.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Modes\PagesModes.cpp</FilePath>
+            </File>
+            <File>
               <FileName>PageModesA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesA.cpp</FilePath>
@@ -1958,6 +1963,11 @@
               <FileName>PagesModes.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PagesModes.h</FilePath>
+            </File>
+            <File>
+              <FileName>PagesModes.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Modes\PagesModes.cpp</FilePath>
             </File>
             <File>
               <FileName>PageModesA.cpp</FileName>

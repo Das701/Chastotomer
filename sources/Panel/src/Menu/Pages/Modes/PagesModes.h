@@ -7,12 +7,26 @@ struct CurrentPageModes
 {
     // Возвращает true, если текущая страница режимов содержит время измерения
     static bool ConsistTimeMeasure();
+    static void DrawParameters(int x, int y);
+};
+
+
+// Здесь функции общие для всех страниц режимов каналов
+class PageModes
+{
+public:
+    // Сброс режима текущего измерения
+    static void ResetModeCurrentMeasure();
+
+    static PeriodTimeLabels  timeLabels;     // Период меток времени
+    static TimeMeasure       timeMeasure;    // Время счета
+    static NumberPeriods     numberPeriods;  // Число периодов измерения
 };
 
 
 class PageModesA
 {
-friend struct PageModes;
+friend class PageModes;
 
 public:
 
