@@ -12,33 +12,12 @@ using namespace Primitives;
 
 
 extern Item *items[7];
-extern Switch sTimeMeasureD;
 
 
 static const bool correctTypeMeasure[TypeMeasure::Count] = { true, false, false, false };
 TypeMeasure          PageModesD::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure, TypeMeasure::Count);
 static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, false, false, false, false};
 ModeMeasureFrequency PageModesD::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
-
-
-// Выбор времени измерения
-#ifdef USE_1000s
-
-DEF_SWITCH_7(sTimeMeasureD,
-    "Время", "Время счёта",
-    "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
-    PageModes::timeMeasure, TimeMeasure::LoadToFPGA
-);
-
-#else
-
-DEF_SWITCH_6(sTimeMeasureD,
-    "Время", "Время счёта",
-    "1ms", "10ms", "100ms", "1s", "10s", "100s",
-    PageModes::timeMeasure, TimeMeasure::LoadToFPGA
-);
-
-#endif
 
 
 static void OnChanged_TypeMeasure()
@@ -69,7 +48,7 @@ DEF_SWITCH_2(sModeMeasureFrequency,
 
 static Item *items[7] =
 {
-    &sTimeMeasureD,
+    PageModes::switchTimeMeasue,
     nullptr,
     &sTypeMeasure,
     &sModeMeasureFrequency,

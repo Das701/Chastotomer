@@ -292,26 +292,6 @@ DEF_SWITCH_6(sPeriodTimeLabels,
 );
 
 
-// Выбор времени измерения
-#ifdef USE_1000s
-
-DEF_SWITCH_7(sTimeMeasure,
-    "Время", "Время счёта",
-    "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
-    PageModes::timeMeasure, TimeMeasure::LoadToFPGA
-);
-
-#else
-
-DEF_SWITCH_6(sTimeMeasure,
-    "Время", "Время счёта",
-    "1ms", "10ms", "100ms", "1s", "10s", "100s",
-    PageModes::timeMeasure, TimeMeasure::LoadToFPGA
-);
-
-#endif
-
-
 // Выбор числа усредняемых периодов входного сигнала
 #ifdef USE_1000K
 
@@ -354,7 +334,7 @@ static Item *items[7] =
 {
     &sTypeMeasure,
     &sModeFrequency,
-    &sTimeMeasure,
+    PageModes::switchTimeMeasue,
     nullptr
 };
 
