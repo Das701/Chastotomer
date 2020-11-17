@@ -103,33 +103,12 @@ DEF_SWITCH_6(sPeriodTimeLabels,
 );
 
 
-
-// Выбор времени измерения
-#ifdef USE_1000s
-
-DEF_SWITCH_7(sTimeMeasure,
-    "Время", "Время счёта",
-    "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
-    PageModes::timeMeasure, TimeMeasure::LoadToFPGA
-);
-
-#else
-
-DEF_SWITCH_6(sTimeMeasure,
-    "Время", "Время счёта",
-    "1ms", "10ms", "100ms", "1s", "10s", "100s",
-    PageModes::timeMeasure, TimeMeasure::LoadToFPGA
-);
-
-#endif
-
-
 static void OnPress_Sync()
 {
     if (PageSettingsB::typeSynch.IsHoldoff())
     {
         items[0] = &sSync;
-        items[1] = &sTimeMeasure;
+        items[1] = PageModes::switchTimeMeasue;
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
     }
