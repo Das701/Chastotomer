@@ -133,6 +133,11 @@ public:
     // Функции действительны для страниц режимов каналов
     TypeMeasure *GetTypeMeasure() const;
     int GetModeMeasure() const;
+    bool ExistTypeMeasure(uint8 type) const;
+    void ResetTypeAndModeMeasure();
+    bool ExistModeMeasure(int mode) const;
+    void ResetModeMeasure();
+    void SetTypeAndModeMeasure(TypeMeasure *type, int mode);
 
 private:
 

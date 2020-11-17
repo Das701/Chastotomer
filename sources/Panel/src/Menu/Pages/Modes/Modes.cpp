@@ -98,9 +98,46 @@ void PageModes::ResetModeCurrentMeasure()
 }
 
 
-void PageModes::VerifyTypeModeCurrentMeasure(Channel::E)
+void PageModes::VerifyTypeModeCurrentMeasure(Channel::E ch)
 {
+    Page *pagePrev = PageForChannel(ch);
+    Page *page = Current();
 
+    if (!page->ExistTypeMeasure(pagePrev->GetTypeMeasure()->value))         // Отсутствует вид измерения
+    {
+        page->ResetTypeAndModeMeasure();
+    }
+    else
+    {
+        if (!page->ExistModeMeasure(pagePrev->GetModeMeasure()))            // Отсутствует режим измерения
+        {
+            page->ResetModeMeasure();
+        }
+        else                                                                // На текущей странице присутствуют вид и режим измерения с предыдущей страницы
+        {
+            page->SetTypeAndModeMeasure(pagePrev->GetTypeMeasure(), pagePrev->GetModeMeasure());
+        }
+    }
+}
+
+
+Page *PageModes::Current()
+{
+    return PageForChannel(CURRENT_CHANNEL);
+}
+
+
+Page *PageModes::PageForChannel(Channel::E channel)
+{
+    Page *pages[Channel::Count] =
+    {
+        PageModesA::self,
+        PageModesB::self,
+        PageModesC::self,
+        PageModesD::self
+    };
+
+    return pages[channel];
 }
 
 
@@ -146,36 +183,6 @@ int NumberPeriods::ToAbs() const
 
     return abs[value];
 }
-
-
-//TimeMeasure &TimeMeasure::Current()
-//{
-//    static TimeMeasure *const times[Channel::Count] =
-//    {
-//        &PageModesA::timeMeasure,
-//        &PageModesB::timeMeasure,
-//        &PageModesC::timeMeasure,
-//        &PageModesD::timeMeasure
-//    };
-//
-//    return *times[CURRENT_CHANNEL];
-//}
-
-
-//NumberPeriods &NumberPeriods::Current()
-//{
-//    static NumberPeriods empty(NumberPeriods::Count);
-//
-//    static NumberPeriods *const numbers[Channel::Count] =
-//    {
-//        &PageModesA::numberPeriods,
-//        &PageModesB::numberPeriods,
-//        &PageModesC::numberPeriods,
-//        &empty
-//    };
-//
-//    return *numbers[CURRENT_CHANNEL];
-//}
 
 
 ModeMeasureCountPulse &ModeMeasureCountPulse::Current()

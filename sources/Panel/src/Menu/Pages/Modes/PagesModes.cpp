@@ -217,15 +217,7 @@ static void DrawValue(Enumeration &param, int x, int y)
 
 void PageModes::DrawParameters(int x, int y)
 {
-    Page *pages[Channel::Count] =
-    {
-        PageModesA::self,
-        PageModesB::self,
-        PageModesC::self,
-        PageModesD::self
-    };
-
-    Page &page = *pages[CURRENT_CHANNEL];
+    Page &page = *Current();
 
     TypeMeasure *type = page.GetTypeMeasure();
 

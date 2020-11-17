@@ -322,3 +322,32 @@ int Page::GetModeMeasure() const
 
     return state->value;
 }
+
+
+bool Page::ExistTypeMeasure(uint8 type) const
+{
+    return true;
+}
+
+
+void Page::ResetTypeAndModeMeasure()
+{
+
+}
+
+
+bool Page::ExistModeMeasure(int mode) const
+{
+    return true;
+}
+
+void Page::ResetModeMeasure()
+{
+
+}
+
+
+void Page::SetTypeAndModeMeasure(TypeMeasure *type, int mode)
+{
+
+}
