@@ -4,6 +4,7 @@
 #include "Keyboard/Keyboard.h"
 #include "Menu/Menu.h"
 #include "GUI/ComPort.h"
+#include "Application_win.h"
 #include <ctime>
 #include <cstring>
 
@@ -12,14 +13,19 @@ void init()
 {
 	Display::Init();
 	Keyboard::Init();
-	ComPort::Open();
+	for (int i = 0; i < 10; i++)
+	{
+		ComPort::Open();
+		if (ComPort::IsOpened())
+		{
+			break;
+		}
+	}
 }
 
 
 void update()
 {
-	static clock_t time = 0;
-
 #define SIZE_FRAME (272 * 480)
 
 	static uint displayFrame[SIZE_FRAME];
@@ -27,7 +33,7 @@ void update()
 	uint *pointer = displayFrame;
 	pointer = pointer;
 
-	if (clock() > time + 1000)
+	if (Frame::Self()->needSave)
 	{
         while (ComPort::Receive((char *)displayFrame, 100, 0) != 0)
         {
@@ -42,6 +48,6 @@ void update()
 
 		Display::Draw(displayFrame);
 
-		time = clock();
+		Frame::Self()->needSave = false;
 	}
 }

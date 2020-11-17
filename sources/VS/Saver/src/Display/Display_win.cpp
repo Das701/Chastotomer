@@ -44,13 +44,13 @@ static GovernorGUI *governor = nullptr;
 static bool needStartTimerLong = false;
 static bool needStopTimerLong = false;
 
-static bool saveToFile = false;
-
 // Здесь имя нажатой кнопки
 static Control::E pressedKey = Control::None;
 
 // Контекст рисования
 wxMemoryDC memDC;
+
+bool Frame::needSave = false;
 
 static wxBitmap bitmap(Display::WIDTH, Display::HEIGHT);
 
@@ -107,9 +107,11 @@ void Display::BeginScene()
 }
 
 
-void Frame::OnSavePicture(wxCommandEvent &)
+void Frame::OnSavePicture(wxCommandEvent &event)
 {
-    saveToFile = true;
+    needSave = true;
+
+    event.Skip();
 }
 
 
@@ -138,30 +140,27 @@ void Display::Draw(uint *buffer)
     memDC.SelectObject(wxNullBitmap);
     screen->Refresh();
 
-    if (saveToFile)
+    static int counter = 0;
+
+    String name("screens\\Screen%03d.bmp", counter);
+
+    while (true)
     {
-        static int counter = 0;
+        wxFile file;
 
-        String name("screens\\Screen%03d.bmp", counter);
-
-        while (true)
+        if (!file.Access(name.c_str(), wxFile::read))
         {
-            wxFile file;
-
-            if (!file.Access(name.c_str(), wxFile::read))
-            {
-                break;
-            }
-
-            file.Close();
-
-            counter++;
-
-            name.Set(TypeConversionString::None, "screens\\Screen%03d.bmp", counter);
+            break;
         }
 
-        bmp.SaveFile(name.c_str(), wxBITMAP_TYPE_BMP);
+        file.Close();
+
+        counter++;
+
+        name.Set(TypeConversionString::None, "screens\\Screen%03d.bmp", counter);
     }
+
+    bmp.SaveFile(name.c_str(), wxBITMAP_TYPE_BMP);
 }
 
 

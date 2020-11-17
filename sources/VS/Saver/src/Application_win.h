@@ -44,5 +44,7 @@ public:
 
     static Frame *self;
 
+    static bool needSave;
+
     wxTimer timerComPort;
 };
