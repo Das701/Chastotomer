@@ -68,7 +68,7 @@ struct ModeMeasureCountPulse : public Enumeration
 {
     enum E
     {
-        /* A     */ AtC,      // A(tC)
+        /* A     */ AtB,      // A(tB)
         /* A     */ ATB,      // A(TB)
         /*   B   */ BtA,      // B(tA)
         /*   B   */ BTA,      // B(TA)

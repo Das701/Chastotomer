@@ -244,7 +244,7 @@ void ModeMeasureCountPulse::LoadToFPGA()
     if ((PageModesC::modeMeasureCountPulse == ModeMeasureCountPulse::CtA) && CURRENT_CHANNEL_IS_C)
     {
     }
-    else if ((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::AtC && CURRENT_CHANNEL_IS_A) ||
+    else if ((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::AtB && CURRENT_CHANNEL_IS_A) ||
         (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulse::BtA && CURRENT_CHANNEL_IS_B) ||
         (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulse::CtB && CURRENT_CHANNEL_IS_C))
     {

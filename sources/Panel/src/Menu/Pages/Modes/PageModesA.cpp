@@ -35,7 +35,7 @@ ModeMeasureFrequency  PageModesA::modeMeasureFrequency(ModeMeasureFrequency::Fre
 ModeMeasurePeriod     PageModesA::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration   PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
 static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { true, true, false, false, false, false, false, false, true};
-ModeMeasureCountPulse PageModesA::modeMeasureCountPulse(ModeMeasureCountPulse::AtC, correctModeMeasureCountPulse, ModeMeasureCountPulse::Count);
+ModeMeasureCountPulse PageModesA::modeMeasureCountPulse(ModeMeasureCountPulse::AtB, correctModeMeasureCountPulse, ModeMeasureCountPulse::Count);
 
 
 void PageModesA::RelationOn()
@@ -259,7 +259,7 @@ void PageModesA::OnChanged_ModeCountPulse()
 
     switch (PageModesA::modeMeasureCountPulse.value)
     {
-    case ModeMeasureCountPulse::AtC:
+    case ModeMeasureCountPulse::AtB:
         break;
 
     case ModeMeasureCountPulse::ATB:
