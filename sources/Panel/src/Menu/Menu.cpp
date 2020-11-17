@@ -102,12 +102,12 @@ static void SetCurrentChannel(const Control &control)
         else if (CURRENT_CHANNEL_IS_C)  { openedPage = PageSettingsC::self; }
         else if (CURRENT_CHANNEL_IS_D)  { openedPage = PageSettingsD::self; }
 
-        PageModes::VerifyTypeModeCurrentMeasure(prevChannel);
-
         Hint::Hide();
 
         if(loadToFPGA)
         {
+            PageModes::VerifyTypeModeCurrentMeasure(prevChannel);
+
             Channel::LoadCurrentToFPGA();
         }
     }

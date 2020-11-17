@@ -347,6 +347,7 @@ void Page::ResetTypeAndModeMeasure()
             if (type->state->correct[i])
             {
                 type->state->value = (uint8)i;
+                break;
             }
         }
     }
@@ -377,6 +378,7 @@ void Page::ResetModeMeasure()
             if (mode->state->correct[i])
             {
                 mode->state->value = (uint8)i;
+                break;
             }
         }
     }
