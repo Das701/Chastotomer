@@ -175,18 +175,18 @@ void PageModes::DrawParameters(int x, int y)
 
     int dX = 70;
 
-    if (IsActiveTimeLabels(type, mode))
-    {
-        DrawValue(PageModes::timeLabels, x, y);
-    }
-
     if (IsActiveTimeMeasure(type, mode))
     {
-        DrawValue(PageModes::timeMeasure, x + dX, y);
+        DrawValue(PageModes::timeMeasure, x, y);
     }
 
     if (IsActiveNumberPeriods(type, mode))
     {
-        DrawValue(PageModes::numberPeriods, x + 2 * dX, y);
+        DrawValue(PageModes::numberPeriods, x + dX, y);
+    }
+
+    if (IsActiveTimeLabels(type, mode))
+    {
+        DrawValue(PageModes::timeLabels, x + 2 * dX, y);
     }
 }
