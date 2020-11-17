@@ -11,11 +11,11 @@ using namespace Primitives;
 
 
 extern Item *items[7];
-extern Switch sModeFrequencyC;
-extern Switch sModeCountPulseC;
-extern Switch sPeriodTimeLabelsC;
-extern Switch sTimeMeasureC;
-extern Switch sNumberPeriodsC;
+extern Switch sModeFrequency;
+extern Switch sModeCountPulse;
+extern Switch sPeriodTimeLabels;
+extern Switch sTimeMeasure;
+extern Switch sNumberPeriods;
 
 
 static const bool correctTypeMeasure[TypeMeasure::Count] = { true, false, false, true };
@@ -47,7 +47,7 @@ void PageModesC::OnChanged_TypeMeasure()
     }
 }
 
-DEF_SWITCH_2(sTypeMeasureC,
+DEF_SWITCH_2(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Сч. имп.",
     PageModesC::typeMeasure, PageModesC::OnChanged_TypeMeasure
@@ -56,19 +56,19 @@ DEF_SWITCH_2(sTypeMeasureC,
 
 void PageModesC::OnChanged_ModeFrequency()
 {
-    items[1] = &sModeFrequencyC;
-    items[2] = &sPeriodTimeLabelsC;
+    items[1] = &sModeFrequency;
 
     switch (PageModesC::modeMeasureFrequency.value)
     {
     case ModeMeasureFrequency::Frequency:
-        items[3] = &sTimeMeasureC;
-        items[4] = nullptr;
+        items[2] = &sTimeMeasure;
+        items[3] = nullptr;
         break;
 
     case ModeMeasureFrequency::RatioCA:
     case ModeMeasureFrequency::RatioCB:
-        items[3] = &sNumberPeriodsC;
+        items[2] = &sPeriodTimeLabels;
+        items[3] = &sNumberPeriods;
         items[4] = nullptr;
         break;
     }
@@ -79,7 +79,7 @@ void PageModesC::OnChanged_ModeFrequency()
 }
 
 // Выбор режима измерения частоты, отношения частот, "тахометра"
-DEF_SWITCH_3(sModeFrequencyC,
+DEF_SWITCH_3(sModeFrequency,
     "Режим", "Измерение частоты",
     "Частота", "f(C)/f(A)", "f(C)/f(B)",
     PageModesC::modeMeasureFrequency, PageModesC::OnChanged_ModeFrequency
@@ -88,7 +88,7 @@ DEF_SWITCH_3(sModeFrequencyC,
 
 void PageModesC::OnChanged_ModeCountPulse()
 {
-    items[1] = &sModeCountPulseC;
+    items[1] = &sModeCountPulse;
 
     switch (PageModesC::modeMeasureCountPulse.value)
     {
@@ -99,7 +99,7 @@ void PageModesC::OnChanged_ModeCountPulse()
 
     case ModeMeasureCountPulse::CTA:
     case ModeMeasureCountPulse::CTB:
-        items[2] = &sNumberPeriodsC;
+        items[2] = &sNumberPeriods;
         items[3] = nullptr;
         break;
     }
@@ -112,7 +112,7 @@ void PageModesC::OnChanged_ModeCountPulse()
 }
 
 // Выбор режима счёта импульсов
-DEF_SWITCH_4(sModeCountPulseC,
+DEF_SWITCH_4(sModeCountPulse,
     "Режим", "Счёт числа импульсов",
     "C(tA)", "C(tB)", "C(TA)", "C(TB)",
     PageModesC::modeMeasureCountPulse, PageModesC::OnChanged_ModeCountPulse
@@ -120,7 +120,7 @@ DEF_SWITCH_4(sModeCountPulseC,
 
 
 // Выбор периода меток времени
-DEF_SWITCH_6(sPeriodTimeLabelsC,
+DEF_SWITCH_6(sPeriodTimeLabels,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
     PageModes::timeLabels, PeriodTimeLabels::LoadToFPGA
@@ -130,7 +130,7 @@ DEF_SWITCH_6(sPeriodTimeLabelsC,
 // Выбор времени измерения
 #ifdef USE_1000s
 
-DEF_SWITCH_7(sTimeMeasureC,
+DEF_SWITCH_7(sTimeMeasure,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
     PageModes::timeMeasure, TimeMeasure::LoadToFPGA
@@ -138,7 +138,7 @@ DEF_SWITCH_7(sTimeMeasureC,
 
 #else
 
-DEF_SWITCH_6(sTimeMeasureC,
+DEF_SWITCH_6(sTimeMeasure,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s",
     PageModes::timeMeasure, TimeMeasure::LoadToFPGA
@@ -150,7 +150,7 @@ DEF_SWITCH_6(sTimeMeasureC,
 // Выбор числа усредняемых периодов входного сигнала
 #ifdef USE_1000K
 
-DEF_SWITCH_7(sNumberPeriodsC,
+DEF_SWITCH_7(sNumberPeriods,
     "N", "Число периодов измерения",
     "1", "10", "100", "1K", "10K", "100K", "1000K",
     PageModes::numberPeriods, NumberPeriods::LoadToFPGA
@@ -158,7 +158,7 @@ DEF_SWITCH_7(sNumberPeriodsC,
 
 #else
 
-DEF_SWITCH_6(sNumberPeriodsC,
+DEF_SWITCH_6(sNumberPeriods,
     "N", "Число периодов измерения",
     "1", "10", "100", "1K", "10K", "100K",
     PageModes::numberPeriods, NumberPeriods::LoadToFPGA
@@ -169,10 +169,9 @@ DEF_SWITCH_6(sNumberPeriodsC,
 
 static Item *items[7] =
 {
-    &sTypeMeasureC,
-    &sModeFrequencyC,
-    &sPeriodTimeLabelsC,
-    &sTimeMeasureC,
+    &sTypeMeasure,
+    &sModeFrequency,
+    &sTimeMeasure,
     nullptr
 };
 
