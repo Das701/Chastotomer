@@ -13,7 +13,6 @@ using namespace Primitives;
 extern Item *items[7];
 extern Switch sModeFrequency;
 extern Switch sModeCountPulse;
-extern Switch sPeriodTimeLabels;
 extern Switch sNumberPeriods;
 
 
@@ -66,8 +65,8 @@ void PageModesC::OnChanged_ModeFrequency()
 
     case ModeMeasureFrequency::RatioCA:
     case ModeMeasureFrequency::RatioCB:
-        items[2] = &sPeriodTimeLabels;
-        items[3] = &sNumberPeriods;
+        items[2] = &sNumberPeriods;
+        items[3] = PageModes::switchTimeLabels;
         items[4] = nullptr;
         break;
     }
@@ -115,14 +114,6 @@ DEF_SWITCH_4(sModeCountPulse,
     "Режим", "Счёт числа импульсов",
     "C(tA)", "C(tB)", "C(TA)", "C(TB)",
     PageModesC::modeMeasureCountPulse, PageModesC::OnChanged_ModeCountPulse
-);
-
-
-// Выбор периода меток времени
-DEF_SWITCH_6(sPeriodTimeLabels,
-    "Метки", "Длительность временных меток",
-    "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    PageModes::timeLabels, PeriodTimeLabels::LoadToFPGA
 );
 
 

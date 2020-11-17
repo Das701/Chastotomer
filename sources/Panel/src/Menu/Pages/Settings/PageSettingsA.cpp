@@ -96,21 +96,13 @@ DEF_SWITCH_UGO_2(sDivider,
 );
 
 
-// Выбор периода меток времени
-DEF_SWITCH_6(sPeriodTimeLabels,
-    "Метки", "Длительность временных меток",
-    "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    PageModes::timeLabels,  PeriodTimeLabels::LoadToFPGA
-);
-
-
 static void OnPress_Sync()
 {
     if (PageSettingsA::typeSynch.IsHoldoff())
     {
         items[0] = &sSync;
         items[1] = PageModes::switchTimeMeasue;
-        items[2] = &sPeriodTimeLabels;
+        items[2] = PageModes::switchTimeLabels;
         items[3] = nullptr;
 
         PageSettingsA::self->selectedItem = 0;
