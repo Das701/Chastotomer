@@ -227,7 +227,6 @@ void PageModes::DrawParameters(int x, int y)
 
     Page &page = *pages[CURRENT_CHANNEL];
 
-
     TypeMeasure *type = page.GetTypeMeasure();
 
     int mode = page.GetModeMeasure();

@@ -39,7 +39,7 @@ static void OnChanged_ModeMeasureFrequency()
 }
 
 
-DEF_SWITCH_2(sModeMeasureFrequency,
+DEF_SWITCH_2(sModeFrequency,
     "Режим", "Измерение частоы",
     "Частота", "Частота",
     PageModesD::modeMeasureFrequency, OnChanged_ModeMeasureFrequency
@@ -48,10 +48,10 @@ DEF_SWITCH_2(sModeMeasureFrequency,
 
 static Item *items[7] =
 {
+    &sTypeMeasure,
+    &sModeFrequency,
     PageModes::switchTimeMeasue,
     nullptr,
-    &sTypeMeasure,
-    &sModeMeasureFrequency,
     nullptr
 };
 
