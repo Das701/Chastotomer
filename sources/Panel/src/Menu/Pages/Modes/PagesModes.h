@@ -1,4 +1,5 @@
 #pragma once
+#include "Settings.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Pages/Modes/Modes.h"
 
@@ -16,6 +17,9 @@ class PageModes
 public:
     // Сброс режима текущего измерения
     static void ResetModeCurrentMeasure();
+
+    // Нужно вызывать при переключении канала, чтобы менять режим при изменении канала (при необходимости)
+    static void VerifyTypeModeCurrentMeasure(Channel::E prevChannel);
 
     static void DrawParameters(int x, int y);
 

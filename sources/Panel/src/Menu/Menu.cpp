@@ -89,6 +89,8 @@ static void SetCurrentChannel(const Control &control)
     {
         bool loadToFPGA = false;
         
+        Channel::E prevChannel = CURRENT_CHANNEL;
+
         if (Menu::OpenedPage()->IsPageSettings())
         {
             Math::CircleIncrease<uint8>((uint8 *)&CURRENT_CHANNEL, 0, Channel::Count - 1);
@@ -99,6 +101,8 @@ static void SetCurrentChannel(const Control &control)
         else if (CURRENT_CHANNEL_IS_B)  { openedPage = PageSettingsB::self; }
         else if (CURRENT_CHANNEL_IS_C)  { openedPage = PageSettingsC::self; }
         else if (CURRENT_CHANNEL_IS_D)  { openedPage = PageSettingsD::self; }
+
+        PageModes::VerifyTypeModeCurrentMeasure(prevChannel);
 
         Hint::Hide();
 

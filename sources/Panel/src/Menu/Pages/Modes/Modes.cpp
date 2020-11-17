@@ -98,6 +98,12 @@ void PageModes::ResetModeCurrentMeasure()
 }
 
 
+void PageModes::VerifyTypeModeCurrentMeasure(Channel::E)
+{
+
+}
+
+
 bool ModeMeasureFrequency::IsRatio() const
 {
     return IsRatioAB() || IsRatioBA() ||  IsRatioAC() || IsRatioBC() || IsRatioCA() || IsRatioCB();
