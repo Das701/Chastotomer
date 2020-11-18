@@ -72,14 +72,14 @@ struct Coord
 static int yString = 110;
 
 static Coord coordMemory = { 15, yString };
-static Coord coordTest = { 82, yString };
-static Coord coordExtGenerator = { 134, yString };
-static Coord coordLaunch = { 305, yString };
+static Coord coordTest = { 40, yString };
+static Coord coordExtGenerator = { 95, yString };
+static Coord coordLaunch = { 130, yString };
 
 
 static void DrawValue(char *string, int x, int y)
 {
-    Rectangle(Font::GetLengthText(string) + 5, 20).FillRounded(x - 3, y - 3, 2, Color::GREEN_20, Color::GREEN_20);
+    Rectangle(Font::GetLengthText(string) + 5, 20).FillRounded(x - 3, y - 3, 2, Color::GREEN_20, Color::GRAY_20);
 
     Text(string).Write(x, y, Color::WHITE);
 }
@@ -310,7 +310,7 @@ static void DrawInfo()
         }
         else
         {
-            DrawValue("Память", coordMemory.x, coordMemory.y);
+            DrawValue("M", coordMemory.x, coordMemory.y);
         } 
     }
 
@@ -321,16 +321,16 @@ static void DrawInfo()
 
     if(PageIndication::refGenerator == RefGenerator::External)
     {
-        DrawValue("Генератор:внешний", coordExtGenerator.x, coordExtGenerator.y);
+        DrawValue("ОГ", coordExtGenerator.x, coordExtGenerator.y);
     }
 
     if (PageIndication::launchSource.IsExternal())
     {
-        DrawValue("Запуск:внешний", coordLaunch.x, coordLaunch.y);
+        DrawValue("Зап:внешн", coordLaunch.x, coordLaunch.y);
     }
     else if (PageIndication::launchSource.IsOneTime())
     {
-        DrawValue("Запуск:однократный", coordLaunch.x, coordLaunch.y);
+        DrawValue("Зап:однокр", coordLaunch.x, coordLaunch.y);
     }
 
     if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
