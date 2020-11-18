@@ -277,15 +277,13 @@ void TimeMeasure::ProgressBar::Draw(int x, int y)
 {
     if (IsDrawable())
     {
-        int width = 47;
+        int width = 46;
 
         int timeCycle = PageModes::timeMeasure.ToMS();
 
         float part = ((float)(TIME_MS - timeStart) / (float)timeCycle);
 
-        int filled = (int)((float)width * part);
-
-        Primitives::Rectangle(filled == 0 ? 1 : filled, 5).Fill(x, y, Color::WHITE);
+        Primitives::Rectangle((int)((float)width * part) + 1, 5).Fill(x, y, Color::WHITE);
     }
 }
 
