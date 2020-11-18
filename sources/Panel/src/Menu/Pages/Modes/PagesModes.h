@@ -18,9 +18,6 @@ public:
 
     static void OnChanged_TypeMeasure();
 
-    // Нужно вызывать при переключении канала, чтобы менять режим при изменении канала (при необходимости)
-    static void VerifyTypeModeCurrentMeasure(Channel::E prevChannel);
-
     static void DrawParameters(int x, int y);
 
     static Page *Current();
