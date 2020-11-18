@@ -106,8 +106,6 @@ static void SetCurrentChannel(const Control &control)
         {
             PageModes::OnChanged_TypeMeasure();
 
-            HAL_TIM::DelayMS(10);
-
             Channel::LoadCurrentToFPGA();
         }
     }
