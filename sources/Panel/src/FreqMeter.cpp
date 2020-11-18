@@ -293,6 +293,8 @@ void PeriodTimeLabels::LoadToFPGA()
 
 void TimeMeasure::LoadToFPGA()
 {
+    PageModes::numberPeriods.value = PageModes::timeMeasure.value;
+
     char command[4] = { 1, 0, 0, 0 };
 
     DEFINE_ARGUMENT;
@@ -318,6 +320,8 @@ void TimeMeasure::LoadToFPGA()
 
 void NumberPeriods::LoadToFPGA()
 {
+    PageModes::timeMeasure.value = PageModes::numberPeriods.value;
+
     char command[4] = { 1, 0, 0, 0 };
 
     DEFINE_ARGUMENT;
