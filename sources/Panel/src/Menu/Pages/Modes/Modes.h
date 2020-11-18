@@ -117,7 +117,7 @@ struct ModeMeasureDuration : public Enumeration
     {
         Ndt,        // ndt
         Ndt_1ns,    // ndt_1нс
-        Ndt2,       // ndt2
+        StartStop,  // ndt2
         FillFactor, // Коэффициет заполнения
         Phase,      // Фаза
         Count
@@ -127,7 +127,7 @@ struct ModeMeasureDuration : public Enumeration
 
     bool Is_Ndt() const        { return (value == Ndt); }
     bool Is_Ndt_1ns() const    { return (value == Ndt_1ns); }
-    bool Is_Ndt2() const       { return (value == Ndt2); }
+    bool Is_StartStop() const  { return (value == StartStop); }
     bool Is_FillFactor() const { return (value == FillFactor); }
     bool Is_Phase() const      { return (value == Phase); }
 

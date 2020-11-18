@@ -170,7 +170,7 @@ void PageModesB::OnChanged_ModeDuration()
         break;
 
     case ModeMeasureDuration::Ndt:
-    case ModeMeasureDuration::Ndt2:
+    case ModeMeasureDuration::StartStop:
     case ModeMeasureDuration::FillFactor:
     case ModeMeasureDuration::Phase:
         items[2] = PageModes::switchTimeLabels;

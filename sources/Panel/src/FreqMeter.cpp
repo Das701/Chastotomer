@@ -210,7 +210,7 @@ void ModeMeasureDuration::LoadToFPGA()
     {
         argument[4] = 1;
     }
-    else if (ModeMeasureDuration::Current().Is_Ndt2())
+    else if (ModeMeasureDuration::Current().Is_StartStop())
     {
         argument[5] = 1;
         argument[4] = 1;

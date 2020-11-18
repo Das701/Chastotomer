@@ -124,7 +124,7 @@ bool PageModes::IsActiveTimeLabels(TypeMeasure *type, int m)
         switch (mode)
         {
         case ModeMeasureDuration::Ndt:
-        case ModeMeasureDuration::Ndt2:
+        case ModeMeasureDuration::StartStop:
         case ModeMeasureDuration::FillFactor:
         case ModeMeasureDuration::Phase:        return true;
         }
