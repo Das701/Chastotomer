@@ -89,7 +89,7 @@ static void SetCurrentChannel(const Control &control)
     {
         bool loadToFPGA = false;
         
-        Channel::E prevChannel = CURRENT_CHANNEL;
+//        Channel::E prevChannel = CURRENT_CHANNEL;
 
         if (Menu::OpenedPage()->IsPageSettings())
         {

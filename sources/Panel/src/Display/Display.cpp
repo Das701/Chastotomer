@@ -62,6 +62,27 @@ static int bottomhDraw = 0;         // Нижний у отрисовываемой части экрана
 bool Display::sendToSCPI = false;
 
 
+struct Coord
+{
+    int x;
+    int y;
+};
+
+
+static int yString = 110;
+
+static Coord coordMemory = { 15, yString };
+static Coord coordTest = { 82, yString };
+static Coord coordExtGenerator = { 134, yString };
+static Coord coordLaunch = { 305, yString };
+
+
+static void DrawValue(char *string, int x, int y)
+{
+    Text(string).Write(x, y);
+}
+
+
 bool Display::DrawWelcomeScreen()
 {
     if (TIME_MS < 1000)
@@ -287,18 +308,27 @@ static void DrawInfo()
         }
         else
         {
-            Text("M").Write(430, 100);
+            Text("Память").Write(coordMemory.x, coordMemory.y);
         } 
     }
 
     if(FreqMeter::modeTest.IsEnabled())
     {
-        Text("Тест").Write(430, 120);
+        DrawValue("Тест", coordTest.x, coordTest.y);
     }
 
     if(PageIndication::refGenerator == RefGenerator::External)
     {
-        Text("Внеш Г").Write(420, 160);
+        DrawValue("Генератор:внешний", coordExtGenerator.x, coordExtGenerator.y);
+    }
+
+    if (PageIndication::launchSource.IsExternal())
+    {
+        DrawValue("Запуск:внешний", coordLaunch.x, coordLaunch.y);
+    }
+    else if (PageIndication::launchSource.IsOneTime())
+    {
+        DrawValue("Запуск:однократный", coordLaunch.x, coordLaunch.y);
     }
 
     if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||

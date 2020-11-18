@@ -124,7 +124,7 @@ uint8 Font::GetWidth(uint8 num)
     {
         if (font == fontGOSTAU16BOLD)
         {
-            return 10;
+            return 5;
         }
     }
 
