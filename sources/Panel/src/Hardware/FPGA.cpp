@@ -254,6 +254,7 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
     if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == 0)
     {
         Reset_CS;
+
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
         DELAY;
@@ -277,6 +278,7 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
         DELAY;
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+
         Set_CS;
     }
 }
