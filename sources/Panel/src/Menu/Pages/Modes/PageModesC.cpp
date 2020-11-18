@@ -28,17 +28,10 @@ void PageModesC::OnChanged_TypeMeasure()
     switch (PageModesC::typeMeasure.value)
     {
     case TypeMeasure::Frequency:
-        PageModesA::typeMeasure.value = TypeMeasure::Frequency;
-        PageModesB::typeMeasure.value = TypeMeasure::Frequency;
-
-        PageModes::ResetModeCurrentMeasure();
         PageModesC::OnChanged_ModeFrequency();
         break;
-    case TypeMeasure::CountPulse:
-        PageModesB::typeMeasure.value = TypeMeasure::CountPulse;
-        PageModesA::typeMeasure.value = TypeMeasure::CountPulse;
 
-        PageModes::ResetModeCurrentMeasure();
+    case TypeMeasure::CountPulse:
         PageModesC::OnChanged_ModeCountPulse();
         break;
     }
@@ -126,13 +119,3 @@ static Item *items[7] =
 static Page pageModesC(items, nullptr);
 
 Page *PageModesC::self = &pageModesC;
-
-
-void PageModesC::ResetModeCurrentMeasure()
-{
-    switch (typeMeasure)
-    {
-    case TypeMeasure::Frequency:  modeMeasureFrequency.value = 0;                           break;
-    case TypeMeasure::CountPulse: modeMeasureCountPulse.value = ModeMeasureCountPulse::CtA; break;
-    }
-}

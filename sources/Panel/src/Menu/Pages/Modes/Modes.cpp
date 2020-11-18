@@ -90,14 +90,6 @@ void TypeMeasure::Draw(int x, int y) const
 }
 
 
-void PageModes::ResetModeCurrentMeasure()
-{
-    PageModesA::ResetModeCurrentMeasure();
-    PageModesB::ResetModeCurrentMeasure();
-    PageModesC::ResetModeCurrentMeasure();
-}
-
-
 void PageModes::VerifyTypeModeCurrentMeasure(Channel::E chPrev)
 {
     Page *pagePrev = PageForChannel(chPrev);

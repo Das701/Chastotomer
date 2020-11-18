@@ -240,3 +240,20 @@ void PageModes::DrawParameters(int x, int y)
         DrawValue(PageModes::timeLabels, x + 2 * dX, y);
     }
 }
+
+
+void PageModes::OnChanged_TypeMeasure()
+{
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        PageModesA::OnChanged_TypeMeasure();
+    }
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        PageModesB::OnChanged_TypeMeasure();
+    }
+    else if (CURRENT_CHANNEL_IS_C)
+    {
+        PageModesC::OnChanged_TypeMeasure();
+    }
+}

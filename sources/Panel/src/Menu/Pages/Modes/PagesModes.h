@@ -15,8 +15,8 @@ struct CurrentPageModes
 class PageModes
 {
 public:
-    // Сброс режима текущего измерения
-    static void ResetModeCurrentMeasure();
+
+    static void OnChanged_TypeMeasure();
 
     // Нужно вызывать при переключении канала, чтобы менять режим при изменении канала (при необходимости)
     static void VerifyTypeModeCurrentMeasure(Channel::E prevChannel);
@@ -56,9 +56,6 @@ public:
     static bool StartStop();
     static void ToggleStartStop();
 
-    // Сброс режима измерения
-    static void ResetModeCurrentMeasure();
-
     // Вызывается при измеенении вида измерения
     static void OnChanged_TypeMeasure();
 
@@ -82,9 +79,6 @@ struct PageModesB
 
     static void PressSetup();
 
-    // Сброс режима измерения
-    static void ResetModeCurrentMeasure();
-
     // Вызывается при измеенении вида измерения
     static void OnChanged_TypeMeasure();
 
@@ -105,9 +99,6 @@ struct PageModesB
 struct PageModesC
 {
     static Page *self;
-
-    // Сброс режима измерения
-    static void ResetModeCurrentMeasure();
 
     // Вызывается при измеенении вида измерения
     static void OnChanged_TypeMeasure();

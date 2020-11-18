@@ -56,32 +56,18 @@ void PageModesB::OnChanged_TypeMeasure()
     switch (PageModesB::typeMeasure.value)
     {
     case TypeMeasure::Frequency:
-        PageModesA::typeMeasure.value = TypeMeasure::Frequency;
-        PageModesC::typeMeasure.value = TypeMeasure::Frequency;
-
-        PageModes::ResetModeCurrentMeasure();
         PageModesB::OnChanged_ModeFrequency();
         break;
 
     case TypeMeasure::Period:
-        PageModesA::typeMeasure.value = TypeMeasure::Period;
-
-        PageModes::ResetModeCurrentMeasure();
         PageModesB::OnChanged_ModePeriod();
         break;
 
     case TypeMeasure::Duration:
-        PageModesA::typeMeasure.value = TypeMeasure::Duration;
-
-        PageModes::ResetModeCurrentMeasure();
         PageModesB::OnChanged_ModeDuration();
         break;
 
     case TypeMeasure::CountPulse:
-        PageModesA::typeMeasure.value = TypeMeasure::CountPulse;
-        PageModesC::typeMeasure.value = TypeMeasure::CountPulse;
-
-        PageModes::ResetModeCurrentMeasure();
         PageModesB::OnChanged_ModeCountPulse();
         break;
     }
@@ -291,15 +277,3 @@ static void OnEvent(EventType::E event)
 static Page pageModesB(items, OnEvent);
 
 Page *PageModesB::self = &pageModesB;
-
-
-void PageModesB::ResetModeCurrentMeasure()
-{
-    switch (typeMeasure)
-    {
-    case TypeMeasure::Frequency:  modeMeasureFrequency.value = 0;                               break;
-    case TypeMeasure::Period:     modeMeasurePeriod.value = 0;                                  break;
-    case TypeMeasure::Duration:   modeMeasureDuration.value = 0;                                break;
-    case TypeMeasure::CountPulse: modeMeasureCountPulse.value = ModeMeasureCountPulse::BtA;     break;
-    }
-}
