@@ -162,6 +162,30 @@ struct PeriodTimeLabels : public Enumeration
     static void LoadToFPGA();
 };
 
+
+// Число периодов
+struct NumberPeriods : public Enumeration
+{
+    enum E
+    {
+        _1,         // 1
+        _10,        // 10
+        _100,       // 100
+        _1K,        // 1K
+        _10K,       // 10K
+        _100K,      // 100K
+        _1000K,
+        Count
+    };
+
+    explicit NumberPeriods(E v) : Enumeration((uint8)v) {};
+
+    int ToAbs() const;
+
+    static void LoadToFPGA();
+};
+
+
 // Время счёта
 struct TimeMeasure : public Enumeration
 {
@@ -198,28 +222,6 @@ struct TimeMeasure : public Enumeration
     private:
         static uint timeStart;
     };
-};
-
-// Число периодов
-struct NumberPeriods : public Enumeration
-{
-    enum E
-    {
-        _1,         // 1
-        _10,        // 10
-        _100,       // 100
-        _1K,        // 1K
-        _10K,       // 10K
-        _100K,      // 100K
-        _1000K,
-        Count
-    };
-
-    explicit NumberPeriods(E v) : Enumeration((uint8)v) {};
-
-    int ToAbs() const;
-
-    static void LoadToFPGA();
 };
 
 
