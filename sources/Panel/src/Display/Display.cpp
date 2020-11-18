@@ -231,7 +231,7 @@ static void DrawScreen()
 
         //Indicator::Test(10, 150, Color::WHITE);
 
-        TimeMeasure::ProgressBar::Draw(0, 0);
+        TimeMeasure::ProgressBar::Draw(273, 90);
     }
 }
 
