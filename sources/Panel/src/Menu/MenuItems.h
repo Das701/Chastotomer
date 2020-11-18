@@ -137,7 +137,7 @@ public:
     void ResetTypeAndModeMeasure();
     bool ExistModeMeasure(int mode) const;
     void ResetModeMeasure();
-    void SetTypeAndModeMeasure(TypeMeasure *type, int mode);
+    void SetTypeAndModeMeasure(int type, int mode);
 
 private:
 

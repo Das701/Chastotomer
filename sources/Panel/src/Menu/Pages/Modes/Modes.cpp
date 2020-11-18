@@ -98,9 +98,9 @@ void PageModes::ResetModeCurrentMeasure()
 }
 
 
-void PageModes::VerifyTypeModeCurrentMeasure(Channel::E ch)
+void PageModes::VerifyTypeModeCurrentMeasure(Channel::E chPrev)
 {
-    Page *pagePrev = PageForChannel(ch);
+    Page *pagePrev = PageForChannel(chPrev);
     Page *page = Current();
 
     if (!page->ExistTypeMeasure(pagePrev->GetTypeMeasure()->value))         // Отсутствует вид измерения
@@ -111,11 +111,30 @@ void PageModes::VerifyTypeModeCurrentMeasure(Channel::E ch)
     {
         if (!page->ExistModeMeasure(pagePrev->GetModeMeasure()))            // Отсутствует режим измерения
         {
-            page->ResetModeMeasure();
+            if ((chPrev == Channel::A) && CURRENT_CHANNEL_IS_B && PageModesA::modeMeasureFrequency.IsRatioAB() && PageModesA::typeMeasure.IsFrequency())
+            {
+                page->SetTypeAndModeMeasure(TypeMeasure::Frequency, ModeMeasureFrequency::RatioBA);
+            }
+            else if ((chPrev == Channel::A) && CURRENT_CHANNEL_IS_B && PageModesA::modeMeasureFrequency.IsRatioAC() && PageModesA::typeMeasure.IsFrequency())
+            {
+                page->SetTypeAndModeMeasure(TypeMeasure::Frequency, ModeMeasureFrequency::RatioBC);
+            }
+            else if ((chPrev == Channel::B) && CURRENT_CHANNEL_IS_C && PageModesB::modeMeasureFrequency.IsRatioBA() && PageModesB::typeMeasure.IsFrequency())
+            {
+                page->SetTypeAndModeMeasure(TypeMeasure::Frequency, ModeMeasureFrequency::RatioCA);
+            }
+            else if ((chPrev == Channel::B) && CURRENT_CHANNEL_IS_C && PageModesB::modeMeasureFrequency.IsRatioBC() && PageModesB::typeMeasure.IsFrequency())
+            {
+                page->SetTypeAndModeMeasure(TypeMeasure::Frequency, ModeMeasureFrequency::RatioCB);
+            }
+            else
+            {
+                page->ResetModeMeasure();
+            }
         }
         else                                                                // На текущей странице присутствуют вид и режим измерения с предыдущей страницы
         {
-            page->SetTypeAndModeMeasure(pagePrev->GetTypeMeasure(), pagePrev->GetModeMeasure());
+            page->SetTypeAndModeMeasure(pagePrev->GetTypeMeasure()->value, pagePrev->GetModeMeasure());
         }
     }
 }
