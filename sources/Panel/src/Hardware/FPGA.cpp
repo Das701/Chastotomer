@@ -142,7 +142,7 @@ void FPGA::Update() //-V2008
 
                 Reset_CS;
 
-                LOG_WRITE("%d %d", counterA, counterB);
+                //LOG_WRITE("%d %d", counterA, counterB);
 
                 MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, counterA, counterB);
 
@@ -277,6 +277,7 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
         DELAY;
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+        Set_CS;
     }
 }
 
