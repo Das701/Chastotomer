@@ -385,29 +385,29 @@ void Page::ResetModeMeasure()
 }
 
 
-void Page::SetTypeAndModeMeasure(int t, int m)
-{
-    Switch *type = (Switch *)items[0];
-
-    type->state->value = (uint8)t;
-
-    Switch *mode = (Switch *)items[1];
-
-    mode->state->value = (uint8)m;
-
-    if (this == PageModesA::self)
-    {
-        PageModesA::OnChanged_TypeMeasure();
-    }
-    else if (this == PageModesB::self)
-    {
-        PageModesB::OnChanged_TypeMeasure();
-    }
-    else if (this == PageModesC::self)
-    {
-        PageModesC::OnChanged_TypeMeasure();
-    }
-    else if (this == PageModesD::self)
-    {
-    }
-}
+//void Page::SetTypeAndModeMeasure(int t, int m)
+//{
+//    Switch *type = (Switch *)items[0];
+//
+//    type->state->value = (uint8)t;
+//
+//    Switch *mode = (Switch *)items[1];
+//
+//    mode->state->value = (uint8)m;
+//
+//    if (this == PageModesA::self)
+//    {
+//        PageModesA::OnChanged_TypeMeasure();
+//    }
+//    else if (this == PageModesB::self)
+//    {
+//        PageModesB::OnChanged_TypeMeasure();
+//    }
+//    else if (this == PageModesC::self)
+//    {
+//        PageModesC::OnChanged_TypeMeasure();
+//    }
+//    else if (this == PageModesD::self)
+//    {
+//    }
+//}
