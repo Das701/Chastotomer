@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
 #include "Hardware/FPGA.h"
@@ -56,9 +57,9 @@
 
 #define WRITE_COMMAND(x)                                                                \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, (x == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);    \
-    HAL_TIM::DelayUS(2);                                                                \
+    HAL_TIM::DelayUS(20);                                                                \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);                                \
-    HAL_TIM::DelayUS(2);                                                                \
+    HAL_TIM::DelayUS(20);                                                                \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
 #define CYCLE_WRITE_COMMAND(num, x)                                                     \
@@ -231,30 +232,47 @@ void FPGA::ReadComparator()
 
 void FPGA::WriteCommand(const char command[4], const char argument[6])
 {
+//    char buffer[20];
+//
+//    std::memcpy(buffer, command, 4);
+//    std::memcpy(buffer + 5, argument, 6);
+//
+//    for (int i = 0; i < 11; i++)
+//    {
+//        buffer[i] |= 0x30;
+//    }
+//
+//    buffer[4] = ' ';
+//    buffer[11] = 0;
+//
+//    LOG_WRITE(buffer);
+
+#define DELAY  HAL_TIM::DelayUS(20)
+
     if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == 0)
     {
         Reset_CS;
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-        HAL_TIM::DelayUS(2);
+        DELAY;
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET); //-V525
-        HAL_TIM::DelayUS(2);
+        DELAY;
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-        HAL_TIM::DelayUS(2);
+        DELAY;
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
         CYCLE_WRITE_COMMAND(4, command);
 
         CYCLE_WRITE_COMMAND(6, argument);
 
-        HAL_TIM::DelayUS(2);
+        DELAY;
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //-V525
-        HAL_TIM::DelayUS(2);
+        DELAY;
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
-        HAL_TIM::DelayUS(2);
+        DELAY;
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-        HAL_TIM::DelayUS(2);
+        DELAY;
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
     }

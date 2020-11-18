@@ -24,15 +24,15 @@ void Channel::LoadCurrentToFPGA()
 
     DEFINE_ARGUMENT;
 
-    if (Menu::OpenedPage() == PageSettingsB::self)
+    if (CURRENT_CHANNEL_IS_B)
     {
         argument[4] = 1;
     }
-    else if (Menu::OpenedPage() == PageSettingsC::self)
+    else if (CURRENT_CHANNEL_IS_C)
     {
         argument[5] = 1;
     }
-    else if (Menu::OpenedPage() == PageSettingsD::self)
+    else if (CURRENT_CHANNEL_IS_D)
     {
         argument[5] = 1;
         argument[4] = 1;

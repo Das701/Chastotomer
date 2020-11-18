@@ -89,8 +89,6 @@ static void SetCurrentChannel(const Control &control)
     {
         bool loadToFPGA = false;
         
-//        Channel::E prevChannel = CURRENT_CHANNEL;
-
         if (Menu::OpenedPage()->IsPageSettings())
         {
             Math::CircleIncrease<uint8>((uint8 *)&CURRENT_CHANNEL, 0, Channel::Count - 1);
@@ -106,7 +104,9 @@ static void SetCurrentChannel(const Control &control)
 
         if(loadToFPGA)
         {
-            //PageModes::VerifyTypeModeCurrentMeasure(prevChannel);
+            PageModes::OnChanged_TypeMeasure();
+
+            HAL_TIM::DelayMS(100);
 
             Channel::LoadCurrentToFPGA();
         }
