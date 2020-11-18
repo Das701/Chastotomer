@@ -163,8 +163,6 @@ void PageModesB::OnChanged_ModeDuration()
 {
     items[1] = &sModeDuration;
 
-    PageModesA::modeMeasureDuration.value = PageModesB::modeMeasureDuration.value;
-    
     switch (PageModesB::modeMeasureDuration.value)
     {
     case ModeMeasureDuration::Ndt_1ns:
@@ -209,7 +207,6 @@ void PageModesB::OnChanged_ModeCountPulse()
         break;
 
     case ModeMeasureCountPulse::StartStop:
-        PageModesA::modeMeasureCountPulse.value = ModeMeasureCountPulse::StartStop;
         break;
     }
 
