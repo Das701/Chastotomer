@@ -106,7 +106,7 @@ static void SetCurrentChannel(const Control &control)
 
         if(loadToFPGA)
         {
-            PageModes::VerifyTypeModeCurrentMeasure(prevChannel);
+            //PageModes::VerifyTypeModeCurrentMeasure(prevChannel);
 
             Channel::LoadCurrentToFPGA();
         }
