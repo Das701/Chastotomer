@@ -363,7 +363,7 @@ void MathFPGA::FillFactor::Calculate(uint period, uint duration)
 {
     value = (float)duration / (float)period;
 
-    if (ModeMeasureDuration::Current().Is_Phase())
+    if (ModeMeasureDuration::Current().IsPhase())
     {
         value *= 360;
     }
@@ -465,13 +465,13 @@ void MathFPGA::Measure::CalculateNewData()
         {
             Data::SetDigits(Comparator::value.ToString());
         }
-        else if (ModeMeasureDuration::Current().Is_Ndt_1ns())
+        else if (ModeMeasureDuration::Current().IsNdt_1ns())
         {
             Data::SetDigits(String("%10.2f", MathFPGA::Interpolator::value));
         }
-        else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_FillFactor() || ModeMeasureDuration::Current().Is_Phase()))
+        else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().IsFillFactor() || ModeMeasureDuration::Current().IsPhase()))
         {
-            if (ModeMeasureDuration::Current().Is_Phase())
+            if (ModeMeasureDuration::Current().IsPhase())
             {
                 Data::SetDigits(String("%10.3f", MathFPGA::FillFactor::value));
             }
@@ -521,13 +521,13 @@ void MathFPGA::Measure::CalculateNewData()
 
 void MathFPGA::Measure::CalculateUnits()
 {
-    if (ModeMeasureDuration::Current().Is_Ndt_1ns())
+    if (ModeMeasureDuration::Current().IsNdt_1ns())
     {
         Data::SetUnits(String(" ns"));
     }
-    else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().Is_FillFactor() || ModeMeasureDuration::Current().Is_Phase()))
+    else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().IsFillFactor() || ModeMeasureDuration::Current().IsPhase()))
     {
-        if (ModeMeasureDuration::Current().Is_Phase())
+        if (ModeMeasureDuration::Current().IsPhase())
         {
             Data::SetUnits(String(" $"));
         }

@@ -125,11 +125,11 @@ struct ModeMeasureDuration : public Enumeration
 
     explicit ModeMeasureDuration(E v) : Enumeration((uint8)v) {};
 
-    bool Is_Ndt() const        { return (value == Ndt); }
-    bool Is_Ndt_1ns() const    { return (value == Ndt_1ns); }
-    bool Is_StartStop() const  { return (value == StartStop); }
-    bool Is_FillFactor() const { return (value == FillFactor); }
-    bool Is_Phase() const      { return (value == Phase); }
+    bool IsNdt() const        { return (value == Ndt); }
+    bool IsNdt_1ns() const    { return (value == Ndt_1ns); }
+    bool IsStartStop() const  { return (value == StartStop); }
+    bool IsFillFactor() const { return (value == FillFactor); }
+    bool IsPhase() const      { return (value == Phase); }
 
     static ModeMeasureDuration &Current();
     static void LoadToFPGA();

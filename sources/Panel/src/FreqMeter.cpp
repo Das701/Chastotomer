@@ -206,20 +206,20 @@ void ModeMeasureDuration::LoadToFPGA()
 
     argument[0] = 1;
 
-    if (ModeMeasureDuration::Current().Is_Ndt_1ns())
+    if (ModeMeasureDuration::Current().IsNdt_1ns())
     {
         argument[4] = 1;
     }
-    else if (ModeMeasureDuration::Current().Is_StartStop())
+    else if (ModeMeasureDuration::Current().IsStartStop())
     {
         argument[5] = 1;
         argument[4] = 1;
     }
-    else if (ModeMeasureDuration::Current().Is_FillFactor())
+    else if (ModeMeasureDuration::Current().IsFillFactor())
     {
         argument[3] = 1;
     }
-    else if (ModeMeasureDuration::Current().Is_Phase())
+    else if (ModeMeasureDuration::Current().IsPhase())
     {
         argument[5] = 1;
         argument[3] = 1;
