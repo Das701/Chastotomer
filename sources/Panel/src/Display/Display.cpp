@@ -79,7 +79,9 @@ static Coord coordLaunch = { 305, yString };
 
 static void DrawValue(char *string, int x, int y)
 {
-    Text(string).Write(x, y);
+    Rectangle(Font::GetLengthText(string) + 5, 20).FillRounded(x - 3, y - 3, 2, Color::GREEN_20, Color::GREEN_20);
+
+    Text(string).Write(x, y, Color::WHITE);
 }
 
 
@@ -308,7 +310,7 @@ static void DrawInfo()
         }
         else
         {
-            Text("Память").Write(coordMemory.x, coordMemory.y);
+            DrawValue("Память", coordMemory.x, coordMemory.y);
         } 
     }
 
