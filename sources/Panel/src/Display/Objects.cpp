@@ -6,6 +6,7 @@
 #include "Hardware/MathFPGA.h"
 #include "Utils/String.h"
 #include <cctype>
+#include <cstdlib>
 
 
 void Object::Update()
@@ -25,7 +26,21 @@ bool Indicator::Draw()
     // Отрисовка заключается в следующем.
     // Каждый объект отрисовывается в начале дисплейного буфера
 
-    return false;
+
+    uint8 buffer[100][100];
+
+    for (int i = 0; i < 100; i++)
+    {
+        for (int j = 0; j < 100; j++)
+        {
+            buffer[i][j] = (uint8)(std::rand() % 16);
+        }
+    }
+
+
+    HAL_FSMC::SendBuffer(&buffer[0][0], 10, 50, 100, 100);
+
+    return true;
 }
 
 
