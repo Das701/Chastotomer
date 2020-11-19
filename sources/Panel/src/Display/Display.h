@@ -49,6 +49,7 @@ struct Display
 
     // Подготовить дисплей к непосредственному рисованию в аппаратуру
     static void Prepare(int width, int height);
+    static void SendToFSMC(int x0, int y0);
     static void Restore();
 
 private:

@@ -9,6 +9,9 @@
 #include <cstdlib>
 
 
+Object::ModeDraw::E Object::modeDraw(Object::ModeDraw::ToBuffer);
+
+
 void Object::Update()
 {
     if (needUpdate)

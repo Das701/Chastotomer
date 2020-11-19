@@ -148,10 +148,10 @@ void Display::InitHardware()
 
 void Display::BeginScene()
 {
-    for (int i = 0; i < Display::PHYSICAL_HEIGHT / Display::NUM_PARTS; i += 2)
+    for (int i = 0; i < PHYSICAL_HEIGHT / NUM_PARTS; i += 2)
     {
-          std::memcpy(&buffer[i][0], lineBackground, Display::PHYSICAL_WIDTH);
-          std::memcpy(&buffer[i + 1][0], lineBackground + 1, Display::PHYSICAL_WIDTH);
+          std::memcpy(&buffer[i][0], lineBackground, PHYSICAL_WIDTH);
+          std::memcpy(&buffer[i + 1][0], lineBackground + 1, PHYSICAL_WIDTH);
 
 //        std::memcpy(&buffer[i][0], lineBackground, Display::WIDTH);
 //        std::memcpy(&buffer[i + 1][0], lineBackground + 1, Display::WIDTH);
@@ -163,11 +163,11 @@ void Display::BeginScene()
 
 void Display::EndScene()
 {
-    HAL_FSMC::SendBuffer(buffer[0], 0, TopRow(), Display::PHYSICAL_WIDTH, Display::PHYSICAL_HEIGHT);
+    HAL_FSMC::SendBuffer(buffer[0], 0, TopRow(), PHYSICAL_WIDTH, PHYSICAL_HEIGHT);
 
     if (sendToSCPI)
     {
-        int numPart = (Display::PHYSICAL_HEIGHT / Display::NUM_PARTS) / TopRow();
+        int numPart = (PHYSICAL_HEIGHT / NUM_PARTS) / TopRow();
         
         uint data[WIDTH_BUFFER];
         
@@ -186,6 +186,12 @@ void Display::EndScene()
             sendToSCPI = false;
         }
     }
+}
+
+
+void Display::SendToFSMC(int x0, int y0)
+{
+    HAL_FSMC::SendBuffer(buffer[0], x0, y0, Width(), Height());
 }
 
 
