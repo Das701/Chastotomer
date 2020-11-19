@@ -29,7 +29,7 @@
 
 #define Read_FLAG   ReadPin(PinFLAG)
 
-#define DELAY  HAL_TIM::DelayUS(2)
+#define DELAY  HAL_TIM::DelayUS(20)
 
 
 #define READ_PIN_B14(x, bit)                                                            \
@@ -392,6 +392,7 @@ void FPGA::WriteData()
     }
 
     Reset_CS;
+
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
     DELAY;
@@ -416,6 +417,7 @@ void FPGA::WriteData()
     DELAY;
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+
     Set_CS;
 }
 
