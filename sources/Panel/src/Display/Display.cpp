@@ -249,7 +249,7 @@ void Display::DrawScreen()
         DrawChannelSettings();
         
         DrawInfo();
-        
+
         Menu::Draw();
         
         TimeMeasure::ProgressBar::Draw(273, 90);

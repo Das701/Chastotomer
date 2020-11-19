@@ -8,7 +8,19 @@
 #include <cctype>
 
 
-void Indicator::Draw()
+void Object::Update()
+{
+    if (needUpdate)
+    {
+        if (Draw())
+        {
+            needUpdate = false;
+        }
+    }
+}
+
+
+bool Indicator::Draw()
 {
     int x = 10;
     int y = 150;
@@ -33,10 +45,11 @@ void Indicator::Draw()
                 Font::Set(TypeFont::GOSTAU16BOLD);
             }
         }
+
+        FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 360, 170, Color::WHITE);
+
+        return true;
     }
 
-    if (Display::InDrawingPart(170, 50))
-    {
-        FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 360, 170, Color::WHITE);
-    }
+    return false;
 }
