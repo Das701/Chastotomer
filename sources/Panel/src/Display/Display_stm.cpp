@@ -163,7 +163,7 @@ void Display::BeginScene()
 
 void Display::EndScene()
 {
-    HAL_FSMC::SendBuffer(buffer[0], TopRow());
+    HAL_FSMC::SendBuffer(buffer[0], 0, TopRow());
 
     if (sendToSCPI)
     {

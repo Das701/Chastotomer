@@ -30,5 +30,7 @@ protected:
 
     virtual bool Draw();
 
+    bool Draw1();
+
 private:
 };

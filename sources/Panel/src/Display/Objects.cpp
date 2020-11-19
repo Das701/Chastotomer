@@ -22,6 +22,15 @@ void Object::Update()
 
 bool Indicator::Draw()
 {
+    // Отрисовка заключается в следующем.
+    // Каждый объект отрисовывается в начале дисплейного буфера
+
+    return false;
+}
+
+
+bool Indicator::Draw1()
+{
     int x = 10;
     int y = 150;
 
