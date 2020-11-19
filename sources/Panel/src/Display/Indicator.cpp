@@ -14,12 +14,12 @@ static const int height = sizeLine * 2;
 static const int bold = 2;
 
 
-Color LED::colorDraw(Color::WHITE);
-Color LED::colorBack(Color::BLACK);
+Color Indicator::colorDraw(Color::WHITE);
+Color Indicator::colorBack(Color::BLACK);
 
 
 
-void LED::DrawVLine(int x, int y, DirectV direct, DirectH directH, bool visible)
+void Indicator::DrawVLine(int x, int y, DirectV direct, DirectH directH, bool visible)
 {
     if (!visible)
     {
@@ -50,7 +50,7 @@ void LED::DrawVLine(int x, int y, DirectV direct, DirectH directH, bool visible)
 }
 
 
-void LED::DrawHLine(int x, int y, DirectH direct, bool visible)
+void Indicator::DrawHLine(int x, int y, DirectH direct, bool visible)
 {
     if (!visible)
     {
@@ -80,13 +80,13 @@ void LED::DrawHLine(int x, int y, DirectH direct, bool visible)
 }
 
 
-void LED::Test(int x, int y, Color cDraw, Color cBack)
+void Indicator::Test(int x, int y, Color cDraw, Color cBack)
 {
     DrawData("-123456789.0", x, y, cDraw, cBack);
 }
 
 
-void LED::DrawData(pString text, int x, int y, Color cDraw, Color cBack)
+void Indicator::DrawData(pString text, int x, int y, Color cDraw, Color cBack)
 {
     colorDraw = cDraw;
     colorBack = cBack;
@@ -117,7 +117,7 @@ void LED::DrawData(pString text, int x, int y, Color cDraw, Color cBack)
 }
 
 
-void LED::DrawDataAboutRight(pString text, int xRight, int y, Color cDraw, Color cBack)
+void Indicator::DrawDataAboutRight(pString text, int xRight, int y, Color cDraw, Color cBack)
 {
     pCHAR pointer = text;
 
@@ -133,7 +133,7 @@ void LED::DrawDataAboutRight(pString text, int xRight, int y, Color cDraw, Color
 }
 
 
-int LED::DeltaX(uint8 symbol)
+int Indicator::DeltaX(uint8 symbol)
 {
     if (symbol >= '0' && symbol <= '9')
     {
@@ -152,7 +152,7 @@ int LED::DeltaX(uint8 symbol)
 }
 
 
-void LED::DrawDigit(int x, int y, uint8 symbol)
+void Indicator::DrawDigit(int x, int y, uint8 symbol)
 {
     int d = 1;
 
