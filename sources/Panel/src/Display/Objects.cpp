@@ -21,7 +21,7 @@ void Object::Update()
 }
 
 
-bool Indicator::Draw()
+bool DataZone::Draw()
 {
     // Отрисовка заключается в следующем.
     // Каждый объект отрисовывается в начале дисплейного буфера
@@ -44,7 +44,7 @@ bool Indicator::Draw()
 }
 
 
-bool Indicator::Draw1()
+bool DataZone::Draw1()
 {
     int x = 10;
     int y = 150;

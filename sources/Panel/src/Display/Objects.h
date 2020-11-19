@@ -22,7 +22,7 @@ private:
 };
 
 
-class Indicator : public Object
+class DataZone : public Object
 {
 public:
 

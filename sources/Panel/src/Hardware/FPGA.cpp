@@ -47,7 +47,7 @@
         READ_PIN_B14(x, i);                                                             \
     }                                                                                   \
     if(verifyOverload) { isOverloaded = (x & 1U) != 0; };                               \
-    Display::indicator->Refresh();
+    Display::zoneData->Refresh();
 
 #define  CYCLE_READ_PIN_B14_NO_REFRESH(num, x, verifyOverload)                          \
     x = 0;                                                                              \

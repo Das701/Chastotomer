@@ -77,8 +77,8 @@ static const int MAX_OBJECTS = 10;
 static Object *objects[MAX_OBJECTS];
 static int numObjects = 0;
 
-static Indicator sIndicator;
-Indicator *Display::indicator = &sIndicator;
+static DataZone sDataZone;
+DataZone *Display::zoneData = &sDataZone;
 
 
 static void AddObject(Object *object)
@@ -95,7 +95,7 @@ void Display::Init()
 
     Font::SetSpacing(2);
 
-    AddObject(indicator);
+    AddObject(zoneData);
 }
 
 

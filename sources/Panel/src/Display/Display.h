@@ -2,7 +2,7 @@
 #include "Display/Colors.h"
 
 
-class Indicator;
+class DataZone;
 
 
 struct Display
@@ -41,7 +41,7 @@ struct Display
     static void Draw(uint *buffer);
 
     // Здесь отрисовка результата измерения
-    static Indicator *indicator;
+    static DataZone *zoneData;
 
 private:
     static bool sendToSCPI;     // Если true, то надо посылать в SCPI
