@@ -247,7 +247,9 @@ static void DrawScreen()
         
         Menu::Draw();
         
-        indicator.Draw(10, 150);
+        indicator.Refresh();
+
+        indicator.Update(10, 150);
 
         TimeMeasure::ProgressBar::Draw(273, 90);
     }
