@@ -276,27 +276,27 @@ void HAL_FSMC::WriteData(uint data)
 
 
 
-static void WindowSet(unsigned int s_x, unsigned int e_x, unsigned int s_y, unsigned int e_y)
+static void WindowSet(int s_x, int e_x, int s_y, int e_y)
 {
-    HAL_FSMC::WriteCommand(0x2a);       //SET page address
+    HAL_FSMC::WriteCommand(0x2a);               //SET page address
 
-    HAL_FSMC::WriteData((s_x) >> 8);    //SET start page address=0
-    HAL_FSMC::WriteData(s_x);
-    HAL_FSMC::WriteData((e_x) >> 8);    //SET end page address
-    HAL_FSMC::WriteData(e_x);
+    HAL_FSMC::WriteData((uint)((s_x) >> 8));    //SET start page address=0
+    HAL_FSMC::WriteData((uint)s_x);
+    HAL_FSMC::WriteData((uint)(e_x) >> 8);      //SET end page address
+    HAL_FSMC::WriteData((uint)e_x);
 
-    HAL_FSMC::WriteCommand(0x2b);       //SET column address
+    HAL_FSMC::WriteCommand(0x2b);               //SET column address
 
-    HAL_FSMC::WriteData((s_y) >> 8);    //SET start column address=0
-    HAL_FSMC::WriteData(s_y);
-    HAL_FSMC::WriteData((e_y) >> 8);    //SET end column address
-    HAL_FSMC::WriteData(e_y);
+    HAL_FSMC::WriteData((uint)(s_y) >> 8);      //SET start column address=0
+    HAL_FSMC::WriteData((uint)s_y);
+    HAL_FSMC::WriteData((uint)(e_y) >> 8);      //SET end column address
+    HAL_FSMC::WriteData((uint)e_y);
 }
 
 
-void HAL_FSMC::SendBuffer(uint8 *buffer, int startX, int startY)
+void HAL_FSMC::SendBuffer(uint8 *buffer, int x, int y)
 {
-    WindowSet((uint)startX, 0x1df, (uint)startY, 0x10f);
+    WindowSet(x, 0x1df, y, 0x10f);
 
     HAL_FSMC::WriteCommand(0x2c);   // Write memory start
 
