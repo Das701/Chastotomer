@@ -26,7 +26,7 @@ void Indicator::Draw()
             else
             {
                 if (data[0] == 'П')         { x += 40;  }   // Переполнение
-                else if (data[0] == 'X')    { x += 100; }   // Деление на ноль
+                else if (data[0] == '=')    { x += 150; }   // Деление на ноль
 
                 Font::Set(TypeFont::GOSTB28B);
                 Text(data.c_str()).Write(x, y + 15, Color::WHITE);
