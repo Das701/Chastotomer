@@ -419,7 +419,7 @@ void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
 
     if (CURRENT_CHANNEL_IS_D)
     {
-        data.FromDouble(decDataC.ToDouble() * 2.0);
+        data.FromDouble(decDataC.ToDouble());
     }
 
     data.Div((uint)(2 * emptyZeros));

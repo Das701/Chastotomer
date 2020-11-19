@@ -223,8 +223,6 @@ void PageModesA::OnChanged_ModeDuration()
     PageModesA::RelationOff();
 
     ModeMeasureDuration::LoadToFPGA();
-
-    Channel::LoadCurrentToFPGA();       // \todo это сделано для Ndt_1ns
 }
 
 // Выбор режима измерения длительности импульсов, интервалов, коэффициента заполнения, разности фаз
