@@ -2,6 +2,9 @@
 #include "Display/Colors.h"
 
 
+class Indicator;
+
+
 struct Display
 {
 	static const int WIDTH = 480;
@@ -37,8 +40,13 @@ struct Display
 
     static void Draw(uint *buffer);
 
+    // Здесь отрисовка результата измерения
+    static Indicator *indicator;
+
 private:
     static bool sendToSCPI;     // Если true, то надо посылать в SCPI
 
     static void InitHardware();
+
+    static void DrawScreen();
 };

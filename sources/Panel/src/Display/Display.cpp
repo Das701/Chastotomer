@@ -32,7 +32,6 @@ static void DrawHint(int x, int y);
 // Ќарисовать строку настроек текущего канала
 static void DrawChannelSettings();
 
-static void DrawScreen();
 static void DrawInfo();
 
 static void SetTopRow(int i);
@@ -78,7 +77,8 @@ static const int MAX_OBJECTS = 10;
 static Object *objects[MAX_OBJECTS];
 static int numObjects = 0;
 
-static Indicator indicator;
+static Indicator sIndicator;
+Indicator *Display::indicator = &sIndicator;
 
 
 static void AddObject(Object *object)
@@ -95,7 +95,7 @@ void Display::Init()
 
     Font::SetSpacing(2);
 
-    AddObject(&indicator);
+    AddObject(indicator);
 }
 
 
@@ -222,7 +222,7 @@ void Display::DrawPartScreen(int num, bool debugInfo)
 }
 
 
-static void DrawScreen()
+void Display::DrawScreen()
 {
     if(PageIndication::calibration.Is(Calibration::Pressed))
     {
@@ -247,9 +247,9 @@ static void DrawScreen()
         
         Menu::Draw();
         
-        indicator.Refresh();
+        indicator->Refresh();
 
-        indicator.Update(10, 150);
+        indicator->Update(10, 150);
 
         TimeMeasure::ProgressBar::Draw(273, 90);
     }
