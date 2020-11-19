@@ -49,7 +49,7 @@ void PageStatistics::Draw()
     int x0 = 10;
     int y0 = 10;
     int width = Display::WIDTH - 20;
-    int height = 110;
+    int height = 90;
 
     Rectangle(width, height).Fill(x0, y0, Color::GRAY_50);
 
@@ -58,7 +58,7 @@ void PageStatistics::Draw()
         return;
     }
 
-    int startElement = MathFPGA::Comparator::values.Size() - 7;
+    int startElement = MathFPGA::Comparator::values.Size() - 6;
 
     if (startElement < 0)
     {
@@ -67,7 +67,7 @@ void PageStatistics::Draw()
 
     for (int i = startElement; i < MathFPGA::Comparator::values.Size(); i++)
     {
-        Text(String("%d - %f", i, MathFPGA::Comparator::values[i])).Write(x0 + 330, y0 + 2 + 15 * (i - startElement), Color::WHITE);
+        Text(String("%d - %f", i, MathFPGA::Comparator::values[i])).Write(x0 + 330, y0 + 1 + 15 * (i - startElement), Color::WHITE);
     }
 
     double min = 1e100;
