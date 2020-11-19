@@ -569,6 +569,16 @@
               <FilePath>.\src\Display\LED.cpp</FilePath>
             </File>
             <File>
+              <FileName>Objects.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Objects.h</FilePath>
+            </File>
+            <File>
+              <FileName>Objects.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Objects.cpp</FilePath>
+            </File>
+            <File>
               <FileName>Primitives.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Primitives.h</FilePath>
@@ -1638,6 +1648,16 @@
               <FileName>LED.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\LED.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Objects.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Objects.h</FilePath>
+            </File>
+            <File>
+              <FileName>Objects.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Objects.cpp</FilePath>
             </File>
             <File>
               <FileName>Primitives.h</FileName>

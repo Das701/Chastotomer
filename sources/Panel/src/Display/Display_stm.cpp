@@ -80,7 +80,7 @@ static void SetModeLCD()
 
 
 
-void Display::Init()
+void Display::InitHardware()
 {
     HAL_FSMC::Reset();
     
@@ -135,13 +135,6 @@ void Display::Init()
     HAL_FSMC::WriteData(0x0f); //0..271
     
     HAL_FSMC::WriteCommand(0x2c);
-
-    Font::Set(TypeFont::GOSTAU16BOLD);
-
-    Font::SetSpacing(2);
-
-
-//    int num = 4;
 
     uint8 *pointer = lineBackground;
 

@@ -3,6 +3,7 @@
 #include "Settings.h"
 #include "Display/Console.h"
 #include "Display/Display.h"
+#include "Display/Objects.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Display/Font/FontBig.h"
@@ -75,6 +76,31 @@ static Coord coordMemory = { 15, yString };
 static Coord coordTest = { 40, yString };
 static Coord coordExtGenerator = { 95, yString };
 static Coord coordLaunch = { 130, yString };
+
+
+static const int MAX_OBJECTS = 10;
+static Object *objects[MAX_OBJECTS];
+static int numObjects = 0;
+
+static Indicator indicator;
+
+
+static void AddObject(Object *object)
+{
+    objects[numObjects++] = object;
+}
+
+
+void Display::Init()
+{
+    InitHardware();
+
+    Font::Set(TypeFont::GOSTAU16BOLD);
+
+    Font::SetSpacing(2);
+
+    AddObject(&indicator);
+}
 
 
 static void DrawValue(char *string, int x, int y)

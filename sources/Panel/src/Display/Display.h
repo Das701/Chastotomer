@@ -39,4 +39,6 @@ struct Display
 
 private:
     static bool sendToSCPI;     // Если true, то надо посылать в SCPI
+
+    static void InitHardware();
 };

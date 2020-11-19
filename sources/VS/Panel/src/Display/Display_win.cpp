@@ -87,7 +87,7 @@ static Screen *screen = nullptr;
 
 static wxBitmap *backgroundBMP = nullptr;
 
-void Display::Init()
+void Display::InitHardware()
 {
     CreateFrame();
 

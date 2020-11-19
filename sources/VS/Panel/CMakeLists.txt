@@ -49,6 +49,7 @@ file(GLOB DISPLAY                         src/Display/Display_win.cpp
                               ../../Panel/src/Display/Console.*
                               ../../Panel/src/Display/Display.*
                               ../../Panel/src/Display/LED.*
+                              ../../Panel/src/Display/Objects.*
                               ../../Panel/src/Display/Primitives.*
                                           src/Display/Primitives_win.cpp
                               ../../Panel/src/Display/Symbols.*
