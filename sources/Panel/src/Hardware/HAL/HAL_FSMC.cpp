@@ -312,7 +312,7 @@ void HAL_FSMC::SendBuffer(uint8 *buffer, int x, int y, int width, int height)
 
     PORT_D_C->BSRR = PIN_D_C;
 
-    for(int i = 0; i < Display::WIDTH * Display::HEIGHT / 2 / Display::NUM_PARTS; i++)
+    for(int i = 0; i < width * height / 4; i++)
     {
         uint color1 = COLOR(*buffer++);
         uint color2 = COLOR(*buffer++);
