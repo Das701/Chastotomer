@@ -559,6 +559,16 @@
               <FilePath>.\src\Display\Display_stm.cpp</FilePath>
             </File>
             <File>
+              <FileName>LED.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\LED.h</FilePath>
+            </File>
+            <File>
+              <FileName>LED.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\LED.cpp</FilePath>
+            </File>
+            <File>
               <FileName>Primitives.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Primitives.h</FilePath>
@@ -582,16 +592,6 @@
               <FileName>Text.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Text.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Indicator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Indicator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Indicator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Indicator.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1630,6 +1630,16 @@
               <FilePath>.\src\Display\Display_stm.cpp</FilePath>
             </File>
             <File>
+              <FileName>LED.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\LED.h</FilePath>
+            </File>
+            <File>
+              <FileName>LED.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\LED.cpp</FilePath>
+            </File>
+            <File>
               <FileName>Primitives.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Primitives.h</FilePath>
@@ -1653,16 +1663,6 @@
               <FileName>Text.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Text.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Indicator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Indicator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Indicator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Indicator.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -2,7 +2,7 @@
 #include "Display/Colors.h"
 
 
-struct Indicator
+struct LED
 {
     static void DrawData(pString text, int x, int y, Color colorDraw, Color colorBack);
     static void DrawDataAboutRight(pString text, int xRight, int y, Color colorDraw, Color colorBack);

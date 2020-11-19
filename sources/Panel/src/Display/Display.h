@@ -19,8 +19,6 @@ struct Display
 
     static void BeginScene();
 
-    static void Draw(uint *buffer);
-
     static void EndScene();
 
     static bool DrawWelcomeScreen();
@@ -36,6 +34,8 @@ struct Display
     static void DrawPartScreen(int num, bool debugInfo);
 
     static void SendToSCPI();
+
+    static void Draw(uint *buffer);
 
 private:
     static bool sendToSCPI;     // Если true, то надо посылать в SCPI
