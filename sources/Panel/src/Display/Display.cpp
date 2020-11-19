@@ -252,10 +252,6 @@ void Display::DrawScreen()
         
         Menu::Draw();
         
-        indicator->Refresh();
-
-        indicator->Update();
-
         TimeMeasure::ProgressBar::Draw(273, 90);
     }
 }

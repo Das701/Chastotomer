@@ -2,6 +2,7 @@
 #include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
+#include "Display/Objects.h"
 #include "Hardware/FPGA.h"
 #include "Hardware/MathFPGA.h"
 #include "Hardware/HAL/HAL.h"
@@ -46,7 +47,7 @@
         READ_PIN_B14(x, i);                                                             \
     }                                                                                   \
     if(verifyOverload) { isOverloaded = (x & 1U) != 0; };                               \
-    Display::Refresh();
+    Display::indicator->Refresh();
 
 #define  CYCLE_READ_PIN_B14_NO_REFRESH(num, x, verifyOverload)                          \
     x = 0;                                                                              \
