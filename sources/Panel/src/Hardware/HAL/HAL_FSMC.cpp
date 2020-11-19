@@ -294,9 +294,15 @@ static void WindowSet(int s_x, int e_x, int s_y, int e_y)
 }
 
 
-void HAL_FSMC::SendBuffer(uint8 *buffer, int top, int left, int right, int bottom)
+void HAL_FSMC::SendBuffer(uint8 *buffer, int x, int y, int width, int height)
 {
-    WindowSet(top, right - 1, left, bottom - 1);
+    int top = x;
+    int right = x + width - 1;
+
+    int left = y;
+    int bottom = y + height - 1;
+
+    WindowSet(top, right, left, bottom);
 
     HAL_FSMC::WriteCommand(0x2c);   // Write memory start
 
