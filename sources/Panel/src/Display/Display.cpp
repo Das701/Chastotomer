@@ -6,8 +6,6 @@
 #include "Display/Objects.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
-#include "Display/Font/FontBig.h"
-#include "Display/Font/FontMid.h"
 #include "Hardware/FPGA.h"
 #include "Hardware/FreqMeter.h"
 #include "Hardware/MathFPGA.h"
@@ -20,7 +18,6 @@
 #include "Menu/Pages/PageIndication.h"
 #include "Utils/String.h"
 #include "Utils/StringUtils.h"
-#include <cctype>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -37,7 +34,6 @@ static void DrawChannelSettings();
 
 static void DrawScreen();
 static void DrawInfo();
-static void DrawData();
 
 static void SetTopRow(int i);
 
@@ -251,9 +247,7 @@ static void DrawScreen()
         
         Menu::Draw();
         
-        DrawData();
-
-        //LED::Test(10, 150, Color::WHITE);
+        indicator.Draw(10, 150);
 
         TimeMeasure::ProgressBar::Draw(273, 90);
     }
@@ -382,33 +376,6 @@ static void DrawInfo()
         {
             Text(" ").Write(430, 80);
         }
-    }
-}
-
-static void DrawData()
-{
-    if (Display::InDrawingPart(150, 50))
-    {
-        String data = MathFPGA::Data::GiveDigits();
-
-        if (data[0] != 0)
-        {
-            if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
-            {
-                FontBig::Write(data.c_str(), 10, 150, Color::WHITE);
-            }
-            else
-            {
-                Font::Set(TypeFont::GOSTB28B);
-                Text(data.c_str()).Write(50, 165, Color::WHITE);
-                Font::Set(TypeFont::GOSTAU16BOLD);
-            }
-        }
-    }
-
-    if (Display::InDrawingPart(170, 50))
-    {
-        FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 360, 170, Color::WHITE);
     }
 }
 

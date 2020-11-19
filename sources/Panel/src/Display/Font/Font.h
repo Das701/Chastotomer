@@ -1,5 +1,7 @@
 #pragma once
 #include "defines.h"
+#include "FontBig.h"
+#include "FontMid.h"
 
 
 struct TypeFont
