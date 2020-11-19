@@ -35,7 +35,7 @@ static const uint8 *startBuffer = &buffer[0][0];
 static const uint8 *endBuffer = startBuffer + WIDTH_BUFFER * HEIGHT_BUFFER;
 
 
-static uint8 lineBackground[Display::WIDTH * 2];    // Эта последовательность байт используется для отрисовки фона
+static uint8 lineBackground[Display::PHYSICAL_WIDTH * 2];    // Эта последовательность байт используется для отрисовки фона
 
 
 static void SetLShiftFreq(uint freq)
@@ -138,7 +138,7 @@ void Display::InitHardware()
 
     uint8 *pointer = lineBackground;
 
-    for (int i = 0; i < Display::WIDTH * 2; i += 2)
+    for (int i = 0; i < Display::PHYSICAL_WIDTH * 2; i += 2)
     {
         *pointer++ = Color::GREEN_10.value;
         *pointer++ = Color::GREEN_25.value;
@@ -148,10 +148,10 @@ void Display::InitHardware()
 
 void Display::BeginScene()
 {
-    for (int i = 0; i < Display::HEIGHT / Display::NUM_PARTS; i += 2)
+    for (int i = 0; i < Display::PHYSICAL_HEIGHT / Display::NUM_PARTS; i += 2)
     {
-          std::memcpy(&buffer[i][0], lineBackground, Display::WIDTH);
-          std::memcpy(&buffer[i + 1][0], lineBackground + 1, Display::WIDTH);
+          std::memcpy(&buffer[i][0], lineBackground, Display::PHYSICAL_WIDTH);
+          std::memcpy(&buffer[i + 1][0], lineBackground + 1, Display::PHYSICAL_WIDTH);
 
 //        std::memcpy(&buffer[i][0], lineBackground, Display::WIDTH);
 //        std::memcpy(&buffer[i + 1][0], lineBackground + 1, Display::WIDTH);
@@ -163,11 +163,11 @@ void Display::BeginScene()
 
 void Display::EndScene()
 {
-    HAL_FSMC::SendBuffer(buffer[0], 0, TopRow(), Display::WIDTH, Display::HEIGHT);
+    HAL_FSMC::SendBuffer(buffer[0], 0, TopRow(), Display::PHYSICAL_WIDTH, Display::PHYSICAL_HEIGHT);
 
     if (sendToSCPI)
     {
-        int numPart = (Display::HEIGHT / Display::NUM_PARTS) / TopRow();
+        int numPart = (Display::PHYSICAL_HEIGHT / Display::NUM_PARTS) / TopRow();
         
         uint data[WIDTH_BUFFER];
         
@@ -209,7 +209,7 @@ void Point::Draw(int x, int y, Color color)
 
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / Display::NUM_PARTS)
+    if (x >= 0 && x < Display::Width() && y >= 0 && y < Display::Height() / Display::NUM_PARTS)
     {
         buffer[y][x] = current.value;
     }
@@ -220,7 +220,7 @@ void Point::Draw(int x, int y)
 {
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / Display::NUM_PARTS)
+    if (x >= 0 && x < Display::Width() && y >= 0 && y < Display::Height() / Display::NUM_PARTS)
     {
         buffer[y][x] = current.value; 
     }
@@ -239,13 +239,13 @@ void HLine::Draw(int x, int y)
 {
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::WIDTH && y >= 0 && y < Display::HEIGHT / Display::NUM_PARTS)
+    if (x >= 0 && x < Display::Width() && y >= 0 && y < Display::Height() / Display::NUM_PARTS)
     {
         int end = x + length;
 
-        if (end >= Display::WIDTH)
+        if (end >= Display::Width())
         {
-            end = Display::WIDTH - 1;
+            end = Display::Width() - 1;
         }
 
         uint8 *pointer = &buffer[y][x];
@@ -262,7 +262,7 @@ void VLine::Draw(int x, int y)
 {
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::WIDTH)
+    if (x >= 0 && x < Display::Width())
     {
         int height = length;
 
@@ -277,14 +277,14 @@ void VLine::Draw(int x, int y)
 
         if (height > 0)
         {
-            if (y < Display::HEIGHT / Display::NUM_PARTS)
+            if (y < Display::Height() / Display::NUM_PARTS)
             {
                 uint8 *pointer = &buffer[y][x];
 
                 while (pointer < endBuffer && height > 0)
                 {
                     *pointer = current.value;
-                    pointer += Display::WIDTH;
+                    pointer += Display::Width();
                     height--;
                 }
             }

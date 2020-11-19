@@ -554,19 +554,19 @@
               <FilePath>.\src\Display\Display.cpp</FilePath>
             </File>
             <File>
+              <FileName>Indicator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Indicator.h</FilePath>
+            </File>
+            <File>
+              <FileName>Indicator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Indicator.cpp</FilePath>
+            </File>
+            <File>
               <FileName>Display_stm.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Display_stm.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>LED.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\LED.h</FilePath>
-            </File>
-            <File>
-              <FileName>LED.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\LED.cpp</FilePath>
             </File>
             <File>
               <FileName>Objects.h</FileName>
@@ -1635,19 +1635,19 @@
               <FilePath>.\src\Display\Display.cpp</FilePath>
             </File>
             <File>
+              <FileName>Indicator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Indicator.h</FilePath>
+            </File>
+            <File>
+              <FileName>Indicator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Indicator.cpp</FilePath>
+            </File>
+            <File>
               <FileName>Display_stm.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Display_stm.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>LED.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\LED.h</FilePath>
-            </File>
-            <File>
-              <FileName>LED.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\LED.cpp</FilePath>
             </File>
             <File>
               <FileName>Objects.h</FileName>

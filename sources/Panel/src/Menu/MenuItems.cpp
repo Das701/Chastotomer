@@ -100,14 +100,14 @@ int Page::WidthItem(int num) const
 {
     if (IsPageModes())
     {
-        return (Display::WIDTH / 4);
+        return (Display::PHYSICAL_WIDTH / 4);
     }
 
-    int result = ((num % 2) == 0) ? ((Display::WIDTH - 1) / 6) : (Display::WIDTH / 6);
+    int result = ((num % 2) == 0) ? ((Display::PHYSICAL_WIDTH - 1) / 6) : (Display::PHYSICAL_WIDTH / 6);
 
     if (NumItems() == 5)
     {
-        result = ((num % 2) == 0) ? ((Display::WIDTH - 1) / 5) : (Display::WIDTH / 5);
+        result = ((num % 2) == 0) ? ((Display::PHYSICAL_WIDTH - 1) / 5) : (Display::PHYSICAL_WIDTH / 5);
 
         if (num == 4) { result += 3; }
 
@@ -116,7 +116,7 @@ int Page::WidthItem(int num) const
 
     if (NumItems() == 4)
     {
-        result = ((num % 2) == 0) ? ((Display::WIDTH - 1) / 4) : (Display::WIDTH / 4);
+        result = ((num % 2) == 0) ? ((Display::PHYSICAL_WIDTH - 1) / 4) : (Display::PHYSICAL_WIDTH / 4);
 
         if (num == 3) { result += 2; }
 

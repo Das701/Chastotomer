@@ -48,7 +48,7 @@ void PageStatistics::Draw()
 {
     int x0 = 10;
     int y0 = 10;
-    int width = Display::WIDTH - 20;
+    int width = Display::PHYSICAL_WIDTH - 20;
     int height = 91;
 
     Rectangle(width, height).Fill(x0, y0, Color::GRAY_50);

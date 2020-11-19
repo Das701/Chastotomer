@@ -7,11 +7,15 @@ class DataZone;
 
 struct Display
 {
-	static const int WIDTH = 480;
-	static const int HEIGHT = 272;
+	static const int PHYSICAL_WIDTH = 480;
+	static const int PHYSICAL_HEIGHT = 272;
 
     // Число частей, на которые поделен дисплей для отрисовки
     static const int NUM_PARTS = 2;
+
+    static int Width();
+
+    static int Height();
 
     static void Init();
 
@@ -42,6 +46,10 @@ struct Display
 
     // Здесь отрисовка результата измерения
     static DataZone *zoneData;
+
+    // Подготовить дисплей к непосредственному рисованию в аппаратуру
+    static void Prepare(int width, int height);
+    static void Restore();
 
 private:
     static bool sendToSCPI;     // Если true, то надо посылать в SCPI

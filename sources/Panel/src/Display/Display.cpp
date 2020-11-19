@@ -54,6 +54,9 @@ static uint timePaint = 0;          // Время отрисовки за секунду
 static int topDraw = 0;             // Верхний у отрисовываемой части экрана
 static int bottomhDraw = 0;         // Нижний у отрисовываемой части экрана
 
+static int width = Display::PHYSICAL_WIDTH;
+static int height = Display::PHYSICAL_HEIGHT;
+
 
 bool Display::sendToSCPI = false;
 
@@ -128,10 +131,10 @@ bool Display::DrawWelcomeScreen()
 
 static void SetTopRow(int i)
 {
-    topRow = i * (Display::HEIGHT / Display::NUM_PARTS);
+    topRow = i * (Display::PHYSICAL_HEIGHT / Display::NUM_PARTS);
 
     topDraw = topRow;
-    bottomhDraw = topDraw + Display::HEIGHT / Display::NUM_PARTS;
+    bottomhDraw = topDraw + Display::PHYSICAL_HEIGHT / Display::NUM_PARTS;
 }
 
 
@@ -177,7 +180,7 @@ void Display::Update()
 
     for (int i = 0; i < numObjects; i++)
     {
-        objects[i]->Update();
+//        objects[i]->Update();
     }
 
     needRedraw = false;
@@ -244,7 +247,7 @@ void Display::DrawScreen()
 
         PageModes::DrawParameters(270, 57);
         
-        DrawHint(10, Display::HEIGHT - Item::HEIGHT - 30);
+        DrawHint(10, Display::PHYSICAL_HEIGHT - Item::HEIGHT - 30);
         
         DrawChannelSettings();
         
@@ -392,6 +395,32 @@ int Display::TopRow()
 void Display::SendToSCPI()
 {
     sendToSCPI = true;
+}
+
+
+void Display::Prepare(int w, int h)
+{
+    width = w;
+    height = h;
+}
+
+
+void Display::Restore()
+{
+    width = PHYSICAL_WIDTH;
+    height = PHYSICAL_HEIGHT;
+}
+
+
+int Display::Width()
+{
+    return width;
+}
+
+
+int Display::Height()
+{
+    return height;
 }
 
 

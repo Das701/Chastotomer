@@ -52,7 +52,7 @@ wxMemoryDC memDC;
 
 bool Frame::needSave = false;
 
-static wxBitmap bitmap(Display::WIDTH, Display::HEIGHT);
+static wxBitmap bitmap(Display::PHYSICAL_WIDTH, Display::PHYSICAL_HEIGHT);
 
 
 // Создаёт окно приложения. Возвращает хэндл виджета для отрисовки
@@ -72,7 +72,7 @@ class Screen : public wxPanel
 public:
     Screen(wxWindow *parent) : wxPanel(parent, 320)
     {
-        SetMinSize({ Display::WIDTH, Display::HEIGHT });
+        SetMinSize({ Display::PHYSICAL_WIDTH, Display::PHYSICAL_HEIGHT });
         SetDoubleBuffered(true);
         Bind(wxEVT_PAINT, &Screen::OnPaint, this);
     }
@@ -237,7 +237,7 @@ static void CreateButtons(Frame *frame)
 
 static void SetPositionAndSize(Frame *frame)
 {
-    wxSize size = { Display::WIDTH + 330, Display::HEIGHT };
+    wxSize size = { Display::PHYSICAL_WIDTH + 330, Display::PHYSICAL_HEIGHT };
 
     frame->SetClientSize(size);
     frame->SetMinClientSize(size);

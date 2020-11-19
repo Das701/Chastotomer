@@ -13,11 +13,23 @@ void Object::Update()
 {
     if (needUpdate)
     {
+        Display::Prepare(width0, height0);
+
+        FillBackground();
+
         if (Draw())
         {
             needUpdate = false;
         }
+
+        Display::Restore();
     }
+}
+
+
+void Object::FillBackground()
+{
+
 }
 
 
@@ -46,10 +58,7 @@ bool DataZone::Draw()
 
 bool DataZone::Draw1()
 {
-    int x = 10;
-    int y = 150;
-
-    if (Display::InDrawingPart(y, 50))
+    if (Display::InDrawingPart(y0, height0))
     {
         String data = MathFPGA::Data::GiveDigits();
 
@@ -57,15 +66,17 @@ bool DataZone::Draw1()
         {
             if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
             {
-                FontBig::Write(data.c_str(), x, y, Color::WHITE);
+                FontBig::Write(data.c_str(), x0 + 10, y0, Color::WHITE);
             }
             else
             {
+                int x = x0;
+
                 if (data[0] == 'П')         { x += 40;  }   // Переполнение
                 else if (data[0] == '=')    { x += 150; }   // Деление на ноль
 
                 Font::Set(TypeFont::GOSTB28B);
-                Text(data.c_str()).Write(x, y + 15, Color::WHITE);
+                Text(data.c_str()).Write(x, y0 + 15, Color::WHITE);
                 Font::Set(TypeFont::GOSTAU16BOLD);
             }
         }

@@ -49,7 +49,7 @@ static Control::E pressedKey = Control::None;
 // Контекст рисования
 wxMemoryDC memDC;
 
-static wxBitmap bitmap(Display::WIDTH, Display::HEIGHT);
+static wxBitmap bitmap(Display::PHYSICAL_WIDTH, Display::PHYSICAL_HEIGHT);
 
 
 // Создаёт окно приложения. Возвращает хэндл виджета для отрисовки
@@ -69,7 +69,7 @@ class Screen : public wxPanel
 public:
     Screen(wxWindow *parent) : wxPanel(parent, 320)
     {
-        SetMinSize({ Display::WIDTH, Display::HEIGHT });
+        SetMinSize({ Display::PHYSICAL_WIDTH, Display::PHYSICAL_HEIGHT });
         SetDoubleBuffered(true);
         Bind(wxEVT_PAINT, &Screen::OnPaint, this);
     }
@@ -95,14 +95,14 @@ void Display::InitHardware()
 
     Font::SetSpacing(2);
 
-    static unsigned char buffer[Display::WIDTH * Display::HEIGHT * 3];
+    static unsigned char buffer[Display::PHYSICAL_WIDTH * Display::PHYSICAL_HEIGHT * 3];
 
     unsigned char *pointer = buffer;
 
     Color color1 = Color::GREEN_10;
     Color color2 = Color::GREEN_25;
 
-    for (int i = 0; i < Display::WIDTH * Display::HEIGHT; i += 2)
+    for (int i = 0; i < Display::PHYSICAL_WIDTH * Display::PHYSICAL_HEIGHT; i += 2)
     {
         *pointer++ = RED_FROM_COLOR(COLOR(color1.value));
         *pointer++ = GREEN_FROM_COLOR(COLOR(color1.value));
@@ -112,14 +112,14 @@ void Display::InitHardware()
         *pointer++ = GREEN_FROM_COLOR(COLOR(color2.value));
         *pointer++ = BLUE_FROM_COLOR(COLOR(color2.value));
 
-        if (i % Display::WIDTH == 0)
+        if (i % Display::PHYSICAL_WIDTH == 0)
         {
             Math::Swap(color1, color2);
         }
     }
 
     wxImage image;
-    image.Create(Display::WIDTH, Display::HEIGHT, buffer, true);
+    image.Create(Display::PHYSICAL_WIDTH, Display::PHYSICAL_HEIGHT, buffer, true);
 
     static wxBitmap bmp(image);
 
@@ -206,7 +206,7 @@ static void CreateButtons(Frame *frame)
 
 static void SetPositionAndSize(Frame *frame)
 {
-    wxSize size = { Display::WIDTH + 330, Display::HEIGHT };
+    wxSize size = { Display::PHYSICAL_WIDTH + 330, Display::PHYSICAL_HEIGHT };
 
     frame->SetClientSize(size);
     frame->SetMinClientSize(size);
