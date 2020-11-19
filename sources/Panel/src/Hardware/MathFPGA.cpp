@@ -80,7 +80,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 
         if (test1 == 0.0)
         {
-            decDataA.FromDouble(0.0F);
+            isDivZero = true;
         }
         else
         {
@@ -109,6 +109,11 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
     else if (mode.IsRatioAC() || mode.IsRatioBC())
     {
         int sT = PageModes::timeMeasure.ToMS();
+
+        if (decDataB.ToDouble() == 0.0)
+        {
+            isDivZero = true;
+        }
 
         decDataA.FromDouble(decDataA.ToDouble() / decDataB.ToDouble() / 32);
         manualZeros = 1000000 * sT;
@@ -178,7 +183,7 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 
         if (decDataA.ToDouble() == 0.0)
         {
-            decDataA.FromDouble(0.0);
+            isDivZero = true;
         }
         else
         {
@@ -233,6 +238,8 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
     {
         return;
     }
+
+    isDivZero = false;
 
     switch (type)
     {
@@ -489,9 +496,12 @@ void MathFPGA::Measure::CalculateNewData()
             ValueNANO data(0);
 
             Calculate(emptyZeros, data);
-            
-            volatile float value = data.ToFloat();
-            value = value;
+
+            if (isDivZero)
+            {
+                Data::SetDigits(String("=X/0"));
+                return;
+            }
 
             int pow = 0;
 
@@ -620,10 +630,4 @@ void MathFPGA::Auto::Refresh()
 void MathFPGA::Interpolator::Calculate(uint timer, uint cal1, uint cal2)
 {
     value = (float)(100 * timer) / (float)(cal2 - cal1);
-}
-
-
-bool MathFPGA::IsDivZero()
-{
-    return isDivZero;
 }

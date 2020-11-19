@@ -49,7 +49,7 @@ void PageStatistics::Draw()
     int x0 = 10;
     int y0 = 10;
     int width = Display::WIDTH - 20;
-    int height = 90;
+    int height = 91;
 
     Rectangle(width, height).Fill(x0, y0, Color::GRAY_50);
 
@@ -103,6 +103,12 @@ void PageStatistics::Draw()
         Line().Draw(x1, y1, x2, y2);
     }
 
-    Text(String("%f", max)).Write(11, 11);
-    Text(String("%f", min)).Write(11, height - 5);
+    String strMAX("%f", max);
+    String strMIN("%f", min);
+
+    Rectangle(Font::GetLengthText(strMAX.c_str()) + 2, 16).Fill(10, 10, Color::GRAY_50);
+    Rectangle(Font::GetLengthText(strMIN.c_str()) + 2, 16).Fill(10, height - 6);
+
+    Text(strMAX).Write(11, 11, Color::BLACK);
+    Text(strMIN).Write(11, height - 5);
 }
