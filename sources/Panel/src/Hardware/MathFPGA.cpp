@@ -37,6 +37,9 @@ ValueNANO MathFPGA::Measure::decDataC(0);
 ValuePICO MathFPGA::Comparator::value(0);
 
 
+static bool isDivZero = false;
+
+
 String MathFPGA::Data::GiveDigits()
 {
     return String(digits);
@@ -617,4 +620,10 @@ void MathFPGA::Auto::Refresh()
 void MathFPGA::Interpolator::Calculate(uint timer, uint cal1, uint cal2)
 {
     value = (float)(100 * timer) / (float)(cal2 - cal1);
+}
+
+
+bool MathFPGA::IsDivZero()
+{
+    return isDivZero;
 }

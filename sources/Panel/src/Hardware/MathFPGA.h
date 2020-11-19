@@ -23,6 +23,9 @@ struct MathFPGA
         static char units[10];
     };
 
+    // Возврщает true в случае деления на ноль
+    static bool IsDivZero();
+
     static void DecToBin(int dec, char *bin);
 
     static int NA; //-V707
