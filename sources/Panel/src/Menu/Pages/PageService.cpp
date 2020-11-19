@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Settings.h"
 #include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/PageService.h"
 
@@ -16,7 +17,7 @@ static void OnPress_ResetSettings()
 
 }
 
-DEF_BUTTON(bResetSettings, "Сброс настроек", "Сброс настроек в состояние по умолчанию", OnPress_ResetSettings);
+DEF_BUTTON(bResetSettings, "Сброс", "Сброс настроек в состояние по умолчанию", OnPress_ResetSettings);
 
 
 static void OnPress_Language()
@@ -27,12 +28,12 @@ static void OnPress_Language()
 DEF_BUTTON(bLanguage, "Язык", "Выбор языка интерфейса", OnPress_Language);
 
 
-static void OnPress_ResetMode()
+static void OnPress_ShowStatistics()
 {
-
+    set.showStatistics = !set.showStatistics;
 }
 
-DEF_BUTTON(bResetMode, "Сброс режима", "", OnPress_ResetMode);
+DEF_BUTTON(bShowStatistics, "Статистика", "Показывать временную статистику", OnPress_ShowStatistics);
 
 
 static Item *items[7] =
@@ -40,7 +41,7 @@ static Item *items[7] =
     &bInformation,
     &bResetSettings,
     &bLanguage,
-    &bResetMode,
+    &bShowStatistics,
     nullptr,
     nullptr,
     nullptr

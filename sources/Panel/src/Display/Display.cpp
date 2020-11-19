@@ -168,8 +168,6 @@ void Display::Update()
 
 void Display::DrawPartScreen(int num, bool debugInfo)
 {
-    debugInfo = false;
-    
     SetTopRow(num);
 
     if (num == 0)
@@ -186,7 +184,7 @@ void Display::DrawPartScreen(int num, bool debugInfo)
         Console::Draw();
     }
 
-    if (num == 0 && debugInfo)
+    if (num == 0 && debugInfo && set.showStatistics)
     {
         Text(String("%d", timeFrame)).Write(440, 0, Color::BLACK);
         Text(String("%d", fps)).Write(440, 15);
