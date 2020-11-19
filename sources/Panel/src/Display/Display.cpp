@@ -175,6 +175,11 @@ void Display::Update()
         currentTimePaintInSec += timeFrame;
     }
 
+    for (int i = 0; i < numObjects; i++)
+    {
+        objects[i]->Update();
+    }
+
     needRedraw = false;
 
     if (TIME_MS >= beginSecond + 1000)
@@ -249,7 +254,7 @@ void Display::DrawScreen()
         
         indicator->Refresh();
 
-        indicator->Update(10, 150);
+        indicator->Update();
 
         TimeMeasure::ProgressBar::Draw(273, 90);
     }

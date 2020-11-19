@@ -8,8 +8,11 @@
 #include <cctype>
 
 
-void Indicator::Draw(int x, int y)
+void Indicator::Draw()
 {
+    int x = 10;
+    int y = 150;
+
     if (Display::InDrawingPart(y, 50))
     {
         String data = MathFPGA::Data::GiveDigits();

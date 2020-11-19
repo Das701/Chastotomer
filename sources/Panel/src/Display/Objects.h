@@ -7,14 +7,14 @@ public:
 
     virtual ~Object() {};
 
-    void Update(int x, int y)  { if (needUpdate) { Draw(x, y); needUpdate = false; } }
+    void Update()  { if (needUpdate) { Draw(); needUpdate = false; } }
     
     // Установить флаг необходимости перерисовки
     void Refresh() { needUpdate = true; }
 
 protected:
 
-    virtual void Draw(int x, int y) = 0;
+    virtual void Draw() = 0;
 
 private:
 
@@ -28,7 +28,7 @@ public:
 
 protected:
 
-    virtual void Draw(int x, int y);
+    virtual void Draw();
 
 private:
 };
