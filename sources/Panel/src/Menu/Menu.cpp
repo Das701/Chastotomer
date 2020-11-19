@@ -1,5 +1,4 @@
 #include "defines.h"
-#include "FreqMeter.h"
 #include "Display/Display.h"
 #include "Display/Font/Font.h"
 #include "Keyboard/Keyboard.h"

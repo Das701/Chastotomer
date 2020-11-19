@@ -1,5 +1,5 @@
 #pragma once
-#include "FreqMeter.h"
+#include "Hardware/FreqMeter.h"
 #include "Menu/MenuItems.h"
 
 

@@ -1,5 +1,4 @@
 #include "defines.h"
-#include "FreqMeter.h"
 #include "Settings.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"

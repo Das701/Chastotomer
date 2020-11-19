@@ -1,5 +1,4 @@
 #include "defines.h"
-#include "FreqMeter.h"
 #include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Hardware/MathFPGA.h"

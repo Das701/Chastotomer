@@ -499,16 +499,6 @@
               <FilePath>.\src\main.cpp</FilePath>
             </File>
             <File>
-              <FileName>FreqMeter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FreqMeter.h</FilePath>
-            </File>
-            <File>
-              <FileName>FreqMeter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FreqMeter.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Log.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Log.h</FilePath>
@@ -593,6 +583,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\Display\Text.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Indicator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Indicator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Indicator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Indicator.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -662,6 +662,16 @@
               <FileName>FPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\FPGA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FreqMeter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\FreqMeter.h</FilePath>
+            </File>
+            <File>
+              <FileName>FreqMeter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\FreqMeter.cpp</FilePath>
             </File>
             <File>
               <FileName>MathFPGA.h</FileName>
@@ -1560,16 +1570,6 @@
               <FilePath>.\src\main.cpp</FilePath>
             </File>
             <File>
-              <FileName>FreqMeter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FreqMeter.h</FilePath>
-            </File>
-            <File>
-              <FileName>FreqMeter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FreqMeter.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Log.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Log.h</FilePath>
@@ -1654,6 +1654,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\Display\Text.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Indicator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Indicator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Indicator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Indicator.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1723,6 +1733,16 @@
               <FileName>FPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\FPGA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FreqMeter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\FreqMeter.h</FilePath>
+            </File>
+            <File>
+              <FileName>FreqMeter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\FreqMeter.cpp</FilePath>
             </File>
             <File>
               <FileName>MathFPGA.h</FileName>

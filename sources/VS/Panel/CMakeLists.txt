@@ -48,6 +48,7 @@ file(GLOB DISPLAY                         src/Display/Display_win.cpp
                               ../../Panel/src/Display/Colors.*
                               ../../Panel/src/Display/Console.*
                               ../../Panel/src/Display/Display.*
+                              ../../Panel/src/Display/Indicator.*
                               ../../Panel/src/Display/Primitives.*
                                           src/Display/Primitives_win.cpp
                               ../../Panel/src/Display/Symbols.*
@@ -59,6 +60,7 @@ file(GLOB DISPLAY_FONT        ../../Panel/src/Display/Font/*.h
 file(GLOB FREQMETER           ../../Panel/src/FreqMeter/*)
 file(GLOB GUI                             src/GUI/*)
 file(GLOB HARDWARE            ../../Panel/src/Hardware/*FPGA.*
+                              ../../Panel/src/Hardware/FreqMeter.*
                               ../../Panel/src/Hardware/VCP.h
                                           src/Hardware/VCP_win.cpp)
 file(GLOB HARDWARE_HAL        ../../Panel/src/Hardware/HAL/HAL.*

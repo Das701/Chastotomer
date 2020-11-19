@@ -1,5 +1,4 @@
 #include "defines.h"
-#include "FreqMeter.h"
 #include "Settings.h"
 #include "Menu/Pages/Settings/PagesSettings.h"
 #include "Menu/MenuItems.h"
