@@ -146,33 +146,30 @@ static void SetTopRow(int i)
 void Display::Refresh()
 {
     needRedraw = true;
+
+    for (int i = 0; i < numObjects; i++)
+    {
+        objects[i]->Refresh();
+    }
 }
 
 
 void Display::Update()
 {
-    zoneProgressBarTimeMeasure->Refresh();
-
+    static uint currentFramesInSec = 0;         // Столько кадров отрисовано за текущую секунду
+    static uint currentTimePaintInSec = 0;      // Столько времени потрачено на отрисовку за текущую секунду
     static char prevHint = 0;
 
-    if (Hint::Text()[0] != prevHint)
+    zoneProgressBarTimeMeasure->Refresh();      // Прогресс-бар будем перерисовывать каждый кадр
+
+    if (Hint::Text()[0] != prevHint)            // Если изменилась подсказка - перерисовываем экран
     {
         prevHint = Hint::Text()[0];
 
         Display::Refresh();
     }
 
-    if (beginSecond == 0)
-    {
-        beginSecond = TIME_MS;
-    }
-
-//    static uint lastUpdate = 0;
-    static uint currentFramesInSec = 0;         // Столько кадров отрисовано за текущую секунду
-    static uint currentTimePaintInSec = 0;      // Столько времени потрачено на отрисовку за текущую секунду
-
-    if (needRedraw
-        /* ||((TIME_MS - lastUpdate) > 1000) */)
+    if (needRedraw)
     {
         timeStart = TIME_MS;
 
@@ -182,9 +179,6 @@ void Display::Update()
         }
 
         timeFrame = TIME_MS - timeStart;
-
-//        lastUpdate = TIME_MS;
-
         currentFramesInSec++;
         currentTimePaintInSec += timeFrame;
     }

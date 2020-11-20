@@ -104,6 +104,8 @@ void FPGA::Init()
     is.Pin = GPIO_PIN_8 | GPIO_PIN_9;
     HAL_GPIO_Init(GPIOC, &is);
 
+    Reset_WR;
+
 //    TimeMeasure::LoadToFPGA();
 //    NumberPeriods::LoadToFPGA();
 //    PeriodTimeLabels::LoadToFPGA();
@@ -248,8 +250,6 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
     {
     }
 
-    Set_WR;
-
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
     DELAY;
@@ -273,8 +273,6 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
     DELAY;
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-
-    Reset_WR;
 }
 
 void FPGA::IncreaseN()
@@ -399,8 +397,6 @@ void FPGA::WriteData()
     {
     }
 
-    Set_WR;
-
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
     DELAY;
@@ -425,8 +421,6 @@ void FPGA::WriteData()
     DELAY;
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-
-    Reset_WR;
 }
 
 
