@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
+#include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Display/Font/Font.h"
 #include "Hardware/MathFPGA.h"
@@ -9,24 +10,37 @@
 #include <cstdlib>
 
 
-void Object::Update()
+using namespace Primitives;
+
+
+void Object::Update(Object::ModeDraw::E mode)
 {
-    if (Display::DrawingToBuffer())
+    modeDraw = mode;
+
+    x0 = (mode == ModeDraw::ToHardware) ? 0 : left;
+    y0 = (mode == ModeDraw::ToHardware) ? 0 : top;
+
+    if (mode == Object::ModeDraw::ToBuffer)
     {
-        DrawToBuffer();
+        if (Display::InDrawingPart(top, height))
+        {
+            Draw();
+        }
     }
     else
     {
         if (needUpdate)
         {
-            Display::Prepare(width0, height0);
+            Display::Prepare(width, height);
 
             FillBackground();
 
-            if (DrawToHardware())
+            if (Draw())
             {
                 needUpdate = false;
             }
+
+            Display::SendToFSMC(left, top);
 
             Display::Restore();
         }
@@ -36,57 +50,38 @@ void Object::Update()
 
 void Object::FillBackground()
 {
+//    Rectangle(width0, height0).Fill(0, 0, Color::GREEN_20);
 
+    Display::BeginScene(left, top);
 }
 
 
-bool DataZone::DrawToHardware()
+bool DataZone::Draw()
 {
-    // Отрисовка заключается в следующем.
-    // Каждый объект отрисовывается в начале дисплейного буфера
+    String data = MathFPGA::Data::GiveDigits();
 
+    Color::WHITE.SetAsCurrent();
 
-    uint8 buffer[100][100];
-
-    for (int i = 0; i < 100; i++)
+    if (data[0] != 0)
     {
-        for (int j = 0; j < 100; j++)
+        if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
         {
-            buffer[i][j] = (uint8)(std::rand() % 16);
+            FontBig::Write(data.c_str(), x0 + 10, y0);
+        }
+        else
+        {
+            int x = x0;
+
+            if (data[0] == 'П') { x += 40; }   // Переполнение
+            else if (data[0] == '=') { x += 150; }   // Деление на ноль
+
+            Font::Set(TypeFont::GOSTB28B);
+            Text(data.c_str()).Write(x, y0 + 15);
+            Font::Set(TypeFont::GOSTAU16BOLD);
         }
     }
 
-    HAL_FSMC::SendBuffer(&buffer[0][0], 10, 50, 100, 100);
+    FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), x0 + 360, y0 + 20);
 
     return true;
-}
-
-
-void DataZone::DrawToBuffer()
-{
-    if (Display::InDrawingPart(y0, height0))
-    {
-        String data = MathFPGA::Data::GiveDigits();
-
-        if (data[0] != 0)
-        {
-            if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
-            {
-                FontBig::Write(data.c_str(), x0 + 10, y0, Color::WHITE);
-            }
-            else
-            {
-                int x = x0;
-
-                if (data[0] == 'П')         { x += 40;  }   // Переполнение
-                else if (data[0] == '=')    { x += 150; }   // Деление на ноль
-
-                Font::Set(TypeFont::GOSTB28B);
-                Text(data.c_str()).Write(x, y0 + 15, Color::WHITE);
-                Font::Set(TypeFont::GOSTAU16BOLD);
-            }
-        }
-
-        FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 360, 170, Color::WHITE);
-    }
 }

@@ -844,7 +844,7 @@ const uint8_t *FontMidArray_select(char symbol)
 	@param    foreground - palette for foreground (lower byte)
 	@return   width of symbol in pixels (for proportional string printing)
 */
-uint32_t FontMid::WriteSymbol(uint8_t symbol, int x, int y, Color color)
+uint32_t FontMid::WriteSymbol(uint8_t symbol, int x, int y)
 {
 	const uint8_t *index = FontMidArray_select((char)symbol);	// first row index
 
@@ -887,7 +887,7 @@ uint32_t FontMid::WriteSymbol(uint8_t symbol, int x, int y, Color color)
 				uint32_t pixel = rowshift & 0x8000;
 				if (pixel != 0)
 				{
-					Point().Draw((int)(x + i), y, color);
+					Point().Draw((int)(x + i), y);
 				}
 				if ((pixel != 0) && i > width)
 				{
@@ -913,11 +913,11 @@ uint32_t FontMid::WriteSymbol(uint8_t symbol, int x, int y, Color color)
 	@param   foreground - palette for foreground (lower byte)
 	@return
 */
-void FontMid::Write(char *text, int x, int y, Color color)
+void FontMid::Write(char *text, int x, int y)
 {
 	while (*text)
 	{
-		uint32_t space = WriteSymbol((uint8)*text, x, y, color);
+		uint32_t space = WriteSymbol((uint8)*text, x, y);
 		x += space;
 		text++;
 	}

@@ -59,7 +59,7 @@ static int height = Display::PHYSICAL_HEIGHT;
 
 
 bool Display::sendToSCPI = false;
-Display::ModeDraw::E Display::modeDraw(Display::ModeDraw::ToBuffer);
+bool Display::drawingScene = false;
 
 
 struct Coord
@@ -181,7 +181,7 @@ void Display::Update()
 
     for (int i = 0; i < numObjects; i++)
     {
-//        objects[i]->Update();
+        objects[i]->Update(Object::ModeDraw::ToHardware);
     }
 
     needRedraw = false;
@@ -256,7 +256,7 @@ void Display::DrawScreen()
 
         for (int i = 0; i < numObjects; i++)
         {
-            objects[i]->Update();
+            objects[i]->Update(Object::ModeDraw::ToBuffer);
         }
 
         Menu::Draw();
@@ -404,10 +404,15 @@ void Display::SendToSCPI()
 }
 
 
+static int oldTopRow = 0;
+
+
 void Display::Prepare(int w, int h)
 {
     width = w;
     height = h;
+    oldTopRow = topRow;
+    topRow = 0;
 }
 
 
@@ -415,6 +420,7 @@ void Display::Restore()
 {
     width = PHYSICAL_WIDTH;
     height = PHYSICAL_HEIGHT;
+    topRow = oldTopRow;
 }
 
 
@@ -440,6 +446,11 @@ bool Display::InDrawingPart(int, int)
 
 bool Display::InDrawingPart(int y, int height)
 {
+    if (!drawingScene)
+    {
+        return true;
+    }
+
     int yBottom = y + height;
 
     if (y >= topDraw && y <= bottomhDraw)

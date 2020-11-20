@@ -35,7 +35,7 @@ static const uint8 *startBuffer = &buffer[0][0];
 static const uint8 *endBuffer = startBuffer + WIDTH_BUFFER * HEIGHT_BUFFER;
 
 
-static uint8 lineBackground[Display::PHYSICAL_WIDTH * 2];    // Эта последовательность байт используется для отрисовки фона
+uint8 lineBackground[Display::PHYSICAL_WIDTH * 2];    // Эта последовательность байт используется для отрисовки фона
 
 
 static void SetLShiftFreq(uint freq)
@@ -146,24 +146,41 @@ void Display::InitHardware()
 }
 
 
-void Display::BeginScene()
-{
-    for (int i = 0; i < PHYSICAL_HEIGHT / NUM_PARTS; i += 2)
-    {
-          std::memcpy(&buffer[i][0], lineBackground, PHYSICAL_WIDTH);
-          std::memcpy(&buffer[i + 1][0], lineBackground + 1, PHYSICAL_WIDTH);
+#define POINTER_BUFFER(x, y) (&buffer[0][0] + (y * Display::Width()) + x)
 
-//        std::memcpy(&buffer[i][0], lineBackground, Display::WIDTH);
-//        std::memcpy(&buffer[i + 1][0], lineBackground + 1, Display::WIDTH);
-//        std::memcpy(&buffer[i + 2][0], lineBackground + 2, Display::WIDTH);
-//        std::memcpy(&buffer[i + 3][0], lineBackground + 3, Display::WIDTH);
+
+void Display::BeginScene(int x, int y)
+{
+    if (x == -1)
+    {
+        drawingScene = true;
+
+        for (int i = 0; i < PHYSICAL_HEIGHT / NUM_PARTS; i += 2)
+        {
+            std::memcpy(&buffer[i][0], lineBackground, PHYSICAL_WIDTH);
+            std::memcpy(&buffer[i + 1][0], lineBackground + 1, PHYSICAL_WIDTH);
+        }
+    }
+    else
+    {
+        uint8 *pointer = lineBackground;
+
+        if ((x + y) % 2 != 0)
+        {
+            pointer++;
+        }
+
+        for (int row = 0; row < Display::Height(); row++)
+        {
+            std::memcpy(POINTER_BUFFER(0, row), pointer + (row % 2 == 0 ? 0 : 1), (size_t)Display::Width());
+        }
     }
 }
 
 
 void Display::EndScene()
 {
-    HAL_FSMC::SendBuffer(buffer[0], 0, TopRow(), PHYSICAL_WIDTH, PHYSICAL_HEIGHT);
+    HAL_FSMC::SendBuffer(buffer[0], 0, TopRow(), PHYSICAL_WIDTH, PHYSICAL_HEIGHT, 2);
 
     if (sendToSCPI)
     {
@@ -186,12 +203,14 @@ void Display::EndScene()
             sendToSCPI = false;
         }
     }
+
+    drawingScene = false;
 }
 
 
 void Display::SendToFSMC(int x0, int y0)
 {
-    HAL_FSMC::SendBuffer(buffer[0], x0, y0, Width(), Height());
+    HAL_FSMC::SendBuffer(buffer[0], x0, y0, Width(), Height(), 1);
 }
 
 
@@ -209,15 +228,21 @@ void Color::SetAsCurrent()
 }
 
 
+static int Ymax()
+{
+    return (Display::Height() == Display::PHYSICAL_HEIGHT) ? (Display::Height() / Display::NUM_PARTS) : Display::Height();
+}
+
+
 void Point::Draw(int x, int y, Color color)
 {
     current = color;
 
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::Width() && y >= 0 && y < Display::Height() / Display::NUM_PARTS)
+    if (x >= 0 && x < Display::Width() && y >= 0 && y < Ymax())
     {
-        buffer[y][x] = current.value;
+        *POINTER_BUFFER(x, y) = current.value;
     }
 }
 
@@ -226,9 +251,9 @@ void Point::Draw(int x, int y)
 {
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::Width() && y >= 0 && y < Display::Height() / Display::NUM_PARTS)
+    if (x >= 0 && x < Display::Width() && y >= 0 && y < Ymax())
     {
-        buffer[y][x] = current.value; 
+        *POINTER_BUFFER(x, y) = current.value; 
     }
 }
 
@@ -245,7 +270,7 @@ void HLine::Draw(int x, int y)
 {
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::Width() && y >= 0 && y < Display::Height() / Display::NUM_PARTS)
+    if (x >= 0 && x < Display::Width() && y >= 0 && y < Ymax())
     {
         int end = x + length;
 
@@ -254,7 +279,7 @@ void HLine::Draw(int x, int y)
             end = Display::Width() - 1;
         }
 
-        uint8 *pointer = &buffer[y][x];
+        uint8 *pointer = POINTER_BUFFER(x, y);
 
         for (int i = x; i < end; i++)
         {
@@ -283,9 +308,9 @@ void VLine::Draw(int x, int y)
 
         if (height > 0)
         {
-            if (y < Display::Height() / Display::NUM_PARTS)
+            if (y < Ymax())
             {
-                uint8 *pointer = &buffer[y][x];
+                uint8 *pointer = POINTER_BUFFER(x, y);
 
                 while (pointer < endBuffer && height > 0)
                 {

@@ -97,7 +97,7 @@ void Display::Init()
 }
 
 
-void Display::BeginScene()
+void Display::BeginScene(int, int)
 {
     memDC.SelectObject(bitmap);
     wxBrush brush({ 0, 0, 0 }, wxTRANSPARENT);

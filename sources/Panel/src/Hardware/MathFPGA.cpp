@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Settings.h"
 #include "Display/Display.h"
+#include "Display/Objects.h"
 #include "Hardware/FPGA.h"
 #include "Hardware/MathFPGA.h"
 #include "Menu/Pages/PageStatistics.h"
@@ -55,12 +56,14 @@ String MathFPGA::Data::GiveUnits()
 void MathFPGA::Data::SetDigits(const String &_digits)
 {
     std::strcpy(digits, _digits.c_str());
+    Display::zoneData->Refresh();
 }
 
 
 void MathFPGA::Data::SetUnits(const String &_units)
 {
     std::strcpy(units, _units.c_str());
+    Display::zoneData->Refresh();
 }
 
 

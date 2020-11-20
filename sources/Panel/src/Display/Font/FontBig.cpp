@@ -725,13 +725,13 @@ static const uint16_t BigCharOffs[] = {
   @param	foreground - palette for foreground (lower byte)
   @return
 */
-void FontBig::Write(char *text, int x, int y, Color color)
+void FontBig::Write(char *text, int x, int y)
 {
 	while (*text)
 	{
 		uint8 symbol = (uint8)*text;
 
-		uint space = WriteSymbol(symbol, x, y, color);
+		uint space = WriteSymbol(symbol, x, y);
 
 		x += (symbol >= '0' && symbol <= '9') ? 33 : space;
 
@@ -747,7 +747,7 @@ void FontBig::Write(char *text, int x, int y, Color color)
   @param	foreground - palette for foreground (lower byte)
   @return	width of symbol in pixels (for proportional string printing)
 */
-uint FontBig::WriteSymbol(uint8 symbol, int x, int y, Color color)
+uint FontBig::WriteSymbol(uint8 symbol, int x, int y)
 {
 	//	assert(0x30 <= symbol && symbol <= 0x39);
 	bool falsecheck = false;
@@ -818,7 +818,7 @@ uint FontBig::WriteSymbol(uint8 symbol, int x, int y, Color color)
 				uint32_t pixel = rowshift & 0x80000000U;
 				if (pixel)
 				{
-					Point().Draw((int)(x + i), y, color);
+					Point().Draw((int)(x + i), y);
 				}
 				if ((pixel != 0) && i > width)
 				{

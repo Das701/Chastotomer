@@ -30,8 +30,8 @@
 
 struct FontMid
 {
-    static void Write(char *text, int x, int y, Color color);
-    static uint32_t WriteSymbol(uint8_t symbol, int x, int y, Color color);
+    static void Write(char *text, int x, int y);
+    static uint32_t WriteSymbol(uint8_t symbol, int x, int y);
 };
 
 

@@ -47,7 +47,6 @@
         READ_PIN_B14(x, i);                                                             \
     }                                                                                   \
     if(verifyOverload) { isOverloaded = (x & 1U) != 0; };                               \
-    Display::zoneData->Refresh();
 
 #define  CYCLE_READ_PIN_B14_NO_REFRESH(num, x, verifyOverload)                          \
     x = 0;                                                                              \
@@ -145,7 +144,7 @@ void FPGA::Update() //-V2008
 
                 Reset_CS;
 
-                //LOG_WRITE("%d %d", counterA, counterB);
+//                LOG_WRITE("%d %d", counterA, counterB);
 
                 MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, counterA, counterB);
 
