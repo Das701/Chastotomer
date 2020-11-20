@@ -54,6 +54,7 @@ struct Display
 
 private:
     static bool sendToSCPI;     // ≈сли true, то надо посылать в SCPI
+    static bool drawingScene;   // ≈сли true - находимс€ в состо€нии отрисовки основной части - между BeginScene() и EndScene()
 
     static void InitHardware();
 

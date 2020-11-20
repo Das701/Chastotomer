@@ -153,6 +153,8 @@ void Display::BeginScene(int x, int y)
 {
     if (x == -1)
     {
+        drawingScene = true;
+
         for (int i = 0; i < PHYSICAL_HEIGHT / NUM_PARTS; i += 2)
         {
             std::memcpy(&buffer[i][0], lineBackground, PHYSICAL_WIDTH);
@@ -201,6 +203,8 @@ void Display::EndScene()
             sendToSCPI = false;
         }
     }
+
+    drawingScene = false;
 }
 
 

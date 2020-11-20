@@ -59,6 +59,7 @@ static int height = Display::PHYSICAL_HEIGHT;
 
 
 bool Display::sendToSCPI = false;
+bool Display::drawingScene = false;
 
 
 struct Coord
@@ -445,6 +446,11 @@ bool Display::InDrawingPart(int, int)
 
 bool Display::InDrawingPart(int y, int height)
 {
+    if (!drawingScene)
+    {
+        return true;
+    }
+
     int yBottom = y + height;
 
     if (y >= topDraw && y <= bottomhDraw)
