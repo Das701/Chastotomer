@@ -127,7 +127,7 @@ void Display::InitHardware()
 }
 
 
-void Display::BeginScene()
+void Display::BeginScene(int, int)
 {
     memDC.SelectObject(bitmap);
     wxBrush brush({ 0, 0, 0 }, wxTRANSPARENT);
@@ -251,4 +251,10 @@ static wxRect GetMaxDisplay()
     }
 
     return result;
+}
+
+
+void Display::SendToFSMC(int , int )
+{
+
 }

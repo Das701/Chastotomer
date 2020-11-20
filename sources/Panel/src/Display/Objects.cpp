@@ -42,7 +42,9 @@ void Object::Update(Object::ModeDraw::E mode)
 
 void Object::FillBackground()
 {
-    Rectangle(width0, height0).Fill(0, 0, Color::GREEN_20);
+//    Rectangle(width0, height0).Fill(0, 0, Color::GREEN_20);
+
+    Display::BeginScene(x0, y0);
 }
 
 
@@ -104,6 +106,6 @@ void DataZone::DrawToBuffer()
             }
         }
 
-        FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 360, 170);
+        FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 370, 170);
     }
 }

@@ -35,7 +35,7 @@ static const uint8 *startBuffer = &buffer[0][0];
 static const uint8 *endBuffer = startBuffer + WIDTH_BUFFER * HEIGHT_BUFFER;
 
 
-static uint8 lineBackground[Display::PHYSICAL_WIDTH * 2];    // Эта последовательность байт используется для отрисовки фона
+uint8 lineBackground[Display::PHYSICAL_WIDTH * 2];    // Эта последовательность байт используется для отрисовки фона
 
 
 static void SetLShiftFreq(uint freq)
@@ -146,17 +146,32 @@ void Display::InitHardware()
 }
 
 
-void Display::BeginScene()
-{
-    for (int i = 0; i < PHYSICAL_HEIGHT / NUM_PARTS; i += 2)
-    {
-          std::memcpy(&buffer[i][0], lineBackground, PHYSICAL_WIDTH);
-          std::memcpy(&buffer[i + 1][0], lineBackground + 1, PHYSICAL_WIDTH);
+#define POINTER_BUFFER(x, y) (&buffer[0][0] + (y * Display::Width()) + x)
 
-//        std::memcpy(&buffer[i][0], lineBackground, Display::WIDTH);
-//        std::memcpy(&buffer[i + 1][0], lineBackground + 1, Display::WIDTH);
-//        std::memcpy(&buffer[i + 2][0], lineBackground + 2, Display::WIDTH);
-//        std::memcpy(&buffer[i + 3][0], lineBackground + 3, Display::WIDTH);
+
+void Display::BeginScene(int x, int y)
+{
+    if (x == -1)
+    {
+        for (int i = 0; i < PHYSICAL_HEIGHT / NUM_PARTS; i += 2)
+        {
+            std::memcpy(&buffer[i][0], lineBackground, PHYSICAL_WIDTH);
+            std::memcpy(&buffer[i + 1][0], lineBackground + 1, PHYSICAL_WIDTH);
+        }
+    }
+    else
+    {
+        uint8 *pointer = lineBackground;
+
+        if ((x + y) % 2 != 0)
+        {
+            pointer++;
+        }
+
+        for (int row = 0; row < Display::Height(); row++)
+        {
+            std::memcpy(POINTER_BUFFER(0, row), pointer + (row % 2 == 0 ? 0 : 1), (size_t)Display::Width());
+        }
     }
 }
 
@@ -213,9 +228,6 @@ static int Ymax()
 {
     return (Display::Height() == Display::PHYSICAL_HEIGHT) ? (Display::Height() / Display::NUM_PARTS) : Display::Height();
 }
-
-
-#define POINTER_BUFFER(x, y) (&buffer[0][0] + (y * Display::Width()) + x)
 
 
 void Point::Draw(int x, int y, Color color)
