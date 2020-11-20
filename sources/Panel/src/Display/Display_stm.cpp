@@ -163,7 +163,7 @@ void Display::BeginScene()
 
 void Display::EndScene()
 {
-    HAL_FSMC::SendBuffer(buffer[0], 0, TopRow(), PHYSICAL_WIDTH, PHYSICAL_HEIGHT);
+    HAL_FSMC::SendBuffer(buffer[0], 0, TopRow(), PHYSICAL_WIDTH, PHYSICAL_HEIGHT, 2);
 
     if (sendToSCPI)
     {
@@ -191,7 +191,7 @@ void Display::EndScene()
 
 void Display::SendToFSMC(int x0, int y0)
 {
-    HAL_FSMC::SendBuffer(buffer[0], x0, y0, Width(), Height());
+    HAL_FSMC::SendBuffer(buffer[0], x0, y0, Width(), Height(), 1);
 }
 
 
@@ -209,13 +209,19 @@ void Color::SetAsCurrent()
 }
 
 
+static int Ymax()
+{
+    return (Display::Height() == Display::PHYSICAL_HEIGHT) ? (Display::Height() / Display::NUM_PARTS) : Display::Height();
+}
+
+
 void Point::Draw(int x, int y, Color color)
 {
     current = color;
 
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::Width() && y >= 0 && y < Display::Height() / Display::NUM_PARTS)
+    if (x >= 0 && x < Display::Width() && y >= 0 && y < Ymax())
     {
         buffer[y][x] = current.value;
     }
@@ -226,7 +232,7 @@ void Point::Draw(int x, int y)
 {
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::Width() && y >= 0 && y < Display::Height() / Display::NUM_PARTS)
+    if (x >= 0 && x < Display::Width() && y >= 0 && y < Ymax())
     {
         buffer[y][x] = current.value; 
     }
@@ -245,7 +251,7 @@ void HLine::Draw(int x, int y)
 {
     y -= Display::TopRow();
 
-    if (x >= 0 && x < Display::Width() && y >= 0 && y < Display::Height() / Display::NUM_PARTS)
+    if (x >= 0 && x < Display::Width() && y >= 0 && y < Ymax())
     {
         int end = x + length;
 
@@ -283,7 +289,7 @@ void VLine::Draw(int x, int y)
 
         if (height > 0)
         {
-            if (y < Display::Height() / Display::NUM_PARTS)
+            if (y < Ymax())
             {
                 uint8 *pointer = &buffer[y][x];
 

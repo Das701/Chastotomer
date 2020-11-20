@@ -294,7 +294,7 @@ static void WindowSet(int s_x, int e_x, int s_y, int e_y)
 }
 
 
-void HAL_FSMC::SendBuffer(uint8 *buffer, int x, int y, int width, int height)
+void HAL_FSMC::SendBuffer(uint8 *buffer, int x, int y, int width, int height, int k)
 {
     int top = x;
     int right = x + width - 1;
@@ -312,7 +312,7 @@ void HAL_FSMC::SendBuffer(uint8 *buffer, int x, int y, int width, int height)
 
     PORT_D_C->BSRR = PIN_D_C;
 
-    for(int i = 0; i < width * height / 4; i++)
+    for(int i = 0; i < width * height / 2 / k; i++)
     {
         uint color1 = COLOR(*buffer++);
         uint color2 = COLOR(*buffer++);
