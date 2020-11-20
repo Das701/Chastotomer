@@ -11,18 +11,25 @@
 
 void Object::Update()
 {
-    if (needUpdate)
+    if (Display::DrawingToBuffer())
     {
-        Display::Prepare(width0, height0);
-
-        FillBackground();
-
-        if (Draw())
+        DrawToBuffer();
+    }
+    else
+    {
+        if (needUpdate)
         {
-            needUpdate = false;
-        }
+            Display::Prepare(width0, height0);
 
-        Display::Restore();
+            FillBackground();
+
+            if (DrawToHardware())
+            {
+                needUpdate = false;
+            }
+
+            Display::Restore();
+        }
     }
 }
 
@@ -33,7 +40,7 @@ void Object::FillBackground()
 }
 
 
-bool DataZone::Draw()
+bool DataZone::DrawToHardware()
 {
     // Отрисовка заключается в следующем.
     // Каждый объект отрисовывается в начале дисплейного буфера
@@ -48,7 +55,6 @@ bool DataZone::Draw()
             buffer[i][j] = (uint8)(std::rand() % 16);
         }
     }
-
 
     HAL_FSMC::SendBuffer(&buffer[0][0], 10, 50, 100, 100);
 
