@@ -103,6 +103,14 @@ void FPGA::Init()
 
     is.Pin = GPIO_PIN_8 | GPIO_PIN_9;
     HAL_GPIO_Init(GPIOC, &is);
+
+    TimeMeasure::LoadToFPGA();
+    NumberPeriods::LoadToFPGA();
+    PeriodTimeLabels::LoadToFPGA();
+
+    PageModes::OnChanged_TypeMeasure();
+
+    Channel::LoadCurrentToFPGA();
 }
 
 
