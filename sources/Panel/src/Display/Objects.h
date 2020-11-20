@@ -5,7 +5,7 @@ class Object
 {
 public:
 
-    Object(int x, int y, int width, int height) : x0(x), y0(y), width0(width), height0(height), needUpdate(true) {}
+    Object(int x, int y, int width, int height) : x0(x), y0(y), width0(width), height0(height), needUpdate(false) {}
     virtual ~Object() {};
 
     void Update();
@@ -34,7 +34,7 @@ private:
 class DataZone : public Object
 {
 public:
-    DataZone() : Object(0, 150, Display::PHYSICAL_WIDTH, 50) {}
+    DataZone() : Object(10, 150, Display::PHYSICAL_WIDTH - 50, 50) {}
 
 protected:
 

@@ -1,12 +1,16 @@
 #include "defines.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
+#include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Display/Font/Font.h"
 #include "Hardware/MathFPGA.h"
 #include "Utils/String.h"
 #include <cctype>
 #include <cstdlib>
+
+
+using namespace Primitives;
 
 
 void Object::Update()
@@ -28,6 +32,8 @@ void Object::Update()
                 needUpdate = false;
             }
 
+            Display::SendToFSMC(x0, y0);
+
             Display::Restore();
         }
     }
@@ -36,27 +42,29 @@ void Object::Update()
 
 void Object::FillBackground()
 {
-
+    Rectangle(width0, height0).Fill(0, 0, Color::WHITE);
 }
 
 
 bool DataZone::DrawToHardware()
 {
-    // Отрисовка заключается в следующем.
-    // Каждый объект отрисовывается в начале дисплейного буфера
+    Rectangle(10, 10).Fill(10, 10, Color::BLACK);
 
-
-    uint8 buffer[100][100];
-
-    for (int i = 0; i < 100; i++)
-    {
-        for (int j = 0; j < 100; j++)
-        {
-            buffer[i][j] = (uint8)(std::rand() % 16);
-        }
-    }
-
-    HAL_FSMC::SendBuffer(&buffer[0][0], 10, 50, 100, 100);
+//    // Отрисовка заключается в следующем.
+//    // Каждый объект отрисовывается в начале дисплейного буфера
+//
+//
+//    uint8 buffer[100][100];
+//
+//    for (int i = 0; i < 100; i++)
+//    {
+//        for (int j = 0; j < 100; j++)
+//        {
+//            buffer[i][j] = (uint8)(std::rand() % 16);
+//        }
+//    }
+//
+//    HAL_FSMC::SendBuffer(&buffer[0][0], 10, 50, 100, 100);
 
     return true;
 }
