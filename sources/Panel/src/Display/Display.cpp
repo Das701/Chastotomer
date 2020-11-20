@@ -162,8 +162,8 @@ void Display::Update()
     static uint currentFramesInSec = 0;         // Столько кадров отрисовано за текущую секунду
     static uint currentTimePaintInSec = 0;      // Столько времени потрачено на отрисовку за текущую секунду
 
-    if (needRedraw ||
-        ((TIME_MS - lastUpdate) > 1000))
+    if (needRedraw
+        /* ||((TIME_MS - lastUpdate) > 1000) */)
     {
         timeStart = TIME_MS;
 
