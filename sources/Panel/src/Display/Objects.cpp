@@ -64,7 +64,7 @@ bool DataZone::DrawToHardware()
         {
             int x = 0;
 
-            if (data[0] == 'П') { x += 40; }   // Переполнение
+            if (data[0] == 'П')      { x += 40; }   // Переполнение
             else if (data[0] == '=') { x += 150; }   // Деление на ноль
 
             Font::Set(TypeFont::GOSTB28B);
@@ -101,7 +101,7 @@ void DataZone::DrawToBuffer()
                 else if (data[0] == '=')    { x += 150; }   // Деление на ноль
 
                 Font::Set(TypeFont::GOSTB28B);
-                Text(data.c_str()).Write(x, y0 + 15);
+                Text(data.c_str()).Write(x0, y0 + 15);
                 Font::Set(TypeFont::GOSTAU16BOLD);
             }
         }
