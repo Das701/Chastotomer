@@ -23,10 +23,10 @@
 #define ResetPin(x) HAL_GPIO_WritePin(x, GPIO_PIN_RESET)
 
 #define PinFLAG     GPIOC, GPIO_PIN_8
-#define PinCS       GPIOB, GPIO_PIN_12
+#define PinWR       GPIOB, GPIO_PIN_12
 
-#define Set_CS      SetPin(PinCS)
-#define Reset_CS    ResetPin(PinCS)
+#define Set_WR      SetPin(PinWR)
+#define Reset_WR    ResetPin(PinWR)
 
 #define Read_FLAG   ReadPin(PinFLAG)
 
@@ -104,13 +104,13 @@ void FPGA::Init()
     is.Pin = GPIO_PIN_8 | GPIO_PIN_9;
     HAL_GPIO_Init(GPIOC, &is);
 
-    TimeMeasure::LoadToFPGA();
-    NumberPeriods::LoadToFPGA();
-    PeriodTimeLabels::LoadToFPGA();
-
-    PageModes::OnChanged_TypeMeasure();
-
-    Channel::LoadCurrentToFPGA();
+//    TimeMeasure::LoadToFPGA();
+//    NumberPeriods::LoadToFPGA();
+//    PeriodTimeLabels::LoadToFPGA();
+//
+//    PageModes::OnChanged_TypeMeasure();
+//
+//    Channel::LoadCurrentToFPGA();
 }
 
 
@@ -141,7 +141,7 @@ void FPGA::Update() //-V2008
                 uint counterA = 0;
                 uint counterB = 0;
 
-                Set_CS;
+                Set_WR;
 
                 CYCLE_READ_PIN_B14(32, counterA, true);
               
@@ -150,7 +150,7 @@ void FPGA::Update() //-V2008
                     CYCLE_READ_PIN_B14(32, counterB, true);
                 }
 
-                Reset_CS;
+                Reset_WR;
 
 //                LOG_WRITE("%d %d", counterA, counterB);
 
@@ -170,10 +170,10 @@ void FPGA::ReadFillFactorPhase()
         uint period = 0;
         uint duration = 0;
 
-        Set_CS;
+        Set_WR;
         CYCLE_READ_PIN_B14(32, period, true);
         CYCLE_READ_PIN_B14(32, duration, true);
-        Reset_CS;
+        Reset_WR;
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::FillFactorPhase, period, duration);
 
@@ -190,12 +190,12 @@ void FPGA::ReadInterpolator()
         uint cal1 = 0;
         uint cal2 = 0;
 
-        Set_CS;
+        Set_WR;
         CYCLE_READ_PIN_B14(3, ident, false); //-V525
         CYCLE_READ_PIN_B14(24, timer, false);
         CYCLE_READ_PIN_B14(24, cal1, false);
         CYCLE_READ_PIN_B14(24, cal2, false);
-        Reset_CS;
+        Reset_WR;
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Interpolator, timer, cal1, cal2);
 
@@ -208,12 +208,12 @@ void FPGA::ReadAutoMode()
 {
     if (Read_FLAG != 0)
     {
-        Set_CS;
+        Set_WR;
         CYCLE_READ_PIN_B14(3, ident, false);
         CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMin, false);
         CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMid, false);
         CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMax, false);
-        Reset_CS;
+        Reset_WR;
 
         HAL_TIM::DelayUS(8);
     }
@@ -228,12 +228,12 @@ void FPGA::ReadComparator()
         uint tizm = 0;
         uint nkal = 0;
 
-        Set_CS;
+        Set_WR;
         CYCLE_READ_PIN_B14_NO_REFRESH(3, ident, false);
         CYCLE_READ_PIN_B14_NO_REFRESH(32, fx, false);
         CYCLE_READ_PIN_B14_NO_REFRESH(16, tizm, false);
         CYCLE_READ_PIN_B14_NO_REFRESH(16, nkal, false);
-        Reset_CS;
+        Reset_WR;
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Comparator, fx, tizm, nkal);
 
@@ -247,6 +247,8 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
     while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) != 0)
     {
     }
+
+    Set_WR;
 
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
@@ -271,6 +273,8 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
     DELAY;
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+
+    Reset_WR;
 }
 
 void FPGA::IncreaseN()
@@ -337,13 +341,13 @@ void FPGA::ReadCalibNumber()
     {
     }
 
-    Set_CS;
+    Set_WR;
 
     CYCLE_READ_PIN_B14(3, ident, false);
 
     CYCLE_READ_PIN_B14(10, kCalib, false);
 
-    Reset_CS;
+    Reset_WR;
 
     HAL_TIM::DelayUS(8);
 }
@@ -395,6 +399,8 @@ void FPGA::WriteData()
     {
     }
 
+    Set_WR;
+
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
     DELAY;
@@ -419,6 +425,8 @@ void FPGA::WriteData()
     DELAY;
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+
+    Reset_WR;
 }
 
 
