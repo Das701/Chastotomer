@@ -5,8 +5,6 @@
 #include "Menu/Pages/Modes/PagesModes.h"
 
 
-uint TimeMeasure::ProgressBar::timeStart = 0U;
-
 PeriodTimeLabels PageModes::timeLabels(PeriodTimeLabels::T_8);
 NumberPeriods    PageModes::numberPeriods(NumberPeriods::_1);
 TimeMeasure      PageModes::timeMeasure(TimeMeasure::_1ms);
@@ -231,25 +229,4 @@ ModeMeasureDuration &ModeMeasureDuration::Current()
     };
 
     return TypeMeasure::Current().IsDuration() ? *modes[CURRENT_CHANNEL] : empty;
-}
-
-
-void TimeMeasure::ProgressBar::Draw(int x, int y)
-{
-    if (IsDrawable())
-    {
-        int width = 46;
-
-        int timeCycle = PageModes::timeMeasure.ToMS();
-
-        float part = ((float)(TIME_MS - timeStart) / (float)timeCycle);
-
-        Primitives::Rectangle((int)((float)width * part) + 1, 5).Fill(x, y, Color::WHITE);
-    }
-}
-
-
-bool TimeMeasure::ProgressBar::IsDrawable()
-{
-    return CurrentPageModes::ConsistTimeMeasure() && PageModes::timeMeasure.value > TimeMeasure::_100ms;
 }

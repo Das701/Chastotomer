@@ -51,3 +51,16 @@ protected:
 
     virtual bool Draw();
 };
+
+
+class ProgressBarTimeMeasureZone : public Object
+{
+public:
+    ProgressBarTimeMeasureZone() : Object(273, 90, 50, 6) {};
+
+    static uint timeStart;
+
+protected:
+
+    virtual bool Draw();
+};

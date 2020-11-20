@@ -5,12 +5,16 @@
 #include "Display/Text.h"
 #include "Display/Font/Font.h"
 #include "Hardware/MathFPGA.h"
+#include "Menu/Pages/Modes/PagesModes.h"
 #include "Utils/String.h"
 #include <cctype>
 #include <cstdlib>
 
 
 using namespace Primitives;
+
+
+uint ProgressBarTimeMeasureZone::timeStart = 0;
 
 
 void Object::Update(Object::ModeDraw::E mode)
@@ -82,6 +86,21 @@ bool DataZone::Draw()
     }
 
     FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), x0 + 360, y0 + 20);
+
+    return true;
+}
+
+
+bool ProgressBarTimeMeasureZone::Draw()
+{
+    if (CurrentPageModes::ConsistTimeMeasure() && PageModes::timeMeasure.value > TimeMeasure::_100ms)
+    {
+        int timeCycle = PageModes::timeMeasure.ToMS();
+
+        float part = ((float)(TIME_MS - timeStart) / (float)timeCycle);
+
+        Primitives::Rectangle((int)(46.0F * part) + 1, 5).Fill(x0, y0, Color::WHITE);
+    }
 
     return true;
 }

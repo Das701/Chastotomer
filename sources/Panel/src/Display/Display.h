@@ -3,6 +3,7 @@
 
 
 class DataZone;
+class ProgressBarTimeMeasureZone;
 
 
 struct Display
@@ -46,6 +47,9 @@ struct Display
 
     // Здесь отрисовка результата измерения
     static DataZone *zoneData;
+
+    // Отрисовка времени отсчёта времени измерения
+    static ProgressBarTimeMeasureZone *zoneProgressBarTimeMeasure;
 
     // Подготовить дисплей к непосредственному рисованию в аппаратуру
     static void Prepare(int width, int height);

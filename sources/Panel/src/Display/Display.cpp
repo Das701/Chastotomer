@@ -84,6 +84,9 @@ static int numObjects = 0;
 static DataZone sDataZone;
 DataZone *Display::zoneData = &sDataZone;
 
+static ProgressBarTimeMeasureZone sProgressBarTimeMeasureZone;
+ProgressBarTimeMeasureZone *Display::zoneProgressBarTimeMeasure = &sProgressBarTimeMeasureZone;
+
 
 static void AddObject(Object *object)
 {
@@ -100,6 +103,7 @@ void Display::Init()
     Font::SetSpacing(2);
 
     AddObject(zoneData);
+    AddObject(zoneProgressBarTimeMeasure);
 }
 
 
@@ -147,6 +151,8 @@ void Display::Refresh()
 
 void Display::Update()
 {
+    zoneProgressBarTimeMeasure->Refresh();
+
     if (beginSecond == 0)
     {
         beginSecond = TIME_MS;
@@ -155,11 +161,6 @@ void Display::Update()
     static uint lastUpdate = 0;
     static uint currentFramesInSec = 0;         // Столько кадров отрисовано за текущую секунду
     static uint currentTimePaintInSec = 0;      // Столько времени потрачено на отрисовку за текущую секунду
-
-    if (TimeMeasure::ProgressBar::IsDrawable())
-    {
-        needRedraw = true;
-    }
 
     if (needRedraw ||
         ((TIME_MS - lastUpdate) > 1000))
@@ -260,8 +261,6 @@ void Display::DrawScreen()
         }
 
         Menu::Draw();
-        
-        TimeMeasure::ProgressBar::Draw(273, 90);
     }
 }
 

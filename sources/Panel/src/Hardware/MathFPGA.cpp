@@ -258,7 +258,7 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 
     Validator::SetValidData();
 
-    TimeMeasure::ProgressBar::Reset();
+    ProgressBarTimeMeasureZone::timeStart = TIME_MS;
 }
 
 
@@ -266,7 +266,7 @@ void MathFPGA::Validator::SetInvalidData()
 {
     isEmpty = true;
     timeClearedFlag = TIME_MS;
-    TimeMeasure::ProgressBar::Reset();
+    ProgressBarTimeMeasureZone::timeStart = TIME_MS;
     Data::SetDigits(String("----------"));
     Data::SetUnits(String(""));
 }

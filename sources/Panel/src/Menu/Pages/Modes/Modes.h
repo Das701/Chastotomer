@@ -208,20 +208,6 @@ struct TimeMeasure : public Enumeration
     bool Is10ms() const { return (value == _10ms); }
 
     static void LoadToFPGA();
-
-    struct ProgressBar
-    {
-        // Возвращает true, если требуется отрисовка
-        static bool IsDrawable();
-
-        // Нарисовать прогресс-бар прошедшего от запуска времени
-        static void Draw(int x, int y);
-
-        static void Reset() { timeStart = TIME_MS; };
-
-    private:
-        static uint timeStart;
-    };
 };
 
 
