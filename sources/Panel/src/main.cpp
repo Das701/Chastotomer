@@ -25,7 +25,7 @@ int main(void)
     {
         FPGA::Update();
         Menu::Update();
-        Display::Update(); 
         SCPI::Update();
+        Display::Update(); 
     }
 }

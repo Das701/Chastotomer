@@ -153,12 +153,21 @@ void Display::Update()
 {
     zoneProgressBarTimeMeasure->Refresh();
 
+    static char prevHint = 0;
+
+    if (Hint::Text()[0] != prevHint)
+    {
+        prevHint = Hint::Text()[0];
+
+        Display::Refresh();
+    }
+
     if (beginSecond == 0)
     {
         beginSecond = TIME_MS;
     }
 
-    static uint lastUpdate = 0;
+//    static uint lastUpdate = 0;
     static uint currentFramesInSec = 0;         // Столько кадров отрисовано за текущую секунду
     static uint currentTimePaintInSec = 0;      // Столько времени потрачено на отрисовку за текущую секунду
 
@@ -174,7 +183,7 @@ void Display::Update()
 
         timeFrame = TIME_MS - timeStart;
 
-        lastUpdate = TIME_MS;
+//        lastUpdate = TIME_MS;
 
         currentFramesInSec++;
         currentTimePaintInSec += timeFrame;
