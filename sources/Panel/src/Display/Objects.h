@@ -11,7 +11,7 @@ public:
     void Update();
    
     // Установить флаг необходимости перерисовки
-    void Refresh() { needUpdate = true; if (Display::DrawingToBuffer()) { Display::Refresh(); } }
+    void Refresh() { if (Display::DrawingToBuffer()) { Display::Refresh(); } else { needUpdate = true; } }
 
 protected:
 
