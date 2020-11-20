@@ -6,6 +6,7 @@
 #include "Display/Font/Font.h"
 #include "Hardware/MathFPGA.h"
 #include "Menu/Pages/Modes/PagesModes.h"
+#include "Utils/Math.h"
 #include "Utils/String.h"
 #include <cctype>
 #include <cstdlib>
@@ -54,7 +55,7 @@ void Object::Update(Object::ModeDraw::E mode)
 
 void Object::FillBackground()
 {
-//    Rectangle(width0, height0).Fill(0, 0, Color::GREEN_20);
+//    Rectangle(width, height).Fill(0, 0, Color::BLACK);
 
     Display::BeginScene(left, top);
 }
@@ -93,13 +94,17 @@ bool DataZone::Draw()
 
 bool ProgressBarTimeMeasureZone::Draw()
 {
-    if (CurrentPageModes::ConsistTimeMeasure() && PageModes::timeMeasure.value > TimeMeasure::_100ms)
+    if (CurrentPageModes::ConsistTimeMeasure() && PageModes::timeMeasure.value > TimeMeasure::_10ms)
     {
         int timeCycle = PageModes::timeMeasure.ToMS();
 
         float part = ((float)(TIME_MS - timeStart) / (float)timeCycle);
 
-        Primitives::Rectangle((int)(46.0F * part) + 1, 5).Fill(x0, y0, Color::WHITE);
+        int w = (int)(46.0F * part) + 1;
+
+        LIMITATION(w, 0, Width() - 1);
+
+        Primitives::Rectangle(w, 5).Fill(x0, y0, Color::WHITE);
     }
 
     return true;

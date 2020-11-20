@@ -29,6 +29,8 @@ protected:
     int x0;
     int y0;
 
+    int Width() { return width; }
+
 private:
 
     void FillBackground();
@@ -56,7 +58,7 @@ protected:
 class ProgressBarTimeMeasureZone : public Object
 {
 public:
-    ProgressBarTimeMeasureZone() : Object(273, 90, 50, 6) {};
+    ProgressBarTimeMeasureZone() : Object(273, 90, 55, 5) {};
 
     static uint timeStart;
 
