@@ -18,6 +18,8 @@ protected:
     virtual void DrawToBuffer() = 0;
     virtual bool DrawToHardware() = 0;
 
+    virtual void Draw() = 0;
+
     const int x0;
     const int y0;
     const int width0;
@@ -40,4 +42,5 @@ protected:
 
     virtual void DrawToBuffer();
     virtual bool DrawToHardware();
+    virtual void Draw() {};
 };

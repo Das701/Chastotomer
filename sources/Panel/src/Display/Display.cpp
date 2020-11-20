@@ -256,7 +256,7 @@ void Display::DrawScreen()
 
         for (int i = 0; i < numObjects; i++)
         {
-            objects[i]->Update();
+            //objects[i]->Update();
         }
 
         Menu::Draw();
@@ -404,10 +404,14 @@ void Display::SendToSCPI()
 }
 
 
+static int oldTopRow = 0;
+
+
 void Display::Prepare(int w, int h)
 {
     width = w;
     height = h;
+    oldTopRow = topRow;
     topRow = 0;
 }
 
@@ -416,6 +420,7 @@ void Display::Restore()
 {
     width = PHYSICAL_WIDTH;
     height = PHYSICAL_HEIGHT;
+    topRow = oldTopRow;
 }
 
 
