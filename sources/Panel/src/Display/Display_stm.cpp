@@ -215,6 +215,9 @@ static int Ymax()
 }
 
 
+#define POINTER_BUFFER(x, y) (&buffer[0][0] + (y * Display::Width()) + x)
+
+
 void Point::Draw(int x, int y, Color color)
 {
     current = color;
@@ -223,7 +226,7 @@ void Point::Draw(int x, int y, Color color)
 
     if (x >= 0 && x < Display::Width() && y >= 0 && y < Ymax())
     {
-        buffer[y][x] = current.value;
+        *POINTER_BUFFER(x, y) = current.value;
     }
 }
 
@@ -234,7 +237,7 @@ void Point::Draw(int x, int y)
 
     if (x >= 0 && x < Display::Width() && y >= 0 && y < Ymax())
     {
-        buffer[y][x] = current.value; 
+        *POINTER_BUFFER(x, y) = current.value; 
     }
 }
 
@@ -260,7 +263,7 @@ void HLine::Draw(int x, int y)
             end = Display::Width() - 1;
         }
 
-        uint8 *pointer = &buffer[0][0] + (y * Display::Width()) + x;
+        uint8 *pointer = POINTER_BUFFER(x, y);
 
         for (int i = x; i < end; i++)
         {
@@ -291,7 +294,7 @@ void VLine::Draw(int x, int y)
         {
             if (y < Ymax())
             {
-                uint8 *pointer = &buffer[y][x];
+                uint8 *pointer = POINTER_BUFFER(x, y);
 
                 while (pointer < endBuffer && height > 0)
                 {

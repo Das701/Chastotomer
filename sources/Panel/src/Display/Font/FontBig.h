@@ -24,9 +24,9 @@
 
 struct FontBig
 {
-    static void Write(char *text, int x, int y, Color color);
+    static void Write(char *text, int x, int y);
     
-    static uint WriteSymbol(uint8 symbol, int x, int y, Color color);
+    static uint WriteSymbol(uint8 symbol, int x, int y);
 };
 
 #endif

@@ -48,23 +48,30 @@ void Object::FillBackground()
 
 bool DataZone::DrawToHardware()
 {
-    Rectangle(10, 10).Fill(10, 10, Color::BLACK);
+    String data = MathFPGA::Data::GiveDigits();
 
-//    // Отрисовка заключается в следующем.
-//    // Каждый объект отрисовывается в начале дисплейного буфера
-//
-//
-//    uint8 buffer[100][100];
-//
-//    for (int i = 0; i < 100; i++)
-//    {
-//        for (int j = 0; j < 100; j++)
-//        {
-//            buffer[i][j] = (uint8)(std::rand() % 16);
-//        }
-//    }
-//
-//    HAL_FSMC::SendBuffer(&buffer[0][0], 10, 50, 100, 100);
+    Color::BLACK.SetAsCurrent();
+
+    if (data[0] != 0)
+    {
+        if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
+        {
+            FontBig::Write(data.c_str(), 10, 0);
+        }
+        else
+        {
+            int x = 0;
+
+            if (data[0] == 'П') { x += 40; }   // Переполнение
+            else if (data[0] == '=') { x += 150; }   // Деление на ноль
+
+            Font::Set(TypeFont::GOSTB28B);
+            Text(data.c_str()).Write(x, 15);
+            Font::Set(TypeFont::GOSTAU16BOLD);
+        }
+    }
+
+    FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 360, 20);
 
     return true;
 }
@@ -76,11 +83,13 @@ void DataZone::DrawToBuffer()
     {
         String data = MathFPGA::Data::GiveDigits();
 
+        Color::WHITE.SetAsCurrent();
+
         if (data[0] != 0)
         {
             if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
             {
-                FontBig::Write(data.c_str(), x0 + 10, y0, Color::WHITE);
+                FontBig::Write(data.c_str(), x0 + 10, y0);
             }
             else
             {
@@ -90,11 +99,11 @@ void DataZone::DrawToBuffer()
                 else if (data[0] == '=')    { x += 150; }   // Деление на ноль
 
                 Font::Set(TypeFont::GOSTB28B);
-                Text(data.c_str()).Write(x, y0 + 15, Color::WHITE);
+                Text(data.c_str()).Write(x, y0 + 15);
                 Font::Set(TypeFont::GOSTAU16BOLD);
             }
         }
 
-        FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 360, 170, Color::WHITE);
+        FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 360, 170);
     }
 }

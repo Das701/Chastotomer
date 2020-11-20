@@ -34,7 +34,7 @@ private:
 class DataZone : public Object
 {
 public:
-    DataZone() : Object(10, Display::PHYSICAL_HEIGHT - 50, Display::PHYSICAL_WIDTH - 50, 50) {}
+    DataZone() : Object(10, 150, Display::PHYSICAL_WIDTH - 50, 50) {}
 
 protected:
 
