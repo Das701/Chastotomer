@@ -9,9 +9,6 @@
 #include <cstdlib>
 
 
-Object::ModeDraw::E Object::modeDraw(Object::ModeDraw::ToBuffer);
-
-
 void Object::Update()
 {
     if (needUpdate)
@@ -59,7 +56,7 @@ bool DataZone::Draw()
 }
 
 
-bool DataZone::Draw1()
+void DataZone::DrawToBuffer()
 {
     if (Display::InDrawingPart(y0, height0))
     {
@@ -85,9 +82,5 @@ bool DataZone::Draw1()
         }
 
         FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 360, 170, Color::WHITE);
-
-        return true;
     }
-
-    return false;
 }

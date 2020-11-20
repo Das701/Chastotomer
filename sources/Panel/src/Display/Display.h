@@ -7,6 +7,15 @@ class DataZone;
 
 struct Display
 {
+    struct ModeDraw
+    {
+        enum E
+        {
+            ToBuffer,       // Отрисовка стандартным способом - через буфер
+            ToHardware      // засылка сразу в хардварный дисплей
+        };
+    };
+
 	static const int PHYSICAL_WIDTH = 480;
 	static const int PHYSICAL_HEIGHT = 272;
 
@@ -52,10 +61,14 @@ struct Display
     static void SendToFSMC(int x0, int y0);
     static void Restore();
 
+    static bool DrawingToBuffer() { return modeDraw == ModeDraw::ToBuffer; }
+
 private:
     static bool sendToSCPI;     // Если true, то надо посылать в SCPI
 
     static void InitHardware();
 
     static void DrawScreen();
+
+    static ModeDraw::E modeDraw;
 };

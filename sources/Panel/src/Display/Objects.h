@@ -5,22 +5,15 @@ class Object
 {
 public:
 
-    struct ModeDraw
-    {
-        enum E
-        {
-            ToBuffer,       // Отрисовка стандартным способом - через буфер
-            ToHardware      // засылка сразу в хардварный дисплей
-        };
-    };
-
     Object(int x, int y, int width, int height) : x0(x), y0(y), width0(width), height0(height), needUpdate(true) {}
     virtual ~Object() {};
 
     void Update();
    
     // Установить флаг необходимости перерисовки
-    void Refresh() { needUpdate = true; }
+    void Refresh() { needUpdate = true; if (Display::DrawingToBuffer()) { Display::Refresh(); } }
+
+    virtual void DrawToBuffer() = 0;
 
 protected:
 
@@ -36,8 +29,6 @@ private:
     void FillBackground();
 
     bool needUpdate;
-
-    static ModeDraw::E modeDraw;
 };
 
 
@@ -46,11 +37,9 @@ class DataZone : public Object
 public:
     DataZone() : Object(0, 150, Display::PHYSICAL_WIDTH, 50) {}
 
+    virtual void DrawToBuffer();
+
 protected:
 
     virtual bool Draw();
-
-    bool Draw1();
-
-private:
 };

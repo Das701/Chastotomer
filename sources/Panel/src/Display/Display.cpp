@@ -59,6 +59,7 @@ static int height = Display::PHYSICAL_HEIGHT;
 
 
 bool Display::sendToSCPI = false;
+Display::ModeDraw::E Display::modeDraw(Display::ModeDraw::ToBuffer);
 
 
 struct Coord
@@ -252,6 +253,11 @@ void Display::DrawScreen()
         DrawChannelSettings();
         
         DrawInfo();
+
+        for (int i = 0; i < numObjects; i++)
+        {
+            objects[i]->DrawToBuffer();
+        }
 
         Menu::Draw();
         
