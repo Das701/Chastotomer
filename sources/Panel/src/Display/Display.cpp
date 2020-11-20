@@ -59,7 +59,6 @@ static int height = Display::PHYSICAL_HEIGHT;
 
 
 bool Display::sendToSCPI = false;
-Display::ModeDraw::E Display::modeDraw(Display::ModeDraw::ToHardware);
 
 
 struct Coord
@@ -181,7 +180,7 @@ void Display::Update()
 
     for (int i = 0; i < numObjects; i++)
     {
-        objects[i]->Update();
+        objects[i]->Update(Object::ModeDraw::ToHardware);
     }
 
     needRedraw = false;
@@ -256,7 +255,7 @@ void Display::DrawScreen()
 
         for (int i = 0; i < numObjects; i++)
         {
-            //objects[i]->Update();
+            objects[i]->Update(Object::ModeDraw::ToBuffer);
         }
 
         Menu::Draw();

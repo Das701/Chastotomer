@@ -13,9 +13,9 @@
 using namespace Primitives;
 
 
-void Object::Update()
+void Object::Update(Object::ModeDraw::E mode)
 {
-    if (Display::DrawingToBuffer())
+    if (mode == Object::ModeDraw::ToBuffer)
     {
         DrawToBuffer();
     }
@@ -42,7 +42,7 @@ void Object::Update()
 
 void Object::FillBackground()
 {
-    Rectangle(width0, height0).Fill(0, 0, Color::WHITE);
+    Rectangle(width0, height0).Fill(0, 0, Color::GREEN_20);
 }
 
 
@@ -50,7 +50,7 @@ bool DataZone::DrawToHardware()
 {
     String data = MathFPGA::Data::GiveDigits();
 
-    Color::BLACK.SetAsCurrent();
+    Color::WHITE.SetAsCurrent();
 
     if (data[0] != 0)
     {

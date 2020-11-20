@@ -5,13 +5,22 @@ class Object
 {
 public:
 
+    struct ModeDraw
+    {
+        enum E
+        {
+            ToBuffer,       // Отрисовка стандартным способом - через буфер
+            ToHardware      // засылка сразу в хардварный дисплей
+        };
+    };
+
     Object(int x, int y, int width, int height) : x0(x), y0(y), width0(width), height0(height), needUpdate(false) {}
     virtual ~Object() {};
 
-    void Update();
+    void Update(ModeDraw::E mode);
    
     // Установить флаг необходимости перерисовки
-    void Refresh() { if (Display::DrawingToBuffer()) { Display::Refresh(); } else { needUpdate = true; } }
+    void Refresh() { needUpdate = true; }
 
 protected:
 
