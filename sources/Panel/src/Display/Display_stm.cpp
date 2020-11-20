@@ -254,7 +254,7 @@ void HLine::Draw(int x, int y)
             end = Display::Width() - 1;
         }
 
-        uint8 *pointer = &buffer[y][x];
+        uint8 *pointer = &buffer[0][0] + (y * Display::Width()) + x;
 
         for (int i = x; i < end; i++)
         {
