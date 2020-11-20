@@ -15,9 +15,14 @@ using namespace Primitives;
 
 void Object::Update(Object::ModeDraw::E mode)
 {
+    modeDraw = mode;
+
     if (mode == Object::ModeDraw::ToBuffer)
     {
-        DrawToBuffer();
+        if (Display::InDrawingPart(y0, height0))
+        {
+            Draw();
+        }
     }
     else
     {
@@ -27,7 +32,7 @@ void Object::Update(Object::ModeDraw::E mode)
 
             FillBackground();
 
-            if (DrawToHardware())
+            if (Draw())
             {
                 needUpdate = false;
             }
@@ -48,7 +53,7 @@ void Object::FillBackground()
 }
 
 
-bool DataZone::DrawToHardware()
+bool DataZone::Draw()
 {
     String data = MathFPGA::Data::GiveDigits();
 
@@ -58,54 +63,22 @@ bool DataZone::DrawToHardware()
     {
         if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
         {
-            FontBig::Write(data.c_str(), 10, 0);
+            FontBig::Write(data.c_str(), X0() + 10, Y0());
         }
         else
         {
-            int x = 0;
+            int x = X0();
 
-            if (data[0] == 'П')      { x += 40; }   // Переполнение
+            if (data[0] == 'П') { x += 40; }   // Переполнение
             else if (data[0] == '=') { x += 150; }   // Деление на ноль
 
             Font::Set(TypeFont::GOSTB28B);
-            Text(data.c_str()).Write(x, 15);
+            Text(data.c_str()).Write(x, Y0() + 15);
             Font::Set(TypeFont::GOSTAU16BOLD);
         }
     }
 
-    FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 360, 20);
+    FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), X0() + 360, Y0() + 20);
 
     return true;
-}
-
-
-void DataZone::DrawToBuffer()
-{
-    if (Display::InDrawingPart(y0, height0))
-    {
-        String data = MathFPGA::Data::GiveDigits();
-
-        Color::WHITE.SetAsCurrent();
-
-        if (data[0] != 0)
-        {
-            if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
-            {
-                FontBig::Write(data.c_str(), x0 + 10, y0);
-            }
-            else
-            {
-                int x = x0;
-
-                if (data[0] == 'П')         { x += 40;  }   // Переполнение
-                else if (data[0] == '=')    { x += 150; }   // Деление на ноль
-
-                Font::Set(TypeFont::GOSTB28B);
-                Text(data.c_str()).Write(x, y0 + 15);
-                Font::Set(TypeFont::GOSTAU16BOLD);
-            }
-        }
-
-        FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), 370, 170);
-    }
 }

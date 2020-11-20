@@ -24,32 +24,30 @@ public:
 
 protected:
 
-    virtual void DrawToBuffer() = 0;
-    virtual bool DrawToHardware() = 0;
+    virtual bool Draw() = 0;
 
-    virtual void Draw() = 0;
-
-    const int x0;
-    const int y0;
-    const int width0;
-    const int height0;
+    int X0() { return (modeDraw == ModeDraw::ToHardware) ? 0 : x0; }
+    int Y0() { return (modeDraw == ModeDraw::ToHardware) ? 0 : y0; }
 
 private:
 
     void FillBackground();
 
+    const int x0;
+    const int y0;
+    const int width0;
+    const int height0;
     bool needUpdate;
+    ModeDraw::E modeDraw;
 };
 
 
 class DataZone : public Object
 {
 public:
-    DataZone() : Object(10, 150, Display::PHYSICAL_WIDTH - 50, 50) {}
+    DataZone() : Object(10, 151, Display::PHYSICAL_WIDTH - 50, 50) {}
 
 protected:
 
-    virtual void DrawToBuffer();
-    virtual bool DrawToHardware();
-    virtual void Draw() {};
+    virtual bool Draw();
 };
