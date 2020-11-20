@@ -14,7 +14,7 @@ public:
         };
     };
 
-    Object(int x, int y, int width, int height) : x0(x), y0(y), width0(width), height0(height), needUpdate(false) {}
+    Object(int x, int y, int width, int height) : x0(0), y0(0), left(x), top(y), width(width), height(height), needUpdate(false) {}
     virtual ~Object() {};
 
     void Update(ModeDraw::E mode);
@@ -26,17 +26,17 @@ protected:
 
     virtual bool Draw() = 0;
 
-    int X0() { return (modeDraw == ModeDraw::ToHardware) ? 0 : x0; }
-    int Y0() { return (modeDraw == ModeDraw::ToHardware) ? 0 : y0; }
+    int x0;
+    int y0;
 
 private:
 
     void FillBackground();
 
-    const int x0;
-    const int y0;
-    const int width0;
-    const int height0;
+    const int left;
+    const int top;
+    const int width;
+    const int height;
     bool needUpdate;
     ModeDraw::E modeDraw;
 };
@@ -45,7 +45,7 @@ private:
 class DataZone : public Object
 {
 public:
-    DataZone() : Object(10, 151, Display::PHYSICAL_WIDTH - 50, 50) {}
+    DataZone() : Object(10, 150, Display::PHYSICAL_WIDTH - 50, 50) {}
 
 protected:
 

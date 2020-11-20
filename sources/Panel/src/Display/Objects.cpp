@@ -17,9 +17,12 @@ void Object::Update(Object::ModeDraw::E mode)
 {
     modeDraw = mode;
 
+    x0 = (mode == ModeDraw::ToHardware) ? 0 : left;
+    y0 = (mode == ModeDraw::ToHardware) ? 0 : top;
+
     if (mode == Object::ModeDraw::ToBuffer)
     {
-        if (Display::InDrawingPart(y0, height0))
+        if (Display::InDrawingPart(top, height))
         {
             Draw();
         }
@@ -28,7 +31,7 @@ void Object::Update(Object::ModeDraw::E mode)
     {
         if (needUpdate)
         {
-            Display::Prepare(width0, height0);
+            Display::Prepare(width, height);
 
             FillBackground();
 
@@ -37,7 +40,7 @@ void Object::Update(Object::ModeDraw::E mode)
                 needUpdate = false;
             }
 
-            Display::SendToFSMC(x0, y0);
+            Display::SendToFSMC(left, top);
 
             Display::Restore();
         }
@@ -49,7 +52,7 @@ void Object::FillBackground()
 {
 //    Rectangle(width0, height0).Fill(0, 0, Color::GREEN_20);
 
-    Display::BeginScene(x0, y0);
+    Display::BeginScene(left, top);
 }
 
 
@@ -63,22 +66,22 @@ bool DataZone::Draw()
     {
         if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
         {
-            FontBig::Write(data.c_str(), X0() + 10, Y0());
+            FontBig::Write(data.c_str(), x0 + 10, y0);
         }
         else
         {
-            int x = X0();
+            int x = x0;
 
             if (data[0] == 'П') { x += 40; }   // Переполнение
             else if (data[0] == '=') { x += 150; }   // Деление на ноль
 
             Font::Set(TypeFont::GOSTB28B);
-            Text(data.c_str()).Write(x, Y0() + 15);
+            Text(data.c_str()).Write(x, y0 + 15);
             Font::Set(TypeFont::GOSTAU16BOLD);
         }
     }
 
-    FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), X0() + 360, Y0() + 20);
+    FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), x0 + 360, y0 + 20);
 
     return true;
 }
