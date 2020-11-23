@@ -48,18 +48,12 @@
 
 #define  CYCLE_READ_PIN_B14(num, x, verifyOverload)                                     \
     x = 0;                                                                              \
-    for (int i = num - 1; i >= 0; i--)                                                  \
-    {                                                                                   \
-        READ_PIN_B14(x, i);                                                             \
-    }                                                                                   \
+    for (int i = num - 1; i >= 0; i--) { READ_PIN_B14(x, i);}                           \
     if(verifyOverload) { isOverloaded = (x & 1U) != 0; };                               \
 
 #define  CYCLE_READ_PIN_B14_NO_REFRESH(num, x, verifyOverload)                          \
     x = 0;                                                                              \
-    for (int i = num - 1; i >= 0; i--)                                                  \
-    {                                                                                   \
-        READ_PIN_B14(x, i);                                                             \
-    }                                                                                   \
+    for (int i = num - 1; i >= 0; i--) { READ_PIN_B14(x, i); }                          \
     if(verifyOverload) { isOverloaded = (x & 1U) != 0; };
 
 
@@ -69,11 +63,7 @@
     Set_CLOCK;                                                                          \
     Reset_CLOCK;
 
-#define WRITE_COMMAND(num, x)                                                           \
-    for (int i = 0; i < num; i++)                                                       \
-    {                                                                                   \
-        WRITE_BIT(x[i]);                                                                \
-    }
+#define WRITE_COMMAND(num, x) for (int i = 0; i < num; i++) { WRITE_BIT(x[i]); }
 
 static uint ident = 0;      // Это значение считывается непосредственно из FPGA
 static uint kCalib = 0;     // Это значение считывается непосредственно из FPGA
