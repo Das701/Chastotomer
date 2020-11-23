@@ -212,6 +212,8 @@ void FPGA::ReadAutoMode()
         CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMax, false);
         Reset_WR;
 
+        Display::Refresh();
+
         HAL_TIM::DelayUS(8);
     }
 }

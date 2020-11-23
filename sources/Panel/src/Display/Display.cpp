@@ -38,7 +38,7 @@ static void SetTopRow(int i);
 
 
 static bool needRedraw = true;      // Если true, требуется перерисовка дисплея
-static int autoHint = 0;
+static uint timeAutoHint = 0;
 static bool autoFlag = false;
 static int second = 0;
 static int topRow = 0;
@@ -284,7 +284,7 @@ static void DrawHint(int x, int y)
     int dX = 4;
     int dY = 6;
 
-    if((TIME_MS < (uint)(autoHint + 10000)) && autoFlag == true)
+    if((TIME_MS < timeAutoHint + 10000) && timeAutoHint != 0 && autoFlag == true)
     {
         Rectangle(360, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::GREEN_20);
 
@@ -302,13 +302,13 @@ static void DrawHint(int x, int y)
 
                 Text(MathFPGA::Auto::Give().c_str()).Write(x + dX, y + dY, Color::WHITE);
                 FPGA::SwitchAuto();
-                autoHint = (int)TIME_MS;
+                timeAutoHint = TIME_MS;
                 autoFlag = true;
             }
             else
             {
                 Rectangle(360, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::GREEN_20);
-                Text("Установка уровня синхр.").Write(x + dX, y + dY, Color::WHITE);
+                Text("Установка уровня синхронизации").Write(x + dX, y + dY, Color::WHITE);
             }
         }
         else
