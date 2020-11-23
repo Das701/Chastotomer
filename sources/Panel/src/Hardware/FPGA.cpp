@@ -30,7 +30,7 @@
 #define Set_WR      SetPin(PinWR)
 #define Reset_WR    ResetPin(PinWR)
 
-#define Set_CLOCK   SetPin(PinCLOCK)
+#define Set_CLOCK   SetPin(PinCLOCK);   DELAY
 #define Reset_CLOCK ResetPin(PinCLOCK)
 
 #define Set_Data    SetPin(PinDATA)
@@ -43,7 +43,6 @@
 
 #define READ_PIN_B14(x, bit)                                                            \
     Set_CLOCK;                                                                          \
-    DELAY;                                                                              \
     x |= (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14) << bit);                                 \
     Reset_CLOCK;                                                                        \
     DELAY;
@@ -69,7 +68,6 @@
     HAL_GPIO_WritePin(PinDATA, (x == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);               \
     DELAY;                                                                              \
     Set_CLOCK;                                                                          \
-    DELAY;                                                                              \
     Reset_CLOCK;
 
 #define WRITE_COMMAND(num, x)                                                           \
@@ -265,7 +263,6 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
     Reset_Data;
     DELAY;
     Set_CLOCK;
-    DELAY;
     Reset_CLOCK;
     DELAY;
 
@@ -275,13 +272,11 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
 
     DELAY;
     Set_CLOCK;
-    DELAY;
     Reset_Data;
     DELAY;
     Set_Data;
     DELAY;
     Set_CLOCK;
-    DELAY;
     Reset_Data;
     DELAY;
     Reset_CLOCK;
