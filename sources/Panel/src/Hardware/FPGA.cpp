@@ -260,29 +260,29 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
     {
     }
 
-    Reset_Data;
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+    Reset_CLOCK;
     DELAY;
     Reset_Data;
     DELAY;
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+    Set_CLOCK;
     DELAY;
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+    Reset_CLOCK;
 
     WRITE_COMMAND(4, command);
 
     WRITE_COMMAND(6, argument);
 
-    DELAY;
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //-V525
+    Set_CLOCK;
     DELAY;
     Reset_Data;
     DELAY;
     Set_Data;
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+    DELAY;
+    Set_CLOCK;
     DELAY;
     Reset_Data;
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+    DELAY;
+    Reset_CLOCK;
 }
 
 void FPGA::IncreaseN()
