@@ -27,8 +27,8 @@
 #define PinDATA     GPIOB, GPIO_PIN_15
 #define PinCLOCK    GPIOB, GPIO_PIN_13
 
-#define Set_WR      SetPin(PinWR);      DELAY
-#define Reset_WR    ResetPin(PinWR);    DELAY
+#define Set_WR      SetPin(PinWR);
+#define Reset_WR    ResetPin(PinWR);
 
 #define Set_CLOCK   SetPin(PinCLOCK);   DELAY
 #define Reset_CLOCK ResetPin(PinCLOCK); DELAY
@@ -344,6 +344,13 @@ void FPGA::ReadCalibNumber()
 
 void FPGA::WriteData()
 {
+//    uint timePrev = 0;
+//
+//    while(TIME_MS - timePrev < 20)
+//    { }
+//
+//    timePrev = TIME_MS;
+
     int negative = 1024;
 
     if(PageIndication::calibration.Is(Calibration::Pressed))
@@ -388,23 +395,33 @@ void FPGA::WriteData()
     {
     }
 
-    Reset_DATA;
     Reset_CLOCK;
     Set_DATA;
     Set_CLOCK;
     Reset_CLOCK;
 
-//    LOG_WRITE("%s", MathFPGA::BinToString(encData, 10).c_str());
+    //LOG_WRITE("%s", MathFPGA::BinToString(encData, 10).c_str());
 
     for (int i = 9; i > -1; i--)
     {
         WRITE_BIT(encData[i]);
     }
 
-    Set_DATA;
-    Set_CLOCK;
+
     Reset_DATA;
+    Set_CLOCK;
+    Set_DATA;
+
     Reset_CLOCK;
+    Reset_DATA;
+
+    //Set_CLOCK;
+    //Reset_DATA;
+    //Set_DATA;
+
+    //Set_CLOCK;
+    //Reset_DATA;
+    //Reset_CLOCK;
 }
 
 
