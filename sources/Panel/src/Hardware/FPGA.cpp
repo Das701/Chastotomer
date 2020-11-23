@@ -399,8 +399,6 @@ void FPGA::WriteData()
         WRITE_BIT(encData[i]);
     }
 
-    Set_CLOCK;
-    Reset_DATA;
     Set_DATA;
     Set_CLOCK;
     Reset_DATA;
