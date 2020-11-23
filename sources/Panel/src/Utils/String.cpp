@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Display/Primitives.h"
+#include "Display/Font/Font.h"
 #include "Utils/String.h"
 #include "Utils/StringUtils.h"
 #include <cstring>
@@ -238,6 +239,12 @@ int String::Size() const
     }
 
     return static_cast<int>(std::strlen(buffer));
+}
+
+
+int String::Length() const
+{
+    return Font::GetLengthText(c_str());
 }
 
 

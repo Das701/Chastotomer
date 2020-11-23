@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Display/Console.h"
+#include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Utils/String.h"
@@ -44,7 +45,9 @@ void Console::Draw()
 
     for (int i = 0; i < stringInConsole; i++)
     {
-        Text(String(buffer[i]).c_str()).Write(1, y, Color::BLACK);
+        String string(buffer[i]);
+        Primitives::Rectangle(string.Length(), 15).Fill(0, y, Color::BLACK);
+        Text(string.c_str()).Write(1, y, Color::WHITE);
         y += 15;
     }
 
@@ -64,22 +67,19 @@ void Console::DeleteFirstString()
 
 void Console::AddString(const char *string)
 {
-    // \todo Мы пропускаем некоторые строки. Сделать отложенное добавление
+    inProcessAddingString = true;
 
-    //if (!IsBusy())      // Страхуемся на предмет того, что сейчас не происходит вывод консоли в другом потоке
+    static int count = 0;
+    if (stringInConsole == S_DBG_NUM_STRINGS_IN_CONSOLE)
     {
-        inProcessAddingString = true;
-
-        static int count = 0;
-        if (stringInConsole == S_DBG_NUM_STRINGS_IN_CONSOLE)
-        {
-            DeleteFirstString();
-        }
-        std::sprintf(buffer[stringInConsole], "%d %s", count++, string);
-        stringInConsole++;
-
-        inProcessAddingString = false;
+        DeleteFirstString();
     }
+    std::sprintf(buffer[stringInConsole], "%d %s", count++, string);
+    stringInConsole++;
+
+    inProcessAddingString = false;
+
+    Display::Refresh();
 }
 
 

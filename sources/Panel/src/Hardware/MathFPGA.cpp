@@ -411,6 +411,28 @@ void MathFPGA::DecToBin(int dec, char *bin)
 }
 
 
+String MathFPGA::BinToString(pString bin, int num)
+{
+    char buffer[20];
+
+    for (int i = 0; i < num; i++)
+    {
+        if (bin[i] == 0)
+        {
+            buffer[i] = '0';
+        }
+        else
+        {
+            buffer[i] = '1';
+        }
+    }
+
+    buffer[num] = '\0';
+
+    return String(buffer);
+}
+
+
 void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
 {
     int manualZeros = 1;

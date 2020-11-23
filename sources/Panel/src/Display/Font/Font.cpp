@@ -128,6 +128,11 @@ uint8 Font::GetWidth(uint8 num)
         }
     }
 
+    if (num == '1')
+    {
+        return GetWidth('0');
+    }
+
     NativeSymbol *symbol = HeaderFont::Sefl()->GetSymbol(num);
 
     return symbol ? symbol->width : 0U;

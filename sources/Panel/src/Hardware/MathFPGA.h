@@ -24,6 +24,7 @@ struct MathFPGA
     };
 
     static void DecToBin(int dec, char *bin);
+    static String BinToString(pString bin, int num);
 
     static int NA; //-V707
     static int NB; //-V707

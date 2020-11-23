@@ -57,17 +57,17 @@
     if(verifyOverload) { isOverloaded = (x & 1U) != 0; };
 
 
-#define WRITE_COMMAND(x)                                                                \
+#define WRITE_BIT(x)                                                                    \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, (x == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);    \
     DELAY;                                                                              \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);                                \
     DELAY;                                                                              \
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
-#define CYCLE_WRITE_COMMAND(num, x)                                                     \
+#define WRITE_COMMAND(num, x)                                                           \
     for (int i = 0; i < num; i++)                                                       \
     {                                                                                   \
-        WRITE_COMMAND(x[i]);                                                            \
+        WRITE_BIT(x[i]);                                                                \
     }
 
 static uint ident = 0;      // Это значение считывается непосредственно из FPGA
@@ -246,6 +246,8 @@ void FPGA::ReadComparator()
 
 void FPGA::WriteCommand(const char command[4], const char argument[6])
 {
+    LOG_WRITE("%s %s", MathFPGA::BinToString(command, 4).c_str(), MathFPGA::BinToString(argument, 6).c_str());
+
     while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) != 0)
     {
     }
@@ -259,9 +261,9 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
     DELAY;
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
-    CYCLE_WRITE_COMMAND(4, command);
+    WRITE_COMMAND(4, command);
 
-    CYCLE_WRITE_COMMAND(6, argument);
+    WRITE_COMMAND(6, argument);
 
     DELAY;
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //-V525
@@ -371,14 +373,14 @@ void FPGA::WriteData()
     {
         if(CURRENT_CHANNEL_IS_A)
         {
-                if(MathFPGA::NA < 0)
-                {
-                    MathFPGA::DecToBin(negative + MathFPGA::NA, encData);
-                }
-                else
-                {
-                    MathFPGA::DecToBin(MathFPGA::NA, encData);
-                }
+            if (MathFPGA::NA < 0)
+            {
+                MathFPGA::DecToBin(negative + MathFPGA::NA, encData);
+            }
+            else
+            {
+                MathFPGA::DecToBin(MathFPGA::NA, encData);
+            }
         }
         else if(CURRENT_CHANNEL_IS_B)
         {
@@ -406,9 +408,11 @@ void FPGA::WriteData()
     DELAY;
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
+    LOG_WRITE("%s", MathFPGA::BinToString(encData, 10).c_str());
+
     for (int i = 9; i > -1; i--)
     {
-        WRITE_COMMAND(encData[i]);
+        WRITE_BIT(encData[i]);
     }
 
     DELAY;

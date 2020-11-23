@@ -246,29 +246,19 @@ static void OnControl(const Control &control) //-V2008
 {
     switch (control.value)
     {
+    case Control::GovButton:
+        if (openedPage->SelectedItem())
+        {
+            openedPage->SelectedItem()->OnControl(control);
+        }
+        break;
+
     case Control::Right:
         openedPage->SelectNextItem();
         break;
 
     case Control::Left:
         openedPage->SelectPrevItem();
-        break;
-
-    case Control::GovLeft:
-        FPGA::DecreaseN();
-        FPGA::WriteData();
-        break;
-
-    case Control::GovRight:
-        FPGA::IncreaseN();
-        FPGA::WriteData();
-        break;
-
-    case Control::GovButton:
-        if (openedPage->SelectedItem())
-        {
-            openedPage->SelectedItem()->OnControl(control);
-        }
         break;
 
     case Control::Enter:
@@ -319,6 +309,8 @@ static void OnControl(const Control &control) //-V2008
     case Control::Channels:
     case Control::Service:
     case Control::Count:
+    case Control::GovLeft:
+    case Control::GovRight:
     case Control::None:
     default:
         // никаких действий по умолчанию производить не требуется

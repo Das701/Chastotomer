@@ -41,6 +41,8 @@ public:
 
     void RemoveFromEnd();
 
+    int Length() const;
+
     int Size() const;
 
     char &operator[](int i) const;
