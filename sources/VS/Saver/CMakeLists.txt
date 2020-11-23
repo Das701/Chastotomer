@@ -73,6 +73,7 @@ file(GLOB SRC                 ../../Panel/src/defines.h
                                           src/main_win.cpp)
 file(GLOB DISPLAY             ../../Panel/src/Display/Colors.*
                                           src/Display/Display_win.*)
+file(GLOB DISPLAY_FONT        ../../Panel/src/Display/Font/Font.cpp)
 file(GLOB KEYBOARD            ../../Panel/src/Keyboard/Keyboard.h
                                           src/Keyboard/Keyboard_win.cpp)
 file(GLOB GUI                             src/GUI/*)
@@ -83,12 +84,13 @@ file(GLOB UTILS               ../../Panel/src/Utils/Buffer.*
 
 source_group(src               FILES ${SRC})
 source_group(Display           FILES ${DISPLAY})
+source_group(Display\\Font     FILES ${DISPLAY_FONT})
 source_group(Keyboard          FILES ${KEYBOARD})
 source_group(GUI               FILES ${GUI})
 source_group(Utils             FILES ${UTILS})
 
 
-add_executable(Saver ${SRC} ${DISPLAY} ${GUI} ${KEYBOARD} ${UTILS})
+add_executable(Saver ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${GUI} ${KEYBOARD} ${UTILS})
 
 target_link_libraries(Saver ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
 target_link_libraries(Saver ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxmsw31ud_core)
