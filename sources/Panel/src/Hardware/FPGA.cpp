@@ -33,12 +33,12 @@
 #define Set_CLOCK   SetPin(PinCLOCK);   DELAY
 #define Reset_CLOCK ResetPin(PinCLOCK); DELAY
 
-#define Set_Data    SetPin(PinDATA)
-#define Reset_Data  ResetPin(PinDATA)
+#define Set_Data    SetPin(PinDATA);    DELAY
+#define Reset_Data  ResetPin(PinDATA);  DELAY
 
 #define Read_FLAG   ReadPin(PinFLAG)
 
-#define DELAY  HAL_TIM::DelayUS(100)
+#define DELAY  HAL_TIM::DelayUS(10)
 
 
 #define READ_PIN_B14(x, bit)                                                            \
@@ -259,7 +259,6 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
 
     Reset_CLOCK;
     Reset_Data;
-    DELAY;
     Set_CLOCK;
     Reset_CLOCK;
 
@@ -267,15 +266,11 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
 
     WRITE_COMMAND(6, argument);
 
-    DELAY;
     Set_CLOCK;
     Reset_Data;
-    DELAY;
     Set_Data;
-    DELAY;
     Set_CLOCK;
     Reset_Data;
-    DELAY;
     Reset_CLOCK;
 }
 
@@ -402,12 +397,9 @@ void FPGA::WriteData()
     }
 
     Reset_Data;
-    DELAY;
     Reset_CLOCK;
     Set_Data;
-    DELAY;
     Set_CLOCK;
-    DELAY;
     Reset_CLOCK;
 
 //    LOG_WRITE("%s", MathFPGA::BinToString(encData, 10).c_str());
@@ -417,17 +409,11 @@ void FPGA::WriteData()
         WRITE_BIT(encData[i]);
     }
 
-    DELAY;
     Set_CLOCK;
-    DELAY;
     Reset_Data;
-    DELAY;
     Set_Data;
-    DELAY;
     Set_CLOCK;
-    DELAY;
     Reset_Data;
-    DELAY;
     Reset_CLOCK;
 }
 
