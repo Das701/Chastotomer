@@ -257,7 +257,6 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
     WRITE_COMMAND(6, argument);
 
     Set_CLOCK;
-    Reset_DATA;
     Set_DATA;
     Set_CLOCK;
     Reset_DATA;
