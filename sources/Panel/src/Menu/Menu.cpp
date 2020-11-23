@@ -40,7 +40,7 @@ void Menu::Draw()
 }
 
 
-bool Menu::Update()
+void Menu::Update()
 {
     while (!Keyboard::Empty())
     {
@@ -73,11 +73,7 @@ bool Menu::Update()
         OpenPage(control);
 
         Display::Refresh();
-
-        return true; //-V612
     }
-    
-    return false;
 }
 
 

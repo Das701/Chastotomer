@@ -10,7 +10,7 @@ namespace Menu
 
     void Draw();
 
-    bool Update();
+    void Update();
 
     String ChannelSettings();
     
