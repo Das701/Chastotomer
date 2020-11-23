@@ -241,31 +241,6 @@ void FPGA::ReadComparator()
 }
 
 
-void FPGA::WriteCommand(const char command[4], const char argument[6])
-{
-//    LOG_WRITE("%s %s", MathFPGA::BinToString(command, 4).c_str(), MathFPGA::BinToString(argument, 6).c_str());
-
-    while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) != 0)
-    {
-    }
-
-    Reset_CLOCK;
-    Reset_DATA;
-    Set_CLOCK;
-    Reset_CLOCK;
-
-    WRITE(4, command);
-
-    WRITE(6, argument);
-
-    Set_CLOCK;
-    Reset_DATA;
-    Set_DATA;
-    Set_CLOCK;
-    Reset_DATA;
-    Reset_CLOCK;
-}
-
 void FPGA::IncreaseN()
 {
     if(PageIndication::calibration.Is(Calibration::Pressed))
@@ -344,13 +319,6 @@ void FPGA::ReadCalibNumber()
 
 void FPGA::WriteData()
 {
-//    uint timePrev = 0;
-//
-//    while(TIME_MS - timePrev < 20)
-//    { }
-//
-//    timePrev = TIME_MS;
-
     int negative = 1024;
 
     if(PageIndication::calibration.Is(Calibration::Pressed))
@@ -407,6 +375,30 @@ void FPGA::WriteData()
         WRITE_BIT(encData[i]);
     }
 
+    Reset_DATA;
+    Set_CLOCK;
+    Set_DATA;
+
+    Reset_CLOCK;
+    Reset_DATA;
+}
+
+
+void FPGA::WriteCommand(const char command[4], const char argument[6])
+{
+    //    LOG_WRITE("%s %s", MathFPGA::BinToString(command, 4).c_str(), MathFPGA::BinToString(argument, 6).c_str());
+
+    while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) != 0)
+    {
+    }
+
+    Reset_CLOCK;
+    Reset_DATA;
+    Set_CLOCK;
+    Reset_CLOCK;
+
+    WRITE(4, command);
+    WRITE(6, argument);
 
     Reset_DATA;
     Set_CLOCK;
@@ -414,14 +406,6 @@ void FPGA::WriteData()
 
     Reset_CLOCK;
     Reset_DATA;
-
-    //Set_CLOCK;
-    //Reset_DATA;
-    //Set_DATA;
-
-    //Set_CLOCK;
-    //Reset_DATA;
-    //Reset_CLOCK;
 }
 
 
