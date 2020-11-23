@@ -267,11 +267,13 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
     Set_CLOCK;
     DELAY;
     Reset_CLOCK;
+    DELAY;
 
     WRITE_COMMAND(4, command);
 
     WRITE_COMMAND(6, argument);
 
+    DELAY;
     Set_CLOCK;
     DELAY;
     Reset_Data;
@@ -407,14 +409,16 @@ void FPGA::WriteData()
     {
     }
 
-    HAL_GPIO_WritePin(PinDATA, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+    Reset_Data;
     DELAY;
-    HAL_GPIO_WritePin(PinDATA, GPIO_PIN_SET); //-V525
+    Reset_CLOCK;
     DELAY;
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+    Set_Data;
     DELAY;
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+    Set_CLOCK;
+    DELAY;
+    Reset_CLOCK;
+    DELAY;
 
 //    LOG_WRITE("%s", MathFPGA::BinToString(encData, 10).c_str());
 
@@ -424,15 +428,17 @@ void FPGA::WriteData()
     }
 
     DELAY;
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //-V525
+    Set_CLOCK;
     DELAY;
-    HAL_GPIO_WritePin(PinDATA, GPIO_PIN_RESET);
+    Reset_Data;
     DELAY;
-    HAL_GPIO_WritePin(PinDATA, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+    Set_Data;
     DELAY;
-    HAL_GPIO_WritePin(PinDATA, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+    Set_CLOCK;
+    DELAY;
+    Reset_Data;
+    DELAY;
+    Reset_CLOCK;
 }
 
 
