@@ -106,13 +106,13 @@ void FPGA::Init()
 
     Reset_WR;
 
-//    TimeMeasure::LoadToFPGA();
-//    NumberPeriods::LoadToFPGA();
-//    PeriodTimeLabels::LoadToFPGA();
-//
-//    PageModes::OnChanged_TypeMeasure();
-//
-//    Channel::LoadCurrentToFPGA();
+    TimeMeasure::LoadToFPGA();
+    NumberPeriods::LoadToFPGA();
+    PeriodTimeLabels::LoadToFPGA();
+
+    PageModes::OnChanged_TypeMeasure();
+
+    Channel::LoadCurrentToFPGA();
 }
 
 

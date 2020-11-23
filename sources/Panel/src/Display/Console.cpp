@@ -46,7 +46,7 @@ void Console::Draw()
     for (int i = 0; i < stringInConsole; i++)
     {
         String string(buffer[i]);
-        Primitives::Rectangle(string.Length(), 15).Fill(0, y, Color::BLACK);
+        Primitives::Rectangle(string.Length() + 1, 15).Fill(0, y, Color::BLACK);
         Text(string.c_str()).Write(1, y, Color::WHITE);
         y += 15;
     }
