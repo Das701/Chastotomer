@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "Log.h"
+//#include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
@@ -246,7 +246,7 @@ void FPGA::ReadComparator()
 
 void FPGA::WriteCommand(const char command[4], const char argument[6])
 {
-    LOG_WRITE("%s %s", MathFPGA::BinToString(command, 4).c_str(), MathFPGA::BinToString(argument, 6).c_str());
+//    LOG_WRITE("%s %s", MathFPGA::BinToString(command, 4).c_str(), MathFPGA::BinToString(argument, 6).c_str());
 
     while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) != 0)
     {
@@ -408,7 +408,7 @@ void FPGA::WriteData()
     DELAY;
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
-    LOG_WRITE("%s", MathFPGA::BinToString(encData, 10).c_str());
+//    LOG_WRITE("%s", MathFPGA::BinToString(encData, 10).c_str());
 
     for (int i = 9; i > -1; i--)
     {
