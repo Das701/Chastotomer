@@ -27,8 +27,8 @@
 #define PinDATA     GPIOB, GPIO_PIN_15
 #define PinCLOCK    GPIOB, GPIO_PIN_13
 
-#define Set_WR      SetPin(PinWR)
-#define Reset_WR    ResetPin(PinWR)
+#define Set_WR      SetPin(PinWR);      DELAY
+#define Reset_WR    ResetPin(PinWR);    DELAY
 
 #define Set_CLOCK   SetPin(PinCLOCK);   DELAY
 #define Reset_CLOCK ResetPin(PinCLOCK); DELAY
@@ -63,7 +63,7 @@
     Set_CLOCK;                                                                          \
     Reset_CLOCK;
 
-#define WRITE_COMMAND(num, x) for (int i = 0; i < num; i++) { WRITE_BIT(x[i]); }
+#define WRITE(num, x) for (int i = 0; i < num; i++) { WRITE_BIT(x[i]); }
 
 static uint ident = 0;      // Это значение считывается непосредственно из FPGA
 static uint kCalib = 0;     // Это значение считывается непосредственно из FPGA
@@ -254,9 +254,9 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
     Set_CLOCK;
     Reset_CLOCK;
 
-    WRITE_COMMAND(4, command);
+    WRITE(4, command);
 
-    WRITE_COMMAND(6, argument);
+    WRITE(6, argument);
 
     Set_CLOCK;
     Set_DATA;
