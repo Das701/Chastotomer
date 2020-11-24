@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
@@ -385,10 +386,12 @@ void FPGA::WriteData()
 }
 
 
-void FPGA::WriteCommand(const char command[4], const char argument[6])
+void FPGA::WriteCommand(const char command[4], const char argument[6], char *file, int line)
 {
     while (Read_READY != 0)             // \todo Провеерить. Возможно, по аналогии с передачей данных нельзя ожидать флага готовности
     {
+        LOG_WRITE("%s : %d", file, line);
+
         return;
     }
 

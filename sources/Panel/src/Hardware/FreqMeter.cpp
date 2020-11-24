@@ -38,7 +38,7 @@ void Channel::LoadCurrentToFPGA()
         argument[4] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 
     MathFPGA::Validator::SetInvalidData();
 }
@@ -59,7 +59,7 @@ void FreqMeter::LoadDisplayTime()
         argument[4] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 }
 
 
@@ -74,7 +74,7 @@ void RefGenerator::LoadToFPGA()
         argument[5] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 
     MathFPGA::Validator::SetInvalidData();
 }
@@ -95,7 +95,7 @@ void LaunchSource::LoadToFPGA()
         argument[4] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 
     MathFPGA::Validator::SetInvalidData();
 }
@@ -116,7 +116,7 @@ void FreqMeter::LoadCalibration()
         argument[3] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 }
 
 
@@ -131,7 +131,7 @@ void MemoryMode::Load()
         argument[5] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 }
 
 void ModeMeasureFrequency::LoadToFPGA()
@@ -173,7 +173,7 @@ void ModeMeasureFrequency::LoadToFPGA()
         argument[5] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 
     MathFPGA::Validator::SetInvalidData();
 }
@@ -192,7 +192,7 @@ void ModeMeasurePeriod::LoadToFPGA()
         argument[5] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 
     MathFPGA::Validator::SetInvalidData();
 }
@@ -226,7 +226,7 @@ void ModeMeasureDuration::LoadToFPGA()
 
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 
     MathFPGA::Validator::SetInvalidData();
 }
@@ -262,7 +262,7 @@ void ModeMeasureCountPulse::LoadToFPGA()
         argument[4] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 
     MathFPGA::Validator::SetInvalidData();
 }
@@ -285,7 +285,7 @@ void PeriodTimeLabels::LoadToFPGA()
                                     argument[3] = 1;    break;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 
     MathFPGA::Validator::SetInvalidData();
 }
@@ -312,7 +312,7 @@ void TimeMeasure::LoadToFPGA()
                                 argument[4] = 1;  break;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 
     MathFPGA::Validator::SetInvalidData();
 }
@@ -339,7 +339,7 @@ void NumberPeriods::LoadToFPGA()
                                 argument[3] = 1;    break;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 
     MathFPGA::Validator::SetInvalidData();
 }
@@ -357,7 +357,7 @@ void InputImpedance::LoadToFPGA()
         argument[5] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 }
 
 
@@ -372,7 +372,7 @@ void ModeFront::LoadToFPGA()
         argument[5] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 }
 
 
@@ -387,7 +387,7 @@ void Divider::LoadToFPGA()
         argument[5] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 }
 
 
@@ -405,7 +405,7 @@ void TypeSynch::LoadToFPGA()
     {
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 }
 
 
@@ -418,7 +418,7 @@ void FreqMeter::LoadAuto()
     argument[5] = 1;
     argument[4] = 1;
     autoMode = true;
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 }
 
 
@@ -433,7 +433,7 @@ void FreqMeter::UnloadAuto()
         argument[5] = 1;
         argument[3] = 1;
         autoMode = false;
-        FPGA::WriteCommand(command, argument);
+        FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
     }
 }
 
@@ -457,7 +457,7 @@ void FreqMeter::LoadOneTime()
     argument[5] = 1;
     argument[4] = 1;
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 }
 
 
@@ -477,7 +477,7 @@ void FreqMeter::LoadStartStop()
         argument[3] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 }
 
 
@@ -500,7 +500,7 @@ void ModeTest::Switch()
 
     Event(EventType::ModeTestChanged);
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 
     MathFPGA::Validator::SetInvalidData();
 }
@@ -517,5 +517,5 @@ void ModeFilter::LoadToFPGA()
         argument[5] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 }

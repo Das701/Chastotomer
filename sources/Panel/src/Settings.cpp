@@ -32,7 +32,7 @@ void InputCouple::Load()
         argument[5] = 1;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command, argument, __FILE__, __LINE__);
 }
 
 
