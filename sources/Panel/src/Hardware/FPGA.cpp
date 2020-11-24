@@ -1,5 +1,4 @@
 #include "defines.h"
-//#include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
@@ -26,6 +25,7 @@
 #define PinWR       GPIOB, GPIO_PIN_12
 #define PinDATA     GPIOB, GPIO_PIN_15
 #define PinCLOCK    GPIOB, GPIO_PIN_13
+#define PinREADY    GPIOC, GPIO_PIN_9
 
 #define Set_WR      SetPin(PinWR);
 #define Reset_WR    ResetPin(PinWR);
@@ -37,6 +37,8 @@
 #define Reset_DATA  ResetPin(PinDATA);  DELAY
 
 #define Read_FLAG   ReadPin(PinFLAG)
+
+#define Read_READY  ReadPin(PinREADY)
 
 #define DELAY  HAL_TIM::DelayUS(10)
 
@@ -359,17 +361,15 @@ void FPGA::WriteData()
         }
     }
 
-    if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) != 0)
-    {
+    while (Read_READY != 0)             // \todo К сожалению, флаг готовности не работает так, как надо и если ожидать его установки в ноль, то происходит сбой передачи данных
+    {                                   // Если флаг не готов, выходим. Передавать нужно только если флаг уже установлен в 0
         return;
     }
-
+    
     Reset_CLOCK;
     Set_DATA;
     Set_CLOCK;
     Reset_CLOCK;
-
-    //LOG_WRITE("%s", MathFPGA::BinToString(encData, 10).c_str());
 
     for (int i = 9; i > -1; i--)
     {
@@ -387,9 +387,7 @@ void FPGA::WriteData()
 
 void FPGA::WriteCommand(const char command[4], const char argument[6])
 {
-    //    LOG_WRITE("%s %s", MathFPGA::BinToString(command, 4).c_str(), MathFPGA::BinToString(argument, 6).c_str());
-
-    while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) != 0)
+    while (Read_READY != 0)             // \todo Провеерить. Возможно, по аналогии с передачей данных нельзя ожидать флага готовности
     {
     }
 
