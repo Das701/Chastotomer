@@ -169,6 +169,12 @@ void Display::Update()
         Display::Refresh();
     }
 
+    if (timeAutoHint != 0U && (TIME_MS - timeAutoHint) > 10000)
+    {
+        timeAutoHint = 0U;
+        Display::Refresh();
+    }
+
     if (needRedraw)
     {
         timeStart = TIME_MS;
@@ -284,7 +290,7 @@ static void DrawHint(int x, int y)
     int dX = 4;
     int dY = 6;
 
-    if((TIME_MS < timeAutoHint + 10000) && timeAutoHint != 0 && autoFlag == true)
+    if((TIME_MS < timeAutoHint + 10000) && timeAutoHint != 0 && autoFlag)
     {
         Rectangle(360, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::GREEN_20);
 
@@ -309,6 +315,7 @@ static void DrawHint(int x, int y)
             {
                 Rectangle(360, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::GREEN_20);
                 Text("Установка уровня синхронизации").Write(x + dX, y + dY, Color::WHITE);
+                timeAutoHint = 0;
             }
         }
         else
