@@ -390,8 +390,6 @@ void FPGA::WriteCommand(const char command[4], const char argument[6], char *fil
 {
     while (Read_READY != 0)             // \todo Провеерить. Возможно, по аналогии с передачей данных нельзя ожидать флага готовности
     {
-        LOG_WRITE("%s : %d", file, line);
-
         return;
     }
 
