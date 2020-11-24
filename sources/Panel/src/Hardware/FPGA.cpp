@@ -359,8 +359,9 @@ void FPGA::WriteData()
         }
     }
 
-    while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) != 0)
+    if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) != 0)
     {
+        return;
     }
 
     Reset_CLOCK;
