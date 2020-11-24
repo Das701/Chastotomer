@@ -389,6 +389,7 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
 {
     while (Read_READY != 0)             // \todo Провеерить. Возможно, по аналогии с передачей данных нельзя ожидать флага готовности
     {
+        return;
     }
 
     Reset_CLOCK;
