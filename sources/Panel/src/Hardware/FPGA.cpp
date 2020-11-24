@@ -40,7 +40,7 @@
 
 #define Read_READY  ReadPin(PinREADY)
 
-#define DELAY  HAL_TIM::DelayUS(10)
+#define DELAY  HAL_TIM::DelayUS(2)
 
 
 #define READ_PIN_B14(x, bit)                                                            \
