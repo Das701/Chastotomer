@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
@@ -40,7 +41,7 @@
 
 #define Read_READY  ReadPin(PinREADY)
 
-#define DELAY  HAL_TIM::DelayUS(2)
+#define DELAY  HAL_TIM::DelayUS(20)
 
 
 #define READ_PIN_B14(x, bit)                                                            \
@@ -173,6 +174,8 @@ void FPGA::ReadFillFactorPhase()
         CYCLE_READ_PIN_B14(32, period, true);
         CYCLE_READ_PIN_B14(32, duration, true);
         Reset_WR;
+
+        LOG_WRITE("%d %d", period, duration);
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::FillFactorPhase, period, duration);
 
