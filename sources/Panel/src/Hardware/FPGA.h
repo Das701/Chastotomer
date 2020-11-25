@@ -33,4 +33,6 @@ private:
     static void ReadAutoMode();
     static void ReadComparator();
     static void ReadFillFactorPhase();
+
+    static void CalculateData();
 };

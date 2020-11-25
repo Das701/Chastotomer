@@ -322,13 +322,13 @@ void FPGA::ReadCalibNumber()
 }
 
 
-void FPGA::WriteData()
+void FPGA::CalculateData()
 {
     int negative = 1024;
 
-    if(PageIndication::calibration.Is(Calibration::Pressed))
+    if (PageIndication::calibration.Is(Calibration::Pressed))
     {
-        if((int)kCalib + NAC < 0)
+        if ((int)kCalib + NAC < 0)
         {
             kCalib = 0;
             NAC = 0;
@@ -340,7 +340,7 @@ void FPGA::WriteData()
     }
     else
     {
-        if(CURRENT_CHANNEL_IS_A)
+        if (CURRENT_CHANNEL_IS_A)
         {
             if (MathFPGA::NA < 0)
             {
@@ -351,9 +351,9 @@ void FPGA::WriteData()
                 MathFPGA::DecToBin(MathFPGA::NA, encData);
             }
         }
-        else if(CURRENT_CHANNEL_IS_B)
+        else if (CURRENT_CHANNEL_IS_B)
         {
-            if(MathFPGA::NB < 0)
+            if (MathFPGA::NB < 0)
             {
                 MathFPGA::DecToBin(negative + MathFPGA::NB, encData);
             }
@@ -363,6 +363,12 @@ void FPGA::WriteData()
             }
         }
     }
+}
+
+
+void FPGA::WriteData()
+{
+    CalculateData();
 
     if (Read_READY != 0)             // \todo К сожалению, флаг готовности не работает так, как надо и если ожидать его установки в ноль, то происходит сбой передачи данных
     {                                   // Если флаг не готов, выходим. Передавать нужно только если флаг уже установлен в 0
