@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Settings.h"
+#include "Menu/Menu.h"
 #include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/PageService.h"
 #include "Menu/Pages/Modes/Modes.h"
@@ -25,11 +26,11 @@ static void OnPress_ResetSettings()
 
     CURRENT_CHANNEL = Channel::A;
 
+    Menu::SetOpenedPage(PageModesA::self);
+
     PageModes::OnChanged_TypeMeasure();
 
     Channel::LoadCurrentToFPGA();
-
-    PageModes::OnChanged_TypeMeasure();
 }
 
 DEF_BUTTON(bResetSettings, "—брос", "—брос настроек в состо€ние по умолчанию", OnPress_ResetSettings);
