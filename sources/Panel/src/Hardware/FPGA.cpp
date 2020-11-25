@@ -366,7 +366,6 @@ void FPGA::WriteData()
 
     while (Read_READY != 0)             // \todo К сожалению, флаг готовности не работает так, как надо и если ожидать его установки в ноль, то происходит сбой передачи данных
     {                                   // Если флаг не готов, выходим. Передавать нужно только если флаг уже установлен в 0
-        return;
     }
     
     Reset_CLOCK;
@@ -385,6 +384,14 @@ void FPGA::WriteData()
 
     Reset_CLOCK;
     Reset_DATA;
+
+    uint startTime = TIME_MS;
+
+    while (Read_READY == 0)
+    {
+    }
+
+    LOG_WRITE("%d", TIME_MS - startTime);
 }
 
 
