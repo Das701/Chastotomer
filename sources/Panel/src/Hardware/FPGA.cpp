@@ -111,6 +111,8 @@ void FPGA::Init()
     is.Pin = PinFLAG | PinREADY;
     HAL_GPIO_Init(GPIOC, &is);
 
+    TunePinOnInput(GPIOC, PinREADY);
+
     Reset_WR;
 
 //    TimeMeasure::LoadToFPGA();
@@ -120,6 +122,25 @@ void FPGA::Init()
 //    PageModes::OnChanged_TypeMeasure();
 //
 //    Channel::LoadCurrentToFPGA();
+}
+
+
+void FPGA::TunePinOnInput(void *port, uint pin)
+{
+    GPIO_InitTypeDef is =
+    {
+        pin,
+        GPIO_MODE_OUTPUT_PP,
+        GPIO_PULLUP
+    };
+
+    HAL_GPIO_Init((GPIO_TypeDef *)port, &is);
+}
+
+
+void FPGA::TunePinOnInterrupt(void *port, uint pin)
+{
+
 }
 
 

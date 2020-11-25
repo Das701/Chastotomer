@@ -35,4 +35,7 @@ private:
     static void ReadFillFactorPhase();
 
     static void CalculateData();
+
+    static void TunePinOnInput(void *port, uint pin);
+    static void TunePinOnInterrupt(void *port, uint pin);
 };
