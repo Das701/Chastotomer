@@ -108,7 +108,7 @@ void FPGA::Init()
     is.Mode = GPIO_MODE_INPUT;
     HAL_GPIO_Init(GPIOB, &is);
 
-    is.Pin = PinFLAG | PinREADY;
+    is.Pin = PinFLAG;
     HAL_GPIO_Init(GPIOC, &is);
 
     TunePinOnInput(GPIOC, PinREADY);
