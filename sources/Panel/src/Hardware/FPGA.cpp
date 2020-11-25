@@ -18,28 +18,37 @@
 #include <stm32f4xx_hal.h>
 
 
-#define ReadPin(x)  HAL_GPIO_ReadPin(x)
-#define SetPin(x)   HAL_GPIO_WritePin(x, GPIO_PIN_SET)
-#define ResetPin(x) HAL_GPIO_WritePin(x, GPIO_PIN_RESET)
+#define ReadPin(port, pin)  HAL_GPIO_ReadPin(port, pin)
+#define SetPin(port, pin)   HAL_GPIO_WritePin(port, pin, GPIO_PIN_SET)
+#define ResetPin(port, pin) HAL_GPIO_WritePin(port, pin, GPIO_PIN_RESET)
 
-#define PinFLAG     GPIOC, GPIO_PIN_8
-#define PinWR       GPIOB, GPIO_PIN_12
-#define PinDATA     GPIOB, GPIO_PIN_15
-#define PinCLOCK    GPIOB, GPIO_PIN_13
-#define PinREADY    GPIOC, GPIO_PIN_9
+#define PortFLAG    GPIOC
+#define PinFLAG     GPIO_PIN_8
 
-#define Set_WR      SetPin(PinWR);
-#define Reset_WR    ResetPin(PinWR);
+#define PinREADY    GPIO_PIN_9
+#define PortREADY   GPIOC
 
-#define Set_CLOCK   SetPin(PinCLOCK);   DELAY
-#define Reset_CLOCK ResetPin(PinCLOCK); DELAY
+#define PinWR       GPIO_PIN_12
+#define PortWR      GPIOB
 
-#define Set_DATA    SetPin(PinDATA);    DELAY
-#define Reset_DATA  ResetPin(PinDATA);  DELAY
+#define PinDATA     GPIO_PIN_15
+#define PortDATA    GPIOB
 
-#define Read_FLAG   ReadPin(PinFLAG)
+#define PinCLOCK    GPIO_PIN_13
+#define PortCLOCK   GPIOB
 
-#define Read_READY  ReadPin(PinREADY)
+#define Set_WR      SetPin(PortWR, PinWR);
+#define Reset_WR    ResetPin(PortWR, PinWR)
+
+#define Set_CLOCK   SetPin(PortCLOCK, PinCLOCK);   DELAY
+#define Reset_CLOCK ResetPin(PortCLOCK, PinCLOCK); DELAY
+
+#define Set_DATA    SetPin(PortDATA, PinDATA);    DELAY
+#define Reset_DATA  ResetPin(PortDATA, PinDATA);  DELAY
+
+#define Read_FLAG   ReadPin(PortFLAG, PinFLAG)
+
+#define Read_READY  ReadPin(PortREADY, PinREADY)
 
 #define DELAY  HAL_TIM::DelayUS(20)
 
@@ -61,7 +70,7 @@
 
 
 #define WRITE_BIT(x)                                                                    \
-    HAL_GPIO_WritePin(PinDATA, (x == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);               \
+    HAL_GPIO_WritePin(PortDATA, PinDATA, (x == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);     \
     DELAY;                                                                              \
     Set_CLOCK;                                                                          \
     Reset_CLOCK;
@@ -89,7 +98,7 @@ void FPGA::Init()
     
     GPIO_InitTypeDef is =
     {
-        GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_15,
+        PinWR | PinCLOCK | PinDATA,
         GPIO_MODE_OUTPUT_PP,
         GPIO_PULLUP
     };
@@ -99,7 +108,7 @@ void FPGA::Init()
     is.Mode = GPIO_MODE_INPUT;
     HAL_GPIO_Init(GPIOB, &is);
 
-    is.Pin = GPIO_PIN_8 | GPIO_PIN_9;
+    is.Pin = PinFLAG | PinREADY;
     HAL_GPIO_Init(GPIOC, &is);
 
     Reset_WR;
@@ -322,50 +331,6 @@ void FPGA::ReadCalibNumber()
 }
 
 
-void FPGA::CalculateData()
-{
-    int negative = 1024;
-
-    if (PageIndication::calibration.Is(Calibration::Pressed))
-    {
-        if ((int)kCalib + NAC < 0)
-        {
-            kCalib = 0;
-            NAC = 0;
-        }
-
-        kCalib = (uint)((int)kCalib + NAC);
-        MathFPGA::DecToBin((int)kCalib, encData);
-        NAC = 0;
-    }
-    else
-    {
-        if (CURRENT_CHANNEL_IS_A)
-        {
-            if (MathFPGA::NA < 0)
-            {
-                MathFPGA::DecToBin(negative + MathFPGA::NA, encData);
-            }
-            else
-            {
-                MathFPGA::DecToBin(MathFPGA::NA, encData);
-            }
-        }
-        else if (CURRENT_CHANNEL_IS_B)
-        {
-            if (MathFPGA::NB < 0)
-            {
-                MathFPGA::DecToBin(negative + MathFPGA::NB, encData);
-            }
-            else
-            {
-                MathFPGA::DecToBin(MathFPGA::NB, encData);
-            }
-        }
-    }
-}
-
-
 void FPGA::WriteData()
 {
     CalculateData();
@@ -414,6 +379,50 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
 
     Reset_CLOCK;
     Reset_DATA;
+}
+
+
+void FPGA::CalculateData()
+{
+    int negative = 1024;
+
+    if (PageIndication::calibration.Is(Calibration::Pressed))
+    {
+        if ((int)kCalib + NAC < 0)
+        {
+            kCalib = 0;
+            NAC = 0;
+        }
+
+        kCalib = (uint)((int)kCalib + NAC);
+        MathFPGA::DecToBin((int)kCalib, encData);
+        NAC = 0;
+    }
+    else
+    {
+        if (CURRENT_CHANNEL_IS_A)
+        {
+            if (MathFPGA::NA < 0)
+            {
+                MathFPGA::DecToBin(negative + MathFPGA::NA, encData);
+            }
+            else
+            {
+                MathFPGA::DecToBin(MathFPGA::NA, encData);
+            }
+        }
+        else if (CURRENT_CHANNEL_IS_B)
+        {
+            if (MathFPGA::NB < 0)
+            {
+                MathFPGA::DecToBin(negative + MathFPGA::NB, encData);
+            }
+            else
+            {
+                MathFPGA::DecToBin(MathFPGA::NB, encData);
+            }
+        }
+    }
 }
 
 
