@@ -2,6 +2,8 @@
 #include "Settings.h"
 #include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/PageService.h"
+#include "Menu/Pages/Modes/Modes.h"
+#include "Menu/Pages/Modes/PagesModes.h"
 
 
 static void OnPress_Information()
@@ -14,7 +16,20 @@ DEF_BUTTON(bInformation, "Инфо", "Вывод системной информации", OnPress_Informati
 
 static void OnPress_ResetSettings()
 {
+    TimeMeasure::Set(TimeMeasure::_1ms);
+    NumberPeriods::Set(NumberPeriods::_1);
+    PeriodTimeLabels::Set(PeriodTimeLabels::T_8);
 
+    PageModesA::typeMeasure.value = TypeMeasure::Frequency;
+    PageModesA::modeMeasureFrequency.value = ModeMeasureFrequency::Frequency;
+
+    CURRENT_CHANNEL = Channel::A;
+
+    PageModes::OnChanged_TypeMeasure();
+
+    Channel::LoadCurrentToFPGA();
+
+    PageModes::OnChanged_TypeMeasure();
 }
 
 DEF_BUTTON(bResetSettings, "Сброс", "Сброс настроек в состояние по умолчанию", OnPress_ResetSettings);

@@ -291,6 +291,13 @@ void PeriodTimeLabels::LoadToFPGA()
 }
 
 
+void PeriodTimeLabels::Set(E v)
+{
+    PageModes::timeLabels.value = (uint8)v;
+    LoadToFPGA();
+}
+
+
 void TimeMeasure::LoadToFPGA()
 {
     PageModes::numberPeriods.value = PageModes::timeMeasure.value;
@@ -342,6 +349,13 @@ void NumberPeriods::LoadToFPGA()
     FPGA::WriteCommand(command, argument);
 
     MathFPGA::Validator::SetInvalidData();
+}
+
+
+void NumberPeriods::Set(E v)
+{
+    PageModes::numberPeriods.value = (uint8)v;
+    LoadToFPGA();
 }
 
 

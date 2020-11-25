@@ -103,14 +103,6 @@ void FPGA::Init()
     HAL_GPIO_Init(GPIOC, &is);
 
     Reset_WR;
-
-//    TimeMeasure::LoadToFPGA();
-//    NumberPeriods::LoadToFPGA();
-//    PeriodTimeLabels::LoadToFPGA();
-//
-//    PageModes::OnChanged_TypeMeasure();
-//
-//    Channel::LoadCurrentToFPGA();
 }
 
 

@@ -160,6 +160,8 @@ struct PeriodTimeLabels : public Enumeration
     bool IsT_8() const { return (value == T_8); }
 
     static void LoadToFPGA();
+
+    static void Set(E v);
 };
 
 
@@ -183,6 +185,8 @@ struct NumberPeriods : public Enumeration
     int ToAbs() const;
 
     static void LoadToFPGA();
+
+    static void Set(E v);
 };
 
 
@@ -208,6 +212,8 @@ struct TimeMeasure : public Enumeration
     bool Is10ms() const { return (value == _10ms); }
 
     static void LoadToFPGA();
+
+    static void Set(E v);
 };
 
 

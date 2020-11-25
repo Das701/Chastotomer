@@ -141,6 +141,13 @@ int TimeMeasure::ToMS() const
 }
 
 
+void TimeMeasure::Set(TimeMeasure::E v)
+{
+    PageModes::timeMeasure.value = (uint8)v;
+    LoadToFPGA();
+}
+
+
 int NumberPeriods::ToAbs() const
 {
     static const int abs[Count] =
