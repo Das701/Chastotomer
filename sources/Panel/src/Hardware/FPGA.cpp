@@ -86,6 +86,8 @@ static int NAC = 0;
 
 static bool isOverloaded = false;
 
+static bool sendingAlowed = true;       // Если true - пересылка разрешена
+
 
 MathFPGA::Comparator::Stack MathFPGA::Comparator::values(400);
 
@@ -140,7 +142,18 @@ void FPGA::TunePinOnInput(void *port, uint pin)
 
 void FPGA::TunePinOnInterrupt(void *port, uint pin)
 {
+    GPIO_InitTypeDef is =
+    {
+        pin,
+        GPIO_MODE_IT_RISING,
+        GPIO_PULLUP
+    };
 
+    HAL_GPIO_Init((GPIO_TypeDef *)port, &is);
+
+    HAL_NVIC_SetPriority(EXTI9_5_IRQn, 2, 0);
+
+    HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
 }
 
 
@@ -356,9 +369,15 @@ void FPGA::WriteData()
 {
     CalculateData();
 
-    if (Read_READY != 0)             // \todo К сожалению, флаг готовности не работает так, как надо и если ожидать его установки в ноль, то происходит сбой передачи данных
-    {                                   // Если флаг не готов, выходим. Передавать нужно только если флаг уже установлен в 0
+    if (!sendingAlowed)
+    {
         return;
+    }
+  
+    sendingAlowed = false;
+
+    while (Read_READY != 0)             // \todo К сожалению, флаг готовности не работает так, как надо и если ожидать его установки в ноль, то происходит сбой передачи данных
+    {                                   // Если флаг не готов, выходим. Передавать нужно только если флаг уже установлен в 0
     }
     
     Reset_CLOCK;
@@ -377,6 +396,23 @@ void FPGA::WriteData()
 
     Reset_CLOCK;
     Reset_DATA;
+    
+//    uint counter = 0;
+//    
+//    while(Read_READY == 0)
+//    {
+//        counter++;
+//    }
+//    
+//    LOG_WRITE("%d", counter);
+
+    TunePinOnInterrupt(GPIOC, PinREADY);
+    
+    if(Read_READY == 1)
+    {
+        sendingAlowed = true;
+        TunePinOnInput(GPIOC, PinREADY);
+    }
 }
 
 
@@ -400,6 +436,16 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
 
     Reset_CLOCK;
     Reset_DATA;
+}
+
+
+void HAL_GPIO_EXTI_Callback(uint16_t pin)
+{
+    if (pin == PinREADY)
+    {
+        sendingAlowed = true;
+        FPGA::TunePinOnInput(GPIOC, PinREADY);
+    }
 }
 
 

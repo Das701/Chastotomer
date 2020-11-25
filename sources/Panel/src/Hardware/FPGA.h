@@ -27,6 +27,9 @@ friend struct MathFPGA;
     // Возвращает true в случае переполнения
     static bool IsOverloaded();
 
+    static void TunePinOnInput(void *port, uint pin);
+    static void TunePinOnInterrupt(void *port, uint pin);
+
 private:
 
     static void ReadInterpolator();
@@ -35,7 +38,4 @@ private:
     static void ReadFillFactorPhase();
 
     static void CalculateData();
-
-    static void TunePinOnInput(void *port, uint pin);
-    static void TunePinOnInterrupt(void *port, uint pin);
 };
