@@ -31,6 +31,10 @@ static void OnPress_ResetSettings()
     PageModes::OnChanged_TypeMeasure();
 
     Channel::LoadCurrentToFPGA();
+
+    PageModes::OnChanged_TypeMeasure();
+
+    Channel::LoadCurrentToFPGA();
 }
 
 DEF_BUTTON(bResetSettings, "—брос", "—брос настроек в состо€ние по умолчанию", OnPress_ResetSettings);
