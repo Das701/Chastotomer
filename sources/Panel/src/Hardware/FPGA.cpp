@@ -324,45 +324,7 @@ void FPGA::ReadCalibNumber()
 
 void FPGA::WriteData()
 {
-    int negative = 1024;
-
-    if(PageIndication::calibration.Is(Calibration::Pressed))
-    {
-        if((int)kCalib + NAC < 0)
-        {
-            kCalib = 0;
-            NAC = 0;
-        }
-
-        kCalib = (uint)((int)kCalib + NAC);
-        MathFPGA::DecToBin((int)kCalib, encData);
-        NAC = 0;
-    }
-    else
-    {
-        if(CURRENT_CHANNEL_IS_A)
-        {
-            if (MathFPGA::NA < 0)
-            {
-                MathFPGA::DecToBin(negative + MathFPGA::NA, encData);
-            }
-            else
-            {
-                MathFPGA::DecToBin(MathFPGA::NA, encData);
-            }
-        }
-        else if(CURRENT_CHANNEL_IS_B)
-        {
-            if(MathFPGA::NB < 0)
-            {
-                MathFPGA::DecToBin(negative + MathFPGA::NB, encData);
-            }
-            else
-            {
-                MathFPGA::DecToBin(MathFPGA::NB, encData);
-            }
-        }
-    }
+    CalculateData();
 
     if (Read_READY != 0)             // \todo К сожалению, флаг готовности не работает так, как надо и если ожидать его установки в ноль, то происходит сбой передачи данных
     {                                   // Если флаг не готов, выходим. Передавать нужно только если флаг уже установлен в 0
@@ -408,6 +370,50 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
 
     Reset_CLOCK;
     Reset_DATA;
+}
+
+
+void FPGA::CalculateData()
+{
+    int negative = 1024;
+
+    if (PageIndication::calibration.Is(Calibration::Pressed))
+    {
+        if ((int)kCalib + NAC < 0)
+        {
+            kCalib = 0;
+            NAC = 0;
+        }
+
+        kCalib = (uint)((int)kCalib + NAC);
+        MathFPGA::DecToBin((int)kCalib, encData);
+        NAC = 0;
+    }
+    else
+    {
+        if (CURRENT_CHANNEL_IS_A)
+        {
+            if (MathFPGA::NA < 0)
+            {
+                MathFPGA::DecToBin(negative + MathFPGA::NA, encData);
+            }
+            else
+            {
+                MathFPGA::DecToBin(MathFPGA::NA, encData);
+            }
+        }
+        else if (CURRENT_CHANNEL_IS_B)
+        {
+            if (MathFPGA::NB < 0)
+            {
+                MathFPGA::DecToBin(negative + MathFPGA::NB, encData);
+            }
+            else
+            {
+                MathFPGA::DecToBin(MathFPGA::NB, encData);
+            }
+        }
+    }
 }
 
 
