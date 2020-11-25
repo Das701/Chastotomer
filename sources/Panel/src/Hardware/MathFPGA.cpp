@@ -6,6 +6,7 @@
 #include "Hardware/MathFPGA.h"
 #include "Menu/Pages/PageStatistics.h"
 #include "Menu/Pages/Modes/PagesModes.h"
+#include "Utils/Math.h"
 #include "Utils/StringUtils.h"
 #include "Utils/Value.h"
 #include <cstdio>
@@ -379,6 +380,11 @@ void MathFPGA::FillFactor::Calculate(uint period, uint duration)
     if (ModeMeasureDuration::Current().IsPhase())
     {
         value *= 360;
+
+        if (value == 360.0F)
+        {
+            value = 0.0F;
+        }
     }
     else
     {
@@ -508,7 +514,14 @@ void MathFPGA::Measure::CalculateNewData()
         {
             if (ModeMeasureDuration::Current().IsPhase())
             {
-                Data::SetDigits(String("%10.3f", MathFPGA::FillFactor::value));
+                if (Math::InBound(MathFPGA::FillFactor::value, 0.0F, 360.0F))
+                {
+                    Data::SetDigits(String("%10.3f", MathFPGA::FillFactor::value));
+                }
+                else
+                {
+                    Data::SetDigits(String(" "));
+                }
             }
             else
             {
