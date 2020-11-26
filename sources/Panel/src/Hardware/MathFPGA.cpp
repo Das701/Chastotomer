@@ -72,7 +72,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 {
     int result = 0;
 
-    ModeMeasureFrequency &mode = ModeMeasureFrequency::Current();
+    const ModeMeasureFrequency &mode = ModeMeasureFrequency::Current();
 
     if (mode.IsT_1())
     {

@@ -56,7 +56,7 @@ struct ModeMeasureFrequency : public Enumeration
     bool IsTachometer() const { return (value == Tachometer); }
     bool IsComparator() const { return (value == Comparator); }
 
-    static ModeMeasureFrequency &Current();
+    static const ModeMeasureFrequency &Current();
 
     // Загрузить текущий режим измерения частоты в аппаратуру
     static void LoadToFPGA();

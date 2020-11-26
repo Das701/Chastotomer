@@ -190,7 +190,7 @@ const TypeMeasure &TypeMeasure::Current()
 }
 
 
-ModeMeasureFrequency &ModeMeasureFrequency::Current()
+const ModeMeasureFrequency &ModeMeasureFrequency::Current()
 {
     static bool current = true;
     static ModeMeasureFrequency empty(ModeMeasureFrequency::Count, &current, 1);
