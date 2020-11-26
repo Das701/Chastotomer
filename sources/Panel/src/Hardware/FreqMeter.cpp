@@ -37,14 +37,8 @@ void FreqMeter::LoadDisplayTime()
 {
     Command command(Command::DisplayTime);
 
-    if (PageIndication::displayTime.Is_1s())
-    {
-        command.SetBit(9);
-    }
-    else if (PageIndication::displayTime.Is_10s())
-    {
-        command.SetBit(8);
-    }
+    if (PageIndication::displayTime.Is_1s())        { command.SetBit(9); }
+    else if (PageIndication::displayTime.Is_10s())  { command.SetBit(8); }
 
     FPGA::WriteCommand(command);
 }
@@ -54,10 +48,7 @@ void RefGenerator::LoadToFPGA()
 {
     Command command(Command::RefGenerator);
 
-    if (PageIndication::refGenerator.IsExternal())
-    {
-        command.SetBit(9);
-    }
+    if (PageIndication::refGenerator.IsExternal())    { command.SetBit(9); }
 
     FPGA::WriteCommand(command);
 
@@ -67,20 +58,12 @@ void RefGenerator::LoadToFPGA()
 
 void LaunchSource::LoadToFPGA()
 {
-    char command[4] = { 1, 0, 1, 0 };
+    Command command(Command::LaunchSource);
 
-    DEFINE_ARGUMENT;
+    if (PageIndication::launchSource.IsExternal())      { command.SetBit(9); }
+    else if (PageIndication::launchSource.IsOneTime())  { command.SetBit(8); }
 
-    if (PageIndication::launchSource.IsExternal())
-    {
-        argument[5] = 1;
-    }
-    else if (PageIndication::launchSource.IsOneTime())
-    {
-        argument[4] = 1;
-    }
-
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
 }
