@@ -9,6 +9,7 @@ struct Command
     enum E
     {
         CurrentChannel = 0x00,
+        MemoryMode     = 0x03,
         LaunchSource   = 0x05,
         RefGenerator   = 0x09,
         DisplayTime    = 0x0D,

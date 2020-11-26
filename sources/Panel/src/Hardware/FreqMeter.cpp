@@ -82,16 +82,11 @@ void FreqMeter::LoadCalibration()
 
 void MemoryMode::Load()
 {
-    char command[4] = { 1, 1, 0, 0 };
+    Command command(Command::MemoryMode);
 
-    DEFINE_ARGUMENT;
+    if (PageIndication::memoryMode.IsOn()) { command.SetBit(9); }
 
-    if (PageIndication::memoryMode.IsOn())
-    {
-        argument[5] = 1;
-    }
-
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 }
 
 void ModeMeasureFrequency::LoadToFPGA()
