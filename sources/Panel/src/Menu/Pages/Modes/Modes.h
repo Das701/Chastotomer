@@ -79,10 +79,16 @@ struct ModeMeasureCountPulse : public Enumeration
     };
 
     explicit ModeMeasureCountPulse(E v, const bool *correct, int numStates) : Enumeration((uint8)v, correct, numStates) {};
-
-
     // Возвращает true, если включён режим измерения по периоду (большая T в названии)
     bool IsFromPeriod() const;
+    bool Is_AtB() const { return (value == AtB); }
+    bool Is_ATB() const { return (value == ATB); }
+    bool Is_BtA() const { return (value == BtA); }
+    bool Is_BTA() const { return (value == BTA); }
+    bool Is_CtA() const { return (value == CtA); }
+    bool Is_CtB() const { return (value == CtB); }
+    bool Is_CTA() const { return (value == CTA); }
+    bool Is_CTB() const { return (value == CTB); }
 
     static const ModeMeasureCountPulse &Current();
     static void LoadToFPGA();

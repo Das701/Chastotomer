@@ -140,7 +140,7 @@ void ModeMeasureFrequency::LoadToFPGA()
 
     DEFINE_ARGUMENT;
 
-    if(ModeMeasureFrequency::Current().IsFrequency())
+    if(Current().IsFrequency())
     {
     }
     else if ((PageModesA::modeMeasureFrequency.IsRatioAB() && CURRENT_CHANNEL_IS_A) ||
@@ -155,16 +155,16 @@ void ModeMeasureFrequency::LoadToFPGA()
     {
         argument[4] = 1;
     }
-    else if (ModeMeasureFrequency::Current().IsT_1())
+    else if (Current().IsT_1())
     {
         argument[5] = 1;
         argument[4] = 1;
     }
-    else if (ModeMeasureFrequency::Current().IsTachometer())
+    else if (Current().IsTachometer())
     {
         argument[3] = 1;
     }
-    else if (ModeMeasureFrequency::Current().IsComparator())
+    else if (Current().IsComparator())
     {
         argument[3] = 1;
         argument[5] = 1;
@@ -238,22 +238,20 @@ void ModeMeasureCountPulse::LoadToFPGA()
     argument[1] = 1;
     argument[0] = 1;
 
-    if ((PageModesC::modeMeasureCountPulse == ModeMeasureCountPulse::CtA) && CURRENT_CHANNEL_IS_C)
+    const ModeMeasureCountPulse &current = Current();
+
+    if (current.Is_CtA() && CURRENT_CHANNEL_IS_C)
     {
     }
-    else if ((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::AtB && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulse::BtA && CURRENT_CHANNEL_IS_B) ||
-        (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulse::CtB && CURRENT_CHANNEL_IS_C))
+    else if ((current.Is_AtB() && CURRENT_CHANNEL_IS_A) || (current.Is_BtA() && CURRENT_CHANNEL_IS_B) || (current.Is_CtB() && CURRENT_CHANNEL_IS_C))
     {
         argument[5] = 1;
     }
-    else if ((PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::ATB && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulse::BTA && CURRENT_CHANNEL_IS_B) ||
-        (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulse::CTA && CURRENT_CHANNEL_IS_C))
+    else if ((current.Is_ATB() && CURRENT_CHANNEL_IS_A) || (current.Is_BTA() && CURRENT_CHANNEL_IS_B) || (current.Is_CTA() && CURRENT_CHANNEL_IS_C))
     {
         argument[4] = 1;
     }
-    else if (PageModesC::modeMeasureCountPulse == ModeMeasureCountPulse::CTB && CURRENT_CHANNEL_IS_C)
+    else if (current.Is_CTB() && CURRENT_CHANNEL_IS_C)
     {
         argument[5] = 1;
         argument[4] = 1;

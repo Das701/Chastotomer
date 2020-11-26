@@ -162,17 +162,17 @@ int NumberPeriods::ToAbs() const
 const ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
 {
     static const bool correct[1] = { true };
-    static ModeMeasureCountPulse empty(ModeMeasureCountPulse::Count, correct, 1);
+    static const ModeMeasureCountPulse null(ModeMeasureCountPulse::Count, correct, 1);
 
-    static ModeMeasureCountPulse *const modes[Channel::Count] =
+    static const ModeMeasureCountPulse *modes[Channel::Count] =
     {
         &PageModesA::modeMeasureCountPulse,
         &PageModesB::modeMeasureCountPulse,
         &PageModesC::modeMeasureCountPulse,
-        &empty
+        &null
     };
 
-    return TypeMeasure::Current().IsCountPulse() ? *modes[CURRENT_CHANNEL] : empty;
+    return TypeMeasure::Current().IsCountPulse() ? *modes[CURRENT_CHANNEL] : null;
 }
 
 
