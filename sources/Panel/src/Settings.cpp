@@ -107,11 +107,7 @@ void LevelSynch::Change(Channel::E ch, int delta)
     int MIN = -800;
     int MAX = 800;
 
-    if (ch == Channel::A && PageSettingsA::typeSynch.IsHoldoff())
-    {
-        MIN = 1;
-    }
-    else if (ch == Channel::B && PageSettingsB::typeSynch.IsHoldoff())
+    if (TypeSynch::Current().IsHoldoff())
     {
         MIN = 1;
     }

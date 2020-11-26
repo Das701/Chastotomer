@@ -415,11 +415,21 @@ void TypeSynch::LoadToFPGA()
     {
         argument[5] = 1;
     }
-    else
-    {
-    }
 
     FPGA::WriteCommand(command, argument);
+}
+
+
+const TypeSynch &TypeSynch::Current()
+{
+    TypeSynch type(TypeSynch::Count);
+
+    static const TypeSynch *types[Channel::Count] =
+    {
+        &PageSettingsA::typeSynch, &PageSettingsB::typeSynch, &type, &type
+    };
+
+    return *types[CURRENT_CHANNEL];
 }
 
 

@@ -27,7 +27,8 @@ struct TypeSynch : public Enumeration
     enum E
     {
         Manual,         // Ручн
-        Holdoff         // Holdoff
+        Holdoff,        // Holdoff
+        Count
     };
 
     explicit TypeSynch(E v) : Enumeration((uint8)v) {};
@@ -36,6 +37,9 @@ struct TypeSynch : public Enumeration
 
     // Загрузить в аппаратуру
     static void LoadToFPGA();
+
+    // Тип синхронизации на текущем канале
+    static const TypeSynch &Current();
 };
 
 
