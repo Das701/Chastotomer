@@ -12,6 +12,7 @@ struct Command
         MemoryMode     = 0x03,
         LaunchSource   = 0x05,
         ModeFrequency  = 0x06,
+        ModeCountPulse = 0x06,
         RefGenerator   = 0x09,
         DisplayTime    = 0x0D,
         Calibration    = 0x0F

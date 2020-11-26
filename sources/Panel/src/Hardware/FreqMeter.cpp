@@ -131,12 +131,10 @@ void ModeMeasureFrequency::LoadToFPGA()
 
 void ModeMeasureCountPulse::LoadToFPGA()
 {
-    char command[4] = { 0, 1, 1, 0 };
+    Command command(Command::ModeCountPulse);
 
-    DEFINE_ARGUMENT;
-
-    argument[1] = 1;
-    argument[0] = 1;
+    command.SetBit(4);
+    command.SetBit(5);
 
     const ModeMeasureCountPulse &current = Current();
 
@@ -145,19 +143,19 @@ void ModeMeasureCountPulse::LoadToFPGA()
     }
     else if ((current.Is_AtB() && CURRENT_CHANNEL_IS_A) || (current.Is_BtA() && CURRENT_CHANNEL_IS_B) || (current.Is_CtB() && CURRENT_CHANNEL_IS_C))
     {
-        argument[5] = 1;
+        command.SetBit(9);
     }
     else if ((current.Is_ATB() && CURRENT_CHANNEL_IS_A) || (current.Is_BTA() && CURRENT_CHANNEL_IS_B) || (current.Is_CTA() && CURRENT_CHANNEL_IS_C))
     {
-        argument[4] = 1;
+        command.SetBit(8);
     }
     else if (current.Is_CTB() && CURRENT_CHANNEL_IS_C)
     {
-        argument[5] = 1;
-        argument[4] = 1;
+        command.SetBit(8);
+        command.SetBit(9);
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
 }
