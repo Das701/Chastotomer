@@ -21,10 +21,6 @@ Settings set =
 #define DEFINE_ARGUMENT char argument[6] = {0, 0, 0, 0, 0, 0}
 
 
-const ModeFront ModeFront::null(ModeFront::Count);
-const TypeSynch TypeSynch::null(TypeSynch::Count);
-
-
 void InputCouple::LoadToFPGA()
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
@@ -106,6 +102,8 @@ void LevelSynch::Change(int delta)
 
 const ModeFront &ModeFront::Current()
 {
+    static const ModeFront null(Count);
+
     static const ModeFront *modes[Channel::Count] = { &PageSettingsA::modeFront, &PageSettingsB::modeFront, &null, &null };
 
     return *modes[CURRENT_CHANNEL];
@@ -144,6 +142,8 @@ void TypeSynch::LoadToFPGA()
 
 const TypeSynch &TypeSynch::Current()
 {
+    static const TypeSynch null(Count);
+
     static const TypeSynch *types[Channel::Count] = { &PageSettingsA::typeSynch, &PageSettingsB::typeSynch, &null, &null };
 
     return *types[CURRENT_CHANNEL];

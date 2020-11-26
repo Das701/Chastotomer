@@ -75,9 +75,6 @@ struct ModeFront : public Enumeration
 
     static const ModeFront &Current();
     static void LoadToFPGA();
-
-private:
-    static const ModeFront null;
 };
 
 
@@ -100,9 +97,6 @@ struct TypeSynch : public Enumeration
 
     // Тип синхронизации на текущем канале
     static const TypeSynch &Current();
-
-private:
-    static const TypeSynch null;
 };
 
 
