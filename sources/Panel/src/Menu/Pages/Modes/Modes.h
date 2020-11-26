@@ -57,8 +57,6 @@ struct ModeMeasureFrequency : public Enumeration
     bool IsComparator() const { return (value == Comparator); }
 
     static const ModeMeasureFrequency &Current();
-
-    // Загрузить текущий режим измерения частоты в аппаратуру
     static void LoadToFPGA();
 };
 

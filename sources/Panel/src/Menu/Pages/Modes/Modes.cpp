@@ -178,7 +178,7 @@ const ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
 
 const TypeMeasure &TypeMeasure::Current()
 {
-    static TypeMeasure *const types[TypeMeasure::Count] =
+    static TypeMeasure *const types[Channel::Count] =
     {
         &PageModesA::typeMeasure,
         &PageModesB::typeMeasure,
@@ -193,7 +193,7 @@ const TypeMeasure &TypeMeasure::Current()
 const ModeMeasureFrequency &ModeMeasureFrequency::Current()
 {
     static bool current = true;
-    static ModeMeasureFrequency empty(ModeMeasureFrequency::Count, &current, 1);
+    static const ModeMeasureFrequency null(ModeMeasureFrequency::Count, &current, 1);
 
     ModeMeasureFrequency *const modes[Channel::Count] =
     {
@@ -203,7 +203,7 @@ const ModeMeasureFrequency &ModeMeasureFrequency::Current()
         &PageModesD::modeMeasureFrequency
     };
 
-    return TypeMeasure::Current().IsFrequency() ? *modes[CURRENT_CHANNEL] : empty;
+    return TypeMeasure::Current().IsFrequency() ? *modes[CURRENT_CHANNEL] : null;
 }
 
 
