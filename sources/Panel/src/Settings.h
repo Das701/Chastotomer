@@ -53,10 +53,12 @@ struct InputCouple : public Enumeration
     };
 
     explicit InputCouple(E v) : Enumeration((uint8)v) {};
-    static void LoadToFPGA();
-    static const InputCouple &Current();
-    static void Set(E v);
     bool IsDC() const { return (value == InputCouple::DC); }
+
+    static void Set(E v);
+
+    static const InputCouple &Current();
+    static void LoadToFPGA();
 };
 
 
@@ -92,11 +94,8 @@ struct TypeSynch : public Enumeration
     bool IsHoldoff() const { return (value == Holdoff); }
     bool IsManual() const { return (value == Manual); }
 
-    // Загрузить в аппаратуру
-    static void LoadToFPGA();
-
-    // Тип синхронизации на текущем канале
     static const TypeSynch &Current();
+    static void LoadToFPGA();
 };
 
 
@@ -111,8 +110,9 @@ struct ModeFilter : public Enumeration
     };
 
     explicit ModeFilter(E v) : Enumeration((uint8)v) {};
-    static void Set(E v);
     bool IsOff() const { return (value == ModeFilter::Off); }
+
+    static void Set(E v);
 
     static const ModeFilter &Current();
     static void LoadToFPGA();

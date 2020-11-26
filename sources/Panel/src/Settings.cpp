@@ -51,9 +51,9 @@ const InputCouple &InputCouple::Current()
 
 void InputCouple::Set(InputCouple::E v)
 {
-    static InputCouple input(Count);
+    static InputCouple null(Count);
 
-    InputCouple *inputs[Channel::Count] = { &PageSettingsA::couple, &PageSettingsB::couple, &input, &input };
+    InputCouple *inputs[Channel::Count] = { &PageSettingsA::couple, &PageSettingsB::couple, &null, &null };
 
     inputs[CURRENT_CHANNEL]->value = (uint8)v;
 
@@ -63,9 +63,9 @@ void InputCouple::Set(InputCouple::E v)
 
 const ModeFilter &ModeFilter::Current()
 {
-    static const ModeFilter mode(Count);
+    static const ModeFilter null(Count);
 
-    static const ModeFilter *modes[Channel::Count] = { &PageSettingsA::modeFilter, &PageSettingsB::modeFilter, &mode, &mode };
+    static const ModeFilter *modes[Channel::Count] = { &PageSettingsA::modeFilter, &PageSettingsB::modeFilter, &null, &null };
 
     return *modes[CURRENT_CHANNEL];
 }
@@ -112,31 +112,37 @@ const ModeFront &ModeFront::Current()
 
 void ModeFront::LoadToFPGA()
 {
-    char command[4] = { 0, 1, 0, 0 };
-
-    DEFINE_ARGUMENT;
-
-    if (!Current().IsFront())
+    if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        argument[5] = 1;
-    }
+        char command[4] = { 0, 1, 0, 0 };
 
-    FPGA::WriteCommand(command, argument);
+        DEFINE_ARGUMENT;
+
+        if (!Current().IsFront())
+        {
+            argument[5] = 1;
+        }
+
+        FPGA::WriteCommand(command, argument);
+    }
 }
 
 
 void TypeSynch::LoadToFPGA()
 {
-    char command[4] = { 1, 1, 0, 1 };
-
-    DEFINE_ARGUMENT;
-
-    if (TypeSynch::Current().IsHoldoff())
+    if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        argument[5] = 1;
-    }
+        char command[4] = { 1, 1, 0, 1 };
 
-    FPGA::WriteCommand(command, argument);
+        DEFINE_ARGUMENT;
+
+        if (TypeSynch::Current().IsHoldoff())
+        {
+            argument[5] = 1;
+        }
+
+        FPGA::WriteCommand(command, argument);
+    }
 }
 
 
@@ -152,9 +158,9 @@ const TypeSynch &TypeSynch::Current()
 
 void ModeFilter::Set(ModeFilter::E v)
 {
-    static ModeFilter mode(ModeFilter::Count);
+    static ModeFilter null(ModeFilter::Count);
 
-    static ModeFilter *modes[Channel::Count] = { &PageSettingsA::modeFilter, &PageSettingsB::modeFilter, &mode, &mode };
+    static ModeFilter *modes[Channel::Count] = { &PageSettingsA::modeFilter, &PageSettingsB::modeFilter, &null, &null };
 
     modes[CURRENT_CHANNEL]->value = (uint8)v;
 
@@ -164,14 +170,17 @@ void ModeFilter::Set(ModeFilter::E v)
 
 void ModeFilter::LoadToFPGA()
 {
-    char command[4] = { 0, 1, 0, 1 };
-
-    DEFINE_ARGUMENT;
-
-    if (Current().IsOff())
+    if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        argument[5] = 1;
-    }
+        char command[4] = { 0, 1, 0, 1 };
 
-    FPGA::WriteCommand(command, argument);
+        DEFINE_ARGUMENT;
+
+        if (Current().IsOff())
+        {
+            argument[5] = 1;
+        }
+
+        FPGA::WriteCommand(command, argument);
+    }
 }
