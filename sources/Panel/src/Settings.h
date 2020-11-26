@@ -57,9 +57,6 @@ struct InputCouple : public Enumeration
     static const InputCouple &Current();
     static void Set(E v);
     bool IsDC() const { return (value == InputCouple::DC); }
-
-private:
-    static const InputCouple null;
 };
 
 

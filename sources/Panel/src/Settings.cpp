@@ -23,7 +23,6 @@ Settings set =
 
 const ModeFront ModeFront::null(ModeFront::Count);
 const TypeSynch TypeSynch::null(TypeSynch::Count);
-const InputCouple InputCouple::null(InputCouple::Count);
 
 
 void InputCouple::LoadToFPGA()
@@ -46,6 +45,8 @@ void InputCouple::LoadToFPGA()
 
 const InputCouple &InputCouple::Current()
 {
+    static const InputCouple null(Count);
+
     static const InputCouple *inputs[Channel::Count] = { &PageSettingsA::couple, &PageSettingsB::couple, &null, &null };
 
     return *inputs[CURRENT_CHANNEL];
