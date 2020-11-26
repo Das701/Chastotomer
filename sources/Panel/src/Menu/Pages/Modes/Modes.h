@@ -21,7 +21,7 @@ struct TypeMeasure : public Enumeration
     bool IsDuration() const { return (value == Duration); }
     void Draw(int x, int y) const;
 
-    static TypeMeasure &Current();
+    static const TypeMeasure &Current();
 };
 
 // Режим измерения частоты

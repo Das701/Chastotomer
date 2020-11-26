@@ -176,7 +176,7 @@ ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
 }
 
 
-TypeMeasure &TypeMeasure::Current()
+const TypeMeasure &TypeMeasure::Current()
 {
     static TypeMeasure *const types[TypeMeasure::Count] =
     {
