@@ -117,6 +117,6 @@ void LevelSynch::Change(int delta)
         LIMITATION(LEVEL_SYNCH(CURRENT_CHANNEL), MIN, MAX);
 
         FPGA::DecreaseN();
-        FPGA::WriteData();
+        FPGA::WriteDataGovernor();
     }
 }

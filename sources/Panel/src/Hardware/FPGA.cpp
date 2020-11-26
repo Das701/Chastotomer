@@ -314,7 +314,7 @@ void FPGA::ReadCalibNumber()
 }
 
 
-void FPGA::WriteData()
+void FPGA::WriteDataGovernor()
 {
     CalculateData();
 
