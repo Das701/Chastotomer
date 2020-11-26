@@ -43,23 +43,6 @@ struct TypeSynch : public Enumeration
 };
 
 
-// Фронт синхронизации
-struct ModeFront : public Enumeration
-{
-    enum E
-    {
-        Front,          // Фронт
-        Slice           // Срез
-    };
-
-    explicit ModeFront(E v) : Enumeration((uint8)v) {};
-    bool IsFront() const { return (value == Front); }
-
-    static ModeFront &Current();
-    static void LoadToFPGA();
-};
-
-
 // ФНЧ
 struct ModeFilter : public Enumeration
 {

@@ -21,6 +21,9 @@ Settings set =
 #define DEFINE_ARGUMENT char argument[6] = {0, 0, 0, 0, 0, 0}
 
 
+const ModeFront ModeFront::empty(ModeFront::Count);
+
+
 void InputCouple::Load()
 {
     char command[4] = { 0, 0, 1, 1 };
@@ -116,4 +119,27 @@ void LevelSynch::Change(int delta)
             FPGA::WriteDataGovernor();
         }
     }
+}
+
+
+const ModeFront &ModeFront::Current()
+{
+    static const ModeFront *modes[Channel::Count] = { &PageSettingsA::modeFront, &PageSettingsB::modeFront, &empty, &empty };
+
+    return *modes[CURRENT_CHANNEL];
+}
+
+
+void ModeFront::LoadToFPGA()
+{
+    char command[4] = { 0, 1, 0, 0 };
+
+    DEFINE_ARGUMENT;
+
+    if (!Current().IsFront())
+    {
+        argument[5] = 1;
+    }
+
+    FPGA::WriteCommand(command, argument);
 }

@@ -161,12 +161,6 @@ InputImpedance &InputImpedance::Current()
 }
 
 
-ModeFront &ModeFront::Current()
-{
-    return CURRENT_CHANNEL_IS_A ? PageSettingsA::modeFront : PageSettingsB::modeFront;
-}
-
-
 Divider &Divider::Current()
 {
     return CURRENT_CHANNEL_IS_A ? PageSettingsA::divider : PageSettingsB::divider;

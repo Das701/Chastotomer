@@ -375,21 +375,6 @@ void InputImpedance::LoadToFPGA()
 }
 
 
-void ModeFront::LoadToFPGA()
-{
-    char command[4] = { 0, 1, 0, 0 };
-
-    DEFINE_ARGUMENT;
-
-    if (!Current().IsFront())
-    {
-        argument[5] = 1;
-    }
-
-    FPGA::WriteCommand(command, argument);
-}
-
-
 void Divider::LoadToFPGA()
 {
     char command[4] = { 0, 0, 1, 0 };

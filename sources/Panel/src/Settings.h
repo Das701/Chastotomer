@@ -59,6 +59,27 @@ struct InputCouple : public Enumeration
 };
 
 
+// Фронт синхронизации
+struct ModeFront : public Enumeration
+{
+    enum E
+    {
+        Front,          // Фронт
+        Slice,          // Срез
+        Count
+    };
+
+    explicit ModeFront(E v) : Enumeration((uint8)v) {};
+    bool IsFront() const { return (value == Front); }
+
+    static const ModeFront &Current();
+    static void LoadToFPGA();
+
+private:
+    static const ModeFront empty;
+};
+
+
 struct Settings
 {
     Channel::E   currentChannel;                // Текущий канал
