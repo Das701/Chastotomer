@@ -155,13 +155,13 @@ void PageSettingsA::FixPress()
 }
 
 
-InputImpedance &InputImpedance::Current()
+const InputImpedance &InputImpedance::Current()
 {
     return CURRENT_CHANNEL_IS_A ? PageSettingsA::impedance : PageSettingsB::impedance;
 }
 
 
-Divider &Divider::Current()
+const Divider &Divider::Current()
 {
     return CURRENT_CHANNEL_IS_A ? PageSettingsA::divider : PageSettingsB::divider;
 }

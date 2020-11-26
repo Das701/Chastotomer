@@ -21,25 +21,6 @@ struct ModeTest : public Enumeration, public Subject
 };
 
 
-// ФНЧ
-struct ModeFilter : public Enumeration
-{
-    enum E
-    {
-        On,             // Включен
-        Off,            // Выключен
-        Count
-    };
-
-    explicit ModeFilter(E v) : Enumeration((uint8)v) {};
-    static void Set(E v);
-    bool IsOff() const { return (value == ModeFilter::Off); }
-
-    static const ModeFilter &Current();
-    static void LoadToFPGA();
-};
-
-
 namespace FreqMeter
 {
     extern ModeTest modeTest;

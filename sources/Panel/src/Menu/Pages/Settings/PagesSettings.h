@@ -18,7 +18,7 @@ struct InputImpedance : public Enumeration
     bool Is_1MOhm() const { return (value == _1MOmh); }
     bool Is_50Ohm() const { return (value == _50Omh); }
 
-    static InputImpedance &Current();
+    static const InputImpedance &Current();
     static void LoadToFPGA();
 };
 
@@ -33,7 +33,7 @@ struct Divider : public Enumeration
     };
 
     explicit Divider(E v) : Enumeration((uint8)v) {};
-    static Divider &Current();
+    static const Divider &Current();
     bool Is1() const { return (value == _1); }
     int ToAbs() const { return Is1() ? 1 : 10; }
 

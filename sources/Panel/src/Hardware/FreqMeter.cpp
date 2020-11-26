@@ -485,18 +485,3 @@ void ModeTest::Switch()
 
     MathFPGA::Validator::SetInvalidData();
 }
-
-
-void ModeFilter::LoadToFPGA()
-{
-    char command[4] = { 0, 1, 0, 1 };
-
-    DEFINE_ARGUMENT;
-
-    if (Current().IsOff())
-    {
-        argument[5] = 1;
-    }
-
-    FPGA::WriteCommand(command, argument);
-}

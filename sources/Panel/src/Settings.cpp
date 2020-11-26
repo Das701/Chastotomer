@@ -74,18 +74,6 @@ const ModeFilter &ModeFilter::Current()
 }
 
 
-void ModeFilter::Set(ModeFilter::E v)
-{
-    static ModeFilter mode(ModeFilter::Count);
-
-    static ModeFilter *modes[Channel::Count] = { &PageSettingsA::modeFilter, &PageSettingsB::modeFilter, &mode, &mode };
-
-    modes[CURRENT_CHANNEL]->value = (uint8)v;
-
-    LoadToFPGA();
-}
-
-
 void LevelSynch::Change(int delta)
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
@@ -158,4 +146,31 @@ const TypeSynch &TypeSynch::Current()
     static const TypeSynch *types[Channel::Count] = { &PageSettingsA::typeSynch, &PageSettingsB::typeSynch, &null, &null };
 
     return *types[CURRENT_CHANNEL];
+}
+
+
+void ModeFilter::Set(ModeFilter::E v)
+{
+    static ModeFilter mode(ModeFilter::Count);
+
+    static ModeFilter *modes[Channel::Count] = { &PageSettingsA::modeFilter, &PageSettingsB::modeFilter, &mode, &mode };
+
+    modes[CURRENT_CHANNEL]->value = (uint8)v;
+
+    LoadToFPGA();
+}
+
+
+void ModeFilter::LoadToFPGA()
+{
+    char command[4] = { 0, 1, 0, 1 };
+
+    DEFINE_ARGUMENT;
+
+    if (Current().IsOff())
+    {
+        argument[5] = 1;
+    }
+
+    FPGA::WriteCommand(command, argument);
 }

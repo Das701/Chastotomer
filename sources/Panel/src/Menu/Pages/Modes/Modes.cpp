@@ -159,7 +159,7 @@ int NumberPeriods::ToAbs() const
 }
 
 
-ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
+const ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
 {
     static const bool correct[1] = { true };
     static ModeMeasureCountPulse empty(ModeMeasureCountPulse::Count, correct, 1);
@@ -207,7 +207,7 @@ const ModeMeasureFrequency &ModeMeasureFrequency::Current()
 }
 
 
-ModeMeasurePeriod &ModeMeasurePeriod::Current()
+const ModeMeasurePeriod &ModeMeasurePeriod::Current()
 {
     static ModeMeasurePeriod empty(ModeMeasurePeriod::Count);
 
@@ -223,7 +223,7 @@ ModeMeasurePeriod &ModeMeasurePeriod::Current()
 }
 
 
-ModeMeasureDuration &ModeMeasureDuration::Current()
+const ModeMeasureDuration &ModeMeasureDuration::Current()
 {
     static ModeMeasureDuration empty(ModeMeasureDuration::Count);
 

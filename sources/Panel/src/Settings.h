@@ -109,6 +109,25 @@ private:
 };
 
 
+// ФНЧ
+struct ModeFilter : public Enumeration
+{
+    enum E
+    {
+        On,             // Включен
+        Off,            // Выключен
+        Count
+    };
+
+    explicit ModeFilter(E v) : Enumeration((uint8)v) {};
+    static void Set(E v);
+    bool IsOff() const { return (value == ModeFilter::Off); }
+
+    static const ModeFilter &Current();
+    static void LoadToFPGA();
+};
+
+
 struct Settings
 {
     Channel::E   currentChannel;                // Текущий канал
