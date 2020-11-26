@@ -20,8 +20,11 @@
 // Открывает страницу, соответствующую воздействию control. Возвращает false, если для воздействия нет соответствующей страницы
 static bool OpenPage(Control control);
 
-// Обработка события клаиатуры
+// Обработка события кнопку
 static void OnKey(const Control &control);
+
+// Обработка события ручки
+static void OnGovernor(const Control &control);
 
 // Текущая отображаемая страница меню
 static Page *openedPage = PageModesA::self;
@@ -40,44 +43,49 @@ void Menu::Draw()
 }
 
 
+static void OnGovernor(const Control &control)
+{
+    if (PageIndication::calibration.IsPressed())
+    {
+        return;
+    }
+
+    if (CURRENT_CHANNEL_IS_A_OR_B)
+    {
+        int delta = 2;
+
+        if (CURRENT_CHANNEL_IS_A && PageSettingsA::typeSynch.IsHoldoff())
+        {
+            delta = 1;
+        }
+        else if (CURRENT_CHANNEL_IS_B && PageSettingsB::typeSynch.IsHoldoff())
+        {
+            delta = 1;
+        }
+
+        if (control.value == Control::GovLeft)
+        {
+            LevelSynch::Change(CURRENT_CHANNEL, -delta);
+            FPGA::DecreaseN();
+            FPGA::WriteData();
+        }
+        else if (control.value == Control::GovRight)
+        {
+            LevelSynch::Change(CURRENT_CHANNEL, delta);
+            FPGA::IncreaseN();
+            FPGA::WriteData();
+        }
+    }
+}
+
+
 void Menu::Update()
 {
     while (!Keyboard::Empty())
     {
         Control control = Keyboard::NextControl();
 
-        if (PageIndication::calibration.IsPressed())
-        {
-        }
-        else
-        {
-            if (CURRENT_CHANNEL_IS_A_OR_B)
-            {
-                int delta = 2;
-
-                if (CURRENT_CHANNEL_IS_A && PageSettingsA::typeSynch.IsHoldoff())
-                {
-                    delta = 1;
-                }
-                else if (CURRENT_CHANNEL_IS_B && PageSettingsB::typeSynch.IsHoldoff())
-                {
-                    delta = 1;
-                }
-
-                if (control.value == Control::GovLeft)
-                {
-                    LevelSynch::Change(CURRENT_CHANNEL, -delta);
-                    FPGA::DecreaseN();
-                    FPGA::WriteData();
-                }
-                else if (control.value == Control::GovRight)
-                {
-                    LevelSynch::Change(CURRENT_CHANNEL, delta);
-                    FPGA::IncreaseN();
-                    FPGA::WriteData();
-                }
-            }
-        }
+        OnGovernor(control);
 
         OnKey(control);
 
