@@ -68,20 +68,16 @@ void InputCouple::Set(InputCouple::E v)
 }
 
 
-ModeFilter &ModeFilter::Current()
+const ModeFilter &ModeFilter::Current()
 {
-    if(CURRENT_CHANNEL_IS_A)
+    static const ModeFilter mode(ModeFilter::Count);
+
+    static const ModeFilter *modes[Channel::Count] =
     {
-        return PageSettingsA::modeFilter;
-    }
-    else if(CURRENT_CHANNEL_IS_B)
-    {
-        return PageSettingsB::modeFilter;
-    }
-    
-    static ModeFilter mode(ModeFilter::Off);
-    
-    return mode;
+        &PageSettingsA::modeFilter, &PageSettingsB::modeFilter, &mode, &mode
+    };
+
+    return *modes[CURRENT_CHANNEL];
 }
 
 
