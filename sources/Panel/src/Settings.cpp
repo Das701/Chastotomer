@@ -212,3 +212,13 @@ void Divider::LoadToFPGA()
         FPGA::WriteCommand(command, argument);
     }
 }
+
+
+const InputImpedance &InputImpedance::Current()
+{
+    static const InputImpedance null(Count);
+
+    static const InputImpedance *impedances[Channel::Count] = { &PageSettingsA::impedance, &PageSettingsB::impedance, &null, &null };
+
+    return *impedances[CURRENT_CHANNEL];
+}

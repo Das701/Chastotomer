@@ -138,6 +138,26 @@ struct Divider : public Enumeration
 };
 
 
+// Входное сопротивление
+struct InputImpedance : public Enumeration
+{
+    enum E
+    {
+        _1MOmh,         // 1 МОм
+        _50Omh,         // 50 Ом
+        Count
+    };
+
+    explicit InputImpedance(E v) : Enumeration((uint8)v) {};
+
+    bool Is_1MOhm() const { return (value == _1MOmh); }
+    bool Is_50Ohm() const { return (value == _50Omh); }
+
+    static const InputImpedance &Current();
+    static void LoadToFPGA();
+};
+
+
 struct Settings
 {
     Channel::E   currentChannel;                // Текущий канал

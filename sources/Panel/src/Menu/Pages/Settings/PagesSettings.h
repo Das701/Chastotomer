@@ -4,25 +4,6 @@
 #include "Settings.h"
 
 
-// ¬ходное сопротивление
-struct InputImpedance : public Enumeration
-{
-    enum E
-    {
-        _1MOmh,         // 1 ћќм
-        _50Omh          // 50 ќм
-    };
-
-    explicit InputImpedance(E v) : Enumeration((uint8)v) {};
-
-    bool Is_1MOhm() const { return (value == _1MOmh); }
-    bool Is_50Ohm() const { return (value == _50Omh); }
-
-    static const InputImpedance &Current();
-    static void LoadToFPGA();
-};
-
-
 struct PageSettingsA
 {
     static Page *self;

@@ -153,10 +153,3 @@ void PageSettingsA::FixPress()
 {
     OnPress_Sync();
 }
-
-
-const InputImpedance &InputImpedance::Current()
-{
-    return CURRENT_CHANNEL_IS_A ? PageSettingsA::impedance : PageSettingsB::impedance;
-}
-
