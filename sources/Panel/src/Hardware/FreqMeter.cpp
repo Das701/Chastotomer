@@ -346,16 +346,6 @@ void FreqMeter::UnloadAuto()
 }
 
 
-//void FreqMeter::LoadMeasure()
-//{
-//    char command[4] = { 1, 1, 1, 1 };
-//
-//    DEFINE_ARGUMENT;
-//
-//    FPGA::WriteCommand(command, argument);
-//}
-
-
 void FreqMeter::LoadOneTime()
 {
     char command[4] = { 1, 0, 1, 0 };
