@@ -8,7 +8,8 @@ struct Command
 {
     enum E
     {
-        SetCurrentChannel
+        CurrentChannel = 0x00,
+        DisplayTime    = 0x0D
     };
 
     uint value;

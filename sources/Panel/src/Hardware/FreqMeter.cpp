@@ -20,7 +20,7 @@ ModeTest FreqMeter::modeTest(ModeTest::Disabled);
 
 void Channel::LoadCurrentToFPGA()
 {
-    Command command(Command::SetCurrentChannel);
+    Command command(Command::CurrentChannel);
 
     if (CURRENT_CHANNEL_IS_B)
     {
@@ -44,20 +44,18 @@ void Channel::LoadCurrentToFPGA()
 
 void FreqMeter::LoadDisplayTime()
 {
-    char command[4] = { 1, 0, 1, 1 };
-
-    DEFINE_ARGUMENT;
+    Command command(Command::DisplayTime);
 
     if (PageIndication::displayTime.Is_1s())
     {
-        argument[5] = 1;
+        command.SetBit(9);
     }
     else if (PageIndication::displayTime.Is_10s())
     {
-        argument[4] = 1;
+        command.SetBit(8);
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 }
 
 
