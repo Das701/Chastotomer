@@ -184,3 +184,31 @@ void ModeFilter::LoadToFPGA()
         FPGA::WriteCommand(command, argument);
     }
 }
+
+
+const Divider &Divider::Current()
+{
+    static const Divider null(Count);
+
+    static const Divider *dividers[Channel::Count] = { &PageSettingsA::divider, &PageSettingsB::divider, &null, &null };
+
+    return *dividers[CURRENT_CHANNEL];
+}
+
+
+void Divider::LoadToFPGA()
+{
+    if (CURRENT_CHANNEL_IS_A_OR_B)
+    {
+        char command[4] = { 0, 0, 1, 0 };
+
+        DEFINE_ARGUMENT;
+
+        if (!Divider::Current().Is1())
+        {
+            argument[5] = 1;
+        }
+
+        FPGA::WriteCommand(command, argument);
+    }
+}

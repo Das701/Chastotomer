@@ -160,8 +160,3 @@ const InputImpedance &InputImpedance::Current()
     return CURRENT_CHANNEL_IS_A ? PageSettingsA::impedance : PageSettingsB::impedance;
 }
 
-
-const Divider &Divider::Current()
-{
-    return CURRENT_CHANNEL_IS_A ? PageSettingsA::divider : PageSettingsB::divider;
-}

@@ -375,21 +375,6 @@ void InputImpedance::LoadToFPGA()
 }
 
 
-void Divider::LoadToFPGA()
-{
-    char command[4] = { 0, 0, 1, 0 };
-
-    DEFINE_ARGUMENT;
-
-    if (!Divider::Current().Is1())
-    {
-        argument[5] = 1;
-    }
-
-    FPGA::WriteCommand(command, argument);
-}
-
-
 void FreqMeter::LoadAuto()
 {
     char command[4] = { 1, 1, 1, 1 };

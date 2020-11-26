@@ -119,6 +119,25 @@ struct ModeFilter : public Enumeration
 };
 
 
+// Делитель напряжения
+struct Divider : public Enumeration
+{
+    enum E
+    {
+        _1,           // 1:1
+        _10,          // 1:10
+        Count
+    };
+
+    explicit Divider(E v) : Enumeration((uint8)v) {};
+    bool Is1() const { return (value == _1); }
+    int ToAbs() const { return Is1() ? 1 : 10; }
+
+    static const Divider &Current();
+    static void LoadToFPGA();
+};
+
+
 struct Settings
 {
     Channel::E   currentChannel;                // Текущий канал

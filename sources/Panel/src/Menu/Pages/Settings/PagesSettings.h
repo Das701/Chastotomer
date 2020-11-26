@@ -23,24 +23,6 @@ struct InputImpedance : public Enumeration
 };
 
 
-// Делитель напряжения
-struct Divider : public Enumeration
-{
-    enum E
-    {
-        _1,           // 1:1
-        _10           // 1:10
-    };
-
-    explicit Divider(E v) : Enumeration((uint8)v) {};
-    static const Divider &Current();
-    bool Is1() const { return (value == _1); }
-    int ToAbs() const { return Is1() ? 1 : 10; }
-
-    static void LoadToFPGA();
-};
-
-
 struct PageSettingsA
 {
     static Page *self;
