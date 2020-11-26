@@ -11,7 +11,8 @@ struct Command
         CurrentChannel = 0x00,
         LaunchSource   = 0x05,
         RefGenerator   = 0x09,
-        DisplayTime    = 0x0D
+        DisplayTime    = 0x0D,
+        Calibration    = 0x0F
     };
 
     uint value;

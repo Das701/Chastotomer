@@ -71,20 +71,12 @@ void LaunchSource::LoadToFPGA()
 
 void FreqMeter::LoadCalibration()
 {
-    char command[4] = { 1, 1, 1, 1 };
+    Command command(Command::Calibration);
 
-    DEFINE_ARGUMENT;
+    if (PageIndication::calibration.IsPressed())    { command.SetBit(8); }
+    else                                            { command.SetBit(7); }
 
-    if (PageIndication::calibration.IsPressed())
-    {
-        argument[4] = 1;
-    }
-    else
-    {
-        argument[3] = 1;
-    }
-
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 }
 
 
