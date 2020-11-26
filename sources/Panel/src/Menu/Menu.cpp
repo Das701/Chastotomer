@@ -50,31 +50,16 @@ static void OnGovernor(const Control &control)
         return;
     }
 
-    if (CURRENT_CHANNEL_IS_A_OR_B)
+    if (CURRENT_CHANNEL_IS_A_OR_B && control.IsRotateGovernor())
     {
-        int delta = 2;
-
-        if (CURRENT_CHANNEL_IS_A && PageSettingsA::typeSynch.IsHoldoff())
-        {
-            delta = 1;
-        }
-        else if (CURRENT_CHANNEL_IS_B && PageSettingsB::typeSynch.IsHoldoff())
-        {
-            delta = 1;
-        }
+        int delta = TypeSynch::Current().IsHoldoff() ? 1 : 2;
 
         if (control.value == Control::GovLeft)
         {
-            LevelSynch::Change(CURRENT_CHANNEL, -delta);
-            FPGA::DecreaseN();
-            FPGA::WriteData();
+            delta = -delta;
         }
-        else if (control.value == Control::GovRight)
-        {
-            LevelSynch::Change(CURRENT_CHANNEL, delta);
-            FPGA::IncreaseN();
-            FPGA::WriteData();
-        }
+
+        LevelSynch::Change(delta);
     }
 }
 

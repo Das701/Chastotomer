@@ -100,17 +100,23 @@ void ModeFilter::Set(ModeFilter::E v)
 }
 
 
-void LevelSynch::Change(Channel::E ch, int delta)
+void LevelSynch::Change(int delta)
 {
-    LEVEL_SYNCH(ch) += delta;
-
-    int MIN = -800;
-    int MAX = 800;
-
-    if (TypeSynch::Current().IsHoldoff())
+    if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        MIN = 1;
-    }
+        LEVEL_SYNCH(CURRENT_CHANNEL) += delta;
 
-    LIMITATION(LEVEL_SYNCH(ch), MIN, MAX);
+        int MIN = -800;
+        int MAX = 800;
+
+        if (TypeSynch::Current().IsHoldoff())
+        {
+            MIN = 1;
+        }
+
+        LIMITATION(LEVEL_SYNCH(CURRENT_CHANNEL), MIN, MAX);
+
+        FPGA::DecreaseN();
+        FPGA::WriteData();
+    }
 }

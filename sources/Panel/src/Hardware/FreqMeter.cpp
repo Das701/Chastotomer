@@ -411,7 +411,7 @@ void TypeSynch::LoadToFPGA()
 
     DEFINE_ARGUMENT;
 
-    if ((PageSettingsA::typeSynch == TypeSynch::Holdoff && CURRENT_CHANNEL_IS_A) || (PageSettingsB::typeSynch == TypeSynch::Holdoff && CURRENT_CHANNEL_IS_B))
+    if (TypeSynch::Current().IsHoldoff())
     {
         argument[5] = 1;
     }
