@@ -91,9 +91,7 @@ void MemoryMode::Load()
 
 void ModeMeasureFrequency::LoadToFPGA()
 {
-    char command[4] = { 0, 1, 1, 0 };
-
-    DEFINE_ARGUMENT;
+    Command command(Command::ModeFrequency);
 
     if(Current().IsFrequency())
     {
@@ -102,30 +100,30 @@ void ModeMeasureFrequency::LoadToFPGA()
         (PageModesB::modeMeasureFrequency.IsRatioBA() && CURRENT_CHANNEL_IS_B) ||
         (PageModesC::modeMeasureFrequency.IsRatioCA() && CURRENT_CHANNEL_IS_C))
     {
-        argument[5] = 1;
+        command.SetBit(9);
     }
     else if ((PageModesA::modeMeasureFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
         (PageModesB::modeMeasureFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B) ||
         (PageModesC::modeMeasureFrequency.IsRatioCB() && CURRENT_CHANNEL_IS_C))
     {
-        argument[4] = 1;
+        command.SetBit(8);
     }
     else if (Current().IsT_1())
     {
-        argument[5] = 1;
-        argument[4] = 1;
+        command.SetBit(8);
+        command.SetBit(9);
     }
     else if (Current().IsTachometer())
     {
-        argument[3] = 1;
+        command.SetBit(7);
     }
     else if (Current().IsComparator())
     {
-        argument[3] = 1;
-        argument[5] = 1;
+        command.SetBit(7);
+        command.SetBit(9);
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
 }
