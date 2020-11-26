@@ -104,6 +104,8 @@ void LevelSynch::Change(int delta)
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
+        int prev = LEVEL_SYNCH(CURRENT_CHANNEL);
+
         LEVEL_SYNCH(CURRENT_CHANNEL) += delta;
 
         int MIN = -800;
@@ -116,7 +118,12 @@ void LevelSynch::Change(int delta)
 
         LIMITATION(LEVEL_SYNCH(CURRENT_CHANNEL), MIN, MAX);
 
-        FPGA::DecreaseN();
-        FPGA::WriteDataGovernor();
+        if (prev != LEVEL_SYNCH(CURRENT_CHANNEL))
+        {
+            if (delta < 0) { FPGA::DecreaseN(); }
+            else           { FPGA::IncreaseN(); }
+
+            FPGA::WriteDataGovernor();
+        }
     }
 }
