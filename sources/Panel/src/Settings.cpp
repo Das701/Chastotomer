@@ -72,10 +72,7 @@ const ModeFilter &ModeFilter::Current()
 {
     static const ModeFilter mode(ModeFilter::Count);
 
-    static const ModeFilter *modes[Channel::Count] =
-    {
-        &PageSettingsA::modeFilter, &PageSettingsB::modeFilter, &mode, &mode
-    };
+    static const ModeFilter *modes[Channel::Count] = { &PageSettingsA::modeFilter, &PageSettingsB::modeFilter, &mode, &mode };
 
     return *modes[CURRENT_CHANNEL];
 }
@@ -83,16 +80,13 @@ const ModeFilter &ModeFilter::Current()
 
 void ModeFilter::Set(ModeFilter::E v)
 {
-    if(CURRENT_CHANNEL_IS_A)
-    {
-        PageSettingsA::modeFilter.value = (uint8)v;
-        LoadToFPGA();
-    }
-    else if(CURRENT_CHANNEL_IS_B)
-    {
-        PageSettingsB::modeFilter.value = (uint8)v;
-        LoadToFPGA();
-    }
+    static ModeFilter mode(ModeFilter::Count);
+
+    static ModeFilter *modes[Channel::Count] = { &PageSettingsA::modeFilter, &PageSettingsB::modeFilter, &mode, &mode };
+
+    modes[CURRENT_CHANNEL]->value = (uint8)v;
+
+    LoadToFPGA();
 }
 
 
