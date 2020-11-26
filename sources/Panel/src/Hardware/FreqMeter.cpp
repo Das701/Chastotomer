@@ -61,16 +61,14 @@ void FreqMeter::LoadDisplayTime()
 
 void RefGenerator::LoadToFPGA()
 {
-    char command[4] = { 1, 0, 0, 1 };
-
-    DEFINE_ARGUMENT;
+    Command command(Command::RefGenerator);
 
     if (PageIndication::refGenerator.IsExternal())
     {
-        argument[5] = 1;
+        command.SetBit(9);
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
 }
