@@ -22,19 +22,10 @@ void Channel::LoadCurrentToFPGA()
 {
     Command command(Command::CurrentChannel);
 
-    if (CURRENT_CHANNEL_IS_B)
-    {
-        command.SetBit(8);
-    }
-    else if (CURRENT_CHANNEL_IS_C)
-    {
-        command.SetBit(9);
-    }
-    else if (CURRENT_CHANNEL_IS_D)
-    {
-        command.SetBit(8);
-        command.SetBit(9);
-    }
+    if (CURRENT_CHANNEL_IS_B)       { command.SetBit(8); }
+    else if (CURRENT_CHANNEL_IS_C)  { command.SetBit(9); }
+    else if (CURRENT_CHANNEL_IS_D)  { command.SetBit(8);
+                                      command.SetBit(9); }
 
     FPGA::WriteCommand(command);
 
