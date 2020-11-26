@@ -48,14 +48,18 @@ struct InputCouple : public Enumeration
     enum E
     {
         AC,         // Открытый
-        DC          // Закрытый
+        DC,         // Закрытый
+        Count
     };
 
     explicit InputCouple(E v) : Enumeration((uint8)v) {};
-    static void Load();
-    static InputCouple &Current();
+    static void LoadToFPGA();
+    static const InputCouple &Current();
     static void Set(E v);
     bool IsDC() const { return (value == InputCouple::DC); }
+
+private:
+    static const InputCouple null;
 };
 
 

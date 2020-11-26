@@ -26,7 +26,7 @@ TypeSynch       PageSettingsA::typeSynch(TypeSynch::Manual);
 
 static void OnPress_Couple()
 {
-    InputCouple::Load();
+    InputCouple::LoadToFPGA();
 }
 
 // Выбор закрытого(открытого) входа текущего канала

@@ -23,58 +23,50 @@ Settings set =
 
 const ModeFront ModeFront::null(ModeFront::Count);
 const TypeSynch TypeSynch::null(TypeSynch::Count);
+const InputCouple InputCouple::null(InputCouple::Count);
 
 
-void InputCouple::Load()
+void InputCouple::LoadToFPGA()
 {
-    char command[4] = { 0, 0, 1, 1 };
-
-    DEFINE_ARGUMENT;
-
-    if(Current().IsDC())
+    if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        argument[5] = 1;
-    }
+        char command[4] = { 0, 0, 1, 1 };
 
-    FPGA::WriteCommand(command, argument);
+        DEFINE_ARGUMENT;
+
+        if (Current().IsDC())
+        {
+            argument[5] = 1;
+        }
+
+        FPGA::WriteCommand(command, argument);
+    }
 }
 
 
-InputCouple &InputCouple::Current()
+const InputCouple &InputCouple::Current()
 {
-    if(CURRENT_CHANNEL_IS_A)
-    {
-        return PageSettingsA::couple;
-    }
-    else if(CURRENT_CHANNEL_IS_B)
-    {
-        return PageSettingsB::couple;
-    }
-    
-    static InputCouple couple(InputCouple::AC);
-    
-    return couple;
+    static const InputCouple *inputs[Channel::Count] = { &PageSettingsA::couple, &PageSettingsB::couple, &null, &null };
+
+    return *inputs[CURRENT_CHANNEL];
 }
 
 
 void InputCouple::Set(InputCouple::E v)
 {
-    if(CURRENT_CHANNEL_IS_A)
-    {
-        PageSettingsA::couple.value = (uint8)v;
-        Load();
-    }
-    else if(CURRENT_CHANNEL_IS_B)
-    {
-        PageSettingsB::couple.value = (uint8)v;
-        Load();
-    }
+    static InputCouple input(Count);
+
+    InputCouple *inputs[Channel::Count] = { &PageSettingsA::couple, &PageSettingsB::couple, &input, &input };
+
+    inputs[CURRENT_CHANNEL]->value = (uint8)v;
+
+    LoadToFPGA();
 }
 
 
 const ModeFilter &ModeFilter::Current()
 {
-    static const ModeFilter mode(ModeFilter::Count);
+    static const ModeFilter mode(Count);
 
     static const ModeFilter *modes[Channel::Count] = { &PageSettingsA::modeFilter, &PageSettingsB::modeFilter, &mode, &mode };
 
