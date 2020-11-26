@@ -2,7 +2,12 @@
 #include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
+#include "Hardware/FPGA.h"
+#include "Hardware/MathFPGA.h"
 #include "Menu/Pages/Modes/PagesModes.h"
+
+
+#define DEFINE_ARGUMENT char argument[6] = {0, 0, 0, 0, 0, 0}
 
 
 PeriodTimeLabels PageModes::timeLabels(PeriodTimeLabels::T_8);
@@ -209,31 +214,84 @@ const ModeMeasureFrequency &ModeMeasureFrequency::Current()
 
 const ModeMeasurePeriod &ModeMeasurePeriod::Current()
 {
-    static ModeMeasurePeriod empty(ModeMeasurePeriod::Count);
+    static const ModeMeasurePeriod null(ModeMeasurePeriod::Count);
 
-    static ModeMeasurePeriod *const modes[Channel::Count] =
+    static const ModeMeasurePeriod *modes[Channel::Count] =
     {
         &PageModesA::modeMeasurePeriod,
         &PageModesB::modeMeasurePeriod,
-        &empty,
-        &empty
+        &null,
+        &null
     };
 
-    return TypeMeasure::Current().IsPeriod() ? *modes[CURRENT_CHANNEL] : empty;
+    return TypeMeasure::Current().IsPeriod() ? *modes[CURRENT_CHANNEL] : null;
 }
 
 
 const ModeMeasureDuration &ModeMeasureDuration::Current()
 {
-    static ModeMeasureDuration empty(ModeMeasureDuration::Count);
+    static ModeMeasureDuration null(ModeMeasureDuration::Count);
 
     static ModeMeasureDuration *const modes[Channel::Count] =
     {
         &PageModesA::modeMeasureDuration,
         &PageModesB::modeMeasureDuration,
-        &empty,
-        &empty
+        &null,
+        &null
     };
 
-    return TypeMeasure::Current().IsDuration() ? *modes[CURRENT_CHANNEL] : empty;
+    return TypeMeasure::Current().IsDuration() ? *modes[CURRENT_CHANNEL] : null;
+}
+
+
+void ModeMeasurePeriod::LoadToFPGA()
+{
+    char command[4] = { 0, 1, 1, 0 };
+
+    DEFINE_ARGUMENT;
+
+    argument[1] = 1;
+
+    if (ModeMeasurePeriod::Current().IsF_1())
+    {
+        argument[5] = 1;
+    }
+
+    FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Validator::SetInvalidData();
+}
+
+
+void ModeMeasureDuration::LoadToFPGA()
+{
+    char command[4] = { 0, 1, 1, 0 };
+
+    DEFINE_ARGUMENT;
+
+    argument[0] = 1;
+
+    if (Current().IsNdt_1ns())
+    {
+        argument[4] = 1;
+    }
+    else if (Current().IsStartStop())
+    {
+        argument[5] = 1;
+        argument[4] = 1;
+    }
+    else if (Current().IsFillFactor())
+    {
+        argument[3] = 1;
+    }
+    else if (Current().IsPhase())
+    {
+        argument[5] = 1;
+        argument[3] = 1;
+
+    }
+
+    FPGA::WriteCommand(command, argument);
+
+    MathFPGA::Validator::SetInvalidData();
 }

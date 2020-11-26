@@ -176,59 +176,6 @@ void ModeMeasureFrequency::LoadToFPGA()
 }
 
 
-void ModeMeasurePeriod::LoadToFPGA()
-{
-    char command[4] = { 0, 1, 1, 0 };
-
-    DEFINE_ARGUMENT;
-
-    argument[1] = 1;
-
-    if (ModeMeasurePeriod::Current().IsF_1())
-    {
-        argument[5] = 1;
-    }
-
-    FPGA::WriteCommand(command, argument);
-
-    MathFPGA::Validator::SetInvalidData();
-}
-
-
-void ModeMeasureDuration::LoadToFPGA()
-{
-    char command[4] = { 0, 1, 1, 0 };
-
-    DEFINE_ARGUMENT;
-
-    argument[0] = 1;
-
-    if (ModeMeasureDuration::Current().IsNdt_1ns())
-    {
-        argument[4] = 1;
-    }
-    else if (ModeMeasureDuration::Current().IsStartStop())
-    {
-        argument[5] = 1;
-        argument[4] = 1;
-    }
-    else if (ModeMeasureDuration::Current().IsFillFactor())
-    {
-        argument[3] = 1;
-    }
-    else if (ModeMeasureDuration::Current().IsPhase())
-    {
-        argument[5] = 1;
-        argument[3] = 1;
-
-    }
-
-    FPGA::WriteCommand(command, argument);
-
-    MathFPGA::Validator::SetInvalidData();
-}
-
-
 void ModeMeasureCountPulse::LoadToFPGA()
 {
     char command[4] = { 0, 1, 1, 0 };
