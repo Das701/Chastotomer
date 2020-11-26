@@ -21,7 +21,7 @@
 static bool OpenPage(Control control);
 
 // Обработка события клаиатуры
-static void OnControl(const Control &control);
+static void OnKey(const Control &control);
 
 // Текущая отображаемая страница меню
 static Page *openedPage = PageModesA::self;
@@ -79,7 +79,7 @@ void Menu::Update()
             }
         }
 
-        OnControl(control);
+        OnKey(control);
 
         OpenPage(control);
 
@@ -249,7 +249,7 @@ void Menu::SetOpenedPage(Page *page)
 }
 
 
-static void OnControl(const Control &control) //-V2008
+static void OnKey(const Control &control) //-V2008
 {
     switch (control.value)
     {
