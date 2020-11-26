@@ -369,6 +369,25 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
 }
 
 
+void FPGA::WriteCommand(uint command)
+{
+    char com[4];
+    char arg[6];
+
+    for (int i = 0; i < 4; i++)
+    {
+        com[i] = _GET_BIT(command, i) == 0 ? 0 : 1;
+    }
+
+    for (int i = 0; i < 6; i++)
+    {
+        arg[i] = _GET_BIT(command, i + 4) == 0 ? 0 : 1;
+    }
+
+    WriteCommand(com, arg);
+}
+
+
 void FPGA::CalculateData()
 {
     int negative = 1024;

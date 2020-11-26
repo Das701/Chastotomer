@@ -11,6 +11,7 @@ friend struct MathFPGA;
     static void Init();
     static void Update();
     static void WriteCommand(const char command[4], const char argument[6]);
+    static void WriteCommand(uint command);
     static void WriteDataGovernor();
 
     static void IncreaseN();
