@@ -140,9 +140,7 @@ void ModeMeasureFrequency::LoadToFPGA()
 
     DEFINE_ARGUMENT;
 
-    if ((PageModesA::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
-        (PageModesC::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C))
+    if(ModeMeasureFrequency::Current().IsFrequency())
     {
     }
     else if ((PageModesA::modeMeasureFrequency.IsRatioAB() && CURRENT_CHANNEL_IS_A) ||
@@ -157,8 +155,7 @@ void ModeMeasureFrequency::LoadToFPGA()
     {
         argument[4] = 1;
     }
-    else if ((PageModesA::modeMeasureFrequency.IsT_1() && CURRENT_CHANNEL_IS_A) ||
-        (PageModesB::modeMeasureFrequency.IsT_1() && CURRENT_CHANNEL_IS_B))
+    else if (ModeMeasureFrequency::Current().IsT_1())
     {
         argument[5] = 1;
         argument[4] = 1;
@@ -167,7 +164,7 @@ void ModeMeasureFrequency::LoadToFPGA()
     {
         argument[3] = 1;
     }
-    else if (PageModesA::modeMeasureFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
+    else if (ModeMeasureFrequency::Current().IsComparator())
     {
         argument[3] = 1;
         argument[5] = 1;
