@@ -163,22 +163,20 @@ void ModeMeasureCountPulse::LoadToFPGA()
 
 void PeriodTimeLabels::LoadToFPGA()
 {
-    char command[4] = { 0, 1, 1, 1 };
-
-    DEFINE_ARGUMENT;
+    Command command(Command::TimeLabels);
 
     switch (PageModes::timeLabels.value)
     {
-    case PeriodTimeLabels::T_7:     argument[5] = 1;    break;
-    case PeriodTimeLabels::T_6:     argument[4] = 1;    break;
-    case PeriodTimeLabels::T_5:     argument[5] = 1;
-                                    argument[4] = 1;    break;
-    case PeriodTimeLabels::T_4:     argument[3] = 1;    break;
-    case PeriodTimeLabels::T_3:     argument[5] = 1;
-                                    argument[3] = 1;    break;
+    case PeriodTimeLabels::T_7:     command.SetBit(9);    break;
+    case PeriodTimeLabels::T_6:     command.SetBit(8);    break;
+    case PeriodTimeLabels::T_5:     command.SetBit(9);
+                                    command.SetBit(8);    break;
+    case PeriodTimeLabels::T_4:     command.SetBit(7);    break;
+    case PeriodTimeLabels::T_3:     command.SetBit(9);
+                                    command.SetBit(7);    break;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
 }
