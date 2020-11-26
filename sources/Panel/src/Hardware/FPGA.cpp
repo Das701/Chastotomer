@@ -369,19 +369,19 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
 }
 
 
-void FPGA::WriteCommand(uint command)
+void FPGA::WriteCommand(const Command &command)
 {
     char com[4];
     char arg[6];
 
     for (int i = 0; i < 4; i++)
     {
-        com[i] = _GET_BIT(command, i) == 0 ? 0 : 1;
+        com[i] = command.GetBit(i);
     }
 
     for (int i = 0; i < 6; i++)
     {
-        arg[i] = _GET_BIT(command, i + 4) == 0 ? 0 : 1;
+        arg[i] = command.GetBit(i + 4);
     }
 
     WriteCommand(com, arg);

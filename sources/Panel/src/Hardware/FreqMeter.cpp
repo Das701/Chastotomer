@@ -20,25 +20,23 @@ ModeTest FreqMeter::modeTest(ModeTest::Disabled);
 
 void Channel::LoadCurrentToFPGA()
 {
-    char command[4] = { 0, 0, 0, 0 };
-
-    DEFINE_ARGUMENT;
+    Command command;
 
     if (CURRENT_CHANNEL_IS_B)
     {
-        argument[4] = 1;
+        command.SetBit(8);
     }
     else if (CURRENT_CHANNEL_IS_C)
     {
-        argument[5] = 1;
+        command.SetBit(9);
     }
     else if (CURRENT_CHANNEL_IS_D)
     {
-        argument[5] = 1;
-        argument[4] = 1;
+        command.SetBit(8);
+        command.SetBit(9);
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
 }

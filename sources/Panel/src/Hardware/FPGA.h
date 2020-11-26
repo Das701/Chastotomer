@@ -4,6 +4,21 @@
 #include "Utils/String.h"
 
 
+struct Command
+{
+    enum E
+    {
+        SetCurrentChannel
+    };
+
+    uint value;
+
+    Command() : value(0U) {}
+    void SetBit(int i) { _SET_BIT(value, i); };
+    char GetBit(int i) const { return (char)_GET_BIT(value, i); }
+};
+
+
 struct FPGA
 {
 friend struct MathFPGA;
@@ -11,7 +26,7 @@ friend struct MathFPGA;
     static void Init();
     static void Update();
     static void WriteCommand(const char command[4], const char argument[6]);
-    static void WriteCommand(uint command);
+    static void WriteCommand(const Command &command);
     static void WriteDataGovernor();
 
     static void IncreaseN();
