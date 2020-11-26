@@ -204,8 +204,6 @@ void Display::Update()
         timePaint = currentTimePaintInSec;
         currentTimePaintInSec = 0;
     }
-    
-    HAL_TIM::DelayMS(16);
 }
 
 

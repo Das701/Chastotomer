@@ -37,9 +37,6 @@ struct Channel
 
 struct LevelSynch
 {
-    static const int MIN = -800;
-    static const int MAX = 800;
-
     // Изменить уровень синхронизации на заданное количество милливольт (делитель не учитывается. Он учитывается только при выводе на дисплей)
     static void Change(Channel::E ch, int delta);
     // Возвращает текущий уровень синхронизации в милливольтах

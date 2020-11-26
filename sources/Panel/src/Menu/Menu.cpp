@@ -53,15 +53,26 @@ void Menu::Update()
         {
             if (CURRENT_CHANNEL_IS_A_OR_B)
             {
+                int delta = 2;
+
+                if (CURRENT_CHANNEL_IS_A && PageSettingsA::typeSynch.IsHoldoff())
+                {
+                    delta = 1;
+                }
+                else if (CURRENT_CHANNEL_IS_B && PageSettingsB::typeSynch.IsHoldoff())
+                {
+                    delta = 1;
+                }
+
                 if (control.value == Control::GovLeft)
                 {
-                    LevelSynch::Change(CURRENT_CHANNEL, -2);
+                    LevelSynch::Change(CURRENT_CHANNEL, -delta);
                     FPGA::DecreaseN();
                     FPGA::WriteData();
                 }
                 else if (control.value == Control::GovRight)
                 {
-                    LevelSynch::Change(CURRENT_CHANNEL, 2);
+                    LevelSynch::Change(CURRENT_CHANNEL, delta);
                     FPGA::IncreaseN();
                     FPGA::WriteData();
                 }
