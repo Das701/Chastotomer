@@ -13,7 +13,7 @@ struct Command
 
     uint value;
 
-    Command() : value(0U) {}
+    Command(E v) : value(v) {}
     void SetBit(int i) { _SET_BIT(value, i); };
     char GetBit(int i) const { return (char)_GET_BIT(value, i); }
 };

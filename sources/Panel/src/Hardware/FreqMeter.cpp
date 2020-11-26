@@ -20,7 +20,7 @@ ModeTest FreqMeter::modeTest(ModeTest::Disabled);
 
 void Channel::LoadCurrentToFPGA()
 {
-    Command command;
+    Command command(Command::SetCurrentChannel);
 
     if (CURRENT_CHANNEL_IS_B)
     {
