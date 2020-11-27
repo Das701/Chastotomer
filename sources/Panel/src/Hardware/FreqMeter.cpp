@@ -302,21 +302,19 @@ void FreqMeter::LoadOneTime()
 
 void FreqMeter::LoadStartStop()
 {
-    char command[4] = { 1, 0, 1, 0 };
-
-    DEFINE_ARGUMENT;
+    Command command(Command::StartStop);
 
     if (PageModesA::StartStop() == true)
     {
-        argument[5] = 1;
-        argument[4] = 1;
+        command.SetBit(9);
+        command.SetBit(8);
     }
     else
     {
-        argument[3] = 1;
+        command.SetBit(7);
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 }
 
 
