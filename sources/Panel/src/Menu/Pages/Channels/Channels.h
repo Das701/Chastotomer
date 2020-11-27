@@ -71,12 +71,10 @@ extern Page pageChannelD;
 struct PageSettingsA
 {
     static void FixPress();
-    static Switch *switchTypeSynch;     // ”казатель на переключатель типа синхронизации
 };
 
 
 struct PageSettingsB
 {
     static void FixPress();
-    static Switch *switchTypeSynch;     // ”казатель на переключатель типа синхронизации
 };

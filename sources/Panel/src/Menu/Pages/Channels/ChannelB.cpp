@@ -144,8 +144,6 @@ static Item *items[7] =
 
 Page pageChannelB(items, nullptr);
 
-Switch *PageSettingsB::switchTypeSynch = &sSync;
-
 void PageSettingsB::FixPress()
 {
     OnPress_Sync();
