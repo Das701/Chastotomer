@@ -16,8 +16,6 @@ using namespace Primitives;
 extern Switch sSync;
 extern Item *items[7];
 
-TypeSynch       PageSettingsA::typeSynch(TypeSynch::Manual);
-
 
 static void OnPress_Couple()
 {
@@ -92,7 +90,7 @@ DEF_SWITCH_UGO_2(sDivider,
 
 static void OnPress_Sync()
 {
-    if (PageSettingsA::typeSynch.IsHoldoff())
+    if (Channel::A.typeSynch.IsHoldoff())
     {
         items[0] = &sSync;
         items[1] = Channel::switchTimeMeasue;
@@ -101,7 +99,7 @@ static void OnPress_Sync()
 
         Channel::A.settings->selectedItem = 0;
     }
-    else if(PageSettingsA::typeSynch.IsManual())
+    else if(Channel::A.typeSynch.IsManual())
     {
         items[0] = &sCouple;
         items[1] = &sImpedance;
@@ -114,7 +112,7 @@ static void OnPress_Sync()
         Channel::A.settings->selectedItem = 5;
     }
 
-    TYPE_SYNCH_A = (TypeSynch::E)PageSettingsA::typeSynch.value;
+    TYPE_SYNCH_A = (TypeSynch::E)Channel::A.typeSynch.value;
 
     TypeSynch::LoadToFPGA();
 }
@@ -124,7 +122,7 @@ DEF_SWITCH_UGO_2(sSync,
     "Синхр", "Выбор уровня сихронизации",
     "Ручн", "Holdoff",
     "Ручн", "Holdoff",
-    PageSettingsA::typeSynch, OnPress_Sync
+    Channel::A.typeSynch, OnPress_Sync
 );
 
 static Item *items[7] =

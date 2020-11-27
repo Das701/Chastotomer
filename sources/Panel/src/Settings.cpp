@@ -52,7 +52,7 @@ void LevelSynch::Change(int delta)
         int MIN = -800;
         int MAX = 800;
 
-        if (TypeSynch::Current().IsHoldoff())
+        if (Channel::Current().typeSynch.IsHoldoff())
         {
             MIN = 1;
         }
@@ -92,23 +92,13 @@ void TypeSynch::LoadToFPGA()
     {
         Command command(Command::TypeSynch);
 
-        if (TypeSynch::Current().IsHoldoff())
+        if (Channel::Current().typeSynch.IsHoldoff())
         {
             command.SetBit(9);
         }
 
         FPGA::WriteCommand(command);
     }
-}
-
-
-const TypeSynch &TypeSynch::Current()
-{
-    static const TypeSynch null(Count);
-
-    static const TypeSynch *types[Channel::Count] = { &PageSettingsA::typeSynch, &PageSettingsB::typeSynch, &null, &null };
-
-    return *types[CURRENT_CHANNEL];
 }
 
 

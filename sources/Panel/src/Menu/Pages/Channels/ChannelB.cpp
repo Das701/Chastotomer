@@ -16,9 +16,6 @@ extern Switch sSync;
 extern Item *items[7];
 
 
-TypeSynch        PageSettingsB::typeSynch(TypeSynch::Manual);
-
-
 static void OnPress_Couple()
 {
     InputCouple::LoadToFPGA();
@@ -99,7 +96,7 @@ DEF_SWITCH_6(sPeriodTimeLabels,
 
 static void OnPress_Sync()
 {
-    if (PageSettingsB::typeSynch.IsHoldoff())
+    if (Channel::B.typeSynch.IsHoldoff())
     {
         items[0] = &sSync;
         items[1] = Channel::switchTimeMeasue;
@@ -108,7 +105,7 @@ static void OnPress_Sync()
 
         Channel::B.settings->selectedItem = 0;
     }
-    else if(PageSettingsB::typeSynch.IsManual())
+    else if(Channel::B.typeSynch.IsManual())
     {
         items[0] = &sCouple;
         items[1] = &sImpedance;
@@ -121,7 +118,7 @@ static void OnPress_Sync()
         Channel::B.settings->selectedItem = 5;
     }
 
-    TYPE_SYNCH_B = (TypeSynch::E)PageSettingsB::typeSynch.value;
+    TYPE_SYNCH_B = (TypeSynch::E)Channel::B.typeSynch.value;
 
     TypeSynch::LoadToFPGA();
 }
@@ -131,7 +128,7 @@ DEF_SWITCH_UGO_2(sSync,
     "Синхр", "Выбор уровня сихронизации",
     "Ручн", "Holdoff",
     "Ручн", "Holdoff",
-    PageSettingsB::typeSynch, OnPress_Sync
+    Channel::B.typeSynch, OnPress_Sync
 );
 
 static Item *items[7] =

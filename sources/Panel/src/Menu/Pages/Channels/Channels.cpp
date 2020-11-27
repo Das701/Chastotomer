@@ -21,7 +21,8 @@ Channel::Channel(Page *pSettings) :
     impedance(InputImpedance::_1MOmh),
     modeFilter(ModeFilter::Off),
     modeFront(ModeFront::Front),
-    divider(Divider::_1)
+    divider(Divider::_1),
+    typeSynch(TypeSynch::Manual)
 {
 }
 

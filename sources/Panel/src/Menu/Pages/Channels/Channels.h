@@ -44,6 +44,7 @@ struct Channel
     ModeFilter modeFilter;
     ModeFront modeFront;
     Divider divider;
+    TypeSynch typeSynch;
 
     static Channel A;
     static Channel B;
@@ -63,7 +64,6 @@ extern Page pageChannelD;
 
 struct PageSettingsA
 {
-    static TypeSynch typeSynch;
     static void FixPress();
     static Switch *switchTypeSynch;     // ”казатель на переключатель типа синхронизации
 };
@@ -71,7 +71,6 @@ struct PageSettingsA
 
 struct PageSettingsB
 {
-    static TypeSynch typeSynch;
     static void FixPress();
     static Switch *switchTypeSynch;     // ”казатель на переключатель типа синхронизации
 };

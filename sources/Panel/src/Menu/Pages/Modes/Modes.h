@@ -316,7 +316,6 @@ struct TypeSynch : public Enumeration
     bool IsHoldoff() const { return (value == Holdoff); }
     bool IsManual() const { return (value == Manual); }
 
-    static const TypeSynch &Current();
     static void LoadToFPGA();
 };
 
