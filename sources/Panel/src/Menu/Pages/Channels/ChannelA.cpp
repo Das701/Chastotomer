@@ -16,7 +16,6 @@ using namespace Primitives;
 extern Switch sSync;
 extern Item *items[7];
 
-ModeFilter      PageSettingsA::modeFilter(ModeFilter::Off);
 ModeFront       PageSettingsA::modeFront(ModeFront::Front);
 Divider         PageSettingsA::divider(Divider::_1);
 TypeSynch       PageSettingsA::typeSynch(TypeSynch::Manual);
@@ -60,7 +59,7 @@ DEF_SWITCH_UGO_2(sLowpassFilter,
     "ФНЧ", "Включение/отключение фильтра НЧ",
     "Откл.", "Вкл.",
     "ФНЧ", "",
-    PageSettingsA::modeFilter, OnPress_Filter
+    Channel::A.modeFilter, OnPress_Filter
 );
 
 

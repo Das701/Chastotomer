@@ -281,7 +281,6 @@ struct ModeFilter : public Enumeration
 
     static void Set(E v);
 
-    static const ModeFilter &Current();
     static void LoadToFPGA();
 };
 

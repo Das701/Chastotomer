@@ -16,7 +16,6 @@ extern Switch sSync;
 extern Item *items[7];
 
 
-ModeFilter       PageSettingsB::modeFilter(ModeFilter::Off);
 ModeFront        PageSettingsB::modeFront(ModeFront::Front);
 Divider          PageSettingsB::divider(Divider::_1);
 TypeSynch        PageSettingsB::typeSynch(TypeSynch::Manual);
@@ -60,7 +59,7 @@ DEF_SWITCH_UGO_2(sLowpassFilter,
     "ФНЧ", "Включение/отключение фильтра НЧ",
     "Откл.", "Вкл.",
     "ФНЧ", "",
-    PageSettingsB::modeFilter, OnPress_Filter
+    Channel::B.modeFilter, OnPress_Filter
 );
 
 
