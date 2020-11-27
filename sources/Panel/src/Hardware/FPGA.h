@@ -22,6 +22,7 @@ struct Command
         TimeLabels     = 0x07,
         Impedance      = 0x08,
         RefGenerator   = 0x09,
+        Couple         = 0x0C,
         DisplayTime    = 0x0D,
         Calibration    = 0x0F,
         Auto           = 0x0F,

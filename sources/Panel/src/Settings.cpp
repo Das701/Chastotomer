@@ -25,16 +25,14 @@ void InputCouple::LoadToFPGA()
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        char command[4] = { 0, 0, 1, 1 };
-
-        DEFINE_ARGUMENT;
+        Command command(Command::Couple);
 
         if (Current().IsDC())
         {
-            argument[5] = 1;
+            command.SetBit(9);
         }
 
-        FPGA::WriteCommand(command, argument);
+        FPGA::WriteCommand(command);
     }
 }
 
