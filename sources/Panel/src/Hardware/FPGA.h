@@ -17,6 +17,8 @@ struct Command
         StartStop      = 0x05,
         ModeFrequency  = 0x06,
         ModeCountPulse = 0x06,
+        ModePeriod     = 0x06,
+        ModeDuration   = 0x06,
         TimeLabels     = 0x07,
         Impedance      = 0x08,
         RefGenerator   = 0x09,

@@ -7,9 +7,6 @@
 #include "Menu/Pages/Modes/PagesModes.h"
 
 
-#define DEFINE_ARGUMENT char argument[6] = {0, 0, 0, 0, 0, 0}
-
-
 PeriodTimeLabels PageModes::timeLabels(PeriodTimeLabels::T_8);
 NumberPeriods    PageModes::numberPeriods(NumberPeriods::_1);
 TimeMeasure      PageModes::timeMeasure(TimeMeasure::_1ms);
@@ -246,18 +243,16 @@ const ModeMeasureDuration &ModeMeasureDuration::Current()
 
 void ModeMeasurePeriod::LoadToFPGA()
 {
-    char command[4] = { 0, 1, 1, 0 };
+    Command command(Command::ModePeriod);
 
-    DEFINE_ARGUMENT;
-
-    argument[1] = 1;
+    command.SetBit(5);
 
     if (ModeMeasurePeriod::Current().IsF_1())
     {
-        argument[5] = 1;
+        command.SetBit(9);
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
 }
@@ -265,33 +260,30 @@ void ModeMeasurePeriod::LoadToFPGA()
 
 void ModeMeasureDuration::LoadToFPGA()
 {
-    char command[4] = { 0, 1, 1, 0 };
+    Command command(Command::ModeDuration);
 
-    DEFINE_ARGUMENT;
-
-    argument[0] = 1;
+    command.SetBit(4);
 
     if (Current().IsNdt_1ns())
     {
-        argument[4] = 1;
+        command.SetBit(8);
     }
     else if (Current().IsStartStop())
     {
-        argument[5] = 1;
-        argument[4] = 1;
+        command.SetBit(9);
+        command.SetBit(8);
     }
     else if (Current().IsFillFactor())
     {
-        argument[3] = 1;
+        command.SetBit(7);
     }
     else if (Current().IsPhase())
     {
-        argument[5] = 1;
-        argument[3] = 1;
-
+        command.SetBit(9);
+        command.SetBit(7);
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
 }
