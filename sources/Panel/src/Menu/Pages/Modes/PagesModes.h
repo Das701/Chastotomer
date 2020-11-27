@@ -22,15 +22,6 @@ public:
     static void DrawParameters(int x, int y);
 
     static Page *Current();
-
-    static TimeMeasure       timeMeasure;    // Время счета
-    static NumberPeriods     numberPeriods;  // Число периодов измерения
-    static PeriodTimeLabels  timeLabels;     // Период меток времени
-
-private:
-    static bool IsActiveTimeLabels(TypeMeasure *type, int mode);
-    static bool IsActiveTimeMeasure(TypeMeasure *type, int mode);
-    static bool IsActiveNumberPeriods(TypeMeasure *type, int mode);
 };
 
 

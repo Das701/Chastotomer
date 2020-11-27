@@ -7,11 +7,6 @@
 #include "Menu/Pages/Modes/PagesModes.h"
 
 
-PeriodTimeLabels PageModes::timeLabels(PeriodTimeLabels::T_8);
-NumberPeriods    PageModes::numberPeriods(NumberPeriods::_1);
-TimeMeasure      PageModes::timeMeasure(TimeMeasure::_1ms);
-
-
 bool ModeMeasureCountPulse::IsFromPeriod() const
 {
     return (value == ATB) || (value == BTA) || (value == CTA) || (value == CTB);
@@ -131,7 +126,7 @@ int TimeMeasure::ToMS() const
 
 void TimeMeasure::Set(TimeMeasure::E v)
 {
-    PageModes::timeMeasure.value = (uint8)v;
+    Channel::timeMeasure.value = (uint8)v;
     LoadToFPGA();
 }
 

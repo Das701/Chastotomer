@@ -76,9 +76,9 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 
     if (mode.IsT_1())
     {
-        manualZeros = 10 * PageModes::timeLabels.ToZeros() / 1000 * PageModes::numberPeriods.ToAbs();
+        manualZeros = 10 * Channel::timeLabels.ToZeros() / 1000 * Channel::numberPeriods.ToAbs();
 
-        decDataA.Div((uint)PageModes::timeLabels.ToZeros());
+        decDataA.Div((uint)Channel::timeLabels.ToZeros());
 
         double test1 = decDataA.ToDouble();
 
@@ -88,7 +88,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
         }
         else
         {
-            double test2 = test1 / PageModes::numberPeriods.ToAbs();
+            double test2 = test1 / Channel::numberPeriods.ToAbs();
 
             decDataA.FromDouble((float)(4 / test2));
         }
@@ -103,16 +103,16 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
     }
     else if (mode.IsRatioAB() || mode.IsRatioBA())
     {
-        result = PageModes::numberPeriods.ToAbs();
+        result = Channel::numberPeriods.ToAbs();
     }
     else if (mode.IsRatioCA() || mode.IsRatioCB())
     {
         decDataA.Mul(100);
-        result = PageModes::numberPeriods.ToAbs();
+        result = Channel::numberPeriods.ToAbs();
     }
     else if (mode.IsRatioAC() || mode.IsRatioBC())
     {
-        int sT = PageModes::timeMeasure.ToMS();
+        int sT = Channel::timeMeasure.ToMS();
 
         if (decDataB.ToDouble() == 0.0)
         {
@@ -125,8 +125,8 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
     }
     else
     {
-        int mhz = 1000 * PageModes::timeMeasure.ToMS();
-        int khz = PageModes::timeMeasure.ToMS();
+        int mhz = 1000 * Channel::timeMeasure.ToMS();
+        int khz = Channel::timeMeasure.ToMS();
 
         if (((decDataA.ToDouble() / (float)khz) / 2.0F) < 1000.0F)
         {
@@ -181,7 +181,7 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 
     if (ModeMeasurePeriod::Current().IsF_1())
     {
-        int sT = PageModes::timeMeasure.ToMS();
+        int sT = Channel::timeMeasure.ToMS();
 
         decDA = (int)(decDataA.ToDouble() / (2.0 * (double)sT));
 
@@ -205,16 +205,16 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
     }
     else
     {
-        if (PageModes::timeLabels.IsT_7() || PageModes::timeLabels.IsT_4())
+        if (Channel::timeLabels.IsT_7() || Channel::timeLabels.IsT_4())
         {
             result *= 10;
         }
-        else if (PageModes::timeLabels.IsT_8() || PageModes::timeLabels.IsT_5())
+        else if (Channel::timeLabels.IsT_8() || Channel::timeLabels.IsT_5())
         {
             result *= 100;
         }
 
-        result *= PageModes::numberPeriods.ToAbs();
+        result *= Channel::numberPeriods.ToAbs();
     }
 
     return result;
@@ -223,11 +223,11 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 
 int MathFPGA::Measure::CalculateDurationEmptyZeros()
 {
-    if (PageModes::timeLabels.IsT_7())
+    if (Channel::timeLabels.IsT_7())
     {
         return 10;
     }
-    else if (PageModes::timeLabels.IsT_8() || PageModes::timeLabels.IsT_5())
+    else if (Channel::timeLabels.IsT_8() || Channel::timeLabels.IsT_5())
     {
         return 100;
     }
@@ -491,7 +491,7 @@ void MathFPGA::Measure::CalculateNewData()
 
         if (ModeMeasureCountPulse::Current().IsFromPeriod())
         {
-            value /= (float)PageModes::numberPeriods.ToAbs();
+            value /= (float)Channel::numberPeriods.ToAbs();
         }
 
         Data::SetDigits(String("%10.0f", decDataA.ToFloat()));
@@ -643,7 +643,7 @@ void MathFPGA::Measure::CalculateUnits()
                 }
                 else
                 {
-                    PeriodTimeLabels &current = PageModes::timeLabels;
+                    PeriodTimeLabels &current = Channel::timeLabels;
 
                     if (current.IsT_3() || current.IsT_4() || current.IsT_5())  { Data::SetUnits(String(" ms")); }
                     else                                                        { Data::SetUnits(String(" us")); }

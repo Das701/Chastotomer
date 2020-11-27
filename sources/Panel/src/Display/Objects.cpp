@@ -94,9 +94,9 @@ bool DataZone::Draw()
 
 bool ProgressBarTimeMeasureZone::Draw()
 {
-    if (CurrentPageModes::ConsistTimeMeasure() && PageModes::timeMeasure.value > TimeMeasure::_10ms)
+    if (CurrentPageModes::ConsistTimeMeasure() && Channel::timeMeasure.value > TimeMeasure::_10ms)
     {
-        int timeCycle = PageModes::timeMeasure.ToMS();
+        int timeCycle = Channel::timeMeasure.ToMS();
 
         float part = ((float)(TIME_MS - timeStart) / (float)timeCycle);
 

@@ -163,7 +163,7 @@ void PeriodTimeLabels::LoadToFPGA()
 {
     Command command(Command::TimeLabels);
 
-    switch (PageModes::timeLabels.value)
+    switch (Channel::timeLabels.value)
     {
     case PeriodTimeLabels::T_7:     command.SetBit(9);    break;
     case PeriodTimeLabels::T_6:     command.SetBit(8);    break;
@@ -182,18 +182,18 @@ void PeriodTimeLabels::LoadToFPGA()
 
 void PeriodTimeLabels::Set(E v)
 {
-    PageModes::timeLabels.value = (uint8)v;
+    Channel::timeLabels.value = (uint8)v;
     LoadToFPGA();
 }
 
 
 void TimeMeasure::LoadToFPGA()
 {
-    PageModes::numberPeriods.value = PageModes::timeMeasure.value;
+    Channel::numberPeriods.value = Channel::timeMeasure.value;
 
     Command command(Command::TimeMeasure);
 
-    switch (PageModes::timeMeasure.value)
+    switch (Channel::timeMeasure.value)
     {
     case TimeMeasure::_10ms:    command.SetBit(9);  break;
     case TimeMeasure::_100ms:   command.SetBit(8);  break;
@@ -214,11 +214,11 @@ void TimeMeasure::LoadToFPGA()
 
 void NumberPeriods::LoadToFPGA()
 {
-    PageModes::timeMeasure.value = PageModes::numberPeriods.value;
+    Channel::timeMeasure.value = Channel::numberPeriods.value;
 
     Command command(Command::NumberPeriods);
 
-    switch (PageModes::numberPeriods.value)
+    switch (Channel::numberPeriods.value)
     {
     case NumberPeriods::_10:    command.SetBit(9);    break;
     case NumberPeriods::_100:   command.SetBit(8);    break;
@@ -239,7 +239,7 @@ void NumberPeriods::LoadToFPGA()
 
 void NumberPeriods::Set(E v)
 {
-    PageModes::numberPeriods.value = (uint8)v;
+    Channel::numberPeriods.value = (uint8)v;
     LoadToFPGA();
 }
 
