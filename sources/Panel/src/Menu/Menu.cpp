@@ -294,8 +294,8 @@ static void OnKey(const Control &control) //-V2008
         if ((Channel::A.typeMeasure.IsFrequency() && Channel::A.modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
             (Channel::B.typeMeasure.IsFrequency() && Channel::B.modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
             (Channel::C.typeMeasure.IsFrequency() && Channel::C.modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
-            (Channel::A.typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B.typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
+            (Channel::A.typeMeasure.IsPeriod() && Channel::A.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B.typeMeasure.IsPeriod() && Channel::B.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
             (Channel::A.typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
             (Channel::B.typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
         {

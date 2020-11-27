@@ -17,7 +17,6 @@ extern Switch sModeDuration;
 extern Switch sModeCountPulse;
 
 
-ModeMeasurePeriod     PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration   PageModesB::modeMeasureDuration(ModeMeasureDuration::Ndt);
 static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { false, false, true, true, false, false, false, false, true };
 ModeMeasureCountPulse PageModesB::modeMeasureCountPulse(ModeMeasureCountPulse::BtA, correctModeMeasureCountPulse, ModeMeasureCountPulse::Count);
@@ -128,13 +127,13 @@ void PageModesB::OnChanged_ModePeriod()
 {
     items[1] = &sModePeriod;
 
-    if (PageModesB::modeMeasurePeriod.IsPeriod())
+    if (Channel::B.modePeriod.IsPeriod())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = Channel::switchTimeLabels;
         items[4] = nullptr;
     }
-    else if (PageModesB::modeMeasurePeriod.IsF_1())
+    else if (Channel::B.modePeriod.IsF_1())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
@@ -150,7 +149,7 @@ void PageModesB::OnChanged_ModePeriod()
 DEF_SWITCH_2(sModePeriod,
     "Режим", "Измерение периода",
     "Период", "T=1/f",
-    PageModesB::modeMeasurePeriod, PageModesB::OnChanged_ModePeriod
+    Channel::B.modePeriod, PageModesB::OnChanged_ModePeriod
 );
 
 

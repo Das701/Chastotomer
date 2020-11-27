@@ -35,7 +35,8 @@ Channel::Channel(Page *pSettings, const bool *enabledMeasures, const bool *enabl
     divider(Divider::_1),
     typeSynch(TypeSynch::Manual),
     typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count),
-    modeMeasureFrequency(ModeMeasureFrequency::Frequency, enabledModeFrequency, ModeMeasureFrequency::Count)
+    modeMeasureFrequency(ModeMeasureFrequency::Frequency, enabledModeFrequency, ModeMeasureFrequency::Count),
+    modePeriod(ModeMeasurePeriod::Period)
 {
 }
 
