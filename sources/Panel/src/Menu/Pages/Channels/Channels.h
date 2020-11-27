@@ -66,15 +66,3 @@ extern Page pageChannelA;
 extern Page pageChannelB;
 extern Page pageChannelC;
 extern Page pageChannelD;
-
-
-struct PageSettingsA
-{
-    static void FixPress();
-};
-
-
-struct PageSettingsB
-{
-    static void FixPress();
-};

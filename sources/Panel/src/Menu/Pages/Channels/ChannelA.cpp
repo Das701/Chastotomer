@@ -137,8 +137,3 @@ static Item *items[7] =
 };
 
 Page pageChannelA(items, nullptr);
-
-void PageSettingsA::FixPress()
-{
-    OnPress_Sync();
-}
