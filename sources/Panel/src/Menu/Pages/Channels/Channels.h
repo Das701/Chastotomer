@@ -80,14 +80,3 @@ struct PageSettingsB
     static void FixPress();
     static Switch *switchTypeSynch;     // ”казатель на переключатель типа синхронизации
 };
-
-
-struct PageSettingsC
-{
-    int i;
-};
-
-struct PageSettingsD
-{
-    int i;
-};
