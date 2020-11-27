@@ -91,7 +91,7 @@ Page *PageModes::Current()
 }
 
 
-bool ModeMeasureFrequency::IsRatio() const
+bool ModeFrequency::IsRatio() const
 {
     return IsRatioAB() || IsRatioBA() ||  IsRatioAC() || IsRatioBC() || IsRatioCA() || IsRatioCB();
 }
@@ -159,12 +159,12 @@ const ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
 }
 
 
-const ModeMeasureFrequency &ModeMeasureFrequency::Current()
+const ModeFrequency &ModeFrequency::Current()
 {
     static bool current = true;
-    static const ModeMeasureFrequency null(ModeMeasureFrequency::Count, &current, 1);
+    static const ModeFrequency null(ModeFrequency::Count, &current, 1);
 
-    ModeMeasureFrequency *const modes[Channel::Count] =
+    ModeFrequency *const modes[Channel::Count] =
     {
         &Channel::A.modeMeasureFrequency,
         &Channel::B.modeMeasureFrequency,

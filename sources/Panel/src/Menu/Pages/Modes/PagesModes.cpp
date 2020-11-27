@@ -10,7 +10,7 @@ bool CurrentPageModes::ConsistTimeMeasure()
 {
     if (Channel::Current().typeMeasure.IsFrequency())
     {
-        if (ModeMeasureFrequency::Current().IsFrequency() || ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC())
+        if (ModeFrequency::Current().IsFrequency() || ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC())
         {
             return true;
         }

@@ -72,7 +72,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 {
     int result = 0;
 
-    const ModeMeasureFrequency &mode = ModeMeasureFrequency::Current();
+    const ModeFrequency &mode = ModeFrequency::Current();
 
     if (mode.IsT_1())
     {
@@ -323,7 +323,7 @@ void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
 {
     decDataA.FromDouble((double)counterA);
 
-    if ((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) && PageModesA::RelationCheck())
+    if ((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) && PageModesA::RelationCheck())
     {
         decDataB.FromDouble(counterB);
     }
@@ -498,11 +498,11 @@ void MathFPGA::Measure::CalculateNewData()
     }
     else
     {
-        if (ModeMeasureFrequency::Current().IsTachometer())
+        if (ModeFrequency::Current().IsTachometer())
         {
             Data::SetDigits(String("%10.0f", decDataA.ToFloat() / 2.0F));
         }
-        else if (ModeMeasureFrequency::Current().IsComparator())
+        else if (ModeFrequency::Current().IsComparator())
         {
             Data::SetDigits(Comparator::value.ToString());
         }
@@ -594,8 +594,8 @@ void MathFPGA::Measure::CalculateUnits()
     }
     else
     {
-        if (ModeMeasureFrequency::Current().IsRatio() ||
-            ModeMeasureFrequency::Current().IsTachometer() ||
+        if (ModeFrequency::Current().IsRatio() ||
+            ModeFrequency::Current().IsTachometer() ||
             Channel::Current().typeMeasure.IsCountPulse())
         {
             Data::SetUnits(String(" "));
@@ -604,7 +604,7 @@ void MathFPGA::Measure::CalculateUnits()
         {
             if (Channel::Current().typeMeasure.IsFrequency())
             {
-                if (ModeMeasureFrequency::Current().IsT_1())
+                if (ModeFrequency::Current().IsT_1())
                 {
                     if (decDA < 1000)           { Data::SetUnits(String(" Hz"));  }
                     else if (decDA < 1000000)   { Data::SetUnits(String(" kHz")); }

@@ -45,13 +45,13 @@ void PageModesC::OnChanged_ModeFrequency()
 
     switch (Channel::C.modeMeasureFrequency.value)
     {
-    case ModeMeasureFrequency::Frequency:
+    case ModeFrequency::Frequency:
         items[2] = Channel::switchTimeMeasue;
         items[3] = nullptr;
         break;
 
-    case ModeMeasureFrequency::RatioCA:
-    case ModeMeasureFrequency::RatioCB:
+    case ModeFrequency::RatioCA:
+    case ModeFrequency::RatioCB:
         items[2] = Channel::switchNumberPeriods;
         items[3] = Channel::switchTimeLabels;
         items[4] = nullptr;
@@ -60,7 +60,7 @@ void PageModesC::OnChanged_ModeFrequency()
 
     PageModesA::RelationOff();
     
-    ModeMeasureFrequency::LoadToFPGA();
+    ModeFrequency::LoadToFPGA();
 }
 
 // Выбор режима измерения частоты, отношения частот, "тахометра"

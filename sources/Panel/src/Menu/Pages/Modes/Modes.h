@@ -23,7 +23,7 @@ struct TypeMeasure : public Enumeration
 };
 
 // Режим измерения частоты
-struct ModeMeasureFrequency : public Enumeration
+struct ModeFrequency : public Enumeration
 {
     enum E
     {
@@ -40,7 +40,7 @@ struct ModeMeasureFrequency : public Enumeration
                        Count
     };
 
-    explicit ModeMeasureFrequency(E v, const bool *correct, int numStates) : Enumeration((uint8)v, correct, numStates) {};
+    explicit ModeFrequency(E v, const bool *correct, int numStates) : Enumeration((uint8)v, correct, numStates) {};
 
     bool IsFrequency()  const { return (value == Frequency); }
     bool IsRatioAB()    const { return (value == RatioAB); }
@@ -54,7 +54,7 @@ struct ModeMeasureFrequency : public Enumeration
     bool IsTachometer() const { return (value == Tachometer); }
     bool IsComparator() const { return (value == Comparator); }
 
-    static const ModeMeasureFrequency &Current();
+    static const ModeFrequency &Current();
     static void LoadToFPGA();
 };
 

@@ -149,7 +149,7 @@ void PageModesA::OnChanged_ModeFrequency()
         PageModesA::RelationOff();
     }
 
-    ModeMeasureFrequency::LoadToFPGA();
+    ModeFrequency::LoadToFPGA();
 }
 
 // Выбор режима измерения частоты, отношения частот, "тахометра"

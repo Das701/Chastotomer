@@ -132,7 +132,7 @@ void FPGA::Update() //-V2008
 
                 CYCLE_READ_PIN_B14(32, counterA, true);
               
-                if((ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC()) && PageModesA::RelationCheck())
+                if((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) && PageModesA::RelationCheck())
                 {
                     CYCLE_READ_PIN_B14(32, counterB, true);
                 }

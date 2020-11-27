@@ -46,7 +46,7 @@ struct Channel
     Divider              divider;
     TypeSynch            typeSynch;
     TypeMeasure          typeMeasure;
-    ModeMeasureFrequency modeMeasureFrequency;  // Режим измерения частоты
+    ModeFrequency modeMeasureFrequency;  // Режим измерения частоты
     ModeMeasurePeriod    modePeriod;            // Режим измерения периода
 
     static Channel A;

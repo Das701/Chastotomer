@@ -5,19 +5,19 @@
 Channel::E Channel::current = Channel::_A;
 
 static const bool enabledMeasuresA[TypeMeasure::Count] = { true, true, true, true };
-static const bool enabledModeFrequencyA[ModeMeasureFrequency::Count] = { true, true, true, true, false, false, false, false, true, true };
+static const bool enabledModeFrequencyA[ModeFrequency::Count] = { true, true, true, true, false, false, false, false, true, true };
 Channel Channel::A(&pageChannelA, enabledMeasuresA, enabledModeFrequencyA);
 
 static const bool enabledMeasuresB[TypeMeasure::Count] = { true, true, true, true };
-static const bool enabledModeFrequencyB[ModeMeasureFrequency::Count] = { true, true, false, false, true, true, false, false, true, false };
+static const bool enabledModeFrequencyB[ModeFrequency::Count] = { true, true, false, false, true, true, false, false, true, false };
 Channel Channel::B(&pageChannelB, enabledMeasuresB, enabledModeFrequencyB);
 
 static const bool enabledMeasuresC[TypeMeasure::Count] = { true, false, false, true };
-static const bool enabledModeFrequencyC[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
+static const bool enabledModeFrequencyC[ModeFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
 Channel Channel::C(&pageChannelC, enabledMeasuresC, enabledModeFrequencyC);
 
 static const bool enabledMeasuresD[TypeMeasure::Count] = { true, false, false, false };
-static const bool enabledModeFrequencyD[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, false, false, false, false };
+static const bool enabledModeFrequencyD[ModeFrequency::Count] = { true, false, false, false, false, false, false, false, false, false };
 Channel Channel::D(&pageChannelD, enabledMeasuresD, enabledModeFrequencyD);
 
 
@@ -35,7 +35,7 @@ Channel::Channel(Page *pSettings, const bool *enabledMeasures, const bool *enabl
     divider(Divider::_1),
     typeSynch(TypeSynch::Manual),
     typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count),
-    modeMeasureFrequency(ModeMeasureFrequency::Frequency, enabledModeFrequency, ModeMeasureFrequency::Count),
+    modeMeasureFrequency(ModeFrequency::Frequency, enabledModeFrequency, ModeFrequency::Count),
     modePeriod(ModeMeasurePeriod::Period)
 {
 }
@@ -73,17 +73,17 @@ bool Channel::IsActiveTimeLabels(TypeMeasure *type, int m)
 {
     if (type->IsFrequency())
     {
-        ModeMeasureFrequency::E mode = (ModeMeasureFrequency::E)m;
+        ModeFrequency::E mode = (ModeFrequency::E)m;
 
         switch (mode)
         {
-        case ModeMeasureFrequency::T_1:
-        case ModeMeasureFrequency::RatioCA:
-        case ModeMeasureFrequency::RatioCB:     return true;
+        case ModeFrequency::T_1:
+        case ModeFrequency::RatioCA:
+        case ModeFrequency::RatioCB:     return true;
 
-        case ModeMeasureFrequency::Frequency:   return CURRENT_CHANNEL_IS_A_OR_B ? FreqMeter::modeTest.IsEnabled() : false;
+        case ModeFrequency::Frequency:   return CURRENT_CHANNEL_IS_A_OR_B ? FreqMeter::modeTest.IsEnabled() : false;
 
-        case ModeMeasureFrequency::Tachometer:  return FreqMeter::modeTest.IsEnabled();
+        case ModeFrequency::Tachometer:  return FreqMeter::modeTest.IsEnabled();
         }
     }
     else if (type->IsPeriod())
@@ -118,13 +118,13 @@ bool Channel::IsActiveTimeMeasure(TypeMeasure *type, int m)
 {
     if (type->IsFrequency())
     {
-        ModeMeasureFrequency::E mode = (ModeMeasureFrequency::E)m;
+        ModeFrequency::E mode = (ModeFrequency::E)m;
 
         switch (mode)
         {
-        case ModeMeasureFrequency::Frequency:
-        case ModeMeasureFrequency::RatioAC:
-        case ModeMeasureFrequency::RatioBC:     return true;
+        case ModeFrequency::Frequency:
+        case ModeFrequency::RatioAC:
+        case ModeFrequency::RatioBC:     return true;
         }
     }
     else if (type->IsPeriod())
@@ -145,15 +145,15 @@ bool Channel::IsActiveNumberPeriods(TypeMeasure *type, int m)
 {
     if (type->IsFrequency())
     {
-        ModeMeasureFrequency::E mode = (ModeMeasureFrequency::E)m;
+        ModeFrequency::E mode = (ModeFrequency::E)m;
 
         switch (mode)
         {
-        case ModeMeasureFrequency::T_1:
-        case ModeMeasureFrequency::RatioAB:
-        case ModeMeasureFrequency::RatioBA:
-        case ModeMeasureFrequency::RatioCA:
-        case ModeMeasureFrequency::RatioCB:     return true;
+        case ModeFrequency::T_1:
+        case ModeFrequency::RatioAB:
+        case ModeFrequency::RatioBA:
+        case ModeFrequency::RatioCA:
+        case ModeFrequency::RatioCB:     return true;
         }
     }
     else if (type->IsPeriod())

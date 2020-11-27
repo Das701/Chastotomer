@@ -87,7 +87,7 @@ void MemoryMode::Load()
     FPGA::WriteCommand(command);
 }
 
-void ModeMeasureFrequency::LoadToFPGA()
+void ModeFrequency::LoadToFPGA()
 {
     Command command(Command::ModeFrequency);
 
