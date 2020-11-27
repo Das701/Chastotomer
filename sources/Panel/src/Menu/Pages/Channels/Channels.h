@@ -33,6 +33,8 @@ struct Channel
     static bool IsActiveTimeMeasure(TypeMeasure *type, int mode);
     static bool IsActiveNumberPeriods(TypeMeasure *type, int mode);
 
+    static Channel *Current();
+
     Channel(Page *pSettings);
 
     Page *settings;
@@ -46,7 +48,8 @@ struct Channel
     static Channel C;
     static Channel D;
 
-    static Channel *Current();
+    bool IsA() { return this == &A; }
+    bool IsB() { return this == &B; }
 };
 
 

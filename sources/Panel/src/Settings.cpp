@@ -35,12 +35,9 @@ void InputCouple::LoadToFPGA()
 
 void InputCouple::Set(InputCouple::E v)
 {
-    if (CURRENT_CHANNEL_IS_A_OR_B)
-    {
-        Channel::Current()->couple.value = (uint8)v;
+    value = (uint8)v;
 
-        LoadToFPGA();
-    }
+    LoadToFPGA();
 }
 
 
