@@ -320,9 +320,7 @@ void FreqMeter::LoadStartStop()
 
 void ModeTest::Switch()
 {
-    char command[4] = { 1, 1, 1, 1 };
-
-    DEFINE_ARGUMENT;
+    Command command(Command::Test);
 
     if (IsEnabled())
     {
@@ -330,14 +328,14 @@ void ModeTest::Switch()
     }
     else
     {
-        argument[5] = 1;
+        command.SetBit(9);
 
         value = ModeTest::Enabled;
     }
 
     Event(EventType::ModeTestChanged);
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
 }
