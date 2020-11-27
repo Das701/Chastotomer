@@ -193,24 +193,22 @@ void TimeMeasure::LoadToFPGA()
 {
     PageModes::numberPeriods.value = PageModes::timeMeasure.value;
 
-    char command[4] = { 1, 0, 0, 0 };
-
-    DEFINE_ARGUMENT;
+    Command command(Command::TimeMeasure);
 
     switch (PageModes::timeMeasure.value)
     {
-    case TimeMeasure::_10ms:    argument[5] = 1;  break;
-    case TimeMeasure::_100ms:   argument[4] = 1;  break;
-    case TimeMeasure::_1s:      argument[4] = 1;
-                                argument[5] = 1;  break;
-    case TimeMeasure::_10s:     argument[3] = 1;  break;
-    case TimeMeasure::_100s:    argument[3] = 1;
-                                argument[5] = 1;  break;
-    case TimeMeasure::_1000s:   argument[3] = 1;
-                                argument[4] = 1;  break;
+    case TimeMeasure::_10ms:    command.SetBit(9);  break;
+    case TimeMeasure::_100ms:   command.SetBit(8);  break;
+    case TimeMeasure::_1s:      command.SetBit(8);
+                                command.SetBit(9);  break;
+    case TimeMeasure::_10s:     command.SetBit(7);  break;
+    case TimeMeasure::_100s:    command.SetBit(7);
+                                command.SetBit(9);  break;
+    case TimeMeasure::_1000s:   command.SetBit(7);
+                                command.SetBit(8);  break;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
 }
