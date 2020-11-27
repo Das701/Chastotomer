@@ -291,14 +291,12 @@ void FreqMeter::UnloadAuto()
 
 void FreqMeter::LoadOneTime()
 {
-    char command[4] = { 1, 0, 1, 0 };
+    Command command(Command::OneTime);
 
-    DEFINE_ARGUMENT;
+    command.SetBit(9);
+    command.SetBit(8);
 
-    argument[5] = 1;
-    argument[4] = 1;
-
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 }
 
 

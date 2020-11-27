@@ -13,6 +13,7 @@ struct Command
         NumberPeriods  = 0x01,
         MemoryMode     = 0x03,
         LaunchSource   = 0x05,
+        OneTime        = 0x05,
         ModeFrequency  = 0x06,
         ModeCountPulse = 0x06,
         TimeLabels     = 0x07,
