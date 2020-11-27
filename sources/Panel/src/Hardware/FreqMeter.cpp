@@ -262,14 +262,14 @@ void InputImpedance::LoadToFPGA()
 
 void FreqMeter::LoadAuto()
 {
-    char command[4] = { 1, 1, 1, 1 };
+    Command command(Command::Auto);
 
-    DEFINE_ARGUMENT;
-
-    argument[5] = 1;
-    argument[4] = 1;
+    command.SetBit(9);
+    command.SetBit(8);
+    
     autoMode = true;
-    FPGA::WriteCommand(command, argument);
+
+    FPGA::WriteCommand(command);
 }
 
 

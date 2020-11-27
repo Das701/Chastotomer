@@ -19,7 +19,8 @@ struct Command
         Impedance      = 0x08,
         RefGenerator   = 0x09,
         DisplayTime    = 0x0D,
-        Calibration    = 0x0F
+        Calibration    = 0x0F,
+        Auto           = 0x0F
     };
 
     uint value;
