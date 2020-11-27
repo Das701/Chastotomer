@@ -6,7 +6,7 @@
 
 struct PageSettingsA
 {
-    static MenuPage *self;
+    static Page *self;
     static InputCouple couple;
     static InputImpedance impedance;
     static ModeFilter modeFilter;
@@ -20,7 +20,7 @@ struct PageSettingsA
 
 struct PageSettingsB
 {
-    static MenuPage *self;
+    static Page *self;
     static InputCouple couple;
     static InputImpedance impedance;
     static ModeFilter modeFilter;
@@ -34,10 +34,10 @@ struct PageSettingsB
 
 struct PageSettingsC
 {
-    static MenuPage *self;
+    static Page *self;
 };
 
 struct PageSettingsD
 {
-    static MenuPage *self;
+    static Page *self;
 };

@@ -143,9 +143,9 @@ static Item *items[7] =
     nullptr
 };
 
-static MenuPage pageChannelA(items, nullptr);
+static Page pageChannelA(items, nullptr);
 
-MenuPage *PageSettingsA::self = &pageChannelA;
+Page *PageSettingsA::self = &pageChannelA;
 
 Switch *PageSettingsA::switchTypeSynch = &sSync;
 

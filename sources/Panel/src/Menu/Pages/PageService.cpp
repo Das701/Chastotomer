@@ -68,6 +68,6 @@ static Item *items[7] =
 };
 
 
-static MenuPage pageService(items, nullptr);
+static Page pageService(items, nullptr);
 
-MenuPage *PageService::self = &pageService;
+Page *PageService::self = &pageService;

@@ -20,9 +20,9 @@ public:
 
     static void DrawParameters(int x, int y);
 
-    static MenuPage *Current();
+    static Page *Current();
 
-    static MenuPage *PageForChannel(Channel::E);
+    static Page *PageForChannel(Channel::E);
 
     static TimeMeasure       timeMeasure;    // Время счета
     static NumberPeriods     numberPeriods;  // Число периодов измерения
@@ -43,7 +43,7 @@ class PageModesA
 {
 public:
 
-    static MenuPage *self;
+    static Page *self;
     
     static void RelationOn();
     static void RelationOff();
@@ -72,7 +72,7 @@ public:
 
 struct PageModesB
 {
-    static MenuPage *self;
+    static Page *self;
 
     static void PressSetup();
 
@@ -95,7 +95,7 @@ struct PageModesB
 
 struct PageModesC
 {
-    static MenuPage *self;
+    static Page *self;
 
     // Вызывается при измеенении вида измерения
     static void OnChanged_TypeMeasure();
@@ -114,7 +114,7 @@ struct PageModesC
 class PageModesD
 {
 public:
-    static MenuPage *self;
+    static Page *self;
 
     static TypeMeasure          typeMeasure;
     static ModeMeasureFrequency modeMeasureFrequency;

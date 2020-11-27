@@ -33,9 +33,9 @@ static Item *items[7] =
 };
 
 
-static MenuPage pageShowStatistics(items, nullptr);
+static Page pageShowStatistics(items, nullptr);
 
-MenuPage *PageStatistics::self = &pageShowStatistics;
+Page *PageStatistics::self = &pageShowStatistics;
 
 
 void PageStatistics::Clear()

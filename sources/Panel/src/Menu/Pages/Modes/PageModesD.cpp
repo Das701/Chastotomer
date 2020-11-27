@@ -54,6 +54,6 @@ static Item *items[7] =
     nullptr
 };
 
-static MenuPage pageModesD(items, nullptr);
+static Page pageModesD(items, nullptr);
 
-MenuPage *PageModesD::self = &pageModesD;
+Page *PageModesD::self = &pageModesD;

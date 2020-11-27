@@ -79,7 +79,7 @@ struct Calibration : public Enumeration
 class PageIndication
 {
 public:
-    static MenuPage *self;
+    static Page *self;
     // Время отображения результата измерения
     static DisplayTime displayTime;
     // Выбор опорного генератора
