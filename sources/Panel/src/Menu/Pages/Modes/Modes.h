@@ -335,6 +335,5 @@ struct Divider : public Enumeration
     bool Is1() const { return (value == _1); }
     int ToAbs() const { return Is1() ? 1 : 10; }
 
-    static const Divider &Current();
     static void LoadToFPGA();
 };

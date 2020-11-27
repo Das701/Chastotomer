@@ -179,9 +179,9 @@ String Menu::ChannelSettings()
         ADD_UGO(Channel::A.impedance.UGO());
         ADD_UGO(Channel::A.modeFilter.UGO());
         ADD_UGO(Channel::A.modeFront.UGO());
-        ADD_UGO(PageSettingsA::divider.UGO());
+        ADD_UGO(Channel::A.divider.UGO());
         ADD_UGO(PageSettingsA::typeSynch.UGO());
-        ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Divider::Current().ToAbs()).c_str());
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Channel::Current().divider.ToAbs()).c_str());
         if (PageSettingsA::typeSynch == TypeSynch::Manual)
         {
             std::strcat(settings, "ìÂ");
@@ -206,9 +206,9 @@ String Menu::ChannelSettings()
         ADD_UGO(Channel::B.impedance.UGO());
         ADD_UGO(Channel::B.modeFilter.UGO());
         ADD_UGO(Channel::B.modeFront.UGO());
-        ADD_UGO(PageSettingsB::divider.UGO());
+        ADD_UGO(Channel::B.divider.UGO());
         ADD_UGO(PageSettingsB::typeSynch.UGO());
-        ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Divider::Current().ToAbs()).c_str());
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Channel::Current().divider.ToAbs()).c_str());
         if (PageSettingsB::typeSynch == TypeSynch::Manual)
         {
             std::strcat(settings, "ìÂ");

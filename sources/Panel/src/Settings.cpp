@@ -136,23 +136,13 @@ void ModeFilter::LoadToFPGA()
 }
 
 
-const Divider &Divider::Current()
-{
-    static const Divider null(Count);
-
-    static const Divider *dividers[Channel::Count] = { &PageSettingsA::divider, &PageSettingsB::divider, &null, &null };
-
-    return *dividers[CURRENT_CHANNEL];
-}
-
-
 void Divider::LoadToFPGA()
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
         Command command(Command::Divider);
 
-        if (!Divider::Current().Is1())
+        if (!Channel::Current().divider.Is1())
         {
             command.SetBit(9);
         }

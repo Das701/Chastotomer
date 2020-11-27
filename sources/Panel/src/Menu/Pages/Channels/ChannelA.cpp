@@ -16,7 +16,6 @@ using namespace Primitives;
 extern Switch sSync;
 extern Item *items[7];
 
-Divider         PageSettingsA::divider(Divider::_1);
 TypeSynch       PageSettingsA::typeSynch(TypeSynch::Manual);
 
 
@@ -87,7 +86,7 @@ DEF_SWITCH_UGO_2(sDivider,
     "Делитель", "Вкл/откл входного делителя",
     "1:1", "1:10",
     "1:1", "1:10",
-    PageSettingsA::divider, OnPress_Divider
+    Channel::A.divider, OnPress_Divider
 );
 
 
