@@ -6,5 +6,5 @@ class PageService
 {
 public:
 
-    static Page *self;
+    static MenuPage *self;
 };

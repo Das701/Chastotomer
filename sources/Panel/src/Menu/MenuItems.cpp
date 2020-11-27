@@ -78,7 +78,7 @@ bool Button::OnControl(const Control &)
 }
 
 
-void Page::Draw(int x, int y, int, bool)
+void MenuPage::Draw(int x, int y, int, bool)
 {
     if (Display::InDrawingPart(y, HEIGHT))
     {
@@ -96,7 +96,7 @@ void Page::Draw(int x, int y, int, bool)
 }
 
 
-int Page::WidthItem(int num) const
+int MenuPage::WidthItem(int num) const
 {
     if (IsPageModes())
     {
@@ -129,19 +129,19 @@ int Page::WidthItem(int num) const
 }
 
 
-bool Page::IsPageModes() const
+bool MenuPage::IsPageModes() const
 {
     return (this == PageModesA::self) || (this == PageModesB::self) || (this == PageModesC::self) || (this == PageModesD::self);
 }
 
 
-bool Page::IsPageSettings() const
+bool MenuPage::IsPageSettings() const
 {
     return (this == PageSettingsA::self) || (this == PageSettingsB::self) || (this == PageSettingsC::self) || (this == PageSettingsD::self);
 }
 
 
-int Page::NumItems() const
+int MenuPage::NumItems() const
 {
     int i = 0;
     while (items[i] != nullptr)
@@ -152,21 +152,21 @@ int Page::NumItems() const
 }
 
 
-void Page::SelectNextItem()
+void MenuPage::SelectNextItem()
 {
     Math::CircleIncrease<int>(&selectedItem, 0, NumItems() - 1);
     Hint::Create(SelectedItem());
 }
 
 
-void Page::SelectPrevItem()
+void MenuPage::SelectPrevItem()
 {
     Math::CircleDecrease<int>(&selectedItem, 0, NumItems() - 1);
     Hint::Create(SelectedItem());
 }
 
 
-void Page::VerifySelectedItem()
+void MenuPage::VerifySelectedItem()
 {
     if (selectedItem >= NumItems())
     {
@@ -297,7 +297,7 @@ Color Item::ColorDraw(bool selected)
 }
 
 
-void Page::OnEvent(EventType::E event)
+void MenuPage::OnEvent(EventType::E event)
 {
     if (onEvent)
     {
@@ -306,7 +306,7 @@ void Page::OnEvent(EventType::E event)
 }
 
 
-TypeMeasure *Page::GetTypeMeasure() const
+TypeMeasure *MenuPage::GetTypeMeasure() const
 {
     Switch *item = (Switch *)items[0];
 
@@ -314,7 +314,7 @@ TypeMeasure *Page::GetTypeMeasure() const
 }
 
 
-int Page::GetModeMeasure() const
+int MenuPage::GetModeMeasure() const
 {
     Switch *item = (Switch *)items[1];
 
@@ -324,7 +324,7 @@ int Page::GetModeMeasure() const
 }
 
 
-bool Page::ExistTypeMeasure(uint8 type) const
+bool MenuPage::ExistTypeMeasure(uint8 type) const
 {
     Switch *item = (Switch *)items[0];
 
@@ -332,7 +332,7 @@ bool Page::ExistTypeMeasure(uint8 type) const
 }
 
 
-void Page::ResetTypeAndModeMeasure()
+void MenuPage::ResetTypeAndModeMeasure()
 {
     Switch *type = (Switch *)items[0];
 
@@ -356,14 +356,14 @@ void Page::ResetTypeAndModeMeasure()
 }
 
 
-bool Page::ExistModeMeasure(int mode) const
+bool MenuPage::ExistModeMeasure(int mode) const
 {
     Switch *item = (Switch *)items[1];
 
     return item->state->correct[mode];
 }
 
-void Page::ResetModeMeasure()
+void MenuPage::ResetModeMeasure()
 {
     Switch *mode = (Switch *)items[1];
 
@@ -385,7 +385,7 @@ void Page::ResetModeMeasure()
 }
 
 
-//void Page::SetTypeAndModeMeasure(int t, int m)
+//void MenuPage::SetTypeAndModeMeasure(int t, int m)
 //{
 //    Switch *type = (Switch *)items[0];
 //

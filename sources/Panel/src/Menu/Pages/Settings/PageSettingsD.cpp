@@ -8,6 +8,6 @@ static Item *items[7] =
     nullptr
 };
 
-static Page pageChannelD(items, nullptr);
+static MenuPage pageChannelD(items, nullptr);
 
-Page *PageSettingsD::self = &pageChannelD;
+MenuPage *PageSettingsD::self = &pageChannelD;

@@ -115,6 +115,6 @@ static Item *items[7] =
     nullptr
 };
 
-static Page pageModesC(items, nullptr);
+static MenuPage pageModesC(items, nullptr);
 
-Page *PageModesC::self = &pageModesC;
+MenuPage *PageModesC::self = &pageModesC;

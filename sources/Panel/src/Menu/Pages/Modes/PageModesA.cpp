@@ -325,6 +325,6 @@ static void OnEvent(EventType::E event)
 }
 
 
-static Page pageModes(items, OnEvent);
+static MenuPage pageModes(items, OnEvent);
 
-Page *PageModesA::self = &pageModes;
+MenuPage *PageModesA::self = &pageModes;

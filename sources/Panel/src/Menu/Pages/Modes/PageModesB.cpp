@@ -270,6 +270,6 @@ static void OnEvent(EventType::E event)
 }
 
 
-static Page pageModesB(items, OnEvent);
+static MenuPage pageModesB(items, OnEvent);
 
-Page *PageModesB::self = &pageModesB;
+MenuPage *PageModesB::self = &pageModesB;

@@ -27,7 +27,7 @@ static void OnKey(const Control &control);
 static void OnGovernor(const Control &control);
 
 // Текущая отображаемая страница меню
-static Page *openedPage = PageModesA::self;
+static MenuPage *openedPage = PageModesA::self;
 
 static void SubscribeToEvents();
 
@@ -130,7 +130,7 @@ static bool OpenPage(Control control)
            
     SetCurrentChannel(control);
 
-    Page *const pages[Control::Count] =
+    MenuPage *const pages[Control::Count] =
     {
         nullptr,              // GovButton,
         nullptr,              // Mode,
@@ -147,7 +147,7 @@ static bool OpenPage(Control control)
         nullptr               // None,
     };
 
-    Page *page = pages[control.value];
+    MenuPage *page = pages[control.value];
 
     if (page && page != openedPage)
     {
@@ -230,13 +230,13 @@ String Menu::ChannelSettings()
     return String(settings);
 }
 
-Page* Menu::OpenedPage()
+MenuPage* Menu::OpenedPage()
 {
     return openedPage;
 }
 
 
-void Menu::SetOpenedPage(Page *page)
+void Menu::SetOpenedPage(MenuPage *page)
 {
     openedPage = page;
 }

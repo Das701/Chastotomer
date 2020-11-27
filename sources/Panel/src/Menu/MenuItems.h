@@ -76,7 +76,7 @@ private:
 
 class Switch : public Item
 {
-    friend class Page;
+    friend class MenuPage;
 public:
 
     Switch(char *_text, char *_hint, char **_names, char **_ugo, Enumeration *_state, void(*_onClick)()) :
@@ -99,10 +99,10 @@ private:
 
 
 
-class Page : public Item, public Observer
+class MenuPage : public Item, public Observer
 {
 public:
-    Page(Item **_items, void (*_onEvent)(EventType::E)) : Item(""), selectedItem(0), items(_items), onEvent(_onEvent) {};
+    MenuPage(Item **_items, void (*_onEvent)(EventType::E)) : Item(""), selectedItem(0), items(_items), onEvent(_onEvent) {};
 
     virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &) { return false; };

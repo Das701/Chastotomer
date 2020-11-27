@@ -2,14 +2,14 @@
 #include "Utils/Stack.h"
 
 
-class Page;
+class MenuPage;
 
 
 class PageStatistics
 {
 public:
 
-    static Page *self;
+    static MenuPage *self;
 
     static void Clear();
     static void Draw();

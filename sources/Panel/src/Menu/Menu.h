@@ -1,7 +1,7 @@
 #pragma once
 
 
-class Page;
+class MenuPage;
 
 
 namespace Menu
@@ -14,7 +14,7 @@ namespace Menu
 
     String ChannelSettings();
     
-    Page* OpenedPage();
+    MenuPage* OpenedPage();
 
-    void SetOpenedPage(Page *page);
+    void SetOpenedPage(MenuPage *page);
 };

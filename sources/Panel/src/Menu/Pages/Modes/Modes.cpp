@@ -90,15 +90,15 @@ void TypeMeasure::Draw(int x, int y) const
 }
 
 
-Page *PageModes::Current()
+MenuPage *PageModes::Current()
 {
     return PageForChannel(CURRENT_CHANNEL);
 }
 
 
-Page *PageModes::PageForChannel(Channel::E channel)
+MenuPage *PageModes::PageForChannel(Channel::E channel)
 {
-    Page *pages[Channel::Count] =
+    MenuPage *pages[Channel::Count] =
     {
         PageModesA::self,
         PageModesB::self,

@@ -73,7 +73,7 @@ public:
     virtual ~wxAnyScrollHelperBase() {}
 
     // Disable use of keyboard keys for scrolling. By default cursor movement
-    // keys (including Home, End, Page Up and Down) are used to scroll the
+    // keys (including Home, End, MenuPage Up and Down) are used to scroll the
     // window appropriately. If the derived class uses these keys for something
     // else, e.g. changing the currently selected item, this function can be
     // used to disable this behaviour as it's not only not necessary then but
