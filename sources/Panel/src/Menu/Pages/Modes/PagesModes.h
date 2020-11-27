@@ -27,10 +27,6 @@ public:
     static NumberPeriods     numberPeriods;  // Число периодов измерения
     static PeriodTimeLabels  timeLabels;     // Период меток времени
 
-    static Switch *switchTimeMeasue;
-    static Switch *switchNumberPeriods;
-    static Switch *switchTimeLabels;
-
 private:
     static bool IsActiveTimeLabels(TypeMeasure *type, int mode);
     static bool IsActiveTimeMeasure(TypeMeasure *type, int mode);

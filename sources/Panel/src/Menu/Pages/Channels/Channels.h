@@ -20,6 +20,10 @@ struct Channel
     static void LoadCurrentToFPGA();
 
     static Page *PageForChannel(Channel::E);
+
+    static Switch *switchTimeMeasue;
+    static Switch *switchNumberPeriods;
+    static Switch *switchTimeLabels;
 };
 
 

@@ -49,7 +49,7 @@ static Item *items[7] =
 {
     &sTypeMeasure,
     &sModeFrequency,
-    PageModes::switchTimeMeasue,
+    Channel::switchTimeMeasue,
     nullptr,
     nullptr
 };

@@ -50,14 +50,14 @@ void PageModesC::OnChanged_ModeFrequency()
     switch (PageModesC::modeMeasureFrequency.value)
     {
     case ModeMeasureFrequency::Frequency:
-        items[2] = PageModes::switchTimeMeasue;
+        items[2] = Channel::switchTimeMeasue;
         items[3] = nullptr;
         break;
 
     case ModeMeasureFrequency::RatioCA:
     case ModeMeasureFrequency::RatioCB:
-        items[2] = PageModes::switchNumberPeriods;
-        items[3] = PageModes::switchTimeLabels;
+        items[2] = Channel::switchNumberPeriods;
+        items[3] = Channel::switchTimeLabels;
         items[4] = nullptr;
         break;
     }
@@ -88,7 +88,7 @@ void PageModesC::OnChanged_ModeCountPulse()
 
     case ModeMeasureCountPulse::CTA:
     case ModeMeasureCountPulse::CTB:
-        items[2] = PageModes::switchNumberPeriods;
+        items[2] = Channel::switchNumberPeriods;
         break;
     }
 
@@ -111,7 +111,7 @@ static Item *items[7] =
 {
     &sTypeMeasure,
     &sModeFrequency,
-    PageModes::switchTimeMeasue,
+    Channel::switchTimeMeasue,
     nullptr
 };
 

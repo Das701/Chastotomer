@@ -107,7 +107,7 @@ static void OnPress_Sync()
     if (PageSettingsB::typeSynch.IsHoldoff())
     {
         items[0] = &sSync;
-        items[1] = PageModes::switchTimeMeasue;
+        items[1] = Channel::switchTimeMeasue;
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
     }

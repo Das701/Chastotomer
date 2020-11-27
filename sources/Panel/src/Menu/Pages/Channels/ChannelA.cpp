@@ -100,8 +100,8 @@ static void OnPress_Sync()
     if (PageSettingsA::typeSynch.IsHoldoff())
     {
         items[0] = &sSync;
-        items[1] = PageModes::switchTimeMeasue;
-        items[2] = PageModes::switchTimeLabels;
+        items[1] = Channel::switchTimeMeasue;
+        items[2] = Channel::switchTimeLabels;
         items[3] = nullptr;
 
         PageSettingsA::self->selectedItem = 0;

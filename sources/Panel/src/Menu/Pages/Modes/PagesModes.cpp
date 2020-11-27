@@ -45,7 +45,7 @@ DEF_SWITCH_6(sTimeMeasure,
 #endif
 
 
-Switch *PageModes::switchTimeMeasue = &sTimeMeasure;
+Switch *Channel::switchTimeMeasue = &sTimeMeasure;
 
 
 // Выбор числа усредняемых периодов входного сигнала
@@ -68,7 +68,7 @@ DEF_SWITCH_6(sNumberPeriods,
 #endif
 
 
-Switch *PageModes::switchNumberPeriods = &sNumberPeriods;
+Switch *Channel::switchNumberPeriods = &sNumberPeriods;
 
 
 // Выбор периода меток времени
@@ -79,7 +79,7 @@ DEF_SWITCH_6(sTimeLabels,
 );
 
 
-Switch *PageModes::switchTimeLabels = &sTimeLabels;
+Switch *Channel::switchTimeLabels = &sTimeLabels;
 
 
 #ifdef WIN32
