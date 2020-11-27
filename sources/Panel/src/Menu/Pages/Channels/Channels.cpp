@@ -2,7 +2,7 @@
 #include "Menu/Pages/Channels/Channels.h"
 
 
-Channel::E Channel::current = Channel::A;
+Channel::E Channel::current = Channel::_A;
 
 Channel chanA(&pageChannelA);
 Channel chanB(&pageChannelB);

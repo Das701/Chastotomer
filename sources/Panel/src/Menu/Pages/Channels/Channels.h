@@ -7,10 +7,10 @@ struct Channel
 {
     enum E
     {
-        A,
-        B,
-        C,
-        D,
+        _A,
+        _B,
+        _C,
+        _D,
         Count
     };
 
