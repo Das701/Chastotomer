@@ -47,7 +47,7 @@ struct Channel
     TypeSynch            typeSynch;
     TypeMeasure          typeMeasure;
     ModeFrequency modeMeasureFrequency;  // Режим измерения частоты
-    ModeMeasurePeriod    modePeriod;            // Режим измерения периода
+    ModePeriod    modePeriod;            // Режим измерения периода
 
     static Channel A;
     static Channel B;

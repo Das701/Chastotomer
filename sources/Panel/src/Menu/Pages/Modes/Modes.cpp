@@ -176,11 +176,11 @@ const ModeFrequency &ModeFrequency::Current()
 }
 
 
-const ModeMeasurePeriod &ModeMeasurePeriod::Current()
+const ModePeriod &ModePeriod::Current()
 {
-    static const ModeMeasurePeriod null(ModeMeasurePeriod::Count);
+    static const ModePeriod null(ModePeriod::Count);
 
-    static const ModeMeasurePeriod *modes[Channel::Count] =
+    static const ModePeriod *modes[Channel::Count] =
     {
         &Channel::A.modePeriod,
         &Channel::B.modePeriod,
@@ -208,13 +208,13 @@ const ModeMeasureDuration &ModeMeasureDuration::Current()
 }
 
 
-void ModeMeasurePeriod::LoadToFPGA()
+void ModePeriod::LoadToFPGA()
 {
     Command command(Command::ModePeriod);
 
     command.SetBit(5);
 
-    if (ModeMeasurePeriod::Current().IsF_1())
+    if (ModePeriod::Current().IsF_1())
     {
         command.SetBit(9);
     }

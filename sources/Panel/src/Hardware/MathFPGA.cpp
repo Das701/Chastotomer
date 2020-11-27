@@ -179,7 +179,7 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 {
     int result = 1;
 
-    if (ModeMeasurePeriod::Current().IsF_1())
+    if (ModePeriod::Current().IsF_1())
     {
         int sT = Channel::timeMeasure.ToMS();
 

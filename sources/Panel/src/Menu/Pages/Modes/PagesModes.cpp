@@ -16,7 +16,7 @@ bool CurrentPageModes::ConsistTimeMeasure()
         }
     }
 
-    if (Channel::Current().typeMeasure.IsPeriod() && ModeMeasurePeriod::Current().IsF_1())
+    if (Channel::Current().typeMeasure.IsPeriod() && ModePeriod::Current().IsF_1())
     {
         return true;
     }

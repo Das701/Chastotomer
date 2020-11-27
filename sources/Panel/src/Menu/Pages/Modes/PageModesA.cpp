@@ -184,7 +184,7 @@ void PageModesA::OnChanged_ModePeriod()
 
     PageModesA::RelationOff();
     
-    ModeMeasurePeriod::LoadToFPGA();
+    ModePeriod::LoadToFPGA();
 }
 
 // Выбор режима измерения периода

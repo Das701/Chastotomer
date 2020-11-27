@@ -94,7 +94,7 @@ struct ModeMeasureCountPulse : public Enumeration
 
 
 // Режим измерения периода
-struct ModeMeasurePeriod : public Enumeration
+struct ModePeriod : public Enumeration
 {
     enum E
     {
@@ -103,12 +103,12 @@ struct ModeMeasurePeriod : public Enumeration
         Count
     };
 
-    explicit ModeMeasurePeriod(E v) : Enumeration((uint8)v) {};
+    explicit ModePeriod(E v) : Enumeration((uint8)v) {};
 
     bool IsPeriod() const { return (value == Period); }
     bool IsF_1()    const { return (value == F_1); }
 
-    static const ModeMeasurePeriod &Current();
+    static const ModePeriod &Current();
     static void LoadToFPGA();
 };
 

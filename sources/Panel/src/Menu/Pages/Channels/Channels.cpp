@@ -36,7 +36,7 @@ Channel::Channel(Page *pSettings, const bool *enabledMeasures, const bool *enabl
     typeSynch(TypeSynch::Manual),
     typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count),
     modeMeasureFrequency(ModeFrequency::Frequency, enabledModeFrequency, ModeFrequency::Count),
-    modePeriod(ModeMeasurePeriod::Period)
+    modePeriod(ModePeriod::Period)
 {
 }
 
@@ -88,13 +88,13 @@ bool Channel::IsActiveTimeLabels(TypeMeasure *type, int m)
     }
     else if (type->IsPeriod())
     {
-        ModeMeasurePeriod::E mode = (ModeMeasurePeriod::E)m;
+        ModePeriod::E mode = (ModePeriod::E)m;
 
         switch (mode)
         {
-        case ModeMeasurePeriod::Period:      return true;
+        case ModePeriod::Period:      return true;
 
-        case ModeMeasurePeriod::F_1:         return FreqMeter::modeTest.IsEnabled();
+        case ModePeriod::F_1:         return FreqMeter::modeTest.IsEnabled();
         }
     }
     else if (type->IsDuration())
@@ -129,11 +129,11 @@ bool Channel::IsActiveTimeMeasure(TypeMeasure *type, int m)
     }
     else if (type->IsPeriod())
     {
-        ModeMeasurePeriod::E mode = (ModeMeasurePeriod::E)m;
+        ModePeriod::E mode = (ModePeriod::E)m;
 
         switch (mode)
         {
-        case ModeMeasurePeriod::F_1:            return true;
+        case ModePeriod::F_1:            return true;
         }
     }
 
@@ -158,11 +158,11 @@ bool Channel::IsActiveNumberPeriods(TypeMeasure *type, int m)
     }
     else if (type->IsPeriod())
     {
-        ModeMeasurePeriod::E mode = (ModeMeasurePeriod::E)m;
+        ModePeriod::E mode = (ModePeriod::E)m;
 
         switch (mode)
         {
-        case ModeMeasurePeriod::Period:         return true;
+        case ModePeriod::Period:         return true;
         }
     }
     else if (type->IsCountPulse())
