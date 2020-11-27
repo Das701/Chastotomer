@@ -11,8 +11,6 @@
 #include "Menu/Hint.h"
 
 
-#define DEFINE_ARGUMENT char argument[6] = {0, 0, 0, 0, 0, 0}
-
 static bool autoMode = false;
 
 ModeTest FreqMeter::modeTest(ModeTest::Disabled);

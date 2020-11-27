@@ -112,16 +112,14 @@ void ModeFront::LoadToFPGA()
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        char command[4] = { 0, 1, 0, 0 };
-
-        DEFINE_ARGUMENT;
+        Command command(Command::ModeFront);
 
         if (!Current().IsFront())
         {
-            argument[5] = 1;
+            command.SetBit(9);
         }
 
-        FPGA::WriteCommand(command, argument);
+        FPGA::WriteCommand(command);
     }
 }
 
@@ -130,16 +128,14 @@ void TypeSynch::LoadToFPGA()
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        char command[4] = { 1, 1, 0, 1 };
-
-        DEFINE_ARGUMENT;
+        Command command(Command::TypeSynch);
 
         if (TypeSynch::Current().IsHoldoff())
         {
-            argument[5] = 1;
+            command.SetBit(9);
         }
 
-        FPGA::WriteCommand(command, argument);
+        FPGA::WriteCommand(command);
     }
 }
 
@@ -170,16 +166,14 @@ void ModeFilter::LoadToFPGA()
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        char command[4] = { 0, 1, 0, 1 };
-
-        DEFINE_ARGUMENT;
+        Command command(Command::ModeFilter);
 
         if (Current().IsOff())
         {
-            argument[5] = 1;
+            command.SetBit(9);
         }
 
-        FPGA::WriteCommand(command, argument);
+        FPGA::WriteCommand(command);
     }
 }
 
