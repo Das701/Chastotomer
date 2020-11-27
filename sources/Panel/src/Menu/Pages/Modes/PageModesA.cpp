@@ -24,8 +24,6 @@ static bool relationOn = false;
 static bool startStop = false;
 
 
-static const bool correctTypeMeasure[TypeMeasure::Count] = { true, true, true, true };
-TypeMeasure           PageModesA::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure, TypeMeasure::Count);
 static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, true, true, true, false, false, false, false, true, true };
 ModeMeasureFrequency  PageModesA::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
 ModeMeasurePeriod     PageModesA::modeMeasurePeriod(ModeMeasurePeriod::Period);
@@ -52,7 +50,7 @@ bool PageModesA::RelationCheck()
 
 void PageModesA::PressSetup()
 {
-    switch (PageModesA::typeMeasure.value)
+    switch (Channel::A.typeMeasure.value)
     {
     case TypeMeasure::Frequency:
         items[1] = &sModeFrequency;
@@ -75,7 +73,7 @@ void PageModesA::PressSetup()
 
 void PageModesA::OnChanged_TypeMeasure()
 {
-    switch (PageModesA::typeMeasure.value)
+    switch (Channel::A.typeMeasure.value)
     {
     case TypeMeasure::Frequency:
         PageModesA::OnChanged_ModeFrequency();
@@ -99,7 +97,7 @@ void PageModesA::OnChanged_TypeMeasure()
 DEF_SWITCH_4(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Период", "Длит.", "Сч. имп.",
-    PageModesA::typeMeasure, PageModesA::OnChanged_TypeMeasure
+    Channel::A.typeMeasure, PageModesA::OnChanged_TypeMeasure
 );
 
 
@@ -295,7 +293,7 @@ static void OnChanged_ModeTest()
 {
     bool test = FreqMeter::modeTest.IsEnabled();
 
-    switch(PageModesA::typeMeasure.value)
+    switch(Channel::A.typeMeasure.value)
     {
     case TypeMeasure::Frequency:
         if (PageModesA::modeMeasureFrequency.IsFrequency())

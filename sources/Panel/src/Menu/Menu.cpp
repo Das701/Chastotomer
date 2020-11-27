@@ -291,13 +291,13 @@ static void OnKey(const Control &control) //-V2008
         break;
 
     case Control::Auto:
-        if ((PageModesA::typeMeasure.IsFrequency() && PageModesA::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
-            (PageModesB::typeMeasure.IsFrequency() && PageModesB::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
-            (PageModesC::typeMeasure.IsFrequency() && PageModesC::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
-            (PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
-            (PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
-            (PageModesA::typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
-            (PageModesB::typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
+        if ((Channel::A.typeMeasure.IsFrequency() && PageModesA::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B.typeMeasure.IsFrequency() && PageModesB::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
+            (Channel::C.typeMeasure.IsFrequency() && PageModesC::modeMeasureFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
+            (Channel::A.typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B.typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
+            (Channel::A.typeMeasure.IsDuration() && PageModesA::modeMeasureDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B.typeMeasure.IsDuration() && PageModesB::modeMeasureDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
         {
             MathFPGA::Auto::Refresh();
             FreqMeter::LoadAuto();

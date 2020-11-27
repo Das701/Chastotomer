@@ -14,8 +14,6 @@ extern Switch sModeFrequency;
 extern Switch sModeCountPulse;
 
 
-static const bool correctTypeMeasure[TypeMeasure::Count] = { true, false, false, true };
-TypeMeasure           PageModesC::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure, TypeMeasure::Count);
 static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
 ModeMeasureFrequency  PageModesC::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
 static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
@@ -24,7 +22,7 @@ ModeMeasureCountPulse PageModesC::modeMeasureCountPulse(ModeMeasureCountPulse::C
 
 void PageModesC::OnChanged_TypeMeasure()
 {
-    switch (PageModesC::typeMeasure.value)
+    switch (Channel::C.typeMeasure.value)
     {
     case TypeMeasure::Frequency:
         PageModesC::OnChanged_ModeFrequency();
@@ -39,7 +37,7 @@ void PageModesC::OnChanged_TypeMeasure()
 DEF_SWITCH_2(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Сч. имп.",
-    PageModesC::typeMeasure, PageModesC::OnChanged_TypeMeasure
+    Channel::C.typeMeasure, PageModesC::OnChanged_TypeMeasure
 )
 
 

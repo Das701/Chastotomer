@@ -4,10 +4,17 @@
 
 Channel::E Channel::current = Channel::_A;
 
-Channel Channel::A(&pageChannelA);
-Channel Channel::B(&pageChannelB);
-Channel Channel::C(&pageChannelC);
-Channel Channel::D(&pageChannelD);
+static const bool enabledMeasuresA[TypeMeasure::Count] = { true, true, true, true };
+Channel Channel::A(&pageChannelA, enabledMeasuresA);
+
+static const bool enabledMeasuresB[TypeMeasure::Count] = { true, true, true, true };
+Channel Channel::B(&pageChannelB, enabledMeasuresB);
+
+static const bool enabledMeasuresC[TypeMeasure::Count] = { true, false, false, true };
+Channel Channel::C(&pageChannelC, enabledMeasuresC);
+
+static const bool enabledMeasuresD[TypeMeasure::Count] = { true, false, false, false };
+Channel Channel::D(&pageChannelD, enabledMeasuresD);
 
 
 PeriodTimeLabels Channel::timeLabels(PeriodTimeLabels::T_8);
@@ -15,14 +22,15 @@ NumberPeriods    Channel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      Channel::timeMeasure(TimeMeasure::_1ms);
 
 
-Channel::Channel(Page *pSettings) :
+Channel::Channel(Page *pSettings, const bool *enabledMeasures) :
     settings(pSettings),
     couple(InputCouple::AC),
     impedance(InputImpedance::_1MOmh),
     modeFilter(ModeFilter::Off),
     modeFront(ModeFront::Front),
     divider(Divider::_1),
-    typeSynch(TypeSynch::Manual)
+    typeSynch(TypeSynch::Manual),
+    typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count)
 {
 }
 

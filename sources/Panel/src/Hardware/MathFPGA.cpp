@@ -634,8 +634,8 @@ void MathFPGA::Measure::CalculateUnits()
             }
             else
             {
-                if ((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsF_1()) ||
-                    (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsF_1()))
+                if ((CURRENT_CHANNEL_IS_A && Channel::A.typeMeasure.IsPeriod() && PageModesA::modeMeasurePeriod.IsF_1()) ||
+                    (CURRENT_CHANNEL_IS_B && Channel::B.typeMeasure.IsPeriod() && PageModesB::modeMeasurePeriod.IsF_1()))
                 {
                     if (decDA >= 1000)      { Data::SetUnits(String(" ns")); }
                     else if (decDA <= 1)    { Data::SetUnits(String(" ms")); }

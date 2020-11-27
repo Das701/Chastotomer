@@ -13,8 +13,6 @@ using namespace Primitives;
 extern Item *items[7];
 
 
-static const bool correctTypeMeasure[TypeMeasure::Count] = { true, false, false, false };
-TypeMeasure          PageModesD::typeMeasure(TypeMeasure::Frequency, correctTypeMeasure, TypeMeasure::Count);
 static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, false, false, false, false};
 ModeMeasureFrequency PageModesD::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
 
@@ -28,7 +26,7 @@ static void OnChanged_TypeMeasure()
 DEF_SWITCH_2(sTypeMeasure,
     "Измерения", "Выбор измерения",
     "Частота", "Частота",
-    PageModesD::typeMeasure, OnChanged_TypeMeasure
+    Channel::D.typeMeasure, OnChanged_TypeMeasure
 )
 
 

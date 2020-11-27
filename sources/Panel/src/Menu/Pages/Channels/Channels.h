@@ -35,16 +35,17 @@ struct Channel
 
     static Channel &Current();
 
-    Channel(Page *pSettings);
+    Channel(Page *pSettings, const bool *enabledMeasures);
 
     Page *settings;
 
-    InputCouple couple;
+    InputCouple    couple;
     InputImpedance impedance;
-    ModeFilter modeFilter;
-    ModeFront modeFront;
-    Divider divider;
-    TypeSynch typeSynch;
+    ModeFilter     modeFilter;
+    ModeFront      modeFront;
+    Divider        divider;
+    TypeSynch      typeSynch;
+    TypeMeasure    typeMeasure;
 
     static Channel A;
     static Channel B;

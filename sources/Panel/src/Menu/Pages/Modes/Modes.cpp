@@ -25,7 +25,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
             &PageModesA::modeMeasureCountPulse
         };
 
-        return *modes[PageModesA::typeMeasure.value];
+        return *modes[Channel::A.typeMeasure.value];
     }
     else if (CURRENT_CHANNEL_IS_B)
     {
@@ -37,7 +37,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
             &PageModesB::modeMeasureCountPulse
         };
 
-        return *modesB[PageModesB::typeMeasure.value];
+        return *modesB[Channel::B.typeMeasure.value];
     }
     else if (CURRENT_CHANNEL_IS_C)
     {
@@ -49,7 +49,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
             &PageModesC::modeMeasureCountPulse
         };
 
-        return *modesC[PageModesC::typeMeasure.value];;
+        return *modesC[Channel::C.typeMeasure.value];;
     }
 
     return PageModesD::modeMeasureFrequency;
@@ -163,10 +163,10 @@ const TypeMeasure &TypeMeasure::Current()
 {
     static TypeMeasure *const types[Channel::Count] =
     {
-        &PageModesA::typeMeasure,
-        &PageModesB::typeMeasure,
-        &PageModesC::typeMeasure,
-        &PageModesD::typeMeasure
+        &Channel::A.typeMeasure,
+        &Channel::B.typeMeasure,
+        &Channel::C.typeMeasure,
+        &Channel::D.typeMeasure
     };
 
     return *types[CURRENT_CHANNEL];

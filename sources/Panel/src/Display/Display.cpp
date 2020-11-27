@@ -335,16 +335,16 @@ static void DrawInfo()
 {
     if(PageIndication::memoryMode == MemoryMode::On)
     {
-        if(CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsTachometer() && (PageModesA::typeMeasure.IsFrequency())))
+        if(CURRENT_CHANNEL_IS_A && (PageModesA::modeMeasureFrequency.IsTachometer() && (Channel::A.typeMeasure.IsFrequency())))
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency.IsTachometer() && PageModesB::typeMeasure.IsFrequency()))
+        else if(CURRENT_CHANNEL_IS_B && (PageModesB::modeMeasureFrequency.IsTachometer() && Channel::B.typeMeasure.IsFrequency()))
         {
         }
-        else if(CURRENT_CHANNEL_IS_A && (PageModesA::typeMeasure.IsCountPulse()) && (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
+        else if(CURRENT_CHANNEL_IS_A && (Channel::A.typeMeasure.IsCountPulse()) && (PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
+        else if(CURRENT_CHANNEL_IS_B && Channel::B.typeMeasure.IsCountPulse() && (PageModesB::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
         {
         }
         else
@@ -372,8 +372,8 @@ static void DrawInfo()
         DrawValue("Зап:однокр", coordLaunch.x, coordLaunch.y);
     }
 
-    if((CURRENT_CHANNEL_IS_A && PageModesA::typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
-       (CURRENT_CHANNEL_IS_B && PageModesB::typeMeasure.IsCountPulse() && PageModesB::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
+    if((CURRENT_CHANNEL_IS_A && Channel::A.typeMeasure.IsCountPulse() && PageModesA::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop) ||
+       (CURRENT_CHANNEL_IS_B && Channel::B.typeMeasure.IsCountPulse() && PageModesB::modeMeasureCountPulse == ModeMeasureCountPulse::StartStop))
     {
         Text(PageModesA::StartStop() ? "Старт" : "Стоп").Write(430, 60);
     }
