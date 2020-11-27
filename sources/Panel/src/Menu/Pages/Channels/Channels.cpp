@@ -27,7 +27,7 @@ TimeMeasure      Channel::timeMeasure(TimeMeasure::_1ms);
 
 
 Channel::Channel(Page *pSettings, const bool *enabledMeasures, const bool *enabledModeFrequency) :
-    settings(pSettings),
+    pageSettings(pSettings),
     couple(InputCouple::AC),
     impedance(InputImpedance::_1MOmh),
     modeFilter(ModeFilter::Off),

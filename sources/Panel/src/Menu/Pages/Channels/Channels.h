@@ -14,30 +14,9 @@ struct Channel
         Count
     };
 
-    static E current;                // Текущий канал
-
-    // Загрузить текущий канал в аппаратуру
-    static void LoadCurrentToFPGA();
-
-    static Page *PageForChannel(Channel::E);
-
-    static Switch *switchTimeMeasue;
-    static Switch *switchNumberPeriods;
-    static Switch *switchTimeLabels;
-
-    static TimeMeasure       timeMeasure;    // Время счета
-    static NumberPeriods     numberPeriods;  // Число периодов измерения
-    static PeriodTimeLabels  timeLabels;     // Период меток времени
-
-    static bool IsActiveTimeLabels(TypeMeasure *type, int mode);
-    static bool IsActiveTimeMeasure(TypeMeasure *type, int mode);
-    static bool IsActiveNumberPeriods(TypeMeasure *type, int mode);
-
-    static Channel &Current();
-
     Channel(Page *pSettings, const bool *enabledMeasures, const bool *enabledModeFrequency);
 
-    Page *settings;
+    Page *pageSettings;
 
     InputCouple    couple;
     InputImpedance impedance;
@@ -50,13 +29,35 @@ struct Channel
     ModeFrequency  modeFrequency;   // Режим измерения частоты
     ModePeriod     modePeriod;      // Режим измерения периода
 
+    bool IsA() { return this == &A; }
+    bool IsB() { return this == &B; }
+
+    static E current;                // Текущий канал
+
     static Channel A;
     static Channel B;
     static Channel C;
     static Channel D;
 
-    bool IsA() { return this == &A; }
-    bool IsB() { return this == &B; }
+    static Switch *switchTimeMeasue;
+    static Switch *switchNumberPeriods;
+    static Switch *switchTimeLabels;
+
+    static TimeMeasure       timeMeasure;    // Время счета
+    static NumberPeriods     numberPeriods;  // Число периодов измерения
+    static PeriodTimeLabels  timeLabels;     // Период меток времени
+
+    // Загрузить текущий канал в аппаратуру
+    static void LoadCurrentToFPGA();
+
+    static Page *PageForChannel(Channel::E);
+
+    static bool IsActiveTimeLabels(TypeMeasure *type, int mode);
+    static bool IsActiveTimeMeasure(TypeMeasure *type, int mode);
+    static bool IsActiveNumberPeriods(TypeMeasure *type, int mode);
+
+    static Channel &Current();
+
 };
 
 

@@ -97,7 +97,7 @@ static void OnPress_Sync()
         items[2] = Channel::switchTimeLabels;
         items[3] = nullptr;
 
-        Channel::A.settings->selectedItem = 0;
+        Channel::A.pageSettings->selectedItem = 0;
     }
     else if(Channel::A.typeSynch.IsManual())
     {
@@ -109,7 +109,7 @@ static void OnPress_Sync()
         items[5] = &sSync;
         items[6] = nullptr;
         
-        Channel::A.settings->selectedItem = 5;
+        Channel::A.pageSettings->selectedItem = 5;
     }
 
     TYPE_SYNCH_A = (TypeSynch::E)Channel::A.typeSynch.value;

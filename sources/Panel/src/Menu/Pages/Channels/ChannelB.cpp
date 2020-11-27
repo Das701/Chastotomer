@@ -103,7 +103,7 @@ static void OnPress_Sync()
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
 
-        Channel::B.settings->selectedItem = 0;
+        Channel::B.pageSettings->selectedItem = 0;
     }
     else if(Channel::B.typeSynch.IsManual())
     {
@@ -115,7 +115,7 @@ static void OnPress_Sync()
         items[5] = &sSync;
         items[6] = nullptr;
 
-        Channel::B.settings->selectedItem = 5;
+        Channel::B.pageSettings->selectedItem = 5;
     }
 
     TYPE_SYNCH_B = (TypeSynch::E)Channel::B.typeSynch.value;
