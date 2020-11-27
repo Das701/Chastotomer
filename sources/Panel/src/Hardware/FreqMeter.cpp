@@ -277,14 +277,14 @@ void FreqMeter::UnloadAuto()
 {
     if (autoMode == true)
     {
-        char command[4] = { 1, 1, 1, 1 };
+        Command command(Command::Auto);
 
-        DEFINE_ARGUMENT;
+        command.SetBit(9);
+        command.SetBit(7);
 
-        argument[5] = 1;
-        argument[3] = 1;
         autoMode = false;
-        FPGA::WriteCommand(command, argument);
+
+        FPGA::WriteCommand(command);
     }
 }
 
