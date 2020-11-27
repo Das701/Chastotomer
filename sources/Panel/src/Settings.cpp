@@ -124,12 +124,9 @@ const TypeSynch &TypeSynch::Current()
 
 void ModeFilter::Set(ModeFilter::E v)
 {
-    if (CURRENT_CHANNEL_IS_A_OR_B)
-    {
-        Channel::Current()->modeFilter.value = (uint8)v;
+    value = (uint8)v;
 
-        LoadToFPGA();
-    }
+    LoadToFPGA();
 }
 
 

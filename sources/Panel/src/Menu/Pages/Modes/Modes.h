@@ -279,7 +279,7 @@ struct ModeFilter : public Enumeration
     explicit ModeFilter(E v) : Enumeration((uint8)v) {};
     bool IsOff() const { return (value == ModeFilter::Off); }
 
-    static void Set(E v);
+    void Set(E v);
 
     static void LoadToFPGA();
 };
