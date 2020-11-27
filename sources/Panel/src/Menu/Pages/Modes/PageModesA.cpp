@@ -24,8 +24,6 @@ static bool relationOn = false;
 static bool startStop = false;
 
 
-static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, true, true, true, false, false, false, false, true, true };
-ModeMeasureFrequency  Channel::A.modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
 ModeMeasurePeriod     PageModesA::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration   PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
 static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { true, true, false, false, false, false, false, false, true};

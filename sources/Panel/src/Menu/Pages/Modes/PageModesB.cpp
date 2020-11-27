@@ -17,8 +17,6 @@ extern Switch sModeDuration;
 extern Switch sModeCountPulse;
 
 
-static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, true, false, false, true, true, false, false, true, false};
-ModeMeasureFrequency  Channel::B.modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
 ModeMeasurePeriod     PageModesB::modeMeasurePeriod(ModeMeasurePeriod::Period);
 ModeMeasureDuration   PageModesB::modeMeasureDuration(ModeMeasureDuration::Ndt);
 static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { false, false, true, true, false, false, false, false, true };
