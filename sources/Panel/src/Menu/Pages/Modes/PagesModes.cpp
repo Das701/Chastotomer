@@ -8,7 +8,7 @@
 
 bool CurrentPageModes::ConsistTimeMeasure()
 {
-    if (TypeMeasure::Current().IsFrequency())
+    if (Channel::Current().typeMeasure.IsFrequency())
     {
         if (ModeMeasureFrequency::Current().IsFrequency() || ModeMeasureFrequency::Current().IsRatioAC() || ModeMeasureFrequency::Current().IsRatioBC())
         {
@@ -16,7 +16,7 @@ bool CurrentPageModes::ConsistTimeMeasure()
         }
     }
 
-    if (TypeMeasure::Current().IsPeriod() && ModeMeasurePeriod::Current().IsF_1())
+    if (Channel::Current().typeMeasure.IsPeriod() && ModeMeasurePeriod::Current().IsF_1())
     {
         return true;
     }

@@ -443,15 +443,15 @@ void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
 {
     int manualZeros = 1;
 
-    if (TypeMeasure::Current().IsFrequency())
+    if (Channel::Current().typeMeasure.IsFrequency())
     {
         emptyZeros = CalculateFrequencyEmptyZeros(manualZeros);
     }
-    else if (TypeMeasure::Current().IsDuration())
+    else if (Channel::Current().typeMeasure.IsDuration())
     {
         emptyZeros = CalculateDurationEmptyZeros();
     }
-    else if (TypeMeasure::Current().IsPeriod())
+    else if (Channel::Current().typeMeasure.IsPeriod())
     {
         emptyZeros = CalculatePeriodEmptyZeros();
     }
@@ -480,7 +480,7 @@ void MathFPGA::Measure::CalculateNewData()
         return;
     }
 
-    if (TypeMeasure::Current().IsCountPulse())
+    if (Channel::Current().typeMeasure.IsCountPulse())
     {
         float value = decDataA.ToFloat() / 2.0F;
 
@@ -510,7 +510,7 @@ void MathFPGA::Measure::CalculateNewData()
         {
             Data::SetDigits(String("%10.2f", MathFPGA::Interpolator::value));
         }
-        else if (TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().IsFillFactor() || ModeMeasureDuration::Current().IsPhase()))
+        else if (Channel::Current().typeMeasure.IsDuration() && (ModeMeasureDuration::Current().IsFillFactor() || ModeMeasureDuration::Current().IsPhase()))
         {
             if (ModeMeasureDuration::Current().IsPhase())
             {
@@ -576,7 +576,7 @@ void MathFPGA::Measure::CalculateUnits()
     {
         Data::SetUnits(String(" ns"));
     }
-    else if(TypeMeasure::Current().IsDuration() && (ModeMeasureDuration::Current().IsFillFactor() || ModeMeasureDuration::Current().IsPhase()))
+    else if(Channel::Current().typeMeasure.IsDuration() && (ModeMeasureDuration::Current().IsFillFactor() || ModeMeasureDuration::Current().IsPhase()))
     {
         if (ModeMeasureDuration::Current().IsPhase())
         {
@@ -596,13 +596,13 @@ void MathFPGA::Measure::CalculateUnits()
     {
         if (ModeMeasureFrequency::Current().IsRatio() ||
             ModeMeasureFrequency::Current().IsTachometer() ||
-            TypeMeasure::Current().IsCountPulse())
+            Channel::Current().typeMeasure.IsCountPulse())
         {
             Data::SetUnits(String(" "));
         }
         else
         {
-            if (TypeMeasure::Current().IsFrequency())
+            if (Channel::Current().typeMeasure.IsFrequency())
             {
                 if (ModeMeasureFrequency::Current().IsT_1())
                 {

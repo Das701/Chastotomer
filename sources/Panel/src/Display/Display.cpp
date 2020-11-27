@@ -252,7 +252,7 @@ void Display::DrawScreen()
     }
     else
     {
-        TypeMeasure::Current().Draw(10, 57);
+        Channel::Current().typeMeasure.Draw(10, 57);
         
         CurrentModeMeasure::Draw(120, 57);
 

@@ -155,21 +155,7 @@ const ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
         &null
     };
 
-    return TypeMeasure::Current().IsCountPulse() ? *modes[CURRENT_CHANNEL] : null;
-}
-
-
-const TypeMeasure &TypeMeasure::Current()
-{
-    static TypeMeasure *const types[Channel::Count] =
-    {
-        &Channel::A.typeMeasure,
-        &Channel::B.typeMeasure,
-        &Channel::C.typeMeasure,
-        &Channel::D.typeMeasure
-    };
-
-    return *types[CURRENT_CHANNEL];
+    return Channel::Current().typeMeasure.IsCountPulse() ? *modes[CURRENT_CHANNEL] : null;
 }
 
 
@@ -186,7 +172,7 @@ const ModeMeasureFrequency &ModeMeasureFrequency::Current()
         &PageModesD::modeMeasureFrequency
     };
 
-    return TypeMeasure::Current().IsFrequency() ? *modes[CURRENT_CHANNEL] : null;
+    return Channel::Current().typeMeasure.IsFrequency() ? *modes[CURRENT_CHANNEL] : null;
 }
 
 
@@ -202,7 +188,7 @@ const ModeMeasurePeriod &ModeMeasurePeriod::Current()
         &null
     };
 
-    return TypeMeasure::Current().IsPeriod() ? *modes[CURRENT_CHANNEL] : null;
+    return Channel::Current().typeMeasure.IsPeriod() ? *modes[CURRENT_CHANNEL] : null;
 }
 
 
@@ -218,7 +204,7 @@ const ModeMeasureDuration &ModeMeasureDuration::Current()
         &null
     };
 
-    return TypeMeasure::Current().IsDuration() ? *modes[CURRENT_CHANNEL] : null;
+    return Channel::Current().typeMeasure.IsDuration() ? *modes[CURRENT_CHANNEL] : null;
 }
 
 
