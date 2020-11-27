@@ -19,7 +19,7 @@ DEF_BUTTON(bClear, "Очистить", "Очистить график", PageStatistics::Clear);
 
 static void OnPress_Exit()
 {
-    Menu::SetOpenedPage(PageModesA::self);
+    Menu::SetOpenedPage(Channel::A.pageModes);
 }
 
 DEF_BUTTON(bExit, "Выход", "Переход на страницу выбра режима", OnPress_Exit);

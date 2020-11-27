@@ -6,19 +6,19 @@ Channel::E Channel::current = Channel::_A;
 
 static const bool enabledMeasuresA[TypeMeasure::Count] = { true, true, true, true };
 static const bool enabledModeFrequencyA[ModeFrequency::Count] = { true, true, true, true, false, false, false, false, true, true };
-Channel Channel::A(&pageChannelA, enabledMeasuresA, enabledModeFrequencyA);
+Channel Channel::A(&pageChannelA, &pageModesA, enabledMeasuresA, enabledModeFrequencyA);
 
 static const bool enabledMeasuresB[TypeMeasure::Count] = { true, true, true, true };
 static const bool enabledModeFrequencyB[ModeFrequency::Count] = { true, true, false, false, true, true, false, false, true, false };
-Channel Channel::B(&pageChannelB, enabledMeasuresB, enabledModeFrequencyB);
+Channel Channel::B(&pageChannelB, &pageModesB, enabledMeasuresB, enabledModeFrequencyB);
 
 static const bool enabledMeasuresC[TypeMeasure::Count] = { true, false, false, true };
 static const bool enabledModeFrequencyC[ModeFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
-Channel Channel::C(&pageChannelC, enabledMeasuresC, enabledModeFrequencyC);
+Channel Channel::C(&pageChannelC, &pageModesC, enabledMeasuresC, enabledModeFrequencyC);
 
 static const bool enabledMeasuresD[TypeMeasure::Count] = { true, false, false, false };
 static const bool enabledModeFrequencyD[ModeFrequency::Count] = { true, false, false, false, false, false, false, false, false, false };
-Channel Channel::D(&pageChannelD, enabledMeasuresD, enabledModeFrequencyD);
+Channel Channel::D(&pageChannelD, &pageModesD, enabledMeasuresD, enabledModeFrequencyD);
 
 
 PeriodTimeLabels Channel::timeLabels(PeriodTimeLabels::T_8);
@@ -26,8 +26,9 @@ NumberPeriods    Channel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      Channel::timeMeasure(TimeMeasure::_1ms);
 
 
-Channel::Channel(Page *pSettings, const bool *enabledMeasures, const bool *enabledModeFrequency) :
+Channel::Channel(Page *pSettings, Page *pModes, const bool *enabledMeasures, const bool *enabledModeFrequency) :
     pageSettings(pSettings),
+    pageModes(pModes),
     couple(InputCouple::AC),
     impedance(InputImpedance::_1MOmh),
     modeFilter(ModeFilter::Off),
@@ -53,10 +54,10 @@ Page *Channel::PageForChannel(Channel::E channel)
 {
     Page *pages[Channel::Count] =
     {
-        PageModesA::self,
-        PageModesB::self,
-        PageModesC::self,
-        PageModesD::self
+        Channel::A.pageModes,
+        Channel::B.pageModes,
+        Channel::C.pageModes,
+        Channel::D.pageModes
     };
 
     return pages[channel];

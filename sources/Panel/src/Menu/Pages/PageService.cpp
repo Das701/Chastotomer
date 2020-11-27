@@ -26,7 +26,7 @@ static void OnPress_ResetSettings()
 
     CURRENT_CHANNEL = Channel::_A;
 
-    Menu::SetOpenedPage(PageModesA::self);
+    Menu::SetOpenedPage(Channel::A.pageModes);
 
     PageModes::OnChanged_TypeMeasure();
 

@@ -27,7 +27,7 @@ static void OnKey(const Control &control);
 static void OnGovernor(const Control &control);
 
 // Текущая отображаемая страница меню
-static Page *openedPage = PageModesA::self;
+static Page *openedPage = Channel::A.pageModes;
 
 static void SubscribeToEvents();
 
@@ -111,10 +111,10 @@ static void SetCurrentChannel(const Control &control)
 
     if (control.value == Control::Mode)
     {
-        if (CURRENT_CHANNEL_IS_A)      { openedPage = PageModesA::self; }
-        else if (CURRENT_CHANNEL_IS_B) { openedPage = PageModesB::self; }
-        else if (CURRENT_CHANNEL_IS_C) { openedPage = PageModesC::self; }
-        else if (CURRENT_CHANNEL_IS_D) { openedPage = PageModesD::self; }
+        if (CURRENT_CHANNEL_IS_A)      { openedPage = Channel::A.pageModes; }
+        else if (CURRENT_CHANNEL_IS_B) { openedPage = Channel::B.pageModes; }
+        else if (CURRENT_CHANNEL_IS_C) { openedPage = Channel::C.pageModes; }
+        else if (CURRENT_CHANNEL_IS_D) { openedPage = Channel::D.pageModes; }
 
         Hint::Hide();
     }
@@ -327,6 +327,6 @@ void Menu::Init()
 
 static void SubscribeToEvents()
 {
-    FreqMeter::modeTest.AddObserver(PageModesA::self);
-    FreqMeter::modeTest.AddObserver(PageModesB::self);
+    FreqMeter::modeTest.AddObserver(Channel::A.pageModes);
+    FreqMeter::modeTest.AddObserver(Channel::B.pageModes);
 }

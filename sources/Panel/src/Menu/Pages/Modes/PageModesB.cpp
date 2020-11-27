@@ -247,7 +247,7 @@ static void OnChanged_ModeTest()
         break;
     }
 
-    PageModesB::self->VerifySelectedItem();
+    Channel::B.pageModes->VerifySelectedItem();
 }
 
 
@@ -265,6 +265,4 @@ static void OnEvent(EventType::E event)
 }
 
 
-static Page pageModesB(items, OnEvent);
-
-Page *PageModesB::self = &pageModesB;
+Page pageModesB(items, OnEvent);

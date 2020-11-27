@@ -5,6 +5,12 @@
 #include "Menu/Pages/Channels/Channels.h"
 
 
+extern Page pageModesA;
+extern Page pageModesB;
+extern Page pageModesC;
+extern Page pageModesD;
+
+
 struct CurrentPageModes
 {
     // Возвращает true, если текущая страница режимов содержит время измерения
@@ -28,9 +34,6 @@ public:
 class PageModesA
 {
 public:
-
-    static Page *self;
-    
     static void RelationOn();
     static void RelationOff();
     static bool RelationCheck();
@@ -55,8 +58,6 @@ public:
 
 struct PageModesB
 {
-    static Page *self;
-
     static void PressSetup();
 
     // Вызывается при измеенении вида измерения
@@ -75,8 +76,6 @@ struct PageModesB
 
 struct PageModesC
 {
-    static Page *self;
-
     // Вызывается при измеенении вида измерения
     static void OnChanged_TypeMeasure();
 
@@ -92,5 +91,5 @@ struct PageModesC
 class PageModesD
 {
 public:
-    static Page *self;
+    int i;
 };

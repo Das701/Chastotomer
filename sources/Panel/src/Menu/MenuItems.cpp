@@ -131,7 +131,7 @@ int Page::WidthItem(int num) const
 
 bool Page::IsPageModes() const
 {
-    return (this == PageModesA::self) || (this == PageModesB::self) || (this == PageModesC::self) || (this == PageModesD::self);
+    return (this == Channel::A.pageModes) || (this == Channel::B.pageModes) || (this == Channel::C.pageModes) || (this == Channel::D.pageModes);
 }
 
 
@@ -395,19 +395,19 @@ void Page::ResetModeMeasure()
 //
 //    mode->state->value = (uint8)m;
 //
-//    if (this == PageModesA::self)
+//    if (this == Channel::A.pageModes)
 //    {
 //        PageModesA::OnChanged_TypeMeasure();
 //    }
-//    else if (this == PageModesB::self)
+//    else if (this == Channel::B.pageModes)
 //    {
 //        PageModesB::OnChanged_TypeMeasure();
 //    }
-//    else if (this == PageModesC::self)
+//    else if (this == Channel::C.pageModes)
 //    {
 //        PageModesC::OnChanged_TypeMeasure();
 //    }
-//    else if (this == PageModesD::self)
+//    else if (this == Channel::D.pageModes)
 //    {
 //    }
 //}

@@ -14,9 +14,10 @@ struct Channel
         Count
     };
 
-    Channel(Page *pSettings, const bool *enabledMeasures, const bool *enabledModeFrequency);
+    Channel(Page *pSettings, Page *pModes, const bool *enabledMeasures, const bool *enabledModeFrequency);
 
     Page *pageSettings;
+    Page *pageModes;
 
     InputCouple    couple;
     InputImpedance impedance;
