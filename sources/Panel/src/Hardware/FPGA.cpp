@@ -61,12 +61,13 @@
 
 
 #define WRITE_BIT(x)                                                                    \
-    HAL_GPIO_WritePin(PinDATA, (x == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);               \
+    HAL_GPIO_WritePin(PinDATA, ((x) == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);             \
     DELAY;                                                                              \
     Set_CLOCK;                                                                          \
     Reset_CLOCK;
 
-#define WRITE(num, x) for (int i = 0; i < num; i++) { WRITE_BIT(x[i]); }
+#define WRITE(value, num)   for (int i = 0; i < num; i++) { WRITE_BIT(((value) >> i) & 0x1)}
+
 
 static uint ident = 0;      // Это значение считывается непосредственно из FPGA
 static uint kCalib = 0;     // Это значение считывается непосредственно из FPGA
@@ -346,7 +347,7 @@ void FPGA::WriteDataGovernor()
 }
 
 
-void FPGA::WriteCommand(const char command[4], const char argument[6])
+void FPGA::WriteCommand(const Command &command)
 {
     while (Read_READY != 0)             // \todo Провеерить. Возможно, по аналогии с передачей данных нельзя ожидать флага готовности
     {
@@ -357,8 +358,7 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
     Set_CLOCK;
     Reset_CLOCK;
 
-    WRITE(4, command);
-    WRITE(6, argument);
+    WRITE(command.value, 10);
 
     Reset_DATA;
     Set_CLOCK;
@@ -366,25 +366,6 @@ void FPGA::WriteCommand(const char command[4], const char argument[6])
 
     Reset_CLOCK;
     Reset_DATA;
-}
-
-
-void FPGA::WriteCommand(const Command &command)
-{
-    char com[4];
-    char arg[6];
-
-    for (int i = 0; i < 4; i++)
-    {
-        com[i] = command.GetBit(i);
-    }
-
-    for (int i = 0; i < 6; i++)
-    {
-        arg[i] = command.GetBit(i + 4);
-    }
-
-    WriteCommand(com, arg);
 }
 
 
