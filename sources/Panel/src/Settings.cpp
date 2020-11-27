@@ -18,9 +18,6 @@ Settings set =
 };
 
 
-#define DEFINE_ARGUMENT char argument[6] = {0, 0, 0, 0, 0, 0}
-
-
 void InputCouple::LoadToFPGA()
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
@@ -192,16 +189,14 @@ void Divider::LoadToFPGA()
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        char command[4] = { 0, 0, 1, 0 };
-
-        DEFINE_ARGUMENT;
+        Command command(Command::Divider);
 
         if (!Divider::Current().Is1())
         {
-            argument[5] = 1;
+            command.SetBit(9);
         }
 
-        FPGA::WriteCommand(command, argument);
+        FPGA::WriteCommand(command);
     }
 }
 

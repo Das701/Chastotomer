@@ -13,6 +13,7 @@ struct Command
         NumberPeriods  = 0x01,
         ModeFront      = 0x02,
         MemoryMode     = 0x03,
+        Divider        = 0x04,
         LaunchSource   = 0x05,
         OneTime        = 0x05,
         StartStop      = 0x05,
