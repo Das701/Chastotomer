@@ -94,10 +94,10 @@ static void SetCurrentChannel(const Control &control)
             loadToFPGA = true;
         }
 
-        if (CURRENT_CHANNEL_IS_A)       { openedPage = chanA.settings; }
-        else if (CURRENT_CHANNEL_IS_B)  { openedPage = chanB.settings; }
-        else if (CURRENT_CHANNEL_IS_C)  { openedPage = chanC.settings; }
-        else if (CURRENT_CHANNEL_IS_D)  { openedPage = chanD.settings; }
+        if (CURRENT_CHANNEL_IS_A)       { openedPage = Channel::A.settings; }
+        else if (CURRENT_CHANNEL_IS_B)  { openedPage = Channel::B.settings; }
+        else if (CURRENT_CHANNEL_IS_C)  { openedPage = Channel::C.settings; }
+        else if (CURRENT_CHANNEL_IS_D)  { openedPage = Channel::D.settings; }
 
         Hint::Hide();
 

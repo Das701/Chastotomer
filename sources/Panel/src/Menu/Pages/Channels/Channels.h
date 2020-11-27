@@ -36,13 +36,15 @@ struct Channel
     Channel(Page *pSettings) : settings(pSettings) {}
 
     Page *settings;
+
+    static Channel A;
+    static Channel B;
+    static Channel C;
+    static Channel D;
 };
 
 
-extern Channel chanA;
-extern Channel chanB;
-extern Channel chanC;
-extern Channel chanD;
+
 
 
 extern Page pageChannelA;

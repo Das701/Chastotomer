@@ -4,10 +4,10 @@
 
 Channel::E Channel::current = Channel::_A;
 
-Channel chanA(&pageChannelA);
-Channel chanB(&pageChannelB);
-Channel chanC(&pageChannelC);
-Channel chanD(&pageChannelD);
+Channel Channel::A(&pageChannelA);
+Channel Channel::B(&pageChannelB);
+Channel Channel::C(&pageChannelC);
+Channel Channel::D(&pageChannelD);
 
 
 PeriodTimeLabels Channel::timeLabels(PeriodTimeLabels::T_8);
