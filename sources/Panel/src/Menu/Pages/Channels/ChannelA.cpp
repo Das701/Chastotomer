@@ -16,7 +16,6 @@ using namespace Primitives;
 extern Switch sSync;
 extern Item *items[7];
 
-InputImpedance  PageSettingsA::impedance(InputImpedance::_1MOmh);
 ModeFilter      PageSettingsA::modeFilter(ModeFilter::Off);
 ModeFront       PageSettingsA::modeFront(ModeFront::Front);
 Divider         PageSettingsA::divider(Divider::_1);
@@ -47,7 +46,7 @@ DEF_SWITCH_UGO_2(sImpedance,
     "Rвх", "¬ходное сопротивление канала",
     "1 ћќм", "50 ќм",
     "1ћќм", "50ќм",
-    PageSettingsA::impedance, OnPress_Impedance
+    Channel::A.impedance, OnPress_Impedance
 );
 
 

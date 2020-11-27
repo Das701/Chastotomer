@@ -16,7 +16,6 @@ extern Switch sSync;
 extern Item *items[7];
 
 
-InputImpedance   PageSettingsB::impedance(InputImpedance::_1MOmh);
 ModeFilter       PageSettingsB::modeFilter(ModeFilter::Off);
 ModeFront        PageSettingsB::modeFront(ModeFront::Front);
 Divider          PageSettingsB::divider(Divider::_1);
@@ -47,7 +46,7 @@ DEF_SWITCH_UGO_2(sImpedance,
     "Rвх", "¬ходное сопротивление канала",
     "1 ћќм", "50 ќм",
     "1ћќм", "50ќм",
-    PageSettingsB::impedance, OnPress_Impedance
+    Channel::B.impedance, OnPress_Impedance
 );
 
 

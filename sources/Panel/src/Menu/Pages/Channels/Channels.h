@@ -38,6 +38,7 @@ struct Channel
     Page *settings;
 
     InputCouple couple;
+    InputImpedance impedance;
 
     static Channel A;
     static Channel B;
@@ -48,9 +49,6 @@ struct Channel
 };
 
 
-
-
-
 extern Page pageChannelA;
 extern Page pageChannelB;
 extern Page pageChannelC;
@@ -59,7 +57,6 @@ extern Page pageChannelD;
 
 struct PageSettingsA
 {
-    static InputImpedance impedance;
     static ModeFilter modeFilter;
     static ModeFront modeFront;
     static Divider divider;
@@ -71,7 +68,6 @@ struct PageSettingsA
 
 struct PageSettingsB
 {
-    static InputImpedance impedance;
     static ModeFilter modeFilter;
     static ModeFront modeFront;
     static Divider divider;

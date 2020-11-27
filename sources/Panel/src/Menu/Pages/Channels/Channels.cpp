@@ -15,7 +15,7 @@ NumberPeriods    Channel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      Channel::timeMeasure(TimeMeasure::_1ms);
 
 
-Channel::Channel(Page *pSettings) : settings(pSettings), couple(InputCouple::AC)
+Channel::Channel(Page *pSettings) : settings(pSettings), couple(InputCouple::AC), impedance(InputImpedance::_1MOmh)
 {
 }
 
