@@ -37,7 +37,7 @@ const InputCouple &InputCouple::Current()
 {
     static const InputCouple null(Count);
 
-    static const InputCouple *inputs[Channel::Count] = { &PageSettingsA::couple, &PageSettingsB::couple, &null, &null };
+    static const InputCouple *inputs[Channel::Count] = { &Channel::A.couple, &Channel::B.couple, &null, &null };
 
     return *inputs[CURRENT_CHANNEL];
 }
@@ -47,7 +47,7 @@ void InputCouple::Set(InputCouple::E v)
 {
     static InputCouple null(Count);
 
-    InputCouple *inputs[Channel::Count] = { &PageSettingsA::couple, &PageSettingsB::couple, &null, &null };
+    InputCouple *inputs[Channel::Count] = { &Channel::A.couple, &Channel::B.couple, &null, &null };
 
     inputs[CURRENT_CHANNEL]->value = (uint8)v;
 

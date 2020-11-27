@@ -16,7 +16,6 @@ using namespace Primitives;
 extern Switch sSync;
 extern Item *items[7];
 
-InputCouple     PageSettingsA::couple(InputCouple::AC);
 InputImpedance  PageSettingsA::impedance(InputImpedance::_1MOmh);
 ModeFilter      PageSettingsA::modeFilter(ModeFilter::Off);
 ModeFront       PageSettingsA::modeFront(ModeFront::Front);
@@ -34,7 +33,7 @@ DEF_SWITCH_UGO_2(sCouple,
     "Вход", "Вход",
     "Открытый вход", "Закрытый вход",
     SYMBOL_DC_IN_QUOTES, SYMBOL_AC_IN_QUOTES,
-    PageSettingsA::couple, OnPress_Couple
+    Channel::A.couple, OnPress_Couple
 );
 
 

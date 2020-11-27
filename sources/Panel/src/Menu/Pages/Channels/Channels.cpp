@@ -15,6 +15,11 @@ NumberPeriods    Channel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      Channel::timeMeasure(TimeMeasure::_1ms);
 
 
+Channel::Channel(Page *pSettings) : settings(pSettings), couple(InputCouple::AC)
+{
+}
+
+
 Page *Channel::PageForChannel(Channel::E channel)
 {
     Page *pages[Channel::Count] =

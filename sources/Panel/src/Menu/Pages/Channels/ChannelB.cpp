@@ -16,7 +16,6 @@ extern Switch sSync;
 extern Item *items[7];
 
 
-InputCouple      PageSettingsB::couple(InputCouple::AC);
 InputImpedance   PageSettingsB::impedance(InputImpedance::_1MOmh);
 ModeFilter       PageSettingsB::modeFilter(ModeFilter::Off);
 ModeFront        PageSettingsB::modeFront(ModeFront::Front);
@@ -34,7 +33,7 @@ DEF_SWITCH_UGO_2(sCouple,
     "Вход", "Вход",
     "Открытый вход", "Закрытый вход",
     SYMBOL_DC_IN_QUOTES, SYMBOL_AC_IN_QUOTES,
-    PageSettingsB::couple, OnPress_Couple
+    Channel::B.couple, OnPress_Couple
 );
 
 
