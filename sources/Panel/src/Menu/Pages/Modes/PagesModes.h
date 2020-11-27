@@ -85,11 +85,3 @@ struct PageModesC
 
     static ModeMeasureCountPulse modeMeasureCountPulse; // Режим счёта импульсов
 };
-
-
-
-class PageModesD
-{
-public:
-    int i;
-};
