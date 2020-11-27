@@ -11,7 +11,7 @@
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/Pages/PageStatistics.h"
 #include "Menu/Pages/Modes/Modes.h"
-#include "Menu/Pages/Settings/PagesSettings.h"
+#include "Menu/Pages/Channels/Channels.h"
 #include "Utils/StringUtils.h"
 #include <cstring>
 #include <cstdio>

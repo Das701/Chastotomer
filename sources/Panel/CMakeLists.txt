@@ -45,8 +45,8 @@ file(GLOB KEYBOARD            src/Keyboard/*.h src/Keyboard/*.cpp)
 file(GLOB MENU                src/Menu/*.h src/Menu/*.cpp src/Menu/*.txt)
 file(GLOB MENU_PAGES          src/Menu/Pages/*.h
                               src/Menu/Pages/*.cpp)
+file(GLOB MENU_PAGES_CHANNELS src/Menu/Pages/Channels/*)
 file(GLOB MENU_PAGES_MODES    src/Menu/Pages/Modes/*)
-file(GLOB MENU_PAGES_SETTINGS src/Menu/Pages/Settings/*)
 file(GLOB SCPI                src/SCPI/*)
 file(GLOB UTILS               src/Utils/*)
 
@@ -62,8 +62,8 @@ source_group(Hardware\\USBD        FILES ${HARDWARE_USBD})
 source_group(Keyboard              FILES ${KEYBOARD})
 source_group(Menu                  FILES ${MENU})
 source_group(Menu\\Pages           FILES ${MENU_PAGES})
+source_group(Menu\\Pages\\Channels FILES ${MENU_PAGES_CHANNELS})
 source_group(Menu\\Pages\\Modes    FILES ${MENU_PAGES_MODES})
-source_group(Menu\\Pages\\Settings FILES ${MENU_PAGES_SETTINGS})
 source_group(SCPI                  FILES ${SCPI})
 source_group(Utils                 FILES ${UTILS})
 
@@ -75,4 +75,4 @@ set_source_files_properties(${HARDWARE_CMSIS} ${HAL}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(Panel ${HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${HARDWARE_CMSIS} ${HARDWARE_HAL} ${HARDWARE_USBD} ${KEYBOARD} ${MENU}
-                  ${MENU_PAGES} ${MENU_PAGES_MODES} ${MENU_PAGES_SETTINGS} ${SCPI} ${UTILS})
+                  ${MENU_PAGES} ${MENU_PAGES_CHANNELS} ${MENU_PAGES_MODES} ${SCPI} ${UTILS})

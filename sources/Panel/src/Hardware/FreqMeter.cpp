@@ -6,7 +6,7 @@
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/Modes/PagesModes.h"
-#include "Menu/Pages/Settings/PagesSettings.h"
+#include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/Hint.h"
 

@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "Settings.h"
-#include "Menu/Pages/Settings/PagesSettings.h"
+#include "Menu/Pages/Channels/Channels.h"
 #include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
 #include "Display/Symbols.h"

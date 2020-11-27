@@ -906,6 +906,36 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Menu/Pages/Channels</GroupName>
+          <Files>
+            <File>
+              <FileName>Channels.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\Channels\Channels.h</FilePath>
+            </File>
+            <File>
+              <FileName>ChannelA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Channels\ChannelA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ChannelB.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Channels\ChannelB.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ChannelC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Channels\ChannelC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ChannelD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Channels\ChannelD.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Menu/Pages/Modes</GroupName>
           <Files>
             <File>
@@ -947,36 +977,6 @@
               <FileName>PageModesD.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesD.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Menu/Pages/Settings</GroupName>
-          <Files>
-            <File>
-              <FileName>PagesSettings.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Settings\PagesSettings.h</FilePath>
-            </File>
-            <File>
-              <FileName>PageSettingsA.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Settings\PageSettingsA.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageSettingsB.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Settings\PageSettingsB.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageSettingsC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Settings\PageSettingsC.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageSettingsD.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Settings\PageSettingsD.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1987,6 +1987,36 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Menu/Pages/Channels</GroupName>
+          <Files>
+            <File>
+              <FileName>Channels.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\Channels\Channels.h</FilePath>
+            </File>
+            <File>
+              <FileName>ChannelA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Channels\ChannelA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ChannelB.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Channels\ChannelB.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ChannelC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Channels\ChannelC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ChannelD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Channels\ChannelD.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Menu/Pages/Modes</GroupName>
           <Files>
             <File>
@@ -2028,36 +2058,6 @@
               <FileName>PageModesD.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Modes\PageModesD.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Menu/Pages/Settings</GroupName>
-          <Files>
-            <File>
-              <FileName>PagesSettings.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Settings\PagesSettings.h</FilePath>
-            </File>
-            <File>
-              <FileName>PageSettingsA.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Settings\PageSettingsA.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageSettingsB.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Settings\PageSettingsB.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageSettingsC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Settings\PageSettingsC.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PageSettingsD.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Settings\PageSettingsD.cpp</FilePath>
             </File>
           </Files>
         </Group>

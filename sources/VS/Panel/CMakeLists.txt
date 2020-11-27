@@ -74,10 +74,10 @@ file(GLOB MENU                ../../Panel/src/Menu/*.h
                               ../../Panel/src/Menu/*.txt)
 file(GLOB MENU_PAGES          ../../Panel/src/Menu/Pages/*.h
                               ../../Panel/src/Menu/Pages/*.cpp)
+file(GLOB MENU_PAGES_CHANNELS ../../Panel/src/Menu/Pages/Channels/*.h
+                              ../../Panel/src/Menu/Pages/Channels/*.cpp)
 file(GLOB MENU_PAGES_MODES    ../../Panel/src/Menu/Pages/Modes/*.h
                               ../../Panel/src/Menu/Pages/Modes/*.cpp)
-file(GLOB MENU_PAGES_SETTINGS ../../Panel/src/Menu/Pages/Settings/*.h
-                              ../../Panel/src/Menu/Pages/Settings/*.cpp)
 file(GLOB SCPI                ../../Panel/src/SCPI/*)
 file(GLOB UTILS               ../../Panel/src/Utils/*)
 
@@ -92,13 +92,13 @@ source_group(Hardware\\HAL         FILES ${HARDWARE_HAL})
 source_group(Keyboard              FILES ${KEYBOARD})
 source_group(Menu                  FILES ${MENU})
 source_group(Menu\\Pages           FILES ${MENU_PAGES})
+source_group(Menu\\Pages\\Channels FILES ${MENU_PAGES_CHANNELS})
 source_group(Menu\\Pages\\Modes    FILES ${MENU_PAGES_MODES})
-source_group(Menu\\Pages\\Settings FILES ${MENU_PAGES_SETTINGS})
 source_group(SCPI                  FILES ${SCPI})
 source_group(Utils                 FILES ${UTILS})
 
 add_executable(PanelGUI ${VS_HAL} ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${FREQMETER} ${GUI} ${HARDWARE_HAL} ${KEYBOARD} ${MENU}
-                        ${MENU_PAGES} ${MENU_PAGES_MODES} ${MENU_PAGES_SETTINGS} ${SCPI} ${UTILS})
+                        ${MENU_PAGES} ${MENU_PAGES_CHANNELS} ${MENU_PAGES_MODES} ${SCPI} ${UTILS})
 
 target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
 target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxmsw31ud_core)
