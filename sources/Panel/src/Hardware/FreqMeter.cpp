@@ -218,24 +218,22 @@ void NumberPeriods::LoadToFPGA()
 {
     PageModes::timeMeasure.value = PageModes::numberPeriods.value;
 
-    char command[4] = { 1, 0, 0, 0 };
-
-    DEFINE_ARGUMENT;
+    Command command(Command::NumberPeriods);
 
     switch (PageModes::numberPeriods.value)
     {
-    case NumberPeriods::_10:    argument[5] = 1;    break;
-    case NumberPeriods::_100:   argument[4] = 1;    break;
-    case NumberPeriods::_1K:    argument[5] = 1;
-                                argument[4] = 1;    break;
-    case NumberPeriods::_10K:   argument[3] = 1;    break;
-    case NumberPeriods::_100K:  argument[5] = 1;
-                                argument[3] = 1;    break;
-    case NumberPeriods::_1000K: argument[4] = 1;
-                                argument[3] = 1;    break;
+    case NumberPeriods::_10:    command.SetBit(9);    break;
+    case NumberPeriods::_100:   command.SetBit(8);    break;
+    case NumberPeriods::_1K:    command.SetBit(9);
+                                command.SetBit(8);    break;
+    case NumberPeriods::_10K:   command.SetBit(7);    break;
+    case NumberPeriods::_100K:  command.SetBit(9);
+                                command.SetBit(7);    break;
+    case NumberPeriods::_1000K: command.SetBit(8);
+                                command.SetBit(7);    break;
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
 }

@@ -10,6 +10,7 @@ struct Command
     {
         CurrentChannel = 0x00,
         TimeMeasure    = 0x01,
+        NumberPeriods  = 0x01,
         MemoryMode     = 0x03,
         LaunchSource   = 0x05,
         ModeFrequency  = 0x06,
