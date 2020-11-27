@@ -16,7 +16,6 @@ using namespace Primitives;
 extern Switch sSync;
 extern Item *items[7];
 
-ModeFront       PageSettingsA::modeFront(ModeFront::Front);
 Divider         PageSettingsA::divider(Divider::_1);
 TypeSynch       PageSettingsA::typeSynch(TypeSynch::Manual);
 
@@ -74,7 +73,7 @@ DEF_SWITCH_UGO_2(sFront,
     "\x82/\x83", "Выбор типа синхронизации",
     "Фронт", "Срез",
     SYMBOL_FRONT_IN_QUOTES, SYMBOL_RISE_IN_QUOTES,
-    PageSettingsA::modeFront, OnPress_Front
+    Channel::A.modeFront, OnPress_Front
 );
 
 

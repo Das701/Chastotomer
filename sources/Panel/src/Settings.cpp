@@ -76,7 +76,7 @@ void ModeFront::LoadToFPGA()
     {
         Command command(Command::ModeFront);
 
-        if (!Channel::cu Current().IsFront())
+        if (!Channel::Current()->modeFront.IsFront())
         {
             command.SetBit(9);
         }

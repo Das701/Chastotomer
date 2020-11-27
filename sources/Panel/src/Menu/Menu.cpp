@@ -178,7 +178,7 @@ String Menu::ChannelSettings()
         ADD_UGO(Channel::A.couple.UGO());
         ADD_UGO(Channel::A.impedance.UGO());
         ADD_UGO(Channel::A.modeFilter.UGO());
-        ADD_UGO(PageSettingsA::modeFront.UGO());
+        ADD_UGO(Channel::A.modeFront.UGO());
         ADD_UGO(PageSettingsA::divider.UGO());
         ADD_UGO(PageSettingsA::typeSynch.UGO());
         ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Divider::Current().ToAbs()).c_str());
@@ -205,7 +205,7 @@ String Menu::ChannelSettings()
         ADD_UGO(Channel::B.couple.UGO());
         ADD_UGO(Channel::B.impedance.UGO());
         ADD_UGO(Channel::B.modeFilter.UGO());
-        ADD_UGO(PageSettingsB::modeFront.UGO());
+        ADD_UGO(Channel::B.modeFront.UGO());
         ADD_UGO(PageSettingsB::divider.UGO());
         ADD_UGO(PageSettingsB::typeSynch.UGO());
         ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Divider::Current().ToAbs()).c_str());

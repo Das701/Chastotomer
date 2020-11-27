@@ -72,7 +72,7 @@ DEF_SWITCH_UGO_2(sFront,
     "\x82/\x83", "Выбор типа синхронизации",
     "Фронт", "Срез",
     SYMBOL_FRONT_IN_QUOTES, SYMBOL_RISE_IN_QUOTES,
-    PageSettingsB::modeFront, OnPress_Front
+    Channel::B.modeFront, OnPress_Front
 );
 
 
