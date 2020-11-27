@@ -43,6 +43,8 @@ struct Channel
     static Channel B;
     static Channel C;
     static Channel D;
+
+    static Channel *Current();
 };
 
 

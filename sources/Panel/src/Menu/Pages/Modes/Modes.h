@@ -243,7 +243,6 @@ struct InputCouple : public Enumeration
 
     static void Set(E v);
 
-    static const InputCouple &Current();
     static void LoadToFPGA();
 };
 

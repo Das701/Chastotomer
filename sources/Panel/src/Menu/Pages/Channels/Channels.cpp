@@ -20,6 +20,14 @@ Channel::Channel(Page *pSettings) : settings(pSettings), couple(InputCouple::AC)
 }
 
 
+Channel *Channel::Current()
+{
+    static Channel * const channels[Count] = { &A, &B, &C, &D };
+
+    return channels[current];
+}
+
+
 Page *Channel::PageForChannel(Channel::E channel)
 {
     Page *pages[Channel::Count] =

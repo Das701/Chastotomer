@@ -23,7 +23,7 @@ void InputCouple::LoadToFPGA()
     {
         Command command(Command::Couple);
 
-        if (Current().IsDC())
+        if (Channel::Current()->couple.IsDC())
         {
             command.SetBit(9);
         }
@@ -33,25 +33,14 @@ void InputCouple::LoadToFPGA()
 }
 
 
-const InputCouple &InputCouple::Current()
-{
-    static const InputCouple null(Count);
-
-    static const InputCouple *inputs[Channel::Count] = { &Channel::A.couple, &Channel::B.couple, &null, &null };
-
-    return *inputs[CURRENT_CHANNEL];
-}
-
-
 void InputCouple::Set(InputCouple::E v)
 {
-    static InputCouple null(Count);
+    if (CURRENT_CHANNEL_IS_A_OR_B)
+    {
+        Channel::Current()->couple.value = (uint8)v;
 
-    InputCouple *inputs[Channel::Count] = { &Channel::A.couple, &Channel::B.couple, &null, &null };
-
-    inputs[CURRENT_CHANNEL]->value = (uint8)v;
-
-    LoadToFPGA();
+        LoadToFPGA();
+    }
 }
 
 
