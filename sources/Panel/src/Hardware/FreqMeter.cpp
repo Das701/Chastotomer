@@ -249,16 +249,14 @@ void NumberPeriods::Set(E v)
 
 void InputImpedance::LoadToFPGA()
 {
-    char command[4] = { 0, 0, 0, 1 };
-
-    DEFINE_ARGUMENT;
+    Command command(Command::Impedance);
 
     if (InputImpedance::Current().Is_50Ohm())
     {
-        argument[5] = 1;
+        command.SetBit(9);
     }
 
-    FPGA::WriteCommand(command, argument);
+    FPGA::WriteCommand(command);
 }
 
 
