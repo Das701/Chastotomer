@@ -23,7 +23,7 @@ void InputCouple::LoadToFPGA()
     {
         Command command(Command::Couple);
 
-        if (Channel::Current()->couple.IsDC())
+        if (Channel::Current().couple.IsDC())
         {
             command.SetBit(9);
         }
@@ -76,7 +76,7 @@ void ModeFront::LoadToFPGA()
     {
         Command command(Command::ModeFront);
 
-        if (!Channel::Current()->modeFront.IsFront())
+        if (!Channel::Current().modeFront.IsFront())
         {
             command.SetBit(9);
         }
@@ -126,7 +126,7 @@ void ModeFilter::LoadToFPGA()
     {
         Command command(Command::ModeFilter);
 
-        if (Channel::Current()->modeFilter.IsOff())
+        if (Channel::Current().modeFilter.IsOff())
         {
             command.SetBit(9);
         }

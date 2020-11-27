@@ -249,7 +249,7 @@ void InputImpedance::LoadToFPGA()
 {
     Command command(Command::Impedance);
 
-    if (Channel::Current()->impedance.Is_50Ohm())
+    if (Channel::Current().impedance.Is_50Ohm())
     {
         command.SetBit(9);
     }

@@ -25,11 +25,11 @@ Channel::Channel(Page *pSettings) :
 }
 
 
-Channel *Channel::Current()
+Channel &Channel::Current()
 {
     static Channel * const channels[Count] = { &A, &B, &C, &D };
 
-    return channels[current];
+    return *channels[current];
 }
 
 
