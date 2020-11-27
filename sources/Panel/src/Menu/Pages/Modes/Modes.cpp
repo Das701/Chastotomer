@@ -52,7 +52,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
         return *modesC[Channel::C.typeMeasure.value];;
     }
 
-    return PageModesD::modeMeasureFrequency;
+    return Channel::D.modeMeasureFrequency;
 }
 
 
@@ -169,7 +169,7 @@ const ModeMeasureFrequency &ModeMeasureFrequency::Current()
         &Channel::A.modeMeasureFrequency,
         &Channel::B.modeMeasureFrequency,
         &Channel::C.modeMeasureFrequency,
-        &PageModesD::modeMeasureFrequency
+        &Channel::D.modeMeasureFrequency
     };
 
     return Channel::Current().typeMeasure.IsFrequency() ? *modes[CURRENT_CHANNEL] : null;

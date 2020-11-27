@@ -10,7 +10,7 @@ Channel Channel::A(&pageChannelA, enabledMeasuresA, enabledModeFrequencyA);
 
 static const bool enabledMeasuresB[TypeMeasure::Count] = { true, true, true, true };
 static const bool enabledModeFrequencyB[ModeMeasureFrequency::Count] = { true, true, false, false, true, true, false, false, true, false };
-Channel Channel::B(&pageChannelB, enabledMeasuresA, enabledModeFrequencyB);
+Channel Channel::B(&pageChannelB, enabledMeasuresB, enabledModeFrequencyB);
 
 static const bool enabledMeasuresC[TypeMeasure::Count] = { true, false, false, true };
 static const bool enabledModeFrequencyC[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
