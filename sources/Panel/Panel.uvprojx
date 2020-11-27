@@ -914,6 +914,11 @@
               <FilePath>.\src\Menu\Pages\Channels\Channels.h</FilePath>
             </File>
             <File>
+              <FileName>Channels.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Channels\Channels.cpp</FilePath>
+            </File>
+            <File>
               <FileName>ChannelA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\Channels\ChannelA.cpp</FilePath>
@@ -1993,6 +1998,11 @@
               <FileName>Channels.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\Channels\Channels.h</FilePath>
+            </File>
+            <File>
+              <FileName>Channels.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Channels\Channels.cpp</FilePath>
             </File>
             <File>
               <FileName>ChannelA.cpp</FileName>

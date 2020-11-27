@@ -92,21 +92,7 @@ void TypeMeasure::Draw(int x, int y) const
 
 Page *PageModes::Current()
 {
-    return PageForChannel(CURRENT_CHANNEL);
-}
-
-
-Page *PageModes::PageForChannel(Channel::E channel)
-{
-    Page *pages[Channel::Count] =
-    {
-        PageModesA::self,
-        PageModesB::self,
-        PageModesC::self,
-        PageModesD::self
-    };
-
-    return pages[channel];
+    return Channel::PageForChannel(CURRENT_CHANNEL);
 }
 
 

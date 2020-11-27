@@ -226,3 +226,119 @@ struct CurrentModeMeasure
     static Enumeration &ToEnumeration();
     static void Draw(int x, int y);
 };
+
+
+// Открытый/закрытый вход
+struct InputCouple : public Enumeration
+{
+    enum E
+    {
+        AC,         // Открытый
+        DC,         // Закрытый
+        Count
+    };
+
+    explicit InputCouple(E v) : Enumeration((uint8)v) {};
+    bool IsDC() const { return (value == InputCouple::DC); }
+
+    static void Set(E v);
+
+    static const InputCouple &Current();
+    static void LoadToFPGA();
+};
+
+
+// Входное сопротивление
+struct InputImpedance : public Enumeration
+{
+    enum E
+    {
+        _1MOmh,         // 1 МОм
+        _50Omh,         // 50 Ом
+        Count
+    };
+
+    explicit InputImpedance(E v) : Enumeration((uint8)v) {};
+
+    bool Is_1MOhm() const { return (value == _1MOmh); }
+    bool Is_50Ohm() const { return (value == _50Omh); }
+
+    static const InputImpedance &Current();
+    static void LoadToFPGA();
+};
+
+
+// ФНЧ
+struct ModeFilter : public Enumeration
+{
+    enum E
+    {
+        On,             // Включен
+        Off,            // Выключен
+        Count
+    };
+
+    explicit ModeFilter(E v) : Enumeration((uint8)v) {};
+    bool IsOff() const { return (value == ModeFilter::Off); }
+
+    static void Set(E v);
+
+    static const ModeFilter &Current();
+    static void LoadToFPGA();
+};
+
+
+// Фронт синхронизации
+struct ModeFront : public Enumeration
+{
+    enum E
+    {
+        Front,          // Фронт
+        Slice,          // Срез
+        Count
+    };
+
+    explicit ModeFront(E v) : Enumeration((uint8)v) {};
+    bool IsFront() const { return (value == Front); }
+
+    static const ModeFront &Current();
+    static void LoadToFPGA();
+};
+
+
+// Выбор типа синхронизации - ТТЛ или ЭСЛ
+struct TypeSynch : public Enumeration
+{
+    enum E
+    {
+        Manual,         // Ручн
+        Holdoff,        // Holdoff
+        Count
+    };
+
+    explicit TypeSynch(E v) : Enumeration((uint8)v) {};
+    bool IsHoldoff() const { return (value == Holdoff); }
+    bool IsManual() const { return (value == Manual); }
+
+    static const TypeSynch &Current();
+    static void LoadToFPGA();
+};
+
+
+// Делитель напряжения
+struct Divider : public Enumeration
+{
+    enum E
+    {
+        _1,           // 1:1
+        _10,          // 1:10
+        Count
+    };
+
+    explicit Divider(E v) : Enumeration((uint8)v) {};
+    bool Is1() const { return (value == _1); }
+    int ToAbs() const { return Is1() ? 1 : 10; }
+
+    static const Divider &Current();
+    static void LoadToFPGA();
+};

@@ -2,6 +2,7 @@
 #include "Settings.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Pages/Modes/Modes.h"
+#include "Menu/Pages/Channels/Channels.h"
 
 
 struct CurrentPageModes
@@ -21,8 +22,6 @@ public:
     static void DrawParameters(int x, int y);
 
     static Page *Current();
-
-    static Page *PageForChannel(Channel::E);
 
     static TimeMeasure       timeMeasure;    // Время счета
     static NumberPeriods     numberPeriods;  // Число периодов измерения

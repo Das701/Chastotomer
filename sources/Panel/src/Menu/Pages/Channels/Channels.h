@@ -1,7 +1,26 @@
 #pragma once
 #include "Menu/MenuItems.h"
 #include "Menu/Pages/Modes/PagesModes.h"
-#include "Settings.h"
+
+
+struct Channel
+{
+    enum E
+    {
+        A,
+        B,
+        C,
+        D,
+        Count
+    };
+
+    static E current;                // Текущий канал
+
+    // Загрузить текущий канал в аппаратуру
+    static void LoadCurrentToFPGA();
+
+    static Page *PageForChannel(Channel::E);
+};
 
 
 struct PageSettingsA

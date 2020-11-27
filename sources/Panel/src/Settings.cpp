@@ -7,7 +7,6 @@
 
 Settings set =
 {
-    Channel::A,                                 // currentChannel
     {
         {0, 1}, {0, 1}                          // levelSynch
     },
