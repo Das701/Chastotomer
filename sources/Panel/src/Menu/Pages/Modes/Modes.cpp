@@ -19,7 +19,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
     {
         static Enumeration *const modes[4] =
         {
-            &Channel::A.modeMeasureFrequency,
+            &Channel::A.modeFrequency,
             &Channel::A.modePeriod,
             &PageModesA::modeMeasureDuration,
             &PageModesA::modeMeasureCountPulse
@@ -31,7 +31,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
     {
         static Enumeration *const modesB[4] =
         {
-            &Channel::B.modeMeasureFrequency,
+            &Channel::B.modeFrequency,
             &Channel::B.modePeriod,
             &PageModesB::modeMeasureDuration,
             &PageModesB::modeMeasureCountPulse
@@ -43,7 +43,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
     {
         static Enumeration *const modesC[4] =
         {
-            &Channel::C.modeMeasureFrequency,
+            &Channel::C.modeFrequency,
             nullptr,
             nullptr,
             &PageModesC::modeMeasureCountPulse
@@ -52,7 +52,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
         return *modesC[Channel::C.typeMeasure.value];;
     }
 
-    return Channel::D.modeMeasureFrequency;
+    return Channel::D.modeFrequency;
 }
 
 
@@ -166,10 +166,10 @@ const ModeFrequency &ModeFrequency::Current()
 
     ModeFrequency *const modes[Channel::Count] =
     {
-        &Channel::A.modeMeasureFrequency,
-        &Channel::B.modeMeasureFrequency,
-        &Channel::C.modeMeasureFrequency,
-        &Channel::D.modeMeasureFrequency
+        &Channel::A.modeFrequency,
+        &Channel::B.modeFrequency,
+        &Channel::C.modeFrequency,
+        &Channel::D.modeFrequency
     };
 
     return Channel::Current().typeMeasure.IsFrequency() ? *modes[CURRENT_CHANNEL] : null;

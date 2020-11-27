@@ -117,7 +117,7 @@ void FPGA::Update() //-V2008
         {
             ReadFillFactorPhase();
         }
-        else if (CURRENT_CHANNEL_IS_A && (Channel::A.modeMeasureFrequency.IsComparator() && Channel::A.typeMeasure.IsFrequency())) 
+        else if (CURRENT_CHANNEL_IS_A && (Channel::A.modeFrequency.IsComparator() && Channel::A.typeMeasure.IsFrequency())) 
         {
             ReadComparator();
         }

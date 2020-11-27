@@ -110,39 +110,39 @@ void PageModesA::OnChanged_ModeFrequency()
 {
     items[1] = &sModeFrequency;
 
-    if (Channel::A.modeMeasureFrequency.IsFrequency())
+    if (Channel::A.modeFrequency.IsFrequency())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
         items[4] = nullptr;
         PageModesA::RelationOff();
     }
-    else if (Channel::A.modeMeasureFrequency.IsRatioAB())
+    else if (Channel::A.modeFrequency.IsRatioAB())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
-    else if (Channel::A.modeMeasureFrequency.IsRatioAC())
+    else if (Channel::A.modeFrequency.IsRatioAC())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = nullptr;
         PageModesA::RelationOn();
     }
-    else if (Channel::A.modeMeasureFrequency.IsT_1())
+    else if (Channel::A.modeFrequency.IsT_1())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = Channel::switchTimeLabels;
         items[4] = nullptr;
         PageModesA::RelationOff();
     }
-    else if (Channel::A.modeMeasureFrequency.IsTachometer())
+    else if (Channel::A.modeFrequency.IsTachometer())
     {
         items[2] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
         items[3] = nullptr;
         PageModesA::RelationOff();
     }
-    else if (Channel::A.modeMeasureFrequency.IsComparator())
+    else if (Channel::A.modeFrequency.IsComparator())
     {
         items[2] = &bStatistics;
         items[3] = nullptr;
@@ -161,7 +161,7 @@ DEF_SWITCH_6(sModeFrequency,
     "f(A)/f(C)",
     "Тахометр",
     "Компаратор",
-    Channel::A.modeMeasureFrequency, PageModesA::OnChanged_ModeFrequency
+    Channel::A.modeFrequency, PageModesA::OnChanged_ModeFrequency
 );
 
 
@@ -293,11 +293,11 @@ static void OnChanged_ModeTest()
     switch(Channel::A.typeMeasure.value)
     {
     case TypeMeasure::Frequency:
-        if (Channel::A.modeMeasureFrequency.IsFrequency())
+        if (Channel::A.modeFrequency.IsFrequency())
         {
             items[3] = test ? Channel::switchTimeLabels : nullptr;
         }
-        else if (Channel::A.modeMeasureFrequency.IsTachometer())
+        else if (Channel::A.modeFrequency.IsTachometer())
         {
             items[2] = test ? Channel::switchTimeLabels : nullptr;
         }

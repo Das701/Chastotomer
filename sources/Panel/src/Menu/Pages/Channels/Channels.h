@@ -39,15 +39,16 @@ struct Channel
 
     Page *settings;
 
-    InputCouple          couple;
-    InputImpedance       impedance;
-    ModeFilter           modeFilter;
-    ModeFront            modeFront;
-    Divider              divider;
-    TypeSynch            typeSynch;
-    TypeMeasure          typeMeasure;
-    ModeFrequency modeMeasureFrequency;  // Режим измерения частоты
-    ModePeriod    modePeriod;            // Режим измерения периода
+    InputCouple    couple;
+    InputImpedance impedance;
+    ModeFilter     modeFilter;
+    ModeFront      modeFront;
+    Divider        divider;
+    TypeSynch      typeSynch;
+
+    TypeMeasure    typeMeasure;
+    ModeFrequency  modeFrequency;   // Режим измерения частоты
+    ModePeriod     modePeriod;      // Режим измерения периода
 
     static Channel A;
     static Channel B;

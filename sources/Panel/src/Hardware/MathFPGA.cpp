@@ -610,7 +610,7 @@ void MathFPGA::Measure::CalculateUnits()
                     else if (decDA < 1000000)   { Data::SetUnits(String(" kHz")); }
                     else                        { Data::SetUnits(String(" MHz")); }
                 }
-                else if (Channel::A.modeMeasureFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
+                else if (Channel::A.modeFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
                 {
                     Data::SetUnits(String(" E-6"));
                 }

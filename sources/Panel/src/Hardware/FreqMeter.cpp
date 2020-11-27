@@ -94,15 +94,15 @@ void ModeFrequency::LoadToFPGA()
     if(Current().IsFrequency())
     {
     }
-    else if ((Channel::A.modeMeasureFrequency.IsRatioAB() && CURRENT_CHANNEL_IS_A) ||
-        (Channel::B.modeMeasureFrequency.IsRatioBA() && CURRENT_CHANNEL_IS_B) ||
-        (Channel::C.modeMeasureFrequency.IsRatioCA() && CURRENT_CHANNEL_IS_C))
+    else if ((Channel::A.modeFrequency.IsRatioAB() && CURRENT_CHANNEL_IS_A) ||
+        (Channel::B.modeFrequency.IsRatioBA() && CURRENT_CHANNEL_IS_B) ||
+        (Channel::C.modeFrequency.IsRatioCA() && CURRENT_CHANNEL_IS_C))
     {
         command.SetBit(9);
     }
-    else if ((Channel::A.modeMeasureFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
-        (Channel::B.modeMeasureFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B) ||
-        (Channel::C.modeMeasureFrequency.IsRatioCB() && CURRENT_CHANNEL_IS_C))
+    else if ((Channel::A.modeFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
+        (Channel::B.modeFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B) ||
+        (Channel::C.modeFrequency.IsRatioCB() && CURRENT_CHANNEL_IS_C))
     {
         command.SetBit(8);
     }

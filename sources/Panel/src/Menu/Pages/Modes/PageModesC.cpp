@@ -43,7 +43,7 @@ void PageModesC::OnChanged_ModeFrequency()
 {
     items[1] = &sModeFrequency;
 
-    switch (Channel::C.modeMeasureFrequency.value)
+    switch (Channel::C.modeFrequency.value)
     {
     case ModeFrequency::Frequency:
         items[2] = Channel::switchTimeMeasue;
@@ -67,7 +67,7 @@ void PageModesC::OnChanged_ModeFrequency()
 DEF_SWITCH_3(sModeFrequency,
     "Режим", "Измерение частоты",
     "Частота", "f(C)/f(A)", "f(C)/f(B)",
-    Channel::C.modeMeasureFrequency, PageModesC::OnChanged_ModeFrequency
+    Channel::C.modeFrequency, PageModesC::OnChanged_ModeFrequency
 );
 
 
