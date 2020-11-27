@@ -54,12 +54,6 @@
     for (int i = num - 1; i >= 0; i--) { READ_PIN_B14(x, i);}                           \
     if(verifyOverload) { isOverloaded = (x & 1U) != 0; };                               \
 
-#define  CYCLE_READ_PIN_B14_NO_REFRESH(num, x, verifyOverload)                          \
-    x = 0;                                                                              \
-    for (int i = num - 1; i >= 0; i--) { READ_PIN_B14(x, i); }                          \
-    if(verifyOverload) { isOverloaded = (x & 1U) != 0; };
-
-
 #define WRITE_BIT(x)                                                                    \
     HAL_GPIO_WritePin(PinDATA, ((x) == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);             \
     DELAY;                                                                              \
@@ -226,10 +220,10 @@ void FPGA::ReadComparator()
         uint nkal = 0;
 
         Set_WR;
-        CYCLE_READ_PIN_B14_NO_REFRESH(3, ident, false);
-        CYCLE_READ_PIN_B14_NO_REFRESH(32, fx, false);
-        CYCLE_READ_PIN_B14_NO_REFRESH(16, tizm, false);
-        CYCLE_READ_PIN_B14_NO_REFRESH(16, nkal, false);
+        CYCLE_READ_PIN_B14(3, ident, false);
+        CYCLE_READ_PIN_B14(32, fx, false);
+        CYCLE_READ_PIN_B14(16, tizm, false);
+        CYCLE_READ_PIN_B14(16, nkal, false);
         Reset_WR;
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Comparator, fx, tizm, nkal);
