@@ -5,16 +5,20 @@
 Channel::E Channel::current = Channel::_A;
 
 static const bool enabledMeasuresA[TypeMeasure::Count] = { true, true, true, true };
-Channel Channel::A(&pageChannelA, enabledMeasuresA);
+static const bool enabledModeFrequencyA[ModeMeasureFrequency::Count] = { true, true, true, true, false, false, false, false, true, true };
+Channel Channel::A(&pageChannelA, enabledMeasuresA, enabledModeFrequencyA);
 
 static const bool enabledMeasuresB[TypeMeasure::Count] = { true, true, true, true };
-Channel Channel::B(&pageChannelB, enabledMeasuresB);
+static const bool enabledModeFrequencyB[ModeMeasureFrequency::Count] = { true, true, false, false, true, true, false, false, true, false };
+Channel Channel::B(&pageChannelB, enabledMeasuresA, enabledModeFrequencyB);
 
 static const bool enabledMeasuresC[TypeMeasure::Count] = { true, false, false, true };
-Channel Channel::C(&pageChannelC, enabledMeasuresC);
+static const bool enabledModeFrequencyC[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
+Channel Channel::C(&pageChannelC, enabledMeasuresC, enabledModeFrequencyC);
 
 static const bool enabledMeasuresD[TypeMeasure::Count] = { true, false, false, false };
-Channel Channel::D(&pageChannelD, enabledMeasuresD);
+static const bool enabledModeFrequencyD[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, false, false, false, false };
+Channel Channel::D(&pageChannelD, enabledMeasuresD, enabledModeFrequencyD);
 
 
 PeriodTimeLabels Channel::timeLabels(PeriodTimeLabels::T_8);
@@ -22,7 +26,7 @@ NumberPeriods    Channel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      Channel::timeMeasure(TimeMeasure::_1ms);
 
 
-Channel::Channel(Page *pSettings, const bool *enabledMeasures) :
+Channel::Channel(Page *pSettings, const bool *enabledMeasures, const bool *enabledModeFrequency) :
     settings(pSettings),
     couple(InputCouple::AC),
     impedance(InputImpedance::_1MOmh),
@@ -30,7 +34,8 @@ Channel::Channel(Page *pSettings, const bool *enabledMeasures) :
     modeFront(ModeFront::Front),
     divider(Divider::_1),
     typeSynch(TypeSynch::Manual),
-    typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count)
+    typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count),
+    modeMeasureFrequency(ModeMeasureFrequency::Frequency, enabledModeFrequency, ModeMeasureFrequency::Count)
 {
 }
 

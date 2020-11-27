@@ -19,7 +19,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
     {
         static Enumeration *const modes[4] =
         {
-            &PageModesA::modeMeasureFrequency,
+            &Channel::A.modeMeasureFrequency,
             &PageModesA::modeMeasurePeriod,
             &PageModesA::modeMeasureDuration,
             &PageModesA::modeMeasureCountPulse
@@ -31,7 +31,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
     {
         static Enumeration *const modesB[4] =
         {
-            &PageModesB::modeMeasureFrequency,
+            &Channel::B.modeMeasureFrequency,
             &PageModesB::modeMeasurePeriod,
             &PageModesB::modeMeasureDuration,
             &PageModesB::modeMeasureCountPulse
@@ -43,7 +43,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
     {
         static Enumeration *const modesC[4] =
         {
-            &PageModesC::modeMeasureFrequency,
+            &Channel::C.modeMeasureFrequency,
             nullptr,
             nullptr,
             &PageModesC::modeMeasureCountPulse
@@ -166,9 +166,9 @@ const ModeMeasureFrequency &ModeMeasureFrequency::Current()
 
     ModeMeasureFrequency *const modes[Channel::Count] =
     {
-        &PageModesA::modeMeasureFrequency,
-        &PageModesB::modeMeasureFrequency,
-        &PageModesC::modeMeasureFrequency,
+        &Channel::A.modeMeasureFrequency,
+        &Channel::B.modeMeasureFrequency,
+        &Channel::C.modeMeasureFrequency,
         &PageModesD::modeMeasureFrequency
     };
 

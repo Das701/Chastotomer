@@ -48,7 +48,6 @@ public:
     static void OnChanged_ModeDuration();
     static void OnChanged_ModeCountPulse();
 
-    static ModeMeasureFrequency  modeMeasureFrequency;       // Режим измерения частоты
     static ModeMeasurePeriod     modeMeasurePeriod;          // Режим измерения периода
     static ModeMeasureDuration   modeMeasureDuration;        // Режим измерения длительности
     static ModeMeasureCountPulse modeMeasureCountPulse;      // Режим счёта импульсов
@@ -70,7 +69,6 @@ struct PageModesB
     static void OnChanged_ModeDuration();
     static void OnChanged_ModeCountPulse();
 
-    static ModeMeasureFrequency  modeMeasureFrequency;  // Режим измерения частоты
     static ModeMeasurePeriod     modeMeasurePeriod;     // Режим измерения периода
     static ModeMeasureDuration   modeMeasureDuration;   // Режим измерения длительности
     static ModeMeasureCountPulse modeMeasureCountPulse; // Режим счёта импульсов
@@ -88,7 +86,6 @@ struct PageModesC
     static void OnChanged_ModeFrequency();
     static void OnChanged_ModeCountPulse();
 
-    static ModeMeasureFrequency  modeMeasureFrequency;  // Режим измерения частоты
     static ModeMeasureCountPulse modeMeasureCountPulse; // Режим счёта импульсов
 };
 
@@ -98,6 +95,4 @@ class PageModesD
 {
 public:
     static Page *self;
-
-    static ModeMeasureFrequency modeMeasureFrequency;
 };

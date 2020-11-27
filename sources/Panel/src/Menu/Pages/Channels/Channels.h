@@ -35,17 +35,18 @@ struct Channel
 
     static Channel &Current();
 
-    Channel(Page *pSettings, const bool *enabledMeasures);
+    Channel(Page *pSettings, const bool *enabledMeasures, const bool *enabledModeFrequency);
 
     Page *settings;
 
-    InputCouple    couple;
-    InputImpedance impedance;
-    ModeFilter     modeFilter;
-    ModeFront      modeFront;
-    Divider        divider;
-    TypeSynch      typeSynch;
-    TypeMeasure    typeMeasure;
+    InputCouple          couple;
+    InputImpedance       impedance;
+    ModeFilter           modeFilter;
+    ModeFront            modeFront;
+    Divider              divider;
+    TypeSynch            typeSynch;
+    TypeMeasure          typeMeasure;
+    ModeMeasureFrequency modeMeasureFrequency;       // Режим измерения частоты
 
     static Channel A;
     static Channel B;

@@ -15,7 +15,7 @@ extern Switch sModeCountPulse;
 
 
 static const bool correctModeMeasureFrequency[ModeMeasureFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
-ModeMeasureFrequency  PageModesC::modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
+ModeMeasureFrequency  Channel::C.modeMeasureFrequency(ModeMeasureFrequency::Frequency, correctModeMeasureFrequency, ModeMeasureFrequency::Count);
 static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
 ModeMeasureCountPulse PageModesC::modeMeasureCountPulse(ModeMeasureCountPulse::CtA, correctModeMeasureCountPulse, ModeMeasureCountPulse::Count);
 
@@ -45,7 +45,7 @@ void PageModesC::OnChanged_ModeFrequency()
 {
     items[1] = &sModeFrequency;
 
-    switch (PageModesC::modeMeasureFrequency.value)
+    switch (Channel::C.modeMeasureFrequency.value)
     {
     case ModeMeasureFrequency::Frequency:
         items[2] = Channel::switchTimeMeasue;
@@ -69,7 +69,7 @@ void PageModesC::OnChanged_ModeFrequency()
 DEF_SWITCH_3(sModeFrequency,
     "Режим", "Измерение частоты",
     "Частота", "f(C)/f(A)", "f(C)/f(B)",
-    PageModesC::modeMeasureFrequency, PageModesC::OnChanged_ModeFrequency
+    Channel::C.modeMeasureFrequency, PageModesC::OnChanged_ModeFrequency
 );
 
 
