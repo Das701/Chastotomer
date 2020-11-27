@@ -8,6 +8,4 @@ static Item *items[7] =
     nullptr
 };
 
-static Page pageChannelC(items, nullptr);
-
-Page *PageSettingsC::self = &pageChannelC;
+Page pageChannelC(items, nullptr);

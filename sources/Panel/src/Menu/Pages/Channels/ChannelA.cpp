@@ -1,11 +1,11 @@
 #include "defines.h"
 #include "Settings.h"
-#include "Menu/Pages/Channels/Channels.h"
 #include "Menu/MenuItems.h"
 #include "Display/Primitives.h"
 #include "Display/Symbols.h"
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
+#include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/Modes/PagesModes.h"
 #include <cstring>
 
@@ -104,7 +104,7 @@ static void OnPress_Sync()
         items[2] = Channel::switchTimeLabels;
         items[3] = nullptr;
 
-        PageSettingsA::self->selectedItem = 0;
+        chanA.settings->selectedItem = 0;
     }
     else if(PageSettingsA::typeSynch.IsManual())
     {
@@ -116,7 +116,7 @@ static void OnPress_Sync()
         items[5] = &sSync;
         items[6] = nullptr;
         
-        PageSettingsA::self->selectedItem = 5;
+        chanA.settings->selectedItem = 5;
     }
 
     TYPE_SYNCH_A = (TypeSynch::E)PageSettingsA::typeSynch.value;
@@ -143,9 +143,7 @@ static Item *items[7] =
     nullptr
 };
 
-static Page pageChannelA(items, nullptr);
-
-Page *PageSettingsA::self = &pageChannelA;
+Page pageChannelA(items, nullptr);
 
 Switch *PageSettingsA::switchTypeSynch = &sSync;
 

@@ -4,6 +4,11 @@
 
 Channel::E Channel::current = Channel::A;
 
+Channel chanA(&pageChannelA);
+Channel chanB(&pageChannelB);
+Channel chanC(&pageChannelC);
+Channel chanD(&pageChannelD);
+
 
 PeriodTimeLabels Channel::timeLabels(PeriodTimeLabels::T_8);
 NumberPeriods    Channel::numberPeriods(NumberPeriods::_1);

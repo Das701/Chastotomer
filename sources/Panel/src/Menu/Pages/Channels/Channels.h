@@ -32,12 +32,27 @@ struct Channel
     static bool IsActiveTimeLabels(TypeMeasure *type, int mode);
     static bool IsActiveTimeMeasure(TypeMeasure *type, int mode);
     static bool IsActiveNumberPeriods(TypeMeasure *type, int mode);
+
+    Channel(Page *pSettings) : settings(pSettings) {}
+
+    Page *settings;
 };
+
+
+extern Channel chanA;
+extern Channel chanB;
+extern Channel chanC;
+extern Channel chanD;
+
+
+extern Page pageChannelA;
+extern Page pageChannelB;
+extern Page pageChannelC;
+extern Page pageChannelD;
 
 
 struct PageSettingsA
 {
-    static Page *self;
     static InputCouple couple;
     static InputImpedance impedance;
     static ModeFilter modeFilter;
@@ -51,7 +66,6 @@ struct PageSettingsA
 
 struct PageSettingsB
 {
-    static Page *self;
     static InputCouple couple;
     static InputImpedance impedance;
     static ModeFilter modeFilter;
@@ -65,10 +79,10 @@ struct PageSettingsB
 
 struct PageSettingsC
 {
-    static Page *self;
+    int i;
 };
 
 struct PageSettingsD
 {
-    static Page *self;
+    int i;
 };

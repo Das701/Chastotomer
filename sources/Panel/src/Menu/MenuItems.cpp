@@ -137,7 +137,7 @@ bool Page::IsPageModes() const
 
 bool Page::IsPageSettings() const
 {
-    return (this == PageSettingsA::self) || (this == PageSettingsB::self) || (this == PageSettingsC::self) || (this == PageSettingsD::self);
+    return (this == chanA.settings) || (this == chanB.settings) || (this == chanC.settings) || (this == chanD.settings);
 }
 
 
