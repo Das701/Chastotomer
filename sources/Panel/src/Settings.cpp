@@ -70,23 +70,13 @@ void LevelSynch::Change(int delta)
 }
 
 
-const ModeFront &ModeFront::Current()
-{
-    static const ModeFront null(Count);
-
-    static const ModeFront *modes[Channel::Count] = { &PageSettingsA::modeFront, &PageSettingsB::modeFront, &null, &null };
-
-    return *modes[CURRENT_CHANNEL];
-}
-
-
 void ModeFront::LoadToFPGA()
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
         Command command(Command::ModeFront);
 
-        if (!Current().IsFront())
+        if (!Channel::cu Current().IsFront())
         {
             command.SetBit(9);
         }

@@ -16,7 +16,6 @@ extern Switch sSync;
 extern Item *items[7];
 
 
-ModeFront        PageSettingsB::modeFront(ModeFront::Front);
 Divider          PageSettingsB::divider(Divider::_1);
 TypeSynch        PageSettingsB::typeSynch(TypeSynch::Manual);
 

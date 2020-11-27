@@ -298,7 +298,6 @@ struct ModeFront : public Enumeration
     explicit ModeFront(E v) : Enumeration((uint8)v) {};
     bool IsFront() const { return (value == Front); }
 
-    static const ModeFront &Current();
     static void LoadToFPGA();
 };
 

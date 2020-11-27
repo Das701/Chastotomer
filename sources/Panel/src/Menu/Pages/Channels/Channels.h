@@ -42,6 +42,7 @@ struct Channel
     InputCouple couple;
     InputImpedance impedance;
     ModeFilter modeFilter;
+    ModeFront modeFront;
 
     static Channel A;
     static Channel B;
@@ -61,7 +62,6 @@ extern Page pageChannelD;
 
 struct PageSettingsA
 {
-    static ModeFront modeFront;
     static Divider divider;
     static TypeSynch typeSynch;
     static void FixPress();
@@ -71,7 +71,6 @@ struct PageSettingsA
 
 struct PageSettingsB
 {
-    static ModeFront modeFront;
     static Divider divider;
     static TypeSynch typeSynch;
     static void FixPress();

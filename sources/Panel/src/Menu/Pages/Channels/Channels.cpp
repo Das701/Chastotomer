@@ -19,7 +19,8 @@ Channel::Channel(Page *pSettings) :
     settings(pSettings),
     couple(InputCouple::AC),
     impedance(InputImpedance::_1MOmh),
-    modeFilter(ModeFilter::Off)
+    modeFilter(ModeFilter::Off),
+    modeFront(ModeFront::Front)
 {
 }
 
