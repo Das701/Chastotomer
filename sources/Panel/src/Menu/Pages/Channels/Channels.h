@@ -91,4 +91,8 @@ struct Channel
     static void PressSetup();
     static void PressSetupA();
     static void PressSetupB();
+
+    static void RelationOn();
+    static void RelationOff();
+    static bool RelationCheck();
 };

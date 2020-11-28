@@ -56,32 +56,32 @@ void Channel::OnChanged_ModeFrequencyB()
         items[2] = Channel::switchTimeMeasue;
         items[3] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
         items[4] = nullptr;
-        PageModesA::RelationOff();
+        Channel::RelationOff();
     }
     else if (Channel::B.modeFrequency.IsRatioBA())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = nullptr;
-        PageModesA::RelationOn();
+        Channel::RelationOn();
     }
     else if (Channel::B.modeFrequency.IsRatioBC())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = nullptr;
-        PageModesA::RelationOn();
+        Channel::RelationOn();
     }
     else if (Channel::B.modeFrequency.IsT_1())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = Channel::switchTimeLabels;
         items[4] = nullptr;
-        PageModesA::RelationOff();
+        Channel::RelationOff();
     }
     else if(Channel::B.modeFrequency.IsTachometer())
     {
         items[2] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
         items[3] = nullptr;
-        PageModesA::RelationOff();
+        Channel::RelationOff();
     }
 
     ModeFrequency::LoadToFPGA();
@@ -112,7 +112,7 @@ void Channel::OnChanged_ModePeriodB()
         items[4] = nullptr;
     }
 
-    PageModesA::RelationOff();
+    Channel::RelationOff();
 
     ModePeriod::LoadToFPGA();
 }
@@ -144,7 +144,7 @@ void Channel::OnChanged_ModeDurationB()
         break;
     }
 
-    PageModesA::RelationOff();
+    Channel::RelationOff();
 
     ModeDuration::LoadToFPGA();
 }
@@ -176,7 +176,7 @@ void Channel::OnChanged_ModeCountPulseB()
         break;
     }
 
-    PageModesA::RelationOff();
+    Channel::RelationOff();
 
     ModeCountPulse::LoadToFPGA();
 }

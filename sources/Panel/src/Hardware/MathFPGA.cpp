@@ -323,7 +323,7 @@ void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
 {
     decDataA.FromDouble((double)counterA);
 
-    if ((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) && PageModesA::RelationCheck())
+    if ((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) && Channel::RelationCheck())
     {
         decDataB.FromDouble(counterB);
     }

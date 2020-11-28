@@ -40,7 +40,7 @@ void Channel::OnChanged_ModeFrequencyC()
         break;
     }
 
-    PageModesA::RelationOff();
+    Channel::RelationOff();
     
     ModeFrequency::LoadToFPGA();
 }
@@ -72,7 +72,7 @@ void Channel::OnChanged_ModeCountPulseC()
 
     items[3] = nullptr;
 
-    PageModesA::RelationOff();
+    Channel::RelationOff();
     
     ModeCountPulse::LoadToFPGA();
 }

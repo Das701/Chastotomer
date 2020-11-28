@@ -24,17 +24,17 @@ static bool relationOn = false;
 static bool startStop = false;
 
 
-void PageModesA::RelationOn()
+void Channel::RelationOn()
 {
     relationOn = true;
 }
 
-void PageModesA::RelationOff()
+void Channel::RelationOff()
 {
     relationOn = false;
 }
 
-bool PageModesA::RelationCheck()
+bool Channel::RelationCheck()
 {
     return relationOn == true;
 }
@@ -110,38 +110,38 @@ void Channel::OnChanged_ModeFrequencyA()
         items[2] = Channel::switchTimeMeasue;
         items[3] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
         items[4] = nullptr;
-        PageModesA::RelationOff();
+        Channel::RelationOff();
     }
     else if (Channel::A.modeFrequency.IsRatioAB())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = nullptr;
-        PageModesA::RelationOn();
+        Channel::RelationOn();
     }
     else if (Channel::A.modeFrequency.IsRatioAC())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = nullptr;
-        PageModesA::RelationOn();
+        Channel::RelationOn();
     }
     else if (Channel::A.modeFrequency.IsT_1())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = Channel::switchTimeLabels;
         items[4] = nullptr;
-        PageModesA::RelationOff();
+        Channel::RelationOff();
     }
     else if (Channel::A.modeFrequency.IsTachometer())
     {
         items[2] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
         items[3] = nullptr;
-        PageModesA::RelationOff();
+        Channel::RelationOff();
     }
     else if (Channel::A.modeFrequency.IsComparator())
     {
         items[2] = &bStatistics;
         items[3] = nullptr;
-        PageModesA::RelationOff();
+        Channel::RelationOff();
     }
 
     ModeFrequency::LoadToFPGA();
@@ -177,7 +177,7 @@ void Channel::OnChanged_ModePeriodA()
         items[4] = nullptr;
     }
 
-    PageModesA::RelationOff();
+    Channel::RelationOff();
     
     ModePeriod::LoadToFPGA();
 }
@@ -209,7 +209,7 @@ void Channel::OnChanged_ModeDurationA()
         break;
     }
 
-    PageModesA::RelationOff();
+    Channel::RelationOff();
 
     ModeDuration::LoadToFPGA();
 }
@@ -241,7 +241,7 @@ void Channel::OnChanged_ModeCountPulseA()
         break;
     }
 
-    PageModesA::RelationOff();
+    Channel::RelationOff();
 
     ModeCountPulse::LoadToFPGA();
 }
