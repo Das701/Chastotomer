@@ -61,38 +61,3 @@ DEF_SWITCH_6(sTimeLabels,
 
 
 Switch *Channel::switchTimeLabels = &sTimeLabels;
-
-
-static void DrawValue(Enumeration &param, int x, int y)
-{
-    int width = 60;
-    Primitives::Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
-    Text(param.ToString()).Write(x + 2, y + 7, width, Color::WHITE);
-}
-
-
-void PageModes::DrawParameters(int x, int y)
-{
-    Page &page = *Channel::Current().pageModes;
-
-    TypeMeasure *type = page.GetTypeMeasure();
-
-    int mode = page.GetModeMeasure();
-
-    int dX = 70;
-
-    if (Channel::IsActiveTimeMeasure(type, mode))
-    {
-        DrawValue(Channel::timeMeasure, x, y);
-    }
-
-    if (Channel::IsActiveNumberPeriods(type, mode))
-    {
-        DrawValue(Channel::numberPeriods, x + dX, y);
-    }
-
-    if (Channel::IsActiveTimeLabels(type, mode))
-    {
-        DrawValue(Channel::timeLabels, x + 2 * dX, y);
-    }
-}

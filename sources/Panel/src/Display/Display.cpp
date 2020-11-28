@@ -256,7 +256,7 @@ void Display::DrawScreen()
         
         CurrentModeMeasure::Draw(120, 57);
 
-        PageModes::DrawParameters(270, 57);
+        Channel::Current().DrawParameters(270, 57);
         
         DrawHint(10, Display::PHYSICAL_HEIGHT - Item::HEIGHT - 30);
         

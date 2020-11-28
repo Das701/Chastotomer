@@ -35,6 +35,8 @@ struct Channel
     // ¬озвращает true, если текуща€ страница режимов содержит врем€ измерени€
     bool ConsistTimeMeasure();
 
+    void DrawParameters(int x, int y);
+
     // ¬ызываетс€ при измеенении вида измерени€
     static void OnChanged_TypeMeasure();
 

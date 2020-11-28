@@ -1,5 +1,10 @@
 #include "defines.h"
+#include "Display/Primitives.h"
+#include "Display/Text.h"
 #include "Menu/Pages/Channels/Channels.h"
+
+
+using namespace Primitives;
 
 
 Channel::E Channel::current = Channel::_A;
@@ -210,4 +215,37 @@ bool Channel::ConsistTimeMeasure()
     }
 
     return false;
+}
+
+
+static void DrawValue(Enumeration &param, int x, int y)
+{
+    int width = 60;
+    Primitives::Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
+    Text(param.ToString()).Write(x + 2, y + 7, width, Color::WHITE);
+}
+
+
+void Channel::DrawParameters(int x, int y)
+{
+    TypeMeasure *type = pageModes->GetTypeMeasure();
+
+    int mode = pageModes->GetModeMeasure();
+
+    int dX = 70;
+
+    if (Channel::IsActiveTimeMeasure(type, mode))
+    {
+        DrawValue(Channel::timeMeasure, x, y);
+    }
+
+    if (Channel::IsActiveNumberPeriods(type, mode))
+    {
+        DrawValue(Channel::numberPeriods, x + dX, y);
+    }
+
+    if (Channel::IsActiveTimeLabels(type, mode))
+    {
+        DrawValue(Channel::timeLabels, x + 2 * dX, y);
+    }
 }

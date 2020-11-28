@@ -11,15 +11,6 @@ extern Page pageModesC;
 extern Page pageModesD;
 
 
-// Здесь функции общие для всех страниц режимов каналов
-class PageModes
-{
-public:
-
-    static void DrawParameters(int x, int y);
-};
-
-
 class PageModesA
 {
 public:
