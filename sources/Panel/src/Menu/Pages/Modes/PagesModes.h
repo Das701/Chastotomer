@@ -26,8 +26,6 @@ public:
     static void OnChanged_TypeMeasure();
 
     static void DrawParameters(int x, int y);
-
-    static Page *Current();
 };
 
 

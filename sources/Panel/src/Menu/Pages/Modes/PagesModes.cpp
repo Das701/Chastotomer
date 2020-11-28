@@ -92,7 +92,7 @@ static void DrawValue(Enumeration &param, int x, int y)
 
 void PageModes::DrawParameters(int x, int y)
 {
-    Page &page = *Current();
+    Page &page = *Channel::Current().pageModes;
 
     TypeMeasure *type = page.GetTypeMeasure();
 

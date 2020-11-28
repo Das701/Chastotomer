@@ -85,12 +85,6 @@ void TypeMeasure::Draw(int x, int y) const
 }
 
 
-Page *PageModes::Current()
-{
-    return Channel::PageForChannel(CURRENT_CHANNEL);
-}
-
-
 bool ModeFrequency::IsRatio() const
 {
     return IsRatioAB() || IsRatioBA() ||  IsRatioAC() || IsRatioBC() || IsRatioCA() || IsRatioCB();
