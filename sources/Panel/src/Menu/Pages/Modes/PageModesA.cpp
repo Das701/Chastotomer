@@ -40,7 +40,7 @@ bool PageModesA::RelationCheck()
 }
 
 
-void PageModesA::PressSetup()
+void Channel::PressSetupA()
 {
     switch (Channel::A.typeMeasure.value)
     {

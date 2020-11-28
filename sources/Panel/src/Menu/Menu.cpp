@@ -269,14 +269,7 @@ static void OnKey(const Control &control) //-V2008
         break;
 
     case Control::Mode:
-        if (CURRENT_CHANNEL_IS_A)
-        {
-            PageModesA::PressSetup();
-        }
-        else if (CURRENT_CHANNEL_IS_B)
-        {
-            PageModesB::PressSetup();
-        }
+        Channel::PressSetup();
         break;
 
     case Control::Test:

@@ -87,4 +87,8 @@ struct Channel
     static void OnChanged_ModeDuration();
     static void OnChanged_ModeDurationA();
     static void OnChanged_ModeDurationB();
+
+    static void PressSetup();
+    static void PressSetupA();
+    static void PressSetupB();
 };

@@ -321,3 +321,16 @@ void Channel::OnChanged_ModeDuration()
         OnChanged_ModeDurationB();
     }
 }
+
+
+void Channel::PressSetup()
+{
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        PressSetupA();
+    }
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        PressSetupB();
+    }
+}

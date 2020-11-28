@@ -12,13 +12,6 @@ public:
     static void RelationOff();
     static bool RelationCheck();
 
-    static void PressSetup();
     static bool StartStop();
     static void ToggleStartStop();
-};
-
-
-struct PageModesB
-{
-    static void PressSetup();
 };

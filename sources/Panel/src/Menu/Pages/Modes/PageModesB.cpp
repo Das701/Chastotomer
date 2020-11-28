@@ -17,7 +17,7 @@ extern Switch sModeDuration;
 extern Switch sModeCountPulse;
 
 
-void PageModesB::PressSetup()
+void Channel::PressSetupB()
 {
     switch (Channel::B.typeMeasure.value)
     {
