@@ -37,25 +37,6 @@ struct Channel
 
     void DrawParameters(int x, int y);
 
-    // Вызывается при измеенении вида измерения
-    static void OnChanged_TypeMeasure();
-
-    // Вызываются при изменении режимов измерения
-    static void OnChanged_ModeFrequency();
-    static void OnChanged_ModeFrequencyA();
-    static void OnChanged_ModeFrequencyB();
-    static void OnChanged_ModeFrequencyC();
-
-    static void OnChanged_ModeCountPulse();
-    static void OnChanged_ModeCountPulseA();
-    static void OnChanged_ModeCountPulseB();
-    static void OnChanged_ModeCountPulseC();
-
-    static void OnChanged_ModePeriod();
-    static void OnChanged_ModePeriodA();
-    static void OnChanged_ModePeriodB();
-
-
     bool IsA() { return this == &A; }
     bool IsB() { return this == &B; }
 
@@ -85,4 +66,25 @@ struct Channel
 
     static Channel &Current();
 
+    // Вызывается при измеенении вида измерения
+    static void OnChanged_TypeMeasure();
+
+    // Вызываются при изменении режимов измерения
+    static void OnChanged_ModeFrequency();
+    static void OnChanged_ModeFrequencyA();
+    static void OnChanged_ModeFrequencyB();
+    static void OnChanged_ModeFrequencyC();
+
+    static void OnChanged_ModeCountPulse();
+    static void OnChanged_ModeCountPulseA();
+    static void OnChanged_ModeCountPulseB();
+    static void OnChanged_ModeCountPulseC();
+
+    static void OnChanged_ModePeriod();
+    static void OnChanged_ModePeriodA();
+    static void OnChanged_ModePeriodB();
+
+    static void OnChanged_ModeDuration();
+    static void OnChanged_ModeDurationA();
+    static void OnChanged_ModeDurationB();
 };

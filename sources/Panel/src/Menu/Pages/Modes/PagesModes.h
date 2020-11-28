@@ -15,15 +15,10 @@ public:
     static void PressSetup();
     static bool StartStop();
     static void ToggleStartStop();
-
-
-    static void OnChanged_ModeDuration();
 };
 
 
 struct PageModesB
 {
     static void PressSetup();
-
-    static void OnChanged_ModeDuration();
 };

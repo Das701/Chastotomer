@@ -308,3 +308,16 @@ void Channel::OnChanged_ModePeriod()
         OnChanged_ModePeriodB();
     }
 }
+
+
+void Channel::OnChanged_ModeDuration()
+{
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        OnChanged_ModeDurationA();
+    }
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        OnChanged_ModeDurationB();
+    }
+}

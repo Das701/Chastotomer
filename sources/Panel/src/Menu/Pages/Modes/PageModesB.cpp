@@ -125,7 +125,7 @@ DEF_SWITCH_2(sModePeriod,
 );
 
 
-void PageModesB::OnChanged_ModeDuration()
+void Channel::OnChanged_ModeDurationB()
 {
     items[1] = &sModeDuration;
 
@@ -153,7 +153,7 @@ void PageModesB::OnChanged_ModeDuration()
 DEF_SWITCH_5(sModeDuration,
     "Режим", "Измерение длительности",
     "ndt", "ndt/1нс", "СтартB-СтопA", "Коэфф. зап.", "Фаза",
-    Channel::B.modeDuration, PageModesB::OnChanged_ModeDuration
+    Channel::B.modeDuration, Channel::OnChanged_ModeDurationB
 );
 
 

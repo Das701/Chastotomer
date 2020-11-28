@@ -65,38 +65,23 @@ void PageModesA::PressSetup()
 
 void Channel::OnChanged_TypeMeasure()
 {
-    if (Current().typeMeasure.IsFrequency())
+    TypeMeasure &type = Current().typeMeasure;
+
+    if (type.IsFrequency())
     {
         OnChanged_ModeFrequency();
     }
-    else if (Current().typeMeasure.IsCountPulse())
+    else if (type.IsCountPulse())
     {
         OnChanged_ModeCountPulse();
     }
-    else if (Current().typeMeasure.IsPeriod())
+    else if (type.IsPeriod())
     {
         OnChanged_ModePeriod();
     }
-    else
+    else if (type.IsDuration())
     {
-        if (CURRENT_CHANNEL_IS_A)
-        {
-            switch (Channel::A.typeMeasure.value)
-            {
-            case TypeMeasure::Duration:
-                PageModesA::OnChanged_ModeDuration();
-                break;
-            }
-        }
-        else if (CURRENT_CHANNEL_IS_B)
-        {
-            switch (Channel::B.typeMeasure.value)
-            {
-            case TypeMeasure::Duration:
-                PageModesB::OnChanged_ModeDuration();
-                break;
-            }
-        }
+        OnChanged_ModeDuration();
     }
 }
 
@@ -205,7 +190,7 @@ DEF_SWITCH_2(sModePeriod,
 );
 
 
-void PageModesA::OnChanged_ModeDuration()
+void Channel::OnChanged_ModeDurationA()
 {
     items[1] = &sModeDuration;
 
@@ -233,7 +218,7 @@ void PageModesA::OnChanged_ModeDuration()
 DEF_SWITCH_5(sModeDuration,
     "Режим", "Измерение длительности",
     "ndt", "ndt/1нс", "СтартА-СтопВ", "Коэфф. зап.", "Фаза",
-    Channel::A.modeDuration, PageModesA::OnChanged_ModeDuration
+    Channel::A.modeDuration, Channel::OnChanged_ModeDurationA
 );
 
 
