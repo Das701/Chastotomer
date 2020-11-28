@@ -295,3 +295,16 @@ void Channel::OnChanged_ModeCountPulse()
         OnChanged_ModeCountPulseC();
     }
 }
+
+
+void Channel::OnChanged_ModePeriod()
+{
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        OnChanged_ModePeriodA();
+    }
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        OnChanged_ModePeriodB();
+    }
+}

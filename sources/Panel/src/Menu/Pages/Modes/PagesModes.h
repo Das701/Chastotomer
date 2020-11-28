@@ -17,7 +17,6 @@ public:
     static void ToggleStartStop();
 
 
-    static void OnChanged_ModePeriod();
     static void OnChanged_ModeDuration();
 };
 
@@ -26,6 +25,5 @@ struct PageModesB
 {
     static void PressSetup();
 
-    static void OnChanged_ModePeriod();
     static void OnChanged_ModeDuration();
 };

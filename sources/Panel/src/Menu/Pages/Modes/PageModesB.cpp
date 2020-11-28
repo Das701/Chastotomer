@@ -95,7 +95,7 @@ DEF_SWITCH_5(sModeFrequency,
 );
 
 
-void PageModesB::OnChanged_ModePeriod()
+void Channel::OnChanged_ModePeriodB()
 {
     items[1] = &sModePeriod;
 
@@ -121,7 +121,7 @@ void PageModesB::OnChanged_ModePeriod()
 DEF_SWITCH_2(sModePeriod,
     "Режим", "Измерение периода",
     "Период", "T=1/f",
-    Channel::B.modePeriod, PageModesB::OnChanged_ModePeriod
+    Channel::B.modePeriod, Channel::OnChanged_ModePeriodB
 );
 
 

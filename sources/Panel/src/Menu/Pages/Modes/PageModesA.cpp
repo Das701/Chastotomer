@@ -65,13 +65,17 @@ void PageModesA::PressSetup()
 
 void Channel::OnChanged_TypeMeasure()
 {
-    if (Channel::Current().typeMeasure.IsFrequency())
+    if (Current().typeMeasure.IsFrequency())
     {
-        Channel::OnChanged_ModeFrequency();
+        OnChanged_ModeFrequency();
     }
-    else if (Channel::Current().typeMeasure.IsCountPulse())
+    else if (Current().typeMeasure.IsCountPulse())
     {
-        Channel::OnChanged_ModeCountPulse();
+        OnChanged_ModeCountPulse();
+    }
+    else if (Current().typeMeasure.IsPeriod())
+    {
+        OnChanged_ModePeriod();
     }
     else
     {
@@ -79,10 +83,6 @@ void Channel::OnChanged_TypeMeasure()
         {
             switch (Channel::A.typeMeasure.value)
             {
-            case TypeMeasure::Period:
-                PageModesA::OnChanged_ModePeriod();
-                break;
-
             case TypeMeasure::Duration:
                 PageModesA::OnChanged_ModeDuration();
                 break;
@@ -92,10 +92,6 @@ void Channel::OnChanged_TypeMeasure()
         {
             switch (Channel::B.typeMeasure.value)
             {
-            case TypeMeasure::Period:
-                PageModesB::OnChanged_ModePeriod();
-                break;
-
             case TypeMeasure::Duration:
                 PageModesB::OnChanged_ModeDuration();
                 break;
@@ -179,7 +175,7 @@ DEF_SWITCH_6(sModeFrequency,
 );
 
 
-void PageModesA::OnChanged_ModePeriod()
+void Channel::OnChanged_ModePeriodA()
 {
     items[1] = &sModePeriod;
 
@@ -205,7 +201,7 @@ void PageModesA::OnChanged_ModePeriod()
 DEF_SWITCH_2(sModePeriod,
     "Режим", "Измерение периода",
     "Период", "T=1/f",
-    Channel::A.modePeriod, PageModesA::OnChanged_ModePeriod
+    Channel::A.modePeriod, Channel::OnChanged_ModePeriodA
 );
 
 
