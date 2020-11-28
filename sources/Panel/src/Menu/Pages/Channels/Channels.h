@@ -40,6 +40,13 @@ struct Channel
     // Вызывается при измеенении вида измерения
     static void OnChanged_TypeMeasure();
 
+    // Вызываются при изменении режимов измерения
+    static void OnChanged_ModeFrequency();
+    static void OnChanged_ModeFrequencyA();
+    static void OnChanged_ModeFrequencyB();
+    static void OnChanged_ModeFrequencyC();
+
+
     bool IsA() { return this == &A; }
     bool IsB() { return this == &B; }
 

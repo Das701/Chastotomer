@@ -65,59 +65,54 @@ void PageModesA::PressSetup()
 
 void Channel::OnChanged_TypeMeasure()
 {
-    if (CURRENT_CHANNEL_IS_A)
+    if (Channel::Current().typeMeasure.IsFrequency())
     {
-        switch (Channel::A.typeMeasure.value)
-        {
-        case TypeMeasure::Frequency:
-            PageModesA::OnChanged_ModeFrequency();
-            break;
-
-        case TypeMeasure::Period:
-            PageModesA::OnChanged_ModePeriod();
-            break;
-
-        case TypeMeasure::Duration:
-            PageModesA::OnChanged_ModeDuration();
-            break;
-
-        case TypeMeasure::CountPulse:
-            PageModesA::OnChanged_ModeCountPulse();
-            break;
-        }
+        Channel::OnChanged_ModeFrequency();
     }
-    else if (CURRENT_CHANNEL_IS_B)
+    else
     {
-        switch (Channel::B.typeMeasure.value)
+        if (CURRENT_CHANNEL_IS_A)
         {
-        case TypeMeasure::Frequency:
-            PageModesB::OnChanged_ModeFrequency();
-            break;
+            switch (Channel::A.typeMeasure.value)
+            {
+            case TypeMeasure::Period:
+                PageModesA::OnChanged_ModePeriod();
+                break;
 
-        case TypeMeasure::Period:
-            PageModesB::OnChanged_ModePeriod();
-            break;
+            case TypeMeasure::Duration:
+                PageModesA::OnChanged_ModeDuration();
+                break;
 
-        case TypeMeasure::Duration:
-            PageModesB::OnChanged_ModeDuration();
-            break;
-
-        case TypeMeasure::CountPulse:
-            PageModesB::OnChanged_ModeCountPulse();
-            break;
+            case TypeMeasure::CountPulse:
+                PageModesA::OnChanged_ModeCountPulse();
+                break;
+            }
         }
-    }
-    else if (CURRENT_CHANNEL_IS_C)
-    {
-        switch (Channel::C.typeMeasure.value)
+        else if (CURRENT_CHANNEL_IS_B)
         {
-        case TypeMeasure::Frequency:
-            PageModesC::OnChanged_ModeFrequency();
-            break;
+            switch (Channel::B.typeMeasure.value)
+            {
+            case TypeMeasure::Period:
+                PageModesB::OnChanged_ModePeriod();
+                break;
 
-        case TypeMeasure::CountPulse:
-            PageModesC::OnChanged_ModeCountPulse();
-            break;
+            case TypeMeasure::Duration:
+                PageModesB::OnChanged_ModeDuration();
+                break;
+
+            case TypeMeasure::CountPulse:
+                PageModesB::OnChanged_ModeCountPulse();
+                break;
+            }
+        }
+        else if (CURRENT_CHANNEL_IS_C)
+        {
+            switch (Channel::C.typeMeasure.value)
+            {
+            case TypeMeasure::CountPulse:
+                PageModesC::OnChanged_ModeCountPulse();
+                break;
+            }
         }
     }
 }
@@ -138,7 +133,7 @@ static void OnPress_Statistics()
 DEF_BUTTON(bStatistics, "Стат", "Открывает окно статистики", OnPress_Statistics);
 
 
-void PageModesA::OnChanged_ModeFrequency()
+void Channel::OnChanged_ModeFrequencyA()
 {
     items[1] = &sModeFrequency;
 
@@ -193,7 +188,7 @@ DEF_SWITCH_6(sModeFrequency,
     "f(A)/f(C)",
     "Тахометр",
     "Компаратор",
-    Channel::A.modeFrequency, PageModesA::OnChanged_ModeFrequency
+    Channel::A.modeFrequency, Channel::OnChanged_ModeFrequencyA
 );
 
 

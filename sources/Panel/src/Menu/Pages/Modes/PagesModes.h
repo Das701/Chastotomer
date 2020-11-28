@@ -22,8 +22,7 @@ public:
     static bool StartStop();
     static void ToggleStartStop();
 
-    // Вызываются при изменении режимов измерения
-    static void OnChanged_ModeFrequency();
+
     static void OnChanged_ModePeriod();
     static void OnChanged_ModeDuration();
     static void OnChanged_ModeCountPulse();
@@ -35,8 +34,6 @@ struct PageModesB
 {
     static void PressSetup();
 
-    // Вызываются при изменении режимов измерения
-    static void OnChanged_ModeFrequency();
     static void OnChanged_ModePeriod();
     static void OnChanged_ModeDuration();
     static void OnChanged_ModeCountPulse();
@@ -45,7 +42,5 @@ struct PageModesB
 
 struct PageModesC
 {
-    // Вызываются при изменении режимов измерения
-    static void OnChanged_ModeFrequency();
     static void OnChanged_ModeCountPulse();
 };

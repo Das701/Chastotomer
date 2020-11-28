@@ -249,3 +249,20 @@ void Channel::DrawParameters(int x, int y)
         DrawValue(Channel::timeLabels, x + 2 * dX, y);
     }
 }
+
+
+void Channel::OnChanged_ModeFrequency()
+{
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        Channel::OnChanged_ModeFrequencyA();
+    }
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        Channel::OnChanged_ModeFrequencyB();
+    }
+    else if (CURRENT_CHANNEL_IS_C)
+    {
+        Channel::OnChanged_ModeFrequencyC();
+    }
+}
