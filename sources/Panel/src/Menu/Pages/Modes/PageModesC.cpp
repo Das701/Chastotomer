@@ -53,7 +53,7 @@ DEF_SWITCH_3(sModeFrequency,
 );
 
 
-void PageModesC::OnChanged_ModeCountPulse()
+void Channel::OnChanged_ModeCountPulseC()
 {
     items[1] = &sModeCountPulse;
 
@@ -81,7 +81,7 @@ void PageModesC::OnChanged_ModeCountPulse()
 DEF_SWITCH_4(sModeCountPulse,
     "–ежим", "—чЄт числа импульсов",
     "C(tA)", "C(tB)", "C(TA)", "C(TB)",
-    Channel::C.modeMeasureCountPulse, PageModesC::OnChanged_ModeCountPulse
+    Channel::C.modeMeasureCountPulse, Channel::OnChanged_ModeCountPulseC
 );
 
 

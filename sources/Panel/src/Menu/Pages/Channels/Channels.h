@@ -46,6 +46,11 @@ struct Channel
     static void OnChanged_ModeFrequencyB();
     static void OnChanged_ModeFrequencyC();
 
+    static void OnChanged_ModeCountPulse();
+    static void OnChanged_ModeCountPulseA();
+    static void OnChanged_ModeCountPulseB();
+    static void OnChanged_ModeCountPulseC();
+
 
     bool IsA() { return this == &A; }
     bool IsB() { return this == &B; }

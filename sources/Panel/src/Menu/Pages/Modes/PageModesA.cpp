@@ -69,6 +69,10 @@ void Channel::OnChanged_TypeMeasure()
     {
         Channel::OnChanged_ModeFrequency();
     }
+    else if (Channel::Current().typeMeasure.IsCountPulse())
+    {
+        Channel::OnChanged_ModeCountPulse();
+    }
     else
     {
         if (CURRENT_CHANNEL_IS_A)
@@ -82,10 +86,6 @@ void Channel::OnChanged_TypeMeasure()
             case TypeMeasure::Duration:
                 PageModesA::OnChanged_ModeDuration();
                 break;
-
-            case TypeMeasure::CountPulse:
-                PageModesA::OnChanged_ModeCountPulse();
-                break;
             }
         }
         else if (CURRENT_CHANNEL_IS_B)
@@ -98,19 +98,6 @@ void Channel::OnChanged_TypeMeasure()
 
             case TypeMeasure::Duration:
                 PageModesB::OnChanged_ModeDuration();
-                break;
-
-            case TypeMeasure::CountPulse:
-                PageModesB::OnChanged_ModeCountPulse();
-                break;
-            }
-        }
-        else if (CURRENT_CHANNEL_IS_C)
-        {
-            switch (Channel::C.typeMeasure.value)
-            {
-            case TypeMeasure::CountPulse:
-                PageModesC::OnChanged_ModeCountPulse();
                 break;
             }
         }
@@ -254,7 +241,7 @@ DEF_SWITCH_5(sModeDuration,
 );
 
 
-void PageModesA::OnChanged_ModeCountPulse()
+void Channel::OnChanged_ModeCountPulseA()
 {
     items[1] = &sModeCountPulse;
     items[2] = nullptr;
@@ -282,7 +269,7 @@ void PageModesA::OnChanged_ModeCountPulse()
 DEF_SWITCH_3(sModeCountPulse,
     "Режим", "Счёт числа импульсов",
     "А(tB)", "А(TB)", "Старт/Стоп",
-    Channel::A.modeMeasureCountPulse, PageModesA::OnChanged_ModeCountPulse
+    Channel::A.modeMeasureCountPulse, Channel::OnChanged_ModeCountPulseA
 );
 
 

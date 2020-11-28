@@ -25,8 +25,6 @@ public:
 
     static void OnChanged_ModePeriod();
     static void OnChanged_ModeDuration();
-    static void OnChanged_ModeCountPulse();
-
 };
 
 
@@ -36,11 +34,4 @@ struct PageModesB
 
     static void OnChanged_ModePeriod();
     static void OnChanged_ModeDuration();
-    static void OnChanged_ModeCountPulse();
-};
-
-
-struct PageModesC
-{
-    static void OnChanged_ModeCountPulse();
 };

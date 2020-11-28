@@ -255,14 +255,31 @@ void Channel::OnChanged_ModeFrequency()
 {
     if (CURRENT_CHANNEL_IS_A)
     {
-        Channel::OnChanged_ModeFrequencyA();
+        OnChanged_ModeFrequencyA();
     }
     else if (CURRENT_CHANNEL_IS_B)
     {
-        Channel::OnChanged_ModeFrequencyB();
+        OnChanged_ModeFrequencyB();
     }
     else if (CURRENT_CHANNEL_IS_C)
     {
-        Channel::OnChanged_ModeFrequencyC();
+        OnChanged_ModeFrequencyC();
+    }
+}
+
+
+void Channel::OnChanged_ModeCountPulse()
+{
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        OnChanged_ModeCountPulseA();
+    }
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        OnChanged_ModeCountPulseB();
+    }
+    else if (CURRENT_CHANNEL_IS_C)
+    {
+        OnChanged_ModeCountPulseC();
     }
 }
