@@ -127,14 +127,14 @@ void ModeFrequency::LoadToFPGA()
 }
 
 
-void ModeMeasureCountPulse::LoadToFPGA()
+void ModeCountPulse::LoadToFPGA()
 {
     Command command(Command::ModeCountPulse);
 
     command.SetBit(4);
     command.SetBit(5);
 
-    const ModeMeasureCountPulse &current = Current();
+    const ModeCountPulse &current = Current();
 
     if (current.Is_CtA() && CURRENT_CHANNEL_IS_C)
     {

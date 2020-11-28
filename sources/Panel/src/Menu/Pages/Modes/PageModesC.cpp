@@ -14,8 +14,8 @@ extern Switch sModeFrequency;
 extern Switch sModeCountPulse;
 
 
-static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
-ModeMeasureCountPulse PageModesC::modeMeasureCountPulse(ModeMeasureCountPulse::CtA, correctModeMeasureCountPulse, ModeMeasureCountPulse::Count);
+static const bool correctModeMeasureCountPulse[ModeCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
+ModeCountPulse PageModesC::modeMeasureCountPulse(ModeCountPulse::CtA, correctModeMeasureCountPulse, ModeCountPulse::Count);
 
 
 void PageModesC::OnChanged_TypeMeasure()
@@ -77,13 +77,13 @@ void PageModesC::OnChanged_ModeCountPulse()
 
     switch (PageModesC::modeMeasureCountPulse.value)
     {
-    case ModeMeasureCountPulse::CtA:
-    case ModeMeasureCountPulse::CtB:
+    case ModeCountPulse::CtA:
+    case ModeCountPulse::CtB:
         items[2] = nullptr;
         break;
 
-    case ModeMeasureCountPulse::CTA:
-    case ModeMeasureCountPulse::CTB:
+    case ModeCountPulse::CTA:
+    case ModeCountPulse::CTB:
         items[2] = Channel::switchNumberPeriods;
         break;
     }
@@ -92,7 +92,7 @@ void PageModesC::OnChanged_ModeCountPulse()
 
     PageModesA::RelationOff();
     
-    ModeMeasureCountPulse::LoadToFPGA();
+    ModeCountPulse::LoadToFPGA();
 }
 
 // Выбор режима счёта импульсов

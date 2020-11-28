@@ -7,7 +7,7 @@
 #include "Menu/Pages/Modes/PagesModes.h"
 
 
-bool ModeMeasureCountPulse::IsFromPeriod() const
+bool ModeCountPulse::IsFromPeriod() const
 {
     return (value == ATB) || (value == BTA) || (value == CTA) || (value == CTB);
 }
@@ -142,12 +142,12 @@ int NumberPeriods::ToAbs() const
 }
 
 
-const ModeMeasureCountPulse &ModeMeasureCountPulse::Current()
+const ModeCountPulse &ModeCountPulse::Current()
 {
     static const bool correct[1] = { true };
-    static const ModeMeasureCountPulse null(ModeMeasureCountPulse::Count, correct, 1);
+    static const ModeCountPulse null(ModeCountPulse::Count, correct, 1);
 
-    static const ModeMeasureCountPulse *modes[Channel::Count] =
+    static const ModeCountPulse *modes[Channel::Count] =
     {
         &PageModesA::modeMeasureCountPulse,
         &PageModesB::modeMeasureCountPulse,

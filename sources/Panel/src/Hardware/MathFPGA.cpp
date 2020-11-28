@@ -489,7 +489,7 @@ void MathFPGA::Measure::CalculateNewData()
             value *= 100.0F;
         }
 
-        if (ModeMeasureCountPulse::Current().IsFromPeriod())
+        if (ModeCountPulse::Current().IsFromPeriod())
         {
             value /= (float)Channel::numberPeriods.ToAbs();
         }

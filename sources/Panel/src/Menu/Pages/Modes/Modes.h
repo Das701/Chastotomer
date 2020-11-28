@@ -60,7 +60,7 @@ struct ModeFrequency : public Enumeration
 
 
 // Режим счёта импульсов
-struct ModeMeasureCountPulse : public Enumeration
+struct ModeCountPulse : public Enumeration
 {
     enum E
     {
@@ -76,7 +76,7 @@ struct ModeMeasureCountPulse : public Enumeration
         Count
     };
 
-    explicit ModeMeasureCountPulse(E v, const bool *correct, int numStates) : Enumeration((uint8)v, correct, numStates) {};
+    explicit ModeCountPulse(E v, const bool *correct, int numStates) : Enumeration((uint8)v, correct, numStates) {};
     // Возвращает true, если включён режим измерения по периоду (большая T в названии)
     bool IsFromPeriod() const;
     bool Is_AtB() const { return (value == AtB); }
@@ -88,7 +88,7 @@ struct ModeMeasureCountPulse : public Enumeration
     bool Is_CTA() const { return (value == CTA); }
     bool Is_CTB() const { return (value == CTB); }
 
-    static const ModeMeasureCountPulse &Current();
+    static const ModeCountPulse &Current();
     static void LoadToFPGA();
 };
 

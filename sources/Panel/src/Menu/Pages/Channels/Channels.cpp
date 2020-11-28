@@ -169,14 +169,14 @@ bool Channel::IsActiveNumberPeriods(TypeMeasure *type, int m)
     }
     else if (type->IsCountPulse())
     {
-        ModeMeasureCountPulse::E mode = (ModeMeasureCountPulse::E)m;
+        ModeCountPulse::E mode = (ModeCountPulse::E)m;
 
         switch (mode)
         {
-        case ModeMeasureCountPulse::ATB:
-        case ModeMeasureCountPulse::BTA:
-        case ModeMeasureCountPulse::CTA:
-        case ModeMeasureCountPulse::CTB:        return true;
+        case ModeCountPulse::ATB:
+        case ModeCountPulse::BTA:
+        case ModeCountPulse::CTA:
+        case ModeCountPulse::CTB:        return true;
         }
     }
 
