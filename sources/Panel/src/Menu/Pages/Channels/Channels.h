@@ -82,9 +82,3 @@ struct Channel
     static Channel &Current();
 
 };
-
-
-extern Page pageChannelA;
-extern Page pageChannelB;
-extern Page pageChannelC;
-extern Page pageChannelD;

@@ -7,6 +7,18 @@
 using namespace Primitives;
 
 
+extern Page pageModesA;
+extern Page pageModesB;
+extern Page pageModesC;
+extern Page pageModesD;
+
+
+extern Page pageChannelA;
+extern Page pageChannelB;
+extern Page pageChannelC;
+extern Page pageChannelD;
+
+
 Channel::E Channel::current = Channel::_A;
 
 static const bool enabledMeasuresA[TypeMeasure::Count] = { true, true, true, true };

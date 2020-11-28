@@ -5,12 +5,6 @@
 #include "Menu/Pages/Channels/Channels.h"
 
 
-extern Page pageModesA;
-extern Page pageModesB;
-extern Page pageModesC;
-extern Page pageModesD;
-
-
 class PageModesA
 {
 public:
