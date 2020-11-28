@@ -1,6 +1,6 @@
 #pragma once
 #include "Menu/MenuItems.h"
-#include "Menu/Pages/Modes/PagesModes.h"
+#include "Menu/Pages/Modes/Modes.h"
 
 
 struct Channel

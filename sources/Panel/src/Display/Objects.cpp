@@ -5,7 +5,7 @@
 #include "Display/Text.h"
 #include "Display/Font/Font.h"
 #include "Hardware/MathFPGA.h"
-#include "Menu/Pages/Modes/PagesModes.h"
+#include "Menu/Pages/Channels/Channels.h"
 #include "Utils/Math.h"
 #include "Utils/String.h"
 #include <cctype>

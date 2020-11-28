@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Settings.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Menu/Pages/Channels/Channels.h"

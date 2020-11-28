@@ -13,7 +13,6 @@
 #include "Menu/Hint.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuItems.h"
-#include "Menu/Pages/Modes/PagesModes.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/PageIndication.h"
 #include "Utils/String.h"

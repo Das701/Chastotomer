@@ -1,10 +1,11 @@
 #include "defines.h"
 #include "Display/Display.h"
 #include "Display/Primitives.h"
+#include "Hardware/FreqMeter.h"
 #include "Hardware/MathFPGA.h"
 #include "Menu/MenuItems.h"
 #include "Menu/MenuItemsDef.h"
-#include "Menu/Pages/Modes/PagesModes.h"
+#include "Menu/Pages/Channels/Channels.h"
 
 
 using namespace Primitives;

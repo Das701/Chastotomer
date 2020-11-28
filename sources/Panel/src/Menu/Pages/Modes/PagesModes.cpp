@@ -3,7 +3,6 @@
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Menu/MenuItemsDef.h"
-#include "Menu/Pages/Modes/PagesModes.h"
 
 
 // Выбор времени измерения

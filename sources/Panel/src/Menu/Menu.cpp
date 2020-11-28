@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Settings.h"
 #include "Display/Display.h"
 #include "Display/Font/Font.h"
 #include "Keyboard/Keyboard.h"
@@ -10,7 +11,6 @@
 #include "Menu/Pages/PageIndication.h"
 #include "Menu/Pages/PageService.h"
 #include "Menu/Pages/PageStatistics.h"
-#include "Menu/Pages/Modes/PagesModes.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Utils/Math.h"
 #include "Utils/StringUtils.h"

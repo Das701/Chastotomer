@@ -3,7 +3,7 @@
 #include "Display/Primitives.h"
 #include "Hardware/MathFPGA.h"
 #include "Menu/MenuItemsDef.h"
-#include "Menu/Pages/Modes/PagesModes.h"
+#include "Menu/Pages/Channels/Channels.h"
 
 
 using namespace Primitives;

@@ -4,7 +4,6 @@
 #include "Display/Text.h"
 #include "Hardware/FPGA.h"
 #include "Hardware/MathFPGA.h"
-#include "Menu/Pages/Modes/PagesModes.h"
 
 
 bool ModeCountPulse::IsFromPeriod() const

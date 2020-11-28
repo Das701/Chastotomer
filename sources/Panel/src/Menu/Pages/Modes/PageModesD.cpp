@@ -1,10 +1,10 @@
 #include "defines.h"
 #include "Menu/MenuItems.h"
-#include "Menu/Pages/Modes/PagesModes.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Utils/Math.h"
 #include "Menu/MenuItemsDef.h"
+#include "Menu/Pages/Channels/Channels.h"
 
 
 using namespace Primitives;
