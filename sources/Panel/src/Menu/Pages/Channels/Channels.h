@@ -95,4 +95,7 @@ struct Channel
     static void RelationOn();
     static void RelationOff();
     static bool RelationCheck();
+
+    static bool StartStop();
+    static void ToggleStartStop();
 };

@@ -254,14 +254,14 @@ DEF_SWITCH_3(sModeCountPulse,
 );
 
 
-bool PageModesA::StartStop()
+bool Channel::StartStop()
 {
     return startStop;
 }
 
-void PageModesA::ToggleStartStop()
+void Channel::ToggleStartStop()
 {
-    if (startStop == false)
+    if (!startStop)
     {
         startStop = true;
     }

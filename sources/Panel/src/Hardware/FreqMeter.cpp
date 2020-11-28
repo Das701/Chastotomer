@@ -302,7 +302,7 @@ void FreqMeter::LoadStartStop()
 {
     Command command(Command::StartStop);
 
-    if (PageModesA::StartStop() == true)
+    if (Channel::StartStop())
     {
         command.SetBit(9);
         command.SetBit(8);
