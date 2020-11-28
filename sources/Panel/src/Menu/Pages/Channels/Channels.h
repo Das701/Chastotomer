@@ -29,6 +29,7 @@ struct Channel
     TypeMeasure    typeMeasure;
     ModeFrequency  modeFrequency;   // Режим измерения частоты
     ModePeriod     modePeriod;      // Режим измерения периода
+    ModeDuration  modeDuration;        // Режим измерения длительности
 
     bool IsA() { return this == &A; }
     bool IsB() { return this == &B; }

@@ -113,7 +113,7 @@ struct ModePeriod : public Enumeration
 };
 
 // Режим измерения длительности
-struct ModeMeasureDuration : public Enumeration
+struct ModeDuration : public Enumeration
 {
     enum E
     {
@@ -125,7 +125,7 @@ struct ModeMeasureDuration : public Enumeration
         Count
     };
 
-    explicit ModeMeasureDuration(E v) : Enumeration((uint8)v) {};
+    explicit ModeDuration(E v) : Enumeration((uint8)v) {};
 
     bool IsNdt() const        { return (value == Ndt); }
     bool IsNdt_1ns() const    { return (value == Ndt_1ns); }
@@ -133,7 +133,7 @@ struct ModeMeasureDuration : public Enumeration
     bool IsFillFactor() const { return (value == FillFactor); }
     bool IsPhase() const      { return (value == Phase); }
 
-    static const ModeMeasureDuration &Current();
+    static const ModeDuration &Current();
     static void LoadToFPGA();
 };
 

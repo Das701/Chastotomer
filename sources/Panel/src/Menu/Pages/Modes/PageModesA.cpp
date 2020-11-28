@@ -24,7 +24,6 @@ static bool relationOn = false;
 static bool startStop = false;
 
 
-ModeMeasureDuration   PageModesA::modeMeasureDuration(ModeMeasureDuration::Ndt);
 static const bool correctModeMeasureCountPulse[ModeMeasureCountPulse::Count] = { true, true, false, false, false, false, false, false, true};
 ModeMeasureCountPulse PageModesA::modeMeasureCountPulse(ModeMeasureCountPulse::AtB, correctModeMeasureCountPulse, ModeMeasureCountPulse::Count);
 
@@ -199,16 +198,16 @@ void PageModesA::OnChanged_ModeDuration()
 {
     items[1] = &sModeDuration;
 
-    switch (PageModesA::modeMeasureDuration.value)
+    switch (Channel::A.modeDuration.value)
     {
-    case ModeMeasureDuration::Ndt_1ns:
+    case ModeDuration::Ndt_1ns:
         items[2] = nullptr;
         break;
 
-    case ModeMeasureDuration::Ndt:
-    case ModeMeasureDuration::StartStop:
-    case ModeMeasureDuration::FillFactor:
-    case ModeMeasureDuration::Phase:
+    case ModeDuration::Ndt:
+    case ModeDuration::StartStop:
+    case ModeDuration::FillFactor:
+    case ModeDuration::Phase:
         items[2] = Channel::switchTimeLabels; 
         items[3] = nullptr;
         break;
@@ -216,14 +215,14 @@ void PageModesA::OnChanged_ModeDuration()
 
     PageModesA::RelationOff();
 
-    ModeMeasureDuration::LoadToFPGA();
+    ModeDuration::LoadToFPGA();
 }
 
 // Выбор режима измерения длительности импульсов, интервалов, коэффициента заполнения, разности фаз
 DEF_SWITCH_5(sModeDuration,
     "Режим", "Измерение длительности",
     "ndt", "ndt/1нс", "СтартА-СтопВ", "Коэфф. зап.", "Фаза",
-    PageModesA::modeMeasureDuration, PageModesA::OnChanged_ModeDuration
+    Channel::A.modeDuration, PageModesA::OnChanged_ModeDuration
 );
 
 

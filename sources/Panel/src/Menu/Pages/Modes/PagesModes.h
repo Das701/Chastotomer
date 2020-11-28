@@ -51,7 +51,6 @@ public:
     static void OnChanged_ModeDuration();
     static void OnChanged_ModeCountPulse();
 
-    static ModeMeasureDuration   modeMeasureDuration;        // Режим измерения длительности
     static ModeMeasureCountPulse modeMeasureCountPulse;      // Режим счёта импульсов
 };
 
@@ -69,7 +68,6 @@ struct PageModesB
     static void OnChanged_ModeDuration();
     static void OnChanged_ModeCountPulse();
 
-    static ModeMeasureDuration   modeMeasureDuration;   // Режим измерения длительности
     static ModeMeasureCountPulse modeMeasureCountPulse; // Режим счёта импульсов
 };
 

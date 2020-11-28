@@ -37,7 +37,8 @@ Channel::Channel(Page *pSettings, Page *pModes, const bool *enabledMeasures, con
     typeSynch(TypeSynch::Manual),
     typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count),
     modeFrequency(ModeFrequency::Frequency, enabledModeFrequency, ModeFrequency::Count),
-    modePeriod(ModePeriod::Period)
+    modePeriod(ModePeriod::Period),
+    modeDuration(ModeDuration::Ndt)
 {
 }
 
@@ -100,14 +101,14 @@ bool Channel::IsActiveTimeLabels(TypeMeasure *type, int m)
     }
     else if (type->IsDuration())
     {
-        ModeMeasureDuration::E mode = (ModeMeasureDuration::E)m;
+        ModeDuration::E mode = (ModeDuration::E)m;
 
         switch (mode)
         {
-        case ModeMeasureDuration::Ndt:
-        case ModeMeasureDuration::StartStop:
-        case ModeMeasureDuration::FillFactor:
-        case ModeMeasureDuration::Phase:        return true;
+        case ModeDuration::Ndt:
+        case ModeDuration::StartStop:
+        case ModeDuration::FillFactor:
+        case ModeDuration::Phase:        return true;
         }
     }
 

@@ -21,7 +21,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
         {
             &Channel::A.modeFrequency,
             &Channel::A.modePeriod,
-            &PageModesA::modeMeasureDuration,
+            &Channel::A.modeDuration,
             &PageModesA::modeMeasureCountPulse
         };
 
@@ -33,7 +33,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
         {
             &Channel::B.modeFrequency,
             &Channel::B.modePeriod,
-            &PageModesB::modeMeasureDuration,
+            &Channel::B.modeDuration,
             &PageModesB::modeMeasureCountPulse
         };
 
@@ -192,14 +192,14 @@ const ModePeriod &ModePeriod::Current()
 }
 
 
-const ModeMeasureDuration &ModeMeasureDuration::Current()
+const ModeDuration &ModeDuration::Current()
 {
-    static ModeMeasureDuration null(ModeMeasureDuration::Count);
+    static ModeDuration null(ModeDuration::Count);
 
-    static ModeMeasureDuration *const modes[Channel::Count] =
+    static ModeDuration *const modes[Channel::Count] =
     {
-        &PageModesA::modeMeasureDuration,
-        &PageModesB::modeMeasureDuration,
+        &Channel::A.modeDuration,
+        &Channel::B.modeDuration,
         &null,
         &null
     };
@@ -225,7 +225,7 @@ void ModePeriod::LoadToFPGA()
 }
 
 
-void ModeMeasureDuration::LoadToFPGA()
+void ModeDuration::LoadToFPGA()
 {
     Command command(Command::ModeDuration);
 
