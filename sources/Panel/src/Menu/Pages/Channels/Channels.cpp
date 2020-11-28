@@ -6,19 +6,23 @@ Channel::E Channel::current = Channel::_A;
 
 static const bool enabledMeasuresA[TypeMeasure::Count] = { true, true, true, true };
 static const bool enabledModeFrequencyA[ModeFrequency::Count] = { true, true, true, true, false, false, false, false, true, true };
-Channel Channel::A(&pageChannelA, &pageModesA, enabledMeasuresA, enabledModeFrequencyA);
+static const bool enabledModeCountPulseA[ModeCountPulse::Count] = { true, true, false, false, false, false, false, false, true };
+Channel Channel::A(&pageChannelA, &pageModesA, enabledMeasuresA, enabledModeFrequencyA, enabledModeCountPulseA);
 
 static const bool enabledMeasuresB[TypeMeasure::Count] = { true, true, true, true };
 static const bool enabledModeFrequencyB[ModeFrequency::Count] = { true, true, false, false, true, true, false, false, true, false };
-Channel Channel::B(&pageChannelB, &pageModesB, enabledMeasuresB, enabledModeFrequencyB);
+static const bool enabledModeCountPulseB[ModeCountPulse::Count] = { false, false, true, true, false, false, false, false, true };
+Channel Channel::B(&pageChannelB, &pageModesB, enabledMeasuresB, enabledModeFrequencyB, enabledModeCountPulseB);
 
 static const bool enabledMeasuresC[TypeMeasure::Count] = { true, false, false, true };
 static const bool enabledModeFrequencyC[ModeFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
-Channel Channel::C(&pageChannelC, &pageModesC, enabledMeasuresC, enabledModeFrequencyC);
+static const bool enabledModeCountPulseC[ModeCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
+Channel Channel::C(&pageChannelC, &pageModesC, enabledMeasuresC, enabledModeFrequencyC, enabledModeCountPulseC);
 
 static const bool enabledMeasuresD[TypeMeasure::Count] = { true, false, false, false };
 static const bool enabledModeFrequencyD[ModeFrequency::Count] = { true, false, false, false, false, false, false, false, false, false };
-Channel Channel::D(&pageChannelD, &pageModesD, enabledMeasuresD, enabledModeFrequencyD);
+static const bool enabledModeCountPulseD[ModeCountPulse::Count] = { false, false, false, false, false, false, false, false, false };
+Channel Channel::D(&pageChannelD, &pageModesD, enabledMeasuresD, enabledModeFrequencyD, enabledModeCountPulseD);
 
 
 PeriodTimeLabels Channel::timeLabels(PeriodTimeLabels::T_8);
@@ -26,7 +30,7 @@ NumberPeriods    Channel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      Channel::timeMeasure(TimeMeasure::_1ms);
 
 
-Channel::Channel(Page *pSettings, Page *pModes, const bool *enabledMeasures, const bool *enabledModeFrequency) :
+Channel::Channel(Page *pSettings, Page *pModes, const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     pageSettings(pSettings),
     pageModes(pModes),
     couple(InputCouple::AC),
@@ -38,7 +42,8 @@ Channel::Channel(Page *pSettings, Page *pModes, const bool *enabledMeasures, con
     typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count),
     modeFrequency(ModeFrequency::Frequency, enabledModeFrequency, ModeFrequency::Count),
     modePeriod(ModePeriod::Period),
-    modeDuration(ModeDuration::Ndt)
+    modeDuration(ModeDuration::Ndt),
+    modeMeasureCountPulse(ModeCountPulse::AtB, enabledModeCountPulse, ModeCountPulse::Count)
 {
 }
 

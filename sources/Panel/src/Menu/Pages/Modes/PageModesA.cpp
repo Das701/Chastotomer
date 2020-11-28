@@ -24,10 +24,6 @@ static bool relationOn = false;
 static bool startStop = false;
 
 
-static const bool correctModeMeasureCountPulse[ModeCountPulse::Count] = { true, true, false, false, false, false, false, false, true};
-ModeCountPulse PageModesA::modeMeasureCountPulse(ModeCountPulse::AtB, correctModeMeasureCountPulse, ModeCountPulse::Count);
-
-
 void PageModesA::RelationOn()
 {
     relationOn = true;
@@ -231,7 +227,7 @@ void PageModesA::OnChanged_ModeCountPulse()
     items[1] = &sModeCountPulse;
     items[2] = nullptr;
 
-    switch (PageModesA::modeMeasureCountPulse.value)
+    switch (Channel::A.modeMeasureCountPulse.value)
     {
     case ModeCountPulse::AtB:
         break;
@@ -254,7 +250,7 @@ void PageModesA::OnChanged_ModeCountPulse()
 DEF_SWITCH_3(sModeCountPulse,
     "Режим", "Счёт числа импульсов",
     "А(tB)", "А(TB)", "Старт/Стоп",
-    PageModesA::modeMeasureCountPulse, PageModesA::OnChanged_ModeCountPulse
+    Channel::A.modeMeasureCountPulse, PageModesA::OnChanged_ModeCountPulse
 );
 
 

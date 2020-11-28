@@ -14,7 +14,7 @@ struct Channel
         Count
     };
 
-    Channel(Page *pSettings, Page *pModes, const bool *enabledMeasures, const bool *enabledModeFrequency);
+    Channel(Page *pSettings, Page *pModes, const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
     Page *pageSettings;
     Page *pageModes;
@@ -27,9 +27,10 @@ struct Channel
     TypeSynch      typeSynch;
 
     TypeMeasure    typeMeasure;
-    ModeFrequency  modeFrequency;   // Режим измерения частоты
-    ModePeriod     modePeriod;      // Режим измерения периода
-    ModeDuration  modeDuration;        // Режим измерения длительности
+    ModeFrequency  modeFrequency;           // Режим измерения частоты
+    ModePeriod     modePeriod;              // Режим измерения периода
+    ModeDuration   modeDuration;            // Режим измерения длительности
+    ModeCountPulse modeMeasureCountPulse;   // Режим счёта импульсов
 
     bool IsA() { return this == &A; }
     bool IsB() { return this == &B; }

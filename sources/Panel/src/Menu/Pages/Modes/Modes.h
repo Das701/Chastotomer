@@ -87,6 +87,7 @@ struct ModeCountPulse : public Enumeration
     bool Is_CtB() const { return (value == CtB); }
     bool Is_CTA() const { return (value == CTA); }
     bool Is_CTB() const { return (value == CTB); }
+    bool Is_StartStop() const { return (value == StartStop); }
 
     static const ModeCountPulse &Current();
     static void LoadToFPGA();

@@ -51,7 +51,6 @@ public:
     static void OnChanged_ModeDuration();
     static void OnChanged_ModeCountPulse();
 
-    static ModeCountPulse modeMeasureCountPulse;      // Режим счёта импульсов
 };
 
 
@@ -67,8 +66,6 @@ struct PageModesB
     static void OnChanged_ModePeriod();
     static void OnChanged_ModeDuration();
     static void OnChanged_ModeCountPulse();
-
-    static ModeCountPulse modeMeasureCountPulse; // Режим счёта импульсов
 };
 
 
@@ -80,6 +77,4 @@ struct PageModesC
     // Вызываются при изменении режимов измерения
     static void OnChanged_ModeFrequency();
     static void OnChanged_ModeCountPulse();
-
-    static ModeCountPulse modeMeasureCountPulse; // Режим счёта импульсов
 };

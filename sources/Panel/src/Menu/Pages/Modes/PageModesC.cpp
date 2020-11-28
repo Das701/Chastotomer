@@ -14,10 +14,6 @@ extern Switch sModeFrequency;
 extern Switch sModeCountPulse;
 
 
-static const bool correctModeMeasureCountPulse[ModeCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
-ModeCountPulse PageModesC::modeMeasureCountPulse(ModeCountPulse::CtA, correctModeMeasureCountPulse, ModeCountPulse::Count);
-
-
 void PageModesC::OnChanged_TypeMeasure()
 {
     switch (Channel::C.typeMeasure.value)
@@ -75,7 +71,7 @@ void PageModesC::OnChanged_ModeCountPulse()
 {
     items[1] = &sModeCountPulse;
 
-    switch (PageModesC::modeMeasureCountPulse.value)
+    switch (Channel::C.modeMeasureCountPulse.value)
     {
     case ModeCountPulse::CtA:
     case ModeCountPulse::CtB:
@@ -99,7 +95,7 @@ void PageModesC::OnChanged_ModeCountPulse()
 DEF_SWITCH_4(sModeCountPulse,
     "–ежим", "—чЄт числа импульсов",
     "C(tA)", "C(tB)", "C(TA)", "C(TB)",
-    PageModesC::modeMeasureCountPulse, PageModesC::OnChanged_ModeCountPulse
+    Channel::C.modeMeasureCountPulse, PageModesC::OnChanged_ModeCountPulse
 );
 
 

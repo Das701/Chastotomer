@@ -17,10 +17,6 @@ extern Switch sModeDuration;
 extern Switch sModeCountPulse;
 
 
-static const bool correctModeMeasureCountPulse[ModeCountPulse::Count] = { false, false, true, true, false, false, false, false, true };
-ModeCountPulse PageModesB::modeMeasureCountPulse(ModeCountPulse::BtA, correctModeMeasureCountPulse, ModeCountPulse::Count);
-
-
 void PageModesB::PressSetup()
 {
     switch (Channel::B.typeMeasure.value)
@@ -189,7 +185,7 @@ void PageModesB::OnChanged_ModeCountPulse()
     items[1] = &sModeCountPulse;
     items[2] = nullptr;
 
-    switch (PageModesB::modeMeasureCountPulse.value)
+    switch (Channel::B.modeMeasureCountPulse.value)
     {
     case ModeCountPulse::BtA:
         break;
@@ -212,7 +208,7 @@ void PageModesB::OnChanged_ModeCountPulse()
 DEF_SWITCH_3(sModeCountPulse,
     "Режим", "Счёт числа импульсов",
     "B(tA)", "B(TA)", "Старт/Стоп",
-    PageModesB::modeMeasureCountPulse, PageModesB::OnChanged_ModeCountPulse
+    Channel::B.modeMeasureCountPulse, PageModesB::OnChanged_ModeCountPulse
 );
 
 
