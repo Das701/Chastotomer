@@ -192,3 +192,22 @@ bool Channel::IsActiveNumberPeriods(TypeMeasure *type, int m)
 #ifdef WIN32
 #pragma warning(pop)
 #endif
+
+
+bool Channel::ConsistTimeMeasure()
+{
+    if (typeMeasure.IsFrequency())
+    {
+        if (ModeFrequency::Current().IsFrequency() || ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC())
+        {
+            return true;
+        }
+    }
+
+    if (typeMeasure.IsPeriod() && ModePeriod::Current().IsF_1())
+    {
+        return true;
+    }
+
+    return false;
+}

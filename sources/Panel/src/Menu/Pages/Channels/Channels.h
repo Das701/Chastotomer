@@ -32,6 +32,8 @@ struct Channel
     ModeDuration   modeDuration;            // Режим измерения длительности
     ModeCountPulse modeMeasureCountPulse;   // Режим счёта импульсов
 
+    // Возвращает true, если текущая страница режимов содержит время измерения
+    bool ConsistTimeMeasure();
 
     // Вызывается при измеенении вида измерения
     static void OnChanged_TypeMeasure();

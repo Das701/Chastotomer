@@ -6,25 +6,6 @@
 #include "Menu/Pages/Modes/PagesModes.h"
 
 
-bool CurrentPageModes::ConsistTimeMeasure()
-{
-    if (Channel::Current().typeMeasure.IsFrequency())
-    {
-        if (ModeFrequency::Current().IsFrequency() || ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC())
-        {
-            return true;
-        }
-    }
-
-    if (Channel::Current().typeMeasure.IsPeriod() && ModePeriod::Current().IsF_1())
-    {
-        return true;
-    }
-
-    return false;
-}
-
-
 // Выбор времени измерения
 #ifdef USE_1000s
 

@@ -11,13 +11,6 @@ extern Page pageModesC;
 extern Page pageModesD;
 
 
-struct CurrentPageModes
-{
-    // Возвращает true, если текущая страница режимов содержит время измерения
-    static bool ConsistTimeMeasure();
-};
-
-
 // Здесь функции общие для всех страниц режимов каналов
 class PageModes
 {
