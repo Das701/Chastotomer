@@ -40,33 +40,10 @@ void PageModesB::PressSetup()
 }
 
 
-void PageModesB::OnChanged_TypeMeasure()
-{
-    switch (Channel::B.typeMeasure.value)
-    {
-    case TypeMeasure::Frequency:
-        PageModesB::OnChanged_ModeFrequency();
-        break;
-
-    case TypeMeasure::Period:
-        PageModesB::OnChanged_ModePeriod();
-        break;
-
-    case TypeMeasure::Duration:
-        PageModesB::OnChanged_ModeDuration();
-        break;
-
-    case TypeMeasure::CountPulse:
-        PageModesB::OnChanged_ModeCountPulse();
-        break;
-    }
-}
-
-
 DEF_SWITCH_4(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Период", "Длит.", "Сч. имп.",
-    Channel::B.typeMeasure, PageModesB::OnChanged_TypeMeasure
+    Channel::B.typeMeasure, Channel::OnChanged_TypeMeasure
 )
 
 

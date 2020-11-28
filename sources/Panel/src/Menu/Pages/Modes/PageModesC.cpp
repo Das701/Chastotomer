@@ -14,24 +14,10 @@ extern Switch sModeFrequency;
 extern Switch sModeCountPulse;
 
 
-void PageModesC::OnChanged_TypeMeasure()
-{
-    switch (Channel::C.typeMeasure.value)
-    {
-    case TypeMeasure::Frequency:
-        PageModesC::OnChanged_ModeFrequency();
-        break;
-
-    case TypeMeasure::CountPulse:
-        PageModesC::OnChanged_ModeCountPulse();
-        break;
-    }
-}
-
 DEF_SWITCH_2(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Сч. имп.",
-    Channel::C.typeMeasure, PageModesC::OnChanged_TypeMeasure
+    Channel::C.typeMeasure, Channel::OnChanged_TypeMeasure
 )
 
 

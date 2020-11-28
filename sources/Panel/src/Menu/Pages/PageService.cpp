@@ -28,11 +28,11 @@ static void OnPress_ResetSettings()
 
     Menu::SetOpenedPage(Channel::A.pageModes);
 
-    PageModes::OnChanged_TypeMeasure();
+    Channel::OnChanged_TypeMeasure();
 
     Channel::LoadCurrentToFPGA();
 
-    PageModes::OnChanged_TypeMeasure();
+    Channel::OnChanged_TypeMeasure();
 
     Channel::LoadCurrentToFPGA();
 }

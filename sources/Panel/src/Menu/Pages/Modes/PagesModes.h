@@ -23,8 +23,6 @@ class PageModes
 {
 public:
 
-    static void OnChanged_TypeMeasure();
-
     static void DrawParameters(int x, int y);
 };
 
@@ -40,9 +38,6 @@ public:
     static bool StartStop();
     static void ToggleStartStop();
 
-    // Вызывается при измеенении вида измерения
-    static void OnChanged_TypeMeasure();
-
     // Вызываются при изменении режимов измерения
     static void OnChanged_ModeFrequency();
     static void OnChanged_ModePeriod();
@@ -56,9 +51,6 @@ struct PageModesB
 {
     static void PressSetup();
 
-    // Вызывается при измеенении вида измерения
-    static void OnChanged_TypeMeasure();
-
     // Вызываются при изменении режимов измерения
     static void OnChanged_ModeFrequency();
     static void OnChanged_ModePeriod();
@@ -69,9 +61,6 @@ struct PageModesB
 
 struct PageModesC
 {
-    // Вызывается при измеенении вида измерения
-    static void OnChanged_TypeMeasure();
-
     // Вызываются при изменении режимов измерения
     static void OnChanged_ModeFrequency();
     static void OnChanged_ModeCountPulse();

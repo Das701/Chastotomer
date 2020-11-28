@@ -63,25 +63,62 @@ void PageModesA::PressSetup()
 }
 
 
-void PageModesA::OnChanged_TypeMeasure()
+void Channel::OnChanged_TypeMeasure()
 {
-    switch (Channel::A.typeMeasure.value)
+    if (CURRENT_CHANNEL_IS_A)
     {
-    case TypeMeasure::Frequency:
-        PageModesA::OnChanged_ModeFrequency();
-        break;
+        switch (Channel::A.typeMeasure.value)
+        {
+        case TypeMeasure::Frequency:
+            PageModesA::OnChanged_ModeFrequency();
+            break;
 
-    case TypeMeasure::Period:
-        PageModesA::OnChanged_ModePeriod();
-        break;
+        case TypeMeasure::Period:
+            PageModesA::OnChanged_ModePeriod();
+            break;
 
-    case TypeMeasure::Duration:
-        PageModesA::OnChanged_ModeDuration();
-        break;
+        case TypeMeasure::Duration:
+            PageModesA::OnChanged_ModeDuration();
+            break;
 
-    case TypeMeasure::CountPulse:
-        PageModesA::OnChanged_ModeCountPulse();
-        break;
+        case TypeMeasure::CountPulse:
+            PageModesA::OnChanged_ModeCountPulse();
+            break;
+        }
+    }
+    else if (CURRENT_CHANNEL_IS_B)
+    {
+        switch (Channel::B.typeMeasure.value)
+        {
+        case TypeMeasure::Frequency:
+            PageModesB::OnChanged_ModeFrequency();
+            break;
+
+        case TypeMeasure::Period:
+            PageModesB::OnChanged_ModePeriod();
+            break;
+
+        case TypeMeasure::Duration:
+            PageModesB::OnChanged_ModeDuration();
+            break;
+
+        case TypeMeasure::CountPulse:
+            PageModesB::OnChanged_ModeCountPulse();
+            break;
+        }
+    }
+    else if (CURRENT_CHANNEL_IS_C)
+    {
+        switch (Channel::C.typeMeasure.value)
+        {
+        case TypeMeasure::Frequency:
+            PageModesC::OnChanged_ModeFrequency();
+            break;
+
+        case TypeMeasure::CountPulse:
+            PageModesC::OnChanged_ModeCountPulse();
+            break;
+        }
     }
 }
 
@@ -89,7 +126,7 @@ void PageModesA::OnChanged_TypeMeasure()
 DEF_SWITCH_4(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Период", "Длит.", "Сч. имп.",
-    Channel::A.typeMeasure, PageModesA::OnChanged_TypeMeasure
+    Channel::A.typeMeasure, Channel::OnChanged_TypeMeasure
 );
 
 
