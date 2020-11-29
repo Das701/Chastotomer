@@ -27,7 +27,7 @@ static void OnKey(const Control &control);
 static void OnGovernor(const Control &control);
 
 // Текущая отображаемая страница меню
-static Page *openedPage = Channel::A->pageModes;
+static Page *openedPage = nullptr;
 
 static void SubscribeToEvents();
 
@@ -319,6 +319,8 @@ static void OnKey(const Control &control) //-V2008
 
 void Menu::Init()
 {
+    openedPage = Channel::A->pageModes;
+
     SubscribeToEvents();
 }
 

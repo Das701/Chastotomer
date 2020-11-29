@@ -113,7 +113,7 @@ void Channel::Create()
         D = new Channel(3, &pageChannelD, &pageModesD, nullptr, nullptr, nullptr, nullptr, enabledMeasuresD, enabledModeFrequencyD, enabledModeCountPulseD);
     }
 
-    if (current == nullptr)
+    if (Current() == nullptr)
     {
         SetCurrent(A);
     }
