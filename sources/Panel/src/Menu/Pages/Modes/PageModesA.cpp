@@ -62,29 +62,6 @@ void Channel::PressSetupA()
 }
 
 
-void Channel::OnChanged_TypeMeasure()
-{
-    TypeMeasure &type = Current().typeMeasure;
-
-    if (type.IsFrequency())
-    {
-        OnChanged_ModeFrequency();
-    }
-    else if (type.IsCountPulse())
-    {
-        OnChanged_ModeCountPulse();
-    }
-    else if (type.IsPeriod())
-    {
-        OnChanged_ModePeriod();
-    }
-    else if (type.IsDuration())
-    {
-        OnChanged_ModeDuration();
-    }
-}
-
-
 DEF_SWITCH_4(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Период", "Длит.", "Сч. имп.",
@@ -100,7 +77,7 @@ static void OnPress_Statistics()
 DEF_BUTTON(bStatistics, "Стат", "Открывает окно статистики", OnPress_Statistics);
 
 
-void Channel::OnChanged_ModeFrequencyA()
+static void OnChanged_ModeFrequency()
 {
     items[1] = &sModeFrequency;
 
@@ -155,8 +132,11 @@ DEF_SWITCH_6(sModeFrequency,
     "f(A)/f(C)",
     "Тахометр",
     "Компаратор",
-    Channel::A.modeFrequency, Channel::OnChanged_ModeFrequencyA
+    Channel::A.modeFrequency, OnChanged_ModeFrequency
 );
+
+
+Switch *switchModeFrequencyA = &sModeFrequency;
 
 
 void Channel::OnChanged_ModePeriodA()

@@ -88,6 +88,8 @@ public:
     virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &control);
 
+    void FuncOnPress() { if (funcOnPress) { funcOnPress(); }; }
+
 private:
     char        *text;              // Надпись на переключателе
     void       (*funcOnPress)();    // Эта функция вызывается после изменения состояния переключателя

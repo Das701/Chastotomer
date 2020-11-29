@@ -21,7 +21,7 @@ DEF_SWITCH_2(sTypeMeasure,
 )
 
 
-void Channel::OnChanged_ModeFrequencyC()
+static void OnChanged_ModeFrequency()
 {
     items[1] = &sModeFrequency;
 
@@ -49,8 +49,11 @@ void Channel::OnChanged_ModeFrequencyC()
 DEF_SWITCH_3(sModeFrequency,
     "Режим", "Измерение частоты",
     "Частота", "f(C)/f(A)", "f(C)/f(B)",
-    Channel::C.modeFrequency, Channel::OnChanged_ModeFrequencyC
+    Channel::C.modeFrequency, OnChanged_ModeFrequency
 );
+
+
+Switch *switchModeFrequencyC = &sModeFrequency;
 
 
 void Channel::OnChanged_ModeCountPulseC()
