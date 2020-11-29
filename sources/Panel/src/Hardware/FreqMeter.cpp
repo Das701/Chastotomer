@@ -297,11 +297,11 @@ void FreqMeter::LoadOneTime()
 }
 
 
-void FreqMeter::LoadStartStop()
+void ModeStartStop::LoadToFPGA()
 {
     Command command(Command::StartStop);
 
-    if (ModeStartStop::IsEnabled())
+    if (enabled)
     {
         command.SetBit(9);
         command.SetBit(8);

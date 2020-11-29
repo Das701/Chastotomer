@@ -237,7 +237,7 @@ bool Switch::OnControl(const Control &control)
                 (CURRENT_CHANNEL_IS_B && Channel::B->set.typeMeasure.IsCountPulse() && Channel::B->set.modeCountPulse.Is_StartStop()))
             {
                 ModeStartStop::Toggle();
-                FreqMeter::LoadStartStop();
+                ModeStartStop::LoadToFPGA();
             }
             else
             {

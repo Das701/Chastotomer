@@ -33,6 +33,4 @@ namespace FreqMeter
     void UnloadAuto();
     
     void LoadOneTime();
-    
-    void LoadStartStop();
 }

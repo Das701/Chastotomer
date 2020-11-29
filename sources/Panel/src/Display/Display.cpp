@@ -161,7 +161,7 @@ void Display::Update()
     DrawScreen();
     EndScene();
 
-#else
+#else 
 
     static uint currentFramesInSec = 0;         // Столько кадров отрисовано за текущую секунду
     static uint currentTimePaintInSec = 0;      // Столько времени потрачено на отрисовку за текущую секунду

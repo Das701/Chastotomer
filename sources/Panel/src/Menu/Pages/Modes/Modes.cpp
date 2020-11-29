@@ -253,12 +253,6 @@ void ModeDuration::LoadToFPGA()
 }
 
 
-bool ModeStartStop::IsEnabled()
-{
-    return enabled;
-}
-
-
 void ModeStartStop::Toggle()
 {
     if (!enabled)
