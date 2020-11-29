@@ -19,7 +19,7 @@ class Switch;
 
 struct SettingsChannel
 {
-    SettingsChannel(Switch *pModeFrequency, Switch *pModeCountPulse,
+    SettingsChannel(Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod,
         const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
     InputCouple    couple;
@@ -37,6 +37,7 @@ struct SettingsChannel
 
     Switch        *switchModeFrequency;
     Switch        *switchModeCountPulse;
+    Switch        *switchModePeriod;
 };
 
 
@@ -90,7 +91,6 @@ struct Channel
 
 private:
 
-    Switch *switchModePeriod;
     Switch *switchModeDuration;
 
     static Channel *current;                // Текущий канал
