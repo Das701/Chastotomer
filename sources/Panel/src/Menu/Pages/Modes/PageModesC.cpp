@@ -16,14 +16,14 @@ extern Switch sModeCountPulse;
 
 static void OnChanged_TypeMeasure()
 {
-    Channel::Current().OnChanged_TypeMeasure();
+    Channel::Current()->OnChanged_TypeMeasure();
 }
 
 
 DEF_SWITCH_2(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Сч. имп.",
-    Channel::C.set.typeMeasure, OnChanged_TypeMeasure
+    Channel::C->set.typeMeasure, OnChanged_TypeMeasure
 )
 
 
@@ -31,7 +31,7 @@ static void OnChanged_ModeFrequency()
 {
     items[1] = &sModeFrequency;
 
-    switch (Channel::C.set.modeFrequency.value)
+    switch (Channel::C->set.modeFrequency.value)
     {
     case ModeFrequency::Frequency:
         items[2] = Channel::switchTimeMeasue;
@@ -55,7 +55,7 @@ static void OnChanged_ModeFrequency()
 DEF_SWITCH_3(sModeFrequency,
     "Режим", "Измерение частоты",
     "Частота", "f(C)/f(A)", "f(C)/f(B)",
-    Channel::C.set.modeFrequency, OnChanged_ModeFrequency
+    Channel::C->set.modeFrequency, OnChanged_ModeFrequency
 );
 
 
@@ -66,7 +66,7 @@ static void OnChanged_ModeCountPulse()
 {
     items[1] = &sModeCountPulse;
 
-    switch (Channel::C.set.modeCountPulse.value)
+    switch (Channel::C->set.modeCountPulse.value)
     {
     case ModeCountPulse::CtA:
     case ModeCountPulse::CtB:
@@ -90,7 +90,7 @@ static void OnChanged_ModeCountPulse()
 DEF_SWITCH_4(sModeCountPulse,
     "Режим", "Счёт числа импульсов",
     "C(tA)", "C(tB)", "C(TA)", "C(TB)",
-    Channel::C.set.modeCountPulse, OnChanged_ModeCountPulse
+    Channel::C->set.modeCountPulse, OnChanged_ModeCountPulse
 );
 
 

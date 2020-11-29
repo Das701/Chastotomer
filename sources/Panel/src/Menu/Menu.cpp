@@ -27,7 +27,7 @@ static void OnKey(const Control &control);
 static void OnGovernor(const Control &control);
 
 // Текущая отображаемая страница меню
-static Page *openedPage = Channel::A.pageModes;
+static Page *openedPage = Channel::A->pageModes;
 
 static void SubscribeToEvents();
 
@@ -52,7 +52,7 @@ static void OnGovernor(const Control &control)
 
     if (CURRENT_CHANNEL_IS_A_OR_B && control.IsRotateGovernor())
     {
-        int delta = Channel::Current().set.typeSynch.IsHoldoff() ? 1 : 2;
+        int delta = Channel::Current()->set.typeSynch.IsHoldoff() ? 1 : 2;
 
         if (control.value == Control::GovLeft)
         {
@@ -90,31 +90,36 @@ static void SetCurrentChannel(const Control &control)
         
         if (Menu::OpenedPage()->IsPageSettings())
         {
-            Math::CircleIncrease<uint8>((uint8 *)&CURRENT_CHANNEL, 0, Channel::Count - 1);
+            int num = Channel::Current()->Number();
+
+            Math::CircleIncrease<uint8>((uint8 *)&num, 0, Channel::Count - 1);
+
+            Channel::SetCurrent(num);
+
             loadToFPGA = true;
         }
 
-        if (CURRENT_CHANNEL_IS_A)       { openedPage = Channel::A.pageSettings; }
-        else if (CURRENT_CHANNEL_IS_B)  { openedPage = Channel::B.pageSettings; }
-        else if (CURRENT_CHANNEL_IS_C)  { openedPage = Channel::C.pageSettings; }
-        else if (CURRENT_CHANNEL_IS_D)  { openedPage = Channel::D.pageSettings; }
+        if (CURRENT_CHANNEL_IS_A)       { openedPage = Channel::A->pageSettings; }
+        else if (CURRENT_CHANNEL_IS_B)  { openedPage = Channel::B->pageSettings; }
+        else if (CURRENT_CHANNEL_IS_C)  { openedPage = Channel::C->pageSettings; }
+        else if (CURRENT_CHANNEL_IS_D)  { openedPage = Channel::D->pageSettings; }
 
         Hint::Hide();
 
         if(loadToFPGA)
         {
-            Channel::Current().OnChanged_TypeMeasure();
+            Channel::Current()->OnChanged_TypeMeasure();
 
-            Channel::Current().LoadToFPGA();
+            Channel::Current()->LoadToFPGA();
         }
     }
 
     if (control.value == Control::Mode)
     {
-        if (CURRENT_CHANNEL_IS_A)      { openedPage = Channel::A.pageModes; }
-        else if (CURRENT_CHANNEL_IS_B) { openedPage = Channel::B.pageModes; }
-        else if (CURRENT_CHANNEL_IS_C) { openedPage = Channel::C.pageModes; }
-        else if (CURRENT_CHANNEL_IS_D) { openedPage = Channel::D.pageModes; }
+        if (CURRENT_CHANNEL_IS_A)      { openedPage = Channel::A->pageModes; }
+        else if (CURRENT_CHANNEL_IS_B) { openedPage = Channel::B->pageModes; }
+        else if (CURRENT_CHANNEL_IS_C) { openedPage = Channel::C->pageModes; }
+        else if (CURRENT_CHANNEL_IS_D) { openedPage = Channel::D->pageModes; }
 
         Hint::Hide();
     }
@@ -175,14 +180,14 @@ String Menu::ChannelSettings()
 
     if(CURRENT_CHANNEL_IS_A)
     {
-        ADD_UGO(Channel::A.set.couple.UGO());
-        ADD_UGO(Channel::A.set.impedance.UGO());
-        ADD_UGO(Channel::A.set.modeFilter.UGO());
-        ADD_UGO(Channel::A.set.modeFront.UGO());
-        ADD_UGO(Channel::A.set.divider.UGO());
-        ADD_UGO(Channel::A.set.typeSynch.UGO());
-        ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Channel::Current().set.divider.ToAbs()).c_str());
-        if (Channel::A.set.typeSynch.IsManual())
+        ADD_UGO(Channel::A->set.couple.UGO());
+        ADD_UGO(Channel::A->set.impedance.UGO());
+        ADD_UGO(Channel::A->set.modeFilter.UGO());
+        ADD_UGO(Channel::A->set.modeFront.UGO());
+        ADD_UGO(Channel::A->set.divider.UGO());
+        ADD_UGO(Channel::A->set.typeSynch.UGO());
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Channel::Current()->set.divider.ToAbs()).c_str());
+        if (Channel::A->set.typeSynch.IsManual())
         {
             std::strcat(settings, "мВ");
         }
@@ -202,14 +207,14 @@ String Menu::ChannelSettings()
     
     if(CURRENT_CHANNEL_IS_B)
     {
-        ADD_UGO(Channel::B.set.couple.UGO());
-        ADD_UGO(Channel::B.set.impedance.UGO());
-        ADD_UGO(Channel::B.set.modeFilter.UGO());
-        ADD_UGO(Channel::B.set.modeFront.UGO());
-        ADD_UGO(Channel::B.set.divider.UGO());
-        ADD_UGO(Channel::B.set.typeSynch.UGO());
-        ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Channel::Current().set.divider.ToAbs()).c_str());
-        if (Channel::B.set.typeSynch.IsManual())
+        ADD_UGO(Channel::B->set.couple.UGO());
+        ADD_UGO(Channel::B->set.impedance.UGO());
+        ADD_UGO(Channel::B->set.modeFilter.UGO());
+        ADD_UGO(Channel::B->set.modeFront.UGO());
+        ADD_UGO(Channel::B->set.divider.UGO());
+        ADD_UGO(Channel::B->set.typeSynch.UGO());
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Channel::Current()->set.divider.ToAbs()).c_str());
+        if (Channel::B->set.typeSynch.IsManual())
         {
             std::strcat(settings, "мВ");
         }
@@ -269,12 +274,12 @@ static void OnKey(const Control &control) //-V2008
         break;
 
     case Control::Mode:
-        Channel::Current().PressSetup();
+        Channel::Current()->PressSetup();
         break;
 
     case Control::Test:
-        if ((Channel::A.set.modeFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B.set.modeFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B))
+        if ((Channel::A->set.modeFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B->set.modeFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B))
         {
         }
         else
@@ -284,13 +289,13 @@ static void OnKey(const Control &control) //-V2008
         break;
 
     case Control::Auto:
-        if ((Channel::A.set.typeMeasure.IsFrequency() && Channel::A.set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B.set.typeMeasure.IsFrequency() && Channel::B.set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
-            (Channel::C.set.typeMeasure.IsFrequency() && Channel::C.set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
-            (Channel::A.set.typeMeasure.IsPeriod() && Channel::A.set.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B.set.typeMeasure.IsPeriod() && Channel::B.set.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
-            (Channel::A.set.typeMeasure.IsDuration() && Channel::A.set.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B.set.typeMeasure.IsDuration() && Channel::B.set.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
+        if ((Channel::A->set.typeMeasure.IsFrequency() && Channel::A->set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B->set.typeMeasure.IsFrequency() && Channel::B->set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
+            (Channel::C->set.typeMeasure.IsFrequency() && Channel::C->set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
+            (Channel::A->set.typeMeasure.IsPeriod() && Channel::A->set.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B->set.typeMeasure.IsPeriod() && Channel::B->set.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
+            (Channel::A->set.typeMeasure.IsDuration() && Channel::A->set.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B->set.typeMeasure.IsDuration() && Channel::B->set.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
         {
             MathFPGA::Auto::Refresh();
             FreqMeter::LoadAuto();
@@ -320,6 +325,6 @@ void Menu::Init()
 
 static void SubscribeToEvents()
 {
-    FreqMeter::modeTest.AddObserver(Channel::A.pageModes);
-    FreqMeter::modeTest.AddObserver(Channel::B.pageModes);
+    FreqMeter::modeTest.AddObserver(Channel::A->pageModes);
+    FreqMeter::modeTest.AddObserver(Channel::B->pageModes);
 }

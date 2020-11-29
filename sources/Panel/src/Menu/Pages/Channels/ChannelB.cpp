@@ -26,7 +26,7 @@ DEF_SWITCH_UGO_2(sCouple,
     "Вход", "Вход",
     "Открытый вход", "Закрытый вход",
     SYMBOL_DC_IN_QUOTES, SYMBOL_AC_IN_QUOTES,
-    Channel::B.set.couple, OnPress_Couple
+    Channel::B->set.couple, OnPress_Couple
 );
 
 
@@ -40,7 +40,7 @@ DEF_SWITCH_UGO_2(sImpedance,
     "Rвх", "Входное сопротивление канала",
     "1 МОм", "50 Ом",
     "1МОм", "50Ом",
-    Channel::B.set.impedance, OnPress_Impedance
+    Channel::B->set.impedance, OnPress_Impedance
 );
 
 
@@ -54,7 +54,7 @@ DEF_SWITCH_UGO_2(sLowpassFilter,
     "ФНЧ", "Включение/отключение фильтра НЧ",
     "Откл.", "Вкл.",
     "ФНЧ", "",
-    Channel::B.set.modeFilter, OnPress_Filter
+    Channel::B->set.modeFilter, OnPress_Filter
 );
 
 
@@ -68,7 +68,7 @@ DEF_SWITCH_UGO_2(sFront,
     "\x82/\x83", "Выбор типа синхронизации",
     "Фронт", "Срез",
     SYMBOL_FRONT_IN_QUOTES, SYMBOL_RISE_IN_QUOTES,
-    Channel::B.set.modeFront, OnPress_Front
+    Channel::B->set.modeFront, OnPress_Front
 );
 
 
@@ -82,7 +82,7 @@ DEF_SWITCH_UGO_2(sDivider,
     "Делитель", "Вкл/откл входного делителя",
     "1:1", "1:10",
     "1:1", "1:10",
-    Channel::B.set.divider, OnPress_Divider
+    Channel::B->set.divider, OnPress_Divider
 );
 
 
@@ -96,16 +96,16 @@ DEF_SWITCH_6(sPeriodTimeLabels,
 
 static void OnPress_Sync()
 {
-    if (Channel::B.set.typeSynch.IsHoldoff())
+    if (Channel::B->set.typeSynch.IsHoldoff())
     {
         items[0] = &sSync;
         items[1] = Channel::switchTimeMeasue;
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
 
-        Channel::B.pageSettings->selectedItem = 0;
+        Channel::B->pageSettings->selectedItem = 0;
     }
-    else if(Channel::B.set.typeSynch.IsManual())
+    else if(Channel::B->set.typeSynch.IsManual())
     {
         items[0] = &sCouple;
         items[1] = &sImpedance;
@@ -115,10 +115,10 @@ static void OnPress_Sync()
         items[5] = &sSync;
         items[6] = nullptr;
 
-        Channel::B.pageSettings->selectedItem = 5;
+        Channel::B->pageSettings->selectedItem = 5;
     }
 
-    TYPE_SYNCH_B = (TypeSynch::E)Channel::B.set.typeSynch.value;
+    TYPE_SYNCH_B = (TypeSynch::E)Channel::B->set.typeSynch.value;
 
     TypeSynch::LoadToFPGA();
 }
@@ -128,7 +128,7 @@ DEF_SWITCH_UGO_2(sSync,
     "Синхр", "Выбор уровня сихронизации",
     "Ручн", "Holdoff",
     "Ручн", "Holdoff",
-    Channel::B.set.typeSynch, OnPress_Sync
+    Channel::B->set.typeSynch, OnPress_Sync
 );
 
 static Item *items[7] =

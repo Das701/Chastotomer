@@ -20,20 +20,20 @@ static void OnPress_ResetSettings()
     NumberPeriods::Set(NumberPeriods::_1);
     PeriodTimeLabels::Set(PeriodTimeLabels::T_8);
 
-    Channel::A.set.typeMeasure.value = TypeMeasure::Frequency;
-    Channel::A.set.modeFrequency.value = ModeFrequency::Frequency;
+    Channel::A->set.typeMeasure.value = TypeMeasure::Frequency;
+    Channel::A->set.modeFrequency.value = ModeFrequency::Frequency;
 
     Channel::SetCurrent(Channel::A);
 
-    Menu::SetOpenedPage(Channel::A.pageModes);
+    Menu::SetOpenedPage(Channel::A->pageModes);
 
-    Channel::Current().OnChanged_TypeMeasure();
+    Channel::Current()->OnChanged_TypeMeasure();
 
-    Channel::Current().LoadToFPGA();
+    Channel::Current()->LoadToFPGA();
 
-    Channel::Current().OnChanged_TypeMeasure();
+    Channel::Current()->OnChanged_TypeMeasure();
 
-    Channel::Current().LoadToFPGA();
+    Channel::Current()->LoadToFPGA();
 }
 
 DEF_BUTTON(bResetSettings, "—брос", "—брос настроек в состо€ние по умолчанию", OnPress_ResetSettings);

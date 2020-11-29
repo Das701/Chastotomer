@@ -33,27 +33,28 @@ extern Page pageChannelC;
 extern Page pageChannelD;
 
 
-Channel *Channel::current = &Channel::A;
+Channel *Channel::current = nullptr;
+
+Channel *Channel::A = nullptr;
+Channel *Channel::B = nullptr;
+Channel *Channel::C = nullptr;
+Channel *Channel::D = nullptr;
 
 static const bool enabledMeasuresA[TypeMeasure::Count] = { true, true, true, true };
 static const bool enabledModeFrequencyA[ModeFrequency::Count] = { true, true, true, true, false, false, false, false, true, true };
 static const bool enabledModeCountPulseA[ModeCountPulse::Count] = { true, true, false, false, false, false, false, false, true };
-Channel Channel::A(&pageChannelA, &pageModesA, switchModeFrequencyA, switchModeCountPulseA, switchModePeriodA, switchModeDurationA, enabledMeasuresA, enabledModeFrequencyA, enabledModeCountPulseA);
 
 static const bool enabledMeasuresB[TypeMeasure::Count] = { true, true, true, true };
 static const bool enabledModeFrequencyB[ModeFrequency::Count] = { true, true, false, false, true, true, false, false, true, false };
 static const bool enabledModeCountPulseB[ModeCountPulse::Count] = { false, false, true, true, false, false, false, false, true };
-Channel Channel::B(&pageChannelB, &pageModesB, switchModeFrequencyB, switchModeCountPulseB, switchModePeriodB, switchModeDurationB, enabledMeasuresB, enabledModeFrequencyB, enabledModeCountPulseB);
 
 static const bool enabledMeasuresC[TypeMeasure::Count] = { true, false, false, true };
 static const bool enabledModeFrequencyC[ModeFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
 static const bool enabledModeCountPulseC[ModeCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
-Channel Channel::C(&pageChannelC, &pageModesC, switchModeFrequencyC, switchModeCountPulseC, nullptr,           nullptr,             enabledMeasuresC, enabledModeFrequencyC, enabledModeCountPulseC);
 
 static const bool enabledMeasuresD[TypeMeasure::Count] = { true, false, false, false };
 static const bool enabledModeFrequencyD[ModeFrequency::Count] = { true, false, false, false, false, false, false, false, false, false };
 static const bool enabledModeCountPulseD[ModeCountPulse::Count] = { false, false, false, false, false, false, false, false, false };
-Channel Channel::D(&pageChannelD, &pageModesD, nullptr,              nullptr,               nullptr,           nullptr,             enabledMeasuresD, enabledModeFrequencyD, enabledModeCountPulseD);
 
 
 PeriodTimeLabels Channel::timeLabels(PeriodTimeLabels::T_8);
@@ -83,18 +84,39 @@ SettingsChannel::SettingsChannel(Switch *pModeFrequency, Switch *pModeCountPulse
 }
 
 
-Channel::Channel(Page *pSettings, Page *pModes, Switch *pModeFrequency, Switch *pModeCountPulse, Switch *pModePeriod, Switch *pModeDuration,
+Channel::Channel(int num, Page *pSettings, Page *pModes, Switch *pModeFrequency, Switch *pModeCountPulse, Switch *pModePeriod, Switch *pModeDuration,
     const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     pageSettings(pSettings),
     pageModes(pModes),
-    set(pModeFrequency, pModeCountPulse, pModePeriod, pModeDuration, enabledMeasures, enabledModeFrequency, enabledModeCountPulse)
+    set(pModeFrequency, pModeCountPulse, pModePeriod, pModeDuration, enabledMeasures, enabledModeFrequency, enabledModeCountPulse),
+    number(num)
 {
 }
 
 
-Channel &Channel::Current()
+void Channel::Create()
 {
-    return *current;
+    if (A == nullptr)
+    {
+        A = new Channel(0, &pageChannelA, &pageModesA, switchModeFrequencyA, switchModeCountPulseA, switchModePeriodA, switchModeDurationA, enabledMeasuresA, enabledModeFrequencyA, enabledModeCountPulseA);
+    }
+    if (B == nullptr)
+    {
+        B = new Channel(1, &pageChannelB, &pageModesB, switchModeFrequencyB, switchModeCountPulseB, switchModePeriodB, switchModeDurationB, enabledMeasuresB, enabledModeFrequencyB, enabledModeCountPulseB);
+    }
+    if (C == nullptr)
+    {
+        C = new Channel(2, &pageChannelC, &pageModesC, switchModeFrequencyC, switchModeCountPulseC, nullptr, nullptr, enabledMeasuresC, enabledModeFrequencyC, enabledModeCountPulseC);
+    }
+    if (D == nullptr)
+    {
+        D = new Channel(3, &pageChannelD, &pageModesD, nullptr, nullptr, nullptr, nullptr, enabledMeasuresD, enabledModeFrequencyD, enabledModeCountPulseD);
+    }
+
+    if (current == nullptr)
+    {
+        SetCurrent(A);
+    }
 }
 
 
@@ -276,7 +298,7 @@ void Channel::DrawParameters(int x, int y)
 
 void Channel::PressSetup()
 {
-    switch (Channel::A.set.typeMeasure.value)
+    switch (Channel::A->set.typeMeasure.value)
     {
     case TypeMeasure::Frequency:    pageModes->items[1] = set.switchModeFrequency;     break;
     case TypeMeasure::Period:       pageModes->items[1] = set.switchModePeriod;        break;
@@ -298,17 +320,9 @@ void Channel::OnChanged_TypeMeasure()
 }
 
 
-int Channel::Number() const
+void Channel::SetCurrent(int num)
 {
-    static const Channel *const channels[4] = { &A, &B, &C, &D };
+    static Channel * const channels[Count] = { A, B, C, D };
 
-    for (int i = 0; i < 4; i++)
-    {
-        if (this == channels[i])
-        {
-            return i;
-        }
-    }
-
-    return 0;
+    current = channels[num];
 }

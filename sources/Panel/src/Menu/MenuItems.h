@@ -32,7 +32,7 @@ class Item
 {
     friend class Hint;
 public:
-    Item(char *_hint) : hint(_hint) {}
+    Item(char *_hint);
     virtual ~Item() {};
 
     static const int HEIGHT = 35;

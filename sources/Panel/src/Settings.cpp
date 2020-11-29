@@ -23,7 +23,7 @@ void InputCouple::LoadToFPGA()
     {
         Command command(Command::Couple);
 
-        if (Channel::Current().set.couple.IsDC())
+        if (Channel::Current()->set.couple.IsDC())
         {
             command.SetBit(9);
         }
@@ -52,7 +52,7 @@ void LevelSynch::Change(int delta)
         int MIN = -800;
         int MAX = 800;
 
-        if (Channel::Current().set.typeSynch.IsHoldoff())
+        if (Channel::Current()->set.typeSynch.IsHoldoff())
         {
             MIN = 1;
         }
@@ -76,7 +76,7 @@ void ModeFront::LoadToFPGA()
     {
         Command command(Command::ModeFront);
 
-        if (!Channel::Current().set.modeFront.IsFront())
+        if (!Channel::Current()->set.modeFront.IsFront())
         {
             command.SetBit(9);
         }
@@ -92,7 +92,7 @@ void TypeSynch::LoadToFPGA()
     {
         Command command(Command::TypeSynch);
 
-        if (Channel::Current().set.typeSynch.IsHoldoff())
+        if (Channel::Current()->set.typeSynch.IsHoldoff())
         {
             command.SetBit(9);
         }
@@ -116,7 +116,7 @@ void ModeFilter::LoadToFPGA()
     {
         Command command(Command::ModeFilter);
 
-        if (Channel::Current().set.modeFilter.IsOff())
+        if (Channel::Current()->set.modeFilter.IsOff())
         {
             command.SetBit(9);
         }
@@ -132,7 +132,7 @@ void Divider::LoadToFPGA()
     {
         Command command(Command::Divider);
 
-        if (!Channel::Current().set.divider.Is1())
+        if (!Channel::Current()->set.divider.Is1())
         {
             command.SetBit(9);
         }

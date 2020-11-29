@@ -443,15 +443,15 @@ void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
 {
     int manualZeros = 1;
 
-    if (Channel::Current().set.typeMeasure.IsFrequency())
+    if (Channel::Current()->set.typeMeasure.IsFrequency())
     {
         emptyZeros = CalculateFrequencyEmptyZeros(manualZeros);
     }
-    else if (Channel::Current().set.typeMeasure.IsDuration())
+    else if (Channel::Current()->set.typeMeasure.IsDuration())
     {
         emptyZeros = CalculateDurationEmptyZeros();
     }
-    else if (Channel::Current().set.typeMeasure.IsPeriod())
+    else if (Channel::Current()->set.typeMeasure.IsPeriod())
     {
         emptyZeros = CalculatePeriodEmptyZeros();
     }
@@ -480,7 +480,7 @@ void MathFPGA::Measure::CalculateNewData()
         return;
     }
 
-    if (Channel::Current().set.typeMeasure.IsCountPulse())
+    if (Channel::Current()->set.typeMeasure.IsCountPulse())
     {
         float value = decDataA.ToFloat() / 2.0F;
 
@@ -510,7 +510,7 @@ void MathFPGA::Measure::CalculateNewData()
         {
             Data::SetDigits(String("%10.2f", MathFPGA::Interpolator::value));
         }
-        else if (Channel::Current().set.typeMeasure.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
+        else if (Channel::Current()->set.typeMeasure.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
         {
             if (ModeDuration::Current().IsPhase())
             {
@@ -576,7 +576,7 @@ void MathFPGA::Measure::CalculateUnits()
     {
         Data::SetUnits(String(" ns"));
     }
-    else if(Channel::Current().set.typeMeasure.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
+    else if(Channel::Current()->set.typeMeasure.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
     {
         if (ModeDuration::Current().IsPhase())
         {
@@ -596,13 +596,13 @@ void MathFPGA::Measure::CalculateUnits()
     {
         if (ModeFrequency::Current().IsRatio() ||
             ModeFrequency::Current().IsTachometer() ||
-            Channel::Current().set.typeMeasure.IsCountPulse())
+            Channel::Current()->set.typeMeasure.IsCountPulse())
         {
             Data::SetUnits(String(" "));
         }
         else
         {
-            if (Channel::Current().set.typeMeasure.IsFrequency())
+            if (Channel::Current()->set.typeMeasure.IsFrequency())
             {
                 if (ModeFrequency::Current().IsT_1())
                 {
@@ -610,7 +610,7 @@ void MathFPGA::Measure::CalculateUnits()
                     else if (decDA < 1000000)   { Data::SetUnits(String(" kHz")); }
                     else                        { Data::SetUnits(String(" MHz")); }
                 }
-                else if (Channel::A.set.modeFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
+                else if (Channel::A->set.modeFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
                 {
                     Data::SetUnits(String(" E-6"));
                 }
@@ -634,8 +634,8 @@ void MathFPGA::Measure::CalculateUnits()
             }
             else
             {
-                if ((CURRENT_CHANNEL_IS_A && Channel::A.set.typeMeasure.IsPeriod() && Channel::A.set.modePeriod.IsF_1()) ||
-                    (CURRENT_CHANNEL_IS_B && Channel::B.set.typeMeasure.IsPeriod() && Channel::B.set.modePeriod.IsF_1()))
+                if ((CURRENT_CHANNEL_IS_A && Channel::A->set.typeMeasure.IsPeriod() && Channel::A->set.modePeriod.IsF_1()) ||
+                    (CURRENT_CHANNEL_IS_B && Channel::B->set.typeMeasure.IsPeriod() && Channel::B->set.modePeriod.IsF_1()))
                 {
                     if (decDA >= 1000)      { Data::SetUnits(String(" ns")); }
                     else if (decDA <= 1)    { Data::SetUnits(String(" ms")); }

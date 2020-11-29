@@ -131,13 +131,13 @@ int Page::WidthItem(int num) const
 
 bool Page::IsPageModes() const
 {
-    return (this == Channel::A.pageModes) || (this == Channel::B.pageModes) || (this == Channel::C.pageModes) || (this == Channel::D.pageModes);
+    return (this == Channel::A->pageModes) || (this == Channel::B->pageModes) || (this == Channel::C->pageModes) || (this == Channel::D->pageModes);
 }
 
 
 bool Page::IsPageSettings() const
 {
-    return (this == Channel::A.pageSettings) || (this == Channel::B.pageSettings) || (this == Channel::C.pageSettings) || (this == Channel::D.pageSettings);
+    return (this == Channel::A->pageSettings) || (this == Channel::B->pageSettings) || (this == Channel::C->pageSettings) || (this == Channel::D->pageSettings);
 }
 
 
@@ -233,8 +233,8 @@ bool Switch::OnControl(const Control &control)
                 PageIndication::OnceLaunchSwitchTrue();
                 FreqMeter::LoadOneTime();
             }
-            else if ((CURRENT_CHANNEL_IS_A && Channel::A.set.typeMeasure.IsCountPulse() && Channel::A.set.modeCountPulse.Is_StartStop()) ||
-                (CURRENT_CHANNEL_IS_B && Channel::B.set.typeMeasure.IsCountPulse() && Channel::B.set.modeCountPulse.Is_StartStop()))
+            else if ((CURRENT_CHANNEL_IS_A && Channel::A->set.typeMeasure.IsCountPulse() && Channel::A->set.modeCountPulse.Is_StartStop()) ||
+                (CURRENT_CHANNEL_IS_B && Channel::B->set.typeMeasure.IsCountPulse() && Channel::B->set.modeCountPulse.Is_StartStop()))
             {
                 ModeStartStop::Toggle();
                 FreqMeter::LoadStartStop();
@@ -283,6 +283,12 @@ void Button::CreateHint(String &h) const
     h.Free();
     h.Append(hint);
 }
+
+Item::Item(char *_hint) : hint(_hint)
+{
+    Channel::Create();
+}
+
 
 
 Color Item::ColorBackground(bool selected)
@@ -395,11 +401,11 @@ void Page::ResetModeMeasure()
 //
 //    mode->state->value = (uint8)m;
 //
-//    if (this == Channel::A.pageModes)
+//    if (this == Channel::A->pageModes)
 //    {
 //        PageModesA::OnChanged_TypeMeasure();
 //    }
-//    else if (this == Channel::B.pageModes)
+//    else if (this == Channel::B->pageModes)
 //    {
 //        PageModesB::OnChanged_TypeMeasure();
 //    }

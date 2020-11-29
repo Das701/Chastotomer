@@ -7,13 +7,13 @@ class Switch;
 
 
 #define CURRENT_CHANNEL             Channel::Current()
-#define CURRENT_CHANNEL_IS_A        (CURRENT_CHANNEL.IsA())
-#define CURRENT_CHANNEL_IS_B        (CURRENT_CHANNEL.IsB())
+#define CURRENT_CHANNEL_IS_A        (CURRENT_CHANNEL->IsA())
+#define CURRENT_CHANNEL_IS_B        (CURRENT_CHANNEL->IsB())
 #define CURRENT_CHANNEL_IS_A_OR_B   (CURRENT_CHANNEL_IS_A || CURRENT_CHANNEL_IS_B)
-#define CURRENT_CHANNEL_IS_C        (CURRENT_CHANNEL.IsC())
-#define CURRENT_CHANNEL_IS_D        (CURRENT_CHANNEL.IsD())
+#define CURRENT_CHANNEL_IS_C        (CURRENT_CHANNEL->IsC())
+#define CURRENT_CHANNEL_IS_D        (CURRENT_CHANNEL->IsD())
 
-#define NUMBER_CHANNEL(ch)          (ch.Number())
+#define NUMBER_CHANNEL(ch)          (ch->Number())
 #define NUMBER_CURRENT_CHANNEL      (NUMBER_CHANNEL(CURRENT_CHANNEL))
 
 
@@ -44,30 +44,33 @@ struct SettingsChannel
 
 struct Channel
 {
-    static Channel A;
-    static Channel B;
-    static Channel C;
-    static Channel D;
+    static Channel *A;
+    static Channel *B;
+    static Channel *C;
+    static Channel *D;
 
     static const int Count = 4;
 
-    Channel(Page *pSettings, Page *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
+    Channel(int number, Page *pSettings, Page *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
         const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
-    static Channel &Current();
-    static void SetCurrent(Channel &channel) { current = &channel; }
+    static void Create();
+
+    static Channel *Current() { return current; };
+    static void SetCurrent(Channel *channel) { current = channel; }
+    static void SetCurrent(int num);
 
     // Возвращает true, если текущая страница режимов содержит время измерения
     bool ConsistTimeMeasure();
 
     void DrawParameters(int x, int y);
 
-    bool IsA() const { return this == &A; }
-    bool IsB() const { return this == &B; }
-    bool IsC() const { return this == &C; }
-    bool IsD() const { return this == &D; }
+    bool IsA() const { return this == A; }
+    bool IsB() const { return this == B; }
+    bool IsC() const { return this == C; }
+    bool IsD() const { return this == D; }
 
-    int Number() const;
+    int Number() const { return number; }
 
     // Загрузить канал в аппаратуру
     void LoadToFPGA();
@@ -93,4 +96,6 @@ struct Channel
 private:
 
     static Channel *current;                // Текущий канал
+
+    int number;
 };
