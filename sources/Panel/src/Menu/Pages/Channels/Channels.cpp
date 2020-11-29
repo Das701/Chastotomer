@@ -61,7 +61,7 @@ NumberPeriods    Channel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      Channel::timeMeasure(TimeMeasure::_1ms);
 
 
-SettingsChannel::SettingsChannel(const bool *enabledMeasures, const bool *enabledModeFrequency) :
+SettingsChannel::SettingsChannel(const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     couple(InputCouple::AC),
     impedance(InputImpedance::_1MOmh),
     modeFilter(ModeFilter::Off),
@@ -71,7 +71,8 @@ SettingsChannel::SettingsChannel(const bool *enabledMeasures, const bool *enable
     typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count),
     modeFrequency(ModeFrequency::Frequency, enabledModeFrequency, ModeFrequency::Count),
     modePeriod(ModePeriod::Period),
-    modeDuration(ModeDuration::Ndt)
+    modeDuration(ModeDuration::Ndt),
+    modeCountPulse(ModeCountPulse::AtB, enabledModeCountPulse, ModeCountPulse::Count)
 {
 
 }
@@ -81,8 +82,7 @@ Channel::Channel(Page *pSettings, Page *pModes, Switch *pModeFrequency, Switch *
     const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     pageSettings(pSettings),
     pageModes(pModes),
-    set(enabledMeasures, enabledModeFrequency),
-    modeCountPulse(ModeCountPulse::AtB, enabledModeCountPulse, ModeCountPulse::Count),
+    set(enabledMeasures, enabledModeFrequency, enabledModeCountPulse),
     switchModeFrequency(pModeFrequency),
     switchModeCountPulse(pModeCountPulse),
     switchModePeriod(pModePeriod),

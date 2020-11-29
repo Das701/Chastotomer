@@ -25,7 +25,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
             &Channel::A.set.modeFrequency,
             &Channel::A.set.modePeriod,
             &Channel::A.set.modeDuration,
-            &Channel::A.modeCountPulse
+            &Channel::A.set.modeCountPulse
         };
 
         return *modes[Channel::A.set.typeMeasure.value];
@@ -37,7 +37,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
             &Channel::B.set.modeFrequency,
             &Channel::B.set.modePeriod,
             &Channel::B.set.modeDuration,
-            &Channel::B.modeCountPulse
+            &Channel::B.set.modeCountPulse
         };
 
         return *modesB[Channel::B.set.typeMeasure.value];
@@ -49,7 +49,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
             &Channel::C.set.modeFrequency,
             nullptr,
             nullptr,
-            &Channel::C.modeCountPulse
+            &Channel::C.set.modeCountPulse
         };
 
         return *modesC[Channel::C.set.typeMeasure.value];;
@@ -146,9 +146,9 @@ const ModeCountPulse &ModeCountPulse::Current()
 
     static const ModeCountPulse *modes[Channel::Count] =
     {
-        &Channel::A.modeCountPulse,
-        &Channel::B.modeCountPulse,
-        &Channel::C.modeCountPulse,
+        &Channel::A.set.modeCountPulse,
+        &Channel::B.set.modeCountPulse,
+        &Channel::C.set.modeCountPulse,
         &null
     };
 
