@@ -103,7 +103,7 @@ static void SetCurrentChannel(const Control &control)
 
         if(loadToFPGA)
         {
-            Channel::OnChanged_TypeMeasure();
+            Channel::Current().OnChanged_TypeMeasure();
 
             Channel::LoadCurrentToFPGA();
         }

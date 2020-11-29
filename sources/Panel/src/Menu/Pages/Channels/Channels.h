@@ -68,7 +68,7 @@ struct Channel
     static Channel &Current();
 
     // Вызывается при измеенении вида измерения
-    static void OnChanged_TypeMeasure();
+    void OnChanged_TypeMeasure();
 
     static void PressSetup();
     static void PressSetupA();

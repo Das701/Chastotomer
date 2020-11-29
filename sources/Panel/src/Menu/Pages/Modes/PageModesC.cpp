@@ -14,10 +14,16 @@ extern Switch sModeFrequency;
 extern Switch sModeCountPulse;
 
 
+static void OnChanged_TypeMeasure()
+{
+    Channel::Current().OnChanged_TypeMeasure();
+}
+
+
 DEF_SWITCH_2(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Сч. имп.",
-    Channel::C.typeMeasure, Channel::OnChanged_TypeMeasure
+    Channel::C.typeMeasure, OnChanged_TypeMeasure
 )
 
 

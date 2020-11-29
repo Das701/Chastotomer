@@ -41,10 +41,16 @@ void Channel::PressSetupB()
 }
 
 
+static void OnChanged_TypeMeasure()
+{
+    Channel::Current().OnChanged_TypeMeasure();
+}
+
+
 DEF_SWITCH_4(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Период", "Длит.", "Сч. имп.",
-    Channel::B.typeMeasure, Channel::OnChanged_TypeMeasure
+    Channel::B.typeMeasure, OnChanged_TypeMeasure
 )
 
 
