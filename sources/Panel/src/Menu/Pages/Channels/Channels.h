@@ -87,9 +87,4 @@ private:
     Switch *switchModeCountPulse;
     Switch *switchModePeriod;
     Switch *switchModeDuration;
-
-    void OnChanged_ModeFrequency();
-    void OnChanged_ModeCountPulse();
-    void OnChanged_ModePeriod();
-    void OnChanged_ModeDuration();
 };

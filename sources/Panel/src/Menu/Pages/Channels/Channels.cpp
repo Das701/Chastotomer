@@ -282,42 +282,6 @@ void Channel::DrawParameters(int x, int y)
 }
 
 
-void Channel::OnChanged_ModeFrequency()
-{
-    if (switchModeFrequency != nullptr)
-    {
-        switchModeFrequency->FuncOnPress();
-    }
-}
-
-
-void Channel::OnChanged_ModeCountPulse()
-{
-    if (switchModeCountPulse != nullptr)
-    {
-        switchModeCountPulse->FuncOnPress();
-    }
-}
-
-
-void Channel::OnChanged_ModePeriod()
-{
-    if (switchModePeriod != nullptr)
-    {
-        switchModePeriod->FuncOnPress();
-    }
-}
-
-
-void Channel::OnChanged_ModeDuration()
-{
-    if (switchModeDuration != nullptr)
-    {
-        switchModeDuration->FuncOnPress();
-    }
-}
-
-
 void Channel::PressSetup()
 {
     if (CURRENT_CHANNEL_IS_A)
@@ -335,9 +299,9 @@ void Channel::OnChanged_TypeMeasure()
 {
     switch (typeMeasure.value)
     {
-    case TypeMeasure::Frequency:        OnChanged_ModeFrequency();      break;
-    case TypeMeasure::CountPulse:       OnChanged_ModeCountPulse();     break;
-    case TypeMeasure::Period:           OnChanged_ModePeriod();         break;
-    case TypeMeasure::Duration:         OnChanged_ModeDuration();       break;
+    case TypeMeasure::Frequency:    if (switchModeFrequency != nullptr)  { switchModeFrequency->FuncOnPress();  }   break;
+    case TypeMeasure::CountPulse:   if (switchModeCountPulse != nullptr) { switchModeCountPulse->FuncOnPress(); }   break;
+    case TypeMeasure::Period:       if (switchModePeriod != nullptr)     { switchModePeriod->FuncOnPress();     }   break;
+    case TypeMeasure::Duration:     if (switchModeDuration != nullptr)   { switchModeDuration->FuncOnPress();   }   break;
     }
 }
