@@ -293,18 +293,15 @@ void Channel::OnChanged_TypeMeasure()
 
 int Channel::Number() const
 {
-    if (IsA())
+    static const Channel *const channels[4] = { &A, &B, &C, &D };
+
+    for (int i = 0; i < 4; i++)
     {
-        return 0;
-    }
-    else if (IsB())
-    {
-        return 1;
-    }
-    else if (IsC())
-    {
-        return 2;
+        if (this == channels[i])
+        {
+            return i;
+        }
     }
 
-    return 3;
+    return 0;
 }
