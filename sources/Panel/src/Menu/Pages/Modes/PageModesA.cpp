@@ -19,24 +19,6 @@ extern Switch sModePeriod;
 extern Switch sModeDuration;
 extern Switch sModeCountPulse;
 
-static bool relationOn = false;
-
-
-void Channel::RelationOn()
-{
-    relationOn = true;
-}
-
-void Channel::RelationOff()
-{
-    relationOn = false;
-}
-
-bool Channel::RelationCheck()
-{
-    return relationOn == true;
-}
-
 
 static void OnChanged_TypeMeasure()
 {
@@ -63,7 +45,7 @@ static void OnChanged_ModeFrequency()
 {
     items[1] = &sModeFrequency;
 
-    Channel::RelationOff();
+    Relation::Off();
 
     if (Channel::A.modeFrequency.IsFrequency())
     {
@@ -75,13 +57,13 @@ static void OnChanged_ModeFrequency()
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = nullptr;
-        Channel::RelationOn();
+        Relation::On();
     }
     else if (Channel::A.modeFrequency.IsRatioAC())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = nullptr;
-        Channel::RelationOn();
+        Relation::On();
     }
     else if (Channel::A.modeFrequency.IsT_1())
     {
@@ -136,7 +118,7 @@ static void OnChanged_ModePeriod()
         items[4] = nullptr;
     }
 
-    Channel::RelationOff();
+    Relation::Off();
     
     ModePeriod::LoadToFPGA();
 }
@@ -171,7 +153,7 @@ static void OnChanged_ModeDuration()
         break;
     }
 
-    Channel::RelationOff();
+    Relation::Off();
 
     ModeDuration::LoadToFPGA();
 }
@@ -206,7 +188,7 @@ static void OnChanged_ModeCountPulse()
         break;
     }
 
-    Channel::RelationOff();
+    Relation::Off();
 
     ModeCountPulse::LoadToFPGA();
 }

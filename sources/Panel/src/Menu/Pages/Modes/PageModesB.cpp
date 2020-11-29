@@ -35,7 +35,7 @@ static void OnChanged_ModeFrequency()
 {
     items[1] = &sModeFrequency;
 
-    Channel::RelationOff();
+    Relation::Off();
 
     if (Channel::B.modeFrequency.IsFrequency())
     {
@@ -47,13 +47,13 @@ static void OnChanged_ModeFrequency()
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = nullptr;
-        Channel::RelationOn();
+        Relation::On();
     }
     else if (Channel::B.modeFrequency.IsRatioBC())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = nullptr;
-        Channel::RelationOn();
+        Relation::On();
     }
     else if (Channel::B.modeFrequency.IsT_1())
     {
@@ -98,7 +98,7 @@ static void OnChanged_ModePeriod()
         items[4] = nullptr;
     }
 
-    Channel::RelationOff();
+    Relation::Off();
 
     ModePeriod::LoadToFPGA();
 }
@@ -133,7 +133,7 @@ static void OnChanged_ModeDuration()
         break;
     }
 
-    Channel::RelationOff();
+    Relation::Off();
 
     ModeDuration::LoadToFPGA();
 }
@@ -168,7 +168,7 @@ static void OnChanged_ModeCountPulse()
         break;
     }
 
-    Channel::RelationOff();
+    Relation::Off();
 
     ModeCountPulse::LoadToFPGA();
 }

@@ -7,6 +7,7 @@
 
 
 bool ModeStartStop::enabled = false;
+bool Relation::enabled = false;
 
 
 bool ModeCountPulse::IsFromPeriod() const
@@ -257,6 +258,7 @@ bool ModeStartStop::IsEnabled()
     return enabled;
 }
 
+
 void ModeStartStop::Toggle()
 {
     if (!enabled)
@@ -267,4 +269,22 @@ void ModeStartStop::Toggle()
     {
         enabled = false;
     }
+}
+
+
+void Relation::On()
+{
+    enabled = true;
+}
+
+
+void Relation::Off()
+{
+    enabled = false;
+}
+
+
+bool Relation::IsEnabled()
+{
+    return enabled;
 }

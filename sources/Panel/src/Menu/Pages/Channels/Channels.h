@@ -1,6 +1,7 @@
 #pragma once
 #include "Menu/Pages/Modes/Modes.h"
 
+
 class Page;
 class Switch;
 
@@ -59,10 +60,6 @@ struct Channel
 
     static Channel &Current();
     static void SetCurrent(Channel &channel) { current = &channel; }
-
-    static void RelationOn();
-    static void RelationOff();
-    static bool RelationCheck();
 
     static Channel A;
     static Channel B;

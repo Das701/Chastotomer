@@ -46,7 +46,7 @@ static void OnChanged_ModeFrequency()
         break;
     }
 
-    Channel::RelationOff();
+    Relation::Off();
     
     ModeFrequency::LoadToFPGA();
 }
@@ -81,7 +81,7 @@ static void OnChanged_ModeCountPulse()
 
     items[3] = nullptr;
 
-    Channel::RelationOff();
+    Relation::Off();
     
     ModeCountPulse::LoadToFPGA();
 }

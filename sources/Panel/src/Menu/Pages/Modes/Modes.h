@@ -348,3 +348,13 @@ struct ModeStartStop
 private:
     static bool enabled;
 };
+
+
+struct Relation
+{
+    static void On();
+    static void Off();
+    static bool IsEnabled();
+private:
+    static bool enabled;
+};
