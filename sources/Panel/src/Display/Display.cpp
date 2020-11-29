@@ -155,6 +155,14 @@ void Display::Refresh()
 
 void Display::Update()
 {
+#ifdef WIN32
+
+    BeginScene();
+    DrawScreen();
+    EndScene();
+
+#else
+
     static uint currentFramesInSec = 0;         // Столько кадров отрисовано за текущую секунду
     static uint currentTimePaintInSec = 0;      // Столько времени потрачено на отрисовку за текущую секунду
     static char prevHint = 0;
@@ -203,6 +211,8 @@ void Display::Update()
         timePaint = currentTimePaintInSec;
         currentTimePaintInSec = 0;
     }
+
+#endif
 }
 
 
