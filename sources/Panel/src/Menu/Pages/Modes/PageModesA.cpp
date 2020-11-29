@@ -139,7 +139,7 @@ DEF_SWITCH_6(sModeFrequency,
 Switch *switchModeFrequencyA = &sModeFrequency;
 
 
-void Channel::OnChanged_ModePeriodA()
+static void OnChanged_ModePeriod()
 {
     items[1] = &sModePeriod;
 
@@ -165,8 +165,11 @@ void Channel::OnChanged_ModePeriodA()
 DEF_SWITCH_2(sModePeriod,
     "Режим", "Измерение периода",
     "Период", "T=1/f",
-    Channel::A.modePeriod, Channel::OnChanged_ModePeriodA
+    Channel::A.modePeriod, OnChanged_ModePeriod
 );
+
+
+Switch *switchModePeriodA = &sModePeriod;
 
 
 void Channel::OnChanged_ModeDurationA()
