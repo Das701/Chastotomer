@@ -340,10 +340,10 @@ static void DrawInfo()
         else if(CURRENT_CHANNEL_IS_B && Channel::B.set.modeFrequency.IsTachometer() && Channel::B.set.typeMeasure.IsFrequency())
         {
         }
-        else if(CURRENT_CHANNEL_IS_A && Channel::A.set.typeMeasure.IsCountPulse() && Channel::A.modeMeasureCountPulse.Is_StartStop())
+        else if(CURRENT_CHANNEL_IS_A && Channel::A.set.typeMeasure.IsCountPulse() && Channel::A.modeCountPulse.Is_StartStop())
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && Channel::B.set.typeMeasure.IsCountPulse() && Channel::B.modeMeasureCountPulse.Is_StartStop())
+        else if(CURRENT_CHANNEL_IS_B && Channel::B.set.typeMeasure.IsCountPulse() && Channel::B.modeCountPulse.Is_StartStop())
         {
         }
         else
@@ -371,8 +371,8 @@ static void DrawInfo()
         DrawValue("Зап:однокр", coordLaunch.x, coordLaunch.y);
     }
 
-    if((CURRENT_CHANNEL_IS_A && Channel::A.set.typeMeasure.IsCountPulse() && Channel::A.modeMeasureCountPulse.Is_StartStop()) ||
-       (CURRENT_CHANNEL_IS_B && Channel::B.set.typeMeasure.IsCountPulse() && Channel::B.modeMeasureCountPulse.Is_StartStop()))
+    if((CURRENT_CHANNEL_IS_A && Channel::A.set.typeMeasure.IsCountPulse() && Channel::A.modeCountPulse.Is_StartStop()) ||
+       (CURRENT_CHANNEL_IS_B && Channel::B.set.typeMeasure.IsCountPulse() && Channel::B.modeCountPulse.Is_StartStop()))
     {
         Text(ModeStartStop::IsEnabled() ? "Старт" : "Стоп").Write(430, 60);
     }

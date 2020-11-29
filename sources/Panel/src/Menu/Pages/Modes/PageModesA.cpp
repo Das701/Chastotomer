@@ -174,7 +174,7 @@ static void OnChanged_ModeCountPulse()
     items[1] = &sModeCountPulse;
     items[2] = nullptr;
 
-    switch (Channel::A.modeMeasureCountPulse.value)
+    switch (Channel::A.modeCountPulse.value)
     {
     case ModeCountPulse::AtB:
         break;
@@ -197,7 +197,7 @@ static void OnChanged_ModeCountPulse()
 DEF_SWITCH_3(sModeCountPulse,
     "Режим", "Счёт числа импульсов",
     "А(tB)", "А(TB)", "Старт/Стоп",
-    Channel::A.modeMeasureCountPulse, OnChanged_ModeCountPulse
+    Channel::A.modeCountPulse, OnChanged_ModeCountPulse
 );
 
 

@@ -82,7 +82,7 @@ Channel::Channel(Page *pSettings, Page *pModes, Switch *pModeFrequency, Switch *
     pageSettings(pSettings),
     pageModes(pModes),
     set(enabledMeasures, enabledModeFrequency),
-    modeMeasureCountPulse(ModeCountPulse::AtB, enabledModeCountPulse, ModeCountPulse::Count),
+    modeCountPulse(ModeCountPulse::AtB, enabledModeCountPulse, ModeCountPulse::Count),
     switchModeFrequency(pModeFrequency),
     switchModeCountPulse(pModeCountPulse),
     switchModePeriod(pModePeriod),

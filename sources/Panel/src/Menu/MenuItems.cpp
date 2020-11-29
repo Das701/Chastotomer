@@ -233,8 +233,8 @@ bool Switch::OnControl(const Control &control)
                 PageIndication::OnceLaunchSwitchTrue();
                 FreqMeter::LoadOneTime();
             }
-            else if ((CURRENT_CHANNEL_IS_A && Channel::A.set.typeMeasure.IsCountPulse() && Channel::A.modeMeasureCountPulse.Is_StartStop()) ||
-                (CURRENT_CHANNEL_IS_B && Channel::B.set.typeMeasure.IsCountPulse() && Channel::B.modeMeasureCountPulse.Is_StartStop()))
+            else if ((CURRENT_CHANNEL_IS_A && Channel::A.set.typeMeasure.IsCountPulse() && Channel::A.modeCountPulse.Is_StartStop()) ||
+                (CURRENT_CHANNEL_IS_B && Channel::B.set.typeMeasure.IsCountPulse() && Channel::B.modeCountPulse.Is_StartStop()))
             {
                 ModeStartStop::Toggle();
                 FreqMeter::LoadStartStop();

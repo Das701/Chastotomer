@@ -66,7 +66,7 @@ static void OnChanged_ModeCountPulse()
 {
     items[1] = &sModeCountPulse;
 
-    switch (Channel::C.modeMeasureCountPulse.value)
+    switch (Channel::C.modeCountPulse.value)
     {
     case ModeCountPulse::CtA:
     case ModeCountPulse::CtB:
@@ -90,7 +90,7 @@ static void OnChanged_ModeCountPulse()
 DEF_SWITCH_4(sModeCountPulse,
     "–ежим", "—чЄт числа импульсов",
     "C(tA)", "C(tB)", "C(TA)", "C(TB)",
-    Channel::C.modeMeasureCountPulse, OnChanged_ModeCountPulse
+    Channel::C.modeCountPulse, OnChanged_ModeCountPulse
 );
 
 

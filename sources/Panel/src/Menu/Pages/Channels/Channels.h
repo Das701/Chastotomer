@@ -65,7 +65,7 @@ struct Channel
 
     SettingsChannel set;
 
-    ModeCountPulse modeMeasureCountPulse;   // Режим счёта импульсов
+    ModeCountPulse modeCountPulse;   // Режим счёта импульсов
 
     static Channel &Current();
     static void SetCurrent(Channel &channel) { current = &channel; }
