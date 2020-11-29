@@ -178,7 +178,7 @@ String Menu::ChannelSettings()
         ADD_UGO(Channel::A.set.couple.UGO());
         ADD_UGO(Channel::A.set.impedance.UGO());
         ADD_UGO(Channel::A.set.modeFilter.UGO());
-        ADD_UGO(Channel::A.modeFront.UGO());
+        ADD_UGO(Channel::A.set.modeFront.UGO());
         ADD_UGO(Channel::A.divider.UGO());
         ADD_UGO(Channel::A.typeSynch.UGO());
         ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Channel::Current().divider.ToAbs()).c_str());
@@ -205,7 +205,7 @@ String Menu::ChannelSettings()
         ADD_UGO(Channel::B.set.couple.UGO());
         ADD_UGO(Channel::B.set.impedance.UGO());
         ADD_UGO(Channel::B.set.modeFilter.UGO());
-        ADD_UGO(Channel::B.modeFront.UGO());
+        ADD_UGO(Channel::B.set.modeFront.UGO());
         ADD_UGO(Channel::B.divider.UGO());
         ADD_UGO(Channel::B.typeSynch.UGO());
         ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Channel::Current().divider.ToAbs()).c_str());
