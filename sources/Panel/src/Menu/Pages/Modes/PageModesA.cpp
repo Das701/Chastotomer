@@ -87,12 +87,13 @@ static void OnChanged_ModeFrequency()
 {
     items[1] = &sModeFrequency;
 
+    Channel::RelationOff();
+
     if (Channel::A.modeFrequency.IsFrequency())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
         items[4] = nullptr;
-        Channel::RelationOff();
     }
     else if (Channel::A.modeFrequency.IsRatioAB())
     {
@@ -111,19 +112,16 @@ static void OnChanged_ModeFrequency()
         items[2] = Channel::switchNumberPeriods;
         items[3] = Channel::switchTimeLabels;
         items[4] = nullptr;
-        Channel::RelationOff();
     }
     else if (Channel::A.modeFrequency.IsTachometer())
     {
         items[2] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
         items[3] = nullptr;
-        Channel::RelationOff();
     }
     else if (Channel::A.modeFrequency.IsComparator())
     {
         items[2] = &bStatistics;
         items[3] = nullptr;
-        Channel::RelationOff();
     }
 
     ModeFrequency::LoadToFPGA();
