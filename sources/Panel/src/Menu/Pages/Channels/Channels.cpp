@@ -69,7 +69,8 @@ SettingsChannel::SettingsChannel(const bool *enabledMeasures, const bool *enable
     divider(Divider::_1),
     typeSynch(TypeSynch::Manual),
     typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count),
-    modeFrequency(ModeFrequency::Frequency, enabledModeFrequency, ModeFrequency::Count)
+    modeFrequency(ModeFrequency::Frequency, enabledModeFrequency, ModeFrequency::Count),
+    modePeriod(ModePeriod::Period)
 {
 
 }
@@ -80,7 +81,6 @@ Channel::Channel(Page *pSettings, Page *pModes, Switch *pModeFrequency, Switch *
     pageSettings(pSettings),
     pageModes(pModes),
     set(enabledMeasures, enabledModeFrequency),
-    modePeriod(ModePeriod::Period),
     modeDuration(ModeDuration::Ndt),
     modeMeasureCountPulse(ModeCountPulse::AtB, enabledModeCountPulse, ModeCountPulse::Count),
     switchModeFrequency(pModeFrequency),

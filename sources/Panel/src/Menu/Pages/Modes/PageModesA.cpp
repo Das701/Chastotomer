@@ -105,13 +105,13 @@ static void OnChanged_ModePeriod()
 {
     items[1] = &sModePeriod;
 
-    if (Channel::A.modePeriod.IsPeriod())
+    if (Channel::A.set.modePeriod.IsPeriod())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = Channel::switchTimeLabels;
         items[4] = nullptr;
     }
-    else if (Channel::A.modePeriod.IsF_1())
+    else if (Channel::A.set.modePeriod.IsF_1())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
@@ -127,7 +127,7 @@ static void OnChanged_ModePeriod()
 DEF_SWITCH_2(sModePeriod,
     "Режим", "Измерение периода",
     "Период", "T=1/f",
-    Channel::A.modePeriod, OnChanged_ModePeriod
+    Channel::A.set.modePeriod, OnChanged_ModePeriod
 );
 
 

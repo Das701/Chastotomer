@@ -23,7 +23,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
         static Enumeration *const modes[4] =
         {
             &Channel::A.set.modeFrequency,
-            &Channel::A.modePeriod,
+            &Channel::A.set.modePeriod,
             &Channel::A.modeDuration,
             &Channel::A.modeMeasureCountPulse
         };
@@ -35,7 +35,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
         static Enumeration *const modesB[4] =
         {
             &Channel::B.set.modeFrequency,
-            &Channel::B.modePeriod,
+            &Channel::B.set.modePeriod,
             &Channel::B.modeDuration,
             &Channel::B.modeMeasureCountPulse
         };
@@ -179,8 +179,8 @@ const ModePeriod &ModePeriod::Current()
 
     static const ModePeriod *modes[Channel::Count] =
     {
-        &Channel::A.modePeriod,
-        &Channel::B.modePeriod,
+        &Channel::A.set.modePeriod,
+        &Channel::B.set.modePeriod,
         &null,
         &null
     };
