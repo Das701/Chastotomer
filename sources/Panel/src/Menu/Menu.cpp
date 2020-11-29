@@ -52,7 +52,7 @@ static void OnGovernor(const Control &control)
 
     if (CURRENT_CHANNEL_IS_A_OR_B && control.IsRotateGovernor())
     {
-        int delta = Channel::Current().typeSynch.IsHoldoff() ? 1 : 2;
+        int delta = Channel::Current().set.typeSynch.IsHoldoff() ? 1 : 2;
 
         if (control.value == Control::GovLeft)
         {
@@ -180,9 +180,9 @@ String Menu::ChannelSettings()
         ADD_UGO(Channel::A.set.modeFilter.UGO());
         ADD_UGO(Channel::A.set.modeFront.UGO());
         ADD_UGO(Channel::A.set.divider.UGO());
-        ADD_UGO(Channel::A.typeSynch.UGO());
+        ADD_UGO(Channel::A.set.typeSynch.UGO());
         ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Channel::Current().set.divider.ToAbs()).c_str());
-        if (Channel::A.typeSynch.IsManual())
+        if (Channel::A.set.typeSynch.IsManual())
         {
             std::strcat(settings, "ìÂ");
         }
@@ -207,9 +207,9 @@ String Menu::ChannelSettings()
         ADD_UGO(Channel::B.set.modeFilter.UGO());
         ADD_UGO(Channel::B.set.modeFront.UGO());
         ADD_UGO(Channel::B.set.divider.UGO());
-        ADD_UGO(Channel::B.typeSynch.UGO());
+        ADD_UGO(Channel::B.set.typeSynch.UGO());
         ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Channel::Current().set.divider.ToAbs()).c_str());
-        if (Channel::B.typeSynch.IsManual())
+        if (Channel::B.set.typeSynch.IsManual())
         {
             std::strcat(settings, "ìÂ");
         }

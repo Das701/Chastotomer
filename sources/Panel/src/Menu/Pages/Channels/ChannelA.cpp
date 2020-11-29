@@ -89,7 +89,7 @@ DEF_SWITCH_UGO_2(sDivider,
 
 static void OnPress_Sync()
 {
-    if (Channel::A.typeSynch.IsHoldoff())
+    if (Channel::A.set.typeSynch.IsHoldoff())
     {
         items[0] = &sSync;
         items[1] = Channel::switchTimeMeasue;
@@ -98,7 +98,7 @@ static void OnPress_Sync()
 
         Channel::A.pageSettings->selectedItem = 0;
     }
-    else if(Channel::A.typeSynch.IsManual())
+    else if(Channel::A.set.typeSynch.IsManual())
     {
         items[0] = &sCouple;
         items[1] = &sImpedance;
@@ -111,7 +111,7 @@ static void OnPress_Sync()
         Channel::A.pageSettings->selectedItem = 5;
     }
 
-    TYPE_SYNCH_A = (TypeSynch::E)Channel::A.typeSynch.value;
+    TYPE_SYNCH_A = (TypeSynch::E)Channel::A.set.typeSynch.value;
 
     TypeSynch::LoadToFPGA();
 }
@@ -121,7 +121,7 @@ DEF_SWITCH_UGO_2(sSync,
     "Синхр", "Выбор уровня сихронизации",
     "Ручн", "Holdoff",
     "Ручн", "Holdoff",
-    Channel::A.typeSynch, OnPress_Sync
+    Channel::A.set.typeSynch, OnPress_Sync
 );
 
 static Item *items[7] =

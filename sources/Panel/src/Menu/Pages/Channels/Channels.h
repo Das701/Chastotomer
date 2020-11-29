@@ -24,13 +24,15 @@ struct SettingsChannel
         impedance(InputImpedance::_1MOmh),
         modeFilter(ModeFilter::Off),
         modeFront(ModeFront::Front),
-        divider(Divider::_1)
+        divider(Divider::_1),
+        typeSynch(TypeSynch::Manual)
     {}
     InputCouple    couple;
     InputImpedance impedance;
     ModeFilter     modeFilter;
     ModeFront      modeFront;
     Divider        divider;
+    TypeSynch      typeSynch;
 };
 
 
@@ -63,8 +65,6 @@ struct Channel
     Page *pageModes;
 
     SettingsChannel set;
-
-    TypeSynch      typeSynch;
 
     TypeMeasure    typeMeasure;
     ModeFrequency  modeFrequency;           // Режим измерения частоты

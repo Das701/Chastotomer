@@ -52,7 +52,7 @@ void LevelSynch::Change(int delta)
         int MIN = -800;
         int MAX = 800;
 
-        if (Channel::Current().typeSynch.IsHoldoff())
+        if (Channel::Current().set.typeSynch.IsHoldoff())
         {
             MIN = 1;
         }
@@ -92,7 +92,7 @@ void TypeSynch::LoadToFPGA()
     {
         Command command(Command::TypeSynch);
 
-        if (Channel::Current().typeSynch.IsHoldoff())
+        if (Channel::Current().set.typeSynch.IsHoldoff())
         {
             command.SetBit(9);
         }
