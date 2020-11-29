@@ -20,6 +20,7 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
 add_compile_options(/wd4211)    #  nonstandard extension used: redefined extern to static
 add_compile_options(/wd4514)    # 'function' : unreferenced inline function has been removed
+add_compile_options(/wd4623)
 add_compile_options(/wd4626)    # 'derived class' : assignment operator was implicitly defined as deleted because a base class assignment operator is inaccessible or deleted
 add_compile_options(/wd4774)    # format string expected in argument N is not a string literal
 add_compile_options(/wd4820)    # 'N' bytes padding added after data member

@@ -65,7 +65,6 @@ Channel::Channel(Page *pSettings, Page *pModes, Switch *pModeFrequency, Switch *
     const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     pageSettings(pSettings),
     pageModes(pModes),
-    couple(InputCouple::AC),
     impedance(InputImpedance::_1MOmh),
     modeFilter(ModeFilter::Off),
     modeFront(ModeFront::Front),

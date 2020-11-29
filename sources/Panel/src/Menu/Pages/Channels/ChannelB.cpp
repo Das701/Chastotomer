@@ -26,7 +26,7 @@ DEF_SWITCH_UGO_2(sCouple,
     "Вход", "Вход",
     "Открытый вход", "Закрытый вход",
     SYMBOL_DC_IN_QUOTES, SYMBOL_AC_IN_QUOTES,
-    Channel::B.couple, OnPress_Couple
+    Channel::B.set.couple, OnPress_Couple
 );
 
 

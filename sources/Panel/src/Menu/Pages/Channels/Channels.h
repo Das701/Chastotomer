@@ -17,6 +17,13 @@ class Switch;
 #define NUMBER_CURRENT_CHANNEL      (NUMBER_CHANNEL(CURRENT_CHANNEL))
 
 
+struct SettingsChannel
+{
+    SettingsChannel() : couple(InputCouple::AC) {}
+    InputCouple    couple;
+};
+
+
 struct Channel
 {
     Channel(Page *pSettings, Page *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
@@ -45,7 +52,8 @@ struct Channel
     Page *pageSettings;
     Page *pageModes;
 
-    InputCouple    couple;
+    SettingsChannel set;
+
     InputImpedance impedance;
     ModeFilter     modeFilter;
     ModeFront      modeFront;

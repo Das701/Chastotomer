@@ -175,7 +175,7 @@ String Menu::ChannelSettings()
 
     if(CURRENT_CHANNEL_IS_A)
     {
-        ADD_UGO(Channel::A.couple.UGO());
+        ADD_UGO(Channel::A.set.couple.UGO());
         ADD_UGO(Channel::A.impedance.UGO());
         ADD_UGO(Channel::A.modeFilter.UGO());
         ADD_UGO(Channel::A.modeFront.UGO());
@@ -202,7 +202,7 @@ String Menu::ChannelSettings()
     
     if(CURRENT_CHANNEL_IS_B)
     {
-        ADD_UGO(Channel::B.couple.UGO());
+        ADD_UGO(Channel::B.set.couple.UGO());
         ADD_UGO(Channel::B.impedance.UGO());
         ADD_UGO(Channel::B.modeFilter.UGO());
         ADD_UGO(Channel::B.modeFront.UGO());

@@ -23,7 +23,7 @@ void InputCouple::LoadToFPGA()
     {
         Command command(Command::Couple);
 
-        if (Channel::Current().couple.IsDC())
+        if (Channel::Current().set.couple.IsDC())
         {
             command.SetBit(9);
         }

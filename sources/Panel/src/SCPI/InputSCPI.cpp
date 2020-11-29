@@ -29,8 +29,8 @@ static pCHAR FuncCoupling(pCHAR buffer)
         ""
     };
 
-    SCPI_REQUEST(SCPI::SendAnswer(coupling[Channel::Current().couple.value]));
-    SCPI_PROCESS_ARRAY(coupling, Channel::Current().couple.Set((InputCouple::E)i));
+    SCPI_REQUEST(SCPI::SendAnswer(coupling[Channel::Current().set.couple.value]));
+    SCPI_PROCESS_ARRAY(coupling, Channel::Current().set.couple.Set((InputCouple::E)i));
 }
 
 
