@@ -109,15 +109,15 @@ void FPGA::Update() //-V2008
     }
     else
     {
-        if (Channel::Current().typeMeasure.IsDuration() && ModeDuration::Current().IsNdt_1ns())
+        if (Channel::Current().set.typeMeasure.IsDuration() && ModeDuration::Current().IsNdt_1ns())
         {
             ReadInterpolator();
         }
-        else if(Channel::Current().typeMeasure.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
+        else if(Channel::Current().set.typeMeasure.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
         {
             ReadFillFactorPhase();
         }
-        else if (CURRENT_CHANNEL_IS_A && (Channel::A.modeFrequency.IsComparator() && Channel::A.typeMeasure.IsFrequency())) 
+        else if (CURRENT_CHANNEL_IS_A && (Channel::A.modeFrequency.IsComparator() && Channel::A.set.typeMeasure.IsFrequency())) 
         {
             ReadComparator();
         }

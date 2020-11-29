@@ -284,13 +284,13 @@ static void OnKey(const Control &control) //-V2008
         break;
 
     case Control::Auto:
-        if ((Channel::A.typeMeasure.IsFrequency() && Channel::A.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B.typeMeasure.IsFrequency() && Channel::B.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
-            (Channel::C.typeMeasure.IsFrequency() && Channel::C.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
-            (Channel::A.typeMeasure.IsPeriod() && Channel::A.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B.typeMeasure.IsPeriod() && Channel::B.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
-            (Channel::A.typeMeasure.IsDuration() && Channel::A.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B.typeMeasure.IsDuration() && Channel::B.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
+        if ((Channel::A.set.typeMeasure.IsFrequency() && Channel::A.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B.set.typeMeasure.IsFrequency() && Channel::B.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
+            (Channel::C.set.typeMeasure.IsFrequency() && Channel::C.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
+            (Channel::A.set.typeMeasure.IsPeriod() && Channel::A.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B.set.typeMeasure.IsPeriod() && Channel::B.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
+            (Channel::A.set.typeMeasure.IsDuration() && Channel::A.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B.set.typeMeasure.IsDuration() && Channel::B.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
         {
             MathFPGA::Auto::Refresh();
             FreqMeter::LoadAuto();

@@ -19,20 +19,16 @@ class Switch;
 
 struct SettingsChannel
 {
-    SettingsChannel() :
-        couple(InputCouple::AC),
-        impedance(InputImpedance::_1MOmh),
-        modeFilter(ModeFilter::Off),
-        modeFront(ModeFront::Front),
-        divider(Divider::_1),
-        typeSynch(TypeSynch::Manual)
-    {}
+    SettingsChannel(const bool *enabledMeasures);
+
     InputCouple    couple;
     InputImpedance impedance;
     ModeFilter     modeFilter;
     ModeFront      modeFront;
     Divider        divider;
     TypeSynch      typeSynch;
+
+    TypeMeasure    typeMeasure;
 };
 
 
@@ -66,7 +62,6 @@ struct Channel
 
     SettingsChannel set;
 
-    TypeMeasure    typeMeasure;
     ModeFrequency  modeFrequency;           // Режим измерения частоты
     ModePeriod     modePeriod;              // Режим измерения периода
     ModeDuration   modeDuration;            // Режим измерения длительности

@@ -29,7 +29,7 @@ static void OnChanged_TypeMeasure()
 DEF_SWITCH_4(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Период", "Длит.", "Сч. имп.",
-    Channel::A.typeMeasure, OnChanged_TypeMeasure
+    Channel::A.set.typeMeasure, OnChanged_TypeMeasure
 );
 
 
@@ -217,7 +217,7 @@ static void OnChanged_ModeTest()
 {
     bool test = FreqMeter::modeTest.IsEnabled();
 
-    switch(Channel::A.typeMeasure.value)
+    switch(Channel::A.set.typeMeasure.value)
     {
     case TypeMeasure::Frequency:
         if (Channel::A.modeFrequency.IsFrequency())

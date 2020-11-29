@@ -251,7 +251,7 @@ void Display::DrawScreen()
     }
     else
     {
-        Channel::Current().typeMeasure.Draw(10, 57);
+        Channel::Current().set.typeMeasure.Draw(10, 57);
         
         CurrentModeMeasure::Draw(120, 57);
 
@@ -334,16 +334,16 @@ static void DrawInfo()
 {
     if(PageIndication::memoryMode == MemoryMode::On)
     {
-        if(CURRENT_CHANNEL_IS_A && Channel::A.modeFrequency.IsTachometer() && (Channel::A.typeMeasure.IsFrequency()))
+        if(CURRENT_CHANNEL_IS_A && Channel::A.modeFrequency.IsTachometer() && (Channel::A.set.typeMeasure.IsFrequency()))
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && Channel::B.modeFrequency.IsTachometer() && Channel::B.typeMeasure.IsFrequency())
+        else if(CURRENT_CHANNEL_IS_B && Channel::B.modeFrequency.IsTachometer() && Channel::B.set.typeMeasure.IsFrequency())
         {
         }
-        else if(CURRENT_CHANNEL_IS_A && Channel::A.typeMeasure.IsCountPulse() && Channel::A.modeMeasureCountPulse.Is_StartStop())
+        else if(CURRENT_CHANNEL_IS_A && Channel::A.set.typeMeasure.IsCountPulse() && Channel::A.modeMeasureCountPulse.Is_StartStop())
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && Channel::B.typeMeasure.IsCountPulse() && Channel::B.modeMeasureCountPulse.Is_StartStop())
+        else if(CURRENT_CHANNEL_IS_B && Channel::B.set.typeMeasure.IsCountPulse() && Channel::B.modeMeasureCountPulse.Is_StartStop())
         {
         }
         else
@@ -371,8 +371,8 @@ static void DrawInfo()
         DrawValue("Зап:однокр", coordLaunch.x, coordLaunch.y);
     }
 
-    if((CURRENT_CHANNEL_IS_A && Channel::A.typeMeasure.IsCountPulse() && Channel::A.modeMeasureCountPulse.Is_StartStop()) ||
-       (CURRENT_CHANNEL_IS_B && Channel::B.typeMeasure.IsCountPulse() && Channel::B.modeMeasureCountPulse.Is_StartStop()))
+    if((CURRENT_CHANNEL_IS_A && Channel::A.set.typeMeasure.IsCountPulse() && Channel::A.modeMeasureCountPulse.Is_StartStop()) ||
+       (CURRENT_CHANNEL_IS_B && Channel::B.set.typeMeasure.IsCountPulse() && Channel::B.modeMeasureCountPulse.Is_StartStop()))
     {
         Text(ModeStartStop::IsEnabled() ? "Старт" : "Стоп").Write(430, 60);
     }

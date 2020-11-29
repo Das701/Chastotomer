@@ -22,7 +22,7 @@ static void OnChanged_TypeMeasure()
 DEF_SWITCH_2(sTypeMeasure,
     "Измерения", "Выбор измерения",
     "Частота", "Частота",
-    Channel::D.typeMeasure, OnChanged_TypeMeasure
+    Channel::D.set.typeMeasure, OnChanged_TypeMeasure
 )
 
 

@@ -61,11 +61,24 @@ NumberPeriods    Channel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      Channel::timeMeasure(TimeMeasure::_1ms);
 
 
+SettingsChannel::SettingsChannel(const bool *enabledMeasures) :
+    couple(InputCouple::AC),
+    impedance(InputImpedance::_1MOmh),
+    modeFilter(ModeFilter::Off),
+    modeFront(ModeFront::Front),
+    divider(Divider::_1),
+    typeSynch(TypeSynch::Manual),
+    typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count)
+{
+
+}
+
+
 Channel::Channel(Page *pSettings, Page *pModes, Switch *pModeFrequency, Switch *pModeCountPulse, Switch *pModePeriod, Switch *pModeDuration,
     const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     pageSettings(pSettings),
     pageModes(pModes),
-    typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count),
+    set(enabledMeasures),
     modeFrequency(ModeFrequency::Frequency, enabledModeFrequency, ModeFrequency::Count),
     modePeriod(ModePeriod::Period),
     modeDuration(ModeDuration::Ndt),
@@ -210,7 +223,7 @@ bool TypeMeasure::IsActiveNumberPeriods(int m)
 
 bool Channel::ConsistTimeMeasure()
 {
-    if (typeMeasure.IsFrequency())
+    if (set.typeMeasure.IsFrequency())
     {
         if (ModeFrequency::Current().IsFrequency() || ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC())
         {
@@ -218,7 +231,7 @@ bool Channel::ConsistTimeMeasure()
         }
     }
 
-    if (typeMeasure.IsPeriod() && ModePeriod::Current().IsF_1())
+    if (set.typeMeasure.IsPeriod() && ModePeriod::Current().IsF_1())
     {
         return true;
     }
@@ -262,7 +275,7 @@ void Channel::DrawParameters(int x, int y)
 
 void Channel::PressSetup()
 {
-    switch (Channel::A.typeMeasure.value)
+    switch (Channel::A.set.typeMeasure.value)
     {
     case TypeMeasure::Frequency:    pageModes->items[1] = switchModeFrequency;     break;
     case TypeMeasure::Period:       pageModes->items[1] = switchModePeriod;        break;
@@ -274,7 +287,7 @@ void Channel::PressSetup()
 
 void Channel::OnChanged_TypeMeasure()
 {
-    switch (typeMeasure.value)
+    switch (set.typeMeasure.value)
     {
     case TypeMeasure::Frequency:    if (switchModeFrequency != nullptr)  { switchModeFrequency->FuncOnPress();  }   break;
     case TypeMeasure::CountPulse:   if (switchModeCountPulse != nullptr) { switchModeCountPulse->FuncOnPress(); }   break;

@@ -28,7 +28,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
             &Channel::A.modeMeasureCountPulse
         };
 
-        return *modes[Channel::A.typeMeasure.value];
+        return *modes[Channel::A.set.typeMeasure.value];
     }
     else if (CURRENT_CHANNEL_IS_B)
     {
@@ -40,7 +40,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
             &Channel::B.modeMeasureCountPulse
         };
 
-        return *modesB[Channel::B.typeMeasure.value];
+        return *modesB[Channel::B.set.typeMeasure.value];
     }
     else if (CURRENT_CHANNEL_IS_C)
     {
@@ -52,7 +52,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
             &Channel::C.modeMeasureCountPulse
         };
 
-        return *modesC[Channel::C.typeMeasure.value];;
+        return *modesC[Channel::C.set.typeMeasure.value];;
     }
 
     return Channel::D.modeFrequency;
@@ -152,7 +152,7 @@ const ModeCountPulse &ModeCountPulse::Current()
         &null
     };
 
-    return Channel::Current().typeMeasure.IsCountPulse() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
+    return Channel::Current().set.typeMeasure.IsCountPulse() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
 }
 
 
@@ -169,7 +169,7 @@ const ModeFrequency &ModeFrequency::Current()
         &Channel::D.modeFrequency
     };
 
-    return Channel::Current().typeMeasure.IsFrequency() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
+    return Channel::Current().set.typeMeasure.IsFrequency() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
 }
 
 
@@ -185,7 +185,7 @@ const ModePeriod &ModePeriod::Current()
         &null
     };
 
-    return Channel::Current().typeMeasure.IsPeriod() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
+    return Channel::Current().set.typeMeasure.IsPeriod() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
 }
 
 
@@ -201,7 +201,7 @@ const ModeDuration &ModeDuration::Current()
         &null
     };
 
-    return Channel::Current().typeMeasure.IsDuration() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
+    return Channel::Current().set.typeMeasure.IsDuration() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
 }
 
 
