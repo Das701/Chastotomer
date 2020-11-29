@@ -333,22 +333,11 @@ void Channel::PressSetup()
 
 void Channel::OnChanged_TypeMeasure()
 {
-    TypeMeasure &type = typeMeasure;
-
-    if (type.IsFrequency())
+    switch (typeMeasure.value)
     {
-        OnChanged_ModeFrequency();
-    }
-    else if (type.IsCountPulse())
-    {
-        OnChanged_ModeCountPulse();
-    }
-    else if (type.IsPeriod())
-    {
-        OnChanged_ModePeriod();
-    }
-    else if (type.IsDuration())
-    {
-        OnChanged_ModeDuration();
+    case TypeMeasure::Frequency:        OnChanged_ModeFrequency();      break;
+    case TypeMeasure::CountPulse:       OnChanged_ModeCountPulse();     break;
+    case TypeMeasure::Period:           OnChanged_ModePeriod();         break;
+    case TypeMeasure::Duration:         OnChanged_ModeDuration();       break;
     }
 }
