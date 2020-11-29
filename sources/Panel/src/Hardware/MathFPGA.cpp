@@ -5,6 +5,7 @@
 #include "Hardware/FPGA.h"
 #include "Hardware/MathFPGA.h"
 #include "Menu/Pages/PageStatistics.h"
+#include "Menu/Pages/Channels/Channels.h"
 #include "Utils/Math.h"
 #include "Utils/StringUtils.h"
 #include "Utils/Value.h"

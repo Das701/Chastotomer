@@ -9,7 +9,7 @@
 #define TYPE_SYNCH_A                (TYPE_SYNCH(Channel::A))
 #define TYPE_SYNCH_B                (TYPE_SYNCH(Channel::B))
 
-#define LEVEL_SYNCH(ch)             (set.levelSynch[NUMBER_CHANNEL(ch)][TYPE_SYNCH(NUMBER_CHANNEL(ch))])
+#define LEVEL_SYNCH(ch)             set.levelSynch[NUMBER_CHANNEL(ch)][TYPE_SYNCH(ch)]
 #define LEVEL_SYNCH_A               (LEVEL_SYNCH(Channel::A))
 #define LEVEL_SYNCH_B               (LEVEL_SYNCH(Channel::B))
 

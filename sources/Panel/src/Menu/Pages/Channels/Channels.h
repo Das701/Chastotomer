@@ -1,6 +1,8 @@
 #pragma once
-#include "Menu/MenuItems.h"
 #include "Menu/Pages/Modes/Modes.h"
+
+class Page;
+class Switch;
 
 
 #define CURRENT_CHANNEL             Channel::Current()

@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Settings.h"
 #include "Hardware/FPGA.h"
+#include "Menu/Pages/Channels/Channels.h"
 #include "Utils/Math.h"
 
 
@@ -44,7 +45,7 @@ void LevelSynch::Change(int delta)
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        int prev = LEVEL_SYNCH(CURRENT_CHANNEL);
+        int prev = LEVEL_SYNCH(Channel::Current());
 
         LEVEL_SYNCH(CURRENT_CHANNEL) += delta;
 
