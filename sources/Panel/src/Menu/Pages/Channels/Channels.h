@@ -63,9 +63,9 @@ struct Channel
 
     static Page *PageForChannel(Channel::E);
 
-    static bool IsActiveTimeLabels(TypeMeasure *type, int mode);
-    static bool IsActiveTimeMeasure(TypeMeasure *type, int mode);
-    static bool IsActiveNumberPeriods(TypeMeasure *type, int mode);
+    bool IsActiveTimeLabels(TypeMeasure *type, int mode);
+    bool IsActiveTimeMeasure(TypeMeasure *type, int mode);
+    bool IsActiveNumberPeriods(TypeMeasure *type, int mode);
 
     static Channel &Current();
 
