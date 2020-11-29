@@ -61,7 +61,7 @@ NumberPeriods    Channel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      Channel::timeMeasure(TimeMeasure::_1ms);
 
 
-SettingsChannel::SettingsChannel(Switch *pModeFrequency, const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
+SettingsChannel::SettingsChannel(Switch *pModeFrequency, Switch *pModeCountPulse, const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     couple(InputCouple::AC),
     impedance(InputImpedance::_1MOmh),
     modeFilter(ModeFilter::Off),
@@ -73,7 +73,8 @@ SettingsChannel::SettingsChannel(Switch *pModeFrequency, const bool *enabledMeas
     modePeriod(ModePeriod::Period),
     modeDuration(ModeDuration::Ndt),
     modeCountPulse(ModeCountPulse::AtB, enabledModeCountPulse, ModeCountPulse::Count),
-    switchModeFrequency(pModeFrequency)
+    switchModeFrequency(pModeFrequency),
+    switchModeCountPulse(pModeCountPulse)
 {
 
 }
@@ -83,8 +84,7 @@ Channel::Channel(Page *pSettings, Page *pModes, Switch *pModeFrequency, Switch *
     const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     pageSettings(pSettings),
     pageModes(pModes),
-    set(pModeFrequency, enabledMeasures, enabledModeFrequency, enabledModeCountPulse),
-    switchModeCountPulse(pModeCountPulse),
+    set(pModeFrequency, pModeCountPulse, enabledMeasures, enabledModeFrequency, enabledModeCountPulse),
     switchModePeriod(pModePeriod),
     switchModeDuration(pModeDuration)
 {
@@ -280,7 +280,7 @@ void Channel::PressSetup()
     case TypeMeasure::Frequency:    pageModes->items[1] = set.switchModeFrequency;     break;
     case TypeMeasure::Period:       pageModes->items[1] = switchModePeriod;        break;
     case TypeMeasure::Duration:     pageModes->items[1] = switchModeDuration;      break;
-    case TypeMeasure::CountPulse:   pageModes->items[1] = switchModeCountPulse;    break;
+    case TypeMeasure::CountPulse:   pageModes->items[1] = set.switchModeCountPulse;    break;
     }
 }
 
@@ -290,7 +290,7 @@ void Channel::OnChanged_TypeMeasure()
     switch (set.typeMeasure.value)
     {
     case TypeMeasure::Frequency:    if (set.switchModeFrequency != nullptr)  { set.switchModeFrequency->FuncOnPress();  }   break;
-    case TypeMeasure::CountPulse:   if (switchModeCountPulse != nullptr) { switchModeCountPulse->FuncOnPress(); }   break;
+    case TypeMeasure::CountPulse:   if (set.switchModeCountPulse != nullptr) { set.switchModeCountPulse->FuncOnPress(); }   break;
     case TypeMeasure::Period:       if (switchModePeriod != nullptr)     { switchModePeriod->FuncOnPress();     }   break;
     case TypeMeasure::Duration:     if (switchModeDuration != nullptr)   { switchModeDuration->FuncOnPress();   }   break;
     }

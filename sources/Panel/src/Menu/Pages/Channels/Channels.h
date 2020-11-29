@@ -19,7 +19,8 @@ class Switch;
 
 struct SettingsChannel
 {
-    SettingsChannel(Switch *pModeFrequency, const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
+    SettingsChannel(Switch *pModeFrequency, Switch *pModeCountPulse,
+        const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
     InputCouple    couple;
     InputImpedance impedance;
@@ -35,6 +36,7 @@ struct SettingsChannel
     ModeCountPulse modeCountPulse;   // Режим счёта импульсов
 
     Switch        *switchModeFrequency;
+    Switch        *switchModeCountPulse;
 };
 
 
@@ -88,7 +90,6 @@ struct Channel
 
 private:
 
-    Switch *switchModeCountPulse;
     Switch *switchModePeriod;
     Switch *switchModeDuration;
 
