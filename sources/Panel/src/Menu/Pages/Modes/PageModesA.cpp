@@ -172,7 +172,7 @@ DEF_SWITCH_2(sModePeriod,
 Switch *switchModePeriodA = &sModePeriod;
 
 
-void Channel::OnChanged_ModeDurationA()
+static void OnChanged_ModeDuration()
 {
     items[1] = &sModeDuration;
 
@@ -200,8 +200,11 @@ void Channel::OnChanged_ModeDurationA()
 DEF_SWITCH_5(sModeDuration,
     "Режим", "Измерение длительности",
     "ndt", "ndt/1нс", "СтартА-СтопВ", "Коэфф. зап.", "Фаза",
-    Channel::A.modeDuration, Channel::OnChanged_ModeDurationA
+    Channel::A.modeDuration, OnChanged_ModeDuration
 );
+
+
+Switch *switchModeDurationA = &sModeDuration;
 
 
 static void OnChanged_ModeCountPulse()

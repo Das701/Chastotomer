@@ -14,7 +14,7 @@ struct Channel
         Count
     };
 
-    Channel(Page *pSettings, Page *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod,
+    Channel(Page *pSettings, Page *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
         const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
     Page *pageSettings;
@@ -70,10 +70,6 @@ struct Channel
     // Вызывается при измеенении вида измерения
     static void OnChanged_TypeMeasure();
 
-    static void OnChanged_ModeDuration();
-    static void OnChanged_ModeDurationA();
-    static void OnChanged_ModeDurationB();
-
     static void PressSetup();
     static void PressSetupA();
     static void PressSetupB();
@@ -90,8 +86,10 @@ private:
     Switch *switchModeFrequency;
     Switch *switchModeCountPulse;
     Switch *switchModePeriod;
+    Switch *switchModeDuration;
 
     void OnChanged_ModeFrequency();
     void OnChanged_ModeCountPulse();
     void OnChanged_ModePeriod();
+    void OnChanged_ModeDuration();
 };
