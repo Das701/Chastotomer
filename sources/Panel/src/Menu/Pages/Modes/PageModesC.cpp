@@ -31,7 +31,7 @@ static void OnChanged_ModeFrequency()
 {
     items[1] = &sModeFrequency;
 
-    switch (Channel::C.modeFrequency.value)
+    switch (Channel::C.set.modeFrequency.value)
     {
     case ModeFrequency::Frequency:
         items[2] = Channel::switchTimeMeasue;
@@ -55,7 +55,7 @@ static void OnChanged_ModeFrequency()
 DEF_SWITCH_3(sModeFrequency,
     "Режим", "Измерение частоты",
     "Частота", "f(C)/f(A)", "f(C)/f(B)",
-    Channel::C.modeFrequency, OnChanged_ModeFrequency
+    Channel::C.set.modeFrequency, OnChanged_ModeFrequency
 );
 
 

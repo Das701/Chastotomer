@@ -61,14 +61,15 @@ NumberPeriods    Channel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      Channel::timeMeasure(TimeMeasure::_1ms);
 
 
-SettingsChannel::SettingsChannel(const bool *enabledMeasures) :
+SettingsChannel::SettingsChannel(const bool *enabledMeasures, const bool *enabledModeFrequency) :
     couple(InputCouple::AC),
     impedance(InputImpedance::_1MOmh),
     modeFilter(ModeFilter::Off),
     modeFront(ModeFront::Front),
     divider(Divider::_1),
     typeSynch(TypeSynch::Manual),
-    typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count)
+    typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count),
+    modeFrequency(ModeFrequency::Frequency, enabledModeFrequency, ModeFrequency::Count)
 {
 
 }
@@ -78,8 +79,7 @@ Channel::Channel(Page *pSettings, Page *pModes, Switch *pModeFrequency, Switch *
     const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     pageSettings(pSettings),
     pageModes(pModes),
-    set(enabledMeasures),
-    modeFrequency(ModeFrequency::Frequency, enabledModeFrequency, ModeFrequency::Count),
+    set(enabledMeasures, enabledModeFrequency),
     modePeriod(ModePeriod::Period),
     modeDuration(ModeDuration::Ndt),
     modeMeasureCountPulse(ModeCountPulse::AtB, enabledModeCountPulse, ModeCountPulse::Count),

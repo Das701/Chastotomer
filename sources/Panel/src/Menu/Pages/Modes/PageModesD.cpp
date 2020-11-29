@@ -35,7 +35,7 @@ static void OnChanged_ModeMeasureFrequency()
 DEF_SWITCH_2(sModeFrequency,
     "Режим", "Измерение частоы",
     "Частота", "Частота",
-    Channel::D.modeFrequency, OnChanged_ModeMeasureFrequency
+    Channel::D.set.modeFrequency, OnChanged_ModeMeasureFrequency
 )
 
 

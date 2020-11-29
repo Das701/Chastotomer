@@ -37,31 +37,31 @@ static void OnChanged_ModeFrequency()
 
     Relation::Off();
 
-    if (Channel::B.modeFrequency.IsFrequency())
+    if (Channel::B.set.modeFrequency.IsFrequency())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
         items[4] = nullptr;
     }
-    else if (Channel::B.modeFrequency.IsRatioBA())
+    else if (Channel::B.set.modeFrequency.IsRatioBA())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = nullptr;
         Relation::On();
     }
-    else if (Channel::B.modeFrequency.IsRatioBC())
+    else if (Channel::B.set.modeFrequency.IsRatioBC())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = nullptr;
         Relation::On();
     }
-    else if (Channel::B.modeFrequency.IsT_1())
+    else if (Channel::B.set.modeFrequency.IsT_1())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = Channel::switchTimeLabels;
         items[4] = nullptr;
     }
-    else if(Channel::B.modeFrequency.IsTachometer())
+    else if(Channel::B.set.modeFrequency.IsTachometer())
     {
         items[2] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
         items[3] = nullptr;
@@ -74,7 +74,7 @@ static void OnChanged_ModeFrequency()
 DEF_SWITCH_5(sModeFrequency,
     "Режим", "Измерение частоты",
     "Частота", "f=1/T", "f(B)/f(A)", "f(B)/f(C)", "Тахометр",
-    Channel::B.modeFrequency, OnChanged_ModeFrequency
+    Channel::B.set.modeFrequency, OnChanged_ModeFrequency
 );
 
 
@@ -200,11 +200,11 @@ static void OnChanged_ModeTest()
     switch (Channel::B.set.typeMeasure.value)
     {
     case TypeMeasure::Frequency:
-        if (Channel::B.modeFrequency.IsFrequency())
+        if (Channel::B.set.modeFrequency.IsFrequency())
         {
             items[3] = test ? Channel::switchTimeLabels : nullptr;
         }
-        else if (Channel::B.modeFrequency.IsTachometer())
+        else if (Channel::B.set.modeFrequency.IsTachometer())
         {
             items[2] = test ? Channel::switchTimeLabels : nullptr;
         }

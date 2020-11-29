@@ -334,10 +334,10 @@ static void DrawInfo()
 {
     if(PageIndication::memoryMode == MemoryMode::On)
     {
-        if(CURRENT_CHANNEL_IS_A && Channel::A.modeFrequency.IsTachometer() && (Channel::A.set.typeMeasure.IsFrequency()))
+        if(CURRENT_CHANNEL_IS_A && Channel::A.set.modeFrequency.IsTachometer() && (Channel::A.set.typeMeasure.IsFrequency()))
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && Channel::B.modeFrequency.IsTachometer() && Channel::B.set.typeMeasure.IsFrequency())
+        else if(CURRENT_CHANNEL_IS_B && Channel::B.set.modeFrequency.IsTachometer() && Channel::B.set.typeMeasure.IsFrequency())
         {
         }
         else if(CURRENT_CHANNEL_IS_A && Channel::A.set.typeMeasure.IsCountPulse() && Channel::A.modeMeasureCountPulse.Is_StartStop())

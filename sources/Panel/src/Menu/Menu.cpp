@@ -273,8 +273,8 @@ static void OnKey(const Control &control) //-V2008
         break;
 
     case Control::Test:
-        if ((Channel::A.modeFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B.modeFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B))
+        if ((Channel::A.set.modeFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B.set.modeFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B))
         {
         }
         else
@@ -284,9 +284,9 @@ static void OnKey(const Control &control) //-V2008
         break;
 
     case Control::Auto:
-        if ((Channel::A.set.typeMeasure.IsFrequency() && Channel::A.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B.set.typeMeasure.IsFrequency() && Channel::B.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
-            (Channel::C.set.typeMeasure.IsFrequency() && Channel::C.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
+        if ((Channel::A.set.typeMeasure.IsFrequency() && Channel::A.set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B.set.typeMeasure.IsFrequency() && Channel::B.set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
+            (Channel::C.set.typeMeasure.IsFrequency() && Channel::C.set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
             (Channel::A.set.typeMeasure.IsPeriod() && Channel::A.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
             (Channel::B.set.typeMeasure.IsPeriod() && Channel::B.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
             (Channel::A.set.typeMeasure.IsDuration() && Channel::A.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
