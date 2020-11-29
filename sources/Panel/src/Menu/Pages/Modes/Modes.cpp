@@ -148,7 +148,7 @@ const ModeCountPulse &ModeCountPulse::Current()
         &null
     };
 
-    return Channel::Current().typeMeasure.IsCountPulse() ? *modes[CURRENT_CHANNEL] : null;
+    return Channel::Current().typeMeasure.IsCountPulse() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
 }
 
 
@@ -165,7 +165,7 @@ const ModeFrequency &ModeFrequency::Current()
         &Channel::D.modeFrequency
     };
 
-    return Channel::Current().typeMeasure.IsFrequency() ? *modes[CURRENT_CHANNEL] : null;
+    return Channel::Current().typeMeasure.IsFrequency() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
 }
 
 
@@ -181,7 +181,7 @@ const ModePeriod &ModePeriod::Current()
         &null
     };
 
-    return Channel::Current().typeMeasure.IsPeriod() ? *modes[CURRENT_CHANNEL] : null;
+    return Channel::Current().typeMeasure.IsPeriod() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
 }
 
 
@@ -197,7 +197,7 @@ const ModeDuration &ModeDuration::Current()
         &null
     };
 
-    return Channel::Current().typeMeasure.IsDuration() ? *modes[CURRENT_CHANNEL] : null;
+    return Channel::Current().typeMeasure.IsDuration() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
 }
 
 

@@ -3,17 +3,19 @@
 #include "Menu/Pages/Modes/Modes.h"
 
 
+#define CURRENT_CHANNEL             Channel::Current()
+#define CURRENT_CHANNEL_IS_A        (CURRENT_CHANNEL.IsA())
+#define CURRENT_CHANNEL_IS_B        (CURRENT_CHANNEL.IsB())
+#define CURRENT_CHANNEL_IS_A_OR_B   (CURRENT_CHANNEL_IS_A || CURRENT_CHANNEL_IS_B)
+#define CURRENT_CHANNEL_IS_C        (CURRENT_CHANNEL.IsC())
+#define CURRENT_CHANNEL_IS_D        (CURRENT_CHANNEL.IsD())
+
+#define NUMBER_CHANNEL(ch)          (ch.Number())
+#define NUMBER_CURRENT_CHANNEL      (NUMBER_CHANNEL(CURRENT_CHANNEL))
+
+
 struct Channel
 {
-    enum E
-    {
-        _A,
-        _B,
-        _C,
-        _D,
-        Count
-    };
-
     Channel(Page *pSettings, Page *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
         const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
@@ -22,10 +24,12 @@ struct Channel
 
     void DrawParameters(int x, int y);
 
-    bool IsA() { return this == &A; }
-    bool IsB() { return this == &B; }
-    bool IsC() { return this == &C; }
-    bool IsD() { return this == &D; }
+    bool IsA() const { return this == &A; }
+    bool IsB() const { return this == &B; }
+    bool IsC() const { return this == &C; }
+    bool IsD() const { return this == &D; }
+
+    int Number() const;
 
     // Загрузить текущий канал в аппаратуру
     void LoadToFPGA();
@@ -50,6 +54,7 @@ struct Channel
     ModeCountPulse modeMeasureCountPulse;   // Режим счёта импульсов
 
     static Channel &Current();
+    static void SetCurrent(Channel *channel) { current = channel; }
 
     static void PressSetup();
     static void PressSetupA();
@@ -62,12 +67,12 @@ struct Channel
     static bool StartStop();
     static void ToggleStartStop();
 
-    static E current;                // Текущий канал
-
     static Channel A;
     static Channel B;
     static Channel C;
     static Channel D;
+
+    static const int Count = 4;
 
     static Switch *switchTimeMeasue;
     static Switch *switchNumberPeriods;
@@ -83,4 +88,6 @@ private:
     Switch *switchModeCountPulse;
     Switch *switchModePeriod;
     Switch *switchModeDuration;
+
+    static Channel *current;                // Текущий канал
 };

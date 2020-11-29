@@ -23,7 +23,7 @@ static void OnPress_ResetSettings()
     Channel::A.typeMeasure.value = TypeMeasure::Frequency;
     Channel::A.modeFrequency.value = ModeFrequency::Frequency;
 
-    CURRENT_CHANNEL = Channel::_A;
+    Channel::SetCurrent(&Channel::A);
 
     Menu::SetOpenedPage(Channel::A.pageModes);
 

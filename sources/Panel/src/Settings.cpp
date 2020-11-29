@@ -1,7 +1,6 @@
 #include "defines.h"
 #include "Settings.h"
 #include "Hardware/FPGA.h"
-#include "Menu/Pages/Channels/Channels.h"
 #include "Utils/Math.h"
 
 

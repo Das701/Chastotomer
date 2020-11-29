@@ -33,7 +33,7 @@ extern Page pageChannelC;
 extern Page pageChannelD;
 
 
-Channel::E Channel::current = Channel::_A;
+Channel *Channel::current = &Channel::A;
 
 static const bool enabledMeasuresA[TypeMeasure::Count] = { true, true, true, true };
 static const bool enabledModeFrequencyA[ModeFrequency::Count] = { true, true, true, true, false, false, false, false, true, true };
@@ -86,9 +86,7 @@ Channel::Channel(Page *pSettings, Page *pModes, Switch *pModeFrequency, Switch *
 
 Channel &Channel::Current()
 {
-    static Channel * const channels[Count] = { &A, &B, &C, &D };
-
-    return *channels[current];
+    return *current;
 }
 
 
@@ -290,4 +288,23 @@ void Channel::OnChanged_TypeMeasure()
     case TypeMeasure::Period:       if (switchModePeriod != nullptr)     { switchModePeriod->FuncOnPress();     }   break;
     case TypeMeasure::Duration:     if (switchModeDuration != nullptr)   { switchModeDuration->FuncOnPress();   }   break;
     }
+}
+
+
+int Channel::Number() const
+{
+    if (IsA())
+    {
+        return 0;
+    }
+    else if (IsB())
+    {
+        return 1;
+    }
+    else if (IsC())
+    {
+        return 2;
+    }
+
+    return 3;
 }

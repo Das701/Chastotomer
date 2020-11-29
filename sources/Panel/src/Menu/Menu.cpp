@@ -171,7 +171,7 @@ String Menu::ChannelSettings()
 
     char settings[100] = { 0 };
 
-    std::strcpy(settings, names[CURRENT_CHANNEL]);
+    std::strcpy(settings, names[NUMBER_CURRENT_CHANNEL]);
 
     if(CURRENT_CHANNEL_IS_A)
     {
