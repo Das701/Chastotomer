@@ -92,20 +92,6 @@ Channel &Channel::Current()
 }
 
 
-Page *Channel::PageForChannel(Channel::E channel)
-{
-    Page *pages[Channel::Count] =
-    {
-        Channel::A.pageModes,
-        Channel::B.pageModes,
-        Channel::C.pageModes,
-        Channel::D.pageModes
-    };
-
-    return pages[channel];
-}
-
-
 #ifdef WIN32
 #pragma warning(push)
 #pragma warning(disable: 4062)

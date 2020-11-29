@@ -17,6 +17,26 @@ struct Channel
     Channel(Page *pSettings, Page *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
         const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
+    // Возвращает true, если текущая страница режимов содержит время измерения
+    bool ConsistTimeMeasure();
+
+    void DrawParameters(int x, int y);
+
+    bool IsA() { return this == &A; }
+    bool IsB() { return this == &B; }
+    bool IsC() { return this == &C; }
+    bool IsD() { return this == &D; }
+
+    // Загрузить текущий канал в аппаратуру
+    void LoadToFPGA();
+
+    bool IsActiveTimeLabels(TypeMeasure *type, int mode);
+    bool IsActiveTimeMeasure(TypeMeasure *type, int mode);
+    bool IsActiveNumberPeriods(TypeMeasure *type, int mode);
+
+    // Вызывается при измеенении вида измерения
+    void OnChanged_TypeMeasure();
+
     Page *pageSettings;
     Page *pageModes;
 
@@ -33,15 +53,18 @@ struct Channel
     ModeDuration   modeDuration;            // Режим измерения длительности
     ModeCountPulse modeMeasureCountPulse;   // Режим счёта импульсов
 
-    // Возвращает true, если текущая страница режимов содержит время измерения
-    bool ConsistTimeMeasure();
+    static Channel &Current();
 
-    void DrawParameters(int x, int y);
+    static void PressSetup();
+    static void PressSetupA();
+    static void PressSetupB();
 
-    bool IsA() { return this == &A; }
-    bool IsB() { return this == &B; }
-    bool IsC() { return this == &C; }
-    bool IsD() { return this == &D; }
+    static void RelationOn();
+    static void RelationOff();
+    static bool RelationCheck();
+
+    static bool StartStop();
+    static void ToggleStartStop();
 
     static E current;                // Текущий канал
 
@@ -57,31 +80,6 @@ struct Channel
     static TimeMeasure       timeMeasure;    // Время счета
     static NumberPeriods     numberPeriods;  // Число периодов измерения
     static PeriodTimeLabels  timeLabels;     // Период меток времени
-
-    // Загрузить текущий канал в аппаратуру
-    void LoadToFPGA();
-
-    static Page *PageForChannel(Channel::E);
-
-    bool IsActiveTimeLabels(TypeMeasure *type, int mode);
-    bool IsActiveTimeMeasure(TypeMeasure *type, int mode);
-    bool IsActiveNumberPeriods(TypeMeasure *type, int mode);
-
-    static Channel &Current();
-
-    // Вызывается при измеенении вида измерения
-    void OnChanged_TypeMeasure();
-
-    static void PressSetup();
-    static void PressSetupA();
-    static void PressSetupB();
-
-    static void RelationOn();
-    static void RelationOff();
-    static bool RelationCheck();
-
-    static bool StartStop();
-    static void ToggleStartStop();
 
 private:
 
