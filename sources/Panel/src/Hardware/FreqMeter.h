@@ -20,7 +20,6 @@ struct ModeTest : public Enumeration, public Subject
     void Switch();
 };
 
-
 namespace FreqMeter
 {
     extern ModeTest modeTest;

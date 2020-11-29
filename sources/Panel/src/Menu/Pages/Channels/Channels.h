@@ -19,7 +19,7 @@ class Switch;
 
 struct SettingsChannel
 {
-    SettingsChannel(Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod,
+    SettingsChannel(Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
         const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
     InputCouple    couple;
@@ -38,13 +38,24 @@ struct SettingsChannel
     Switch        *switchModeFrequency;
     Switch        *switchModeCountPulse;
     Switch        *switchModePeriod;
+    Switch        *switchModeDuration;
 };
 
 
 struct Channel
 {
+    static Channel A;
+    static Channel B;
+    static Channel C;
+    static Channel D;
+
+    static const int Count = 4;
+
     Channel(Page *pSettings, Page *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
         const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
+
+    static Channel &Current();
+    static void SetCurrent(Channel &channel) { current = &channel; }
 
     // Возвращает true, если текущая страница режимов содержит время измерения
     bool ConsistTimeMeasure();
@@ -58,7 +69,7 @@ struct Channel
 
     int Number() const;
 
-    // Загрузить текущий канал в аппаратуру
+    // Загрузить канал в аппаратуру
     void LoadToFPGA();
 
     // Вызывается при измеенении вида измерения
@@ -69,29 +80,17 @@ struct Channel
     Page *pageSettings;
     Page *pageModes;
 
-    SettingsChannel set;
-
-    static Channel &Current();
-    static void SetCurrent(Channel &channel) { current = &channel; }
-
-    static Channel A;
-    static Channel B;
-    static Channel C;
-    static Channel D;
-
-    static const int Count = 4;
+    static TimeMeasure       timeMeasure;    // Время счета
+    static NumberPeriods     numberPeriods;  // Число периодов измерения
+    static PeriodTimeLabels  timeLabels;     // Период меток времени
 
     static Switch *switchTimeMeasue;
     static Switch *switchNumberPeriods;
     static Switch *switchTimeLabels;
 
-    static TimeMeasure       timeMeasure;    // Время счета
-    static NumberPeriods     numberPeriods;  // Число периодов измерения
-    static PeriodTimeLabels  timeLabels;     // Период меток времени
+    SettingsChannel set;
 
 private:
-
-    Switch *switchModeDuration;
 
     static Channel *current;                // Текущий канал
 };
