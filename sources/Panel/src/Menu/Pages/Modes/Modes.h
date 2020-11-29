@@ -23,6 +23,7 @@ struct TypeMeasure : public Enumeration
 
     bool IsActiveTimeLabels(int mode);
     bool IsActiveTimeMeasure(int mode);
+    bool IsActiveNumberPeriods(int mode);
 };
 
 // Режим измерения частоты

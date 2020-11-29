@@ -170,9 +170,9 @@ bool TypeMeasure::IsActiveTimeMeasure(int m)
 }
 
 
-bool Channel::IsActiveNumberPeriods(TypeMeasure *type, int m)
+bool TypeMeasure::IsActiveNumberPeriods(int m)
 {
-    if (type->IsFrequency())
+    if (IsFrequency())
     {
         ModeFrequency::E mode = (ModeFrequency::E)m;
 
@@ -185,7 +185,7 @@ bool Channel::IsActiveNumberPeriods(TypeMeasure *type, int m)
         case ModeFrequency::RatioCB:     return true;
         }
     }
-    else if (type->IsPeriod())
+    else if (IsPeriod())
     {
         ModePeriod::E mode = (ModePeriod::E)m;
 
@@ -194,7 +194,7 @@ bool Channel::IsActiveNumberPeriods(TypeMeasure *type, int m)
         case ModePeriod::Period:         return true;
         }
     }
-    else if (type->IsCountPulse())
+    else if (IsCountPulse())
     {
         ModeCountPulse::E mode = (ModeCountPulse::E)m;
 
@@ -256,7 +256,7 @@ void Channel::DrawParameters(int x, int y)
         DrawValue(timeMeasure, x, y);
     }
 
-    if (IsActiveNumberPeriods(type, mode))
+    if (type->IsActiveNumberPeriods(mode))
     {
         DrawValue(numberPeriods, x + dX, y);
     }
