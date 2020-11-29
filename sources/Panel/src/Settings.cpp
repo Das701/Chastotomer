@@ -132,7 +132,7 @@ void Divider::LoadToFPGA()
     {
         Command command(Command::Divider);
 
-        if (!Channel::Current().divider.Is1())
+        if (!Channel::Current().set.divider.Is1())
         {
             command.SetBit(9);
         }

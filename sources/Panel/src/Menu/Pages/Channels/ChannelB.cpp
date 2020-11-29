@@ -82,7 +82,7 @@ DEF_SWITCH_UGO_2(sDivider,
     "Делитель", "Вкл/откл входного делителя",
     "1:1", "1:10",
     "1:1", "1:10",
-    Channel::B.divider, OnPress_Divider
+    Channel::B.set.divider, OnPress_Divider
 );
 
 
