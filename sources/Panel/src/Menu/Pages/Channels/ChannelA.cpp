@@ -54,7 +54,7 @@ DEF_SWITCH_UGO_2(sLowpassFilter,
     "ФНЧ", "Включение/отключение фильтра НЧ",
     "Откл.", "Вкл.",
     "ФНЧ", "",
-    Channel::A.modeFilter, OnPress_Filter
+    Channel::A.set.modeFilter, OnPress_Filter
 );
 
 

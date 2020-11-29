@@ -21,10 +21,12 @@ struct SettingsChannel
 {
     SettingsChannel() :
         couple(InputCouple::AC),
-        impedance(InputImpedance::_1MOmh)
+        impedance(InputImpedance::_1MOmh),
+        modeFilter(ModeFilter::Off)
     {}
     InputCouple    couple;
     InputImpedance impedance;
+    ModeFilter     modeFilter;
 };
 
 
@@ -58,7 +60,6 @@ struct Channel
 
     SettingsChannel set;
 
-    ModeFilter     modeFilter;
     ModeFront      modeFront;
     Divider        divider;
     TypeSynch      typeSynch;

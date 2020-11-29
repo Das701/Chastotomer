@@ -116,7 +116,7 @@ void ModeFilter::LoadToFPGA()
     {
         Command command(Command::ModeFilter);
 
-        if (Channel::Current().modeFilter.IsOff())
+        if (Channel::Current().set.modeFilter.IsOff())
         {
             command.SetBit(9);
         }

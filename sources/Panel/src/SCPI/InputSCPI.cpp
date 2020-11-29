@@ -43,8 +43,8 @@ static pCHAR FuncFilter(pCHAR buffer)
         ""
     };
 
-    SCPI_REQUEST(SCPI::SendAnswer(filter[Channel::Current().modeFilter.value]));
-    SCPI_PROCESS_ARRAY(filter, Channel::Current().modeFilter.Set((ModeFilter::E)i));
+    SCPI_REQUEST(SCPI::SendAnswer(filter[Channel::Current().set.modeFilter.value]));
+    SCPI_PROCESS_ARRAY(filter, Channel::Current().set.modeFilter.Set((ModeFilter::E)i));
 }
 
 
