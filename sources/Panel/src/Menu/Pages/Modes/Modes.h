@@ -339,3 +339,9 @@ struct Divider : public Enumeration
 
     static void LoadToFPGA();
 };
+
+
+struct ModeStartStop
+{
+    static bool IsEnabled();
+};

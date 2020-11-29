@@ -223,7 +223,7 @@ DEF_SWITCH_3(sModeCountPulse,
 Switch *switchModeCountPulseA = &sModeCountPulse;
 
 
-bool Channel::StartStop()
+bool ModeStartStop::IsEnabled()
 {
     return startStop;
 }

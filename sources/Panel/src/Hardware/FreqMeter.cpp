@@ -301,7 +301,7 @@ void FreqMeter::LoadStartStop()
 {
     Command command(Command::StartStop);
 
-    if (Channel::StartStop())
+    if (ModeStartStop::IsEnabled())
     {
         command.SetBit(9);
         command.SetBit(8);
