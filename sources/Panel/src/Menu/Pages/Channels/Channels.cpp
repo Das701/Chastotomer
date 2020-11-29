@@ -98,9 +98,9 @@ Channel &Channel::Current()
 #endif
 
 
-bool Channel::IsActiveTimeLabels(TypeMeasure *type, int m)
+bool TypeMeasure::IsActiveTimeLabels(int m)
 {
-    if (type->IsFrequency())
+    if (IsFrequency())
     {
         ModeFrequency::E mode = (ModeFrequency::E)m;
 
@@ -115,7 +115,7 @@ bool Channel::IsActiveTimeLabels(TypeMeasure *type, int m)
         case ModeFrequency::Tachometer:  return FreqMeter::modeTest.IsEnabled();
         }
     }
-    else if (type->IsPeriod())
+    else if (IsPeriod())
     {
         ModePeriod::E mode = (ModePeriod::E)m;
 
@@ -126,7 +126,7 @@ bool Channel::IsActiveTimeLabels(TypeMeasure *type, int m)
         case ModePeriod::F_1:         return FreqMeter::modeTest.IsEnabled();
         }
     }
-    else if (type->IsDuration())
+    else if (IsDuration())
     {
         ModeDuration::E mode = (ModeDuration::E)m;
 
@@ -261,7 +261,7 @@ void Channel::DrawParameters(int x, int y)
         DrawValue(numberPeriods, x + dX, y);
     }
 
-    if (IsActiveTimeLabels(type, mode))
+    if (type->IsActiveTimeLabels(mode))
     {
         DrawValue(timeLabels, x + 2 * dX, y);
     }

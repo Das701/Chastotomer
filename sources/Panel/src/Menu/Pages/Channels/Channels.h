@@ -30,7 +30,6 @@ struct Channel
     // Загрузить текущий канал в аппаратуру
     void LoadToFPGA();
 
-    bool IsActiveTimeLabels(TypeMeasure *type, int mode);
     bool IsActiveTimeMeasure(TypeMeasure *type, int mode);
     bool IsActiveNumberPeriods(TypeMeasure *type, int mode);
 

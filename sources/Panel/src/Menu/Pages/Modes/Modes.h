@@ -20,6 +20,8 @@ struct TypeMeasure : public Enumeration
     bool IsPeriod() const { return (value == Period); }
     bool IsDuration() const { return (value == Duration); }
     void Draw(int x, int y) const;
+
+    bool IsActiveTimeLabels(int mode);
 };
 
 // Режим измерения частоты
