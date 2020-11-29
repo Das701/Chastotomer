@@ -40,6 +40,8 @@ struct Channel
 
     bool IsA() { return this == &A; }
     bool IsB() { return this == &B; }
+    bool IsC() { return this == &C; }
+    bool IsD() { return this == &D; }
 
     static E current;                // Текущий канал
 
@@ -57,7 +59,7 @@ struct Channel
     static PeriodTimeLabels  timeLabels;     // Период меток времени
 
     // Загрузить текущий канал в аппаратуру
-    static void LoadCurrentToFPGA();
+    void LoadToFPGA();
 
     static Page *PageForChannel(Channel::E);
 

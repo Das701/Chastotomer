@@ -15,14 +15,14 @@ static bool autoMode = false;
 ModeTest FreqMeter::modeTest(ModeTest::Disabled);
 
 
-void Channel::LoadCurrentToFPGA()
+void Channel::LoadToFPGA()
 {
     Command command(Command::CurrentChannel);
 
-    if (CURRENT_CHANNEL_IS_B)       { command.SetBit(8); }
-    else if (CURRENT_CHANNEL_IS_C)  { command.SetBit(9); }
-    else if (CURRENT_CHANNEL_IS_D)  { command.SetBit(8);
-                                      command.SetBit(9); }
+    if (IsA())       { command.SetBit(8); }
+    else if (IsB())  { command.SetBit(9); }
+    else if (IsD())  { command.SetBit(8);
+                       command.SetBit(9); }
 
     FPGA::WriteCommand(command);
 
