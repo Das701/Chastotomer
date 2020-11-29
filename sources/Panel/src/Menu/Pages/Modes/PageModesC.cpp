@@ -56,7 +56,7 @@ DEF_SWITCH_3(sModeFrequency,
 Switch *switchModeFrequencyC = &sModeFrequency;
 
 
-void Channel::OnChanged_ModeCountPulseC()
+static void OnChanged_ModeCountPulse()
 {
     items[1] = &sModeCountPulse;
 
@@ -84,8 +84,11 @@ void Channel::OnChanged_ModeCountPulseC()
 DEF_SWITCH_4(sModeCountPulse,
     "–ежим", "—чЄт числа импульсов",
     "C(tA)", "C(tB)", "C(TA)", "C(TB)",
-    Channel::C.modeMeasureCountPulse, Channel::OnChanged_ModeCountPulseC
+    Channel::C.modeMeasureCountPulse, OnChanged_ModeCountPulse
 );
+
+
+Switch *switchModeCountPulseC = &sModeCountPulse;
 
 
 static Item *items[7] =

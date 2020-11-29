@@ -161,7 +161,7 @@ DEF_SWITCH_5(sModeDuration,
 );
 
 
-void Channel::OnChanged_ModeCountPulseB()
+static void OnChanged_ModeCountPulse()
 {
     items[1] = &sModeCountPulse;
     items[2] = nullptr;
@@ -189,8 +189,11 @@ void Channel::OnChanged_ModeCountPulseB()
 DEF_SWITCH_3(sModeCountPulse,
     "Режим", "Счёт числа импульсов",
     "B(tA)", "B(TA)", "Старт/Стоп",
-    Channel::B.modeMeasureCountPulse, Channel::OnChanged_ModeCountPulseB
+    Channel::B.modeMeasureCountPulse, OnChanged_ModeCountPulse
 );
+
+
+Switch *switchModeCountPulseB = &sModeCountPulse;
 
 
 static Item *items[7] =
