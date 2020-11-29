@@ -19,8 +19,12 @@ class Switch;
 
 struct SettingsChannel
 {
-    SettingsChannel() : couple(InputCouple::AC) {}
+    SettingsChannel() :
+        couple(InputCouple::AC),
+        impedance(InputImpedance::_1MOmh)
+    {}
     InputCouple    couple;
+    InputImpedance impedance;
 };
 
 
@@ -54,7 +58,6 @@ struct Channel
 
     SettingsChannel set;
 
-    InputImpedance impedance;
     ModeFilter     modeFilter;
     ModeFront      modeFront;
     Divider        divider;

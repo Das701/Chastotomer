@@ -40,7 +40,7 @@ DEF_SWITCH_UGO_2(sImpedance,
     "Rвх", "¬ходное сопротивление канала",
     "1 ћќм", "50 ќм",
     "1ћќм", "50ќм",
-    Channel::A.impedance, OnPress_Impedance
+    Channel::A.set.impedance, OnPress_Impedance
 );
 
 
