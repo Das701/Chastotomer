@@ -265,19 +265,19 @@ void Channel::DrawParameters(int x, int y)
 
     int dX = 70;
 
-    if (Channel::IsActiveTimeMeasure(type, mode))
+    if (IsActiveTimeMeasure(type, mode))
     {
-        DrawValue(Channel::timeMeasure, x, y);
+        DrawValue(timeMeasure, x, y);
     }
 
-    if (Channel::IsActiveNumberPeriods(type, mode))
+    if (IsActiveNumberPeriods(type, mode))
     {
-        DrawValue(Channel::numberPeriods, x + dX, y);
+        DrawValue(numberPeriods, x + dX, y);
     }
 
-    if (Channel::IsActiveTimeLabels(type, mode))
+    if (IsActiveTimeLabels(type, mode))
     {
-        DrawValue(Channel::timeLabels, x + 2 * dX, y);
+        DrawValue(timeLabels, x + 2 * dX, y);
     }
 }
 
