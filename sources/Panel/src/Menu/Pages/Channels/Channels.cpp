@@ -268,13 +268,12 @@ void Channel::DrawParameters(int x, int y)
 
 void Channel::PressSetup()
 {
-    if (CURRENT_CHANNEL_IS_A)
+    switch (Channel::A.typeMeasure.value)
     {
-        PressSetupA();
-    }
-    else if (CURRENT_CHANNEL_IS_B)
-    {
-        PressSetupB();
+    case TypeMeasure::Frequency:    pageModes->items[1] = switchModeFrequency;     break;
+    case TypeMeasure::Period:       pageModes->items[1] = switchModePeriod;        break;
+    case TypeMeasure::Duration:     pageModes->items[1] = switchModeDuration;      break;
+    case TypeMeasure::CountPulse:   pageModes->items[1] = switchModeCountPulse;    break;
     }
 }
 

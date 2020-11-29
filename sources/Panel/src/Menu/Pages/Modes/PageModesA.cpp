@@ -39,18 +39,6 @@ bool Channel::RelationCheck()
 }
 
 
-void Channel::PressSetupA()
-{
-    switch (Channel::A.typeMeasure.value)
-    {
-    case TypeMeasure::Frequency:    items[1] = &sModeFrequency;     break;
-    case TypeMeasure::Period:       items[1] = &sModePeriod;        break;
-    case TypeMeasure::Duration:     items[1] = &sModeDuration;      break;
-    case TypeMeasure::CountPulse:   items[1] = &sModeCountPulse;    break;
-    }
-}
-
-
 static void OnChanged_TypeMeasure()
 {
     Channel::Current().OnChanged_TypeMeasure();

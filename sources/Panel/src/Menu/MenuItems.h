@@ -103,6 +103,8 @@ private:
 
 class Page : public Item, public Observer
 {
+    friend struct Channel;
+
 public:
     Page(Item **_items, void (*_onEvent)(EventType::E)) : Item(""), selectedItem(0), items(_items), onEvent(_onEvent) {};
 

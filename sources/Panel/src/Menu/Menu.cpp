@@ -269,7 +269,7 @@ static void OnKey(const Control &control) //-V2008
         break;
 
     case Control::Mode:
-        Channel::PressSetup();
+        Channel::Current().PressSetup();
         break;
 
     case Control::Test:

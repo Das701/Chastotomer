@@ -39,6 +39,8 @@ struct Channel
     // Вызывается при измеенении вида измерения
     void OnChanged_TypeMeasure();
 
+    void PressSetup();
+
     Page *pageSettings;
     Page *pageModes;
 
@@ -56,11 +58,7 @@ struct Channel
     ModeCountPulse modeMeasureCountPulse;   // Режим счёта импульсов
 
     static Channel &Current();
-    static void SetCurrent(Channel *channel) { current = channel; }
-
-    static void PressSetup();
-    static void PressSetupA();
-    static void PressSetupB();
+    static void SetCurrent(Channel &channel) { current = &channel; }
 
     static void RelationOn();
     static void RelationOff();
