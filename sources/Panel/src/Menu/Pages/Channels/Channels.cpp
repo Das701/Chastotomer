@@ -143,9 +143,9 @@ bool TypeMeasure::IsActiveTimeLabels(int m)
 }
 
 
-bool Channel::IsActiveTimeMeasure(TypeMeasure *type, int m)
+bool TypeMeasure::IsActiveTimeMeasure(int m)
 {
-    if (type->IsFrequency())
+    if (IsFrequency())
     {
         ModeFrequency::E mode = (ModeFrequency::E)m;
 
@@ -156,7 +156,7 @@ bool Channel::IsActiveTimeMeasure(TypeMeasure *type, int m)
         case ModeFrequency::RatioBC:     return true;
         }
     }
-    else if (type->IsPeriod())
+    else if (IsPeriod())
     {
         ModePeriod::E mode = (ModePeriod::E)m;
 
@@ -251,7 +251,7 @@ void Channel::DrawParameters(int x, int y)
 
     int dX = 70;
 
-    if (IsActiveTimeMeasure(type, mode))
+    if (type->IsActiveTimeMeasure(mode))
     {
         DrawValue(timeMeasure, x, y);
     }
