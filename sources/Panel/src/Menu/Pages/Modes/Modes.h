@@ -344,4 +344,7 @@ struct Divider : public Enumeration
 struct ModeStartStop
 {
     static bool IsEnabled();
+    static void Toggle();
+private:
+    static bool enabled;
 };

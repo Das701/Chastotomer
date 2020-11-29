@@ -64,8 +64,6 @@ struct Channel
     static void RelationOff();
     static bool RelationCheck();
 
-    static void ToggleStartStop();
-
     static Channel A;
     static Channel B;
     static Channel C;

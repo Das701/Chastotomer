@@ -236,7 +236,7 @@ bool Switch::OnControl(const Control &control)
             else if ((CURRENT_CHANNEL_IS_A && Channel::A.typeMeasure.IsCountPulse() && Channel::A.modeMeasureCountPulse.Is_StartStop()) ||
                 (CURRENT_CHANNEL_IS_B && Channel::B.typeMeasure.IsCountPulse() && Channel::B.modeMeasureCountPulse.Is_StartStop()))
             {
-                Channel::ToggleStartStop();
+                ModeStartStop::Toggle();
                 FreqMeter::LoadStartStop();
             }
             else

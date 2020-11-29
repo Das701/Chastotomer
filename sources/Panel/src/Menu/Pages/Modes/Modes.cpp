@@ -6,6 +6,9 @@
 #include "Hardware/MathFPGA.h"
 
 
+bool ModeStartStop::enabled = false;
+
+
 bool ModeCountPulse::IsFromPeriod() const
 {
     return (value == ATB) || (value == BTA) || (value == CTA) || (value == CTB);
@@ -246,4 +249,22 @@ void ModeDuration::LoadToFPGA()
     FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
+}
+
+
+bool ModeStartStop::IsEnabled()
+{
+    return enabled;
+}
+
+void ModeStartStop::Toggle()
+{
+    if (!enabled)
+    {
+        enabled = true;
+    }
+    else
+    {
+        enabled = false;
+    }
 }

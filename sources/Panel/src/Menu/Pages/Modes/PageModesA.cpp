@@ -20,7 +20,6 @@ extern Switch sModeDuration;
 extern Switch sModeCountPulse;
 
 static bool relationOn = false;
-static bool startStop = false;
 
 
 void Channel::RelationOn()
@@ -221,24 +220,6 @@ DEF_SWITCH_3(sModeCountPulse,
 
 
 Switch *switchModeCountPulseA = &sModeCountPulse;
-
-
-bool ModeStartStop::IsEnabled()
-{
-    return startStop;
-}
-
-void Channel::ToggleStartStop()
-{
-    if (!startStop)
-    {
-        startStop = true;
-    }
-    else
-    {
-        startStop = false;
-    }
-}
 
 
 static Item *items[7] =
