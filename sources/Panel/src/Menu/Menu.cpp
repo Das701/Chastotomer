@@ -289,8 +289,8 @@ static void OnKey(const Control &control) //-V2008
             (Channel::C.set.typeMeasure.IsFrequency() && Channel::C.set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
             (Channel::A.set.typeMeasure.IsPeriod() && Channel::A.set.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
             (Channel::B.set.typeMeasure.IsPeriod() && Channel::B.set.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
-            (Channel::A.set.typeMeasure.IsDuration() && Channel::A.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B.set.typeMeasure.IsDuration() && Channel::B.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
+            (Channel::A.set.typeMeasure.IsDuration() && Channel::A.set.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B.set.typeMeasure.IsDuration() && Channel::B.set.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
         {
             MathFPGA::Auto::Refresh();
             FreqMeter::LoadAuto();

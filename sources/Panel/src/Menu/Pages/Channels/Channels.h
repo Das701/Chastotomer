@@ -31,6 +31,7 @@ struct SettingsChannel
     TypeMeasure    typeMeasure;
     ModeFrequency  modeFrequency;           // Режим измерения частоты
     ModePeriod     modePeriod;              // Режим измерения периода
+    ModeDuration   modeDuration;            // Режим измерения длительности
 };
 
 
@@ -64,7 +65,6 @@ struct Channel
 
     SettingsChannel set;
 
-    ModeDuration   modeDuration;            // Режим измерения длительности
     ModeCountPulse modeMeasureCountPulse;   // Режим счёта импульсов
 
     static Channel &Current();

@@ -118,7 +118,7 @@ static void OnChanged_ModeDuration()
 {
     items[1] = &sModeDuration;
 
-    switch (Channel::B.modeDuration.value)
+    switch (Channel::B.set.modeDuration.value)
     {
     case ModeDuration::Ndt_1ns:
         items[2] = nullptr;
@@ -142,7 +142,7 @@ static void OnChanged_ModeDuration()
 DEF_SWITCH_5(sModeDuration,
     "Режим", "Измерение длительности",
     "ndt", "ndt/1нс", "СтартB-СтопA", "Коэфф. зап.", "Фаза",
-    Channel::B.modeDuration, OnChanged_ModeDuration
+    Channel::B.set.modeDuration, OnChanged_ModeDuration
 );
 
 
