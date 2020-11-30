@@ -312,7 +312,7 @@ void Page::OnEvent(EventType::E event)
 }
 
 
-TypeMeasure *Page::GetTypeMeasure() const
+TypeMeasure *PageModes::GetTypeMeasure() const
 {
     Switch *item = (Switch *)items[0];
 
@@ -320,7 +320,7 @@ TypeMeasure *Page::GetTypeMeasure() const
 }
 
 
-int Page::GetModeMeasure() const
+int PageModes::GetModeMeasure() const
 {
     Switch *item = (Switch *)items[1];
 
@@ -330,7 +330,7 @@ int Page::GetModeMeasure() const
 }
 
 
-bool Page::ExistTypeMeasure(uint8 type) const
+bool PageModes::ExistTypeMeasure(uint8 type) const
 {
     Switch *item = (Switch *)items[0];
 
@@ -338,7 +338,7 @@ bool Page::ExistTypeMeasure(uint8 type) const
 }
 
 
-void Page::ResetTypeAndModeMeasure()
+void PageModes::ResetTypeAndModeMeasure()
 {
     Switch *type = (Switch *)items[0];
 
@@ -362,14 +362,14 @@ void Page::ResetTypeAndModeMeasure()
 }
 
 
-bool Page::ExistModeMeasure(int mode) const
+bool PageModes::ExistModeMeasure(int mode) const
 {
     Switch *item = (Switch *)items[1];
 
     return item->state->correct[mode];
 }
 
-void Page::ResetModeMeasure()
+void PageModes::ResetModeMeasure()
 {
     Switch *mode = (Switch *)items[1];
 

@@ -51,7 +51,7 @@ struct Channel
 
     static const int Count = 4;
 
-    Channel(int number, Page *pSettings, Page *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
+    Channel(int number, Page *pSettings, PageModes *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
         const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
     static void Create();
@@ -81,7 +81,7 @@ struct Channel
     void PressSetup();
 
     Page *pageSettings;
-    Page *pageModes;
+    PageModes *pageModes;
 
     static TimeMeasure       timeMeasure;    // Время счета
     static NumberPeriods     numberPeriods;  // Число периодов измерения

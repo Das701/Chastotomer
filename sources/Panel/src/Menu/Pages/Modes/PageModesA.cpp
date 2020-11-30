@@ -247,4 +247,4 @@ static void OnEvent(EventType::E event)
 }
 
 
-Page pageModesA(items, OnEvent);
+PageModes pageModesA(items, OnEvent);

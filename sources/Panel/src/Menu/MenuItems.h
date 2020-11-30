@@ -77,6 +77,7 @@ private:
 class Switch : public Item
 {
     friend class Page;
+    friend class PageModes;
 public:
 
     Switch(char *_text, char *_hint, char **_names, char **_ugo, Enumeration *_state, void(*_onClick)()) :
@@ -134,15 +135,7 @@ public:
     // Номер выбранного итема
     int selectedItem;
 
-    // Функции действительны для страниц режимов каналов
-    TypeMeasure *GetTypeMeasure() const;
-    int GetModeMeasure() const;
-    bool ExistTypeMeasure(uint8 type) const;
-    void ResetTypeAndModeMeasure();
-    bool ExistModeMeasure(int mode) const;
-    void ResetModeMeasure();
-
-private:
+protected:
 
     // Возвращает количество итемов на странице
     int NumItems() const;
@@ -156,4 +149,19 @@ private:
     Item **items;
 
     void (*onEvent)(EventType::E);
+};
+
+
+class PageModes : public Page
+{
+public:
+    PageModes(Item **items, void (*onEvent)(EventType::E)) : Page(items, onEvent) {}
+
+    // Функции действительны для страниц режимов каналов
+    TypeMeasure *GetTypeMeasure() const;
+    int GetModeMeasure() const;
+    bool ExistTypeMeasure(uint8 type) const;
+    void ResetTypeAndModeMeasure();
+    bool ExistModeMeasure(int mode) const;
+    void ResetModeMeasure();
 };

@@ -232,4 +232,4 @@ static void OnEvent(EventType::E event)
 }
 
 
-Page pageModesB(items, OnEvent);
+PageModes pageModesB(items, OnEvent);

@@ -48,4 +48,4 @@ static Item *items[7] =
     nullptr
 };
 
-Page pageModesD(items, nullptr);
+PageModes pageModesD(items, nullptr);

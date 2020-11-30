@@ -8,10 +8,10 @@
 using namespace Primitives;
 
 
-extern Page pageModesA;
-extern Page pageModesB;
-extern Page pageModesC;
-extern Page pageModesD;
+extern PageModes pageModesA;
+extern PageModes pageModesB;
+extern PageModes pageModesC;
+extern PageModes pageModesD;
 
 extern Switch *switchModeFrequencyA;
 extern Switch *switchModeFrequencyB;
@@ -84,7 +84,7 @@ SettingsChannel::SettingsChannel(Switch *pModeFrequency, Switch *pModeCountPulse
 }
 
 
-Channel::Channel(int num, Page *pSettings, Page *pModes, Switch *pModeFrequency, Switch *pModeCountPulse, Switch *pModePeriod, Switch *pModeDuration,
+Channel::Channel(int num, Page *pSettings, PageModes *pModes, Switch *pModeFrequency, Switch *pModeCountPulse, Switch *pModePeriod, Switch *pModeDuration,
     const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     pageSettings(pSettings),
     pageModes(pModes),
