@@ -116,13 +116,13 @@ static void DrawValue(char *string, int x, int y)
 
 bool Display::DrawWelcomeScreen()
 {
-    if (TIME_MS < 1000)
+    if (TIME_MS < 5000)
     {
         for (int i = 0; i < NUM_PARTS; i++)
         {
             SetTopRow(i);
             BeginScene();
-            Text("OAO ÌÍÈÏÈ, 43-96/2, Cherm V 1.2").Write(40, 100, Color::WHITE);
+            Text("OAO ÌÍÈÏÈ, 43-96/2, Cherm V 1.2").Write(60, 110, Color::WHITE);
             EndScene();
         }
 
@@ -419,6 +419,8 @@ int Display::TopRow()
 void Display::SendToSCPI()
 {
     sendToSCPI = true;
+    
+    Refresh();
 }
 
 
