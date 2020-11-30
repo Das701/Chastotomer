@@ -131,7 +131,7 @@ int Page::WidthItem(int num) const
 
 bool Page::IsPageModes() const
 {
-    return (this == Channel::A->pageModes) || (this == Channel::B->pageModes) || (this == Channel::C->pageModes) || (this == Channel::D->pageModes);
+    return (this == Channel::A->mod) || (this == Channel::B->mod) || (this == Channel::C->mod) || (this == Channel::D->mod);
 }
 
 
@@ -233,8 +233,8 @@ bool Switch::OnControl(const Control &control)
                 PageIndication::OnceLaunchSwitchTrue();
                 FreqMeter::LoadOneTime();
             }
-            else if ((CURRENT_CHANNEL_IS_A && Channel::A->set.typeMeasure.IsCountPulse() && Channel::A->set.modeCountPulse.Is_StartStop()) ||
-                (CURRENT_CHANNEL_IS_B && Channel::B->set.typeMeasure.IsCountPulse() && Channel::B->set.modeCountPulse.Is_StartStop()))
+            else if ((CURRENT_CHANNEL_IS_A && Channel::A->mod->typeMeasure.IsCountPulse() && Channel::A->mod->modeCountPulse.Is_StartStop()) ||
+                (CURRENT_CHANNEL_IS_B && Channel::B->mod->typeMeasure.IsCountPulse() && Channel::B->mod->modeCountPulse.Is_StartStop()))
             {
                 ModeStartStop::Toggle();
                 ModeStartStop::LoadToFPGA();
@@ -391,29 +391,18 @@ void PageModes::ResetModeMeasure()
 }
 
 
-//void Page::SetTypeAndModeMeasure(int t, int m)
-//{
-//    Switch *type = (Switch *)items[0];
-//
-//    type->state->value = (uint8)t;
-//
-//    Switch *mode = (Switch *)items[1];
-//
-//    mode->state->value = (uint8)m;
-//
-//    if (this == Channel::A->pageModes)
-//    {
-//        PageModesA::OnChanged_TypeMeasure();
-//    }
-//    else if (this == Channel::B->pageModes)
-//    {
-//        PageModesB::OnChanged_TypeMeasure();
-//    }
-//    else if (this == Channel::C.pageModes)
-//    {
-//        PageModesC::OnChanged_TypeMeasure();
-//    }
-//    else if (this == Channel::D.pageModes)
-//    {
-//    }
-//}
+PageModes::PageModes(Item **items, void (*onEvent)(EventType::E),
+    Switch *pModeFrequency, Switch *pModeCountPulse, Switch *pModePeriod, Switch *pModeDuration,
+    const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
+    Page(items, onEvent),
+    typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count),
+    modeFrequency(ModeFrequency::Frequency, enabledModeFrequency, ModeFrequency::Count),
+    modePeriod(ModePeriod::Period),
+    modeDuration(ModeDuration::Ndt),
+    modeCountPulse(ModeCountPulse::AtB, enabledModeCountPulse, ModeCountPulse::Count),
+    switchModeFrequency(pModeFrequency),
+    switchModeCountPulse(pModeCountPulse),
+    switchModePeriod(pModePeriod),
+    switchModeDuration(pModeDuration)
+{
+}

@@ -22,7 +22,7 @@ static void OnChanged_TypeMeasure()
 DEF_SWITCH_2(sTypeMeasure,
     "Измерения", "Выбор измерения",
     "Частота", "Частота",
-    Channel::D->set.typeMeasure, OnChanged_TypeMeasure
+    Channel::D->mod->typeMeasure, OnChanged_TypeMeasure
 )
 
 
@@ -35,7 +35,7 @@ static void OnChanged_ModeMeasureFrequency()
 DEF_SWITCH_2(sModeFrequency,
     "Режим", "Измерение частоы",
     "Частота", "Частота",
-    Channel::D->set.modeFrequency, OnChanged_ModeMeasureFrequency
+    Channel::D->mod->modeFrequency, OnChanged_ModeMeasureFrequency
 )
 
 
@@ -48,4 +48,12 @@ static Item *items[7] =
     nullptr
 };
 
-PageModes pageModesD(items, nullptr);
+
+static const bool enabledMeasuresD[TypeMeasure::Count] = { true, false, false, false };
+static const bool enabledModeFrequencyD[ModeFrequency::Count] = { true, false, false, false, false, false, false, false, false, false };
+static const bool enabledModeCountPulseD[ModeCountPulse::Count] = { false, false, false, false, false, false, false, false, false };
+
+
+PageModes pageModesD(items, nullptr,
+    nullptr, nullptr, nullptr, nullptr,
+    enabledMeasuresD, enabledModeFrequencyD, enabledModeCountPulseD);

@@ -116,10 +116,10 @@ static void SetCurrentChannel(const Control &control)
 
     if (control.value == Control::Mode)
     {
-        if (CURRENT_CHANNEL_IS_A)      { openedPage = Channel::A->pageModes; }
-        else if (CURRENT_CHANNEL_IS_B) { openedPage = Channel::B->pageModes; }
-        else if (CURRENT_CHANNEL_IS_C) { openedPage = Channel::C->pageModes; }
-        else if (CURRENT_CHANNEL_IS_D) { openedPage = Channel::D->pageModes; }
+        if (CURRENT_CHANNEL_IS_A)      { openedPage = Channel::A->mod; }
+        else if (CURRENT_CHANNEL_IS_B) { openedPage = Channel::B->mod; }
+        else if (CURRENT_CHANNEL_IS_C) { openedPage = Channel::C->mod; }
+        else if (CURRENT_CHANNEL_IS_D) { openedPage = Channel::D->mod; }
 
         Hint::Hide();
     }
@@ -278,8 +278,8 @@ static void OnKey(const Control &control) //-V2008
         break;
 
     case Control::Test:
-        if ((Channel::A->set.modeFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B->set.modeFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B))
+        if ((Channel::A->mod->modeFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B->mod->modeFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B))
         {
         }
         else
@@ -289,13 +289,13 @@ static void OnKey(const Control &control) //-V2008
         break;
 
     case Control::Auto:
-        if ((Channel::A->set.typeMeasure.IsFrequency() && Channel::A->set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B->set.typeMeasure.IsFrequency() && Channel::B->set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
-            (Channel::C->set.typeMeasure.IsFrequency() && Channel::C->set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
-            (Channel::A->set.typeMeasure.IsPeriod() && Channel::A->set.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B->set.typeMeasure.IsPeriod() && Channel::B->set.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
-            (Channel::A->set.typeMeasure.IsDuration() && Channel::A->set.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B->set.typeMeasure.IsDuration() && Channel::B->set.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
+        if ((Channel::A->mod->typeMeasure.IsFrequency() && Channel::A->mod->modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B->mod->typeMeasure.IsFrequency() && Channel::B->mod->modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
+            (Channel::C->mod->typeMeasure.IsFrequency() && Channel::C->mod->modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
+            (Channel::A->mod->typeMeasure.IsPeriod() && Channel::A->mod->modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B->mod->typeMeasure.IsPeriod() && Channel::B->mod->modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
+            (Channel::A->mod->typeMeasure.IsDuration() && Channel::A->mod->modeDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B->mod->typeMeasure.IsDuration() && Channel::B->mod->modeDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
         {
             MathFPGA::Auto::Refresh();
             FreqMeter::LoadAuto();
@@ -319,7 +319,7 @@ static void OnKey(const Control &control) //-V2008
 
 void Menu::Init()
 {
-    openedPage = Channel::A->pageModes;
+    openedPage = Channel::A->mod;
 
     SubscribeToEvents();
 }
@@ -327,6 +327,6 @@ void Menu::Init()
 
 static void SubscribeToEvents()
 {
-    FreqMeter::modeTest.AddObserver(Channel::A->pageModes);
-    FreqMeter::modeTest.AddObserver(Channel::B->pageModes);
+    FreqMeter::modeTest.AddObserver(Channel::A->mod);
+    FreqMeter::modeTest.AddObserver(Channel::B->mod);
 }
