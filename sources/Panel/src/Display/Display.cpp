@@ -123,7 +123,7 @@ bool Display::DrawWelcomeScreen()
         {
             SetTopRow(i);
             BeginScene();
-            Text("OAO лмхох, 43-96/2, Cherm V 1.2").Write(40, 100, Color::WHITE);
+            Text("OAO лмхох, 43-96/2, Cherm V 1.2").Write(100, 110, Color::WHITE);
             EndScene();
         }
 
