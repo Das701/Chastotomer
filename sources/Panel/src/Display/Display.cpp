@@ -117,7 +117,7 @@ static void DrawValue(char *string, int x, int y)
 
 bool Display::DrawWelcomeScreen()
 {
-    if (TIME_MS < 1000)
+    if (TIME_MS < 5000)
     {
         for (int i = 0; i < NUM_PARTS; i++)
         {
@@ -410,6 +410,7 @@ int Display::TopRow()
 void Display::SendToSCPI()
 {
     sendToSCPI = true;
+    Refresh();
 }
 
 
