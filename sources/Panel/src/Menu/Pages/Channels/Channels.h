@@ -17,37 +17,10 @@ class Switch;
 #define NUMBER_CURRENT_CHANNEL      (NUMBER_CHANNEL(CURRENT_CHANNEL))
 
 
-class PageModes : public Page
-{
-public:
-    PageModes(Item **items, void (*onEvent)(EventType::E),
-        Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
-        const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
-
-    // Функции действительны для страниц режимов каналов
-    TypeMeasure *GetTypeMeasure() const;
-    int GetModeMeasure() const;
-    bool ExistTypeMeasure(uint8 type) const;
-    void ResetTypeAndModeMeasure();
-    bool ExistModeMeasure(int mode) const;
-    void ResetModeMeasure();
-
-    TypeMeasure    typeMeasure;
-    ModeFrequency  modeFrequency;    // Режим измерения частоты
-    ModePeriod     modePeriod;       // Режим измерения периода
-    ModeDuration   modeDuration;     // Режим измерения длительности
-    ModeCountPulse modeCountPulse;   // Режим счёта импульсов
-
-    Switch *switchModeFrequency;
-    Switch *switchModeCountPulse;
-    Switch *switchModePeriod;
-    Switch *switchModeDuration;
-};
-
-
 struct SettingsChannel
 {
-    SettingsChannel();
+    SettingsChannel(Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
+        const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
     InputCouple    couple;
     InputImpedance impedance;
@@ -55,6 +28,17 @@ struct SettingsChannel
     ModeFront      modeFront;
     Divider        divider;
     TypeSynch      typeSynch;
+
+    TypeMeasure    typeMeasure;
+    ModeFrequency  modeFrequency;    // Режим измерения частоты
+    ModePeriod     modePeriod;       // Режим измерения периода
+    ModeDuration   modeDuration;     // Режим измерения длительности
+    ModeCountPulse modeCountPulse;   // Режим счёта импульсов
+
+    Switch        *switchModeFrequency;
+    Switch        *switchModeCountPulse;
+    Switch        *switchModePeriod;
+    Switch        *switchModeDuration;
 };
 
 
@@ -67,7 +51,8 @@ struct Channel
 
     static const int Count = 4;
 
-    Channel(int number, Page *pSettings, PageModes *pModes);
+    Channel(int number, Page *pSettings, PageModes *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
+        const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
     static void Create();
 
@@ -96,7 +81,7 @@ struct Channel
     void PressSetup();
 
     Page *pageSettings;
-    PageModes *mod;
+    PageModes *pageModes;
 
     static TimeMeasure       timeMeasure;    // Время счета
     static NumberPeriods     numberPeriods;  // Число периодов измерения

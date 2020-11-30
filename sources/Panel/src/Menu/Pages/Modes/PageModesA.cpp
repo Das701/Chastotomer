@@ -12,7 +12,6 @@
 
 using namespace Primitives;
 
-extern PageModes pageModesA;
 
 extern Item *items[7];
 extern Switch sModeFrequency;
@@ -30,7 +29,7 @@ static void OnChanged_TypeMeasure()
 DEF_SWITCH_4(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Период", "Длит.", "Сч. имп.",
-    pageModesA.typeMeasure, OnChanged_TypeMeasure
+    Channel::A->set.typeMeasure, OnChanged_TypeMeasure
 );
 
 
@@ -48,36 +47,36 @@ static void OnChanged_ModeFrequency()
 
     Relation::Off();
 
-    if (Channel::A->mod->modeFrequency.IsFrequency())
+    if (Channel::A->set.modeFrequency.IsFrequency())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
         items[4] = nullptr;
     }
-    else if (Channel::A->mod->modeFrequency.IsRatioAB())
+    else if (Channel::A->set.modeFrequency.IsRatioAB())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = nullptr;
         Relation::On();
     }
-    else if (Channel::A->mod->modeFrequency.IsRatioAC())
+    else if (Channel::A->set.modeFrequency.IsRatioAC())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = nullptr;
         Relation::On();
     }
-    else if (Channel::A->mod->modeFrequency.IsT_1())
+    else if (Channel::A->set.modeFrequency.IsT_1())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = Channel::switchTimeLabels;
         items[4] = nullptr;
     }
-    else if (Channel::A->mod->modeFrequency.IsTachometer())
+    else if (Channel::A->set.modeFrequency.IsTachometer())
     {
         items[2] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
         items[3] = nullptr;
     }
-    else if (Channel::A->mod->modeFrequency.IsComparator())
+    else if (Channel::A->set.modeFrequency.IsComparator())
     {
         items[2] = &bStatistics;
         items[3] = nullptr;
@@ -95,21 +94,24 @@ DEF_SWITCH_6(sModeFrequency,
     "f(A)/f(C)",
     "Тахометр",
     "Компаратор",
-    pageModesA.modeFrequency, OnChanged_ModeFrequency
+    Channel::A->set.modeFrequency, OnChanged_ModeFrequency
 );
+
+
+Switch *switchModeFrequencyA = &sModeFrequency;
 
 
 static void OnChanged_ModePeriod()
 {
     items[1] = &sModePeriod;
 
-    if (Channel::A->mod->modePeriod.IsPeriod())
+    if (Channel::A->set.modePeriod.IsPeriod())
     {
         items[2] = Channel::switchNumberPeriods;
         items[3] = Channel::switchTimeLabels;
         items[4] = nullptr;
     }
-    else if (Channel::A->mod->modePeriod.IsF_1())
+    else if (Channel::A->set.modePeriod.IsF_1())
     {
         items[2] = Channel::switchTimeMeasue;
         items[3] = FreqMeter::modeTest.IsEnabled() ? Channel::switchTimeLabels : nullptr;
@@ -125,15 +127,18 @@ static void OnChanged_ModePeriod()
 DEF_SWITCH_2(sModePeriod,
     "Режим", "Измерение периода",
     "Период", "T=1/f",
-    pageModesA.modePeriod, OnChanged_ModePeriod
+    Channel::A->set.modePeriod, OnChanged_ModePeriod
 );
+
+
+Switch *switchModePeriodA = &sModePeriod;
 
 
 static void OnChanged_ModeDuration()
 {
     items[1] = &sModeDuration;
 
-    switch (Channel::A->mod->modeDuration.value)
+    switch (Channel::A->set.modeDuration.value)
     {
     case ModeDuration::Ndt_1ns:
         items[2] = nullptr;
@@ -157,8 +162,11 @@ static void OnChanged_ModeDuration()
 DEF_SWITCH_5(sModeDuration,
     "Режим", "Измерение длительности",
     "ndt", "ndt/1нс", "СтартА-СтопВ", "Коэфф. зап.", "Фаза",
-    pageModesA.modeDuration, OnChanged_ModeDuration
+    Channel::A->set.modeDuration, OnChanged_ModeDuration
 );
+
+
+Switch *switchModeDurationA = &sModeDuration;
 
 
 static void OnChanged_ModeCountPulse()
@@ -166,7 +174,7 @@ static void OnChanged_ModeCountPulse()
     items[1] = &sModeCountPulse;
     items[2] = nullptr;
 
-    switch (Channel::A->mod->modeCountPulse.value)
+    switch (Channel::A->set.modeCountPulse.value)
     {
     case ModeCountPulse::AtB:
         break;
@@ -189,7 +197,7 @@ static void OnChanged_ModeCountPulse()
 DEF_SWITCH_3(sModeCountPulse,
     "Режим", "Счёт числа импульсов",
     "А(tB)", "А(TB)", "Старт/Стоп",
-    pageModesA.modeCountPulse, OnChanged_ModeCountPulse
+    Channel::A->set.modeCountPulse, OnChanged_ModeCountPulse
 );
 
 
@@ -209,14 +217,14 @@ static void OnChanged_ModeTest()
 {
     bool test = FreqMeter::modeTest.IsEnabled();
 
-    switch(Channel::A->mod->typeMeasure.value)
+    switch(Channel::A->set.typeMeasure.value)
     {
     case TypeMeasure::Frequency:
-        if (Channel::A->mod->modeFrequency.IsFrequency())
+        if (Channel::A->set.modeFrequency.IsFrequency())
         {
             items[3] = test ? Channel::switchTimeLabels : nullptr;
         }
-        else if (Channel::A->mod->modeFrequency.IsTachometer())
+        else if (Channel::A->set.modeFrequency.IsTachometer())
         {
             items[2] = test ? Channel::switchTimeLabels : nullptr;
         }
@@ -227,7 +235,7 @@ static void OnChanged_ModeTest()
         break;
     }
 
-    pageModesA.VerifySelectedItem();
+    Channel::A->pageModes->VerifySelectedItem();
 }
 
 static void OnEvent(EventType::E event)
@@ -238,10 +246,5 @@ static void OnEvent(EventType::E event)
     }
 }
 
-static const bool enabledMeasuresA[TypeMeasure::Count] = { true, true, true, true };
-static const bool enabledModeFrequencyA[ModeFrequency::Count] = { true, true, true, true, false, false, false, false, true, true };
-static const bool enabledModeCountPulseA[ModeCountPulse::Count] = { true, true, false, false, false, false, false, false, true };
 
-PageModes pageModesA(items, OnEvent,
-    &sModeFrequency, &sModeCountPulse, &sModePeriod, &sModeDuration,
-    enabledMeasuresA, enabledModeFrequencyA, enabledModeCountPulseA);
+PageModes pageModesA(items, OnEvent);

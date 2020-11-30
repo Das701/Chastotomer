@@ -259,7 +259,7 @@ void Display::DrawScreen()
     }
     else
     {
-        Channel::Current()->mod->typeMeasure.Draw(10, 57);
+        Channel::Current()->set.typeMeasure.Draw(10, 57);
         
         CurrentModeMeasure::Draw(120, 57);
 
@@ -342,16 +342,16 @@ static void DrawInfo()
 {
     if(PageIndication::memoryMode == MemoryMode::On)
     {
-        if(CURRENT_CHANNEL_IS_A && Channel::A->mod->modeFrequency.IsTachometer() && (Channel::A->mod->typeMeasure.IsFrequency()))
+        if(CURRENT_CHANNEL_IS_A && Channel::A->set.modeFrequency.IsTachometer() && (Channel::A->set.typeMeasure.IsFrequency()))
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && Channel::B->mod->modeFrequency.IsTachometer() && Channel::B->mod->typeMeasure.IsFrequency())
+        else if(CURRENT_CHANNEL_IS_B && Channel::B->set.modeFrequency.IsTachometer() && Channel::B->set.typeMeasure.IsFrequency())
         {
         }
-        else if(CURRENT_CHANNEL_IS_A && Channel::A->mod->typeMeasure.IsCountPulse() && Channel::A->mod->modeCountPulse.Is_StartStop())
+        else if(CURRENT_CHANNEL_IS_A && Channel::A->set.typeMeasure.IsCountPulse() && Channel::A->set.modeCountPulse.Is_StartStop())
         {
         }
-        else if(CURRENT_CHANNEL_IS_B && Channel::B->mod->typeMeasure.IsCountPulse() && Channel::B->mod->modeCountPulse.Is_StartStop())
+        else if(CURRENT_CHANNEL_IS_B && Channel::B->set.typeMeasure.IsCountPulse() && Channel::B->set.modeCountPulse.Is_StartStop())
         {
         }
         else
@@ -379,8 +379,8 @@ static void DrawInfo()
         DrawValue("Зап:однокр", coordLaunch.x, coordLaunch.y);
     }
 
-    if((CURRENT_CHANNEL_IS_A && Channel::A->mod->typeMeasure.IsCountPulse() && Channel::A->mod->modeCountPulse.Is_StartStop()) ||
-       (CURRENT_CHANNEL_IS_B && Channel::B->mod->typeMeasure.IsCountPulse() && Channel::B->mod->modeCountPulse.Is_StartStop()))
+    if((CURRENT_CHANNEL_IS_A && Channel::A->set.typeMeasure.IsCountPulse() && Channel::A->set.modeCountPulse.Is_StartStop()) ||
+       (CURRENT_CHANNEL_IS_B && Channel::B->set.typeMeasure.IsCountPulse() && Channel::B->set.modeCountPulse.Is_StartStop()))
     {
         Text(ModeStartStop::IsEnabled() ? "Старт" : "Стоп").Write(430, 60);
     }

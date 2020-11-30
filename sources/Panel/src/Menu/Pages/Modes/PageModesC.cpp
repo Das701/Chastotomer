@@ -23,7 +23,7 @@ static void OnChanged_TypeMeasure()
 DEF_SWITCH_2(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Сч. имп.",
-    Channel::C->mod->typeMeasure, OnChanged_TypeMeasure
+    Channel::C->set.typeMeasure, OnChanged_TypeMeasure
 )
 
 
@@ -31,7 +31,7 @@ static void OnChanged_ModeFrequency()
 {
     items[1] = &sModeFrequency;
 
-    switch (Channel::C->mod->modeFrequency.value)
+    switch (Channel::C->set.modeFrequency.value)
     {
     case ModeFrequency::Frequency:
         items[2] = Channel::switchTimeMeasue;
@@ -55,7 +55,7 @@ static void OnChanged_ModeFrequency()
 DEF_SWITCH_3(sModeFrequency,
     "Режим", "Измерение частоты",
     "Частота", "f(C)/f(A)", "f(C)/f(B)",
-    Channel::C->mod->modeFrequency, OnChanged_ModeFrequency
+    Channel::C->set.modeFrequency, OnChanged_ModeFrequency
 );
 
 
@@ -66,7 +66,7 @@ static void OnChanged_ModeCountPulse()
 {
     items[1] = &sModeCountPulse;
 
-    switch (Channel::C->mod->modeCountPulse.value)
+    switch (Channel::C->set.modeCountPulse.value)
     {
     case ModeCountPulse::CtA:
     case ModeCountPulse::CtB:
@@ -90,7 +90,7 @@ static void OnChanged_ModeCountPulse()
 DEF_SWITCH_4(sModeCountPulse,
     "Режим", "Счёт числа импульсов",
     "C(tA)", "C(tB)", "C(TA)", "C(TB)",
-    Channel::C->mod->modeCountPulse, OnChanged_ModeCountPulse
+    Channel::C->set.modeCountPulse, OnChanged_ModeCountPulse
 );
 
 
@@ -105,14 +105,4 @@ static Item *items[7] =
     nullptr
 };
 
-
-static const bool enabledMeasuresC[TypeMeasure::Count] = { true, false, false, true };
-static const bool enabledModeFrequencyC[ModeFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
-static const bool enabledModeCountPulseC[ModeCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
-
-
-PageModes pageModesC(items, nullptr,
-    switchModeFrequencyC, switchModeCountPulseC, nullptr, nullptr,
-    enabledMeasuresC, enabledModeFrequencyC, enabledModeCountPulseC);
-
-
+PageModes pageModesC(items, nullptr);

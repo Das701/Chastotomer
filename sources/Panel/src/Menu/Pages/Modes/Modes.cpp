@@ -22,40 +22,40 @@ Enumeration &CurrentModeMeasure::ToEnumeration()
     {
         static Enumeration *const modes[4] =
         {
-            &Channel::A->mod->modeFrequency,
-            &Channel::A->mod->modePeriod,
-            &Channel::A->mod->modeDuration,
-            &Channel::A->mod->modeCountPulse
+            &Channel::A->set.modeFrequency,
+            &Channel::A->set.modePeriod,
+            &Channel::A->set.modeDuration,
+            &Channel::A->set.modeCountPulse
         };
 
-        return *modes[Channel::A->mod->typeMeasure.value];
+        return *modes[Channel::A->set.typeMeasure.value];
     }
     else if (CURRENT_CHANNEL_IS_B)
     {
         static Enumeration *const modesB[4] =
         {
-            &Channel::B->mod->modeFrequency,
-            &Channel::B->mod->modePeriod,
-            &Channel::B->mod->modeDuration,
-            &Channel::B->mod->modeCountPulse
+            &Channel::B->set.modeFrequency,
+            &Channel::B->set.modePeriod,
+            &Channel::B->set.modeDuration,
+            &Channel::B->set.modeCountPulse
         };
 
-        return *modesB[Channel::B->mod->typeMeasure.value];
+        return *modesB[Channel::B->set.typeMeasure.value];
     }
     else if (CURRENT_CHANNEL_IS_C)
     {
         static Enumeration *const modesC[4] =
         {
-            &Channel::C->mod->modeFrequency,
+            &Channel::C->set.modeFrequency,
             nullptr,
             nullptr,
-            &Channel::C->mod->modeCountPulse
+            &Channel::C->set.modeCountPulse
         };
 
-        return *modesC[Channel::C->mod->typeMeasure.value];;
+        return *modesC[Channel::C->set.typeMeasure.value];;
     }
 
-    return Channel::D->mod->modeFrequency;
+    return Channel::D->set.modeFrequency;
 }
 
 
@@ -146,13 +146,13 @@ const ModeCountPulse &ModeCountPulse::Current()
 
     static const ModeCountPulse *modes[Channel::Count] =
     {
-        &Channel::A->mod->modeCountPulse,
-        &Channel::B->mod->modeCountPulse,
-        &Channel::C->mod->modeCountPulse,
+        &Channel::A->set.modeCountPulse,
+        &Channel::B->set.modeCountPulse,
+        &Channel::C->set.modeCountPulse,
         &null
     };
 
-    return Channel::Current()->mod->typeMeasure.IsCountPulse() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
+    return Channel::Current()->set.typeMeasure.IsCountPulse() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
 }
 
 
@@ -163,13 +163,13 @@ const ModeFrequency &ModeFrequency::Current()
 
     ModeFrequency *const modes[Channel::Count] =
     {
-        &Channel::A->mod->modeFrequency,
-        &Channel::B->mod->modeFrequency,
-        &Channel::C->mod->modeFrequency,
-        &Channel::D->mod->modeFrequency
+        &Channel::A->set.modeFrequency,
+        &Channel::B->set.modeFrequency,
+        &Channel::C->set.modeFrequency,
+        &Channel::D->set.modeFrequency
     };
 
-    return Channel::Current()->mod->typeMeasure.IsFrequency() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
+    return Channel::Current()->set.typeMeasure.IsFrequency() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
 }
 
 
@@ -179,13 +179,13 @@ const ModePeriod &ModePeriod::Current()
 
     static const ModePeriod *modes[Channel::Count] =
     {
-        &Channel::A->mod->modePeriod,
-        &Channel::B->mod->modePeriod,
+        &Channel::A->set.modePeriod,
+        &Channel::B->set.modePeriod,
         &null,
         &null
     };
 
-    return Channel::Current()->mod->typeMeasure.IsPeriod() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
+    return Channel::Current()->set.typeMeasure.IsPeriod() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
 }
 
 
@@ -195,13 +195,13 @@ const ModeDuration &ModeDuration::Current()
 
     static ModeDuration *const modes[Channel::Count] =
     {
-        &Channel::A->mod->modeDuration,
-        &Channel::B->mod->modeDuration,
+        &Channel::A->set.modeDuration,
+        &Channel::B->set.modeDuration,
         &null,
         &null
     };
 
-    return Channel::Current()->mod->typeMeasure.IsDuration() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
+    return Channel::Current()->set.typeMeasure.IsDuration() ? *modes[NUMBER_CURRENT_CHANNEL] : null;
 }
 
 

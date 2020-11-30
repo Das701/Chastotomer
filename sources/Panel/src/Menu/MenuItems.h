@@ -150,3 +150,18 @@ protected:
 
     void (*onEvent)(EventType::E);
 };
+
+
+class PageModes : public Page
+{
+public:
+    PageModes(Item **items, void (*onEvent)(EventType::E)) : Page(items, onEvent) {}
+
+    // Функции действительны для страниц режимов каналов
+    TypeMeasure *GetTypeMeasure() const;
+    int GetModeMeasure() const;
+    bool ExistTypeMeasure(uint8 type) const;
+    void ResetTypeAndModeMeasure();
+    bool ExistModeMeasure(int mode) const;
+    void ResetModeMeasure();
+};
