@@ -112,9 +112,9 @@ bool DataZone::Draw()
 
 bool ProgressBarTimeMeasureZone::Draw()
 {
-    if (Channel::Current()->ConsistTimeMeasure() && Channel::timeMeasure.value > TimeMeasure::_10ms)
+    if (Channel::Current()->ConsistTimeMeasure() && ModesChannel::timeMeasure.value > TimeMeasure::_10ms)
     {
-        int timeCycle = Channel::timeMeasure.ToMS();
+        int timeCycle = ModesChannel::timeMeasure.ToMS();
 
         float part = ((float)(TIME_MS - timeStart) / (float)timeCycle);
 

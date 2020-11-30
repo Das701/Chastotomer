@@ -34,14 +34,14 @@ static void OnChanged_ModeFrequency()
     switch (Channel::C->set.modeFrequency.value)
     {
     case ModeFrequency::Frequency:
-        items[2] = Channel::switchTimeMeasue;
+        items[2] = ModesChannel::switchTimeMeasue;
         items[3] = nullptr;
         break;
 
     case ModeFrequency::RatioCA:
     case ModeFrequency::RatioCB:
-        items[2] = Channel::switchNumberPeriods;
-        items[3] = Channel::switchTimeLabels;
+        items[2] = ModesChannel::switchNumberPeriods;
+        items[3] = ModesChannel::switchTimeLabels;
         items[4] = nullptr;
         break;
     }
@@ -75,7 +75,7 @@ static void OnChanged_ModeCountPulse()
 
     case ModeCountPulse::CTA:
     case ModeCountPulse::CTB:
-        items[2] = Channel::switchNumberPeriods;
+        items[2] = ModesChannel::switchNumberPeriods;
         break;
     }
 
@@ -101,7 +101,7 @@ static Item *items[7] =
 {
     &sTypeMeasure,
     &sModeFrequency,
-    Channel::switchTimeMeasue,
+    ModesChannel::switchTimeMeasue,
     nullptr
 };
 

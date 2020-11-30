@@ -90,7 +90,7 @@ DEF_SWITCH_UGO_2(sDivider,
 DEF_SWITCH_6(sPeriodTimeLabels,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    Channel::timeLabels,  PeriodTimeLabels::LoadToFPGA
+    ModesChannel::timeLabels,  PeriodTimeLabels::LoadToFPGA
 );
 
 
@@ -99,7 +99,7 @@ static void OnPress_Sync()
     if (Channel::B->set.typeSynch.IsHoldoff())
     {
         items[0] = &sSync;
-        items[1] = Channel::switchTimeMeasue;
+        items[1] = ModesChannel::switchTimeMeasue;
         items[2] = &sPeriodTimeLabels;
         items[3] = nullptr;
 

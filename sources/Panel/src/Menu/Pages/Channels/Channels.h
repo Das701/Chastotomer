@@ -42,6 +42,18 @@ struct SettingsChannel
 };
 
 
+struct ModesChannel
+{
+    static TimeMeasure       timeMeasure;    // Время счета
+    static NumberPeriods     numberPeriods;  // Число периодов измерения
+    static PeriodTimeLabels  timeLabels;     // Период меток времени
+
+    static Switch           *switchTimeMeasue;
+    static Switch           *switchNumberPeriods;
+    static Switch           *switchTimeLabels;
+};
+
+
 struct Channel
 {
     static Channel *A;
@@ -82,14 +94,6 @@ struct Channel
 
     Page *pageSettings;
     PageModes *pageModes;
-
-    static TimeMeasure       timeMeasure;    // Время счета
-    static NumberPeriods     numberPeriods;  // Число периодов измерения
-    static PeriodTimeLabels  timeLabels;     // Период меток времени
-
-    static Switch *switchTimeMeasue;
-    static Switch *switchNumberPeriods;
-    static Switch *switchTimeLabels;
 
     SettingsChannel set;
 

@@ -92,8 +92,8 @@ static void OnPress_Sync()
     if (Channel::A->set.typeSynch.IsHoldoff())
     {
         items[0] = &sSync;
-        items[1] = Channel::switchTimeMeasue;
-        items[2] = Channel::switchTimeLabels;
+        items[1] = ModesChannel::switchTimeMeasue;
+        items[2] = ModesChannel::switchTimeLabels;
         items[3] = nullptr;
 
         Channel::A->pageSettings->selectedItem = 0;

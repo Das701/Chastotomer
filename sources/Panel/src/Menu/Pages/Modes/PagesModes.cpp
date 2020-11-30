@@ -11,7 +11,7 @@
 DEF_SWITCH_7(sTimeMeasure,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
-    Channel::timeMeasure, TimeMeasure::LoadToFPGA
+    ModesChannel::timeMeasure, TimeMeasure::LoadToFPGA
 );
 
 #else
@@ -19,13 +19,13 @@ DEF_SWITCH_7(sTimeMeasure,
 DEF_SWITCH_6(sTimeMeasure,
     "Время", "Время счёта",
     "1ms", "10ms", "100ms", "1s", "10s", "100s",
-    Channel::timeMeasure, TimeMeasure::LoadToFPGA
+    ModesChannel::timeMeasure, TimeMeasure::LoadToFPGA
 );
 
 #endif
 
 
-Switch *Channel::switchTimeMeasue = &sTimeMeasure;
+Switch *ModesChannel::switchTimeMeasue = &sTimeMeasure;
 
 
 // Выбор числа усредняемых периодов входного сигнала
@@ -34,7 +34,7 @@ Switch *Channel::switchTimeMeasue = &sTimeMeasure;
 DEF_SWITCH_7(sNumberPeriods,
     "N", "Число периодов измерения",
     "1", "10", "100", "1K", "10K", "100K", "1000K",
-    Channel::numberPeriods, NumberPeriods::LoadToFPGA
+    ModesChannel::numberPeriods, NumberPeriods::LoadToFPGA
 );
 
 #else
@@ -42,21 +42,21 @@ DEF_SWITCH_7(sNumberPeriods,
 DEF_SWITCH_6(sNumberPeriods,
     "N", "Число периодов измерения",
     "1", "10", "100", "1K", "10K", "100K",
-    Channel::numberPeriods, NumberPeriods::LoadToFPGA
+    ModesChannel::numberPeriods, NumberPeriods::LoadToFPGA
 );
 
 #endif
 
 
-Switch *Channel::switchNumberPeriods = &sNumberPeriods;
+Switch *ModesChannel::switchNumberPeriods = &sNumberPeriods;
 
 
 // Выбор периода меток времени
 DEF_SWITCH_6(sTimeLabels,
     "Метки", "Длительность временных меток",
     "10-3", "10-4", "10-5", "10-6", "10-7", "10-8",
-    Channel::timeLabels, PeriodTimeLabels::LoadToFPGA
+    ModesChannel::timeLabels, PeriodTimeLabels::LoadToFPGA
 );
 
 
-Switch *Channel::switchTimeLabels = &sTimeLabels;
+Switch *ModesChannel::switchTimeLabels = &sTimeLabels;

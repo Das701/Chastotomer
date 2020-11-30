@@ -43,7 +43,7 @@ static Item *items[7] =
 {
     &sTypeMeasure,
     &sModeFrequency,
-    Channel::switchTimeMeasue,
+    ModesChannel::switchTimeMeasue,
     nullptr,
     nullptr
 };

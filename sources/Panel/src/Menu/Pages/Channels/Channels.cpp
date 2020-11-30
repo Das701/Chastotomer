@@ -57,9 +57,9 @@ static const bool enabledModeFrequencyD[ModeFrequency::Count] = { true, false, f
 static const bool enabledModeCountPulseD[ModeCountPulse::Count] = { false, false, false, false, false, false, false, false, false };
 
 
-PeriodTimeLabels Channel::timeLabels(PeriodTimeLabels::T_8);
-NumberPeriods    Channel::numberPeriods(NumberPeriods::_1);
-TimeMeasure      Channel::timeMeasure(TimeMeasure::_1ms);
+PeriodTimeLabels ModesChannel::timeLabels(PeriodTimeLabels::T_8);
+NumberPeriods    ModesChannel::numberPeriods(NumberPeriods::_1);
+TimeMeasure      ModesChannel::timeMeasure(TimeMeasure::_1ms);
 
 
 SettingsChannel::SettingsChannel(Switch *pModeFrequency, Switch *pModeCountPulse, Switch *pModePeriod, Switch *pModeDuration,
@@ -281,17 +281,17 @@ void Channel::DrawParameters(int x, int y)
 
     if (type->IsActiveTimeMeasure(mode))
     {
-        DrawValue(timeMeasure, x, y);
+        DrawValue(ModesChannel::timeMeasure, x, y);
     }
 
     if (type->IsActiveNumberPeriods(mode))
     {
-        DrawValue(numberPeriods, x + dX, y);
+        DrawValue(ModesChannel::numberPeriods, x + dX, y);
     }
 
     if (type->IsActiveTimeLabels(mode))
     {
-        DrawValue(timeLabels, x + 2 * dX, y);
+        DrawValue(ModesChannel::timeLabels, x + 2 * dX, y);
     }
 }
 

@@ -123,7 +123,7 @@ int TimeMeasure::ToMS() const
 
 void TimeMeasure::Set(TimeMeasure::E v)
 {
-    Channel::timeMeasure.value = (uint8)v;
+    ModesChannel::timeMeasure.value = (uint8)v;
     LoadToFPGA();
 }
 
