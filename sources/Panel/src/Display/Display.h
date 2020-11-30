@@ -29,7 +29,7 @@ struct Display
 
     static void EndScene();
 
-    static bool DrawWelcomeScreen();
+    static void DrawWelcomeScreen();
 
     // Номер верхней строки в текущей отрисовке.
     // Отрисовка происходит в два этапа - сначала верхняя часть (TopRow() == 0), затем нижняя (TopRow() == Display/HEIGHT / 2)

@@ -114,22 +114,20 @@ static void DrawValue(char *string, int x, int y)
 }
 
 
-bool Display::DrawWelcomeScreen()
+void Display::DrawWelcomeScreen()
 {
-    if (TIME_MS < 5000)
+    uint startTime = TIME_MS;
+    
+    while (TIME_MS - startTime < 3000)
     {
         for (int i = 0; i < NUM_PARTS; i++)
         {
             SetTopRow(i);
             BeginScene();
-            Text("OAO ÌÍÈÏÈ, 43-96/2, Cherm V 1.2").Write(60, 110, Color::WHITE);
+            Text("OAO ÌÍÈÏÈ, 43-96/2, Cherm V 1.2").Write(100, 110, Color::WHITE);
             EndScene();
         }
-
-        return true;
     }
-
-    return false;
 }
 
 
