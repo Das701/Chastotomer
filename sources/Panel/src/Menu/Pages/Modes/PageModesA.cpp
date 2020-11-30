@@ -12,6 +12,7 @@
 
 using namespace Primitives;
 
+extern PageModes pageModesA;
 
 extern Item *items[7];
 extern Switch sModeFrequency;
@@ -29,7 +30,7 @@ static void OnChanged_TypeMeasure()
 DEF_SWITCH_4(sTypeMeasure,
     "Измерение", "Выбор измерения",
     "Частота", "Период", "Длит.", "Сч. имп.",
-    Channel::A->mod->typeMeasure, OnChanged_TypeMeasure
+    pageModesA.typeMeasure, OnChanged_TypeMeasure
 );
 
 
@@ -94,11 +95,8 @@ DEF_SWITCH_6(sModeFrequency,
     "f(A)/f(C)",
     "Тахометр",
     "Компаратор",
-    Channel::A->mod->modeFrequency, OnChanged_ModeFrequency
+    pageModesA.modeFrequency, OnChanged_ModeFrequency
 );
-
-
-Switch *switchModeFrequencyA = &sModeFrequency;
 
 
 static void OnChanged_ModePeriod()
@@ -127,11 +125,8 @@ static void OnChanged_ModePeriod()
 DEF_SWITCH_2(sModePeriod,
     "Режим", "Измерение периода",
     "Период", "T=1/f",
-    Channel::A->mod->modePeriod, OnChanged_ModePeriod
+    pageModesA.modePeriod, OnChanged_ModePeriod
 );
-
-
-Switch *switchModePeriodA = &sModePeriod;
 
 
 static void OnChanged_ModeDuration()
@@ -162,11 +157,8 @@ static void OnChanged_ModeDuration()
 DEF_SWITCH_5(sModeDuration,
     "Режим", "Измерение длительности",
     "ndt", "ndt/1нс", "СтартА-СтопВ", "Коэфф. зап.", "Фаза",
-    Channel::A->mod->modeDuration, OnChanged_ModeDuration
+    pageModesA.modeDuration, OnChanged_ModeDuration
 );
-
-
-Switch *switchModeDurationA = &sModeDuration;
 
 
 static void OnChanged_ModeCountPulse()
@@ -197,7 +189,7 @@ static void OnChanged_ModeCountPulse()
 DEF_SWITCH_3(sModeCountPulse,
     "Режим", "Счёт числа импульсов",
     "А(tB)", "А(TB)", "Старт/Стоп",
-    Channel::A->mod->modeCountPulse, OnChanged_ModeCountPulse
+    pageModesA.modeCountPulse, OnChanged_ModeCountPulse
 );
 
 
@@ -235,7 +227,7 @@ static void OnChanged_ModeTest()
         break;
     }
 
-    Channel::A->mod->VerifySelectedItem();
+    pageModesA.VerifySelectedItem();
 }
 
 static void OnEvent(EventType::E event)
@@ -251,5 +243,5 @@ static const bool enabledModeFrequencyA[ModeFrequency::Count] = { true, true, tr
 static const bool enabledModeCountPulseA[ModeCountPulse::Count] = { true, true, false, false, false, false, false, false, true };
 
 PageModes pageModesA(items, OnEvent,
-    switchModeFrequencyA, switchModeCountPulseA, switchModePeriodA, switchModeDurationA,
+    &sModeFrequency, &sModeCountPulse, &sModePeriod, &sModeDuration,
     enabledMeasuresA, enabledModeFrequencyA, enabledModeCountPulseA);
