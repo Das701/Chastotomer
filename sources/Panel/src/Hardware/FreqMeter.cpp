@@ -19,8 +19,8 @@ void Channel::LoadToFPGA()
 {
     Command command(Command::CurrentChannel);
 
-    if (IsA())       { command.SetBit(8); }
-    else if (IsB())  { command.SetBit(9); }
+    if (IsB())       { command.SetBit(8); }
+    else if (IsC())  { command.SetBit(9); }
     else if (IsD())  { command.SetBit(8);
                        command.SetBit(9); }
 
