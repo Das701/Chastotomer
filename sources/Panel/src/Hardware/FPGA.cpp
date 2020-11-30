@@ -1,5 +1,4 @@
 #include "defines.h"
-//#include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"

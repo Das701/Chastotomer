@@ -6,6 +6,7 @@
 #include "Display/Font/Font.h"
 #include "Hardware/MathFPGA.h"
 #include "Menu/Menu.h"
+#include "Menu/Pages/PageIndication.h"
 #include "Menu/Pages/PageStatistics.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Utils/Math.h"
@@ -57,10 +58,14 @@ void Object::Update(Object::ModeDraw::E mode)
 
 void Object::Refresh()
 {
-    if (this == Display::zoneProgressBarTimeMeasure && Menu::OpenedPage() == PageStatistics::self)
+    if (this == Display::zoneProgressBarTimeMeasure)
     {
-        return;
+        if(Menu::OpenedPage() == PageStatistics::self || PageIndication::calibration.Is(Calibration::Pressed))
+        {
+            return;
+        }
     }
+
 
     needUpdate = true;
 }
@@ -68,7 +73,7 @@ void Object::Refresh()
 
 void Object::FillBackground()
 {
-//    Rectangle(width, height).Fill(0, 0, Color::BLACK);
+    //    Rectangle(width, height).Fill(0, 0, Color::BLACK);
 
     Display::BeginScene(left, top);
 }

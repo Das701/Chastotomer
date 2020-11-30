@@ -45,11 +45,6 @@ void Menu::Draw()
 
 static void OnGovernor(const Control &control)
 {
-    if (PageIndication::calibration.IsPressed())
-    {
-        return;
-    }
-
     if (CURRENT_CHANNEL_IS_A_OR_B && control.IsRotateGovernor())
     {
         int delta = Channel::Current()->set.typeSynch.IsHoldoff() ? 1 : 2;
@@ -59,7 +54,22 @@ static void OnGovernor(const Control &control)
             delta = -delta;
         }
 
-        LevelSynch::Change(delta);
+        if (PageIndication::calibration.Is(Calibration::Pressed))
+        {
+            if (control.value == Control::GovLeft)
+            {
+                FPGA::DecreaseN();
+            }
+            else
+            {
+                FPGA::IncreaseN();
+            }
+            FPGA::WriteDataGovernor();
+        }
+        else
+        {
+            LevelSynch::Change(delta);
+        }
     }
 }
 
