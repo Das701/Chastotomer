@@ -20,7 +20,7 @@ public:
     void Update(ModeDraw::E mode);
    
     // Установить флаг необходимости перерисовки
-    void Refresh() { needUpdate = true; }
+    void Refresh();
 
 protected:
 

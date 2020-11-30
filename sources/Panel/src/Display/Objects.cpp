@@ -5,6 +5,8 @@
 #include "Display/Text.h"
 #include "Display/Font/Font.h"
 #include "Hardware/MathFPGA.h"
+#include "Menu/Menu.h"
+#include "Menu/Pages/PageStatistics.h"
 #include "Menu/Pages/Modes/PagesModes.h"
 #include "Utils/Math.h"
 #include "Utils/String.h"
@@ -50,6 +52,17 @@ void Object::Update(Object::ModeDraw::E mode)
             Display::Restore();
         }
     }
+}
+
+
+void Object::Refresh()
+{
+    if (this == Display::zoneProgressBarTimeMeasure && Menu::OpenedPage() == PageStatistics::self)
+    {
+        return;
+    }
+
+    needUpdate = true;
 }
 
 
