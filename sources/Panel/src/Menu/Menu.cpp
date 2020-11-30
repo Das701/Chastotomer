@@ -59,7 +59,22 @@ static void OnGovernor(const Control &control)
             delta = -delta;
         }
 
-        LevelSynch::Change(delta);
+        if (PageIndication::calibration.Is(Calibration::Pressed))
+        {
+            if (control.value == Control::GovLeft)
+            {
+                FPGA::DecreaseN();
+            }
+            else
+            {
+                FPGA::IncreaseN();
+            }
+            FPGA::WriteDataGovernor();
+        }
+        else
+        {
+            LevelSynch::Change(delta);
+        }
     }
 }
 
