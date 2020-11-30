@@ -233,8 +233,8 @@ bool Switch::OnControl(const Control &control)
                 PageIndication::OnceLaunchSwitchTrue();
                 FreqMeter::LoadOneTime();
             }
-            else if ((CURRENT_CHANNEL_IS_A && Channel::A->set.typeMeasure.IsCountPulse() && Channel::A->set.modeCountPulse.Is_StartStop()) ||
-                (CURRENT_CHANNEL_IS_B && Channel::B->set.typeMeasure.IsCountPulse() && Channel::B->set.modeCountPulse.Is_StartStop()))
+            else if ((CURRENT_CHANNEL_IS_A && Channel::A->mod.typeMeasure.IsCountPulse() && Channel::A->mod.modeCountPulse.Is_StartStop()) ||
+                (CURRENT_CHANNEL_IS_B && Channel::B->mod.typeMeasure.IsCountPulse() && Channel::B->mod.modeCountPulse.Is_StartStop()))
             {
                 ModeStartStop::Toggle();
                 ModeStartStop::LoadToFPGA();

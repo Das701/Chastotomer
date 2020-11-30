@@ -288,8 +288,8 @@ static void OnKey(const Control &control) //-V2008
         break;
 
     case Control::Test:
-        if ((Channel::A->set.modeFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B->set.modeFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B))
+        if ((Channel::A->mod.modeFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B->mod.modeFrequency.IsRatioBC() && CURRENT_CHANNEL_IS_B))
         {
         }
         else
@@ -299,13 +299,13 @@ static void OnKey(const Control &control) //-V2008
         break;
 
     case Control::Auto:
-        if ((Channel::A->set.typeMeasure.IsFrequency() && Channel::A->set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B->set.typeMeasure.IsFrequency() && Channel::B->set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
-            (Channel::C->set.typeMeasure.IsFrequency() && Channel::C->set.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
-            (Channel::A->set.typeMeasure.IsPeriod() && Channel::A->set.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B->set.typeMeasure.IsPeriod() && Channel::B->set.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
-            (Channel::A->set.typeMeasure.IsDuration() && Channel::A->set.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
-            (Channel::B->set.typeMeasure.IsDuration() && Channel::B->set.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
+        if ((Channel::A->mod.typeMeasure.IsFrequency() && Channel::A->mod.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B->mod.typeMeasure.IsFrequency() && Channel::B->mod.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_B) ||
+            (Channel::C->mod.typeMeasure.IsFrequency() && Channel::C->mod.modeFrequency.IsFrequency() && CURRENT_CHANNEL_IS_C) ||
+            (Channel::A->mod.typeMeasure.IsPeriod() && Channel::A->mod.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B->mod.typeMeasure.IsPeriod() && Channel::B->mod.modePeriod.IsPeriod() && CURRENT_CHANNEL_IS_B) ||
+            (Channel::A->mod.typeMeasure.IsDuration() && Channel::A->mod.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
+            (Channel::B->mod.typeMeasure.IsDuration() && Channel::B->mod.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
         {
             MathFPGA::Auto::Refresh();
             FreqMeter::LoadAuto();

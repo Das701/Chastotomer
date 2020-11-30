@@ -20,8 +20,8 @@ static void OnPress_ResetSettings()
     NumberPeriods::Set(NumberPeriods::_1);
     PeriodTimeLabels::Set(PeriodTimeLabels::T_8);
 
-    Channel::A->set.typeMeasure.value = TypeMeasure::Frequency;
-    Channel::A->set.modeFrequency.value = ModeFrequency::Frequency;
+    Channel::A->mod.typeMeasure.value = TypeMeasure::Frequency;
+    Channel::A->mod.modeFrequency.value = ModeFrequency::Frequency;
 
     Channel::SetCurrent(Channel::A);
 

@@ -62,14 +62,20 @@ NumberPeriods    ModesChannel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      ModesChannel::timeMeasure(TimeMeasure::_1ms);
 
 
-SettingsChannel::SettingsChannel(Switch *pModeFrequency, Switch *pModeCountPulse, Switch *pModePeriod, Switch *pModeDuration,
-    const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
+SettingsChannel::SettingsChannel() :
     couple(InputCouple::AC),
     impedance(InputImpedance::_1MOmh),
     modeFilter(ModeFilter::Off),
     modeFront(ModeFront::Front),
     divider(Divider::_1),
-    typeSynch(TypeSynch::Manual),
+    typeSynch(TypeSynch::Manual)
+{
+
+}
+
+
+ModesChannel::ModesChannel(Switch *pModeFrequency, Switch *pModeCountPulse, Switch *pModePeriod, Switch *pModeDuration,
+    const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     typeMeasure(TypeMeasure::Frequency, enabledMeasures, TypeMeasure::Count),
     modeFrequency(ModeFrequency::Frequency, enabledModeFrequency, ModeFrequency::Count),
     modePeriod(ModePeriod::Period),
@@ -88,7 +94,8 @@ Channel::Channel(int num, Page *pSettings, PageModes *pModes, Switch *pModeFrequ
     const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     pageSettings(pSettings),
     pageModes(pModes),
-    set(pModeFrequency, pModeCountPulse, pModePeriod, pModeDuration, enabledMeasures, enabledModeFrequency, enabledModeCountPulse),
+    set(),
+    mod(pModeFrequency, pModeCountPulse, pModePeriod, pModeDuration, enabledMeasures, enabledModeFrequency, enabledModeCountPulse),
     number(num)
 {
 }
@@ -246,7 +253,7 @@ bool TypeMeasure::IsActiveNumberPeriods(int m)
 
 bool Channel::ConsistTimeMeasure()
 {
-    if (set.typeMeasure.IsFrequency())
+    if (mod.typeMeasure.IsFrequency())
     {
         if (ModeFrequency::Current().IsFrequency() || ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC())
         {
@@ -254,7 +261,7 @@ bool Channel::ConsistTimeMeasure()
         }
     }
 
-    if (set.typeMeasure.IsPeriod() && ModePeriod::Current().IsF_1())
+    if (mod.typeMeasure.IsPeriod() && ModePeriod::Current().IsF_1())
     {
         return true;
     }
@@ -298,24 +305,24 @@ void Channel::DrawParameters(int x, int y)
 
 void Channel::PressSetup()
 {
-    switch (Channel::A->set.typeMeasure.value)
+    switch (Channel::A->mod.typeMeasure.value)
     {
-    case TypeMeasure::Frequency:    pageModes->items[1] = set.switchModeFrequency;     break;
-    case TypeMeasure::Period:       pageModes->items[1] = set.switchModePeriod;        break;
-    case TypeMeasure::Duration:     pageModes->items[1] = set.switchModeDuration;      break;
-    case TypeMeasure::CountPulse:   pageModes->items[1] = set.switchModeCountPulse;    break;
+    case TypeMeasure::Frequency:    pageModes->items[1] = mod.switchModeFrequency;     break;
+    case TypeMeasure::Period:       pageModes->items[1] = mod.switchModePeriod;        break;
+    case TypeMeasure::Duration:     pageModes->items[1] = mod.switchModeDuration;      break;
+    case TypeMeasure::CountPulse:   pageModes->items[1] = mod.switchModeCountPulse;    break;
     }
 }
 
 
 void Channel::OnChanged_TypeMeasure()
 {
-    switch (set.typeMeasure.value)
+    switch (mod.typeMeasure.value)
     {
-    case TypeMeasure::Frequency:    if (set.switchModeFrequency != nullptr)  { set.switchModeFrequency->FuncOnPress();  }   break;
-    case TypeMeasure::CountPulse:   if (set.switchModeCountPulse != nullptr) { set.switchModeCountPulse->FuncOnPress(); }   break;
-    case TypeMeasure::Period:       if (set.switchModePeriod != nullptr)     { set.switchModePeriod->FuncOnPress();     }   break;
-    case TypeMeasure::Duration:     if (set.switchModeDuration != nullptr)   { set.switchModeDuration->FuncOnPress();   }   break;
+    case TypeMeasure::Frequency:    if (mod.switchModeFrequency != nullptr)  { mod.switchModeFrequency->FuncOnPress();  }   break;
+    case TypeMeasure::CountPulse:   if (mod.switchModeCountPulse != nullptr) { mod.switchModeCountPulse->FuncOnPress(); }   break;
+    case TypeMeasure::Period:       if (mod.switchModePeriod != nullptr)     { mod.switchModePeriod->FuncOnPress();     }   break;
+    case TypeMeasure::Duration:     if (mod.switchModeDuration != nullptr)   { mod.switchModeDuration->FuncOnPress();   }   break;
     }
 }
 

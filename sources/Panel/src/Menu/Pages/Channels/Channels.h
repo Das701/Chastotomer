@@ -19,8 +19,7 @@ class Switch;
 
 struct SettingsChannel
 {
-    SettingsChannel(Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
-        const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
+    SettingsChannel();
 
     InputCouple    couple;
     InputImpedance impedance;
@@ -28,6 +27,13 @@ struct SettingsChannel
     ModeFront      modeFront;
     Divider        divider;
     TypeSynch      typeSynch;
+};
+
+
+struct ModesChannel
+{
+    ModesChannel(Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
+        const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
     TypeMeasure    typeMeasure;
     ModeFrequency  modeFrequency;    // Режим измерения частоты
@@ -35,15 +41,11 @@ struct SettingsChannel
     ModeDuration   modeDuration;     // Режим измерения длительности
     ModeCountPulse modeCountPulse;   // Режим счёта импульсов
 
-    Switch        *switchModeFrequency;
-    Switch        *switchModeCountPulse;
-    Switch        *switchModePeriod;
-    Switch        *switchModeDuration;
-};
+    Switch *switchModeFrequency;
+    Switch *switchModeCountPulse;
+    Switch *switchModePeriod;
+    Switch *switchModeDuration;
 
-
-struct ModesChannel
-{
     static TimeMeasure       timeMeasure;    // Время счета
     static NumberPeriods     numberPeriods;  // Число периодов измерения
     static PeriodTimeLabels  timeLabels;     // Период меток времени
@@ -96,6 +98,7 @@ struct Channel
     PageModes *pageModes;
 
     SettingsChannel set;
+    ModesChannel    mod;
 
 private:
 
