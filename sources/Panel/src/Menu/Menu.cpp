@@ -96,25 +96,18 @@ static void SetCurrentChannel(const Control &control)
 {
     if (control.value == Control::Channels)
     {
-        bool loadToFPGA = false;
-        
         if (Menu::OpenedPage()->IsPageSettings())
         {
             Channel::SelectNext();
 
-            loadToFPGA = true;
+            Channel::Current()->OnChanged_TypeMeasure();
+
+            Channel::Current()->LoadToFPGA();
         }
 
         openedPage = Channel::Current()->pageSettings;
 
         Hint::Hide();
-
-        if(loadToFPGA)
-        {
-            Channel::Current()->OnChanged_TypeMeasure();
-
-            Channel::Current()->LoadToFPGA();
-        }
     }
     else if (control.value == Control::Mode)
     {
