@@ -58,15 +58,15 @@ struct ModesChannel
 
 struct Channel
 {
+    Channel(int number, Page *pSettings, PageModes *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
+        const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
+
     static Channel *A;
     static Channel *B;
     static Channel *C;
     static Channel *D;
 
     static const int Count = 4;
-
-    Channel(int number, Page *pSettings, PageModes *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
-        const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
     static void Create();
 
