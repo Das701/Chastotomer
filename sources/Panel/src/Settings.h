@@ -28,7 +28,10 @@ struct StyleGUI
     {
         Modern,     // Обычные символы
         Classic     // Сегментные символы
-    };
+    } value;
+
+    bool IsModern() const { return value == Modern; }
+    void Switch() { value = (value == Modern) ? Classic : Modern; }
 };
 
 
@@ -37,7 +40,7 @@ struct Settings
     int          levelSynch[4][2];  // Уровень синхронизации
     TypeSynch::E typeSynch[4];      // Тип синхронизации для каждого из каналов
     bool         showStatistics;    // Показывать ли статистику по FPS
-    StyleGUI::E  styleGUI;
+    StyleGUI     styleGUI;
 };
 
 extern Settings gset;

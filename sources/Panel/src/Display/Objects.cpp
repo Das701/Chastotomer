@@ -1,5 +1,7 @@
 #include "defines.h"
+#include "Settings.h"
 #include "Display/Display.h"
+#include "Display/Indicator.h"
 #include "Display/Objects.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
@@ -89,18 +91,32 @@ bool DataZone::Draw()
     {
         if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
         {
-            FontBig::Write(data.c_str(), x0 + 10, y0);
+            if (gset.styleGUI.IsModern())
+            {
+                FontBig::Write(data.c_str(), x0 + 10, y0);
+            }
+            else
+            {
+                Indicator::DrawDataAboutRight(data.c_str(), 370, y0 + 1, Color::WHITE, Color::BLACK);
+            }
         }
         else
         {
             int x = x0;
 
-            if (data[0] == 'П') { x += 40; }   // Переполнение
-            else if (data[0] == '=') { x += 150; }   // Деление на ноль
+            if (data[0] == 'П') { x += 40; }                // Переполнение
+            else if (data[0] == '=') { x += 150; }          // Деление на ноль
 
-            Font::Set(TypeFont::GOSTB28B);
-            Text(data.c_str()).Write(x, y0 + 15);
-            Font::Set(TypeFont::GOSTAU16BOLD);
+            if (gset.styleGUI.IsModern())
+            {
+                Font::Set(TypeFont::GOSTB28B);
+                Text(data.c_str()).Write(x, y0 + 15);
+                Font::Set(TypeFont::GOSTAU16BOLD);
+            }
+            else
+            {
+//                Indicator::DrawDataAboutRight(data.c_str(), 370, y0 + 1, Color::WHITE, Color::BLACK);
+            }
         }
     }
 

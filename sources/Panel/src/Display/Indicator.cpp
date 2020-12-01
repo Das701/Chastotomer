@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Log.h"
 #include "Display/Indicator.h"
 #include "Display/Primitives.h"
 
@@ -88,6 +89,8 @@ void Indicator::Test(int x, int y, Color cDraw, Color cBack)
 
 void Indicator::DrawData(pString text, int x, int y, Color cDraw, Color cBack)
 {
+    LOG_WRITE("%d", x);
+
     colorDraw = cDraw;
     colorBack = cBack;
 

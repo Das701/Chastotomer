@@ -17,7 +17,7 @@ int main(void)
     VCP::Init();
     Menu::Init();
 
-    Display::DrawWelcomeScreen();
+    //Display::DrawWelcomeScreen();
 
     while (1)
     {

@@ -57,7 +57,7 @@ DEF_BUTTON(bShowStatistics, "Статистика", "Показывать временную статистику", OnP
 
 static void OnPress_StyleGUI()
 {
-    gset.styleGUI = (gset.styleGUI == StyleGUI::Classic) ? StyleGUI::Modern : StyleGUI::Classic;
+    gset.styleGUI.Switch();
 }
 
 
