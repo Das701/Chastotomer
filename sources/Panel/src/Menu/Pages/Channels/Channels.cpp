@@ -376,31 +376,10 @@ String Channel::GetSettings()
     ADD_UGO(Channel::Current()->set.divider.UGO());
     ADD_UGO(Channel::Current()->set.typeSynch.UGO());
 
-    if (CURRENT_CHANNEL_IS_A)
+    if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Channel::Current()->set.divider.ToAbs()).c_str());
-        if (Channel::A->set.typeSynch.IsManual())
-        {
-            std::strcat(settings, "ìÂ");
-        }
-        else
-        {
-            switch (ModesChannel::timeLabels.value)
-            {
-            case PeriodTimeLabels::T_3:     std::strcat(settings, "x10-3");     break;
-            case PeriodTimeLabels::T_4:     std::strcat(settings, "x10-4");     break;
-            case PeriodTimeLabels::T_5:     std::strcat(settings, "x10-5");     break;
-            case PeriodTimeLabels::T_6:     std::strcat(settings, "x10-6");     break;
-            case PeriodTimeLabels::T_7:     std::strcat(settings, "x10-7");     break;
-            case PeriodTimeLabels::T_8:     std::strcat(settings, "x10-8");     break;
-            }
-        }
-    }
-
-    if (CURRENT_CHANNEL_IS_B)
-    {
-        ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Channel::Current()->set.divider.ToAbs()).c_str());
-        if (Channel::B->set.typeSynch.IsManual())
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH(CURRENT_CHANNEL) * Channel::Current()->set.divider.ToAbs()).c_str());
+        if (Channel::Current()->set.typeSynch.IsManual())
         {
             std::strcat(settings, "ìÂ");
         }
