@@ -107,4 +107,6 @@ private:
     static Channel *current;                // Текущий канал
 
     int number;
+
+    String GetSettings();
 };

@@ -12,8 +12,6 @@ namespace Menu
 
     void Update();
 
-    String ChannelSettings();
-    
     Page* OpenedPage();
 
     void SetOpenedPage(Page *page);

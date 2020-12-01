@@ -49,7 +49,7 @@ DEF_BUTTON(bLanguage, "Язык", "Выбор языка интерфейса", OnPress_Language);
 
 static void OnPress_ShowStatistics()
 {
-    set.showStatistics = !set.showStatistics;
+    gset.showStatistics = !gset.showStatistics;
 }
 
 DEF_BUTTON(bShowStatistics, "Статистика", "Показывать временную статистику", OnPress_ShowStatistics);
@@ -57,7 +57,7 @@ DEF_BUTTON(bShowStatistics, "Статистика", "Показывать временную статистику", OnP
 
 static void OnPress_StyleGUI()
 {
-    set.styleGUI = (set.styleGUI == StyleGUI::Classic) ? StyleGUI::Modern : StyleGUI::Classic;
+    gset.styleGUI = (gset.styleGUI == StyleGUI::Classic) ? StyleGUI::Modern : StyleGUI::Classic;
 }
 
 

@@ -229,7 +229,7 @@ void Display::DrawPartScreen(int num, bool debugInfo)
         Console::Draw();
     }
 
-    if (num == 0 && debugInfo && set.showStatistics)
+    if (num == 0 && debugInfo && gset.showStatistics)
     {
         Text(String("%d", timeFrame)).Write(440, 0, Color::BLACK);
         Text(String("%d", fps)).Write(440, 15);

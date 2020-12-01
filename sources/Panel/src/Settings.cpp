@@ -5,7 +5,7 @@
 #include "Utils/Math.h"
 
 
-Settings set =
+Settings gset =
 {
     {
         {0, 1}, {0, 1}                          // levelSynch

@@ -5,6 +5,8 @@
 #include "Display/Text.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/Channels/Channels.h"
+#include "Utils/StringUtils.h"
+#include <cstring>
 
 
 using namespace Primitives;
@@ -317,7 +319,7 @@ void Channel::DrawSettings(int x, int y)
     {
         Rectangle(460, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::GREEN_20);
 
-        Text(Menu::ChannelSettings()).Write(x + 10, y + 6, Color::WHITE);
+        Text(GetSettings()).Write(x + 10, y + 6, Color::WHITE);
     }
 }
 
@@ -351,4 +353,75 @@ void Channel::SetCurrent(int num)
     static Channel * const channels[Count] = { A, B, C, D };
 
     current = channels[num];
+}
+
+
+String Channel::GetSettings()
+{
+    // Добавляет в конец строки settings строку ugo через разделительный символ
+#define ADD_UGO(ugo)            \
+    std::strcat(settings, " "); \
+    std::strcat(settings, ugo);
+
+    static const char *const names[Channel::Count] = { "Канал A:", "Канал B:", "Канал C:", "Канал D:" };
+
+    char settings[100] = { 0 };
+
+    std::strcpy(settings, names[NUMBER_CURRENT_CHANNEL]);
+
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        ADD_UGO(Channel::A->set.couple.UGO());
+        ADD_UGO(Channel::A->set.impedance.UGO());
+        ADD_UGO(Channel::A->set.modeFilter.UGO());
+        ADD_UGO(Channel::A->set.modeFront.UGO());
+        ADD_UGO(Channel::A->set.divider.UGO());
+        ADD_UGO(Channel::A->set.typeSynch.UGO());
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Channel::Current()->set.divider.ToAbs()).c_str());
+        if (Channel::A->set.typeSynch.IsManual())
+        {
+            std::strcat(settings, "мВ");
+        }
+        else
+        {
+            switch (ModesChannel::timeLabels.value)
+            {
+            case PeriodTimeLabels::T_3:     std::strcat(settings, "x10-3");     break;
+            case PeriodTimeLabels::T_4:     std::strcat(settings, "x10-4");     break;
+            case PeriodTimeLabels::T_5:     std::strcat(settings, "x10-5");     break;
+            case PeriodTimeLabels::T_6:     std::strcat(settings, "x10-6");     break;
+            case PeriodTimeLabels::T_7:     std::strcat(settings, "x10-7");     break;
+            case PeriodTimeLabels::T_8:     std::strcat(settings, "x10-8");     break;
+            }
+        }
+    }
+
+    if (CURRENT_CHANNEL_IS_B)
+    {
+        ADD_UGO(Channel::B->set.couple.UGO());
+        ADD_UGO(Channel::B->set.impedance.UGO());
+        ADD_UGO(Channel::B->set.modeFilter.UGO());
+        ADD_UGO(Channel::B->set.modeFront.UGO());
+        ADD_UGO(Channel::B->set.divider.UGO());
+        ADD_UGO(Channel::B->set.typeSynch.UGO());
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Channel::Current()->set.divider.ToAbs()).c_str());
+        if (Channel::B->set.typeSynch.IsManual())
+        {
+            std::strcat(settings, "мВ");
+        }
+        else
+        {
+            switch (ModesChannel::timeLabels.value)
+            {
+            case PeriodTimeLabels::T_3:     std::strcat(settings, "x10-3");     break;
+            case PeriodTimeLabels::T_4:     std::strcat(settings, "x10-4");     break;
+            case PeriodTimeLabels::T_5:     std::strcat(settings, "x10-5");     break;
+            case PeriodTimeLabels::T_6:     std::strcat(settings, "x10-6");     break;
+            case PeriodTimeLabels::T_7:     std::strcat(settings, "x10-7");     break;
+            case PeriodTimeLabels::T_8:     std::strcat(settings, "x10-8");     break;
+            }
+        }
+    }
+
+    return String(settings);
 }
