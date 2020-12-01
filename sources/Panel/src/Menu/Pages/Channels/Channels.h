@@ -79,6 +79,8 @@ struct Channel
 
     void DrawMode(int x, int y);
 
+    void DrawSettings(int x, int y);
+
     bool IsA() const { return this == A; }
     bool IsB() const { return this == B; }
     bool IsC() const { return this == C; }

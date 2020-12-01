@@ -28,9 +28,6 @@ using namespace Primitives;
 // Нарисовать подсказку
 static void DrawHint(int x, int y);
 
-// Нарисовать строку настроек текущего канала
-static void DrawChannelSettings();
-
 static void DrawInfo();
 
 static void SetTopRow(int i);
@@ -260,10 +257,10 @@ void Display::DrawScreen()
     else
     {
         Channel::Current()->DrawMode(10, 57);
+
+        Channel::Current()->DrawSettings(10, 15);
         
         DrawHint(10, Display::PHYSICAL_HEIGHT - Item::HEIGHT - 30);
-        
-        DrawChannelSettings();
         
         DrawInfo();
 
@@ -273,17 +270,6 @@ void Display::DrawScreen()
         }
 
         Menu::Draw();
-    }
-}
-
-
-static void DrawChannelSettings()
-{
-    if (Display::InDrawingPart(17, 20))
-    {
-        Rectangle(460, 30).FillRounded(10, 15, 2, Color::GREEN_20, Color::GREEN_20);
-
-        Text(Menu::ChannelSettings()).Write(20, 21, Color::WHITE);
     }
 }
 

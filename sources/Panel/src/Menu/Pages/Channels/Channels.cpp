@@ -1,7 +1,9 @@
 #include "defines.h"
 #include "Settings.h"
+#include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
+#include "Menu/Menu.h"
 #include "Menu/Pages/Channels/Channels.h"
 
 
@@ -305,6 +307,17 @@ void Channel::DrawMode(int x, int y)
     if (type->IsActiveTimeLabels(mode))
     {
         DrawValue(ModesChannel::timeLabels, x + 2 * dX, y);
+    }
+}
+
+
+void Channel::DrawSettings(int x, int y)
+{
+    if (Display::InDrawingPart(y, 20))
+    {
+        Rectangle(460, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::GREEN_20);
+
+        Text(Menu::ChannelSettings()).Write(x + 10, y + 6, Color::WHITE);
     }
 }
 
