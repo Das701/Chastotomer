@@ -256,9 +256,9 @@ bool TypeMeasure::IsActiveNumberPeriods(int m)
 #endif
 
 
-bool Channel::ConsistTimeMeasure()
+bool ModesChannel::ConsistTimeMeasure()
 {
-    if (mod.typeMeasure.IsFrequency())
+    if (typeMeasure.IsFrequency())
     {
         if (ModeFrequency::Current().IsFrequency() || ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC())
         {
@@ -266,7 +266,7 @@ bool Channel::ConsistTimeMeasure()
         }
     }
 
-    if (mod.typeMeasure.IsPeriod() && ModePeriod::Current().IsF_1())
+    if (typeMeasure.IsPeriod() && ModePeriod::Current().IsF_1())
     {
         return true;
     }

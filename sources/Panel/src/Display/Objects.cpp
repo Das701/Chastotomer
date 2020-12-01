@@ -128,7 +128,7 @@ bool DataZone::Draw()
 
 bool ProgressBarTimeMeasureZone::Draw()
 {
-    if (Channel::Current()->ConsistTimeMeasure() && ModesChannel::timeMeasure.value > TimeMeasure::_10ms)
+    if (Channel::Current()->mod.ConsistTimeMeasure() && ModesChannel::timeMeasure.value > TimeMeasure::_10ms)
     {
         int timeCycle = ModesChannel::timeMeasure.ToMS();
 

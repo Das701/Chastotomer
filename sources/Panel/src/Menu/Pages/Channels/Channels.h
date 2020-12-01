@@ -53,6 +53,9 @@ struct ModesChannel
     static Switch           *switchTimeMeasue;
     static Switch           *switchNumberPeriods;
     static Switch           *switchTimeLabels;
+
+    // Возвращает true, если текущая страница режимов содержит время измерения
+    bool ConsistTimeMeasure();
 };
 
 
@@ -73,9 +76,6 @@ struct Channel
     static Channel *Current() { return current; };
     static void SetCurrent(Channel *channel) { current = channel; }
     static void SelectNext();
-
-    // Возвращает true, если текущая страница режимов содержит время измерения
-    bool ConsistTimeMeasure();
 
     void DrawMode(int x, int y);
 
