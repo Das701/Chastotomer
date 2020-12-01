@@ -28,6 +28,7 @@ protected:
 
     int x0;
     int y0;
+    ModeDraw::E modeDraw;
 
     int Width() { return width; }
 
@@ -40,7 +41,6 @@ private:
     const int width;
     const int height;
     bool needUpdate;
-    ModeDraw::E modeDraw;
 };
 
 

@@ -97,7 +97,7 @@ bool DataZone::Draw()
             }
             else
             {
-                Indicator::DrawDataAboutRight(data.c_str(), 370, y0 + 1, Color::WHITE, Color::BLACK);
+                Indicator::DrawDataAboutRight(data.c_str(), x0 + 360, y0 + 1, Color::WHITE, Color::BLACK);
             }
         }
         else
