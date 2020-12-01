@@ -100,11 +100,7 @@ static void SetCurrentChannel(const Control &control)
         
         if (Menu::OpenedPage()->IsPageSettings())
         {
-            int num = Channel::Current()->Number();
-
-            Math::CircleIncrease<uint8>((uint8 *)&num, 0, Channel::Count - 1);
-
-            Channel::SetCurrent(num);
+            Channel::SelectNext();
 
             loadToFPGA = true;
         }

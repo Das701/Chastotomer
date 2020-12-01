@@ -5,6 +5,7 @@
 #include "Display/Text.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/Channels/Channels.h"
+#include "Utils/Math.h"
 #include "Utils/StringUtils.h"
 #include <cstring>
 
@@ -348,9 +349,13 @@ void Channel::OnChanged_TypeMeasure()
 }
 
 
-void Channel::SetCurrent(int num)
+void Channel::SelectNext()
 {
-    static Channel * const channels[Count] = { A, B, C, D };
+    int num = Channel::Current()->Number();
+
+    Math::CircleIncrease<uint8>((uint8 *)&num, 0, Channel::Count - 1);
+
+    static Channel *const channels[Count] = { A, B, C, D };
 
     current = channels[num];
 }

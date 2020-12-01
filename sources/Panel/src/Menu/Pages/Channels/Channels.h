@@ -72,7 +72,7 @@ struct Channel
 
     static Channel *Current() { return current; };
     static void SetCurrent(Channel *channel) { current = channel; }
-    static void SetCurrent(int num);
+    static void SelectNext();
 
     // Возвращает true, если текущая страница режимов содержит время измерения
     bool ConsistTimeMeasure();
