@@ -15,7 +15,7 @@ Settings gset =
     },
     false,
     StyleGUI::Modern
-};
+}; 
 
 
 void InputCouple::LoadToFPGA()

@@ -66,7 +66,7 @@ int Enumeration::IndexName() const
 
 char *Enumeration::UGO() const
 {
-    return ugo[IndexName()];
+    return (ugo == nullptr) ? "" : ugo[IndexName()];
 }
 
 

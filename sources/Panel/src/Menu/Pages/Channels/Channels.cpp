@@ -369,14 +369,15 @@ String Channel::GetSettings()
 
     std::strcpy(settings, names[NUMBER_CURRENT_CHANNEL]);
 
+    ADD_UGO(Channel::Current()->set.couple.UGO());
+    ADD_UGO(Channel::Current()->set.impedance.UGO());
+    ADD_UGO(Channel::Current()->set.modeFilter.UGO());
+    ADD_UGO(Channel::Current()->set.modeFront.UGO());
+    ADD_UGO(Channel::Current()->set.divider.UGO());
+    ADD_UGO(Channel::Current()->set.typeSynch.UGO());
+
     if (CURRENT_CHANNEL_IS_A)
     {
-        ADD_UGO(Channel::A->set.couple.UGO());
-        ADD_UGO(Channel::A->set.impedance.UGO());
-        ADD_UGO(Channel::A->set.modeFilter.UGO());
-        ADD_UGO(Channel::A->set.modeFront.UGO());
-        ADD_UGO(Channel::A->set.divider.UGO());
-        ADD_UGO(Channel::A->set.typeSynch.UGO());
         ADD_UGO(SU::Int2String(LEVEL_SYNCH_A * Channel::Current()->set.divider.ToAbs()).c_str());
         if (Channel::A->set.typeSynch.IsManual())
         {
@@ -398,12 +399,6 @@ String Channel::GetSettings()
 
     if (CURRENT_CHANNEL_IS_B)
     {
-        ADD_UGO(Channel::B->set.couple.UGO());
-        ADD_UGO(Channel::B->set.impedance.UGO());
-        ADD_UGO(Channel::B->set.modeFilter.UGO());
-        ADD_UGO(Channel::B->set.modeFront.UGO());
-        ADD_UGO(Channel::B->set.divider.UGO());
-        ADD_UGO(Channel::B->set.typeSynch.UGO());
         ADD_UGO(SU::Int2String(LEVEL_SYNCH_B * Channel::Current()->set.divider.ToAbs()).c_str());
         if (Channel::B->set.typeSynch.IsManual())
         {
