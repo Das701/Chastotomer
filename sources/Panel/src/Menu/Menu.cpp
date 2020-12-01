@@ -116,8 +116,7 @@ static void SetCurrentChannel(const Control &control)
             Channel::Current()->LoadToFPGA();
         }
     }
-
-    if (control.value == Control::Mode)
+    else if (control.value == Control::Mode)
     {
         openedPage = Channel::Current()->pageModes;
 
