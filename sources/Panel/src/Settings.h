@@ -21,11 +21,23 @@ struct LevelSynch
 };
 
 
+// Стиль ГУИ - как отображать симолы
+struct StyleGUI
+{
+    enum E
+    {
+        Modern,     // Обычные символы
+        Classic     // Сегментные символы
+    };
+};
+
+
 struct Settings
 {
     int          levelSynch[4][2];  // Уровень синхронизации
     TypeSynch::E typeSynch[4];      // Тип синхронизации для каждого из каналов
     bool         showStatistics;    // Показывать ли статистику по FPS
+    StyleGUI::E  styleGUI;
 };
 
 extern Settings set;

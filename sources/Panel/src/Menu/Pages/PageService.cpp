@@ -55,13 +55,22 @@ static void OnPress_ShowStatistics()
 DEF_BUTTON(bShowStatistics, "Статистика", "Показывать временную статистику", OnPress_ShowStatistics);
 
 
+static void OnPress_StyleGUI()
+{
+    set.styleGUI = (set.styleGUI == StyleGUI::Classic) ? StyleGUI::Modern : StyleGUI::Classic;
+}
+
+
+DEF_BUTTON(bStyleGUI, "Интерфейс", "Выбор интерфейса пользователя", OnPress_StyleGUI);
+
+
 static Item *items[7] =
 {
     &bInformation,
     &bResetSettings,
     &bLanguage,
+    &bStyleGUI,
     &bShowStatistics,
-    nullptr,
     nullptr,
     nullptr
 };

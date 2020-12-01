@@ -13,7 +13,8 @@ Settings set =
     { 
         TypeSynch::Manual, TypeSynch::Manual    // typeSynch
     },
-    false
+    false,
+    StyleGUI::Modern
 };
 
 

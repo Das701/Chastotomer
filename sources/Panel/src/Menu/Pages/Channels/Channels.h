@@ -77,7 +77,7 @@ struct Channel
     // Возвращает true, если текущая страница режимов содержит время измерения
     bool ConsistTimeMeasure();
 
-    void DrawParameters(int x, int y);
+    void DrawMode(int x, int y);
 
     bool IsA() const { return this == A; }
     bool IsB() const { return this == B; }

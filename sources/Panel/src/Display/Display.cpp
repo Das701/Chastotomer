@@ -259,11 +259,7 @@ void Display::DrawScreen()
     }
     else
     {
-        Channel::Current()->mod.typeMeasure.Draw(10, 57);
-        
-        CurrentModeMeasure::Draw(120, 57);
-
-        Channel::Current()->DrawParameters(270, 57);
+        Channel::Current()->DrawMode(10, 57);
         
         DrawHint(10, Display::PHYSICAL_HEIGHT - Item::HEIGHT - 30);
         

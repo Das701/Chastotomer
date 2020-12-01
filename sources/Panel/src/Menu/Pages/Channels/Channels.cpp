@@ -278,8 +278,14 @@ static void DrawValue(Enumeration &param, int x, int y)
 }
 
 
-void Channel::DrawParameters(int x, int y)
+void Channel::DrawMode(int x, int y)
 {
+    mod.typeMeasure.Draw(x, y);
+
+    CurrentModeMeasure::Draw(x + 110, y);
+
+    x += 260;
+
     TypeMeasure *type = pageModes->GetTypeMeasure();
 
     int mode = pageModes->GetModeMeasure();
