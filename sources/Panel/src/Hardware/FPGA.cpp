@@ -21,7 +21,7 @@
 #define SetPin(x)   HAL_GPIO_WritePin(x, GPIO_PIN_SET)
 #define ResetPin(x) HAL_GPIO_WritePin(x, GPIO_PIN_RESET)
 
-#define PinFLAG     GPIOC, GPIO_PIN_8
+#define PinRD       GPIOC, GPIO_PIN_8                   // Флаг готовности чтения
 #define PinWR       GPIOB, GPIO_PIN_12
 #define PinDATA     GPIOB, GPIO_PIN_15
 #define PinCLOCK    GPIOB, GPIO_PIN_13
@@ -36,7 +36,7 @@
 #define Set_DATA    SetPin(PinDATA);    DELAY
 #define Reset_DATA  ResetPin(PinDATA);  DELAY
 
-#define Read_FLAG   ReadPin(PinFLAG)
+#define Flag_RD     ReadPin(PinRD)
 
 #define Read_READY  ReadPin(PinREADY)
 
@@ -122,7 +122,7 @@ void FPGA::Update() //-V2008
         }
         else
         {
-            if (Read_FLAG != 0)
+            if (Flag_RD != 0)
             {
                 uint counterA = 0;
                 uint counterB = 0;
@@ -151,7 +151,7 @@ void FPGA::Update() //-V2008
 
 void FPGA::ReadFillFactorPhase()
 {
-    if (Read_FLAG != 0)
+    if (Flag_RD != 0)
     {
         uint period = 0;
         uint duration = 0;
@@ -172,7 +172,7 @@ void FPGA::ReadFillFactorPhase()
 
 void FPGA::ReadInterpolator()
 {
-    if (Read_FLAG != 0)
+    if (Flag_RD != 0)
     {
         uint timer = 0;
         uint cal1 = 0;
@@ -194,7 +194,7 @@ void FPGA::ReadInterpolator()
 
 void FPGA::ReadAutoMode()
 {
-    if (Read_FLAG != 0)
+    if (Flag_RD != 0)
     {
         Set_WR;
         CYCLE_READ_PIN_B14(3, ident, false);
@@ -212,7 +212,7 @@ void FPGA::ReadAutoMode()
 
 void FPGA::ReadComparator()
 {
-    if (Read_FLAG != 0)
+    if (Flag_RD != 0)
     {
         uint fx = 0;
         uint tizm = 0;
@@ -292,7 +292,7 @@ bool FPGA::AutoMode()
 
 void FPGA::ReadCalibNumber()
 {
-    while (Read_FLAG == 0)
+    while (Flag_RD == 0)
     {
     }
 
