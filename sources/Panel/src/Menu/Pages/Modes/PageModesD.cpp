@@ -38,6 +38,7 @@ DEF_SWITCH_2(sModeFrequency,
     Channel::D->mod.modeFrequency, OnChanged_ModeMeasureFrequency
 )
 
+Switch *switchModeFrequencyD = &sModeFrequency;
 
 static Item *items[7] =
 {

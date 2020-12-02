@@ -21,6 +21,7 @@ extern PageModes pageModesD;
 extern Switch *switchModeFrequencyA;
 extern Switch *switchModeFrequencyB;
 extern Switch *switchModeFrequencyC;
+extern Switch *switchModeFrequencyD;
 
 extern Switch *switchModeCountPulseA;
 extern Switch *switchModeCountPulseB;
@@ -122,7 +123,7 @@ void Channel::Create()
     }
     if (D == nullptr)
     {
-        D = new Channel(3, &pageChannelD, &pageModesD, nullptr, nullptr, nullptr, nullptr, enabledMeasuresD, enabledModeFrequencyD, enabledModeCountPulseD);
+        D = new Channel(3, &pageChannelD, &pageModesD, switchModeFrequencyD, nullptr, nullptr, nullptr, enabledMeasuresD, enabledModeFrequencyD, enabledModeCountPulseD);
     }
 
     if (Current() == nullptr)
