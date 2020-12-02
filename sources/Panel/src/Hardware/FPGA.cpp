@@ -22,13 +22,13 @@
 #define ResetPin(x) HAL_GPIO_WritePin(x, GPIO_PIN_RESET)
 
 #define PinRD       GPIOC, GPIO_PIN_8                   // Флаг готовности чтения
-#define PinWR       GPIOB, GPIO_PIN_12
+#define PinCS       GPIOB, GPIO_PIN_12
 #define PinDATA     GPIOB, GPIO_PIN_15
 #define PinCLOCK    GPIOB, GPIO_PIN_13
 #define PinREADY    GPIOC, GPIO_PIN_9
 
-#define Set_WR      SetPin(PinWR);
-#define Reset_WR    ResetPin(PinWR);
+#define Set_CS      SetPin(PinCS);
+#define Reset_CS    ResetPin(PinCS);
 
 #define Set_CLOCK   SetPin(PinCLOCK);   DELAY
 #define Reset_CLOCK ResetPin(PinCLOCK); DELAY
@@ -96,7 +96,7 @@ void FPGA::Init()
     is.Pin = GPIO_PIN_8 | GPIO_PIN_9;
     HAL_GPIO_Init(GPIOC, &is);
 
-    Reset_WR;
+    Reset_CS;
 }
 
 
@@ -127,7 +127,7 @@ void FPGA::Update() //-V2008
                 uint counterA = 0;
                 uint counterB = 0;
 
-                Set_WR;
+                Set_CS;
 
                 CYCLE_READ_PIN_B14(32, counterA, true);
               
@@ -136,7 +136,7 @@ void FPGA::Update() //-V2008
                     CYCLE_READ_PIN_B14(32, counterB, true);
                 }
 
-                Reset_WR;
+                Reset_CS;
 
 //                LOG_WRITE("%d %d", counterA, counterB);
 
@@ -156,10 +156,10 @@ void FPGA::ReadFillFactorPhase()
         uint period = 0;
         uint duration = 0;
 
-        Set_WR;
+        Set_CS;
         CYCLE_READ_PIN_B14(32, period, true);
         CYCLE_READ_PIN_B14(32, duration, true);
-        Reset_WR;
+        Reset_CS;
 
 //        LOG_WRITE("%d %d", period, duration);
 
@@ -178,12 +178,12 @@ void FPGA::ReadInterpolator()
         uint cal1 = 0;
         uint cal2 = 0;
 
-        Set_WR;
+        Set_CS;
         CYCLE_READ_PIN_B14(3, ident, false); //-V525
         CYCLE_READ_PIN_B14(24, timer, false);
         CYCLE_READ_PIN_B14(24, cal1, false);
         CYCLE_READ_PIN_B14(24, cal2, false);
-        Reset_WR;
+        Reset_CS;
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Interpolator, timer, cal1, cal2);
 
@@ -196,12 +196,12 @@ void FPGA::ReadAutoMode()
 {
     if (Flag_RD != 0)
     {
-        Set_WR;
+        Set_CS;
         CYCLE_READ_PIN_B14(3, ident, false);
         CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMin, false);
         CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMid, false);
         CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMax, false);
-        Reset_WR;
+        Reset_CS;
 
         Display::Refresh();
 
@@ -218,12 +218,12 @@ void FPGA::ReadComparator()
         uint tizm = 0;
         uint nkal = 0;
 
-        Set_WR;
+        Set_CS;
         CYCLE_READ_PIN_B14(3, ident, false);
         CYCLE_READ_PIN_B14(32, fx, false);
         CYCLE_READ_PIN_B14(16, tizm, false);
         CYCLE_READ_PIN_B14(16, nkal, false);
-        Reset_WR;
+        Reset_CS;
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Comparator, fx, tizm, nkal);
 
@@ -296,13 +296,13 @@ void FPGA::ReadCalibNumber()
     {
     }
 
-    Set_WR;
+    Set_CS;
 
     CYCLE_READ_PIN_B14(3, ident, false);
 
     CYCLE_READ_PIN_B14(10, kCalib, false);
 
-    Reset_WR;
+    Reset_CS;
 
     HAL_TIM::DelayUS(8);
 }
