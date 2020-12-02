@@ -22,10 +22,10 @@
 #define ResetPin(x) HAL_GPIO_WritePin(x, GPIO_PIN_RESET)
 
 #define PinRD       GPIOC, GPIO_PIN_8                   // Флаг готовности чтения
+#define PinWR       GPIOC, GPIO_PIN_9                   // Флга готовности к записи
 #define PinCS       GPIOB, GPIO_PIN_12
 #define PinDATA     GPIOB, GPIO_PIN_15
 #define PinCLOCK    GPIOB, GPIO_PIN_13
-#define PinREADY    GPIOC, GPIO_PIN_9
 
 #define Set_CS      SetPin(PinCS);
 #define Reset_CS    ResetPin(PinCS);
@@ -38,7 +38,7 @@
 
 #define Flag_RD     ReadPin(PinRD)
 
-#define Read_READY  ReadPin(PinREADY)
+#define Read_WR     ReadPin(PinWR)
 
 #define DELAY  HAL_TIM::DelayUS(2)
 
@@ -312,8 +312,8 @@ void FPGA::WriteDataGovernor()
 {
     CalculateData();
 
-    if (Read_READY != 0)                // \todo К сожалению, флаг готовности не работает так, как надо и если ожидать его установки в ноль, то происходит сбой передачи данных
-    {                                   // Если флаг не готов, выходим. Передавать нужно только если флаг уже установлен в 0
+    if (Read_WR != 0)           // \todo К сожалению, флаг готовности не работает так, как надо и если ожидать его установки в ноль, то происходит сбой передачи данных
+    {                           // Если флаг не готов, выходим. Передавать нужно только если флаг уже установлен в 0
         return;
     }
     
@@ -342,7 +342,7 @@ void FPGA::WriteDataGovernor()
 
 void FPGA::WriteCommand(const Command &command)
 {
-    while (Read_READY != 0)             // \todo Провеерить. Возможно, по аналогии с передачей данных нельзя ожидать флага готовности
+    while (Read_WR != 0)             // \todo Провеерить. Возможно, по аналогии с передачей данных нельзя ожидать флага готовности
     {
     }
 
