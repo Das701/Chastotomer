@@ -324,9 +324,14 @@ int PageModes::GetModeMeasure() const
 {
     Switch *item = (Switch *)items[1];
 
-    Enumeration *state = item->state;
+    if (item != nullptr)
+    {
+        Enumeration *state = item->state;
 
-    return state->value;
+        return state->value;
+    }
+
+    return 0;
 }
 
 
