@@ -375,7 +375,7 @@ static void DrawInfo()
             {
                 second = (int)TIME_MS;
             }
-            Text("осяй").Write(430, 80);
+            Text("осяй").Write(430, 110);
             if((second + 1000) < (int)TIME_MS)
             {
                 second = 0;
