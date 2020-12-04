@@ -82,7 +82,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 
         double test1 = decDataA.ToDouble();
 
-        if (test1 == 0.0)
+        if (test1 == 0.0) //-V2550
         {
             isDivZero = true;
         }

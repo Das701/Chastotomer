@@ -141,6 +141,8 @@ void Channel::Create()
 
 bool TypeMeasure::IsActiveTimeLabels(int m)
 {
+    bool result = false;
+
     if (IsFrequency())
     {
         ModeFrequency::E mode = (ModeFrequency::E)m;
@@ -149,11 +151,11 @@ bool TypeMeasure::IsActiveTimeLabels(int m)
         {
         case ModeFrequency::T_1:
         case ModeFrequency::RatioCA:
-        case ModeFrequency::RatioCB:     return true;
+        case ModeFrequency::RatioCB:     result = true;                                                                     break;
 
-        case ModeFrequency::Frequency:   return CURRENT_CHANNEL_IS_A_OR_B ? FreqMeter::modeTest.IsEnabled() : false;
+        case ModeFrequency::Frequency:   result = CURRENT_CHANNEL_IS_A_OR_B ? FreqMeter::modeTest.IsEnabled() : false;      break;
 
-        case ModeFrequency::Tachometer:  return FreqMeter::modeTest.IsEnabled();
+        case ModeFrequency::Tachometer:  result = FreqMeter::modeTest.IsEnabled();                                          break;
         }
     }
     else if (IsPeriod())
@@ -162,9 +164,9 @@ bool TypeMeasure::IsActiveTimeLabels(int m)
 
         switch (mode)
         {
-        case ModePeriod::Period:      return true;
+        case ModePeriod::Period:      result = true;                                break;
 
-        case ModePeriod::F_1:         return FreqMeter::modeTest.IsEnabled();
+        case ModePeriod::F_1:         result = FreqMeter::modeTest.IsEnabled();     break;
         }
     }
     else if (IsDuration())
@@ -176,11 +178,14 @@ bool TypeMeasure::IsActiveTimeLabels(int m)
         case ModeDuration::Ndt:
         case ModeDuration::StartStop:
         case ModeDuration::FillFactor:
-        case ModeDuration::Phase:        return true;
+        case ModeDuration::Phase:       result = true; break;
+
+        case ModeDuration::Ndt_1ns:
+        case ModeDuration::Count:       break;
         }
     }
 
-    return false;
+    return result;
 }
 
 
@@ -276,7 +281,7 @@ bool ModesChannel::ConsistTimeMeasure()
 }
 
 
-static void DrawValue(Enumeration &param, int x, int y)
+static void DrawValue(const Enumeration &param, int x, int y)
 {
     int width = 60;
     Primitives::Rectangle(width, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::WHITE);
@@ -375,17 +380,17 @@ String Channel::GetSettings()
 
     std::strcpy(settings, names[NUMBER_CURRENT_CHANNEL]);
 
-    ADD_UGO(Channel::Current()->set.couple.UGO());
-    ADD_UGO(Channel::Current()->set.impedance.UGO());
-    ADD_UGO(Channel::Current()->set.modeFilter.UGO());
-    ADD_UGO(Channel::Current()->set.modeFront.UGO());
-    ADD_UGO(Channel::Current()->set.divider.UGO());
-    ADD_UGO(Channel::Current()->set.typeSynch.UGO());
+    ADD_UGO(current->set.couple.UGO());
+    ADD_UGO(current->set.impedance.UGO());
+    ADD_UGO(current->set.modeFilter.UGO());
+    ADD_UGO(current->set.modeFront.UGO());
+    ADD_UGO(current->set.divider.UGO());
+    ADD_UGO(current->set.typeSynch.UGO());
 
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        ADD_UGO(SU::Int2String(LEVEL_SYNCH(CURRENT_CHANNEL) * Channel::Current()->set.divider.ToAbs()).c_str());
-        if (Channel::Current()->set.typeSynch.IsManual())
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH(CURRENT_CHANNEL) * current->set.divider.ToAbs()).c_str());
+        if (current->set.typeSynch.IsManual())
         {
             std::strcat(settings, "ìÂ");
         }

@@ -27,8 +27,7 @@ void Indicator::DrawVLine(int x, int y, DirectV direct, DirectH directH, bool vi
         return;
     }
 
-    if (visible)  { colorDraw.SetAsCurrent(); }
-    else          { colorBack.SetAsCurrent(); }
+    colorDraw.SetAsCurrent();
 
     y--;
 
@@ -58,8 +57,7 @@ void Indicator::DrawHLine(int x, int y, DirectH direct, bool visible)
         return;
     }
 
-    if (visible) { colorDraw.SetAsCurrent(); }
-    else         { colorBack.SetAsCurrent(); }
+    colorDraw.SetAsCurrent();
 
     x--;
 
