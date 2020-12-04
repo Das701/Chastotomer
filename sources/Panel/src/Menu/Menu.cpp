@@ -174,6 +174,7 @@ static void OnKey(const Control &control) //-V2008
     switch (control.value)
     {
     case Control::GovButton:
+    case Control::Enter:
         if (openedPage->SelectedItem())
         {
             openedPage->SelectedItem()->OnControl(control);
@@ -186,13 +187,6 @@ static void OnKey(const Control &control) //-V2008
 
     case Control::Left:
         openedPage->SelectPrevItem();
-        break;
-
-    case Control::Enter:
-        if (openedPage->SelectedItem())
-        {
-            openedPage->SelectedItem()->OnControl(control);
-        }
         break;
 
     case Control::Mode:

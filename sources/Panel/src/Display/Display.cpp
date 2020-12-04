@@ -103,7 +103,7 @@ void Display::Init()
 }
 
 
-static void DrawValue(char *string, int x, int y)
+static void DrawValue(pString string, int x, int y)
 {
     Rectangle(Font::GetLengthText(string) + 5, 20).FillRounded(x - 3, y - 3, 2, Color::GREEN_20, Color::GRAY_20);
 

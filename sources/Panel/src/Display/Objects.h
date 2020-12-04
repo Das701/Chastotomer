@@ -14,7 +14,7 @@ public:
         };
     };
 
-    Object(int x, int y, int width, int height) : x0(0), y0(0), left(x), top(y), width(width), height(height), needUpdate(false) {}
+    Object(int x, int y, int width, int height) : x0(0), y0(0), modeDraw(ModeDraw::ToBuffer), left(x), top(y), width(width), height(height), needUpdate(false) {}
     virtual ~Object() {};
 
     void Update(ModeDraw::E mode);

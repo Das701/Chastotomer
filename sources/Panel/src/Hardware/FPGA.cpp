@@ -327,7 +327,7 @@ void FPGA::WriteDataGovernor()
         WRITE_BIT(encData[i]);
     }
 
-    Reset_DATA;
+    Reset_DATA; //-V525
     Set_CLOCK;
     Set_DATA;
 
@@ -346,14 +346,14 @@ void FPGA::WriteCommand(const Command &command)
     {
     }
 
-    Reset_CLOCK;
+    Reset_CLOCK; //-V525
     Reset_DATA;
     Set_CLOCK;
     Reset_CLOCK;
 
     WRITE(command.value, 10);
 
-    Reset_DATA;
+    Reset_DATA; //-V525
     Set_CLOCK;
     Set_DATA;
 

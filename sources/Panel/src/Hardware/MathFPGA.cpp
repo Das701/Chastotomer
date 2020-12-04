@@ -82,7 +82,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 
         double test1 = decDataA.ToDouble();
 
-        if (test1 == 0.0) //-V2550
+        if (test1 == 0.0) //-V2550 //-V550
         {
             isDivZero = true;
         }
@@ -114,7 +114,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
     {
         int sT = ModesChannel::timeMeasure.ToMS();
 
-        if (decDataB.ToDouble() == 0.0)
+        if (decDataB.ToDouble() == 0.0) //-V2550 //-V550
         {
             isDivZero = true;
         }
@@ -185,7 +185,7 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 
         decDA = (int)(decDataA.ToDouble() / (2.0 * (double)sT));
 
-        if (decDataA.ToDouble() == 0.0)
+        if (decDataA.ToDouble() == 0.0) //-V550 //-V2550
         {
             isDivZero = true;
         }
@@ -267,7 +267,7 @@ void MathFPGA::Validator::SetInvalidData()
 {
     isEmpty = true;
     timeClearedFlag = TIME_MS;
-    ProgressBarTimeMeasureZone::timeStart = TIME_MS;
+    ProgressBarTimeMeasureZone::timeStart = timeClearedFlag;
     Data::SetDigits(String("----------"));
     Data::SetUnits(String(""));
 }
@@ -381,7 +381,7 @@ void MathFPGA::FillFactor::Calculate(uint period, uint duration)
     {
         value *= 360;
 
-        if (value == 360.0F)
+        if (value == 360.0F) //-V2550 //-V550
         {
             value = 0.0F;
         }
@@ -443,15 +443,17 @@ void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
 {
     int manualZeros = 1;
 
-    if (Channel::Current()->mod.typeMeasure.IsFrequency())
+    TypeMeasure &type = Channel::Current()->mod.typeMeasure;
+
+    if (type.IsFrequency())
     {
         emptyZeros = CalculateFrequencyEmptyZeros(manualZeros);
     }
-    else if (Channel::Current()->mod.typeMeasure.IsDuration())
+    else if (type.IsDuration())
     {
         emptyZeros = CalculateDurationEmptyZeros();
     }
-    else if (Channel::Current()->mod.typeMeasure.IsPeriod())
+    else if (type.IsPeriod())
     {
         emptyZeros = CalculatePeriodEmptyZeros();
     }
@@ -572,11 +574,13 @@ void MathFPGA::Measure::CalculateNewData()
 
 void MathFPGA::Measure::CalculateUnits()
 {
+    TypeMeasure &type = Channel::Current()->mod.typeMeasure;
+
     if (ModeDuration::Current().IsNdt_1ns())
     {
         Data::SetUnits(String(" ns"));
     }
-    else if(Channel::Current()->mod.typeMeasure.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
+    else if(type.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
     {
         if (ModeDuration::Current().IsPhase())
         {
@@ -596,13 +600,13 @@ void MathFPGA::Measure::CalculateUnits()
     {
         if (ModeFrequency::Current().IsRatio() ||
             ModeFrequency::Current().IsTachometer() ||
-            Channel::Current()->mod.typeMeasure.IsCountPulse())
+            type.IsCountPulse())
         {
             Data::SetUnits(String(" "));
         }
         else
         {
-            if (Channel::Current()->mod.typeMeasure.IsFrequency())
+            if (type.IsFrequency())
             {
                 if (ModeFrequency::Current().IsT_1())
                 {

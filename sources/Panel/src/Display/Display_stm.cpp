@@ -146,7 +146,7 @@ void Display::InitHardware()
 }
 
 
-#define POINTER_BUFFER(x, y) (&buffer[0][0] + (y * Display::Width()) + x)
+#define POINTER_BUFFER(x, y) (&buffer[0][0] + ((y) * Display::Width()) + (x))
 
 
 void Display::BeginScene(int x, int y)
