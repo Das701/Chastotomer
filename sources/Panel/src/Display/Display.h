@@ -43,7 +43,7 @@ struct Display
 
     static void SendToSCPI();
 
-    static void Draw(uint *buffer);
+    static void Draw(const uint *buffer);
 
     // Здесь отрисовка результата измерения
     static DataZone *zoneData;

@@ -115,7 +115,7 @@ void Frame::OnSavePicture(wxCommandEvent &event)
 }
 
 
-void Display::Draw(uint *buffer)
+void Display::Draw(const uint *buffer)
 {
     memDC.SelectObject(bitmap);
     wxBrush brush({ 0, 0, 0 }, wxTRANSPARENT);
@@ -232,7 +232,7 @@ static void CreateButtons(Frame *frame)
     wxButton *button = new wxButton(frame, wxID_ANY, wxT("Сохранить"), { 500, 200 }, size);
 
     button->Connect(wxID_ANY, wxEVT_LEFT_DOWN, wxCommandEventHandler(Frame::OnSavePicture));
-}
+} //-V773
 
 
 static void SetPositionAndSize(Frame *frame)
