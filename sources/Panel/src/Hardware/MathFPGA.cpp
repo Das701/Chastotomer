@@ -328,10 +328,14 @@ void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
         decDataB.FromDouble(counterB);
     }
 
-    if (CURRENT_CHANNEL_IS_C)
+    if (CURRENT_CHANNEL_IS_C || CURRENT_CHANNEL_IS_D)
     {
         decDataA.Mul(64);
-        decDataA.Div(100);
+
+        if (Channel::Current()->mod.typeMeasure.IsFrequency())
+        {
+            decDataA.Div(100);
+        }
     }
 }
 
@@ -486,17 +490,12 @@ void MathFPGA::Measure::CalculateNewData()
     {
         float value = decDataA.ToFloat() / 2.0F;
 
-        if (CURRENT_CHANNEL_IS_C)
-        {
-            value *= 100.0F;
-        }
-
         if (ModeCountPulse::Current().IsFromPeriod())
         {
             value /= (float)ModesChannel::numberPeriods.ToAbs();
         }
 
-        Data::SetDigits(String("%10.0f", decDataA.ToFloat()));
+        Data::SetDigits(String("%10.0f", value));
     }
     else
     {
