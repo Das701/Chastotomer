@@ -47,3 +47,6 @@ typedef void(*pFuncVII)(int, int);
 #define _GET_BIT(value, numBit) (((value) >> (numBit)) & 1)
 #define _CLEAR_BIT(value, bit) ((value) &= (~(1 << (bit))))
 #define _SET_BIT(value, bit) ((value) |= (1 << (bit)))
+
+
+#define NUM_VER "1.2.1"

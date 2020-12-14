@@ -15,7 +15,7 @@ static uint timeHideHint;
 
 void Hint::Create(const Item *i)
 {
-    if (item != nullptr)
+    if (i != nullptr)
     {
         item = i;
         item->CreateHint(hint);
