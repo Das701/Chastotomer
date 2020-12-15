@@ -296,7 +296,7 @@ static void InitTimer()
 }
 
 
-static void AddAction(Control control, Control::Action::E action)
+static void AddAction(Control control, Control::Action::E action) //-V2506
 {
     if (action != Control::Action::Press)
     {
@@ -316,7 +316,7 @@ bool Keyboard::Empty()
 
 
 
-Control Keyboard::NextControl()
+Control Keyboard::NextControl() //-V2506
 {
     if (Empty())
     {

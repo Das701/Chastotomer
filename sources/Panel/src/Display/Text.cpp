@@ -29,18 +29,18 @@ Text::Text(const String &t)
 
 Text::~Text()
 {
-    delete []text;
+    delete []text; //-V2511
 }
 
 
 void Text::Create(const char *_text)
 {
-    uint numSymbols = std::strlen(_text);
+    uint numSymbols = std::strlen(_text); //-V2513
 
     if (numSymbols)
     {
-        text = new char[numSymbols + 1];
-        std::strcpy(text, _text);
+        text = new char[numSymbols + 1]; //-V2511
+        std::strcpy(text, _text); //-V2513
     }
     else
     {
@@ -61,7 +61,7 @@ int Text::Write(int x, int y)
 {
     if (text)
     {
-        x = WriteSymbols(text, (int)std::strlen(text), x, y);
+        x = WriteSymbols(text, (int)std::strlen(text), x, y); //-V2513
     }
 
     return x;

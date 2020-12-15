@@ -60,9 +60,9 @@ static char *FloatToString(float value, bool alwaysSign, int numDigits, char buf
     }
 
     bool signExist = alwaysSign || value < 0;
-    while (std::strlen(bufferOut) < static_cast<uint>(numDigits + (signExist ? 2 : 1)))
+    while (std::strlen(bufferOut) < static_cast<uint>(numDigits + (signExist ? 2 : 1))) //-V2513
     {
-        std::strcat(bufferOut, "0");
+        std::strcat(bufferOut, "0"); //-V2513
     }
 
 #ifdef WIN32

@@ -71,7 +71,7 @@ void VCP::SendDataSynch(const void *_buffer, uint size)
         char *buffer = (char *)_buffer;
         if (size == 0)
         {
-            size = std::strlen(buffer);
+            size = std::strlen(buffer); //-V2513
         }
 
         HAL_USBD::SendDataSynch(sizeBuffer, size, buffSend, buffer);
@@ -81,13 +81,13 @@ void VCP::SendDataSynch(const void *_buffer, uint size)
 
 void VCP::SendStringAsynch(const char *data)
 {
-    SendDataAsynch((uint8 *)data, std::strlen(data));
+    SendDataAsynch((uint8 *)data, std::strlen(data)); //-V2513
 }
 
 
 void VCP::SendStringSynch(char *data)
 {
-    SendDataSynch((uint8 *)data, std::strlen(data));
+    SendDataSynch((uint8 *)data, std::strlen(data)); //-V2513
 }
 
 
@@ -100,8 +100,8 @@ void VCP::SendFormatStringAsynch(char *format, ...)
         va_start(args, format);
         vsprintf(buffer, format, args);
         va_end(args);
-        std::strcat(buffer, "\r\n");
-        SendDataAsynch((uint8 *)buffer, std::strlen(buffer));
+        std::strcat(buffer, "\r\n"); //-V2513
+        SendDataAsynch((uint8 *)buffer, std::strlen(buffer)); //-V2513
     }
 }
 
@@ -113,8 +113,8 @@ void VCP::SendFormatStringSynch(char *format, ...)
     va_start(args, format);
     std::vsprintf(buffer, format, args);
     va_end(args);
-    std::strcat(buffer, "\r\n");
-    SendDataSynch((uint8 *)buffer, std::strlen(buffer));
+    std::strcat(buffer, "\r\n"); //-V2513
+    SendDataSynch((uint8 *)buffer, std::strlen(buffer)); //-V2513
 }
 
 

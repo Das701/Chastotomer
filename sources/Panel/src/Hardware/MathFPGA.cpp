@@ -56,14 +56,14 @@ String MathFPGA::Data::GiveUnits()
 
 void MathFPGA::Data::SetDigits(const String &_digits)
 {
-    std::strcpy(digits, _digits.c_str());
+    std::strcpy(digits, _digits.c_str()); //-V2513
     Display::zoneData->Refresh();
 }
 
 
 void MathFPGA::Data::SetUnits(const String &_units)
 {
-    std::strcpy(units, _units.c_str());
+    std::strcpy(units, _units.c_str()); //-V2513
     Display::zoneData->Refresh();
 }
 
@@ -221,7 +221,7 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 }
 
 
-int MathFPGA::Measure::CalculateDurationEmptyZeros()
+int MathFPGA::Measure::CalculateDurationEmptyZeros() //-V2506
 {
     if (ModesChannel::timeLabels.IsT_7())
     {
@@ -236,7 +236,7 @@ int MathFPGA::Measure::CalculateDurationEmptyZeros()
 }
 
 
-void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3)
+void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3) //-V2506
 {
     if (Validator::VerySmallTime())
     {
@@ -481,7 +481,7 @@ void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
 }
 
 
-void MathFPGA::Measure::CalculateNewData()
+void MathFPGA::Measure::CalculateNewData() //-V2506
 {
     if (FPGA::IsOverloaded())
     {
@@ -556,7 +556,7 @@ void MathFPGA::Measure::CalculateNewData()
             if (pow < 10)
             {
                 char format[10];
-                std::strcpy(format, "%10.0f");
+                std::strcpy(format, "%10.0f"); //-V2513
                 format[4] = (char)(pow | 0x30);
 
                 Data::SetDigits(String(format, data.ToFloat()));
@@ -564,7 +564,7 @@ void MathFPGA::Measure::CalculateNewData()
             else
             {
                 char format[10];
-                std::strcpy(format, "%10.10f");
+                std::strcpy(format, "%10.10f"); //-V2513
                 format[5] = (char)((pow - 10) | 0x30);
 
                 Data::SetDigits(String(format, data.ToFloat()));

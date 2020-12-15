@@ -111,19 +111,19 @@ void Channel::Create()
 {
     if (A == nullptr)
     {
-        A = new Channel(0, &pageChannelA, &pageModesA, switchModeFrequencyA, switchModeCountPulseA, switchModePeriodA, switchModeDurationA, enabledMeasuresA, enabledModeFrequencyA, enabledModeCountPulseA);
+        A = new Channel(0, &pageChannelA, &pageModesA, switchModeFrequencyA, switchModeCountPulseA, switchModePeriodA, switchModeDurationA, enabledMeasuresA, enabledModeFrequencyA, enabledModeCountPulseA); //-V2511
     }
     if (B == nullptr)
     {
-        B = new Channel(1, &pageChannelB, &pageModesB, switchModeFrequencyB, switchModeCountPulseB, switchModePeriodB, switchModeDurationB, enabledMeasuresB, enabledModeFrequencyB, enabledModeCountPulseB);
+        B = new Channel(1, &pageChannelB, &pageModesB, switchModeFrequencyB, switchModeCountPulseB, switchModePeriodB, switchModeDurationB, enabledMeasuresB, enabledModeFrequencyB, enabledModeCountPulseB); //-V2511
     }
     if (C == nullptr)
     {
-        C = new Channel(2, &pageChannelC, &pageModesC, switchModeFrequencyC, switchModeCountPulseC, nullptr, nullptr, enabledMeasuresC, enabledModeFrequencyC, enabledModeCountPulseC);
+        C = new Channel(2, &pageChannelC, &pageModesC, switchModeFrequencyC, switchModeCountPulseC, nullptr, nullptr, enabledMeasuresC, enabledModeFrequencyC, enabledModeCountPulseC); //-V2511
     }
     if (D == nullptr)
     {
-        D = new Channel(3, &pageChannelD, &pageModesD, switchModeFrequencyD, nullptr, nullptr, nullptr, enabledMeasuresD, enabledModeFrequencyD, enabledModeCountPulseD);
+        D = new Channel(3, &pageChannelD, &pageModesD, switchModeFrequencyD, nullptr, nullptr, nullptr, enabledMeasuresD, enabledModeFrequencyD, enabledModeCountPulseD); //-V2511
     }
 
     if (Current() == nullptr)
@@ -189,7 +189,7 @@ bool TypeMeasure::IsActiveTimeLabels(int m)
 }
 
 
-bool TypeMeasure::IsActiveTimeMeasure(int m)
+bool TypeMeasure::IsActiveTimeMeasure(int m) //-V2506
 {
     if (IsFrequency())
     {
@@ -216,7 +216,7 @@ bool TypeMeasure::IsActiveTimeMeasure(int m)
 }
 
 
-bool TypeMeasure::IsActiveNumberPeriods(int m)
+bool TypeMeasure::IsActiveNumberPeriods(int m) //-V2506
 {
     if (IsFrequency())
     {
@@ -262,7 +262,7 @@ bool TypeMeasure::IsActiveNumberPeriods(int m)
 #endif
 
 
-bool ModesChannel::ConsistTimeMeasure()
+bool ModesChannel::ConsistTimeMeasure() //-V2506
 {
     if (typeMeasure.IsFrequency())
     {
@@ -378,32 +378,32 @@ String Channel::GetSettings()
 
     char settings[100] = { 0 };
 
-    std::strcpy(settings, names[NUMBER_CURRENT_CHANNEL]);
+    std::strcpy(settings, names[NUMBER_CURRENT_CHANNEL]); //-V2513
 
-    ADD_UGO(current->set.couple.UGO());
-    ADD_UGO(current->set.impedance.UGO());
-    ADD_UGO(current->set.modeFilter.UGO());
-    ADD_UGO(current->set.modeFront.UGO());
-    ADD_UGO(current->set.divider.UGO());
-    ADD_UGO(current->set.typeSynch.UGO());
+    ADD_UGO(current->set.couple.UGO()); //-V2513
+    ADD_UGO(current->set.impedance.UGO()); //-V2513
+    ADD_UGO(current->set.modeFilter.UGO()); //-V2513
+    ADD_UGO(current->set.modeFront.UGO()); //-V2513
+    ADD_UGO(current->set.divider.UGO()); //-V2513
+    ADD_UGO(current->set.typeSynch.UGO()); //-V2513
 
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        ADD_UGO(SU::Int2String(LEVEL_SYNCH(CURRENT_CHANNEL) * current->set.divider.ToAbs()).c_str());
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH(CURRENT_CHANNEL) * current->set.divider.ToAbs()).c_str()); //-V2513
         if (current->set.typeSynch.IsManual())
         {
-            std::strcat(settings, "ìÂ");
+            std::strcat(settings, "ìÂ"); //-V2513
         }
         else
         {
             switch (ModesChannel::timeLabels.value)
             {
-            case PeriodTimeLabels::T_3:     std::strcat(settings, "x10-3");     break;
-            case PeriodTimeLabels::T_4:     std::strcat(settings, "x10-4");     break;
-            case PeriodTimeLabels::T_5:     std::strcat(settings, "x10-5");     break;
-            case PeriodTimeLabels::T_6:     std::strcat(settings, "x10-6");     break;
-            case PeriodTimeLabels::T_7:     std::strcat(settings, "x10-7");     break;
-            case PeriodTimeLabels::T_8:     std::strcat(settings, "x10-8");     break;
+            case PeriodTimeLabels::T_3:     std::strcat(settings, "x10-3");     break; //-V2513
+            case PeriodTimeLabels::T_4:     std::strcat(settings, "x10-4");     break; //-V2513
+            case PeriodTimeLabels::T_5:     std::strcat(settings, "x10-5");     break; //-V2513
+            case PeriodTimeLabels::T_6:     std::strcat(settings, "x10-6");     break; //-V2513
+            case PeriodTimeLabels::T_7:     std::strcat(settings, "x10-7");     break; //-V2513
+            case PeriodTimeLabels::T_8:     std::strcat(settings, "x10-8");     break; //-V2513
             }
         }
     }

@@ -49,7 +49,7 @@ void SCPI::AppendNewData(pCHAR buffer, int size)
 }
 
 
-void SCPI::Update()
+void SCPI::Update() //-V2506
 {
     RemoveBadSymbolsFromBegin();
 
@@ -68,7 +68,7 @@ void SCPI::Update()
 }
 
 
-static pCHAR Process(pCHAR buffer, const StructSCPI strct[]) //-V2504
+static pCHAR Process(pCHAR buffer, const StructSCPI strct[]) //-V2504 //-V2506
 {
     while (!strct->IsEmpty())
     {
@@ -95,7 +95,7 @@ static pCHAR Process(pCHAR buffer, const StructSCPI strct[]) //-V2504
 }
 
 
-pCHAR SCPI::BeginWith(pCHAR buffer, pCHAR word)
+pCHAR SCPI::BeginWith(pCHAR buffer, pCHAR word) //-V2506
 {
     while (*word)
     {
@@ -125,7 +125,7 @@ static pCHAR ProcessNode(pCHAR begin, const StructSCPI *node)
 }
 
 
-static pCHAR ProcessLeaf(pCHAR begin, const StructSCPI *node)
+static pCHAR ProcessLeaf(pCHAR begin, const StructSCPI *node) //-V2506
 {
     if (*begin == '\0')                     // Подстраховка от того, что символ окончания команды не принят
     {
@@ -207,7 +207,7 @@ static bool RemoveSeparatorsSequenceFromBegin()
 
 void SCPI::SendAnswer(pCHAR message)
 {
-    if(message[std::strlen(message) - 1] != 0x0D)
+    if(message[std::strlen(message) - 1] != 0x0D) //-V2513
     {
         String msg(message);
         msg.Append(0x0D);

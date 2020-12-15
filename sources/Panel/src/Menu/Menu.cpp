@@ -118,7 +118,7 @@ static void SetCurrentChannel(const Control &control)
 }
 
 
-static bool OpenPage(Control control)
+static bool OpenPage(Control control) //-V2506
 {
     if (!control.action.IsPress())
     {

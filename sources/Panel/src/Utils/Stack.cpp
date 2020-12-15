@@ -13,14 +13,14 @@ template class Stack<uint>;
 template <typename T>
 Stack<T>::Stack(int _size) : buffer(0), size(_size), numElements(0U)
 {
-    buffer = static_cast<T *>(std::malloc(sizeof(T) * _size));
+    buffer = static_cast<T *>(std::malloc(sizeof(T) * _size)); //-V2511
 }
 
 
 template <typename T>
 Stack<T>::~Stack()
 {
-    std::free(buffer);
+    std::free(buffer); //-V2511
 }
 
 
@@ -41,7 +41,7 @@ void Stack<T>::Push(T elem)
 
 
 template <typename T>
-T Stack<T>::Pop()
+T Stack<T>::Pop() //-V2506
 {
     if(numElements != 0)
     {

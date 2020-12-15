@@ -20,7 +20,7 @@ Color Indicator::colorBack(Color::BLACK);
 
 
 
-void Indicator::DrawVLine(int x, int y, DirectV direct, DirectH directH, bool visible)
+void Indicator::DrawVLine(int x, int y, DirectV direct, DirectH directH, bool visible) //-V2506
 {
     if (!visible)
     {
@@ -50,7 +50,7 @@ void Indicator::DrawVLine(int x, int y, DirectV direct, DirectH directH, bool vi
 }
 
 
-void Indicator::DrawHLine(int x, int y, DirectH direct, bool visible)
+void Indicator::DrawHLine(int x, int y, DirectH direct, bool visible) //-V2506
 {
     if (!visible)
     {
@@ -132,7 +132,7 @@ void Indicator::DrawDataAboutRight(pString text, int xRight, int y, Color cDraw,
 }
 
 
-int Indicator::DeltaX(uint8 symbol)
+int Indicator::DeltaX(uint8 symbol) //-V2506
 {
     if (symbol >= '0' && symbol <= '9')
     {

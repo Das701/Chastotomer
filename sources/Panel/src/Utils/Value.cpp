@@ -21,7 +21,7 @@ struct MathDouble
 
 
 
-int MathDouble::GetPositionFirstDigit(const ValueNANO &val, Order::E order)
+int MathDouble::GetPositionFirstDigit(const ValueNANO &val, Order::E order) //-V2506
 {
     ValueNANO value = val;
     value.SetSign(1);
@@ -66,7 +66,7 @@ char MathDouble::GetChar(const ValueNANO &value, int position, Order::E order)
 }
 
 
-int MathDouble::GetDigit(const ValueNANO &val, int position, Order::E order)
+int MathDouble::GetDigit(const ValueNANO &val, int position, Order::E order) //-V2506
 {
     ValueNANO value = val;
     value.SetSign(1);
@@ -153,7 +153,7 @@ ValueNANO::ValueNANO(int v)
 }
 
 
-bool ValueNANO::FromString(const char *buffer, char **end, int numDigitsAfterComma)
+bool ValueNANO::FromString(const char *buffer, char **end, int numDigitsAfterComma) //-V2506
 {
     char *begin = const_cast<char *>(buffer);
 
@@ -188,7 +188,7 @@ bool ValueNANO::FromString(const char *buffer, char **end, int numDigitsAfterCom
 }
 
 
-static bool GetSign(int &sign, char *begin, char **end)
+static bool GetSign(int &sign, char *begin, char **end) //-V2506
 {
     if (*begin == '-')
     {
@@ -672,7 +672,7 @@ bool ValueNANO::operator!=(const ValueNANO &rhs)
 }
 
 
-Order::E ValueNANO::GetOrder() const
+Order::E ValueNANO::GetOrder() const //-V2506
 {
     ValueNANO temp = *this;
     temp.SetSign(1);
@@ -725,7 +725,7 @@ static void AddChar(char *buffer, const ValueNANO &value, int pos, Order::E orde
 {
     char digit[2] = { 0, 0 };
     digit[0] = MathDouble::GetChar(value, pos, order);
-    std::strcat(buffer, digit);
+    std::strcat(buffer, digit); //-V2513
 }
 
 
@@ -752,7 +752,7 @@ String ValueNANO::ToString(bool sign, Order::E order) const
         AddChar(buffer, *this, i, order);
     }
 
-    std::strcat(buffer, ".");
+    std::strcat(buffer, "."); //-V2513
 
     for (int i = -1; i >= -9; i--)
     {
@@ -916,19 +916,19 @@ String ValuePICO::ToString() const
     if(stack.Empty())
     {
         symbol[0] = '0';
-        std::strcat(buffer, symbol);
+        std::strcat(buffer, symbol); //-V2513
     }
 
     while (!stack.Empty())                          // Переводим в строку целую часть
     {
         symbol[0] = stack.Pop() | 0x30;
 
-        std::strcat(buffer, symbol);
+        std::strcat(buffer, symbol); //-V2513
     }
 
     symbol[0] = '.';
 
-    std::strcat(buffer, symbol);
+    std::strcat(buffer, symbol); //-V2513
 
     ValuePICO val(*this);
 
@@ -944,7 +944,7 @@ String ValuePICO::ToString() const
         
         symbol[0] = (char)(integer | 0x30);
 
-        std::strcat(buffer, symbol);
+        std::strcat(buffer, symbol); //-V2513
 
         count++;
 

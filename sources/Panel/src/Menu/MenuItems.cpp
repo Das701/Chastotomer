@@ -17,7 +17,7 @@
 using namespace Primitives;
 
 
-int Enumeration::NumStates() const
+int Enumeration::NumStates() const //-V2506
 {
     int result = 0;
 
@@ -43,7 +43,7 @@ String Enumeration::ToString() const
 }
 
 
-int Enumeration::IndexName() const
+int Enumeration::IndexName() const //-V2506
 {
     if (correct == nullptr)
     {
@@ -96,7 +96,7 @@ void Page::Draw(int x, int y, int, bool)
 }
 
 
-int Page::WidthItem(int num) const
+int Page::WidthItem(int num) const //-V2506
 {
     if (IsPageModes())
     {
@@ -196,7 +196,7 @@ void Switch::NextChoice()
 }
 
 
-bool Switch::OnControl(const Control &control)
+bool Switch::OnControl(const Control &control) //-V2506
 {
     if (PageIndication::calibration.Is(Calibration::Pressed))
     {
@@ -320,7 +320,7 @@ TypeMeasure *PageModes::GetTypeMeasure() const
 }
 
 
-int PageModes::GetModeMeasure() const
+int PageModes::GetModeMeasure() const //-V2506
 {
     Switch *item = (Switch *)items[1];
 

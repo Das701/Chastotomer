@@ -45,7 +45,7 @@ void PageStatistics::Clear()
 }
 
 
-void PageStatistics::Draw()
+void PageStatistics::Draw() //-V2506
 {
     int x0 = 10;
     int y0 = 10;

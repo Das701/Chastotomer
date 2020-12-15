@@ -16,7 +16,7 @@ bool ModeCountPulse::IsFromPeriod() const
 }
 
 
-Enumeration &CurrentModeMeasure::ToEnumeration()
+Enumeration &CurrentModeMeasure::ToEnumeration() //-V2506
 {
     if (CURRENT_CHANNEL_IS_A)
     {

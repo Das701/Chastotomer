@@ -22,9 +22,9 @@ String::String(const String &rhs) : buffer(nullptr)
 {
     Set(TypeConversionString::None, "");
 
-    if (Allocate(static_cast<int>(std::strlen(rhs.c_str()) + 1)))
+    if (Allocate(static_cast<int>(std::strlen(rhs.c_str()) + 1))) //-V2513
     {
-        std::strcpy(buffer, rhs.c_str());
+        std::strcpy(buffer, rhs.c_str()); //-V2513
     }
 }
 
@@ -41,7 +41,7 @@ String::String(char symbol) : buffer(nullptr)
 }
 
 
-String::String(pCHAR format, ...) : buffer(nullptr)
+String::String(pCHAR format, ...) : buffer(nullptr) //-V2506
 {
     Set(TypeConversionString::None, "");
 
@@ -64,11 +64,11 @@ String::String(pCHAR format, ...) : buffer(nullptr)
 
     if (numSymbols < 0 || numSymbols > SIZE)
     {
-        std::strcpy(buffer, "Буфер слишком мал");
+        std::strcpy(buffer, "Буфер слишком мал"); //-V2513
     }
-    else if (Allocate(static_cast<int>(std::strlen(buf) + 1)))
+    else if (Allocate(static_cast<int>(std::strlen(buf) + 1))) //-V2513
     {
-        std::strcpy(buffer, buf);
+        std::strcpy(buffer, buf); //-V2513
     }
 }
 
@@ -89,18 +89,18 @@ void String::Set(TypeConversionString::E conv, pCHAR format, ...)
 
         if(numSymbols < 0 || numSymbols > SIZE)
         {
-            std::strcpy(buffer, "Буфер слишком мал");
+            std::strcpy(buffer, "Буфер слишком мал"); //-V2513
         }
-        else if(Allocate(static_cast<int>(std::strlen(buf) + 1)))
+        else if(Allocate(static_cast<int>(std::strlen(buf) + 1))) //-V2513
         {
-            std::strcpy(buffer, buf);
+            std::strcpy(buffer, buf); //-V2513
             Conversion(conv);
         }
     }
 }
 
 
-void String::Append(pCHAR str)
+void String::Append(pCHAR str) //-V2506
 {
     if (!str || *str == '\0')
     {
@@ -111,14 +111,14 @@ void String::Append(pCHAR str)
 
     Free();
 
-    Allocate(static_cast<int>(old.Size() + std::strlen(str) + 1));
+    Allocate(static_cast<int>(old.Size() + std::strlen(str) + 1)); //-V2513
 
-    std::strcpy(buffer, old.c_str());
-    std::strcat(buffer, str);
+    std::strcpy(buffer, old.c_str()); //-V2513
+    std::strcat(buffer, str); //-V2513
 }
 
 
-void String::Append(pCHAR str, int numSymbols)
+void String::Append(pCHAR str, int numSymbols) //-V2506
 {
     if (!str || *str == '\0')
     {
@@ -133,7 +133,7 @@ void String::Append(pCHAR str, int numSymbols)
 
     Allocate(size);
 
-    std::strcpy(buffer, old.c_str());
+    std::strcpy(buffer, old.c_str()); //-V2513
     std::memcpy(buffer + old.Size(), str, static_cast<uint>(numSymbols));
     buffer[size - 1] = '\0';
 }
@@ -148,7 +148,7 @@ void String::Append(char symbol)
 
 String::~String()
 {
-    std::free(buffer);
+    std::free(buffer); //-V2511
 }
 
 
@@ -156,7 +156,7 @@ void String::Free()
 {
     if(buffer)
     {
-        std::free(buffer);
+        std::free(buffer); //-V2511
         buffer = nullptr;
         Set(TypeConversionString::None, "");
     }
@@ -169,10 +169,10 @@ char *String::c_str() const
 }
 
 
-bool String::Allocate(int size)
+bool String::Allocate(int size) //-V2506
 {
-    std::free(buffer);
-    buffer = static_cast<char *>(std::malloc(static_cast<uint>(size)));
+    std::free(buffer); //-V2511
+    buffer = static_cast<char *>(std::malloc(static_cast<uint>(size))); //-V2511
     if (buffer)
     {
         return true;
@@ -205,7 +205,7 @@ void String::Conversion(TypeConversionString::E conv)
 
 void String::RemoveFromBegin(int numSymbols)
 {
-    if (std::strlen(buffer) == static_cast<uint>(numSymbols))
+    if (std::strlen(buffer) == static_cast<uint>(numSymbols)) //-V2513
     {
         Free();
     }
@@ -217,7 +217,7 @@ void String::RemoveFromBegin(int numSymbols)
 
         Allocate(old.Size() - numSymbols + 1);
 
-        std::strcpy(buffer, old.c_str() + numSymbols);
+        std::strcpy(buffer, old.c_str() + numSymbols); //-V2513
     }
 }
 
@@ -231,14 +231,14 @@ void String::RemoveFromEnd()
 }
 
 
-int String::Size() const
+int String::Size() const //-V2506
 {
     if (buffer == nullptr)
     {
         return 0;
     }
 
-    return static_cast<int>(std::strlen(buffer));
+    return static_cast<int>(std::strlen(buffer)); //-V2513
 }
 
 
@@ -248,7 +248,7 @@ int String::Length() const
 }
 
 
-char &String::operator[](int i) const
+char &String::operator[](int i) const //-V2506
 {
     static char result = 0;
 
