@@ -61,7 +61,7 @@ int Text::Write(int x, int y)
 {
     if (text)
     {
-        x = WriteSymbols(text, (int)std::strlen(text), x, y); //-V2513
+        x = WriteSymbols(text, (int)std::strlen(text), x, y); //-V2513 //-V2533
     }
 
     return x;
@@ -76,7 +76,7 @@ int Text::WriteSymbols(char* start, int num, int x, int y) const
 
         for (int i = 0; i < num; i++)
         {
-            x = WriteSymbol(x, y, (uint8)(*p++)) + Font::GetSpacing();
+            x = WriteSymbol(x, y, (uint8)(*p++)) + Font::GetSpacing(); //-V2533
         }
     }
 
@@ -155,7 +155,7 @@ void Text::WriteInCenterRect(int x, int y, int width, int height)
 
         GetWord(1, start, num);
 
-        WriteSymbols(start, num, x, y + 6 + dY + static_cast<int>(1.0F * (float)Font::GetHeight()), width);
+        WriteSymbols(start, num, x, y + 6 + dY + static_cast<int>(1.0F * (float)Font::GetHeight()), width); //-V2533
     }
     else
     {

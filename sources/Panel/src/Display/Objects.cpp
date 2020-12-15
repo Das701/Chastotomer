@@ -105,7 +105,7 @@ bool DataZone::Draw()
             int x = x0;
 
             if (data[0] == 'П') { x += 40; }                // Переполнение
-            else if (data[0] == '=') { x += 150; }          // Деление на ноль
+            else if (data[0] == '=') { x += 150; }          // Деление на ноль //-V2516
 
             if (gset.styleGUI.IsModern())
             {
@@ -132,11 +132,11 @@ bool ProgressBarTimeMeasureZone::Draw()
     {
         int timeCycle = ModesChannel::timeMeasure.ToMS();
 
-        float part = ((float)(TIME_MS - timeStart) / (float)timeCycle);
+        float part = ((float)(TIME_MS - timeStart) / (float)timeCycle); //-V2533
 
-        int w = (int)(46.0F * part) + 1;
+        int w = (int)(46.0F * part) + 1; //-V2533
 
-        LIMITATION(w, 0, Width() - 1);
+        LIMITATION(w, 0, Width() - 1); //-V2516
 
         Primitives::Rectangle(w, 5).Fill(x0, y0, Color::WHITE);
     }

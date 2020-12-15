@@ -65,7 +65,7 @@ void Indicator::DrawHLine(int x, int y, DirectH direct, bool visible) //-V2506
     {
         y -= 2;
     }
-    else if (direct == Down)
+    else if (direct == Down) //-V2516
     {
         y -= 5;
     }
@@ -96,18 +96,18 @@ void Indicator::DrawData(pString text, int x, int y, Color cDraw, Color cBack)
     {
         if ((*pointer >= '0' && *pointer <= '9'))
         {
-            DrawDigit(x, y, (uint8)(*pointer - 0x30));
+            DrawDigit(x, y, (uint8)(*pointer - 0x30)); //-V2533
 
-            x += DeltaX((uint8)*pointer);
+            x += DeltaX((uint8)*pointer); //-V2533
         }
         else if (*pointer == '-')
         {
             DrawDigit(x, y, '-');
             x += DeltaX('-');
         }
-        else if (*pointer == '.')
+        else if (*pointer == '.') //-V2516
         {
-            Rectangle(8, 8).Fill(x - 5, y + (int)(sizeLine * 1.7F));
+            Rectangle(8, 8).Fill(x - 5, y + (int)(sizeLine * 1.7F)); //-V2533 //-V2564
             x += DeltaX('.');
         }
 
@@ -124,7 +124,7 @@ void Indicator::DrawDataAboutRight(pString text, int xRight, int y, Color cDraw,
 
     while (*pointer != '\0')
     {
-        length += DeltaX((uint8)*pointer);
+        length += DeltaX((uint8)*pointer); //-V2533
         pointer++;
     }
 
@@ -142,7 +142,7 @@ int Indicator::DeltaX(uint8 symbol) //-V2506
     {
         return width + 7;
     }
-    else if (symbol == '.')
+    else if (symbol == '.') //-V2516
     {
         return 7;
     }

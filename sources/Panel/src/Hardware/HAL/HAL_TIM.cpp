@@ -10,11 +10,11 @@ void HAL_TIM::Init()
 
 #ifndef GUI
     //разрешаем использовать счётчик
-    SCB_DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; //-V2523
+    SCB_DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; //-V2523 //-V2571
     //обнуляем значение счётного регистра
-    DWT_CYCCNT = 0; //-V2523
+    DWT_CYCCNT = 0; //-V2523 //-V2571
     //запускаем счётчик
-    DWT_CONTROL |= DWT_CTRL_CYCCNTENA_Msk; //-V2523
+    DWT_CONTROL |= DWT_CTRL_CYCCNTENA_Msk; //-V2523 //-V2571
 #endif
 }
 

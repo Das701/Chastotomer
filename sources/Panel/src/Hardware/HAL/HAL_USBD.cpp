@@ -23,27 +23,27 @@ void HAL_USBD::Init()
 
 bool HAL_USBD::PrevSendingComplete()
 {
-    USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData;
+    USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData; //-V2533 //-V2571
     return pCDC->TxState == 0;
 }
 
 
 void HAL_USBD::SetBufferTX(uint8 *buffer, uint size)
 {
-    USBD_CDC_SetTxBuffer(&hUSBD, buffer, (uint16)size);
+    USBD_CDC_SetTxBuffer(&hUSBD, buffer, (uint16)size); //-V2533
     USBD_CDC_TransmitPacket(&hUSBD);
 }
 
 
 void HAL_USBD::Flush(uint8 *buffer, int size)
 {
-    volatile USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData;
+    volatile USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData; //-V2533 //-V2571
 
     while (pCDC->TxState == 1)
     {
     }; //-V712
 
-    USBD_CDC_SetTxBuffer(&hUSBD, buffer, (uint16)size);
+    USBD_CDC_SetTxBuffer(&hUSBD, buffer, (uint16)size); //-V2533
     USBD_CDC_TransmitPacket(&hUSBD);
 
     while (pCDC->TxState == 1)
@@ -54,28 +54,28 @@ void HAL_USBD::Flush(uint8 *buffer, int size)
 
 void HAL_USBD::SendDataSynch(int sizeBuffer, uint sizeSend, uint8 *buffSend, char *buffer)
 {
-    volatile USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData;
+    volatile USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)hUSBD.pClassData; //-V2533 //-V2571
 
     do
     {
         if (sizeBuffer + sizeSend > SIZE_BUFFER_VCP)
         {
             int reqBytes = SIZE_BUFFER_VCP - sizeBuffer;
-            LIMITATION(reqBytes, 0, (int)sizeSend); //-V2516
+            LIMITATION(reqBytes, 0, (int)sizeSend); //-V2516 //-V2533
 
             while (pCDC->TxState == 1) {
             }; //-V712
 
-            std::memcpy(buffSend + sizeBuffer, (void *)buffer, (uint)reqBytes);
+            std::memcpy(buffSend + sizeBuffer, (void *)buffer, (uint)reqBytes); //-V2533 //-V2563
             USBD_CDC_SetTxBuffer(&hUSBD, buffSend, SIZE_BUFFER_VCP);
             USBD_CDC_TransmitPacket(&hUSBD);
             sizeSend -= reqBytes;
-            buffer += reqBytes;
+            buffer += reqBytes; //-V2563
             sizeBuffer = 0;
         }
         else
         {
-            std::memcpy(buffSend + sizeBuffer, (void *)buffer, (uint)sizeSend);
+            std::memcpy(buffSend + sizeBuffer, (void *)buffer, (uint)sizeSend); //-V2533 //-V2563
             sizeBuffer += sizeSend;
             sizeSend = 0;
         }

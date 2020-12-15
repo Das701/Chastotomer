@@ -155,7 +155,7 @@ ValueNANO::ValueNANO(int v)
 
 bool ValueNANO::FromString(const char *buffer, char **end, int numDigitsAfterComma) //-V2506
 {
-    char *begin = const_cast<char *>(buffer);
+    char *begin = const_cast<char *>(buffer); //-V2567
 
     int sign = 0;
 
@@ -192,13 +192,13 @@ static bool GetSign(int &sign, char *begin, char **end) //-V2506
 {
     if (*begin == '-')
     {
-        *end = begin + 1;
+        *end = begin + 1; //-V2563
         sign = -1;
         return true;
     }
-    else if (*begin == '+')
+    else if (*begin == '+') //-V2516
     {
-        *end = begin + 1;
+        *end = begin + 1; //-V2563
         sign = 1;
         return true;
     }
@@ -317,7 +317,7 @@ void ValueNANO::FromString(const char *const buffer, int pow10)
 
     units = static_cast<int>(AssembleInteger(buffer, pos, end));    // Находим целую часть
 
-    if (buffer[end] == '.' || buffer[end] == ',')
+    if (buffer[end] == '.' || buffer[end] == ',') //-V2563
     {
         mUnits = AssembleTriple(buffer, end + 1, &end);
         uUnits = AssembleTriple(buffer, end, &end);
@@ -328,12 +328,12 @@ void ValueNANO::FromString(const char *const buffer, int pow10)
 
     if (pow10 > 0)
     {
-        uint pow = (uint)Math::Pow10(pow10);
+        uint pow = (uint)Math::Pow10(pow10); //-V2533
         Mul(pow);
     }
-    else if (pow10 < 0)
+    else if (pow10 < 0) //-V2516
     {
-        uint pow = (uint)Math::Pow10(-pow10);
+        uint pow = (uint)Math::Pow10(-pow10); //-V2533
         Div(pow);
     }
 }
@@ -355,12 +355,12 @@ void ValueNANO::FromUnits(int units, uint mUnits, uint uUnits, uint nUnits, int 
 
 static void ProcessSign(const char *const buffer, int *pos, int *sign)
 {
-    if (buffer[0] == '+')
+    if (buffer[0] == '+') //-V2563
     {
         *sign = 1;
         *pos = *pos + 1;
     }
-    else if (buffer[0] == '-')
+    else if (buffer[0] == '-') //-V2516 //-V2563
     {
         *sign = -1;
         *pos = *pos + 1;
@@ -372,7 +372,7 @@ static int FindIntegerPart(const char *const buffer, int start)
 {
     int pos = start;
 
-    while (buffer[pos] >= '0' && buffer[pos] <= '9')
+    while (buffer[pos] >= '0' && buffer[pos] <= '9') //-V2563
     {
         pos++;
     }
@@ -389,7 +389,7 @@ static uint AssembleInteger(const char *const buffer, int start, int end)
 
     for (int i = start; i < end; i++)
     {
-        stack[posStack++] = buffer[i];
+        stack[posStack++] = buffer[i]; //-V2563
     }
 
     uint result = 0;
@@ -418,10 +418,10 @@ static uint AssembleTriple(const char *const buffer, int start, int *end)
 
     int i = start;
 
-    while ((buffer[i] >= '0' && buffer[i] <= '9') &&
+    while ((buffer[i] >= '0' && buffer[i] <= '9') && //-V2563
         (posStack < 3))
     {
-        stack[posStack] = buffer[i];
+        stack[posStack] = buffer[i]; //-V2563
         posStack++;
         i++;
     }
@@ -475,7 +475,7 @@ double ValueNANO::ToDouble() const
 
 float ValueNANO::ToFloat() const
 {
-    return (float)ToDouble();
+    return (float)ToDouble(); //-V2533
 }
 
 
@@ -541,7 +541,7 @@ int ValueNANO::Integer() const
 
 int ValuePICO::Integer() const
 {
-    return (int)(Abs() / 1000 / 1000 / 1000 / 1000) * Sign();
+    return (int)(Abs() / 1000 / 1000 / 1000 / 1000) * Sign(); //-V2533
 }
 
 
@@ -681,13 +681,13 @@ Order::E ValueNANO::GetOrder() const //-V2506
 
     if (integer >= 1000 * 1000) { return Order::Mega; }
     else if (integer >= 1000) { return Order::Kilo; }
-    else if (integer > 0) { return Order::One; }
+    else if (integer > 0) { return Order::One; } //-V2516
 
     int fract = temp.FractNano();
 
     if (fract >= 1000 * 1000) { return Order::Milli; }
     else if (fract >= 1000) { return Order::Micro; }
-    else if (fract > 0) { return Order::Nano; }
+    else if (fract > 0) { return Order::Nano; } //-V2516
 
     return Order::One;
 }
@@ -782,11 +782,11 @@ void ValuePICO::FromINT(int v)
 
 void ValuePICO::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign)
 {
-    value = (uint64)units;
+    value = (uint64)units; //-V2533
 
     value = value * 1000 * 1000 * 1000 * 1000;
 
-    value += (uint64)pUnits + (uint64)nUnits * 1000 + (uint64)uUnits * 1000 * 1000 + (uint64)mUnits * 1000 * 1000 * 1000;
+    value += (uint64)pUnits + (uint64)nUnits * 1000 + (uint64)uUnits * 1000 * 1000 + (uint64)mUnits * 1000 * 1000 * 1000; //-V2533
 
     if (sign < 0)
     {
@@ -942,7 +942,7 @@ String ValuePICO::ToString() const
         
         int integer = val.Integer();
         
-        symbol[0] = (char)(integer | 0x30);
+        symbol[0] = (char)(integer | 0x30); //-V2533
 
         std::strcat(buffer, symbol); //-V2513
 
@@ -957,7 +957,7 @@ String ValuePICO::ToString() const
 
 double ValuePICO::ToDouble() const
 {
-    return (double)Abs() / 1E12 * (double)Sign();
+    return (double)Abs() / 1E12 * (double)Sign(); //-V2533
 }
 
 

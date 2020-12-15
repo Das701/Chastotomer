@@ -20,7 +20,7 @@ public:
     // ¬озвращает количество нулей на дне стека
     int NumFirstZeros() const;
 
-    T &operator [](const int index) const { return buffer[index]; }
+    T &operator [](const int index) const { return buffer[index]; } //-V2563
 
     void Clear() { numElements = 0; };
 

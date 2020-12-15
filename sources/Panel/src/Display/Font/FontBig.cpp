@@ -729,7 +729,7 @@ void FontBig::Write(char *text, int x, int y)
 {
 	while (*text)
 	{
-		uint8 symbol = (uint8)*text;
+		uint8 symbol = (uint8)*text; //-V2533
 
 		uint space = WriteSymbol(symbol, x, y);
 
@@ -766,7 +766,7 @@ uint FontBig::WriteSymbol(uint8 symbol, int x, int y) //-V2506
 		return ezspace;
 	}
 	uint16_t offs = BigCharOffs[symbol - ' '];				// offset in BigCharIndx
-	const uint8_t *index = (uint8_t *)&BigCharIndx + offs;	// first row index
+	const uint8_t *index = (uint8_t *)&BigCharIndx + offs;	// first row index //-V2533 //-V2563 //-V2567
 
 	uint32_t width = 0;
 	if (symbol == ' ')
@@ -777,7 +777,7 @@ uint FontBig::WriteSymbol(uint8 symbol, int x, int y) //-V2506
 	uint32_t same = 0;									// number of the same rows
 	uint32_t row;										// row of pixels
 	uint32_t code;
-	uint8_t *endMem = (uint8_t *)(0x807FFFF); //-V566
+	uint8_t *endMem = (uint8_t *)(0x807FFFF); //-V566 //-V2533 //-V2571
 
 	while (true)   //-V2530
 	{
@@ -818,7 +818,7 @@ uint FontBig::WriteSymbol(uint8 symbol, int x, int y) //-V2506
 				uint32_t pixel = rowshift & 0x80000000U;
 				if (pixel)
 				{
-					Point().Draw((int)(x + i), y);
+					Point().Draw((int)(x + i), y); //-V2533
 				}
 				if ((pixel != 0) && i > width)
 				{

@@ -43,10 +43,10 @@ typedef void(*pFuncVII)(int, int);
 
 #define HEX_FROM_2(hex1, hex0) ((uint)(0x##hex1) << 16 | (uint)0x##hex0)
 
-#define _SET_BIT_VALUE(value, numBit, bitValue) ((value) |= ((bitValue) << (numBit)))
-#define _GET_BIT(value, numBit) (((value) >> (numBit)) & 1)
-#define _CLEAR_BIT(value, bit) ((value) &= (~(1 << (bit))))
-#define _SET_BIT(value, bit) ((value) |= (1 << (bit)))
+#define _SET_BIT_VALUE(value, numBit, bitValue) ((value) |= ((bitValue) << (numBit))) //-V2573
+#define _GET_BIT(value, numBit) (((value) >> (numBit)) & 1) //-V2573
+#define _CLEAR_BIT(value, bit) ((value) &= (~(1 << (bit)))) //-V2573
+#define _SET_BIT(value, bit) ((value) |= (1 << (bit))) //-V2573
 
 
 #define NUM_VER "1.2.1"

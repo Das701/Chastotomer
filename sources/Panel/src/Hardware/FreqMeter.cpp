@@ -21,7 +21,7 @@ void Channel::LoadToFPGA()
 
     if (IsB())       { command.SetBit(8); }
     else if (IsC())  { command.SetBit(9); }
-    else if (IsD())  { command.SetBit(8);
+    else if (IsD())  { command.SetBit(8); //-V2516
                        command.SetBit(9); }
 
     FPGA::WriteCommand(command);
@@ -35,7 +35,7 @@ void FreqMeter::LoadDisplayTime()
     Command command(Command::DisplayTime);
 
     if (PageIndication::displayTime.Is_1s())        { command.SetBit(9); }
-    else if (PageIndication::displayTime.Is_10s())  { command.SetBit(8); }
+    else if (PageIndication::displayTime.Is_10s())  { command.SetBit(8); } //-V2516
 
     FPGA::WriteCommand(command);
 }
@@ -58,7 +58,7 @@ void LaunchSource::LoadToFPGA()
     Command command(Command::LaunchSource);
 
     if (PageIndication::launchSource.IsExternal())      { command.SetBit(9); }
-    else if (PageIndication::launchSource.IsOneTime())  { command.SetBit(8); }
+    else if (PageIndication::launchSource.IsOneTime())  { command.SetBit(8); } //-V2516
 
     FPGA::WriteCommand(command);
 
@@ -114,7 +114,7 @@ void ModeFrequency::LoadToFPGA()
     {
         command.SetBit(7);
     }
-    else if (Current().IsComparator())
+    else if (Current().IsComparator()) //-V2516
     {
         command.SetBit(7);
         command.SetBit(9);
@@ -146,7 +146,7 @@ void ModeCountPulse::LoadToFPGA()
     {
         command.SetBit(8);
     }
-    else if (current.Is_CTB() && CURRENT_CHANNEL_IS_C)
+    else if (current.Is_CTB() && CURRENT_CHANNEL_IS_C) //-V2516
     {
         command.SetBit(8);
         command.SetBit(9);
@@ -181,7 +181,7 @@ void PeriodTimeLabels::LoadToFPGA()
 
 void PeriodTimeLabels::Set(E v)
 {
-    ModesChannel::timeLabels.value = (uint8)v;
+    ModesChannel::timeLabels.value = (uint8)v; //-V2533
     LoadToFPGA();
 }
 
@@ -238,7 +238,7 @@ void NumberPeriods::LoadToFPGA()
 
 void NumberPeriods::Set(E v)
 {
-    ModesChannel::numberPeriods.value = (uint8)v;
+    ModesChannel::numberPeriods.value = (uint8)v; //-V2533
     LoadToFPGA();
 }
 

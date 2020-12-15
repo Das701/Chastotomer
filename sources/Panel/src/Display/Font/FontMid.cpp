@@ -846,7 +846,7 @@ const uint8_t *FontMidArray_select(char symbol)
 */
 uint32_t FontMid::WriteSymbol(uint8_t symbol, int x, int y)
 {
-	const uint8_t *index = FontMidArray_select((char)symbol);	// first row index
+	const uint8_t *index = FontMidArray_select((char)symbol);	// first row index //-V2533
 
 	uint32_t width = 0;
 	if (symbol == ' ')
@@ -887,7 +887,7 @@ uint32_t FontMid::WriteSymbol(uint8_t symbol, int x, int y)
 				uint32_t pixel = rowshift & 0x8000;
 				if (pixel != 0)
 				{
-					Point().Draw((int)(x + i), y);
+					Point().Draw((int)(x + i), y); //-V2533
 				}
 				if ((pixel != 0) && i > width)
 				{
@@ -917,7 +917,7 @@ void FontMid::Write(char *text, int x, int y)
 {
 	while (*text)
 	{
-		uint32_t space = WriteSymbol((uint8)*text, x, y);
+		uint32_t space = WriteSymbol((uint8)*text, x, y); //-V2533
 		x += space;
 		text++;
 	}

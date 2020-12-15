@@ -76,7 +76,7 @@ static void OnChanged_ModeFrequency()
         items[2] = FreqMeter::modeTest.IsEnabled() ? ModesChannel::switchTimeLabels : nullptr;
         items[3] = nullptr;
     }
-    else if (Channel::A->mod.modeFrequency.IsComparator())
+    else if (Channel::A->mod.modeFrequency.IsComparator()) //-V2516
     {
         items[2] = &bStatistics;
         items[3] = nullptr;
@@ -111,7 +111,7 @@ static void OnChanged_ModePeriod()
         items[3] = ModesChannel::switchTimeLabels;
         items[4] = nullptr;
     }
-    else if (Channel::A->mod.modePeriod.IsF_1())
+    else if (Channel::A->mod.modePeriod.IsF_1()) //-V2516
     {
         items[2] = ModesChannel::switchTimeMeasue;
         items[3] = FreqMeter::modeTest.IsEnabled() ? ModesChannel::switchTimeLabels : nullptr;
@@ -224,7 +224,7 @@ static void OnChanged_ModeTest()
         {
             items[3] = test ? ModesChannel::switchTimeLabels : nullptr;
         }
-        else if (Channel::A->mod.modeFrequency.IsTachometer())
+        else if (Channel::A->mod.modeFrequency.IsTachometer()) //-V2516
         {
             items[2] = test ? ModesChannel::switchTimeLabels : nullptr;
         }

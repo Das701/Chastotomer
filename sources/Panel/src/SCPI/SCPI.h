@@ -24,7 +24,7 @@ struct StructSCPI
 
     FuncSCPI  func;             // Если структура имеет тип Leaf, то здесь хранится функция - обработчик листа типа FuncSCPI
 
-    bool IsEmpty() const { return key[0] == '\0'; };
+    bool IsEmpty() const { return key[0] == '\0'; }; //-V2563
     bool IsNode() const { return strct != nullptr; };   // Структура является "узлом" дерева, нужно идти дальше по дереву через structs
     bool IsLeaf() const { return func != nullptr; };    // Стурктура является "листом" дерева, нужно выполнять функцию func
 };

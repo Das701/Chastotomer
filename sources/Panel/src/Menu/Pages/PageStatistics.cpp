@@ -81,13 +81,13 @@ void PageStatistics::Draw() //-V2506
         if (MathFPGA::Comparator::values[i] > max) { max = MathFPGA::Comparator::values[i]; }
     }
 
-    float stepX = (float)width / (float)(MathFPGA::Comparator::values.Size() - 1);
-    float stepY = (float)height / (float)(max - min);
+    float stepX = (float)width / (float)(MathFPGA::Comparator::values.Size() - 1); //-V2533
+    float stepY = (float)height / (float)(max - min); //-V2533
 
     y0 = y0 + height;
 
     int x = x0;
-    int y = y0 - (int)(stepY * (MathFPGA::Comparator::values[0] - min));
+    int y = y0 - (int)(stepY * (MathFPGA::Comparator::values[0] - min)); //-V2533
     
     Color::BLACK.SetAsCurrent();
 
@@ -95,11 +95,11 @@ void PageStatistics::Draw() //-V2506
 
     for (int i = 1; i < MathFPGA::Comparator::values.Size(); i++)
     {
-        int x1 = x0 + (int)((float)(i - 1) * stepX);
-        int x2 = x0 + (int)((float)i * stepX);
+        int x1 = x0 + (int)((float)(i - 1) * stepX); //-V2533
+        int x2 = x0 + (int)((float)i * stepX); //-V2533
 
-        int y1 = y0 - (int)(stepY * (MathFPGA::Comparator::values[i - 1] - min));
-        int y2 = y0 - (int)(stepY * (MathFPGA::Comparator::values[i] - min));
+        int y1 = y0 - (int)(stepY * (MathFPGA::Comparator::values[i - 1] - min)); //-V2533
+        int y2 = y0 - (int)(stepY * (MathFPGA::Comparator::values[i] - min)); //-V2533
 
         Line().Draw(x1, y1, x2, y2);
     }

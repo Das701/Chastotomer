@@ -9,7 +9,7 @@
 #include <cstdarg>
 
 
-const char * const String::_ERROR = "---.---";
+const char * const String::_ERROR = "---.---"; //-V2573
 
 
 String::String() : buffer(nullptr)
@@ -35,8 +35,8 @@ String::String(char symbol) : buffer(nullptr)
 
     if (Allocate(2))
     {
-        buffer[0] = symbol;
-        buffer[1] = 0;
+        buffer[0] = symbol; //-V2563
+        buffer[1] = 0; //-V2563
     }
 }
 
@@ -58,7 +58,7 @@ String::String(pCHAR format, ...) : buffer(nullptr) //-V2506
     char buf[SIZE + 1];
 
     std::va_list args;
-    va_start(args, format); //-V2528 //-V2567
+    va_start(args, format); //-V2528 //-V2567 //-V2563 //-V2571
     int numSymbols = std::vsprintf(buf, format, args);
     va_end(args);
 
@@ -66,7 +66,7 @@ String::String(pCHAR format, ...) : buffer(nullptr) //-V2506
     {
         std::strcpy(buffer, "Буфер слишком мал"); //-V2513
     }
-    else if (Allocate(static_cast<int>(std::strlen(buf) + 1))) //-V2513
+    else if (Allocate(static_cast<int>(std::strlen(buf) + 1))) //-V2513 //-V2516
     {
         std::strcpy(buffer, buf); //-V2513
     }
@@ -83,7 +83,7 @@ void String::Set(TypeConversionString::E conv, pCHAR format, ...)
         char buf[SIZE + 1];
 
         std::va_list args;
-        va_start(args, format); //-V2528 //-V2567
+        va_start(args, format); //-V2528 //-V2567 //-V2563 //-V2571
         int numSymbols = std::vsprintf(buf, format, args);
         va_end(args);
 
@@ -91,7 +91,7 @@ void String::Set(TypeConversionString::E conv, pCHAR format, ...)
         {
             std::strcpy(buffer, "Буфер слишком мал"); //-V2513
         }
-        else if(Allocate(static_cast<int>(std::strlen(buf) + 1))) //-V2513
+        else if(Allocate(static_cast<int>(std::strlen(buf) + 1))) //-V2513 //-V2516
         {
             std::strcpy(buffer, buf); //-V2513
             Conversion(conv);
@@ -134,8 +134,8 @@ void String::Append(pCHAR str, int numSymbols) //-V2506
     Allocate(size);
 
     std::strcpy(buffer, old.c_str()); //-V2513
-    std::memcpy(buffer + old.Size(), str, static_cast<uint>(numSymbols));
-    buffer[size - 1] = '\0';
+    std::memcpy(buffer + old.Size(), str, static_cast<uint>(numSymbols)); //-V2563
+    buffer[size - 1] = '\0'; //-V2563
 }
 
 
@@ -217,7 +217,7 @@ void String::RemoveFromBegin(int numSymbols)
 
         Allocate(old.Size() - numSymbols + 1);
 
-        std::strcpy(buffer, old.c_str() + numSymbols); //-V2513
+        std::strcpy(buffer, old.c_str() + numSymbols); //-V2513 //-V2563
     }
 }
 
@@ -226,7 +226,7 @@ void String::RemoveFromEnd()
 {
     if(Size() > 0)
     {
-        buffer[Size() - 1] = '\0';
+        buffer[Size() - 1] = '\0'; //-V2563
     }
 }
 
@@ -257,5 +257,5 @@ char &String::operator[](int i) const //-V2506
         return result;
     }
 
-    return buffer[i];
+    return buffer[i]; //-V2563
 }

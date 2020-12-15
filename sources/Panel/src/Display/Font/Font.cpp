@@ -37,7 +37,7 @@ struct NativeSymbol
             return nullptr;
         }
 
-        return Data() + (row - firstRow) * BytesInRow();
+        return Data() + (row - firstRow) * BytesInRow(); //-V2563
     }
     // ¬озвращает указатель на первый байт данных
     uint8 *Data();
@@ -78,7 +78,7 @@ struct HeaderFont
             return nullptr;
         }
 
-        uint8 *offset = reinterpret_cast<uint8 *>(header) + header->offsets[num];
+        uint8 *offset = reinterpret_cast<uint8 *>(header) + header->offsets[num]; //-V2563
 
         return reinterpret_cast<NativeSymbol *>(offset);
     }
@@ -95,13 +95,13 @@ static const unsigned char *font = nullptr;
 
 HeaderFont *HeaderFont::Sefl()
 {
-    return reinterpret_cast<HeaderFont *>(const_cast<uint8 *>(font));
+    return reinterpret_cast<HeaderFont *>(const_cast<uint8 *>(font)); //-V2567
 }
 
 
 uint8 *NativeSymbol::Data()
 {
-    return reinterpret_cast<uint8 *>(this) + sizeof(*this);
+    return reinterpret_cast<uint8 *>(this) + sizeof(*this); //-V2563
 }
 
 
@@ -190,7 +190,7 @@ bool Font::RowNotEmpty(uint8 s, int r) //-V2506
         {
             for (int i = 0; i < symbol->BytesInRow(); i++)
             {
-                if (row[i] != 0)
+                if (row[i] != 0) //-V2563
                 {
                     return true;
                 }
@@ -243,5 +243,5 @@ int Font::GetLengthSymbols(pCHAR start, int num)
 
 int Font::GetLengthText(pCHAR text)
 {
-    return GetLengthSymbols(text, (int)std::strlen(text)); //-V2513
+    return GetLengthSymbols(text, (int)std::strlen(text)); //-V2513 //-V2533
 }

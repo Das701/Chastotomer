@@ -98,7 +98,7 @@ static void OnPress_Sync()
 
         Channel::A->pageSettings->selectedItem = 0;
     }
-    else if(Channel::A->set.typeSynch.IsManual())
+    else if(Channel::A->set.typeSynch.IsManual()) //-V2516
     {
         items[0] = &sCouple;
         items[1] = &sImpedance;
@@ -111,7 +111,7 @@ static void OnPress_Sync()
         Channel::A->pageSettings->selectedItem = 5;
     }
 
-    TYPE_SYNCH_A = (TypeSynch::E)Channel::A->set.typeSynch.value;
+    TYPE_SYNCH_A = (TypeSynch::E)Channel::A->set.typeSynch.value; //-V2533
 
     TypeSynch::LoadToFPGA();
 }

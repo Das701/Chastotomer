@@ -145,9 +145,9 @@ bool TypeMeasure::IsActiveTimeLabels(int m)
 
     if (IsFrequency())
     {
-        ModeFrequency::E mode = (ModeFrequency::E)m;
+        ModeFrequency::E mode = (ModeFrequency::E)m; //-V2533
 
-        switch (mode)
+        switch (mode) //-V2522
         {
         case ModeFrequency::T_1:
         case ModeFrequency::RatioCA:
@@ -160,18 +160,18 @@ bool TypeMeasure::IsActiveTimeLabels(int m)
     }
     else if (IsPeriod())
     {
-        ModePeriod::E mode = (ModePeriod::E)m;
+        ModePeriod::E mode = (ModePeriod::E)m; //-V2533
 
-        switch (mode)
+        switch (mode) //-V2522
         {
         case ModePeriod::Period:      result = true;                                break;
 
         case ModePeriod::F_1:         result = FreqMeter::modeTest.IsEnabled();     break;
         }
     }
-    else if (IsDuration())
+    else if (IsDuration()) //-V2516
     {
-        ModeDuration::E mode = (ModeDuration::E)m;
+        ModeDuration::E mode = (ModeDuration::E)m; //-V2533
 
         switch (mode)
         {
@@ -193,20 +193,20 @@ bool TypeMeasure::IsActiveTimeMeasure(int m) //-V2506
 {
     if (IsFrequency())
     {
-        ModeFrequency::E mode = (ModeFrequency::E)m;
+        ModeFrequency::E mode = (ModeFrequency::E)m; //-V2533
 
-        switch (mode)
+        switch (mode) //-V2520 //-V2522
         {
         case ModeFrequency::Frequency:
         case ModeFrequency::RatioAC:
         case ModeFrequency::RatioBC:     return true;
         }
     }
-    else if (IsPeriod())
+    else if (IsPeriod()) //-V2516
     {
-        ModePeriod::E mode = (ModePeriod::E)m;
+        ModePeriod::E mode = (ModePeriod::E)m; //-V2533
 
-        switch (mode)
+        switch (mode) //-V2520 //-V2522
         {
         case ModePeriod::F_1:            return true;
         }
@@ -220,9 +220,9 @@ bool TypeMeasure::IsActiveNumberPeriods(int m) //-V2506
 {
     if (IsFrequency())
     {
-        ModeFrequency::E mode = (ModeFrequency::E)m;
+        ModeFrequency::E mode = (ModeFrequency::E)m; //-V2533
 
-        switch (mode)
+        switch (mode) //-V2520 //-V2522
         {
         case ModeFrequency::T_1:
         case ModeFrequency::RatioAB:
@@ -233,18 +233,18 @@ bool TypeMeasure::IsActiveNumberPeriods(int m) //-V2506
     }
     else if (IsPeriod())
     {
-        ModePeriod::E mode = (ModePeriod::E)m;
+        ModePeriod::E mode = (ModePeriod::E)m; //-V2533
 
-        switch (mode)
+        switch (mode) //-V2520 //-V2522
         {
         case ModePeriod::Period:         return true;
         }
     }
-    else if (IsCountPulse())
+    else if (IsCountPulse()) //-V2516
     {
-        ModeCountPulse::E mode = (ModeCountPulse::E)m;
+        ModeCountPulse::E mode = (ModeCountPulse::E)m; //-V2533
 
-        switch (mode)
+        switch (mode) //-V2520 //-V2522
         {
         case ModeCountPulse::ATB:
         case ModeCountPulse::BTA:
@@ -335,10 +335,10 @@ void Channel::PressSetup()
 {
     switch (Channel::A->mod.typeMeasure.value)
     {
-    case TypeMeasure::Frequency:    pageModes->items[1] = mod.switchModeFrequency;     break;
-    case TypeMeasure::Period:       pageModes->items[1] = mod.switchModePeriod;        break;
-    case TypeMeasure::Duration:     pageModes->items[1] = mod.switchModeDuration;      break;
-    case TypeMeasure::CountPulse:   pageModes->items[1] = mod.switchModeCountPulse;    break;
+    case TypeMeasure::Frequency:    pageModes->items[1] = mod.switchModeFrequency;     break; //-V2563
+    case TypeMeasure::Period:       pageModes->items[1] = mod.switchModePeriod;        break; //-V2563
+    case TypeMeasure::Duration:     pageModes->items[1] = mod.switchModeDuration;      break; //-V2563
+    case TypeMeasure::CountPulse:   pageModes->items[1] = mod.switchModeCountPulse;    break; //-V2563
     }
 }
 
@@ -359,7 +359,7 @@ void Channel::SelectNext()
 {
     int num = Channel::Current()->Number();
 
-    Math::CircleIncrease<uint8>((uint8 *)&num, 0, Channel::Count - 1);
+    Math::CircleIncrease<uint8>((uint8 *)&num, 0, Channel::Count - 1); //-V2533
 
     static Channel *const channels[Count] = { A, B, C, D };
 

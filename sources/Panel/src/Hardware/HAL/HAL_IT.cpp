@@ -63,7 +63,7 @@ void SysTick_Handler(void)
 
 void OTG_FS_IRQHandler()
 {
-    HAL_PCD_IRQHandler((PCD_HandleTypeDef *)HAL_PCD::handle);
+    HAL_PCD_IRQHandler((PCD_HandleTypeDef *)HAL_PCD::handle); //-V2533 //-V2571
 }
 
 

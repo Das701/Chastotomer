@@ -32,7 +32,7 @@ using namespace Primitives;
 static uint8 buffer[HEIGHT_BUFFER][WIDTH_BUFFER];
 
 static const uint8 *startBuffer = &buffer[0][0];
-static const uint8 *endBuffer = startBuffer + WIDTH_BUFFER * HEIGHT_BUFFER;
+static const uint8 *endBuffer = startBuffer + WIDTH_BUFFER * HEIGHT_BUFFER; //-V2563
 
 
 uint8 lineBackground[Display::PHYSICAL_WIDTH * 2];    // Эта последовательность байт используется для отрисовки фона
@@ -41,9 +41,9 @@ uint8 lineBackground[Display::PHYSICAL_WIDTH * 2];    // Эта последовательность 
 static void SetLShiftFreq(uint freq)
 {
     HAL_FSMC::WriteCommand(0xe6);   // set the LSHIFT (pixel clock) frequency
-    HAL_FSMC::WriteData((uint8)(freq >> 16));
-    HAL_FSMC::WriteData((uint8)(freq >> 8));
-    HAL_FSMC::WriteData((uint8)(freq));
+    HAL_FSMC::WriteData((uint8)(freq >> 16)); //-V2533
+    HAL_FSMC::WriteData((uint8)(freq >> 8)); //-V2533
+    HAL_FSMC::WriteData((uint8)(freq)); //-V2533
 }
 
 
@@ -55,13 +55,13 @@ static void SetHorizPeriod(uint16 HT,   // Horizontal total period
 )
 {
     HAL_FSMC::WriteCommand(0xb4);
-    HAL_FSMC::WriteData((uint8)(HT >> 8));      // 0x020d 525
-    HAL_FSMC::WriteData((uint8)HT);
-    HAL_FSMC::WriteData((uint8)(HPS >> 8));     // 0x0014 20
-    HAL_FSMC::WriteData((uint8)(HPS));
+    HAL_FSMC::WriteData((uint8)(HT >> 8));      // 0x020d 525 //-V2533
+    HAL_FSMC::WriteData((uint8)HT); //-V2533
+    HAL_FSMC::WriteData((uint8)(HPS >> 8));     // 0x0014 20 //-V2533
+    HAL_FSMC::WriteData((uint8)(HPS)); //-V2533
     HAL_FSMC::WriteData(HPW);                   // 0x05
-    HAL_FSMC::WriteData((uint8)(LPS >> 8));
-    HAL_FSMC::WriteData((uint8)(LPS));
+    HAL_FSMC::WriteData((uint8)(LPS >> 8)); //-V2533
+    HAL_FSMC::WriteData((uint8)(LPS)); //-V2533
     HAL_FSMC::WriteData(LPSPP);
 }
 
@@ -158,7 +158,7 @@ void Display::BeginScene(int x, int y)
         for (int i = 0; i < PHYSICAL_HEIGHT / NUM_PARTS; i += 2)
         {
             std::memcpy(&buffer[i][0], lineBackground, PHYSICAL_WIDTH);
-            std::memcpy(&buffer[i + 1][0], lineBackground + 1, PHYSICAL_WIDTH);
+            std::memcpy(&buffer[i + 1][0], lineBackground + 1, PHYSICAL_WIDTH); //-V2563
         }
     }
     else
@@ -172,7 +172,7 @@ void Display::BeginScene(int x, int y)
 
         for (int row = 0; row < Display::Height(); row++)
         {
-            std::memcpy(POINTER_BUFFER(0, row), pointer + (row % 2 == 0 ? 0 : 1), (size_t)Display::Width());
+            std::memcpy(POINTER_BUFFER(0, row), pointer + (row % 2 == 0 ? 0 : 1), (size_t)Display::Width()); //-V2533 //-V2563
         }
     }
 }
@@ -195,7 +195,7 @@ void Display::EndScene()
                 data[col] = COLOR(buffer[row][col]);
             }
         
-            VCP::SendDataAsynch((const uint8 *)data, WIDTH_BUFFER * 4);
+            VCP::SendDataAsynch((const uint8 *)data, WIDTH_BUFFER * 4); //-V2533
         }
 
         if (numPart == NUM_PARTS - 1)
@@ -242,7 +242,7 @@ void Point::Draw(int x, int y, Color color)
 
     if (x >= 0 && x < Display::Width() && y >= 0 && y < Ymax())
     {
-        *POINTER_BUFFER(x, y) = current.value;
+        *POINTER_BUFFER(x, y) = current.value; //-V2563
     }
 }
 
@@ -253,7 +253,7 @@ void Point::Draw(int x, int y)
 
     if (x >= 0 && x < Display::Width() && y >= 0 && y < Ymax())
     {
-        *POINTER_BUFFER(x, y) = current.value; 
+        *POINTER_BUFFER(x, y) = current.value;  //-V2563
     }
 }
 
@@ -279,7 +279,7 @@ void HLine::Draw(int x, int y)
             end = Display::Width() - 1;
         }
 
-        uint8 *pointer = POINTER_BUFFER(x, y);
+        uint8 *pointer = POINTER_BUFFER(x, y); //-V2563
 
         for (int i = x; i < end; i++)
         {
@@ -310,12 +310,12 @@ void VLine::Draw(int x, int y)
         {
             if (y < Ymax())
             {
-                uint8 *pointer = POINTER_BUFFER(x, y);
+                uint8 *pointer = POINTER_BUFFER(x, y); //-V2563
 
                 while (pointer < endBuffer && height > 0)
                 {
                     *pointer = current.value;
-                    pointer += Display::Width();
+                    pointer += Display::Width(); //-V2563
                     height--;
                 }
             }
@@ -332,8 +332,8 @@ void Line::Draw(int x1, int y1, int x2, int y2)
     }
     int x = x1;
     int y = y1;
-    int dx = (int)std::fabsf((float)(x2 - x1));
-    int dy = (int)std::fabsf((float)(y2 - y1));
+    int dx = (int)std::fabsf((float)(x2 - x1)); //-V2533
+    int dy = (int)std::fabsf((float)(y2 - y1)); //-V2533
     int s1 = Math::Sign(x2 - x1);
     int s2 = Math::Sign(y2 - y1);
     int temp;

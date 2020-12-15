@@ -109,7 +109,7 @@ static void SetCurrentChannel(const Control &control)
 
         Hint::Hide();
     }
-    else if (control.value == Control::Mode)
+    else if (control.value == Control::Mode) //-V2516
     {
         openedPage = Channel::Current()->pageModes;
 

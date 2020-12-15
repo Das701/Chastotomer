@@ -30,7 +30,7 @@ static pCHAR FuncCoupling(pCHAR buffer) //-V2506
     };
 
     SCPI_REQUEST(SCPI::SendAnswer(coupling[Channel::Current()->set.couple.value]));
-    SCPI_PROCESS_ARRAY(coupling, Channel::Current()->set.couple.Set((InputCouple::E)i));
+    SCPI_PROCESS_ARRAY(coupling, Channel::Current()->set.couple.Set((InputCouple::E)i)); //-V2533 //-V2563
 }
 
 
@@ -44,7 +44,7 @@ static pCHAR FuncFilter(pCHAR buffer) //-V2506
     };
 
     SCPI_REQUEST(SCPI::SendAnswer(filter[Channel::Current()->set.modeFilter.value]));
-    SCPI_PROCESS_ARRAY(filter, Channel::Current()->set.modeFilter.Set((ModeFilter::E)i));
+    SCPI_PROCESS_ARRAY(filter, Channel::Current()->set.modeFilter.Set((ModeFilter::E)i)); //-V2533 //-V2563
 }
 
 

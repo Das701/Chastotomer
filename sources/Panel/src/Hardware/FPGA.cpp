@@ -77,8 +77,8 @@ MathFPGA::Comparator::Stack MathFPGA::Comparator::values(400);
 
 void FPGA::Init()
 {
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE(); //-V2571
+    __HAL_RCC_GPIOC_CLK_ENABLE(); //-V2571
     
     
     GPIO_InitTypeDef is =
@@ -87,16 +87,16 @@ void FPGA::Init()
         GPIO_MODE_OUTPUT_PP,
         GPIO_PULLUP
     };
-    HAL_GPIO_Init(GPIOB, &is);
+    HAL_GPIO_Init(GPIOB, &is); //-V2571
 
     is.Pin = GPIO_PIN_14;
     is.Mode = GPIO_MODE_INPUT;
-    HAL_GPIO_Init(GPIOB, &is);
+    HAL_GPIO_Init(GPIOB, &is); //-V2571
 
     is.Pin = GPIO_PIN_8 | GPIO_PIN_9;
-    HAL_GPIO_Init(GPIOC, &is);
+    HAL_GPIO_Init(GPIOC, &is); //-V2571
 
-    Reset_CS;
+    Reset_CS; //-V2571
 }
 
 
@@ -122,21 +122,21 @@ void FPGA::Update() //-V2008
         }
         else
         {
-            if (Flag_RD != 0)
+            if (Flag_RD != 0) //-V2571
             {
                 uint counterA = 0;
                 uint counterB = 0;
 
-                Set_CS;
+                Set_CS; //-V2571
 
-                CYCLE_READ_PIN_B14(32, counterA, true);
+                CYCLE_READ_PIN_B14(32, counterA, true); //-V2571
               
                 if((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) && Relation::IsEnabled())
                 {
-                    CYCLE_READ_PIN_B14(32, counterB, true);
+                    CYCLE_READ_PIN_B14(32, counterB, true); //-V2571
                 }
 
-                Reset_CS;
+                Reset_CS; //-V2571
 
 //                LOG_WRITE("%d %d", counterA, counterB);
 
@@ -151,15 +151,15 @@ void FPGA::Update() //-V2008
 
 void FPGA::ReadFillFactorPhase()
 {
-    if (Flag_RD != 0)
+    if (Flag_RD != 0) //-V2571
     {
         uint period = 0;
         uint duration = 0;
 
-        Set_CS;
-        CYCLE_READ_PIN_B14(32, period, true);
-        CYCLE_READ_PIN_B14(32, duration, true);
-        Reset_CS;
+        Set_CS; //-V2571
+        CYCLE_READ_PIN_B14(32, period, true); //-V2571
+        CYCLE_READ_PIN_B14(32, duration, true); //-V2571
+        Reset_CS; //-V2571
 
 //        LOG_WRITE("%d %d", period, duration);
 
@@ -172,18 +172,18 @@ void FPGA::ReadFillFactorPhase()
 
 void FPGA::ReadInterpolator()
 {
-    if (Flag_RD != 0)
+    if (Flag_RD != 0) //-V2571
     {
         uint timer = 0;
         uint cal1 = 0;
         uint cal2 = 0;
 
-        Set_CS;
-        CYCLE_READ_PIN_B14(3, ident, false); //-V525
-        CYCLE_READ_PIN_B14(24, timer, false);
-        CYCLE_READ_PIN_B14(24, cal1, false);
-        CYCLE_READ_PIN_B14(24, cal2, false);
-        Reset_CS;
+        Set_CS; //-V2571
+        CYCLE_READ_PIN_B14(3, ident, false); //-V525 //-V2571
+        CYCLE_READ_PIN_B14(24, timer, false); //-V2571
+        CYCLE_READ_PIN_B14(24, cal1, false); //-V2571
+        CYCLE_READ_PIN_B14(24, cal2, false); //-V2571
+        Reset_CS; //-V2571
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Interpolator, timer, cal1, cal2);
 
@@ -194,14 +194,14 @@ void FPGA::ReadInterpolator()
 
 void FPGA::ReadAutoMode()
 {
-    if (Flag_RD != 0)
+    if (Flag_RD != 0) //-V2571
     {
-        Set_CS;
-        CYCLE_READ_PIN_B14(3, ident, false);
-        CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMin, false);
-        CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMid, false);
-        CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMax, false);
-        Reset_CS;
+        Set_CS; //-V2571
+        CYCLE_READ_PIN_B14(3, ident, false); //-V2571
+        CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMin, false); //-V2571
+        CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMid, false); //-V2571
+        CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMax, false); //-V2571
+        Reset_CS; //-V2571
 
         Display::Refresh();
 
@@ -212,18 +212,18 @@ void FPGA::ReadAutoMode()
 
 void FPGA::ReadComparator()
 {
-    if (Flag_RD != 0)
+    if (Flag_RD != 0) //-V2571
     {
         uint fx = 0;
         uint tizm = 0;
         uint nkal = 0;
 
-        Set_CS;
-        CYCLE_READ_PIN_B14(3, ident, false);
-        CYCLE_READ_PIN_B14(32, fx, false);
-        CYCLE_READ_PIN_B14(16, tizm, false);
-        CYCLE_READ_PIN_B14(16, nkal, false);
-        Reset_CS;
+        Set_CS; //-V2571
+        CYCLE_READ_PIN_B14(3, ident, false); //-V2571
+        CYCLE_READ_PIN_B14(32, fx, false); //-V2571
+        CYCLE_READ_PIN_B14(16, tizm, false); //-V2571
+        CYCLE_READ_PIN_B14(16, nkal, false); //-V2571
+        Reset_CS; //-V2571
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Comparator, fx, tizm, nkal);
 
@@ -244,7 +244,7 @@ void FPGA::IncreaseN()
         {
             MathFPGA::NA++;
         }
-        else if(CURRENT_CHANNEL_IS_B)
+        else if(CURRENT_CHANNEL_IS_B) //-V2516
         {
             MathFPGA::NB++;
         }
@@ -263,7 +263,7 @@ void FPGA::DecreaseN()
         {
             MathFPGA::NA--;
         }
-        else if(CURRENT_CHANNEL_IS_B)
+        else if(CURRENT_CHANNEL_IS_B) //-V2516
         {
             MathFPGA::NB--;
         }
@@ -292,17 +292,17 @@ bool FPGA::AutoMode()
 
 void FPGA::ReadCalibNumber()
 {
-    while (Flag_RD == 0)
+    while (Flag_RD == 0) //-V2571
     {
     }
 
-    Set_CS;
+    Set_CS; //-V2571
 
-    CYCLE_READ_PIN_B14(3, ident, false);
+    CYCLE_READ_PIN_B14(3, ident, false); //-V2571
 
-    CYCLE_READ_PIN_B14(10, kCalib, false);
+    CYCLE_READ_PIN_B14(10, kCalib, false); //-V2571
 
-    Reset_CS;
+    Reset_CS; //-V2571
 
     HAL_TIM::DelayUS(8);
 }
@@ -312,27 +312,27 @@ void FPGA::WriteDataGovernor() //-V2506
 {
     CalculateData();
 
-    if (Read_WR != 0)           // \todo К сожалению, флаг готовности не работает так, как надо и если ожидать его установки в ноль, то происходит сбой передачи данных
+    if (Read_WR != 0)           // \todo К сожалению, флаг готовности не работает так, как надо и если ожидать его установки в ноль, то происходит сбой передачи данных //-V2571
     {                           // Если флаг не готов, выходим. Передавать нужно только если флаг уже установлен в 0
         return;
     }
     
-    Reset_CLOCK;
-    Set_DATA;
-    Set_CLOCK;
-    Reset_CLOCK;
+    Reset_CLOCK; //-V2571
+    Set_DATA; //-V2571
+    Set_CLOCK; //-V2571
+    Reset_CLOCK; //-V2571
 
     for (int i = 9; i > -1; i--)
     {
-        WRITE_BIT(encData[i]);
+        WRITE_BIT(encData[i]); //-V2571
     }
 
-    Reset_DATA; //-V525
-    Set_CLOCK;
-    Set_DATA;
+    Reset_DATA; //-V525 //-V2571
+    Set_CLOCK; //-V2571
+    Set_DATA; //-V2571
 
-    Reset_CLOCK;
-    Reset_DATA;
+    Reset_CLOCK; //-V2571
+    Reset_DATA; //-V2571
 
 //    while (Read_READY == 0)
 //    {
@@ -342,23 +342,23 @@ void FPGA::WriteDataGovernor() //-V2506
 
 void FPGA::WriteCommand(const Command &command)
 {
-    while (Read_WR != 0)             // \todo Провеерить. Возможно, по аналогии с передачей данных нельзя ожидать флага готовности
+    while (Read_WR != 0)             // \todo Провеерить. Возможно, по аналогии с передачей данных нельзя ожидать флага готовности //-V2571
     {
     }
 
-    Reset_CLOCK; //-V525
-    Reset_DATA;
-    Set_CLOCK;
-    Reset_CLOCK;
+    Reset_CLOCK; //-V525 //-V2571
+    Reset_DATA; //-V2571
+    Set_CLOCK; //-V2571
+    Reset_CLOCK; //-V2571
 
-    WRITE(command.value, 10);
+    WRITE(command.value, 10); //-V2571
 
-    Reset_DATA; //-V525
-    Set_CLOCK;
-    Set_DATA;
+    Reset_DATA; //-V525 //-V2571
+    Set_CLOCK; //-V2571
+    Set_DATA; //-V2571
 
-    Reset_CLOCK;
-    Reset_DATA;
+    Reset_CLOCK; //-V2571
+    Reset_DATA; //-V2571
 }
 
 
@@ -368,14 +368,14 @@ void FPGA::CalculateData()
 
     if (PageIndication::calibration.Is(Calibration::Pressed))
     {
-        if ((int)kCalib + NAC < 0)
+        if ((int)kCalib + NAC < 0) //-V2533
         {
             kCalib = 0;
             NAC = 0;
         }
 
-        kCalib = (uint)((int)kCalib + NAC);
-        MathFPGA::DecToBin((int)kCalib, encData);
+        kCalib = (uint)((int)kCalib + NAC); //-V2533
+        MathFPGA::DecToBin((int)kCalib, encData); //-V2533
         NAC = 0;
     }
     else
@@ -391,7 +391,7 @@ void FPGA::CalculateData()
                 MathFPGA::DecToBin(MathFPGA::NA, encData);
             }
         }
-        else if (CURRENT_CHANNEL_IS_B)
+        else if (CURRENT_CHANNEL_IS_B) //-V2516
         {
             if (MathFPGA::NB < 0)
             {
@@ -408,7 +408,7 @@ void FPGA::CalculateData()
 
 int FPGA::CalibNumber()
 {
-    return (int)kCalib;
+    return (int)kCalib; //-V2533
 }
 
 

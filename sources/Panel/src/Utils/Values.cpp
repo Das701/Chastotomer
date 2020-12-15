@@ -22,11 +22,11 @@ static char *FloatToString(float value, bool alwaysSign, int numDigits, char buf
 
     char *pBuffer = bufferOut;
 
-    if (value < 0)
+    if (value < 0) //-V2564
     {
         *pBuffer++ = '-';
     }
-    else if (alwaysSign)
+    else if (alwaysSign) //-V2516
     {
         *pBuffer++ = '+';
     }
@@ -59,7 +59,7 @@ static char *FloatToString(float value, bool alwaysSign, int numDigits, char buf
         std::sprintf(pBuffer, format, static_cast<double>(value));
     }
 
-    bool signExist = alwaysSign || value < 0;
+    bool signExist = alwaysSign || value < 0; //-V2564
     while (std::strlen(bufferOut) < static_cast<uint>(numDigits + (signExist ? 2 : 1))) //-V2513
     {
         std::strcat(bufferOut, "0"); //-V2513

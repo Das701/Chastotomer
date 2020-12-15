@@ -42,7 +42,7 @@ Enumeration &CurrentModeMeasure::ToEnumeration() //-V2506
 
         return *modesB[Channel::B->mod.typeMeasure.value];
     }
-    else if (CURRENT_CHANNEL_IS_C)
+    else if (CURRENT_CHANNEL_IS_C) //-V2516
     {
         static Enumeration *const modesC[4] =
         {
@@ -123,7 +123,7 @@ int TimeMeasure::ToMS() const
 
 void TimeMeasure::Set(TimeMeasure::E v)
 {
-    ModesChannel::timeMeasure.value = (uint8)v;
+    ModesChannel::timeMeasure.value = (uint8)v; //-V2533
     LoadToFPGA();
 }
 
@@ -241,7 +241,7 @@ void ModeDuration::LoadToFPGA()
     {
         command.SetBit(7);
     }
-    else if (Current().IsPhase())
+    else if (Current().IsPhase()) //-V2516
     {
         command.SetBit(9);
         command.SetBit(7);

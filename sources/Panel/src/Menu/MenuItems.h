@@ -17,7 +17,7 @@ struct Enumeration
                             // value не может значени€ индексов, соответствующих false
     int numStates;
     explicit Enumeration(uint8 v, const bool *_correct = nullptr, int states = 0) : value(v), names(nullptr), ugo(nullptr), correct(_correct), numStates(states) {}
-    operator int()         { return (int)value; }
+    operator int()         { return (int)value; } //-V2533
     String ToString() const;
     char *UGO() const;
     int NumStates() const;
@@ -113,7 +113,7 @@ public:
     virtual bool OnControl(const Control &) { return false; };
 
     // ¬озвращает указатель на выделенный пункт меню
-    Item *SelectedItem() { return items[selectedItem]; };
+    Item *SelectedItem() { return items[selectedItem]; }; //-V2563
 
     // ¬озвращает true, если это страница режимов
     bool IsPageModes() const;

@@ -36,7 +36,7 @@ void InputCouple::LoadToFPGA()
 
 void InputCouple::Set(InputCouple::E v)
 {
-    value = (uint8)v;
+    value = (uint8)v; //-V2533
 
     LoadToFPGA();
 }
@@ -58,7 +58,7 @@ void LevelSynch::Change(int delta)
             MIN = 1;
         }
 
-        LIMITATION(LEVEL_SYNCH(CURRENT_CHANNEL), MIN, MAX);
+        LIMITATION(LEVEL_SYNCH(CURRENT_CHANNEL), MIN, MAX); //-V2516
 
         if (prev != LEVEL_SYNCH(CURRENT_CHANNEL))
         {
@@ -105,7 +105,7 @@ void TypeSynch::LoadToFPGA()
 
 void ModeFilter::Set(ModeFilter::E v)
 {
-    value = (uint8)v;
+    value = (uint8)v; //-V2533
 
     LoadToFPGA();
 }

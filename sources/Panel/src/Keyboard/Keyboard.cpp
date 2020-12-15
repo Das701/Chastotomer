@@ -161,8 +161,8 @@ static void DetectRegulator()
 // Детектируем поворот
     static bool prevStatesIsOne = false;
 
-    bool stateLeft = (HAL_GPIO_ReadPin(PORT_ENC1, PIN_ENC1) == GPIO_PIN_SET);
-    bool stateRight = (HAL_GPIO_ReadPin(PORT_ENC2, PIN_ENC2) == GPIO_PIN_SET);
+    bool stateLeft = (HAL_GPIO_ReadPin(PORT_ENC1, PIN_ENC1) == GPIO_PIN_SET); //-V2571
+    bool stateRight = (HAL_GPIO_ReadPin(PORT_ENC2, PIN_ENC2) == GPIO_PIN_SET); //-V2571
 
     if (stateLeft && stateRight)
     {
@@ -220,29 +220,29 @@ void Set_All_SL(int st)
 
 void Set_SL(int bus, int st)
 {
-    static const GPIO_TypeDef *ports[4]= {PORT_SL0, PORT_SL1, PORT_SL2, PORT_SL3};
+    static const GPIO_TypeDef *ports[4]= {PORT_SL0, PORT_SL1, PORT_SL2, PORT_SL3}; //-V2571
     static const uint16 pins[4] =        {PIN_SL0,  PIN_SL1,  PIN_SL2,  PIN_SL3};
     static const GPIO_PinState state [2] = {GPIO_PIN_RESET, GPIO_PIN_SET};
     
-    HAL_GPIO_WritePin((GPIO_TypeDef *)ports[bus], pins[bus], state[st]);
+    HAL_GPIO_WritePin((GPIO_TypeDef *)ports[bus], pins[bus], state[st]); //-V2533 //-V2567
 }
 
 
 int Read_RL(int rl)
 {
-    static const GPIO_TypeDef *ports[4] = { PORT_RL0, PORT_RL1, PORT_RL2, PORT_RL3};
+    static const GPIO_TypeDef *ports[4] = { PORT_RL0, PORT_RL1, PORT_RL2, PORT_RL3}; //-V2571
     static const uint16 pins[4] =         { PIN_RL0,  PIN_RL1,  PIN_RL2, PIN_RL3};
 
-    return HAL_GPIO_ReadPin((GPIO_TypeDef *)ports[rl], pins[rl]);
+    return HAL_GPIO_ReadPin((GPIO_TypeDef *)ports[rl], pins[rl]); //-V2533 //-V2567
 }
 
 
 static void InitPins()
 {
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-    __HAL_RCC_GPIOD_CLK_ENABLE();
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE(); //-V2571
+    __HAL_RCC_GPIOD_CLK_ENABLE(); //-V2571
+    __HAL_RCC_GPIOC_CLK_ENABLE(); //-V2571
+    __HAL_RCC_GPIOA_CLK_ENABLE(); //-V2571
     
     GPIO_InitTypeDef is =
     {
@@ -250,35 +250,35 @@ static void InitPins()
         GPIO_MODE_OUTPUT_PP,
         GPIO_PULLUP
     };
-    HAL_GPIO_Init(GPIOB, &is);
+    HAL_GPIO_Init(GPIOB, &is); //-V2571
 
     is.Pin = PIN_RL0 | PIN_RL1;
     is.Mode = GPIO_MODE_INPUT;
-    HAL_GPIO_Init(GPIOB, &is);
+    HAL_GPIO_Init(GPIOB, &is); //-V2571
 
     is.Pin = PIN_RL2;
-    HAL_GPIO_Init(GPIOD, &is);
+    HAL_GPIO_Init(GPIOD, &is); //-V2571
     
     is.Pin = PIN_RL3;
-    HAL_GPIO_Init(GPIOA, &is);
+    HAL_GPIO_Init(GPIOA, &is); //-V2571
     
     is.Pin = PIN_ENC1 | PIN_ENC2;
-    HAL_GPIO_Init(GPIOC, &is);
+    HAL_GPIO_Init(GPIOC, &is); //-V2571
 }
 
 
 static void InitTimer()
 {
-    __HAL_RCC_TIM4_CLK_ENABLE();
+    __HAL_RCC_TIM4_CLK_ENABLE(); //-V2571
 
     // Инициализируем таймер, по прерываниям которого будем опрашивать клавиатуру
     HAL_NVIC_SetPriority(TIM4_IRQn, 0, 1);
 
     HAL_NVIC_EnableIRQ(TIM4_IRQn);
 
-    handleTIM4.Instance = TIM4;
+    handleTIM4.Instance = TIM4; //-V2571
     handleTIM4.Init.Period = TIME_UPDATE_KEYBOARD * 10 - 1;
-    handleTIM4.Init.Prescaler = (uint)((SystemCoreClock / 2) / 10000) - 1;
+    handleTIM4.Init.Prescaler = (uint)((SystemCoreClock / 2) / 10000) - 1; //-V2533
     handleTIM4.Init.ClockDivision = 0;
     handleTIM4.Init.CounterMode = TIM_COUNTERMODE_UP;
 

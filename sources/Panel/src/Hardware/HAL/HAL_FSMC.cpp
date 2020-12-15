@@ -116,7 +116,7 @@ struct StructPIO
 
     void Write(int state) const
     {
-        HAL_GPIO_WritePin(gpio, pin, (GPIO_PinState)state);
+        HAL_GPIO_WritePin(gpio, pin, (GPIO_PinState)state); //-V2533
     }
 
     int Read() const
@@ -130,31 +130,31 @@ private:
 };
 
 
-StructPIO pinBL_E(BL_E);
-StructPIO pinD_C(D_C);
-StructPIO pinWR(WR);
-StructPIO pinRD(RD);
-StructPIO pinCS(CS);
-StructPIO pinDIP_ON(DIP_ON);
-StructPIO pinRESET(RESET);
+StructPIO pinBL_E(BL_E); //-V2571
+StructPIO pinD_C(D_C); //-V2571
+StructPIO pinWR(WR); //-V2571
+StructPIO pinRD(RD); //-V2571
+StructPIO pinCS(CS); //-V2571
+StructPIO pinDIP_ON(DIP_ON); //-V2571
+StructPIO pinRESET(RESET); //-V2571
 
-StructPIO pinD0(D0);
-StructPIO pinD1(D1);
-StructPIO pinD2(D2);
-StructPIO pinD3(D3);
-StructPIO pinD4(D4);
-StructPIO pinD5(D5);
-StructPIO pinD6(D6);
-StructPIO pinD7(D7);
+StructPIO pinD0(D0); //-V2571
+StructPIO pinD1(D1); //-V2571
+StructPIO pinD2(D2); //-V2571
+StructPIO pinD3(D3); //-V2571
+StructPIO pinD4(D4); //-V2571
+StructPIO pinD5(D5); //-V2571
+StructPIO pinD6(D6); //-V2571
+StructPIO pinD7(D7); //-V2571
 
-StructPIO pinD8(D8);
-StructPIO pinD9(D9);
-StructPIO pinD10(D10);
-StructPIO pinD11(D11);
-StructPIO pinD12(D12);
-StructPIO pinD13(D13);
-StructPIO pinD14(D14);
-StructPIO pinD15(D15);
+StructPIO pinD8(D8); //-V2571
+StructPIO pinD9(D9); //-V2571
+StructPIO pinD10(D10); //-V2571
+StructPIO pinD11(D11); //-V2571
+StructPIO pinD12(D12); //-V2571
+StructPIO pinD13(D13); //-V2571
+StructPIO pinD14(D14); //-V2571
+StructPIO pinD15(D15); //-V2571
 
 
 struct DataBus
@@ -181,9 +181,9 @@ bool DataBus::forWrite = true;
 
 void HAL_FSMC::Init(void)
 {
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE(); //-V2571
+    __HAL_RCC_GPIOB_CLK_ENABLE(); //-V2571
+    __HAL_RCC_GPIOC_CLK_ENABLE(); //-V2571
 
     DataBus::Init();
 
@@ -196,10 +196,10 @@ void HAL_FSMC::Init(void)
 
 
     is.Pin = PIN_CS | PIN_DIP_ON | PIN_RESET;
-    HAL_GPIO_Init(GPIOC, &is);
+    HAL_GPIO_Init(GPIOC, &is); //-V2571
 
     is.Pin = PIN_BL_E  | PIN_D_C | PIN_WR | PIN_RD;
-    HAL_GPIO_Init(GPIOB, &is);
+    HAL_GPIO_Init(GPIOB, &is); //-V2571
 
     pinRESET.Set();
     pinCS.Set();
@@ -254,21 +254,21 @@ void HAL_FSMC::WriteCommand(uint16 command, uint data1, uint data2, uint data3)
 void HAL_FSMC::WriteData(uint data)
 {
     //pinCS.Reset();
-    PORT_CS->BSRR = PIN_CS << 16;
+    PORT_CS->BSRR = PIN_CS << 16; //-V2571
 
     //pinD_C.Set();
-    PORT_D_C->BSRR = PIN_D_C;
+    PORT_D_C->BSRR = PIN_D_C; //-V2571
 
     //pinWR.Reset();
-    PORT_WR->BSRR = PIN_WR << 16;
+    PORT_WR->BSRR = PIN_WR << 16; //-V2571
 
-    DataBus::Set((uint16)data);
+    DataBus::Set((uint16)data); //-V2533
 
     //pinWR.Set();
-    PORT_WR->BSRR = PIN_WR;
+    PORT_WR->BSRR = PIN_WR; //-V2571
 
     //pinCS.Set();
-    PORT_CS->BSRR = PIN_CS;
+    PORT_CS->BSRR = PIN_CS; //-V2571
 }
 
 
@@ -280,17 +280,17 @@ static void WindowSet(int s_x, int e_x, int s_y, int e_y)
 {
     HAL_FSMC::WriteCommand(0x2a);               //SET page address
 
-    HAL_FSMC::WriteData((uint)((s_x) >> 8));    //SET start page address=0
-    HAL_FSMC::WriteData((uint)s_x);
-    HAL_FSMC::WriteData((uint)(e_x) >> 8);      //SET end page address
-    HAL_FSMC::WriteData((uint)e_x);
+    HAL_FSMC::WriteData((uint)((s_x) >> 8));    //SET start page address=0 //-V2533
+    HAL_FSMC::WriteData((uint)s_x); //-V2533
+    HAL_FSMC::WriteData((uint)(e_x) >> 8);      //SET end page address //-V2533
+    HAL_FSMC::WriteData((uint)e_x); //-V2533
 
     HAL_FSMC::WriteCommand(0x2b);               //SET column address
 
-    HAL_FSMC::WriteData((uint)(s_y) >> 8);      //SET start column address=0
-    HAL_FSMC::WriteData((uint)s_y);
-    HAL_FSMC::WriteData((uint)(e_y) >> 8);      //SET end column address
-    HAL_FSMC::WriteData((uint)e_y);
+    HAL_FSMC::WriteData((uint)(s_y) >> 8);      //SET start column address=0 //-V2533
+    HAL_FSMC::WriteData((uint)s_y); //-V2533
+    HAL_FSMC::WriteData((uint)(e_y) >> 8);      //SET end column address //-V2533
+    HAL_FSMC::WriteData((uint)e_y); //-V2533
 }
 
 
@@ -308,37 +308,37 @@ void HAL_FSMC::SendBuffer(uint8 *buffer, int x, int y, int width, int height, in
 
     DataBus::InitWrite();
 
-    PORT_CS->BSRR = PIN_CS << 16;
+    PORT_CS->BSRR = PIN_CS << 16; //-V2571
 
-    PORT_D_C->BSRR = PIN_D_C;
+    PORT_D_C->BSRR = PIN_D_C; //-V2571
 
     for(int i = 0; i < width * height / 2 / k; i++)
     {
         uint color1 = COLOR(*buffer++);
         uint color2 = COLOR(*buffer++);
 
-        PORT_WR->BSRR = PIN_WR << 16;
-        GPIOC->ODR = (GPIOC->ODR & 0xff00) + (color1 & 0xFF);       // r1
+        PORT_WR->BSRR = PIN_WR << 16; //-V2571
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + (color1 & 0xFF);       // r1 //-V2571
         color1 >>= 8;
-        GPIOA->ODR = (GPIOA->ODR & 0xff00) + (color1 & 0xFF);       // g1
-        PORT_WR->BSRR = PIN_WR;
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + (color1 & 0xFF);       // g1 //-V2571
+        PORT_WR->BSRR = PIN_WR; //-V2571
 
         __asm { nop }                                                       // \warning NOP вставлен для задержки
 
-        PORT_WR->BSRR = PIN_WR << 16;
-        GPIOA->ODR = (GPIOA->ODR & 0xff00) + (color2 & 0xFF);       // r2
-        GPIOC->ODR = (GPIOC->ODR & 0xff00) + (color1 >> 8);         // b1
-        PORT_WR->BSRR = PIN_WR;
+        PORT_WR->BSRR = PIN_WR << 16; //-V2571
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + (color2 & 0xFF);       // r2 //-V2571
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + (color1 >> 8);         // b1 //-V2571
+        PORT_WR->BSRR = PIN_WR; //-V2571
 
         color2 >>= 8;                                                       // Здесь обошлись без нопа - потому что нужна операция сдвига
 
-        PORT_WR->BSRR = PIN_WR << 16;
-        GPIOC->ODR = (GPIOC->ODR & 0xff00) + (color2 & 0xFF);       // g2
-        GPIOA->ODR = (GPIOA->ODR & 0xff00) + (color2 >> 8);         // b2
-        PORT_WR->BSRR = PIN_WR;
+        PORT_WR->BSRR = PIN_WR << 16; //-V2571
+        GPIOC->ODR = (GPIOC->ODR & 0xff00) + (color2 & 0xFF);       // g2 //-V2571
+        GPIOA->ODR = (GPIOA->ODR & 0xff00) + (color2 >> 8);         // b2 //-V2571
+        PORT_WR->BSRR = PIN_WR; //-V2571
     }
 
-    PORT_CS->BSRR = PIN_CS;
+    PORT_CS->BSRR = PIN_CS; //-V2571
 }
 
 
@@ -377,8 +377,8 @@ void DataBus::Set(uint16 data)
         InitWrite();
     }
 
-    GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data;
-    GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8);
+    GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data; //-V2533 //-V2571
+    GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8); //-V2533 //-V2571
 }
 
 
@@ -399,7 +399,7 @@ uint16 DataBus::Read()
 
     for(int i = 0; i < 16; i++)
     {
-        uint16 bit = (uint16)((pins[i].Read() & 0x01) << i);
+        uint16 bit = (uint16)((pins[i].Read() & 0x01) << i); //-V2533
 
         result |= bit;
     }
@@ -419,10 +419,10 @@ void DataBus::InitWrite()
     };
 
     is.Pin = PIN_D0 | PIN_D1 | PIN_D2 | PIN_D3 | PIN_D4 | PIN_D5 | PIN_D6 | PIN_D7;
-    HAL_GPIO_Init(GPIOA, &is);
+    HAL_GPIO_Init(GPIOA, &is); //-V2571
 
     is.Pin = PIN_D8 | PIN_D9 | PIN_D10 | PIN_D11 | PIN_D12 | PIN_D13 | PIN_D14 | PIN_D15;
-    HAL_GPIO_Init(GPIOC, &is);
+    HAL_GPIO_Init(GPIOC, &is); //-V2571
 
     forWrite = true;
 };
@@ -438,10 +438,10 @@ void DataBus::InitRead()
     };
 
     is.Pin = PIN_D0 | PIN_D1 | PIN_D2 | PIN_D3 | PIN_D4 | PIN_D5 | PIN_D6 | PIN_D7;
-    HAL_GPIO_Init(GPIOA, &is);
+    HAL_GPIO_Init(GPIOA, &is); //-V2571
 
     is.Pin = PIN_D8 | PIN_D9 | PIN_D10 | PIN_D11 | PIN_D12 | PIN_D13 | PIN_D14 | PIN_D15;
-    HAL_GPIO_Init(GPIOC, &is);
+    HAL_GPIO_Init(GPIOC, &is); //-V2571
 
     forWrite = false;
 };
@@ -450,10 +450,10 @@ void DataBus::InitRead()
 
 
 
-StructPIO pinD16(WR);
-StructPIO pinD17(RD);
-StructPIO pinD18(CS);
-StructPIO pinD19(RESET);
-StructPIO pinD20(D_C);
-StructPIO pinD21(DIP_ON);
-StructPIO pinD22(BL_E);
+StructPIO pinD16(WR); //-V2571
+StructPIO pinD17(RD); //-V2571
+StructPIO pinD18(CS); //-V2571
+StructPIO pinD19(RESET); //-V2571
+StructPIO pinD20(D_C); //-V2571
+StructPIO pinD21(DIP_ON); //-V2571
+StructPIO pinD22(BL_E); //-V2571
