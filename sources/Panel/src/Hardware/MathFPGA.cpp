@@ -328,7 +328,7 @@ void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
         decDataB.FromDouble(counterB);
     }
 
-    if (CURRENT_CHANNEL_IS_C || CURRENT_CHANNEL_IS_D)
+    if (CURRENT_CHANNEL_IS_C)
     {
         decDataA.Mul(64);
 
@@ -336,6 +336,9 @@ void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
         {
             decDataA.Div(100);
         }
+    }
+    else if (CURRENT_CHANNEL_IS_D)
+    {
     }
 }
 

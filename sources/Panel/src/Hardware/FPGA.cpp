@@ -1,5 +1,4 @@
 #include "defines.h"
-#include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
@@ -139,7 +138,7 @@ void FPGA::Update() //-V2008
 
                 Reset_CS;
 
-                LOG_WRITE("%d %d", counterA, counterB);
+//                LOG_WRITE("%d %d", counterA, counterB);
 
                 MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, counterA, counterB);
 
