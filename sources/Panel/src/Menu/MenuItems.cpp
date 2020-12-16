@@ -200,7 +200,7 @@ bool Switch::OnControl(const Control &control) //-V2506
 {
     if (PageIndication::calibration.Is(Calibration::Pressed))
     {
-        if (control.action.IsPress() && (control.value != Control::GovRight || control.value != Control::GovLeft)) //-V560
+        if (control.action.IsPress() && (control.value != Control::GovRight || control.value != Control::GovLeft)) //-V560      // \todo разобраться, что за дела
         {
             if (Hint::UnderItem() == this)
             {
