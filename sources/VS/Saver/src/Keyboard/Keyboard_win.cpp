@@ -21,7 +21,7 @@ void Keyboard::Init()
 }
 
 
-static void AddAction(Control control, Control::Action::E action)
+static void AddAction(Control control, Control::Action::E action) //-V2506
 {
     if (action != Control::Action::Press)
     {
@@ -35,7 +35,7 @@ static void AddAction(Control control, Control::Action::E action)
 
 void Frame::OnDown(wxCommandEvent &event)
 {
-    Control::E key = (Control::E)event.GetId();
+    Control::E key = (Control::E)event.GetId(); //-V2533
 
     //std::cout << "down " << Control(key).Name() << std::endl;
     event.Skip();
@@ -50,7 +50,7 @@ void Frame::OnDown(wxCommandEvent &event)
 
 void Frame::OnUp(wxCommandEvent &event)
 {
-    Control::E key = (Control::E)event.GetId();
+    Control::E key = (Control::E)event.GetId(); //-V2533
 
     //std::cout << "up   " << Control(key).Name() << std::endl;
     event.Skip();
@@ -69,7 +69,7 @@ bool Keyboard::Empty()
 }
 
 
-Control Keyboard::NextControl()
+Control Keyboard::NextControl() //-V2506
 {
     if (Empty())
     {

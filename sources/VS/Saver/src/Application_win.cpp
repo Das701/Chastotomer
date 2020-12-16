@@ -30,7 +30,7 @@ wxBEGIN_EVENT_TABLE(Frame, wxFrame)
     EVT_TIMER(TIMER_LONG_ID, Frame::OnTimerLong)
 wxEND_EVENT_TABLE()
 
-wxIMPLEMENT_APP_NO_MAIN(Application);
+wxIMPLEMENT_APP_NO_MAIN(Application); //-V2511
 
 
 
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 }
 
 
-bool Application::OnInit()
+bool Application::OnInit() //-V2506
 {
     if (!wxApp::OnInit())
     {
@@ -62,16 +62,16 @@ Frame::Frame(const wxString& title)
 {
     SetIcon(wxICON(sample));
 
-    wxMenu *fileMenu = new wxMenu;
+    wxMenu *fileMenu = new wxMenu; //-V2511
 
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = new wxMenu; //-V2511
     helpMenu->Append(Help_About, "&About\tF1", "Show about dialog");
 
     //fileMenu->Append(File_Size, "&Size", "Resize screen");
 
     fileMenu->Append(File_Quit, "E&xit\tAlt-X", "Quit this program");
 
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = new wxMenuBar(); //-V2511
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(helpMenu, "&Help");
 
@@ -131,7 +131,7 @@ void Frame::DrawFPS()
 
     if (TIME_MS - prevTime > 1000)
     {
-        float fps = (float)count / (float)(TIME_MS - prevTime) * 1000.0F;
+        float fps = (float)count / (float)(TIME_MS - prevTime) * 1000.0F; //-V2533
 
         char buffer[100];
         sprintf(buffer, "fps %f", fps);

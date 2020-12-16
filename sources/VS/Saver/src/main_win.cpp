@@ -46,7 +46,7 @@ void update()
 
 			ComPort::Send(":picture\x0d");
 
-			printf("%d", ComPort::Receive((char *)displayFrame, SIZE_FRAME * 4, 20000));
+			printf("%d", ComPort::Receive((char *)displayFrame, SIZE_FRAME * 4, 20000)); //-V2533
 
 			Display::Draw(displayFrame);
 

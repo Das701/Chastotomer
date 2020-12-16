@@ -9,7 +9,7 @@ const float GovernorGUI::stepDegree = 60.0F;
 
 GovernorGUI::GovernorGUI(wxWindow *parent, const wxPoint &position) : wxPanel(parent, wxID_ANY, position), timer(this, 1)
 {
-    angleDiscrete = ((float)(std::rand() % 100) - 100.0F) * stepDegree;
+    angleDiscrete = ((float)(std::rand() % 100) - 100.0F) * stepDegree; //-V2533
 
     cursor = { false, {0, 0}, 0 };
 
@@ -49,7 +49,7 @@ void GovernorGUI::OnMouseLeftDown(wxMouseEvent &event)
     {
         needEventPress = true;
 
-        ::SetCursor(LoadCursor(NULL, IDC_HAND));
+        ::SetCursor(LoadCursor(NULL, IDC_HAND)); //-V2571
 
         cursor.OnPressLeftButton();
     }
@@ -71,7 +71,7 @@ void GovernorGUI::OnMouseMove(wxMouseEvent &event)
 {
     if(MouseOnGovernor(event))
     {
-        ::SetCursor(LoadCursor(NULL, IDC_HAND));
+        ::SetCursor(LoadCursor(NULL, IDC_HAND)); //-V2571
     }
 }
 
@@ -103,7 +103,7 @@ void GovernorGUI::OnTimer(wxTimerEvent &)
 {
     if(cursor.LeftIsDown())
     {
-        ::SetCursor(LoadCursor(NULL, IDC_HAND));
+        ::SetCursor(LoadCursor(NULL, IDC_HAND)); //-V2571
 
         int delta = cursor.CalculateDelta();
 
@@ -111,7 +111,7 @@ void GovernorGUI::OnTimer(wxTimerEvent &)
         {
             needEventPress = false;
 
-            angleFull += (float)(delta * 3);
+            angleFull += (float)(delta * 3); //-V2533
 
             if (angleFull <= -60.0F)
             {
