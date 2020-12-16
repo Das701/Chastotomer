@@ -77,8 +77,7 @@ static int8_t CDC_Itf_Control (uint8 cmd, uint8* pbuf, uint16)
         break;
 
     case CDC_SET_LINE_CODING:
-        LineCoding.bitrate    = (uint32_t)(pbuf[0] | (pbuf[1] << 8) |\ //-V2533 //-V2563
-                                (pbuf[2] << 16) | (pbuf[3] << 24)); //-V2563
+        LineCoding.bitrate    = (uint32_t)(pbuf[0] | (pbuf[1] << 8) | (pbuf[2] << 16) | (pbuf[3] << 24)); //-V2563
         LineCoding.format     = pbuf[4]; //-V2563
         LineCoding.paritytype = pbuf[5]; //-V2563
         LineCoding.datatype   = pbuf[6]; //-V2563
