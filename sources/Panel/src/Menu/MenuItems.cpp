@@ -257,7 +257,7 @@ void Switch::Draw(int x, int y, int width, bool selected)
 {
     ColorDraw(selected).SetAsCurrent();
 
-    Text(text).WriteInCenterRect(x, y, width, HEIGHT);
+    Text(text).Write(x, y + 7, width);
 }
 
 
@@ -265,7 +265,7 @@ void Button::Draw(int x, int y, int width, bool selected)
 {
     ColorDraw(selected).SetAsCurrent();
 
-    Text(text).WriteInCenterRect(x, y, width, HEIGHT);
+    Text(text).Write(x, y + 7, width);
 }
 
 
