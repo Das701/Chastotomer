@@ -30,7 +30,8 @@ struct Command
         TimeLabels     = 0x0E,
         Calibration    = 0x0F,
         Auto           = 0x0F,
-        Test           = 0x0F
+        Test           = 0x0F,
+        Reset          = 0x0F
     };
 
     uint value;

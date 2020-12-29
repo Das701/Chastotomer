@@ -77,6 +77,17 @@ void FreqMeter::LoadCalibration()
 }
 
 
+void FreqMeter::HardwareReset()
+{
+    Command command(Command::Reset);
+
+    command.SetBit(7);
+    command.SetBit(9);
+
+    FPGA::WriteCommand(command);
+}
+
+
 void MemoryMode::Load()
 {
     Command command(Command::MemoryMode);

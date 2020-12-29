@@ -34,6 +34,8 @@ static void OnPress_ResetSettings()
     Channel::Current()->OnChanged_TypeMeasure();
 
     Channel::Current()->LoadToFPGA();
+
+    FreqMeter::HardwareReset();
 }
 
 DEF_BUTTON(bResetSettings, "—брос", "—брос настроек в состо€ние по умолчанию", OnPress_ResetSettings);
