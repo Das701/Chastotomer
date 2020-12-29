@@ -33,15 +33,6 @@ DEF_SWITCH_4(sTypeMeasure,
 );
 
 
-static void OnPress_TimeComparator()
-{
-
-}
-
-
-DEF_BUTTON(bTimeComparator, "Время изм.", "Выбор времени одного измерения компаратора", OnPress_TimeComparator);
-
-
 static void OnPress_Statistics()
 {
     Menu::SetOpenedPage(PageStatistics::self);
@@ -87,7 +78,7 @@ static void OnChanged_ModeFrequency()
     }
     else if (Channel::A->mod.modeFrequency.IsComparator()) //-V2516
     {
-        items[2] = &bTimeComparator;
+        items[2] = ModesChannel::switchTimeComparator;
         items[3] = &bStatistics;
         items[4] = nullptr;
     }

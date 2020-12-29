@@ -46,13 +46,15 @@ struct ModesChannel
     Switch *switchModePeriod;
     Switch *switchModeDuration;
 
-    static TimeMeasure       timeMeasure;    // Время счета
-    static NumberPeriods     numberPeriods;  // Число периодов измерения
-    static PeriodTimeLabels  timeLabels;     // Период меток времени
+    static TimeMeasure       timeMeasure;       // Время счета
+    static NumberPeriods     numberPeriods;     // Число периодов измерения
+    static PeriodTimeLabels  timeLabels;        // Период меток времени
+    static TimeComparator    timeComparator;    // Время измерения компаратора
 
     static Switch           *switchTimeMeasue;
     static Switch           *switchNumberPeriods;
     static Switch           *switchTimeLabels;
+    static Switch           *switchTimeComparator;
 
     // Возвращает true, если текущая страница режимов содержит время измерения
     bool ConsistTimeMeasure();

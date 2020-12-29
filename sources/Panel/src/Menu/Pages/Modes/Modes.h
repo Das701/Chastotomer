@@ -224,6 +224,24 @@ struct TimeMeasure : public Enumeration
 };
 
 
+// Время измерения компаратора
+struct TimeComparator : public Enumeration
+{
+    enum E
+    {
+        _1s,
+        _10s,
+        Count
+    };
+
+    explicit TimeComparator(E v) : Enumeration((uint8)v) {};
+
+    static void LoadToFPGA();
+
+    bool Is_1s() const { return (value == _1s); }
+};
+
+
 struct CurrentModeMeasure
 {
     static Enumeration &ToEnumeration();

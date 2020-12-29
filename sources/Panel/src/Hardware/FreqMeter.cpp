@@ -116,13 +116,27 @@ void ModeFrequency::LoadToFPGA()
     }
     else if (Current().IsComparator()) //-V2516
     {
-        command.SetBit(7);
-        command.SetBit(9);
+        if (Channel::Current()->mod.timeComparator.Is_1s())
+        {
+            command.SetBit(7);
+            command.SetBit(9);
+        }
+        else
+        {
+            command.SetBit(7);
+            command.SetBit(8);
+        }
     }
 
     FPGA::WriteCommand(command);
 
     MathFPGA::Validator::SetInvalidData();
+}
+
+
+void TimeComparator::LoadToFPGA()
+{
+    ModeFrequency::LoadToFPGA();
 }
 
 

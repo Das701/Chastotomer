@@ -60,3 +60,13 @@ DEF_SWITCH_6(sTimeLabels,
 
 
 Switch *ModesChannel::switchTimeLabels = &sTimeLabels;
+
+
+DEF_SWITCH_2(sTimeComparator,
+    "Время изм.", "Выбор времени одного измерения компаратора",
+    "1s", "10s",
+    ModesChannel::timeComparator, TimeComparator::LoadToFPGA
+);
+
+
+Switch *ModesChannel::switchTimeComparator = &sTimeComparator;

@@ -66,6 +66,7 @@ static const bool enabledModeCountPulseD[ModeCountPulse::Count] = { false, false
 PeriodTimeLabels ModesChannel::timeLabels(PeriodTimeLabels::T_8);
 NumberPeriods    ModesChannel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      ModesChannel::timeMeasure(TimeMeasure::_1ms);
+TimeComparator   ModesChannel::timeComparator(TimeComparator::_1s);
 
 
 SettingsChannel::SettingsChannel() :
