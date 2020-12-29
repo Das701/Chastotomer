@@ -190,6 +190,12 @@ bool TypeMeasure::IsActiveTimeLabels(int m)
 }
 
 
+bool TypeMeasure::IsActiveTimeComparator(int mode)
+{
+    return IsFrequency() && (mode == ModeFrequency::Comparator);
+}
+
+
 bool TypeMeasure::IsActiveTimeMeasure(int m) //-V2506
 {
     if (IsFrequency())
@@ -317,6 +323,11 @@ void Channel::DrawMode(int x, int y)
     if (type->IsActiveTimeLabels(mode))
     {
         DrawValue(ModesChannel::timeLabels, x + 2 * dX, y);
+    }
+
+    if (type->IsActiveTimeComparator(mode))
+    {
+        DrawValue(ModesChannel::timeComparator, x, y);
     }
 }
 
