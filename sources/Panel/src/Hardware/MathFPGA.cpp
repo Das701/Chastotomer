@@ -286,6 +286,11 @@ bool MathFPGA::Validator::DataIsValid()
 
 void MathFPGA::Comparator::Calculate(uint fx, uint tizm, uint nkal)
 {
+    /*
+    *  A = (N-k) / N - dx / N;
+    *  N = 50e6 при времени 1с,
+    *      50е7 при времени 10с.
+    */
     int decNkal = (int)nkal; //-V2533
 
     if (decNkal != 0)
@@ -297,13 +302,15 @@ void MathFPGA::Comparator::Calculate(uint fx, uint tizm, uint nkal)
             decTizm -= 65536;
         }
 
+        uint N = Channel::Current()->mod.timeComparator.Is_1s() ? 5000000U : 50000000U;
+
         ValuePICO dx(decTizm);
         dx.Div((uint)decNkal); //-V2533
-        dx.Div(2 * 5000000);
+        dx.Div(2 * N);
 
-        ValuePICO k(5000000);
+        ValuePICO k((int)N);
         k.Sub(ValuePICO((int)fx)); //-V2533
-        k.Div(5000000);
+        k.Div(N);
         k.Sub(dx);
         k.Mul(1000000);
 
@@ -618,7 +625,14 @@ void MathFPGA::Measure::CalculateUnits()
                 }
                 else if (Channel::A->mod.modeFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
                 {
-                    Data::SetUnits(String(" E-6"));
+                    if (Channel::Current()->mod.timeComparator.Is_1s())
+                    {
+                        Data::SetUnits(String(" E-6"));
+                    }
+                    else
+                    {
+                        Data::SetUnits(String(" E-7"));
+                    }
                 }
                 else
                 {
