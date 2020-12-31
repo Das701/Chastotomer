@@ -314,6 +314,11 @@ void MathFPGA::Comparator::Calculate(uint fx, uint tizm, uint nkal)
         k.Sub(dx);
         k.Mul(1000000);
 
+        if (!Channel::Current()->mod.timeComparator.Is_1s())
+        {
+            k.Mul(10);
+        }
+
         k.SetSign(1);
 
         value = k;
