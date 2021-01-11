@@ -287,7 +287,7 @@ bool MathFPGA::Validator::DataIsValid()
 void MathFPGA::Comparator::Calculate(uint fx, uint tizm, uint nkal)
 {
     /*
-    *  A = (N-k) / N - dx / N;
+    *  A = (N-fx) / N - dx / N;
     *  N = 50e6 при времени 1с,
     *      50е7 при времени 10с.
     */
@@ -318,8 +318,6 @@ void MathFPGA::Comparator::Calculate(uint fx, uint tizm, uint nkal)
         {
             k.Mul(10);
         }
-
-        k.SetSign(1);
 
         value = k;
 
