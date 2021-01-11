@@ -473,12 +473,6 @@ double ValueNANO::ToDouble() const
 }
 
 
-float ValueNANO::ToFloat() const
-{
-    return (float)ToDouble(); //-V2533
-}
-
-
 int ValueNANO::Sign() const
 {
     //                fedcba9876543210

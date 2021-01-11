@@ -503,11 +503,11 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
 
     if (Channel::Current()->mod.typeMeasure.IsCountPulse())
     {
-        float value = decDataA.ToFloat() / 2.0F;
+        double value = decDataA.ToDouble() / 2.0;
 
         if (ModeCountPulse::Current().IsFromPeriod())
         {
-            value /= (float)ModesChannel::numberPeriods.ToAbs(); //-V2533
+            value /= (double)ModesChannel::numberPeriods.ToAbs(); //-V2533
         }
 
         Data::SetDigits(String("%10.0f", value));
@@ -516,7 +516,7 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
     {
         if (ModeFrequency::Current().IsTachometer())
         {
-            Data::SetDigits(String("%10.0f", decDataA.ToFloat() / 2.0F));
+            Data::SetDigits(String("%10.0f", decDataA.ToDouble() / 2.0));
         }
         else if (ModeFrequency::Current().IsComparator())
         {
@@ -571,7 +571,7 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
                 std::strcpy(format, "%10.0f"); //-V2513
                 format[4] = (char)(pow | 0x30); //-V2533
 
-                Data::SetDigits(String(format, data.ToFloat()));
+                Data::SetDigits(String(format, data.ToDouble()));
             }
             else
             {
@@ -579,7 +579,7 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
                 std::strcpy(format, "%10.10f"); //-V2513
                 format[5] = (char)((pow - 10) | 0x30); //-V2533
 
-                Data::SetDigits(String(format, data.ToFloat()));
+                Data::SetDigits(String(format, data.ToDouble()));
             }
         }
     }

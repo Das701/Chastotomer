@@ -138,8 +138,6 @@ void FPGA::Update() //-V2008
 
                 Reset_CS; //-V2571
 
-//                LOG_WRITE("%d %d", counterA, counterB);
-
                 MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, counterA, counterB);
 
                 HAL_TIM::DelayUS(8);

@@ -43,7 +43,6 @@ struct ValueNANO
     bool FromString(const char *buffer, char **end, int numDigitsAfterComma);
 
     double ToDouble() const;
-    float ToFloat() const;
     uint64 ToUINT64() const { return value; }
 
     void Div(uint div);
