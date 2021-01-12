@@ -313,12 +313,9 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
 
         ValuePICO k2 = ValuePICO(interpol2) / (uint)cal2;
 
-        ValuePICO dx = (k1 - k2) / 2 / N;
+        ValuePICO dx = (k1 - k2) / 2;
 
-        ValuePICO A((int)N);
-        A.Sub(ValuePICO((int)counter)); //-V2533
-        A.Div(N);
-        A.Sub(dx);
+        ValuePICO A = (ValuePICO((int)N) - (int)counter) / N - dx / N;
 
         A.Mul(1000000);     // Это приводим к своей выводимой степени
 
@@ -339,7 +336,7 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
 }
 
 
-ValuePICO operator- (const ValuePICO &first, const ValuePICO &second)
+ValuePICO operator-(const ValuePICO &first, const ValuePICO &second)
 {
     ValuePICO result = first;
     result.Sub(second);
@@ -347,13 +344,18 @@ ValuePICO operator- (const ValuePICO &first, const ValuePICO &second)
 }
 
 
-ValuePICO operator/ (const ValuePICO &first, uint second)
+ValuePICO operator-(const ValuePICO &first, int second)
+{
+    return first - ValuePICO(second);
+}
+
+
+ValuePICO operator/(const ValuePICO &first, uint second)
 {
     ValuePICO result = first;
     result.Div(second);
     return result;
 }
-
 
 
 void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
