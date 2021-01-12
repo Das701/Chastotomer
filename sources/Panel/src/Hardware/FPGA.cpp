@@ -75,6 +75,9 @@ int FPGA::GovernorData::NAC = 0;         // Поправка для калибровочного коэффици
 MathFPGA::Comparator::Stack MathFPGA::Comparator::values(400);
 
 
+
+
+
 void FPGA::Init()
 {
     __HAL_RCC_GPIOB_CLK_ENABLE(); //-V2571
@@ -294,6 +297,8 @@ bool FPGA::AutoMode()
 
 void FPGA::ReadValueCalibrator()
 {
+    uint calib = 0;
+
     while (Flag_RD == 0) //-V2571
     {
     }
@@ -302,13 +307,20 @@ void FPGA::ReadValueCalibrator()
 
     CYCLE_READ_PIN_B14(3, ident, false); //-V2571
 
-    CYCLE_READ_PIN_B14(10, GovernorData::kCalib, false); //-V2571
+    CYCLE_READ_PIN_B14(10, calib, false); //-V2571
 
     Reset_CS; //-V2571
 
     HAL_TIM::DelayUS(8);
 
-    GovernorData::NAC = 0;
+    GovernorData::SetValueCalibrator(calib);
+}
+
+
+void FPGA::GovernorData::SetValueCalibrator(uint value)
+{
+    kCalib = value;
+    NAC = 0;
 }
 
 
@@ -375,7 +387,7 @@ int FPGA::GovernorData::ValueCalibrator()
 {
     int value = (int)kCalib + NAC;
 
-    LIMITATION(value, 0, value);
+    LIMITATION_BELOW(value, 0);
 
     return value; //-V2533
 }
@@ -464,10 +476,4 @@ double MathFPGA::Comparator::Stack::GetFromEnd(int fromEnd) //-V2506
     }
 
     return (*this)[Size() - 1 - fromEnd];
-}
-
-
-String FPGA::GiveIdent()
-{
-    return String("%ud", ident);
 }

@@ -1,7 +1,8 @@
 #pragma once
 
 
-#define LIMITATION(var, min, max)           if(var < (min)) { (var) = (min); } else if(var > (max)) { var = (max); };
+#define LIMITATION(var, min, max)   if(var < (min)) { (var) = (min); } else if(var > (max)) { var = (max); };
+#define LIMITATION_BELOW(var, min)  if(var < (min)) { (var) = (min); }
 
 
 namespace Math

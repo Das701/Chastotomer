@@ -55,8 +55,6 @@ friend struct MathFPGA;
 
     static void ReadValueCalibrator();
 
-    static String GiveIdent();
-
     // Возвращает true в случае переполнения
     static bool IsOverloaded();
 
@@ -67,16 +65,18 @@ private:
     static void ReadComparator();
     static void ReadFillFactorPhase();
 
+    static void CycleReadPinB14(int numBits, uint &value, bool verifyOnOverload);
+
 public:
+
     struct GovernorData
     {
-        friend struct FPGA;
-
         static void IncreaseN();
         static void DecreaseN();
         static void Reset();
         static int ValueCalibrator();
         static void Write();
+        static void SetValueCalibrator(uint value);
     private:
         static void Calculate();
 
