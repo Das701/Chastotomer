@@ -65,6 +65,8 @@ friend struct MathFPGA;
     // Возвращает true в случае переполнения
     static bool IsOverloaded();
 
+    static void ResetData();
+
 private:
 
     static void ReadInterpolator();

@@ -64,6 +64,7 @@
 
 static uint ident = 0;      // Это значение считывается непосредственно из FPGA
 static uint kCalib = 0;     // Это значение считывается непосредственно из FPGA
+static uint oldCalib = 0;   // Это значение для восстановления
 
 static char encData[10];
 static bool autoMode = false;
@@ -303,6 +304,8 @@ void FPGA::ReadCalibNumber()
     Reset_CS; //-V2571
 
     HAL_TIM::DelayUS(8);
+
+    oldCalib = kCalib;
 }
 
 
@@ -359,11 +362,15 @@ void FPGA::WriteCommand(const Command &command)
     Reset_DATA; //-V2571
 }
 
+void FPGA::ResetData()
+{
+    kCalib = oldCalib;
+    NAC = 0;
+}
+
 
 void FPGA::CalculateData()
 {
-    int negative = 1024;
-
     if (PageIndication::calibrationMode.IsEnabled())
     {
         if ((int)kCalib + NAC < 0) //-V2533
@@ -378,6 +385,8 @@ void FPGA::CalculateData()
     }
     else
     {
+        int negative = 1024;
+
         if (CURRENT_CHANNEL_IS_A)
         {
             if (MathFPGA::NA < 0)

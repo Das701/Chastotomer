@@ -70,8 +70,8 @@ void FreqMeter::LoadCalibration()
 {
     Command command(Command::Calibration);
 
-    if (PageIndication::calibrationMode.IsEnabled())    { command.SetBit(8); }
-    else                                            { command.SetBit(7); }
+    if (PageIndication::calibrationMode.IsEnabled())   { command.SetBit(8); }
+    else                                               { command.SetBit(7); }
 
     FPGA::WriteCommand(command);
 }

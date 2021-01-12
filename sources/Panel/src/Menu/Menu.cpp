@@ -64,6 +64,7 @@ static void OnGovernor(const Control &control)
             {
                 FPGA::IncreaseN();
             }
+            
             FPGA::WriteDataGovernor();
         }
         else
@@ -171,6 +172,18 @@ void Menu::SetOpenedPage(Page *page)
 
 static void OnKey(const Control &control) //-V2008
 {
+    if (PageIndication::calibrationMode.IsEnabled() &&
+        control.value != Control::GovButton &&
+        control.value != Control::GovLeft &&
+        control.value != Control::GovRight)
+    {
+        FPGA::ResetData();
+
+        PageIndication::calibrationMode.value = CalibrationMode::Disabled;
+
+        return;
+    }
+
     switch (control.value)
     {
     case Control::GovButton:

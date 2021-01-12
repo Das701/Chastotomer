@@ -249,10 +249,10 @@ void Display::DrawScreen()
 {
     if(PageIndication::calibrationMode.IsEnabled())
     {
-        Text("---Режим Калибровка---").Write(40, 20, Color::WHITE);
-        Text("Нажмите ЭНК. для сохранения").Write(5, 50);
-        Text("Нажмите любую клавишу для выхода").Write(5, 90);
-        Text(SU::Int2String(FPGA::CalibNumber()).c_str()).Write(5, 120);
+        Text("---Режим Калибровка---").Write(140, 10, Color::WHITE);
+        Text("Нажмите ЭНК. для сохранения").Write(125, 40);
+        Text("Нажмите любую кнопку для выхода").Write(105, 70);
+        Text(SU::Int2String(FPGA::CalibNumber()).c_str()).Write(210, 100);
     }
     else
     {
