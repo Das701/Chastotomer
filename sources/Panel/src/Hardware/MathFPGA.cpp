@@ -319,6 +319,8 @@ void MathFPGA::Comparator::Calculate(uint fx, uint tizm, uint nkal)
             k.Mul(10);
         }
 
+        k.SetSign(1);
+
         value = k;
 
         if (MathFPGA::Comparator::values.AppendValue(k.ToDouble()))

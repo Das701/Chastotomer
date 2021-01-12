@@ -54,7 +54,7 @@ static void OnGovernor(const Control &control)
             delta = -delta;
         }
 
-        if (PageIndication::calibration.Is(Calibration::Pressed))
+        if (PageIndication::calibrationMode.IsEnabled())
         {
             if (control.value == Control::GovLeft)
             {

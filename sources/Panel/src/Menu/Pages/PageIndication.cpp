@@ -12,11 +12,11 @@ using namespace Primitives;
 extern Item *items[7];
 static bool onceLaunch = false;
 
-DisplayTime  PageIndication::displayTime(DisplayTime::_100ms);
-RefGenerator PageIndication::refGenerator(RefGenerator::Internal);
-LaunchSource PageIndication::launchSource(LaunchSource::Internal);
-Calibration  PageIndication::calibration(Calibration::Unpressed);
-MemoryMode   PageIndication::memoryMode(MemoryMode::On);
+DisplayTime     PageIndication::displayTime(DisplayTime::_100ms);
+RefGenerator    PageIndication::refGenerator(RefGenerator::Internal);
+LaunchSource    PageIndication::launchSource(LaunchSource::Internal);
+CalibrationMode PageIndication::calibrationMode(CalibrationMode::Disabled);
+MemoryMode      PageIndication::memoryMode(MemoryMode::On);
 
 
 
@@ -60,7 +60,7 @@ DEF_SWITCH_3(sLaunchSource,
 static void OnPress_Calibration()
 {
     FreqMeter::LoadCalibration();
-    if(PageIndication::calibration == Calibration::Pressed)
+    if(PageIndication::calibrationMode.IsEnabled())
     {
         FPGA::ReadCalibNumber();
     }
@@ -70,7 +70,7 @@ static void OnPress_Calibration()
 DEF_SWITCH_2(sCalibration,
     "Калиб", "",
     "Не нажата", "Нажата", 
-    PageIndication::calibration, OnPress_Calibration
+    PageIndication::calibrationMode, OnPress_Calibration
 );
 
 

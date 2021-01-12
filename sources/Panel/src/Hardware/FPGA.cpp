@@ -232,7 +232,7 @@ void FPGA::ReadComparator()
 
 void FPGA::IncreaseN()
 {
-    if(PageIndication::calibration.Is(Calibration::Pressed))
+    if(PageIndication::calibrationMode.IsEnabled())
     {
         NAC++;
     }
@@ -251,7 +251,7 @@ void FPGA::IncreaseN()
 
 void FPGA::DecreaseN()
 {       
-    if(PageIndication::calibration.Is(Calibration::Pressed))
+    if(PageIndication::calibrationMode.IsEnabled())
     {
         NAC--;
     }
@@ -364,7 +364,7 @@ void FPGA::CalculateData()
 {
     int negative = 1024;
 
-    if (PageIndication::calibration.Is(Calibration::Pressed))
+    if (PageIndication::calibrationMode.IsEnabled())
     {
         if ((int)kCalib + NAC < 0) //-V2533
         {

@@ -63,16 +63,16 @@ struct MemoryMode : public Enumeration
 };
 
 
-struct Calibration : public Enumeration
+struct CalibrationMode : public Enumeration
 {
     enum E
     {
-        Unpressed,          // Находимся не в режиме калибровки - ручка управляет уровнем синхронизации
-        Pressed             // Находимся в режиме калибровки - ручка управляет калибровкой
+        Disabled,       // Находимся не в режиме калибровки - ручка управляет уровнем синхронизации
+        Enabled         // Находимся в режиме калибровки - ручка управляет калибровкой
     };
 
-    explicit Calibration(E v) : Enumeration((uint8)v) {};
-    bool IsPressed() const { return (value == Pressed); }
+    explicit CalibrationMode(E v) : Enumeration((uint8)v) {};
+    bool IsEnabled() const { return (value == Enabled); }
 };
 
 
@@ -86,8 +86,8 @@ public:
     static RefGenerator refGenerator;
     // Выбор источника запуска
     static LaunchSource launchSource;
-    // Выбор источника запуска
-    static Calibration calibration;
+    // Выбор 
+    static CalibrationMode calibrationMode;
     // Включение(отключение) режима памяти
     static MemoryMode memoryMode;
     static bool OnceLaunch();

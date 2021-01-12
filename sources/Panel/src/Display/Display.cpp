@@ -247,7 +247,7 @@ void Display::DrawPartScreen(int num, bool debugInfo)
 
 void Display::DrawScreen()
 {
-    if(PageIndication::calibration.Is(Calibration::Pressed))
+    if(PageIndication::calibrationMode.IsEnabled())
     {
         Text("---Режим Калибровка---").Write(40, 20, Color::WHITE);
         Text("Нажмите ЭНК. для сохранения").Write(5, 50);

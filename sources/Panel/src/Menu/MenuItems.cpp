@@ -198,7 +198,7 @@ void Switch::NextChoice()
 
 bool Switch::OnControl(const Control &control) //-V2506
 {
-    if (PageIndication::calibration.Is(Calibration::Pressed))
+    if (PageIndication::calibrationMode.IsEnabled())
     {
         if (control.action.IsPress() && (control.value != Control::GovRight || control.value != Control::GovLeft)) //-V560      // \todo разобраться, что за дела
         {

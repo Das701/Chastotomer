@@ -62,7 +62,7 @@ void Object::Refresh() //-V2506
 {
     if (this == Display::zoneProgressBarTimeMeasure)
     {
-        if(Menu::OpenedPage() == PageStatistics::self || PageIndication::calibration.Is(Calibration::Pressed))
+        if(Menu::OpenedPage() == PageStatistics::self || PageIndication::calibrationMode.IsEnabled())
         {
             return;
         }
