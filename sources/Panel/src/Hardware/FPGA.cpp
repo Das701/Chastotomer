@@ -49,10 +49,6 @@
     x |= (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14) << bit);                                 \
     Reset_CLOCK;
 
-#define  CYCLE_READ_PIN_B14(num, x, verifyOverload)                                     \
-    x = 0;                                                                              \
-    for (int i = num - 1; i >= 0; i--) { READ_PIN_B14(x, i);}                           \
-    if(verifyOverload) { isOverloaded = (x & 1U) != 0; };                               \
 
 #define WRITE_BIT(x)                                                                    \
     HAL_GPIO_WritePin(PinDATA, ((x) == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);             \
@@ -75,7 +71,20 @@ int FPGA::GovernorData::NAC = 0;         // Поправка для калибровочного коэффици
 MathFPGA::Comparator::Stack MathFPGA::Comparator::values(400);
 
 
+void FPGA::CycleReadPinB14(int numBits, uint &value, bool verifyOnOverload)
+{
+    value = 0;
 
+    for (int i = numBits - 1; i >= 0; i--)
+    {
+        READ_PIN_B14(value, i);
+    }
+
+    if(verifyOnOverload)
+    {
+        isOverloaded = (value & 1U) != 0;
+    };
+}
 
 
 void FPGA::Init()
@@ -132,11 +141,11 @@ void FPGA::Update() //-V2008
 
                 Set_CS; //-V2571
 
-                CYCLE_READ_PIN_B14(32, counterA, true); //-V2571
+                CycleReadPinB14(32, counterA, true);
               
                 if((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) && Relation::IsEnabled())
                 {
-                    CYCLE_READ_PIN_B14(32, counterB, true); //-V2571
+                    CycleReadPinB14(32, counterB, true);
                 }
 
                 Reset_CS; //-V2571
@@ -158,8 +167,8 @@ void FPGA::ReadFillFactorPhase()
         uint duration = 0;
 
         Set_CS; //-V2571
-        CYCLE_READ_PIN_B14(32, period, true); //-V2571
-        CYCLE_READ_PIN_B14(32, duration, true); //-V2571
+        CycleReadPinB14(32, period, true);
+        CycleReadPinB14(32, duration, true);
         Reset_CS; //-V2571
 
 //        LOG_WRITE("%d %d", period, duration);
@@ -180,10 +189,10 @@ void FPGA::ReadInterpolator()
         uint cal2 = 0;
 
         Set_CS; //-V2571
-        CYCLE_READ_PIN_B14(3, ident, false); //-V525 //-V2571
-        CYCLE_READ_PIN_B14(24, timer, false); //-V2571
-        CYCLE_READ_PIN_B14(24, cal1, false); //-V2571
-        CYCLE_READ_PIN_B14(24, cal2, false); //-V2571
+        CycleReadPinB14(3, ident, false);
+        CycleReadPinB14(24, timer, false);
+        CycleReadPinB14(24, cal1, false);
+        CycleReadPinB14(24, cal2, false);
         Reset_CS; //-V2571
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Interpolator, timer, cal1, cal2);
@@ -198,10 +207,10 @@ void FPGA::ReadAutoMode()
     if (Flag_RD != 0) //-V2571
     {
         Set_CS; //-V2571
-        CYCLE_READ_PIN_B14(3, ident, false); //-V2571
-        CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMin, false); //-V2571
-        CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMid, false); //-V2571
-        CYCLE_READ_PIN_B14(10, MathFPGA::Auto::fpgaMax, false); //-V2571
+        CycleReadPinB14(3, ident, false);
+        CycleReadPinB14(10, MathFPGA::Auto::fpgaMin, false);
+        CycleReadPinB14(10, MathFPGA::Auto::fpgaMid, false);
+        CycleReadPinB14(10, MathFPGA::Auto::fpgaMax, false);
         Reset_CS; //-V2571
 
         Display::Refresh();
@@ -222,12 +231,12 @@ void FPGA::ReadComparator()
         uint cal2 = 0;
 
         Set_CS; //-V2571
-        CYCLE_READ_PIN_B14(3, ident, false); //-V2571
-        CYCLE_READ_PIN_B14(32, counter, false); //-V2571
-        CYCLE_READ_PIN_B14(16, interpol1, false); //-V2571
-        CYCLE_READ_PIN_B14(16, cal1, false); //-V2571
-        CYCLE_READ_PIN_B14(16, interpol2, false);
-        CYCLE_READ_PIN_B14(16, cal2, false);
+        CycleReadPinB14(3, ident, false);
+        CycleReadPinB14(32, counter, false);
+        CycleReadPinB14(16, interpol1, false);
+        CycleReadPinB14(16, cal1, false);
+        CycleReadPinB14(16, interpol2, false);
+        CycleReadPinB14(16, cal2, false);
         Reset_CS; //-V2571
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Comparator, counter, interpol1, cal1, interpol2, cal2);
@@ -305,9 +314,9 @@ void FPGA::ReadValueCalibrator()
 
     Set_CS; //-V2571
 
-    CYCLE_READ_PIN_B14(3, ident, false); //-V2571
+    CycleReadPinB14(3, ident, false);
 
-    CYCLE_READ_PIN_B14(10, calib, false); //-V2571
+    CycleReadPinB14(10, calib, false);
 
     Reset_CS; //-V2571
 
