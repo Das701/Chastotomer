@@ -213,18 +213,22 @@ void FPGA::ReadComparator()
 {
     if (Flag_RD != 0) //-V2571
     {
-        uint fx = 0;
-        uint tizm = 0;
-        uint nkal = 0;
+        uint counter = 0;
+        uint interpol1 = 0;
+        uint cal1 = 0;
+        uint interpol2 = 0;
+        uint cal2 = 0;
 
         Set_CS; //-V2571
         CYCLE_READ_PIN_B14(3, ident, false); //-V2571
-        CYCLE_READ_PIN_B14(32, fx, false); //-V2571
-        CYCLE_READ_PIN_B14(16, tizm, false); //-V2571
-        CYCLE_READ_PIN_B14(16, nkal, false); //-V2571
+        CYCLE_READ_PIN_B14(32, counter, false); //-V2571
+        CYCLE_READ_PIN_B14(16, interpol1, false); //-V2571
+        CYCLE_READ_PIN_B14(16, cal1, false); //-V2571
+        CYCLE_READ_PIN_B14(16, interpol2, false);
+        CYCLE_READ_PIN_B14(16, cal2, false);
         Reset_CS; //-V2571
 
-        MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Comparator, fx, tizm, nkal);
+        MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Comparator, counter, interpol1, cal1, interpol2, cal2);
 
         HAL_TIM::DelayUS(8);
     }

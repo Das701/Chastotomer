@@ -239,7 +239,8 @@ struct TimeComparator : public Enumeration
 
     static void LoadToFPGA();
 
-    bool Is_1s() const { return (value == _1s); }
+    bool Is_1s()  const { return (value == _1s); }
+    bool Is_10s() const { return (value == _10s); }
 };
 
 

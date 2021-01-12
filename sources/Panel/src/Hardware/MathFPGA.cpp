@@ -236,7 +236,7 @@ int MathFPGA::Measure::CalculateDurationEmptyZeros() //-V2506
 }
 
 
-void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3) //-V2506
+void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3, uint value4, uint value5) //-V2506
 {
     if (Validator::VerySmallTime())
     {
@@ -247,10 +247,10 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 
     switch (type)
     {
-    case TypeData::MainCounters:        AppendDataMainCounters(value1, value2);             break;
-    case TypeData::Interpolator:        Interpolator::Calculate(value1, value2, value3);    break;
-    case TypeData::FillFactorPhase:     FillFactor::Calculate(value1, value2);              break;
-    case TypeData::Comparator:          Comparator::Calculate(value1, value2, value3);      break;
+    case TypeData::MainCounters:        AppendDataMainCounters(value1, value2);                                             break;
+    case TypeData::Interpolator:        Interpolator::Calculate(value1, value2, value3);                                    break;
+    case TypeData::FillFactorPhase:     FillFactor::Calculate(value1, value2);                                              break;
+    case TypeData::Comparator:          Comparator::Calculate(value1, (int)value2, (int)value3, (int)value4, (int)value5);  break;
     }
 
     CalculateNewData();
@@ -284,46 +284,59 @@ bool MathFPGA::Validator::DataIsValid()
 }
 
 
-void MathFPGA::Comparator::Calculate(uint fx, uint tizm, uint nkal)
+void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int interpol2, int cal2)
 {
     /*
-    *  A = (N-fx) / N - dx / N;
-    *  N = 50e6 при времени 1с,
-    *      50е7 при времени 10с.
+    *   A = (N - counter) / N - dx / N;
+    *   dx = (interpol1 / cal1 - interpol2 / cal2) / 2
     */
-    int decNkal = (int)nkal; //-V2533
-
-    if (decNkal != 0)
+    if (cal1 != 0 && cal2 != 0)
     {
-        int decTizm = (int)tizm; //-V2533
-
-        if ((tizm & (1U << 15)) != 0)
+        if ((interpol1 & (1U << 15)) != 0)
         {
-            decTizm -= 65536;
+            interpol1 -= 65536;
         }
 
-        uint N = Channel::Current()->mod.timeComparator.Is_1s() ? 5000000U : 50000000U;
+        if ((interpol2 & (1U << 15)) != 0)
+        {
+            interpol2 -= 65536;
+        }
 
-        ValuePICO dx(decTizm);
-        dx.Div((uint)decNkal); //-V2533
-        dx.Div(2 * N);
+        uint N = 5000000U;
 
-        ValuePICO k((int)N);
-        k.Sub(ValuePICO((int)fx)); //-V2533
-        k.Div(N);
-        k.Sub(dx);
-        k.Mul(1000000);
+        if (Channel::Current()->mod.timeComparator.Is_10s())
+        {
+            N *= 10;
+        }
+
+        ValuePICO k1(interpol1);
+        k1.Div((uint)cal1);
+
+        ValuePICO k2(interpol2);
+        k2.Div((uint)cal2);
+
+        ValuePICO dx(k1);
+        dx.Sub(k2);
+        dx.Div(2);
+        dx.Div(N);
+
+        ValuePICO A((int)N);
+        A.Sub(ValuePICO((int)counter)); //-V2533
+        A.Div(N);
+        A.Sub(dx);
+
+        A.Mul(1000000);     // Это приводим к своей выводимой степени
 
         if (!Channel::Current()->mod.timeComparator.Is_1s())
         {
-            k.Mul(10);
+            A.Mul(10);
         }
 
-        k.SetSign(1);
+        A.SetSign(1);
 
-        value = k;
+        value = A;
 
-        if (MathFPGA::Comparator::values.AppendValue(k.ToDouble()))
+        if (MathFPGA::Comparator::values.AppendValue(A.ToDouble()))
         {
             Display::Refresh();
         }
