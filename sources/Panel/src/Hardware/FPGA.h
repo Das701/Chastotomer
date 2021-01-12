@@ -65,8 +65,9 @@ private:
     static void ReadComparator();
     static void ReadFillFactorPhase();
 
-    static void CycleReadPinB14(int numBits, uint &value, bool verifyOnOverload);
+    static void CycleRead(int numBits, uint &value, bool verifyOnOverload);
     static void CycleWrite(uint value, int numBits);
+    static void WriteBit(uint bit);
 
 public:
 

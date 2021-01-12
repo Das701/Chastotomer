@@ -44,13 +44,6 @@
 #define DELAY  HAL_TIM::DelayUS(2)
 
 
-#define WRITE_BIT(x)                                                                    \
-    HAL_GPIO_WritePin(PinDATA, ((x) == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);             \
-    DELAY;                                                                              \
-    Set_CLOCK;                                                                          \
-    Reset_CLOCK;
-
-
 static uint ident = 0;      // Это значение считывается непосредственно из FPGA
 static char encData[10];
 static bool autoMode = false;
@@ -63,15 +56,15 @@ int FPGA::GovernorData::NAC = 0;         // Поправка для калибровочного коэффици
 MathFPGA::Comparator::Stack MathFPGA::Comparator::values(400);
 
 
-void FPGA::CycleReadPinB14(int numBits, uint &value, bool verifyOnOverload)
+void FPGA::CycleRead(int numBits, uint &value, bool verifyOnOverload)
 {
     value = 0;
 
     for (int i = numBits - 1; i >= 0; i--)
     {
-        Set_CLOCK;
-        value |= (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14) << i);
-        Reset_CLOCK;
+        Set_CLOCK; //-V2571
+        value |= (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14) << i); //-V2571
+        Reset_CLOCK; //-V2571
     }
 
     if(verifyOnOverload)
@@ -85,8 +78,17 @@ void FPGA::CycleWrite(uint value, int numBits)
 {
     for (int i = 0; i < numBits; i++)
     {
-        WRITE_BIT(((value) >> i) & 0x1);
+        WriteBit(((value) >> i) & 0x1);
     }
+}
+
+
+void FPGA::WriteBit(uint bit)
+{
+    HAL_GPIO_WritePin(PinDATA, (bit == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET); //-V2571
+    DELAY;
+    Set_CLOCK; //-V2571
+    Reset_CLOCK; //-V2571
 }
 
 
@@ -144,11 +146,11 @@ void FPGA::Update() //-V2008
 
                 Set_CS; //-V2571
 
-                CycleReadPinB14(32, counterA, true);
+                CycleRead(32, counterA, true);
               
                 if((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) && Relation::IsEnabled())
                 {
-                    CycleReadPinB14(32, counterB, true);
+                    CycleRead(32, counterB, true);
                 }
 
                 Reset_CS; //-V2571
@@ -170,8 +172,8 @@ void FPGA::ReadFillFactorPhase()
         uint duration = 0;
 
         Set_CS; //-V2571
-        CycleReadPinB14(32, period, true);
-        CycleReadPinB14(32, duration, true);
+        CycleRead(32, period, true);
+        CycleRead(32, duration, true);
         Reset_CS; //-V2571
 
 //        LOG_WRITE("%d %d", period, duration);
@@ -192,10 +194,10 @@ void FPGA::ReadInterpolator()
         uint cal2 = 0;
 
         Set_CS; //-V2571
-        CycleReadPinB14(3, ident, false);
-        CycleReadPinB14(24, timer, false);
-        CycleReadPinB14(24, cal1, false);
-        CycleReadPinB14(24, cal2, false);
+        CycleRead(3, ident, false);
+        CycleRead(24, timer, false);
+        CycleRead(24, cal1, false);
+        CycleRead(24, cal2, false);
         Reset_CS; //-V2571
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Interpolator, timer, cal1, cal2);
@@ -210,10 +212,10 @@ void FPGA::ReadAutoMode()
     if (Flag_RD != 0) //-V2571
     {
         Set_CS; //-V2571
-        CycleReadPinB14(3, ident, false);
-        CycleReadPinB14(10, MathFPGA::Auto::fpgaMin, false);
-        CycleReadPinB14(10, MathFPGA::Auto::fpgaMid, false);
-        CycleReadPinB14(10, MathFPGA::Auto::fpgaMax, false);
+        CycleRead(3, ident, false);
+        CycleRead(10, MathFPGA::Auto::fpgaMin, false);
+        CycleRead(10, MathFPGA::Auto::fpgaMid, false);
+        CycleRead(10, MathFPGA::Auto::fpgaMax, false);
         Reset_CS; //-V2571
 
         Display::Refresh();
@@ -234,12 +236,12 @@ void FPGA::ReadComparator()
         uint cal2 = 0;
 
         Set_CS; //-V2571
-        CycleReadPinB14(3, ident, false);
-        CycleReadPinB14(32, counter, false);
-        CycleReadPinB14(16, interpol1, false);
-        CycleReadPinB14(16, cal1, false);
-        CycleReadPinB14(16, interpol2, false);
-        CycleReadPinB14(16, cal2, false);
+        CycleRead(3, ident, false);
+        CycleRead(32, counter, false);
+        CycleRead(16, interpol1, false);
+        CycleRead(16, cal1, false);
+        CycleRead(16, interpol2, false);
+        CycleRead(16, cal2, false);
         Reset_CS; //-V2571
 
         MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Comparator, counter, interpol1, cal1, interpol2, cal2);
@@ -317,9 +319,9 @@ void FPGA::ReadValueCalibrator()
 
     Set_CS; //-V2571
 
-    CycleReadPinB14(3, ident, false);
+    CycleRead(3, ident, false);
 
-    CycleReadPinB14(10, calib, false);
+    CycleRead(10, calib, false);
 
     Reset_CS; //-V2571
 
@@ -352,7 +354,7 @@ void FPGA::GovernorData::Write() //-V2506
 
     for (int i = 9; i > -1; i--)
     {
-        WRITE_BIT(encData[i]); //-V2571
+        WriteBit((uint)encData[i]);
     }
 
     Reset_DATA; //-V525 //-V2571
