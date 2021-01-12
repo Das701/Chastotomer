@@ -44,12 +44,6 @@
 #define DELAY  HAL_TIM::DelayUS(2)
 
 
-#define READ_PIN_B14(x, bit)                                                            \
-    Set_CLOCK;                                                                          \
-    x |= (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14) << bit);                                 \
-    Reset_CLOCK;
-
-
 #define WRITE_BIT(x)                                                                    \
     HAL_GPIO_WritePin(PinDATA, ((x) == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);             \
     DELAY;                                                                              \
@@ -77,7 +71,9 @@ void FPGA::CycleReadPinB14(int numBits, uint &value, bool verifyOnOverload)
 
     for (int i = numBits - 1; i >= 0; i--)
     {
-        READ_PIN_B14(value, i);
+        Set_CLOCK;
+        value |= (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_14) << i);
+        Reset_CLOCK;
     }
 
     if(verifyOnOverload)
