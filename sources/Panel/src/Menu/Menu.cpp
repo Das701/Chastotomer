@@ -20,8 +20,8 @@
 // Открывает страницу, соответствующую воздействию control. Возвращает false, если для воздействия нет соответствующей страницы
 static bool OpenPage(Control control);
 
-// Обработка события кнопку
-static void OnKey(const Control &control);
+// Обработка события кнопки
+static bool OnKey(const Control &control);
 
 // Обработка события ручки
 static void OnGovernor(const Control &control);
@@ -83,9 +83,10 @@ void Menu::Update()
 
         OnGovernor(control);
 
-        OnKey(control);
-
-        OpenPage(control);
+        if (!OnKey(control))
+        {
+            OpenPage(control);
+        }
 
         Display::Refresh();
     }
@@ -170,7 +171,7 @@ void Menu::SetOpenedPage(Page *page)
 }
 
 
-static void OnKey(const Control &control) //-V2008
+static bool OnKey(const Control &control) //-V2008
 {
     if (PageIndication::calibrationMode.IsEnabled() &&
         control.value != Control::GovButton &&
@@ -179,9 +180,11 @@ static void OnKey(const Control &control) //-V2008
     {
         FPGA::ResetData();
 
+        FPGA::WriteDataGovernor();
+
         PageIndication::calibrationMode.value = CalibrationMode::Disabled;
 
-        return;
+        return true;
     }
 
     switch (control.value)
@@ -243,6 +246,8 @@ static void OnKey(const Control &control) //-V2008
         // никаких действий по умолчанию производить не требуется
         break;
     }
+
+    return false;
 }
 
 

@@ -11,6 +11,7 @@
 #include "Menu/Pages/PageStatistics.h"
 #include "Menu/Pages/Modes/Modes.h"
 #include "Menu/Pages/Channels/Channels.h"
+#include "Utils/Math.h"
 #include "Utils/StringUtils.h"
 #include <cstring>
 #include <cstdio>
@@ -64,11 +65,10 @@
 
 static uint ident = 0;      // Ёто значение считываетс€ непосредственно из FPGA
 static uint kCalib = 0;     // Ёто значение считываетс€ непосредственно из FPGA
-static uint oldCalib = 0;   // Ёто значение дл€ восстановлени€
+static int NAC = 0;         // ѕоправка дл€ калибровочного коэффициента
 
 static char encData[10];
 static bool autoMode = false;
-static int NAC = 0;
 
 static bool isOverloaded = false;
 
@@ -305,7 +305,7 @@ void FPGA::ReadCalibNumber()
 
     HAL_TIM::DelayUS(8);
 
-    oldCalib = kCalib;
+    NAC = 0;
 }
 
 
@@ -364,7 +364,6 @@ void FPGA::WriteCommand(const Command &command)
 
 void FPGA::ResetData()
 {
-    kCalib = oldCalib;
     NAC = 0;
 }
 
@@ -379,9 +378,11 @@ void FPGA::CalculateData()
             NAC = 0;
         }
 
-        kCalib = (uint)((int)kCalib + NAC); //-V2533
-        MathFPGA::DecToBin((int)kCalib, encData); //-V2533
-        NAC = 0;
+        int value = (int)kCalib + NAC;
+
+        LIMITATION(value, 0, value);
+
+        MathFPGA::DecToBin(value, encData); //-V2533
     }
     else
     {
@@ -415,7 +416,11 @@ void FPGA::CalculateData()
 
 int FPGA::CalibNumber()
 {
-    return (int)kCalib; //-V2533
+    int value = (int)kCalib + NAC;
+
+    LIMITATION(value, 0, value);
+
+    return value; //-V2533
 }
 
 
