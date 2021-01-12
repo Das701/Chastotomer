@@ -50,8 +50,6 @@
     Set_CLOCK;                                                                          \
     Reset_CLOCK;
 
-#define WRITE(value, num)   for (int i = 0; i < num; i++) { WRITE_BIT(((value) >> i) & 0x1)}
-
 
 static uint ident = 0;      // Это значение считывается непосредственно из FPGA
 static char encData[10];
@@ -80,6 +78,15 @@ void FPGA::CycleReadPinB14(int numBits, uint &value, bool verifyOnOverload)
     {
         isOverloaded = (value & 1U) != 0;
     };
+}
+
+
+void FPGA::CycleWrite(uint value, int numBits)
+{
+    for (int i = 0; i < numBits; i++)
+    {
+        WRITE_BIT(((value) >> i) & 0x1);
+    }
 }
 
 
@@ -372,7 +379,7 @@ void FPGA::WriteCommand(const Command &command)
     Set_CLOCK; //-V2571
     Reset_CLOCK; //-V2571
 
-    WRITE(command.value, 10); //-V2571
+    CycleWrite(command.value, 10); //-V2571
 
     Reset_DATA; //-V525 //-V2571
     Set_CLOCK; //-V2571
