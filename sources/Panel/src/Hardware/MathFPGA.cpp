@@ -309,14 +309,11 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
             N *= 10;
         }
 
-        ValuePICO k1 = ValuePICO(interpol1) / cal1;
+        ValuePICO k1 = ValuePICO(interpol1) / (uint)cal1;
 
-        ValuePICO k2 = ValuePICO(interpol2) / cal2;
+        ValuePICO k2 = ValuePICO(interpol2) / (uint)cal2;
 
-        ValuePICO dx(k1);
-        dx.Sub(k2);
-        dx.Div(2);
-        dx.Div(N);
+        ValuePICO dx = (k1 - k2) / 2 / N;
 
         ValuePICO A((int)N);
         A.Sub(ValuePICO((int)counter)); //-V2533
@@ -340,6 +337,23 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
         }
     }
 }
+
+
+ValuePICO operator- (const ValuePICO &first, const ValuePICO &second)
+{
+    ValuePICO result = first;
+    result.Sub(second);
+    return result;
+}
+
+
+ValuePICO operator/ (const ValuePICO &first, uint second)
+{
+    ValuePICO result = first;
+    result.Div(second);
+    return result;
+}
+
 
 
 void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
@@ -704,12 +718,4 @@ void MathFPGA::Auto::Refresh()
 void MathFPGA::Interpolator::Calculate(uint timer, uint cal1, uint cal2)
 {
     value = (float)(100 * timer) / (float)(cal2 - cal1); //-V2533
-}
-
-
-ValuePICO operator/ (const ValuePICO &first, int second)
-{
-    ValuePICO result = first;
-    result.Div((uint)second);
-    return result;
 }

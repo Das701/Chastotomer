@@ -123,4 +123,5 @@ private:
 };
 
 
-ValuePICO operator/ (const ValuePICO &first, int second);
+ValuePICO operator/ (const ValuePICO &first, uint second);
+ValuePICO operator- (const ValuePICO &first, const ValuePICO &second);
