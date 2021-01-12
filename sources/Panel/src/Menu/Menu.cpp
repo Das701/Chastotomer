@@ -58,14 +58,14 @@ static void OnGovernor(const Control &control)
         {
             if (control.value == Control::GovLeft)
             {
-                FPGA::DecreaseN();
+                FPGA::GovernorData::DecreaseN();
             }
             else
             {
-                FPGA::IncreaseN();
+                FPGA::GovernorData::IncreaseN();
             }
             
-            FPGA::WriteDataGovernor();
+            FPGA::GovernorData::Write();
         }
         else
         {
@@ -178,9 +178,9 @@ static bool OnKey(const Control &control) //-V2008
         control.value != Control::GovLeft &&
         control.value != Control::GovRight)
     {
-        FPGA::ResetData();
+        FPGA::GovernorData::Reset();
 
-        FPGA::WriteDataGovernor();
+        FPGA::GovernorData::Write();
 
         PageIndication::calibrationMode.value = CalibrationMode::Disabled;
 

@@ -49,23 +49,16 @@ friend struct MathFPGA;
     static void Init();
     static void Update();
     static void WriteCommand(const Command &command);
-    static void WriteDataGovernor();
-
-    static void IncreaseN();
-    static void DecreaseN();
 
     static void SwitchAuto();
     static bool AutoMode();
 
-    static int CalibNumber();
-    static void ReadCalibNumber();
+    static void ReadValueCalibrator();
 
     static String GiveIdent();
 
     // Возвращает true в случае переполнения
     static bool IsOverloaded();
-
-    static void ResetData();
 
 private:
 
@@ -74,5 +67,20 @@ private:
     static void ReadComparator();
     static void ReadFillFactorPhase();
 
-    static void CalculateData();
+public:
+    struct GovernorData
+    {
+        friend struct FPGA;
+
+        static void IncreaseN();
+        static void DecreaseN();
+        static void Reset();
+        static int ValueCalibrator();
+        static void Write();
+    private:
+        static void Calculate();
+
+        static uint kCalib;         // Это значение считывается непосредственно из FPGA
+        static int NAC;             // Поправка для калибровочного коэффициента
+    };
 };

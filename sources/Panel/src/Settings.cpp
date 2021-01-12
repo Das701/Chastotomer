@@ -62,10 +62,10 @@ void LevelSynch::Change(int delta)
 
         if (prev != LEVEL_SYNCH(CURRENT_CHANNEL))
         {
-            if (delta < 0) { FPGA::DecreaseN(); }
-            else           { FPGA::IncreaseN(); }
+            if (delta < 0) { FPGA::GovernorData::DecreaseN(); }
+            else           { FPGA::GovernorData::IncreaseN(); }
 
-            FPGA::WriteDataGovernor();
+            FPGA::GovernorData::Write();
         }
     }
 }

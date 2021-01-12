@@ -64,13 +64,12 @@
 
 
 static uint ident = 0;      // Это значение считывается непосредственно из FPGA
-static uint kCalib = 0;     // Это значение считывается непосредственно из FPGA
-static int NAC = 0;         // Поправка для калибровочного коэффициента
-
 static char encData[10];
 static bool autoMode = false;
-
 static bool isOverloaded = false;
+
+uint FPGA::GovernorData::kCalib = 0;     // Это значение считывается непосредственно из FPGA
+int FPGA::GovernorData::NAC = 0;         // Поправка для калибровочного коэффициента
 
 
 MathFPGA::Comparator::Stack MathFPGA::Comparator::values(400);
@@ -235,7 +234,7 @@ void FPGA::ReadComparator()
 }
 
 
-void FPGA::IncreaseN()
+void FPGA::GovernorData::IncreaseN()
 {
     if(PageIndication::calibrationMode.IsEnabled())
     {
@@ -254,7 +253,7 @@ void FPGA::IncreaseN()
     }
 }
 
-void FPGA::DecreaseN()
+void FPGA::GovernorData::DecreaseN()
 {       
     if(PageIndication::calibrationMode.IsEnabled())
     {
@@ -293,7 +292,7 @@ bool FPGA::AutoMode()
 }
 
 
-void FPGA::ReadCalibNumber()
+void FPGA::ReadValueCalibrator()
 {
     while (Flag_RD == 0) //-V2571
     {
@@ -303,19 +302,19 @@ void FPGA::ReadCalibNumber()
 
     CYCLE_READ_PIN_B14(3, ident, false); //-V2571
 
-    CYCLE_READ_PIN_B14(10, kCalib, false); //-V2571
+    CYCLE_READ_PIN_B14(10, GovernorData::kCalib, false); //-V2571
 
     Reset_CS; //-V2571
 
     HAL_TIM::DelayUS(8);
 
-    NAC = 0;
+    GovernorData::NAC = 0;
 }
 
 
-void FPGA::WriteDataGovernor() //-V2506
+void FPGA::GovernorData::Write() //-V2506
 {
-    CalculateData();
+    Calculate();
 
     if (Read_WR != 0)           // \todo К сожалению, флаг готовности не работает так, как надо и если ожидать его установки в ноль, то происходит сбой передачи данных //-V2571
     {                           // Если флаг не готов, выходим. Передавать нужно только если флаг уже установлен в 0
@@ -366,27 +365,27 @@ void FPGA::WriteCommand(const Command &command)
     Reset_DATA; //-V2571
 }
 
-void FPGA::ResetData()
+void FPGA::GovernorData::Reset()
 {
     NAC = 0;
 }
 
 
-void FPGA::CalculateData()
+int FPGA::GovernorData::ValueCalibrator()
+{
+    int value = (int)kCalib + NAC;
+
+    LIMITATION(value, 0, value);
+
+    return value; //-V2533
+}
+
+
+void FPGA::GovernorData::Calculate()
 {
     if (PageIndication::calibrationMode.IsEnabled())
     {
-        if ((int)kCalib + NAC < 0) //-V2533
-        {
-            kCalib = 0;
-            NAC = 0;
-        }
-
-        int value = (int)kCalib + NAC;
-
-        LIMITATION(value, 0, value);
-
-        MathFPGA::DecToBin(value, encData); //-V2533
+        MathFPGA::DecToBin(ValueCalibrator(), encData); //-V2533
     }
     else
     {
@@ -415,16 +414,6 @@ void FPGA::CalculateData()
             }
         }
     }
-}
-
-
-int FPGA::CalibNumber()
-{
-    int value = (int)kCalib + NAC;
-
-    LIMITATION(value, 0, value);
-
-    return value; //-V2533
 }
 
 

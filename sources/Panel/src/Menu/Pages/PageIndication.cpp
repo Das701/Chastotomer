@@ -63,7 +63,7 @@ static void OnPress_Calibration()
 
     if(PageIndication::calibrationMode.IsEnabled())
     {
-        FPGA::ReadCalibNumber();
+        FPGA::ReadValueCalibrator();
     }
 }
 

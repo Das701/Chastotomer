@@ -252,7 +252,7 @@ void Display::DrawScreen()
         Text("---Режим Калибровка---").Write(140, 10, Color::WHITE);
         Text("Нажмите ЭНК. для сохранения").Write(125, 40);
         Text("Нажмите любую кнопку для выхода").Write(105, 70);
-        Text(SU::Int2String(FPGA::CalibNumber()).c_str()).Write(210, 100);
+        Text(SU::Int2String(FPGA::GovernorData::ValueCalibrator()).c_str()).Write(210, 100);
     }
     else
     {
