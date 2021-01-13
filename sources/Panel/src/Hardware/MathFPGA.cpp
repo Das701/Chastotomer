@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
@@ -321,6 +322,8 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
         ValuePICO A((int)N - (int)counter);
         A.Sub(dx);
         A.Div(N);
+
+        LOG_WRITE("%.20f", A.ToDouble());
 
         A.Mul(1000000);     // Это приводим к своей выводимой степени
 
