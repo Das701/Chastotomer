@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
@@ -313,9 +314,17 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
 
         ValuePICO k2 = ValuePICO(interpol2) / (uint)cal2;
 
+        LOG_WRITE("");
+
+        LOG_WRITE("k1 = %f, k2 = %f", k1.ToDouble(), k2.ToDouble());
+
         ValuePICO dx = (k1 - k2) / 2;
 
+        LOG_WRITE("dx = %f", dx.ToDouble());
+
         ValuePICO A = (ValuePICO((int)N) - (int)counter) / N - dx / N;
+
+        LOG_WRITE("A1 = %f", A.ToDouble());
 
         A.Mul(1000000);     // Это приводим к своей выводимой степени
 
@@ -323,6 +332,8 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
         {
             A.Mul(10);
         }
+
+        LOG_WRITE("A2 = %f", A.ToDouble());
 
         A.SetSign(1);
 
