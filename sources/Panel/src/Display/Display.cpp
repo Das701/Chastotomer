@@ -154,6 +154,7 @@ void Display::Update()
 
     BeginScene();
     DrawScreen();
+    Console::Draw();
     EndScene();
 
 #else 
