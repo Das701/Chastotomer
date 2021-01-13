@@ -92,7 +92,7 @@ private:
 struct ValuePICO //-V690
 {
     explicit ValuePICO(int v);
-    ValuePICO(const ValuePICO &v);
+    explicit ValuePICO(const ValuePICO &v);
 
     void FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign);
     void FromINT(int v);
@@ -121,8 +121,3 @@ private:
 
     uint64 value;       // Значение параметра в единицах измерения "нано". Установленный в "1" старший бит означает, что число отрицательное
 };
-
-
-ValuePICO operator/(const ValuePICO &first, uint second);
-ValuePICO operator-(const ValuePICO &first, const ValuePICO &second);
-ValuePICO operator-(const ValuePICO &first, int second);

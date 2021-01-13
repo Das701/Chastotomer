@@ -1,5 +1,4 @@
 #include "defines.h"
-#include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
@@ -310,21 +309,21 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
             N *= 10;
         }
 
-        ValuePICO k1 = ValuePICO(interpol1) / (uint)cal1;
+        ValuePICO k1(interpol1);
+        k1.Div((uint)cal1);
 
-        ValuePICO k2 = ValuePICO(interpol2) / (uint)cal2;
+        ValuePICO k2(interpol2);
+        k2.Div((uint)cal2);
 
-        LOG_WRITE("");
+        ValuePICO dx(k1);
+        dx.Sub(k2);
+        dx.Div(2);
+        dx.Div(N);
 
-        LOG_WRITE("k1 = %f, k2 = %f", k1.ToDouble(), k2.ToDouble());
-
-        ValuePICO dx = (k1 - k2) / 2;
-
-        LOG_WRITE("dx = %f", dx.ToDouble());
-
-        ValuePICO A = (ValuePICO((int)N) - (int)counter) / N - dx / N;
-
-        LOG_WRITE("A1 = %f", A.ToDouble());
+        ValuePICO A((int)N);
+        A.Sub(ValuePICO((int)counter)); //-V2533
+        A.Div(N);
+        A.Sub(dx);
 
         A.Mul(1000000);     // Это приводим к своей выводимой степени
 
@@ -332,8 +331,6 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
         {
             A.Mul(10);
         }
-
-        LOG_WRITE("A2 = %f", A.ToDouble());
 
         A.SetSign(1);
 
@@ -344,28 +341,6 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
             Display::Refresh();
         }
     }
-}
-
-
-ValuePICO operator-(const ValuePICO &first, const ValuePICO &second)
-{
-    ValuePICO result = first;
-    result.Sub(second);
-    return result;
-}
-
-
-ValuePICO operator-(const ValuePICO &first, int second)
-{
-    return first - ValuePICO(second);
-}
-
-
-ValuePICO operator/(const ValuePICO &first, uint second)
-{
-    ValuePICO result = first;
-    result.Div(second);
-    return result;
 }
 
 
