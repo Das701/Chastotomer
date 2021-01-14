@@ -1,5 +1,4 @@
 #include "defines.h"
-#include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
@@ -293,11 +292,6 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
     *   dx = (interpol1 / cal1 - interpol2 / cal2) / 2
     */
 
-    LOG_WRITE("               %d", counter);
-
-    LOG_WRITE("%d %d", interpol1, cal1);
-    LOG_WRITE("%d %d", interpol2, cal2);
-
     if (cal1 != 0 && cal2 != 0)
     {
         if ((interpol1 & (1U << 15)) != 0)
@@ -323,13 +317,9 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
 
         ValuePICO dx = (k1 - k2) / 2;
 
-        LOG_WRITE("dx = %.20f", dx.ToDouble());
-
         ValuePICO A((int)N - (int)counter);
         A.Sub(dx);
         A.Div(N);
-
-        LOG_WRITE("%.20f", A.ToDouble());
 
         A.Mul(1000000);     // Это приводим к своей выводимой степени
 
@@ -337,8 +327,6 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
         {
             A.Mul(10);
         }
-
-        LOG_WRITE("%.20f", A.ToDouble());
 
         A.SetSign(1);
 
