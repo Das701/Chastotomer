@@ -197,9 +197,9 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
         decDataA.Mul((uint)sT); //-V2533
         decDataA.Mul((uint)sT); //-V2533
 
-        if (decDA >= 1000)      { decDataA.Mul(100); }
-        else if (decDA <= 1)    { decDataA.Div(100000);       }
-        else                    { decDataA.Div(10);    }
+        if (decDA >= 1000)  { decDataA.Mul(100);    }
+        else if(decDA > 1)  { decDataA.Div(10);     }
+        else                { decDataA.Div(100000); }
 
         result = sT * 10;
     }
