@@ -73,7 +73,7 @@ void ValueATTO::FromDouble(double v)
 
     v = std::fabs(v);
 
-    atto = std::fabs(v) * 1e18;
+    atto = int128::IntPartDouble(std::fabs(v) * 1e18);
 }
 
 
@@ -248,13 +248,7 @@ int128 ValueATTO::ToATTO() const
 
 int128 ValueATTO::OneUnit() const
 {
-    return 1000 * 1000 * 1000 * 1000 * 1000 * 1000;
-}
-
-
-int128::int128(double v)
-{
-
+    return (int128)1000 * 1000 * 1000 * 1000 * 1000 * 1000;
 }
 
 
@@ -309,4 +303,10 @@ int128 &operator+=(int128 &first, const int128 &second)
 int128 &operator-=(int128 &first, const int128 &second)
 {
     return first;
+}
+
+
+int128 int128::IntPartDouble(double v)
+{
+    return -1;
 }

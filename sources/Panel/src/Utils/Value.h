@@ -28,7 +28,7 @@ struct Order
 
 struct int128
 {
-    int128(double v);
+    static int128 IntPartDouble(double v);
     int128(int64 = 0);
     int128(int = 0);
     operator int64() const;
