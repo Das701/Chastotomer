@@ -3,6 +3,7 @@
 #include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
+#include "Menu/Pages/Channels/Channels.h"
 #include "Utils/String.h"
 #include <cstring>
 #include <cstdio>
@@ -29,6 +30,16 @@ void Console::Init()
 
 void Console::Draw() //-V2506
 {
+    if (!Channel::Current()->mod.typeMeasure.IsPeriod())
+    {
+        return;
+    }
+
+    if (!Channel::Current()->mod.modePeriod.IsF_1())
+    {
+        return;
+    }
+
     if (prevMaxStrinsInConsole == -1)
     {
         prevMaxStrinsInConsole = S_DBG_NUM_STRINGS_IN_CONSOLE;
@@ -74,7 +85,8 @@ void Console::AddString(const char *string)
     {
         DeleteFirstString();
     }
-    std::sprintf(buffer[stringInConsole], "%d %s", count++, string);
+    std::sprintf(buffer[stringInConsole], "%s", string);
+    count++;
     stringInConsole++;
 
     inProcessAddingString = false;
