@@ -8,22 +8,22 @@
 
 struct MathDouble
 {
-    static int GetPositionFirstDigit(const ValuePICO &value, Order::E order);
+    static int GetPositionFirstDigit(const ValueATTO &value, Order::E order);
 
     // ¬озвращает символ в позиции position. «нак не учитываетс€. “очка находитс€ соответственно order. One - после единиц, Kilo - после тыс€ч и так далее.
     // Order::Count - значенине по умолчанию - зап€та€ в позиции относительно размерности числового значени€
-    static char GetChar(const ValuePICO &value, int postition, Order::E order);
+    static char GetChar(const ValueATTO &value, int postition, Order::E order);
 
     // ¬озвращает цифру в позиции position. “очка находитс€ соответственно order. One - после единиц, Kilo - после тыс€ч и так далее.
     // Order::Count - значенине по умолчанию - зап€та€ в позиции относительно размерности числового значени€
-    static int GetDigit(const ValuePICO &value, int position, Order::E order = Order::Count);
+    static int GetDigit(const ValueATTO &value, int position, Order::E order = Order::Count);
 };
 
 
 
-int MathDouble::GetPositionFirstDigit(const ValuePICO &val, Order::E order) //-V2506
+int MathDouble::GetPositionFirstDigit(const ValueATTO &val, Order::E order) //-V2506
 {
-    ValuePICO value = val;
+    ValueATTO value = val;
     value.SetSign(1);
 
     int result = 0;
@@ -58,7 +58,7 @@ int MathDouble::GetPositionFirstDigit(const ValuePICO &val, Order::E order) //-V
 }
 
 
-char MathDouble::GetChar(const ValuePICO &value, int position, Order::E order)
+char MathDouble::GetChar(const ValueATTO &value, int position, Order::E order)
 {
     int digit = GetDigit(value, position, order);
 
@@ -66,9 +66,9 @@ char MathDouble::GetChar(const ValuePICO &value, int position, Order::E order)
 }
 
 
-int MathDouble::GetDigit(const ValuePICO &val, int position, Order::E order) //-V2506
+int MathDouble::GetDigit(const ValueATTO &val, int position, Order::E order) //-V2506
 {
-    ValuePICO value = val;
+    ValueATTO value = val;
     value.SetSign(1);
 
     order = (order == Order::Count) ? value.GetOrder() : order;
@@ -129,7 +129,7 @@ static Order::E stored = Order::Count;
 static bool GetSign(int &sign, char *begin, char **end);
 
 // ¬озвращает значение до степени (символа e)
-static bool GetIntPart(ValuePICO &value, char *begin, char **end, int numDigitsAfterComma);
+static bool GetIntPart(ValueATTO &value, char *begin, char **end, int numDigitsAfterComma);
 
 // ¬озвращает степень (то, что после символа e)
 static bool GetPower(int &power, char *begin, char **end);
@@ -200,7 +200,7 @@ static bool GetIntPart(ValueNANO &value, char *begin, char **end, int numDigitsA
     return true;
 }
 #else
-static bool GetIntPart(ValuePICO &, char *, char **, int)
+static bool GetIntPart(ValueATTO &, char *, char **, int)
 {
     return true;
 }
@@ -343,15 +343,15 @@ static uint AssembleTriple(const char *const buffer, int start, int *end)
 }
 
 
-int ValuePICO::Integer() const
+int ValueATTO::Integer() const
 {
     return (int)(Abs() / 1000 / 1000 / 1000 / 1000) * Sign(); //-V2533
 }
 
 
-uint64 ValuePICO::FractPico() const
+uint64 ValueATTO::FractPico() const
 {
-    ValuePICO val(*this);
+    ValueATTO val(*this);
 
     val.SetSign(1);
 
@@ -389,7 +389,7 @@ int Order::GetPow10(Order::E order)
 }
 
 
-static void AddChar(char *buffer, const ValuePICO &value, int pos, Order::E order)
+static void AddChar(char *buffer, const ValueATTO &value, int pos, Order::E order)
 {
     char digit[2] = { 0, 0 };
     digit[0] = MathDouble::GetChar(value, pos, order);
@@ -397,42 +397,42 @@ static void AddChar(char *buffer, const ValuePICO &value, int pos, Order::E orde
 }
 
 
-ValuePICO::ValuePICO(int v)
+ValueATTO::ValueATTO(int v)
 {
     FromINT(v);
 }
 
 
-ValuePICO::ValuePICO(const ValuePICO &v) : value(v.value)
+ValueATTO::ValueATTO(const ValueATTO &v) : value(v.value)
 {
 }
 
 
-void ValuePICO::FromINT(int v)
+void ValueATTO::FromINT(int v)
 {
     FromUNITS(v < 0 ? -v : v, 0, 0, 0, 0, v < 0 ? -1 : 1);
 }
 
 
-void ValuePICO::FromDouble(double v)
+void ValueATTO::FromDouble(double v)
 {
 
 }
 
 
-uint64 ValuePICO::ToUINT64() const
+uint64 ValueATTO::ToUINT64() const
 {
     return value;
 }
 
 
-Order::E ValuePICO::GetOrder() const
+Order::E ValueATTO::GetOrder() const
 {
     return Order::One;
 }
 
 
-void ValuePICO::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign)
+void ValueATTO::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign)
 {
     value = (uint64)units; //-V2533
 
@@ -447,7 +447,7 @@ void ValuePICO::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint
 }
 
 
-void ValuePICO::Div(uint div)
+void ValueATTO::Div(uint div)
 {
     int sign = Sign();
 
@@ -459,7 +459,7 @@ void ValuePICO::Div(uint div)
 }
 
 
-void ValuePICO::Mul(uint mul)
+void ValueATTO::Mul(uint mul)
 {
     int sign = Sign();
 
@@ -471,7 +471,7 @@ void ValuePICO::Mul(uint mul)
 }
 
 
-void ValuePICO::Add(ValuePICO &add)
+void ValueATTO::Add(ValueATTO &add)
 {
     int sign = Sign();
     int signAdd = add.Sign();
@@ -515,9 +515,9 @@ void ValuePICO::Add(ValuePICO &add)
 }
 
 
-void ValuePICO::Sub(const ValuePICO &val)
+void ValueATTO::Sub(const ValueATTO &val)
 {
-    ValuePICO sub(val);
+    ValueATTO sub(val);
 
     sub.SetSign(-val.Sign());
 
@@ -525,14 +525,14 @@ void ValuePICO::Sub(const ValuePICO &val)
 }
 
 
-int ValuePICO::Sign() const
+int ValueATTO::Sign() const
 {
     //                fedcba9876543210
     return (value & 0x8000000000000000U) ? -1 : 1;
 }
 
 
-void ValuePICO::SetSign(int sign)
+void ValueATTO::SetSign(int sign)
 {
     if (sign >= 0)
     {
@@ -547,7 +547,7 @@ void ValuePICO::SetSign(int sign)
 }
 
 
-String ValuePICO::ToString() const
+String ValueATTO::ToString() const
 {
     char buffer[50];
 
@@ -582,9 +582,9 @@ String ValuePICO::ToString() const
 
     std::strcat(buffer, symbol); //-V2513
 
-    ValuePICO val(*this);
+    ValueATTO val(*this);
 
-    val.Sub(ValuePICO(Integer()));                  // “еперь в val осталась только дробна€ часть
+    val.Sub(ValueATTO(Integer()));                  // “еперь в val осталась только дробна€ часть
 
     int count = 0;
 
@@ -600,20 +600,20 @@ String ValuePICO::ToString() const
 
         count++;
 
-        val.Sub(ValuePICO(integer));
+        val.Sub(ValueATTO(integer));
     }
 
     return String(buffer);
 }
 
 
-double ValuePICO::ToDouble() const
+double ValueATTO::ToDouble() const
 {
     return (double)Abs() / 1E12 * (double)Sign(); //-V2533
 }
 
 
-uint64 ValuePICO::Abs() const
+uint64 ValueATTO::Abs() const
 {   //                fedcba9876543210
     return (value & 0x7fffffffffffffff);
 }

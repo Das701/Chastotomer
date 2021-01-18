@@ -73,9 +73,9 @@ struct MathFPGA
 
         static int decDA;
 
-        static ValuePICO decDataA;
-        static ValuePICO decDataB;
-        static ValuePICO decDataC;
+        static ValueATTO decDataA;
+        static ValueATTO decDataB;
+        static ValueATTO decDataC;
 
         static void AppendDataMainCounters(uint counterA, uint counterB);
 
@@ -83,7 +83,7 @@ struct MathFPGA
         static int CalculatePeriodEmptyZeros();
         static int CalculateDurationEmptyZeros();
 
-        static void Calculate(int &emptyZeroes, ValuePICO &data);
+        static void Calculate(int &emptyZeroes, ValueATTO &data);
 
         static void CalculateNewData();
         static void CalculateUnits();
@@ -116,7 +116,7 @@ struct MathFPGA
     private:
 
         static void Calculate(uint counter, int interpol1, int cal1, int interpol2, int cal2);
-        static ValuePICO value;
+        static ValueATTO value;
 
     public:
 

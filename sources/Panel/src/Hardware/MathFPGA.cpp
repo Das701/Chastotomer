@@ -33,11 +33,11 @@ float  MathFPGA::FillFactor::value = 0.0F;
 int    MathFPGA::FillFactor::zeroes = 0;
        
 int       MathFPGA::Measure::decDA = 1;
-ValuePICO MathFPGA::Measure::decDataA(0);
-ValuePICO MathFPGA::Measure::decDataB(0);
-ValuePICO MathFPGA::Measure::decDataC(0);
+ValueATTO MathFPGA::Measure::decDataA(0);
+ValueATTO MathFPGA::Measure::decDataB(0);
+ValueATTO MathFPGA::Measure::decDataC(0);
 
-ValuePICO MathFPGA::Comparator::value(0);
+ValueATTO MathFPGA::Comparator::value(0);
 
 
 static bool isDivZero = false;
@@ -313,13 +313,13 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
             N *= 10;
         }
 
-        ValuePICO k1 = ValuePICO(interpol1) / (uint)cal1;
+        ValueATTO k1 = ValueATTO(interpol1) / (uint)cal1;
 
-        ValuePICO k2 = ValuePICO(interpol2) / (uint)cal2;
+        ValueATTO k2 = ValueATTO(interpol2) / (uint)cal2;
 
-        ValuePICO dx = (k1 - k2) / 2;
+        ValueATTO dx = (k1 - k2) / 2;
 
-        ValuePICO A((int)N - (int)counter);
+        ValueATTO A((int)N - (int)counter);
         A.Sub(dx);
         A.Div(N);
 
@@ -344,23 +344,23 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
 }
 
 
-ValuePICO operator-(const ValuePICO &first, const ValuePICO &second)
+ValueATTO operator-(const ValueATTO &first, const ValueATTO &second)
 {
-    ValuePICO result = first;
+    ValueATTO result = first;
     result.Sub(second);
     return result;
 }
 
 
-ValuePICO operator-(const ValuePICO &first, int second)
+ValueATTO operator-(const ValueATTO &first, int second)
 {
-    return first - ValuePICO(second);
+    return first - ValueATTO(second);
 }
 
 
-ValuePICO operator/(const ValuePICO &first, uint second)
+ValueATTO operator/(const ValueATTO &first, uint second)
 {
-    ValuePICO result = first;
+    ValueATTO result = first;
     result.Div(second);
     return result;
 }
@@ -493,7 +493,7 @@ String MathFPGA::BinToString(pString bin, int num)
 }
 
 
-void MathFPGA::Measure::Calculate(int &emptyZeros, ValuePICO &data)
+void MathFPGA::Measure::Calculate(int &emptyZeros, ValueATTO &data)
 {
     int manualZeros = 1;
 
@@ -582,7 +582,7 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
         else
         {
             int emptyZeros = 0;
-            ValuePICO data(0);
+            ValueATTO data(0);
 
             Calculate(emptyZeros, data);
 

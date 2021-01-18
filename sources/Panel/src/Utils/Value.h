@@ -26,10 +26,10 @@ struct Order
 };
 
 
-struct ValuePICO //-V690
+struct ValueATTO //-V690
 {
-    explicit ValuePICO(int v);
-    ValuePICO(const ValuePICO &v);
+    explicit ValueATTO(int v);
+    ValueATTO(const ValueATTO &v);
 
     void FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign);
     void FromINT(int v);
@@ -39,8 +39,8 @@ struct ValuePICO //-V690
     void Div(uint div);
     void Mul(uint mul);
 
-    void Add(ValuePICO &value);
-    void Sub(const ValuePICO &value);
+    void Add(ValueATTO &value);
+    void Sub(const ValueATTO &value);
 
     int Sign() const;
     void SetSign(int sign);
@@ -66,6 +66,6 @@ private:
 };
 
 
-ValuePICO operator/(const ValuePICO &first, uint second);
-ValuePICO operator-(const ValuePICO &first, const ValuePICO &second);
-ValuePICO operator-(const ValuePICO &first, int second);
+ValueATTO operator/(const ValueATTO &first, uint second);
+ValueATTO operator-(const ValueATTO &first, const ValueATTO &second);
+ValueATTO operator-(const ValueATTO &first, int second);
