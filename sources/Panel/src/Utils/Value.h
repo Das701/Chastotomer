@@ -26,69 +26,6 @@ struct Order
 };
 
 
-struct ValueNANO
-{
-    explicit ValueNANO(double v);
-    explicit ValueNANO(int v);
-
-    // Берёт значение из строкового представления. При этом первым символом может идти знак ("+" или "-"), дробная часть отделяется от целой точкой ("."),
-    // а order указыват, на сколько нужно умножжить итоговое число (3 - умножить на 1000, -3 - разделить на 1000)
-    explicit ValueNANO(const char *const buffer, Order::E order);
-
-    void FromUnits(int units, uint mUnits, uint uUnits, uint nUnits, int sign);
-    void FromDouble(double v);
-    void FromUINT64(uint64 v) { value = v; }
-    void FromINT(int v);
-    void FromString(const char *const buffer, int pow10);
-    bool FromString(const char *buffer, char **end, int numDigitsAfterComma);
-
-    double ToDouble() const;
-    uint64 ToUINT64() const { return value; }
-
-    void Div(uint div);
-    void Mul(uint mul);
-    void Add(ValueNANO value);
-    void Sub(ValueNANO value);
-    // Умножить на 10 в степени pow
-    void MulPow10(int pow);
-
-    void SetSign(int sign);
-
-    // Возвращает знак
-    int Sign() const;
-
-    // Возвращает целую часть
-    int Integer() const;
-
-    // Возвращает количество наночастиц в дробной части
-    int FractNano() const;
-
-    uint64 Abs() const;
-
-    // Возвращает:
-    // Order::Mega  - ValueNANO::Integer() >= 1e6
-    // Order::Kilo  - ValueNANO::Integer() >= 1e3
-    // Order::One   - ValueNANO::Integer() >= 0
-    // Order::Milli - ValueNANO::Integer() >= 1e-3
-    // Order::Micro - ValueNANO::Integer() >= 1e-6
-    Order::E GetOrder() const;
-
-    // Возращает строку значения
-    String ToString(bool sign, Order::E order = Order::Count) const;
-
-    bool operator<(const ValueNANO &);
-    bool operator>(const ValueNANO &);
-    bool operator<=(const ValueNANO &);
-    bool operator>=(const ValueNANO &);
-    bool operator==(const ValueNANO &);
-    bool operator!=(const ValueNANO &);
-
-private:
-
-    uint64 value;       // Значение параметра в единицах измерения "нано". Установленный в "1" старший бит означает, что число отрицательное
-};
-
-
 struct ValuePICO //-V690
 {
     explicit ValuePICO(int v);
@@ -96,6 +33,8 @@ struct ValuePICO //-V690
 
     void FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign);
     void FromINT(int v);
+
+    void FromDouble(double v);
 
     void Div(uint div);
     void Mul(uint mul);
@@ -116,6 +55,10 @@ struct ValuePICO //-V690
     int Integer() const;
 
     uint64 FractPico() const;
+
+    Order::E GetOrder() const;
+
+    uint64 ToUINT64() const;
 
 private:
 

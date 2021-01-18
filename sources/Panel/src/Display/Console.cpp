@@ -30,15 +30,15 @@ void Console::Init()
 
 void Console::Draw() //-V2506
 {
-    if (!Channel::Current()->mod.typeMeasure.IsPeriod())
-    {
-        return;
-    }
-
-    if (!Channel::Current()->mod.modePeriod.IsF_1())
-    {
-        return;
-    }
+//    if (!Channel::Current()->mod.typeMeasure.IsPeriod())
+//    {
+//        return;
+//    }
+//
+//    if (!Channel::Current()->mod.modePeriod.IsF_1())
+//    {
+//        return;
+//    }
 
     if (prevMaxStrinsInConsole == -1)
     {

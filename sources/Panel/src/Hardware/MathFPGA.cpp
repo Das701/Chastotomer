@@ -33,9 +33,9 @@ float  MathFPGA::FillFactor::value = 0.0F;
 int    MathFPGA::FillFactor::zeroes = 0;
        
 int       MathFPGA::Measure::decDA = 1;
-ValueNANO MathFPGA::Measure::decDataA(0);
-ValueNANO MathFPGA::Measure::decDataB(0);
-ValueNANO MathFPGA::Measure::decDataC(0);
+ValuePICO MathFPGA::Measure::decDataA(0);
+ValuePICO MathFPGA::Measure::decDataB(0);
+ValuePICO MathFPGA::Measure::decDataC(0);
 
 ValuePICO MathFPGA::Comparator::value(0);
 
@@ -493,7 +493,7 @@ String MathFPGA::BinToString(pString bin, int num)
 }
 
 
-void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
+void MathFPGA::Measure::Calculate(int &emptyZeros, ValuePICO &data)
 {
     int manualZeros = 1;
 
@@ -582,7 +582,7 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
         else
         {
             int emptyZeros = 0;
-            ValueNANO data(0);
+            ValuePICO data(0);
 
             Calculate(emptyZeros, data);
 
