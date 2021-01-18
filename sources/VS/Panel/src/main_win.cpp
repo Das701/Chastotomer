@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Log.h"
 #include "Hardware/MathFPGA.h"
 #include "Hardware/HAL/HAL.h"
 #include "Display/Display.h"
@@ -17,8 +18,8 @@ void init()
 
 void update()
 {
-	//MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Comparator, 49999999, 4757, 1661, 4839, 1661);
 	MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, 9951502, 4839, 1661, 4757, 1661);
+	LOG_WRITE("Test string");
 	Display::Refresh();
 	Menu::Update();
 	Display::Update();

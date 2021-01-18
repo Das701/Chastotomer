@@ -11,6 +11,7 @@ typedef signed short           int16;
 typedef unsigned char          uint8;
 typedef unsigned char          uchar;
 typedef signed char            int8;
+typedef signed long long int   int64;
 typedef unsigned long long int uint64;
 typedef unsigned int           uint;
 typedef const char * const     pString;

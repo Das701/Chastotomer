@@ -33,11 +33,11 @@ float  MathFPGA::FillFactor::value = 0.0F;
 int    MathFPGA::FillFactor::zeroes = 0;
        
 int       MathFPGA::Measure::decDA = 1;
-ValueNANO MathFPGA::Measure::decDataA(0);
-ValueNANO MathFPGA::Measure::decDataB(0);
-ValueNANO MathFPGA::Measure::decDataC(0);
+ValueATTO MathFPGA::Measure::decDataA(0);
+ValueATTO MathFPGA::Measure::decDataB(0);
+ValueATTO MathFPGA::Measure::decDataC(0);
 
-ValuePICO MathFPGA::Comparator::value(0);
+ValueATTO MathFPGA::Comparator::value(0);
 
 
 static bool isDivZero = false;
@@ -141,7 +141,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 
         if (CURRENT_CHANNEL_IS_C)
         {
-            if (decDataA.ToUINT64() < 10000)
+            if (decDataA.ToATTO() < ((int128)10000 * 1000 * 1000))
             {
                 decDataC.FromDouble(decDataA.ToDouble());
                 khz = khz * 10;
@@ -168,7 +168,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
                 result = mhz;
             }
 
-            decDA = (int)decDataC.ToUINT64(); //-V2533
+            decDA = (int)decDataC.ToATTO() * 1000 * 1000; //-V2533
         }
     }
 
@@ -313,13 +313,13 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
             N *= 10;
         }
 
-        ValuePICO k1 = ValuePICO(interpol1) / (uint)cal1;
+        ValueATTO k1 = ValueATTO(interpol1) / (uint)cal1;
 
-        ValuePICO k2 = ValuePICO(interpol2) / (uint)cal2;
+        ValueATTO k2 = ValueATTO(interpol2) / (uint)cal2;
 
-        ValuePICO dx = (k1 - k2) / 2;
+        ValueATTO dx = (k1 - k2) / 2;
 
-        ValuePICO A((int)N - (int)counter);
+        ValueATTO A((int)N - (int)counter);
         A.Sub(dx);
         A.Div(N);
 
@@ -344,23 +344,23 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
 }
 
 
-ValuePICO operator-(const ValuePICO &first, const ValuePICO &second)
+ValueATTO operator-(const ValueATTO &first, const ValueATTO &second)
 {
-    ValuePICO result = first;
+    ValueATTO result = first;
     result.Sub(second);
     return result;
 }
 
 
-ValuePICO operator-(const ValuePICO &first, int second)
+ValueATTO operator-(const ValueATTO &first, int second)
 {
-    return first - ValuePICO(second);
+    return first - ValueATTO(second);
 }
 
 
-ValuePICO operator/(const ValuePICO &first, uint second)
+ValueATTO operator/(const ValueATTO &first, uint second)
 {
-    ValuePICO result = first;
+    ValueATTO result = first;
     result.Div(second);
     return result;
 }
@@ -493,7 +493,7 @@ String MathFPGA::BinToString(pString bin, int num)
 }
 
 
-void MathFPGA::Measure::Calculate(int &emptyZeros, ValueNANO &data)
+void MathFPGA::Measure::Calculate(int &emptyZeros, ValueATTO &data)
 {
     int manualZeros = 1;
 
@@ -582,7 +582,7 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
         else
         {
             int emptyZeros = 0;
-            ValueNANO data(0);
+            ValueATTO data(0);
 
             Calculate(emptyZeros, data);
 
@@ -678,7 +678,7 @@ void MathFPGA::Measure::CalculateUnits()
                 {
                     if (CURRENT_CHANNEL_IS_C)
                     {
-                        if (decDataC.ToUINT64() / 2 < 10000)    { Data::SetUnits(String(" MHz")); }
+                        if (decDataC.ToATTO() / (int128)2 < ((int128)10000 * 1000 * 1000))    { Data::SetUnits(String(" MHz")); }
                         else                                    { Data::SetUnits(String(" GHz")); }
                     }
                     else if (CURRENT_CHANNEL_IS_D)   

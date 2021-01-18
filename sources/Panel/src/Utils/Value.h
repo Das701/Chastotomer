@@ -26,82 +26,36 @@ struct Order
 };
 
 
-struct ValueNANO
+struct int128
 {
-    explicit ValueNANO(double v);
-    explicit ValueNANO(int v);
-
-    // Берёт значение из строкового представления. При этом первым символом может идти знак ("+" или "-"), дробная часть отделяется от целой точкой ("."),
-    // а order указыват, на сколько нужно умножжить итоговое число (3 - умножить на 1000, -3 - разделить на 1000)
-    explicit ValueNANO(const char *const buffer, Order::E order);
-
-    void FromUnits(int units, uint mUnits, uint uUnits, uint nUnits, int sign);
-    void FromDouble(double v);
-    void FromUINT64(uint64 v) { value = v; }
-    void FromINT(int v);
-    void FromString(const char *const buffer, int pow10);
-    bool FromString(const char *buffer, char **end, int numDigitsAfterComma);
-
-    double ToDouble() const;
-    uint64 ToUINT64() const { return value; }
-
-    void Div(uint div);
-    void Mul(uint mul);
-    void Add(ValueNANO value);
-    void Sub(ValueNANO value);
-    // Умножить на 10 в степени pow
-    void MulPow10(int pow);
-
-    void SetSign(int sign);
-
-    // Возвращает знак
-    int Sign() const;
-
-    // Возвращает целую часть
-    int Integer() const;
-
-    // Возвращает количество наночастиц в дробной части
-    int FractNano() const;
-
-    uint64 Abs() const;
-
-    // Возвращает:
-    // Order::Mega  - ValueNANO::Integer() >= 1e6
-    // Order::Kilo  - ValueNANO::Integer() >= 1e3
-    // Order::One   - ValueNANO::Integer() >= 0
-    // Order::Milli - ValueNANO::Integer() >= 1e-3
-    // Order::Micro - ValueNANO::Integer() >= 1e-6
-    Order::E GetOrder() const;
-
-    // Возращает строку значения
-    String ToString(bool sign, Order::E order = Order::Count) const;
-
-    bool operator<(const ValueNANO &);
-    bool operator>(const ValueNANO &);
-    bool operator<=(const ValueNANO &);
-    bool operator>=(const ValueNANO &);
-    bool operator==(const ValueNANO &);
-    bool operator!=(const ValueNANO &);
-
-private:
-
-    uint64 value;       // Значение параметра в единицах измерения "нано". Установленный в "1" старший бит означает, что число отрицательное
+    static int128 IntPartDouble(double v);
+    int128(int64 = 0);
+    int128(int = 0);
+    operator int64() const;
+    int128 operator /(int128 &second);
 };
 
 
-struct ValuePICO //-V690
+int128 operator-(const int128 &first);
+int128 operator/(const int128 &first, const int128 &second);
+int128 &operator/=(int128 &first, const int64 &second);
+int128 &operator*=(int128 &first, const int64 &second);
+int128 &operator+=(int128 &first, const int128 &second);
+int128 &operator-=(int128 &first, const int128 &second);
+
+
+struct ValueATTO //-V690
 {
-    explicit ValuePICO(int v);
-    ValuePICO(const ValuePICO &v);
+    explicit ValueATTO(int64 v = 0);
+    ValueATTO(const ValueATTO &v) : sign(v.sign), atto(v.atto) {};
 
-    void FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign);
-    void FromINT(int v);
+    void FromDouble(double v);
 
-    void Div(uint div);
-    void Mul(uint mul);
+    void Div(int64 div);
+    void Mul(int64 mul);
 
-    void Add(ValuePICO &value);
-    void Sub(const ValuePICO &value);
+    void Add(const ValueATTO &value);
+    void Sub(const ValueATTO &value);
 
     int Sign() const;
     void SetSign(int sign);
@@ -111,18 +65,25 @@ struct ValuePICO //-V690
 
     double ToDouble() const;
 
-    uint64 Abs() const;
+    int128 Abs() const;
 
-    int Integer() const;
+    int64 Integer() const;
 
-    uint64 FractPico() const;
+    int128 ToATTO() const;
+
+    // Возвращает количество атто-единиц в одной единице
+    int128 OneUnit() const;
 
 private:
 
-    uint64 value;       // Значение параметра в единицах измерения "нано". Установленный в "1" старший бит означает, что число отрицательное
+    int sign;
+
+                        //                                               милли  микро  нано   пико   фемто  атто
+                        //                                                -3     -6     -9     -12    -15    -18
+    int128 atto;      // Здесь значение хранится в атто-единицах. 1 == 1000 * 1000 * 1000 * 1000 * 1000 * 1000
 };
 
 
-ValuePICO operator/(const ValuePICO &first, uint second);
-ValuePICO operator-(const ValuePICO &first, const ValuePICO &second);
-ValuePICO operator-(const ValuePICO &first, int second);
+ValueATTO operator/(const ValueATTO &first, uint second);
+ValueATTO operator-(const ValueATTO &first, const ValueATTO &second);
+ValueATTO operator-(const ValueATTO &first, int second);
