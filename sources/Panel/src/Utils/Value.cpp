@@ -6,110 +6,6 @@
 #include <cstring>
 
 
-struct MathDouble
-{
-    static int GetPositionFirstDigit(const ValueATTO &value, Order::E order);
-
-    // ¬озвращает символ в позиции position. «нак не учитываетс€. “очка находитс€ соответственно order. One - после единиц, Kilo - после тыс€ч и так далее.
-    // Order::Count - значенине по умолчанию - зап€та€ в позиции относительно размерности числового значени€
-    static char GetChar(const ValueATTO &value, int postition, Order::E order);
-
-    // ¬озвращает цифру в позиции position. “очка находитс€ соответственно order. One - после единиц, Kilo - после тыс€ч и так далее.
-    // Order::Count - значенине по умолчанию - зап€та€ в позиции относительно размерности числового значени€
-    static int GetDigit(const ValueATTO &value, int position, Order::E order = Order::Count);
-};
-
-
-
-int MathDouble::GetPositionFirstDigit(const ValueATTO &val, Order::E order) //-V2506
-{
-    ValueATTO value = val;
-    value.SetSign(1);
-
-    int result = 0;
-
-    if (value.Integer() > 0)
-    {
-        int whole = value.Integer();
-
-        while (whole > 9)
-        {
-            whole /= 10;
-            result++;
-        }
-    }
-    else
-    {
-        uint64 fract = value.FractPico();
-
-        if (fract == 0)
-        {
-            return 0;
-        }
-
-        do
-        {
-            result--;
-            fract *= 10;
-        } while (fract < (100 * 1000 * 1000));
-    }
-
-    return result - Order::GetPow10(order == Order::Count ? value.GetOrder() : order);
-}
-
-
-char MathDouble::GetChar(const ValueATTO &value, int position, Order::E order)
-{
-    int digit = GetDigit(value, position, order);
-
-    return (digit == -1) ? '\0' : static_cast<char>(GetDigit(value, position, order) | 0x30);
-}
-
-
-int MathDouble::GetDigit(const ValueATTO &val, int position, Order::E order) //-V2506
-{
-    ValueATTO value = val;
-    value.SetSign(1);
-
-    order = (order == Order::Count) ? value.GetOrder() : order;
-
-    position += Order::GetPow10(order);
-
-    if (position < 0)
-    {
-        int divider = 100 * 1000 * 1000;       // Ќа это число будем делить количество наносекунд
-
-        uint64 fract = value.FractPico();
-
-        while (position < -1)
-        {
-            if (divider == 0)
-            {
-                return -1;
-            }
-
-            fract %= divider;
-            divider /= 10;
-            position++;
-        }
-
-        return (int)((divider == 0) ? -1 : (fract / divider));
-    }
-    else
-    {
-        int whole = value.Integer();
-
-        while (position > 0)
-        {
-            whole /= 10;
-            position--;
-        }
-
-        return (whole % 10);
-    }
-}
-
-
 // Ќаходит знак, если первый элемент buffer - знак. ¬ pos записываетс€ позици€ элемента за знаком в этом случае
 static void ProcessSign(const char *const buffer, int *pos, int *sign);
 
@@ -135,31 +31,31 @@ static bool GetIntPart(ValueATTO &value, char *begin, char **end, int numDigitsA
 static bool GetPower(int &power, char *begin, char **end);
 
 
-static bool GetSign(int &sign, char *begin, char **end) //-V2506
-{
-    if (*begin == '-')
-    {
-        *end = begin + 1; //-V2563
-        sign = -1;
-        return true;
-    }
-    else if (*begin == '+') //-V2516
-    {
-        *end = begin + 1; //-V2563
-        sign = 1;
-        return true;
-    }
-
-    if (*begin >= '0' && *begin <= '9')
-    {
-        *end = begin;
-        sign = 1;
-        return true;
-    }
-
-    *end = begin;
-    return false;
-}
+//static bool GetSign(int &sign, char *begin, char **end) //-V2506
+//{
+//    if (*begin == '-')
+//    {
+//        *end = begin + 1; //-V2563
+//        sign = -1;
+//        return true;
+//    }
+//    else if (*begin == '+') //-V2516
+//    {
+//        *end = begin + 1; //-V2563
+//        sign = 1;
+//        return true;
+//    }
+//
+//    if (*begin >= '0' && *begin <= '9')
+//    {
+//        *end = begin;
+//        sign = 1;
+//        return true;
+//    }
+//
+//    *end = begin;
+//    return false;
+//}
 
 
 #ifdef PANEL
@@ -200,10 +96,10 @@ static bool GetIntPart(ValueNANO &value, char *begin, char **end, int numDigitsA
     return true;
 }
 #else
-static bool GetIntPart(ValueATTO &, char *, char **, int)
-{
-    return true;
-}
+//static bool GetIntPart(ValueATTO &, char *, char **, int)
+//{
+//    return true;
+//}
 #endif
 
 
@@ -241,123 +137,113 @@ static bool GetPower(int &pow, char *begin, char **end)
     return true;
 }
 #else
-static bool GetPower(int &, char *, char **)
-{
-    return true;
-}
+//static bool GetPower(int &, char *, char **)
+//{
+//    return true;
+//}
 #endif
 
 
-static void ProcessSign(const char *const buffer, int *pos, int *sign)
+//static void ProcessSign(const char *const buffer, int *pos, int *sign)
+//{
+//    if (buffer[0] == '+') //-V2563
+//    {
+//        *sign = 1;
+//        *pos = *pos + 1;
+//    }
+//    else if (buffer[0] == '-') //-V2516 //-V2563
+//    {
+//        *sign = -1;
+//        *pos = *pos + 1;
+//    }
+//}
+
+
+//static int FindIntegerPart(const char *const buffer, int start)
+//{
+//    int pos = start;
+//
+//    while (buffer[pos] >= '0' && buffer[pos] <= '9') //-V2563
+//    {
+//        pos++;
+//    }
+//
+//    return pos;
+//}
+
+
+//static uint AssembleInteger(const char *const buffer, int start, int end)
+//{
+//    char stack[20];
+//
+//    int posStack = 0;
+//
+//    for (int i = start; i < end; i++)
+//    {
+//        stack[posStack++] = buffer[i]; //-V2563
+//    }
+//
+//    uint result = 0;
+//
+//    uint pow = 1;
+//
+//    while (posStack > 0)
+//    {
+//        char value = stack[(posStack--) - 1];
+//
+//        result += (value & 0x0F) * pow;
+//
+//        pow *= 10;
+//    }
+//
+//    return result;
+//}
+
+
+//static uint AssembleTriple(const char *const buffer, int start, int *end)
+//{
+//    char stack[3];
+//    int posStack = 0;
+//
+//    uint result = 0;
+//
+//    int i = start;
+//
+//    while ((buffer[i] >= '0' && buffer[i] <= '9') && //-V2563
+//        (posStack < 3))
+//    {
+//        stack[posStack] = buffer[i]; //-V2563
+//        posStack++;
+//        i++;
+//    }
+//
+//    while (posStack < 3)                    // ƒобиваем до 3 символов
+//    {
+//        stack[posStack++] = '0';
+//    }
+//
+//    *end = i;
+//
+//    uint pow = 1;
+//
+//    while (posStack > 0)
+//    {
+//        char value = stack[(posStack--) - 1];
+//
+//        result += (value & 0x0F) * pow;
+//
+//        pow *= 10;
+//    }
+//
+//    return result;
+//}
+
+
+int64 ValueATTO::Integer() const
 {
-    if (buffer[0] == '+') //-V2563
-    {
-        *sign = 1;
-        *pos = *pos + 1;
-    }
-    else if (buffer[0] == '-') //-V2516 //-V2563
-    {
-        *sign = -1;
-        *pos = *pos + 1;
-    }
-}
+    int128 val = Abs();
 
-
-static int FindIntegerPart(const char *const buffer, int start)
-{
-    int pos = start;
-
-    while (buffer[pos] >= '0' && buffer[pos] <= '9') //-V2563
-    {
-        pos++;
-    }
-
-    return pos;
-}
-
-
-static uint AssembleInteger(const char *const buffer, int start, int end)
-{
-    char stack[20];
-
-    int posStack = 0;
-
-    for (int i = start; i < end; i++)
-    {
-        stack[posStack++] = buffer[i]; //-V2563
-    }
-
-    uint result = 0;
-
-    uint pow = 1;
-
-    while (posStack > 0)
-    {
-        char value = stack[(posStack--) - 1];
-
-        result += (value & 0x0F) * pow;
-
-        pow *= 10;
-    }
-
-    return result;
-}
-
-
-static uint AssembleTriple(const char *const buffer, int start, int *end)
-{
-    char stack[3];
-    int posStack = 0;
-
-    uint result = 0;
-
-    int i = start;
-
-    while ((buffer[i] >= '0' && buffer[i] <= '9') && //-V2563
-        (posStack < 3))
-    {
-        stack[posStack] = buffer[i]; //-V2563
-        posStack++;
-        i++;
-    }
-
-    while (posStack < 3)                    // ƒобиваем до 3 символов
-    {
-        stack[posStack++] = '0';
-    }
-
-    *end = i;
-
-    uint pow = 1;
-
-    while (posStack > 0)
-    {
-        char value = stack[(posStack--) - 1];
-
-        result += (value & 0x0F) * pow;
-
-        pow *= 10;
-    }
-
-    return result;
-}
-
-
-int ValueATTO::Integer() const
-{
-    return (int)(Abs() / 1000 / 1000 / 1000 / 1000) * Sign(); //-V2533
-}
-
-
-uint64 ValueATTO::FractPico() const
-{
-    ValueATTO val(*this);
-
-    val.SetSign(1);
-
-    int whole = val.Integer();
-
-    return (val.value - whole * 1000 * 1000 * 1000 * 1000);
+    return (int64)(val / OneUnit()) * Sign();
 }
 
 
@@ -389,127 +275,68 @@ int Order::GetPow10(Order::E order)
 }
 
 
-static void AddChar(char *buffer, const ValueATTO &value, int pos, Order::E order)
-{
-    char digit[2] = { 0, 0 };
-    digit[0] = MathDouble::GetChar(value, pos, order);
-    std::strcat(buffer, digit); //-V2513
-}
-
-
-ValueATTO::ValueATTO(int v)
-{
-    FromINT(v);
-}
-
-
-ValueATTO::ValueATTO(const ValueATTO &v) : value(v.value)
-{
-}
-
-
-void ValueATTO::FromINT(int v)
-{
-    FromUNITS(v < 0 ? -v : v, 0, 0, 0, 0, v < 0 ? -1 : 1);
-}
-
-
 void ValueATTO::FromDouble(double v)
 {
+    sign = (v < 0.0) ? -1 : 1;
 
+    v = std::fabs(v);
+
+    atto = std::fabs(v) * 1e18;
 }
 
 
-uint64 ValueATTO::ToUINT64() const
+void ValueATTO::Div(int64 div)
 {
-    return value;
+    sign *= (div < 0) ? -1 : 1;
+
+    atto /= div;
 }
 
 
-Order::E ValueATTO::GetOrder() const
+void ValueATTO::Mul(int64 mul)
 {
-    return Order::One;
+    sign *= (mul < 0) ? -1 : 1;
+
+    atto *= mul;
 }
 
 
-void ValueATTO::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign)
+void ValueATTO::Add(const ValueATTO &add)
 {
-    value = (uint64)units; //-V2533
-
-    value = value * 1000 * 1000 * 1000 * 1000;
-
-    value += (uint64)pUnits + (uint64)nUnits * 1000 + (uint64)uUnits * 1000 * 1000 + (uint64)mUnits * 1000 * 1000 * 1000; //-V2533
-
-    if (sign < 0)
+    if (Sign() > 0)
     {
-        SetSign(sign);
-    }
-}
-
-
-void ValueATTO::Div(uint div)
-{
-    int sign = Sign();
-
-    SetSign(1);
-
-    value /= div;
-
-    SetSign(sign);
-}
-
-
-void ValueATTO::Mul(uint mul)
-{
-    int sign = Sign();
-
-    SetSign(1);
-
-    value *= mul;
-
-    SetSign(sign);
-}
-
-
-void ValueATTO::Add(ValueATTO &add)
-{
-    int sign = Sign();
-    int signAdd = add.Sign();
-
-    SetSign(1);
-    add.SetSign(1);
-
-    if (sign > 0 && signAdd > 0)
-    {
-        value += add.value;
-    }
-    else if (sign < 0 && signAdd < 0)
-    {
-        value += add.value;
-        SetSign(-1);
-    }
-    else if (sign > 0 && signAdd < 0)
-    {
-        if (value >= add.value)
+        if (add.Sign() > 0)             // left > 0 ; right > 0
         {
-            value -= add.value;
+            atto += add.atto;
         }
-        else
+        else                            // left > 0 ; right < 0
         {
-            value = add.value - value;
-            SetSign(-1);
+            atto -= add.atto;
+
+            if (atto < 0)
+            {
+                atto = -atto;
+                SetSign(-1);
+            }
         }
     }
     else
     {
-        if (add.value >= value)
+        if (add.Sign() < 0)             // left < 0 ; right < 0
         {
-            value = add.value - value;
+            atto += add.atto;
         }
-        else
+        else                            // left < 0; right > 0
         {
-            value -= add.value;
-            SetSign(-1);
+            int128 temp = add.atto;
+            temp -= atto;
+            atto = temp;
+
+            if (atto < 0)
+            {
+                atto = -atto;
+                SetSign(1);
+            }
         }
     }
 }
@@ -527,23 +354,13 @@ void ValueATTO::Sub(const ValueATTO &val)
 
 int ValueATTO::Sign() const
 {
-    //                fedcba9876543210
-    return (value & 0x8000000000000000U) ? -1 : 1;
+    return sign;
 }
 
 
-void ValueATTO::SetSign(int sign)
+void ValueATTO::SetSign(int s)
 {
-    if (sign >= 0)
-    {
-        //         fedcba9876543210
-        value &= 0x7FFFFFFFFFFFFFFFU;   // —брасываем старший бит - признак положительного числа
-    }
-    else
-    {
-        //         fedcba9876543210
-        value |= 0x8000000000000000U;   // ”станавливаем старший бит - признак отрицательного числа
-    }
+    sign = s;
 }
 
 
@@ -555,7 +372,7 @@ String ValueATTO::ToString() const
 
     buffer[0] = 0;
 
-    int intPart = Integer();
+    int64 intPart = Integer();
 
     Stack<char> stack(100);
 
@@ -592,7 +409,7 @@ String ValueATTO::ToString() const
     {
         val.Mul(10);
         
-        int integer = val.Integer();
+        int64 integer = val.Integer();
         
         symbol[0] = (char)(integer | 0x30); //-V2533
 
@@ -613,7 +430,91 @@ double ValueATTO::ToDouble() const
 }
 
 
-uint64 ValueATTO::Abs() const
-{   //                fedcba9876543210
-    return (value & 0x7fffffffffffffff);
+int128 ValueATTO::Abs() const
+{
+    return atto;
+}
+
+
+ValueATTO::ValueATTO(int64 v) : sign(1), atto(0)
+{
+    SetSign(v < 0 ? -1 : 1);
+
+    if (Sign() < 0)
+    {
+        v = -v;
+        atto = v * OneUnit();
+    }
+}
+
+
+int128 ValueATTO::ToATTO() const
+{
+    return atto * Sign();
+}
+
+
+int128 ValueATTO::OneUnit() const
+{
+    return 1000 * 1000 * 1000 * 1000 * 1000 * 1000;
+}
+
+
+int128::int128(double v)
+{
+
+}
+
+
+int128::int128(int v)
+{
+
+}
+
+
+int128::int128(int64 v)
+{
+
+}
+
+
+int128::operator int64() const
+{
+    return -1;
+}
+
+
+int128 operator-(const int128 &first)
+{
+    return -1;
+}
+
+
+int128 operator/(const int128 &first, const int128 &second)
+{
+    return (int128)-1;
+}
+
+
+int128 &operator/=(int128 &first, const int64 &second)
+{
+    return first;
+}
+
+
+int128 &operator*=(int128 &first, const int64 &second)
+{
+    return first;
+}
+
+
+int128 &operator+=(int128 &first, const int128 &second)
+{
+    return first;
+}
+
+
+int128 &operator-=(int128 &first, const int128 &second)
+{
+    return first;
 }

@@ -26,20 +26,35 @@ struct Order
 };
 
 
+struct int128
+{
+    int128(double v);
+    int128(int64 = 0);
+    int128(int = 0);
+    operator int64() const;
+    int128 operator /(int128 &second);
+};
+
+
+int128 operator-(const int128 &first);
+int128 operator/(const int128 &first, const int128 &second);
+int128 &operator/=(int128 &first, const int64 &second);
+int128 &operator*=(int128 &first, const int64 &second);
+int128 &operator+=(int128 &first, const int128 &second);
+int128 &operator-=(int128 &first, const int128 &second);
+
+
 struct ValueATTO //-V690
 {
-    explicit ValueATTO(int v);
-    ValueATTO(const ValueATTO &v);
-
-    void FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign);
-    void FromINT(int v);
+    explicit ValueATTO(int64 v = 0);
+    ValueATTO(const ValueATTO &v) : sign(v.sign), atto(v.atto) {};
 
     void FromDouble(double v);
 
-    void Div(uint div);
-    void Mul(uint mul);
+    void Div(int64 div);
+    void Mul(int64 mul);
 
-    void Add(ValueATTO &value);
+    void Add(const ValueATTO &value);
     void Sub(const ValueATTO &value);
 
     int Sign() const;
@@ -50,19 +65,22 @@ struct ValueATTO //-V690
 
     double ToDouble() const;
 
-    uint64 Abs() const;
+    int128 Abs() const;
 
-    int Integer() const;
+    int64 Integer() const;
 
-    uint64 FractPico() const;
+    int128 ToATTO() const;
 
-    Order::E GetOrder() const;
-
-    uint64 ToUINT64() const;
+    // Возвращает количество атто-единиц в одной единице
+    int128 OneUnit() const;
 
 private:
 
-    uint64 value;       // Значение параметра в единицах измерения "нано". Установленный в "1" старший бит означает, что число отрицательное
+    int sign;
+
+                        //                                               милли  микро  нано   пико   фемто  атто
+                        //                                                -3     -6     -9     -12    -15    -18
+    int128 atto;      // Здесь значение хранится в атто-единицах. 1 == 1000 * 1000 * 1000 * 1000 * 1000 * 1000
 };
 
 
