@@ -21,15 +21,8 @@ static uint AssembleTriple(const char *const buffer, int start, int *end);
 // Место для временного сохранения текущего порядка
 static Order::E stored = Order::Count;
 
-// Читает знак числа из buffer. Возвращает указатель на первый элемент после знака
-static bool GetSign(int &sign, char *begin, char **end);
-
 // Возвращает значение до степени (символа e)
 static bool GetIntPart(ValueNANO &value, char *begin, char **end, int numDigitsAfterComma);
-
-// Возвращает степень (то, что после символа e)
-static bool GetPower(int &power, char *begin, char **end);
-
 
 ValueNANO::ValueNANO(const char *const buffer, Order::E order) //-V730
 {
@@ -46,68 +39,6 @@ ValueNANO::ValueNANO(double v)
 ValueNANO::ValueNANO(int v)
 {
     FromINT(v);
-}
-
-
-bool ValueNANO::FromString(const char *buffer, char **end, int numDigitsAfterComma) //-V2506
-{
-    char *begin = const_cast<char *>(buffer); //-V2567
-
-    int sign = 0;
-
-    if (!GetSign(sign, begin, end))
-    {
-        return false;
-    }
-
-    begin = *end;
-
-    if (!GetIntPart(*this, begin, end, numDigitsAfterComma))
-    {
-        return false;
-    }
-
-    begin = *end;
-
-    int pow = 0;
-
-    if (!GetPower(pow, begin, end))
-    {
-        return false;
-    }
-
-    MulPow10(pow);
-
-    SetSign(sign);
-
-    return true;
-}
-
-
-static bool GetSign(int &sign, char *begin, char **end) //-V2506
-{
-    if (*begin == '-')
-    {
-        *end = begin + 1; //-V2563
-        sign = -1;
-        return true;
-    }
-    else if (*begin == '+') //-V2516
-    {
-        *end = begin + 1; //-V2563
-        sign = 1;
-        return true;
-    }
-
-    if (*begin >= '0' && *begin <= '9')
-    {
-        *end = begin;
-        sign = 1;
-        return true;
-    }
-
-    *end = begin;
-    return false;
 }
 
 
@@ -150,47 +81,6 @@ static bool GetIntPart(ValueNANO &value, char *begin, char **end, int numDigitsA
 }
 #else
 static bool GetIntPart(ValueNANO &, char *, char **, int)
-{
-    return true;
-}
-#endif
-
-
-#ifdef PANEL
-static bool GetPower(int &pow, char *begin, char **end)
-{
-    if (*begin != 'e' && *begin != 'E')
-    {
-        *end = begin;
-        pow = 0;
-        return true;
-    }
-
-    begin++;
-
-    if ((*begin < '0' || *begin > '9') && (*begin != '-' && *begin != '+'))
-    {
-        *end = begin;
-        pow = 0;
-        return true;
-    }
-
-    String buffer;
-
-    while ((*begin >= '0' && *begin <= '9') || *begin == '-' || *begin == '+')
-    {
-        buffer.Append(*begin);
-        begin++;
-    }
-
-    *end = begin;
-
-    pow = ValueNANO(buffer.c_str(), Order::One).Integer();
-
-    return true;
-}
-#else
-static bool GetPower(int &, char *, char **)
 {
     return true;
 }
