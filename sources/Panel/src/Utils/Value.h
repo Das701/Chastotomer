@@ -22,9 +22,6 @@ struct ValueNANO
     // ¬озвращает целую часть
     int Integer() const;
 
-    // ¬озвращает количество наночастиц в дробной части
-    int FractNano() const;
-
     uint64 Abs() const;
 
     bool operator<(const ValueNANO &);

@@ -97,17 +97,6 @@ int ValuePICO::Integer() const
 }
 
 
-int ValueNANO::FractNano() const
-{
-    ValueNANO val = *this;
-    val.SetSign(1);
-
-    int whole = val.Integer();
-
-    return static_cast<int>(val.value - static_cast<int>(whole * 1000 * 1000 * 1000));
-}
-
-
 uint64 ValuePICO::FractPico() const
 {
     ValuePICO val(*this);
