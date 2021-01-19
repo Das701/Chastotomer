@@ -19,9 +19,6 @@ struct ValueNANO
     // Возвращает знак
     int Sign() const;
 
-    // Возвращает целую часть
-    int Integer() const;
-
     uint64 Abs() const;
 
     bool operator<(const ValueNANO &);

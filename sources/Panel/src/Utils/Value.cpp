@@ -83,14 +83,6 @@ void ValueNANO::SetSign(int sign)
 }
 
 
-int ValueNANO::Integer() const
-{
-    uint64 val = Abs();
-
-    return static_cast<int>(val / (1000 * 1000 * 1000)) * Sign();
-}
-
-
 int ValuePICO::Integer() const
 {
     return (int)(Abs() / 1000 / 1000 / 1000 / 1000) * Sign(); //-V2533
