@@ -30,7 +30,6 @@ private:
 struct ValuePICO //-V690
 {
     explicit ValuePICO(int v);
-    ValuePICO(const ValuePICO &v);
 
     void FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign);
     void FromINT(int v);

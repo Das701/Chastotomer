@@ -107,11 +107,6 @@ ValuePICO::ValuePICO(int v)
 }
 
 
-ValuePICO::ValuePICO(const ValuePICO &v) : value(v.value)
-{
-}
-
-
 void ValuePICO::FromINT(int v)
 {
     FromUNITS(v < 0 ? -v : v, 0, 0, 0, 0, v < 0 ? -1 : 1);
