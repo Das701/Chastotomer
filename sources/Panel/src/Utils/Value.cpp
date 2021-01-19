@@ -404,27 +404,6 @@ bool ValueNANO::operator!=(const ValueNANO &rhs)
 }
 
 
-Order::E ValueNANO::GetOrder() const //-V2506
-{
-    ValueNANO temp = *this;
-    temp.SetSign(1);
-
-    int integer = temp.Integer();
-
-    if (integer >= 1000 * 1000) { return Order::Mega; }
-    else if (integer >= 1000) { return Order::Kilo; }
-    else if (integer > 0) { return Order::One; } //-V2516
-
-    int fract = temp.FractNano();
-
-    if (fract >= 1000 * 1000) { return Order::Milli; }
-    else if (fract >= 1000) { return Order::Micro; }
-    else if (fract > 0) { return Order::Nano; } //-V2516
-
-    return Order::One;
-}
-
-
 void Order::Store(Order::E order)
 {
     stored = order;

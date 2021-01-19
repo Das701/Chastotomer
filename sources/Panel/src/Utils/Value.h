@@ -64,14 +64,6 @@ struct ValueNANO
 
     uint64 Abs() const;
 
-    // Возвращает:
-    // Order::Mega  - ValueNANO::Integer() >= 1e6
-    // Order::Kilo  - ValueNANO::Integer() >= 1e3
-    // Order::One   - ValueNANO::Integer() >= 0
-    // Order::Milli - ValueNANO::Integer() >= 1e-3
-    // Order::Micro - ValueNANO::Integer() >= 1e-6
-    Order::E GetOrder() const;
-
     bool operator<(const ValueNANO &);
     bool operator>(const ValueNANO &);
     bool operator<=(const ValueNANO &);
