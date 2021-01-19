@@ -1064,16 +1064,6 @@
               <FilePath>.\src\Utils\StringUtils.cpp</FilePath>
             </File>
             <File>
-              <FileName>Value.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Value.h</FilePath>
-            </File>
-            <File>
-              <FileName>Value.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Value.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Values.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Values.h</FilePath>
@@ -1082,6 +1072,16 @@
               <FileName>Values.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Utils\Values.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ValueSTRICT.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\ValueSTRICT.h</FilePath>
+            </File>
+            <File>
+              <FileName>ValueSTRICT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\ValueSTRICT.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -2145,16 +2145,6 @@
               <FilePath>.\src\Utils\StringUtils.cpp</FilePath>
             </File>
             <File>
-              <FileName>Value.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Value.h</FilePath>
-            </File>
-            <File>
-              <FileName>Value.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Value.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Values.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Values.h</FilePath>
@@ -2163,6 +2153,16 @@
               <FileName>Values.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Utils\Values.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ValueSTRICT.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\ValueSTRICT.h</FilePath>
+            </File>
+            <File>
+              <FileName>ValueSTRICT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\ValueSTRICT.cpp</FilePath>
             </File>
           </Files>
         </Group>

@@ -2,9 +2,9 @@
 #include "Utils/String.h"
 
 
-struct ValueNANO
+struct ValueSTRICT
 {
-    explicit ValueNANO(double v);
+    explicit ValueSTRICT(double v);
 
     void FromDouble(double v);
 

@@ -1,18 +1,18 @@
 #include "defines.h"
 #include "Utils/Math.h"
 #include "Utils/Stack.h"
-#include "Utils/Value.h"
+#include "Utils/ValueSTRICT.h"
 #include <cmath>
 #include <cstring>
 
 
-ValueNANO::ValueNANO(double v)
+ValueSTRICT::ValueSTRICT(double v)
 {
     FromDouble(v);
 }
 
 
-void ValueNANO::FromDouble(double v)
+void ValueSTRICT::FromDouble(double v)
 {
     int sign = (v < 0.0) ? -1 : 1;
 
@@ -25,26 +25,26 @@ void ValueNANO::FromDouble(double v)
 }
 
 
-double ValueNANO::ToDouble() const
+double ValueSTRICT::ToDouble() const
 {
     return static_cast<double>(Abs()) / 1E9 * static_cast<double>(Sign());
 }
 
 
-int ValueNANO::Sign() const
+int ValueSTRICT::Sign() const
 {
     //                fedcba9876543210
     return (value & 0x8000000000000000U) ? -1 : 1;
 }
 
 
-uint64 ValueNANO::Abs() const
+uint64 ValueSTRICT::Abs() const
 {   //                fedcba9876543210
     return (value & 0x7fffffffffffffff);
 }
 
 
-void ValueNANO::Div(uint div)
+void ValueSTRICT::Div(uint div)
 {
     int sign = Sign();
 
@@ -56,7 +56,7 @@ void ValueNANO::Div(uint div)
 }
 
 
-void ValueNANO::Mul(uint mul)
+void ValueSTRICT::Mul(uint mul)
 {
     int sign = Sign();
 
@@ -68,7 +68,7 @@ void ValueNANO::Mul(uint mul)
 }
 
 
-void ValueNANO::SetSign(int sign)
+void ValueSTRICT::SetSign(int sign)
 {
     if (sign >= 0)
     {
@@ -86,18 +86,6 @@ void ValueNANO::SetSign(int sign)
 int ValuePICO::Integer() const
 {
     return (int)(Abs() / 1000 / 1000 / 1000 / 1000) * Sign(); //-V2533
-}
-
-
-uint64 ValuePICO::FractPico() const
-{
-    ValuePICO val(*this);
-
-    val.SetSign(1);
-
-    int whole = val.Integer();
-
-    return (val.value - whole * 1000 * 1000 * 1000 * 1000);
 }
 
 
@@ -297,4 +285,16 @@ double ValuePICO::ToDouble() const
 uint64 ValuePICO::Abs() const
 {   //                fedcba9876543210
     return (value & 0x7fffffffffffffff);
+}
+
+
+uint64 ValuePICO::FractPico() const
+{
+    ValuePICO val(*this);
+
+    val.SetSign(1);
+
+    int whole = val.Integer();
+
+    return (val.value - whole * 1000 * 1000 * 1000 * 1000);
 }
