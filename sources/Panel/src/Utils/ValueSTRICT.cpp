@@ -12,13 +12,19 @@ ValueSTRICT::ValueSTRICT(double v)
 }
 
 
+ValueSTRICT::ValueSTRICT(int64 v)
+{
+    FromDouble(v);
+}
+
+
 void ValueSTRICT::FromDouble(double v)
 {
-    int sign = (v < 0.0) ? -1 : 1;
+    int s = (v < 0.0) ? -1 : 1;
 
-    value = static_cast<uint64>(std::fabs(v) * 1.E9);
+    units = static_cast<uint64>(std::fabs(v) * 1.E9);
 
-    if (sign < 0)
+    if (s < 0)
     {
         SetSign(-1);
     }
@@ -27,59 +33,48 @@ void ValueSTRICT::FromDouble(double v)
 
 double ValueSTRICT::ToDouble() const
 {
-    return static_cast<double>(Abs()) / 1E9 * static_cast<double>(Sign());
+    return static_cast<double>(units) / 1E9 * static_cast<double>(Sign());
 }
 
 
 int ValueSTRICT::Sign() const
 {
-    //                fedcba9876543210
-    return (value & 0x8000000000000000U) ? -1 : 1;
+    return sign;
 }
 
 
-uint64 ValueSTRICT::Abs() const
-{   //                fedcba9876543210
-    return (value & 0x7fffffffffffffff);
-}
-
-
-void ValueSTRICT::Div(uint div)
+void ValueSTRICT::DivUINT(uint div)
 {
-    int sign = Sign();
-
-    SetSign(1);
-
-    value /= div;
-
-    SetSign(sign);
+    units /= div;
 }
 
 
-void ValueSTRICT::Mul(uint mul)
+void ValueSTRICT::DivDOUBLE(double div)
 {
-    int sign = Sign();
-
-    SetSign(1);
-
-    value *= mul;
-
-    SetSign(sign);
-}
-
-
-void ValueSTRICT::SetSign(int sign)
-{
-    if (sign >= 0)
+    if (sign > 0)
     {
-        //         fedcba9876543210
-        value &= 0x7FFFFFFFFFFFFFFFU;       // \todo как это может работать?
+        if (div > 0) { sign = 1;  }
+        else         { sign = -1; }
     }
     else
     {
-        //         fedcba9876543210
-        value |= 0x8000000000000000U;           // Устанавливаем признак отрицательного числа
+        if (div < 0) { sign = 1;  }
+        else         { sign = -1; }
     }
+
+    units = (uint64)((double)units / std::abs(div));
+}
+
+
+void ValueSTRICT::MulUINT(uint mul)
+{
+    units *= mul;
+}
+
+
+void ValueSTRICT::SetSign(int s)
+{
+    sign = s;
 }
 
 
@@ -297,4 +292,14 @@ uint64 ValueComparator::FractPico() const
     int whole = val.Integer();
 
     return (val.value - whole * 1000 * 1000 * 1000 * 1000);
+}
+
+
+ValueSTRICT operator/(int64 first, const ValueSTRICT &second)
+{
+    ValueSTRICT result(first);
+
+    result.DivDOUBLE(second.ToDouble());
+
+    return result;
 }
