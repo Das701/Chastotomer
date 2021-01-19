@@ -18,15 +18,6 @@ static uint AssembleInteger(const char *const buffer, int start, int end);
 // Собрать число из трех или менее символов. В end возвращается позиция следующего символа
 static uint AssembleTriple(const char *const buffer, int start, int *end);
 
-// Место для временного сохранения текущего порядка
-static Order::E stored = Order::Count;
-
-ValueNANO::ValueNANO(const char *const buffer, Order::E order) //-V730
-{
-    FromString(buffer, Order::GetPow10(order));
-}
-
-
 ValueNANO::ValueNANO(double v)
 {
     FromDouble(v);
@@ -401,34 +392,6 @@ bool ValueNANO::operator==(const ValueNANO &rhs)
 bool ValueNANO::operator!=(const ValueNANO &rhs)
 {
     return (value != rhs.value);
-}
-
-
-void Order::Store(Order::E order)
-{
-    stored = order;
-}
-
-
-Order::E Order::Restore()
-{
-    return stored;
-}
-
-
-int Order::GetPow10(Order::E order)
-{
-    static const int pows[Count] =
-    {
-        6,  // Mega
-        3,  // Kilo
-        0,  // One
-        -3, // Milli
-        -6, // Micro
-        -9  // Nano
-    };
-
-    return pows[order];
 }
 
 

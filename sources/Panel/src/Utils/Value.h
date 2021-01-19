@@ -2,38 +2,10 @@
 #include "Utils/String.h"
 
 
-struct Order
-{
-    enum E
-    {
-        Mega,
-        Kilo,
-        One,
-        Milli,
-        Micro,
-        Nano,
-        Count
-    };
-
-    // Возвращает степень, соответсвующую порядку
-    static int GetPow10(Order::E order);
-
-    // Сохранить order во внутренней памяти
-    static void Store(Order::E order);
-
-    // Восстановить значение, ранее сохранённое функцией Store()
-    static Order::E Restore();
-};
-
-
 struct ValueNANO
 {
     explicit ValueNANO(double v);
     explicit ValueNANO(int v);
-
-    // Берёт значение из строкового представления. При этом первым символом может идти знак ("+" или "-"), дробная часть отделяется от целой точкой ("."),
-    // а order указыват, на сколько нужно умножжить итоговое число (3 - умножить на 1000, -3 - разделить на 1000)
-    explicit ValueNANO(const char *const buffer, Order::E order);
 
     void FromUnits(int units, uint mUnits, uint uUnits, uint nUnits, int sign);
     void FromDouble(double v);
