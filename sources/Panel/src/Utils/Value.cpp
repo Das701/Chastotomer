@@ -24,12 +24,6 @@ ValueNANO::ValueNANO(double v)
 }
 
 
-ValueNANO::ValueNANO(int v)
-{
-    FromINT(v);
-}
-
-
 void ValueNANO::FromString(const char *const buffer, int pow10)
 {
     int pos = 0;                                    // Текущая обрабатываемая позиция в buffer

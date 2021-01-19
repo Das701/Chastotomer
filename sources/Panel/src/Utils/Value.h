@@ -5,7 +5,6 @@
 struct ValueNANO
 {
     explicit ValueNANO(double v);
-    explicit ValueNANO(int v);
 
     void FromUnits(int units, uint mUnits, uint uUnits, uint nUnits, int sign);
     void FromDouble(double v);
