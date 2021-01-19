@@ -120,22 +120,6 @@ uint64 ValuePICO::FractPico() const
 }
 
 
-void ValueNANO::MulPow10(int pow)
-{
-    while (pow > 0)
-    {
-        Mul(10);
-        pow--;
-    }
-
-    while (pow < 0)
-    {
-        Div(10);
-        pow++;
-    }
-}
-
-
 bool ValueNANO::operator<(const ValueNANO &rhs)
 {
     return ToDouble() < rhs.ToDouble();
