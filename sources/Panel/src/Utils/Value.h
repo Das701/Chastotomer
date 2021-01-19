@@ -6,11 +6,8 @@ struct ValueNANO
 {
     explicit ValueNANO(double v);
 
-    void FromUnits(int units, uint mUnits, uint uUnits, uint nUnits, int sign);
     void FromDouble(double v);
     void FromUINT64(uint64 v) { value = v; }
-    void FromINT(int v);
-    void FromString(const char *const buffer, int pow10);
 
     double ToDouble() const;
     uint64 ToUINT64() const { return value; }
