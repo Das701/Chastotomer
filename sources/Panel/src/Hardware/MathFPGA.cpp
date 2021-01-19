@@ -183,7 +183,9 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
     {
         int sT = ModesChannel::timeMeasure.ToMS();
 
-        decDA = (int)(decDataA.ToDouble() / (2.0 * (double)sT)); //-V2533
+        double d = decDataA.ToDouble();
+
+        decDA = (int)(d / (2.0 * (double)sT)); //-V2533
 
         if (decDataA.ToDouble() == 0.0) //-V550 //-V2550
         {

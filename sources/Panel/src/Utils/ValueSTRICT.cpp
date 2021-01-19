@@ -6,13 +6,13 @@
 #include <cstring>
 
 
-ValueSTRICT::ValueSTRICT(double v)
+ValueSTRICT::ValueSTRICT(double v) : sign(1), powUnit(9)
 {
     FromDouble(v);
 }
 
 
-ValueSTRICT::ValueSTRICT(int64 v)
+ValueSTRICT::ValueSTRICT(int64 v) : sign(1), powUnit(9)
 {
     FromDouble(v);
 }
@@ -20,14 +20,9 @@ ValueSTRICT::ValueSTRICT(int64 v)
 
 void ValueSTRICT::FromDouble(double v)
 {
-    int s = (v < 0.0) ? -1 : 1;
-
     units = static_cast<uint64>(std::fabs(v) * 1.E9);
 
-    if (s < 0)
-    {
-        SetSign(-1);
-    }
+    SetSign(v < 0.0 ? -1 : 1);
 }
 
 
