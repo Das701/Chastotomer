@@ -36,7 +36,7 @@ ValueSTRICT MathFPGA::Measure::decDataA(0);
 ValueSTRICT MathFPGA::Measure::decDataB(0);
 ValueSTRICT MathFPGA::Measure::decDataC(0);
 
-ValuePICO MathFPGA::Comparator::value(0);
+ValueComparator MathFPGA::Comparator::value(0);
 
 
 static bool isDivZero = false;
@@ -311,13 +311,13 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
             N *= 10;
         }
 
-        ValuePICO k1 = ValuePICO(interpol1) / (uint)cal1;
+        ValueComparator k1 = ValueComparator(interpol1) / (uint)cal1;
 
-        ValuePICO k2 = ValuePICO(interpol2) / (uint)cal2;
+        ValueComparator k2 = ValueComparator(interpol2) / (uint)cal2;
 
-        ValuePICO dx = (k1 - k2) / 2;
+        ValueComparator dx = (k1 - k2) / 2;
 
-        ValuePICO A((int)N - (int)counter);
+        ValueComparator A((int)N - (int)counter);
         A.Sub(dx);
         A.Div(N);
 
@@ -340,23 +340,23 @@ void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int 
 }
 
 
-ValuePICO operator-(const ValuePICO &first, const ValuePICO &second)
+ValueComparator operator-(const ValueComparator &first, const ValueComparator &second)
 {
-    ValuePICO result = first;
+    ValueComparator result = first;
     result.Sub(second);
     return result;
 }
 
 
-ValuePICO operator-(const ValuePICO &first, int second)
+ValueComparator operator-(const ValueComparator &first, int second)
 {
-    return first - ValuePICO(second);
+    return first - ValueComparator(second);
 }
 
 
-ValuePICO operator/(const ValuePICO &first, uint second)
+ValueComparator operator/(const ValueComparator &first, uint second)
 {
-    ValuePICO result = first;
+    ValueComparator result = first;
     result.Div(second);
     return result;
 }

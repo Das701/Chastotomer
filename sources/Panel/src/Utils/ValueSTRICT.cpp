@@ -83,25 +83,25 @@ void ValueSTRICT::SetSign(int sign)
 }
 
 
-int ValuePICO::Integer() const
+int ValueComparator::Integer() const
 {
     return (int)(Abs() / 1000 / 1000 / 1000 / 1000) * Sign(); //-V2533
 }
 
 
-ValuePICO::ValuePICO(int v)
+ValueComparator::ValueComparator(int v)
 {
     FromINT(v);
 }
 
 
-void ValuePICO::FromINT(int v)
+void ValueComparator::FromINT(int v)
 {
     FromUNITS(v < 0 ? -v : v, 0, 0, 0, 0, v < 0 ? -1 : 1);
 }
 
 
-void ValuePICO::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign)
+void ValueComparator::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign)
 {
     value = (uint64)units; //-V2533
 
@@ -116,7 +116,7 @@ void ValuePICO::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint
 }
 
 
-void ValuePICO::Div(uint div)
+void ValueComparator::Div(uint div)
 {
     int sign = Sign();
 
@@ -128,7 +128,7 @@ void ValuePICO::Div(uint div)
 }
 
 
-void ValuePICO::Mul(uint mul)
+void ValueComparator::Mul(uint mul)
 {
     int sign = Sign();
 
@@ -140,7 +140,7 @@ void ValuePICO::Mul(uint mul)
 }
 
 
-void ValuePICO::Add(ValuePICO &add)
+void ValueComparator::Add(ValueComparator &add)
 {
     int sign = Sign();
     int signAdd = add.Sign();
@@ -184,9 +184,9 @@ void ValuePICO::Add(ValuePICO &add)
 }
 
 
-void ValuePICO::Sub(const ValuePICO &val)
+void ValueComparator::Sub(const ValueComparator &val)
 {
-    ValuePICO sub(val);
+    ValueComparator sub(val);
 
     sub.SetSign(-val.Sign());
 
@@ -194,14 +194,14 @@ void ValuePICO::Sub(const ValuePICO &val)
 }
 
 
-int ValuePICO::Sign() const
+int ValueComparator::Sign() const
 {
     //                fedcba9876543210
     return (value & 0x8000000000000000U) ? -1 : 1;
 }
 
 
-void ValuePICO::SetSign(int sign)
+void ValueComparator::SetSign(int sign)
 {
     if (sign >= 0)
     {
@@ -216,7 +216,7 @@ void ValuePICO::SetSign(int sign)
 }
 
 
-String ValuePICO::ToString() const
+String ValueComparator::ToString() const
 {
     char buffer[50];
 
@@ -251,9 +251,9 @@ String ValuePICO::ToString() const
 
     std::strcat(buffer, symbol); //-V2513
 
-    ValuePICO val(*this);
+    ValueComparator val(*this);
 
-    val.Sub(ValuePICO(Integer()));                  // “еперь в val осталась только дробна€ часть
+    val.Sub(ValueComparator(Integer()));                  // “еперь в val осталась только дробна€ часть
 
     int count = 0;
 
@@ -269,28 +269,28 @@ String ValuePICO::ToString() const
 
         count++;
 
-        val.Sub(ValuePICO(integer));
+        val.Sub(ValueComparator(integer));
     }
 
     return String(buffer);
 }
 
 
-double ValuePICO::ToDouble() const
+double ValueComparator::ToDouble() const
 {
     return (double)Abs() / 1E12 * (double)Sign(); //-V2533
 }
 
 
-uint64 ValuePICO::Abs() const
+uint64 ValueComparator::Abs() const
 {   //                fedcba9876543210
     return (value & 0x7fffffffffffffff);
 }
 
 
-uint64 ValuePICO::FractPico() const
+uint64 ValueComparator::FractPico() const
 {
-    ValuePICO val(*this);
+    ValueComparator val(*this);
 
     val.SetSign(1);
 

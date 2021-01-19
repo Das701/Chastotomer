@@ -27,9 +27,9 @@ private:
 };
 
 
-struct ValuePICO //-V690
+struct ValueComparator //-V690
 {
-    explicit ValuePICO(int v);
+    explicit ValueComparator(int v);
 
     void FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign);
     void FromINT(int v);
@@ -37,8 +37,8 @@ struct ValuePICO //-V690
     void Div(uint div);
     void Mul(uint mul);
 
-    void Add(ValuePICO &value);
-    void Sub(const ValuePICO &value);
+    void Add(ValueComparator &value);
+    void Sub(const ValueComparator &value);
 
     int Sign() const;
     void SetSign(int sign);
@@ -60,6 +60,6 @@ private:
 };
 
 
-ValuePICO operator/(const ValuePICO &first, uint second);
-ValuePICO operator-(const ValuePICO &first, const ValuePICO &second);
-ValuePICO operator-(const ValuePICO &first, int second);
+ValueComparator operator/(const ValueComparator &first, uint second);
+ValueComparator operator-(const ValueComparator &first, const ValueComparator &second);
+ValueComparator operator-(const ValueComparator &first, int second);
