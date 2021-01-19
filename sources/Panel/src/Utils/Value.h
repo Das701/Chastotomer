@@ -7,7 +7,6 @@ struct ValueNANO
     explicit ValueNANO(double v);
 
     void FromDouble(double v);
-    void FromUINT64(uint64 v) { value = v; }
 
     double ToDouble() const;
     uint64 ToUINT64() const { return value; }
