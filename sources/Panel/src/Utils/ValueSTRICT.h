@@ -12,7 +12,6 @@ struct Order
         Pico,   // 1e-12
         Phemto, // 1e-15
         Atto,   // 1e-18
-        Zepto,  // 1e-21
         Count
     };
 
@@ -21,7 +20,6 @@ struct Order
     // Возвращает количество юнитов в одной единице. Например, для Milli вернёт 
     // 1000
     uint64 UnitsInOne() const;
-    static uint64 UnitsInOne(E v);
 
     bool Increase();
 

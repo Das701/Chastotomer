@@ -6,7 +6,7 @@
 #include <cstring>
 
 
-#define THOUSAND 1000U
+#define THOUSAND ((uint64)1000U)
 
 
 ValueSTRICT::ValueSTRICT(double v) : sign(1), order(Order::Nano)
@@ -53,14 +53,12 @@ uint64 Order::UnitsInOne() const
 {
     static const uint64 units[Order::Count] =
     {
-        /* 1e-3  */ THOUSAND,
-        /* 1e-6  */ THOUSAND * THOUSAND,
-        /* 1e-9  */ THOUSAND * THOUSAND * THOUSAND,
-        /* 1e-12 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND,
-        /* 1e-15 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND,
-        /* 1e-18 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND,
-        /* 1e-21 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND *
-                               THOUSAND
+/* 1e-3  */ THOUSAND,
+/* 1e-6  */ THOUSAND * THOUSAND,
+/* 1e-9  */ THOUSAND * THOUSAND * THOUSAND,
+/* 1e-12 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND,
+/* 1e-15 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND,
+/* 1e-18 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND
     };
 
     return units[value];
