@@ -120,58 +120,6 @@ uint64 ValuePICO::FractPico() const
 }
 
 
-void ValueNANO::Add(ValueNANO add)
-{
-    int sign = Sign();
-    int signAdd = add.Sign();
-
-    SetSign(1);
-    add.SetSign(1);
-
-    if (sign > 0 && signAdd > 0)
-    {
-        value += add.value;
-    }
-    else if (sign < 0 && signAdd < 0)
-    {
-        value += add.value;
-        SetSign(-1);
-    }
-    else if (sign > 0 && signAdd < 0)
-    {
-        if (value >= add.value)
-        {
-            value -= add.value;
-        }
-        else
-        {
-            value = add.value - value;
-            SetSign(-1);
-        }
-    }
-    else
-    {
-        if (add.value >= value)
-        {
-            value = add.value - value;
-        }
-        else
-        {
-            value -= add.value;
-            SetSign(-1);
-        }
-    }
-}
-
-
-void ValueNANO::Sub(ValueNANO val)
-{
-    val.SetSign(-val.Sign());
-
-    Add(val);
-}
-
-
 void ValueNANO::MulPow10(int pow)
 {
     while (pow > 0)

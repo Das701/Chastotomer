@@ -13,8 +13,6 @@ struct ValueNANO
 
     void Div(uint div);
     void Mul(uint mul);
-    void Add(ValueNANO value);
-    void Sub(ValueNANO value);
     // Умножить на 10 в степени pow
     void MulPow10(int pow);
 
