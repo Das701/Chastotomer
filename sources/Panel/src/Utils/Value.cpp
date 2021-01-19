@@ -101,42 +101,6 @@ uint64 ValuePICO::FractPico() const
 }
 
 
-bool ValueNANO::operator<(const ValueNANO &rhs)
-{
-    return ToDouble() < rhs.ToDouble();
-}
-
-
-bool ValueNANO::operator<=(const ValueNANO &rhs)
-{
-    return ToDouble() <= rhs.ToDouble();
-}
-
-
-bool ValueNANO::operator>(const ValueNANO &rhs)
-{
-    return ToDouble() > rhs.ToDouble();
-}
-
-
-bool ValueNANO::operator>=(const ValueNANO &rhs)
-{
-    return ToDouble() >= rhs.ToDouble();
-}
-
-
-bool ValueNANO::operator==(const ValueNANO &rhs)
-{
-    return (value == rhs.value);
-}
-
-
-bool ValueNANO::operator!=(const ValueNANO &rhs)
-{
-    return (value != rhs.value);
-}
-
-
 ValuePICO::ValuePICO(int v)
 {
     FromINT(v);

@@ -21,13 +21,6 @@ struct ValueNANO
 
     uint64 Abs() const;
 
-    bool operator<(const ValueNANO &);
-    bool operator>(const ValueNANO &);
-    bool operator<=(const ValueNANO &);
-    bool operator>=(const ValueNANO &);
-    bool operator==(const ValueNANO &);
-    bool operator!=(const ValueNANO &);
-
 private:
 
     uint64 value;       // Значение параметра в единицах измерения "нано". Установленный в "1" старший бит означает, что число отрицательное
