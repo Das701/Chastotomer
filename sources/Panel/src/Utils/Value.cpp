@@ -21,9 +21,6 @@ static uint AssembleTriple(const char *const buffer, int start, int *end);
 // ћесто дл€ временного сохранени€ текущего пор€дка
 static Order::E stored = Order::Count;
 
-// ¬озвращает значение до степени (символа e)
-static bool GetIntPart(ValueNANO &value, char *begin, char **end, int numDigitsAfterComma);
-
 ValueNANO::ValueNANO(const char *const buffer, Order::E order) //-V730
 {
     FromString(buffer, Order::GetPow10(order));
@@ -40,51 +37,6 @@ ValueNANO::ValueNANO(int v)
 {
     FromINT(v);
 }
-
-
-#ifdef PANEL
-static bool GetIntPart(ValueNANO &value, char *begin, char **end, int numDigitsAfterComma)
-{
-    *end = begin;
-
-    if (*begin < '0' || *begin > '9')
-    {
-        return false;
-    }
-
-    String buffer;
-
-    bool comma = false;         // true будет означать, что точка уже была
-
-    while ((**end >= '0' && **end <= '9') || **end == '.' || **end == ',')
-    {
-        if (**end == '.' || **end == ',')
-        {
-            comma = true;
-        }
-        else if (comma)
-        {
-            numDigitsAfterComma--;
-        }
-
-        if (numDigitsAfterComma >= 0)
-        {
-            buffer.Append(**end);
-        }
-
-        *end = *end + 1;
-    }
-
-    value = ValueNANO(buffer.c_str(), Order::One);
-
-    return true;
-}
-#else
-static bool GetIntPart(ValueNANO &, char *, char **, int)
-{
-    return true;
-}
-#endif
 
 
 void ValueNANO::FromString(const char *const buffer, int pow10)
