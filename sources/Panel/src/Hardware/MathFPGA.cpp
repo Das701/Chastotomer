@@ -140,7 +140,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 
         if (CURRENT_CHANNEL_IS_C)
         {
-            if (decDataA.ToUINT64() < 10000)
+            if(decDataA.ToUnits(Order::Micro) < 10)
             {
                 decDataC.FromDouble(decDataA.ToDouble());
                 khz = khz * 10;
@@ -167,7 +167,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
                 result = mhz;
             }
 
-            decDA = (int)decDataC.ToUINT64(); //-V2533
+            decDA = (int)decDataC.ToUnits(Order::Nano); //-V2533
         }
     }
 
@@ -676,8 +676,8 @@ void MathFPGA::Measure::CalculateUnits()
                 {
                     if (CURRENT_CHANNEL_IS_C)
                     {
-                        if (decDataC.ToUINT64() / 2 < 10000)    { Data::SetUnits(String(" MHz")); }
-                        else                                    { Data::SetUnits(String(" GHz")); }
+                        if(decDataC.ToUnits(Order::Micro) / 2 < 10) { Data::SetUnits(String(" MHz")); }
+                        else                                        { Data::SetUnits(String(" GHz")); }
                     }
                     else if (CURRENT_CHANNEL_IS_D)   
                     {

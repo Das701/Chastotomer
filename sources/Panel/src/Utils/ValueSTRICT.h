@@ -2,6 +2,39 @@
 #include "Utils/String.h"
 
 
+struct Order
+{
+    enum E
+    {
+        Milli,  // 1e-3
+        Micro,  // 1e-6
+        Nano,   // 1e-9
+        Pico,   // 1e-12
+        Phemto, // 1e-15
+        Atto,   // 1e-18
+        Zepto,  // 1e-21
+        Count
+    };
+
+    Order(E v) : value(v) {}
+
+    // Возвращает количество юнитов в одной единице. Например, для Milli вернёт 
+    // 1000
+    uint64 UnitsInOne() const;
+    static uint64 UnitsInOne(E v);
+
+    bool Increase();
+
+    bool Decrease();
+
+    E value;
+};
+
+
+Order::E operator++(Order::E &, int);
+Order::E operator--(Order::E &, int);
+
+
 struct ValueSTRICT
 {
     explicit ValueSTRICT(double v);
@@ -10,7 +43,10 @@ struct ValueSTRICT
     void FromDouble(double v);
 
     double ToDouble() const;
-    uint64 ToUINT64() const { return units; }
+
+    // Возвращает абсолютное значение в виде количества юнитов размерности
+    // dimension
+    uint64 ToUnits(Order order) const;
 
     void DivUINT(uint div);
     void DivDOUBLE(double div);
@@ -23,12 +59,11 @@ struct ValueSTRICT
 
 private:
 
-    int sign;           // Если sign < 0 - значение ниже нуля.
-    uint powUnit;       // Размерность юнита члена units. 1 - 1e-1, 3 - милли, 6 - микро, 7 - 1е-7
-    uint64 units;       // Значение параметра в юнитах. "Вес" юнита определяется параметром powUnit
-
-    // Возвращает количество юнитов в единице (например, при pow == 3 result == 1000)
-    uint64 UnitsInOne(uint pow) const;
+    int sign;       // Если sign < 0 - значение ниже нуля.
+    Order order;    // Размерность юнита члена units. 1 - 1e-1, 3 - милли,
+                    // 6 - микро, 7 - 1е-7
+    uint64 units;   // Значение параметра в юнитах. "Вес" юнита определяется
+                    // параметром powUnit
 };
 
 
@@ -39,7 +74,8 @@ struct ValueComparator //-V690
 {
     explicit ValueComparator(int v);
 
-    void FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign);
+    void FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits,
+        uint pUnits, int sign);
     void FromINT(int v);
 
     void Div(uint div);
@@ -64,10 +100,13 @@ struct ValueComparator //-V690
 
 private:
 
-    uint64 value;       // Значение параметра в единицах измерения "нано". Установленный в "1" старший бит означает, что число отрицательное
+    uint64 value;   // Значение параметра в единицах измерения "нано".
+                    // Установленный в "1" старший бит означает, что число
+                    // отрицательное
 };
 
 
 ValueComparator operator/(const ValueComparator &first, uint second);
-ValueComparator operator-(const ValueComparator &first, const ValueComparator &second);
+ValueComparator operator-(const ValueComparator &first,
+    const ValueComparator &second);
 ValueComparator operator-(const ValueComparator &first, int second);

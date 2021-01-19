@@ -6,15 +6,18 @@
 #include <cstring>
 
 
-ValueSTRICT::ValueSTRICT(double v) : sign(1), powUnit(9)
+#define THOUSAND 1000U
+
+
+ValueSTRICT::ValueSTRICT(double v) : sign(1), order(Order::Nano)
 {
     FromDouble(v);
 }
 
 
-ValueSTRICT::ValueSTRICT(int64 v) : sign(1), powUnit(9)
+ValueSTRICT::ValueSTRICT(int64 v) : sign(1), order(Order::Nano)
 {
-    FromDouble(v);
+    FromDouble((double)v);
 }
 
 
@@ -26,16 +29,89 @@ void ValueSTRICT::FromDouble(double v)
 }
 
 
-uint64 ValueSTRICT::UnitsInOne(uint pow) const
+uint64 ValueSTRICT::ToUnits(Order o) const
 {
-    int result = 1;
+    uint64 result = units;
 
-    for (; pow != 0; pow--)
+    while (o.value > order.value)
     {
-        result *= 10;
+        o.Decrease();
+        result *= THOUSAND;
+    }
+
+    while (o.value < order.value)
+    {
+        o.Increase();
+        result /= THOUSAND;
     }
 
     return result;
+}
+
+
+uint64 Order::UnitsInOne() const
+{
+    static const uint64 units[Order::Count] =
+    {
+        /* 1e-3  */ THOUSAND,
+        /* 1e-6  */ THOUSAND * THOUSAND,
+        /* 1e-9  */ THOUSAND * THOUSAND * THOUSAND,
+        /* 1e-12 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND,
+        /* 1e-15 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND,
+        /* 1e-18 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND,
+        /* 1e-21 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND *
+                               THOUSAND
+    };
+
+    return units[value];
+}
+
+
+bool Order::Increase()
+{
+    if (value == Count - 1)
+    {
+        return false;
+    }
+
+    value++;
+
+    return true;
+}
+
+
+bool Order::Decrease()
+{
+    if (value == 0)
+    {
+        return false;
+    }
+
+    value--;
+
+    return true;
+}
+
+
+Order::E operator++(Order::E &param, int)
+{
+    if (param != Order::Count - 1)
+    {
+        param = (Order::E)(param + 1);
+    }
+
+    return param;
+}
+
+
+Order::E operator--(Order::E &param, int)
+{
+    if (param != 0)
+    {
+        param = (Order::E)(param - 1);
+    }
+
+    return param;
 }
 
 
@@ -104,13 +180,17 @@ void ValueComparator::FromINT(int v)
 }
 
 
-void ValueComparator::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign)
+void ValueComparator::FromUNITS(int units, uint mUnits, uint uUnits,
+    uint nUnits, uint pUnits, int sign)
 {
     value = (uint64)units; //-V2533
 
     value = value * 1000 * 1000 * 1000 * 1000;
 
-    value += (uint64)pUnits + (uint64)nUnits * 1000 + (uint64)uUnits * 1000 * 1000 + (uint64)mUnits * 1000 * 1000 * 1000; //-V2533
+    value += (uint64)pUnits +
+        (uint64)nUnits * 1000 + 
+        (uint64)uUnits * 1000 * 1000 + 
+        (uint64)mUnits * 1000 * 1000 * 1000; //-V2533
 
     if (sign < 0)
     {
@@ -209,12 +289,14 @@ void ValueComparator::SetSign(int sign)
     if (sign >= 0)
     {
         //         fedcba9876543210
-        value &= 0x7FFFFFFFFFFFFFFFU;   // —брасываем старший бит - признак положительного числа
+        value &= 0x7FFFFFFFFFFFFFFFU;   // —брасываем старший бит -
+                                        // признак положительного числа
     }
     else
     {
         //         fedcba9876543210
-        value |= 0x8000000000000000U;   // ”станавливаем старший бит - признак отрицательного числа
+        value |= 0x8000000000000000U;   // ”станавливаем старший бит - 
+                                        // признак отрицательного числа
     }
 }
 
@@ -243,7 +325,7 @@ String ValueComparator::ToString() const
         std::strcat(buffer, symbol); //-V2513
     }
 
-    while (!stack.Empty())                          // ѕереводим в строку целую часть
+    while (!stack.Empty())                     // ѕереводим в строку целую часть
     {
         symbol[0] = stack.Pop() | 0x30;
 
@@ -256,7 +338,8 @@ String ValueComparator::ToString() const
 
     ValueComparator val(*this);
 
-    val.Sub(ValueComparator(Integer()));                  // “еперь в val осталась только дробна€ часть
+    val.Sub(ValueComparator(Integer())); 
+                                   // “еперь в val осталась только дробна€ часть
 
     int count = 0;
 
