@@ -73,9 +73,6 @@ struct ValueNANO
     // Order::Micro - ValueNANO::Integer() >= 1e-6
     Order::E GetOrder() const;
 
-    // Возращает строку значения
-    String ToString(bool sign, Order::E order = Order::Count) const;
-
     bool operator<(const ValueNANO &);
     bool operator>(const ValueNANO &);
     bool operator<=(const ValueNANO &);
