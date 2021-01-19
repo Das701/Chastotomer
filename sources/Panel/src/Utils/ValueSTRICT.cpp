@@ -26,6 +26,19 @@ void ValueSTRICT::FromDouble(double v)
 }
 
 
+uint64 ValueSTRICT::UnitsInOne(uint pow) const
+{
+    int result = 1;
+
+    for (; pow != 0; pow--)
+    {
+        result *= 10;
+    }
+
+    return result;
+}
+
+
 double ValueSTRICT::ToDouble() const
 {
     return static_cast<double>(units) / 1E9 * static_cast<double>(Sign());
