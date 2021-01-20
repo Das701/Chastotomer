@@ -193,10 +193,6 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
         }
         else
         {
-            ValueSTRICT value4((int64)4);
-
-            value4 = value4;
-
             decDataA = 4 / decDataA;
         }
 

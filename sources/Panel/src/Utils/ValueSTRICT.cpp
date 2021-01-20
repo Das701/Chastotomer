@@ -6,7 +6,8 @@
 #include <cstring>
 
 
-#define THOUSAND ((uint64)1000U)
+#define THOUSAND   ((uint64)1000U)
+#define MAX_UINT64 ((uint64)0xFFFFFFFFFFFFFFFF)
 
 
 ValueSTRICT::ValueSTRICT(double v) : sign(1), order(Order::Nano)
@@ -179,6 +180,12 @@ void ValueSTRICT::DivDOUBLE(double div)
 
 void ValueSTRICT::MulUINT(uint mul)
 {
+    while ((units * (double)mul) >= (double)MAX_UINT64)
+    {
+        order.Decrease();
+        units /= THOUSAND;
+    }
+
     units *= mul;
 }
 
