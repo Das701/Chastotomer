@@ -37,6 +37,7 @@ Frame *Frame::self = nullptr;
 
 
 
+
 int main(int argc, char **argv)
 {
     setlocale(LC_ALL, "Russian");

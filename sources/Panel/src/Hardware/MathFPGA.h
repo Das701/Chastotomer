@@ -2,7 +2,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Stack.h"
 #include "Utils/String.h"
-#include "Utils/Value.h"
+#include "Utils/ValueSTRICT.h"
 
 
 struct MathFPGA
@@ -73,9 +73,9 @@ struct MathFPGA
 
         static int decDA;
 
-        static ValueNANO decDataA;
-        static ValueNANO decDataB;
-        static ValueNANO decDataC;
+        static ValueSTRICT decDataA;
+        static ValueSTRICT decDataB;
+        static ValueSTRICT decDataC;
 
         static void AppendDataMainCounters(uint counterA, uint counterB);
 
@@ -83,7 +83,7 @@ struct MathFPGA
         static int CalculatePeriodEmptyZeros();
         static int CalculateDurationEmptyZeros();
 
-        static void Calculate(int &emptyZeroes, ValueNANO &data);
+        static void Calculate(int &emptyZeroes, ValueSTRICT &data);
 
         static void CalculateNewData();
         static void CalculateUnits();
@@ -116,7 +116,7 @@ struct MathFPGA
     private:
 
         static void Calculate(uint counter, int interpol1, int cal1, int interpol2, int cal2);
-        static ValuePICO value;
+        static ValueComparator value;
 
     public:
 
