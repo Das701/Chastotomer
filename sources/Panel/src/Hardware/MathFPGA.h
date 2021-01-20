@@ -116,7 +116,7 @@ struct MathFPGA
     private:
 
         static void Calculate(uint counter, int interpol1, int cal1, int interpol2, int cal2);
-        static ValuePICO value;
+        static ValueComparator value;
 
     public:
 

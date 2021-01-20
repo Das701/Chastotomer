@@ -6,108 +6,225 @@
 #include <cstring>
 
 
-ValueSTRICT::ValueSTRICT(double v)
+#define THOUSAND   ((uint64)1000U)
+#define MAX_UINT64 ((uint64)0xFFFFFFFFFFFFFFFF)
+
+
+ValueSTRICT::ValueSTRICT(double v) : sign(1), order(Order::Nano)
 {
     FromDouble(v);
 }
 
 
+ValueSTRICT::ValueSTRICT(int64 v) :
+    sign(v < 0 ? -1 : 1), order(Order::Nano), units(0)
+{
+    Order _order(Order::Nano);
+
+    if (v < 0)
+    {
+        v = -v;
+    }
+
+    uint64 prevUnits = 0;
+    uint64 _units = v * _order.UnitsInOne();
+    Order::E prevOrder = _order.value;
+
+    while (_units > prevUnits && _order.Increase())
+    {
+        prevUnits = _units;
+        prevOrder = _order.value - 1;
+        _units = v * _order.UnitsInOne();
+    }
+
+    units = prevUnits;
+
+    order.value = prevOrder;
+}
+
+
 void ValueSTRICT::FromDouble(double v)
 {
-    int sign = (v < 0.0) ? -1 : 1;
+    units = static_cast<uint64>(std::fabs(v) * 1.E9);
 
-    value = static_cast<uint64>(std::fabs(v) * 1.E9);
+    SetSign(v < 0.0 ? -1 : 1);
+}
 
-    if (sign < 0)
+
+uint64 ValueSTRICT::ToUnits(Order o) const
+{
+    uint64 result = units;
+
+    while (o.value > order.value)
     {
-        SetSign(-1);
+        o.Decrease();
+        result *= THOUSAND;
     }
+
+    while (o.value < order.value)
+    {
+        o.Increase();
+        result /= THOUSAND;
+    }
+
+    return result;
+}
+
+
+uint64 Order::UnitsInOne() const
+{
+    static const uint64 units[Order::Count] =
+    {
+/* 1e-3  */ THOUSAND,
+/* 1e-6  */ THOUSAND * THOUSAND,
+/* 1e-9  */ THOUSAND * THOUSAND * THOUSAND,
+/* 1e-12 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND,
+/* 1e-15 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND,
+/* 1e-18 */ THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND * THOUSAND
+    };
+
+    return units[value];
+}
+
+
+bool Order::Increase()
+{
+    if (value == Count - 1)
+    {
+        return false;
+    }
+
+    value++;
+
+    return true;
+}
+
+
+bool Order::Decrease()
+{
+    if (value == 0)
+    {
+        return false;
+    }
+
+    value--;
+
+    return true;
+}
+
+
+Order::E operator++(Order::E &param, int)
+{
+    if (param != Order::Count - 1)
+    {
+        param = (Order::E)(param + 1);
+    }
+
+    return param;
+}
+
+
+Order::E operator--(Order::E &param, int)
+{
+    if (param != 0)
+    {
+        param = (Order::E)(param - 1);
+    }
+
+    return param;
+}
+
+
+Order::E operator-(Order::E first, int second)
+{
+    int result = (int)first - second;
+
+    return (Order::E)result;
 }
 
 
 double ValueSTRICT::ToDouble() const
 {
-    return static_cast<double>(Abs()) / 1E9 * static_cast<double>(Sign());
+    return static_cast<double>(units) / 1E9 * static_cast<double>(Sign());
 }
 
 
 int ValueSTRICT::Sign() const
 {
-    //                fedcba9876543210
-    return (value & 0x8000000000000000U) ? -1 : 1;
+    return sign;
 }
 
 
-uint64 ValueSTRICT::Abs() const
-{   //                fedcba9876543210
-    return (value & 0x7fffffffffffffff);
-}
-
-
-void ValueSTRICT::Div(uint div)
+void ValueSTRICT::DivUINT(uint div)
 {
-    int sign = Sign();
-
-    SetSign(1);
-
-    value /= div;
-
-    SetSign(sign);
+    units /= div;
 }
 
 
-void ValueSTRICT::Mul(uint mul)
+void ValueSTRICT::DivDOUBLE(double div)
 {
-    int sign = Sign();
-
-    SetSign(1);
-
-    value *= mul;
-
-    SetSign(sign);
-}
-
-
-void ValueSTRICT::SetSign(int sign)
-{
-    if (sign >= 0)
+    if (sign > 0)
     {
-        //         fedcba9876543210
-        value &= 0x7FFFFFFFFFFFFFFFU;       // \todo как это может работать?
+        if (div > 0) { sign = 1;  }
+        else         { sign = -1; }
     }
     else
     {
-        //         fedcba9876543210
-        value |= 0x8000000000000000U;           // ”станавливаем признак отрицательного числа
+        if (div < 0) { sign = 1;  }
+        else         { sign = -1; }
     }
+
+    units = (uint64)((double)units / std::abs(div));
 }
 
 
-int ValuePICO::Integer() const
+void ValueSTRICT::MulUINT(uint mul)
+{
+    while ((units * (double)mul) >= (double)MAX_UINT64)
+    {
+        order.Decrease();
+        units /= THOUSAND;
+    }
+
+    units *= mul;
+}
+
+
+void ValueSTRICT::SetSign(int s)
+{
+    sign = s;
+}
+
+
+int ValueComparator::Integer() const
 {
     return (int)(Abs() / 1000 / 1000 / 1000 / 1000) * Sign(); //-V2533
 }
 
 
-ValuePICO::ValuePICO(int v)
+ValueComparator::ValueComparator(int v)
 {
     FromINT(v);
 }
 
 
-void ValuePICO::FromINT(int v)
+void ValueComparator::FromINT(int v)
 {
     FromUNITS(v < 0 ? -v : v, 0, 0, 0, 0, v < 0 ? -1 : 1);
 }
 
 
-void ValuePICO::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint pUnits, int sign)
+void ValueComparator::FromUNITS(int units, uint mUnits, uint uUnits,
+    uint nUnits, uint pUnits, int sign)
 {
     value = (uint64)units; //-V2533
 
     value = value * 1000 * 1000 * 1000 * 1000;
 
-    value += (uint64)pUnits + (uint64)nUnits * 1000 + (uint64)uUnits * 1000 * 1000 + (uint64)mUnits * 1000 * 1000 * 1000; //-V2533
+    value += (uint64)pUnits +
+        (uint64)nUnits * 1000 + 
+        (uint64)uUnits * 1000 * 1000 + 
+        (uint64)mUnits * 1000 * 1000 * 1000; //-V2533
 
     if (sign < 0)
     {
@@ -116,7 +233,7 @@ void ValuePICO::FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits, uint
 }
 
 
-void ValuePICO::Div(uint div)
+void ValueComparator::Div(uint div)
 {
     int sign = Sign();
 
@@ -128,7 +245,7 @@ void ValuePICO::Div(uint div)
 }
 
 
-void ValuePICO::Mul(uint mul)
+void ValueComparator::Mul(uint mul)
 {
     int sign = Sign();
 
@@ -140,7 +257,7 @@ void ValuePICO::Mul(uint mul)
 }
 
 
-void ValuePICO::Add(ValuePICO &add)
+void ValueComparator::Add(ValueComparator &add)
 {
     int sign = Sign();
     int signAdd = add.Sign();
@@ -184,9 +301,9 @@ void ValuePICO::Add(ValuePICO &add)
 }
 
 
-void ValuePICO::Sub(const ValuePICO &val)
+void ValueComparator::Sub(const ValueComparator &val)
 {
-    ValuePICO sub(val);
+    ValueComparator sub(val);
 
     sub.SetSign(-val.Sign());
 
@@ -194,29 +311,31 @@ void ValuePICO::Sub(const ValuePICO &val)
 }
 
 
-int ValuePICO::Sign() const
+int ValueComparator::Sign() const
 {
     //                fedcba9876543210
     return (value & 0x8000000000000000U) ? -1 : 1;
 }
 
 
-void ValuePICO::SetSign(int sign)
+void ValueComparator::SetSign(int sign)
 {
     if (sign >= 0)
     {
         //         fedcba9876543210
-        value &= 0x7FFFFFFFFFFFFFFFU;   // —брасываем старший бит - признак положительного числа
+        value &= 0x7FFFFFFFFFFFFFFFU;   // —брасываем старший бит -
+                                        // признак положительного числа
     }
     else
     {
         //         fedcba9876543210
-        value |= 0x8000000000000000U;   // ”станавливаем старший бит - признак отрицательного числа
+        value |= 0x8000000000000000U;   // ”станавливаем старший бит - 
+                                        // признак отрицательного числа
     }
 }
 
 
-String ValuePICO::ToString() const
+String ValueComparator::ToString() const
 {
     char buffer[50];
 
@@ -240,7 +359,7 @@ String ValuePICO::ToString() const
         std::strcat(buffer, symbol); //-V2513
     }
 
-    while (!stack.Empty())                          // ѕереводим в строку целую часть
+    while (!stack.Empty())                     // ѕереводим в строку целую часть
     {
         symbol[0] = stack.Pop() | 0x30;
 
@@ -251,9 +370,10 @@ String ValuePICO::ToString() const
 
     std::strcat(buffer, symbol); //-V2513
 
-    ValuePICO val(*this);
+    ValueComparator val(*this);
 
-    val.Sub(ValuePICO(Integer()));                  // “еперь в val осталась только дробна€ часть
+    val.Sub(ValueComparator(Integer())); 
+                                   // “еперь в val осталась только дробна€ часть
 
     int count = 0;
 
@@ -269,32 +389,42 @@ String ValuePICO::ToString() const
 
         count++;
 
-        val.Sub(ValuePICO(integer));
+        val.Sub(ValueComparator(integer));
     }
 
     return String(buffer);
 }
 
 
-double ValuePICO::ToDouble() const
+double ValueComparator::ToDouble() const
 {
     return (double)Abs() / 1E12 * (double)Sign(); //-V2533
 }
 
 
-uint64 ValuePICO::Abs() const
+uint64 ValueComparator::Abs() const
 {   //                fedcba9876543210
     return (value & 0x7fffffffffffffff);
 }
 
 
-uint64 ValuePICO::FractPico() const
+uint64 ValueComparator::FractPico() const
 {
-    ValuePICO val(*this);
+    ValueComparator val(*this);
 
     val.SetSign(1);
 
     int whole = val.Integer();
 
     return (val.value - whole * 1000 * 1000 * 1000 * 1000);
+}
+
+
+ValueSTRICT operator/(int64 first, const ValueSTRICT &second)
+{
+    ValueSTRICT result(first);
+
+    result.DivDOUBLE(second.ToDouble());
+
+    return result;
 }
