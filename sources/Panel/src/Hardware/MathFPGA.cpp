@@ -191,7 +191,7 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
         }
         else
         {
-            decDataA = 4 / decDataA;
+            decDataA = 400000 / decDataA;
         }
 
         decDataA.MulUINT((uint)sT); //-V2533
