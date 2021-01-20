@@ -31,6 +31,7 @@ struct Order
 
 Order::E operator++(Order::E &, int);
 Order::E operator--(Order::E &, int);
+Order::E operator-(Order::E, int);
 
 
 struct ValueSTRICT

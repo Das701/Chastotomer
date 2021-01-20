@@ -15,9 +15,30 @@ ValueSTRICT::ValueSTRICT(double v) : sign(1), order(Order::Nano)
 }
 
 
-ValueSTRICT::ValueSTRICT(int64 v) : sign(1), order(Order::Nano)
+ValueSTRICT::ValueSTRICT(int64 v) :
+    sign(v < 0 ? -1 : 1), order(Order::Nano), units(0)
 {
-    FromDouble((double)v);
+    Order _order(Order::Nano);
+
+    if (v < 0)
+    {
+        v = -v;
+    }
+
+    uint64 prevUnits = 0;
+    uint64 _units = v * _order.UnitsInOne();
+    Order::E prevOrder = _order.value;
+
+    while (_units > prevUnits && _order.Increase())
+    {
+        prevUnits = _units;
+        prevOrder = _order.value - 1;
+        _units = v * _order.UnitsInOne();
+    }
+
+    units = prevUnits;
+
+    order.value = prevOrder;
 }
 
 
@@ -110,6 +131,14 @@ Order::E operator--(Order::E &param, int)
     }
 
     return param;
+}
+
+
+Order::E operator-(Order::E first, int second)
+{
+    int result = (int)first - second;
+
+    return (Order::E)result;
 }
 
 
