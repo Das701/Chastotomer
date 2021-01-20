@@ -416,7 +416,7 @@ uint64 ValueComparator::FractPico() const
 
     int whole = val.Integer();
 
-    return (val.value - whole * 1000 * 1000 * 1000 * 1000);
+    return (val.value - (uint64)whole * 1000 * 1000 * 1000 * 1000);
 }
 
 
