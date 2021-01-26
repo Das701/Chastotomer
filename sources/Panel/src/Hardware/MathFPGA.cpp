@@ -616,7 +616,11 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
                 format[5] = (char)((pow - 10) | 0x30);
             }
 
-            Data::SetDigits(String(format, data.ToDouble()));
+            char text[30];
+
+            std::sprintf(text, format, data.ToDouble());
+
+            Data::SetDigits(String(text));
         }
     }
 }
