@@ -191,15 +191,18 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
         }
         else
         {
-            decDataA = 400 / decDataA;
+            ValueSTRICT value(4000.0 * sT);
+
+            value.DivDOUBLE(decDataA.ToDouble());
+
+            decDataA = value;
         }
 
-        decDataA.MulUINT((uint)sT); //-V2533
-        decDataA.MulUINT((uint)sT); //-V2533
+        decDataA.MulUINT(sT);
 
-        if (decDA >= 1000)  { decDataA.MulUINT(100000);    }
-        else if(decDA > 1)  { decDataA.MulUINT(100);     }
-        else                { decDataA.DivUINT(100); }
+        if (decDA >= 1000)  { decDataA.MulUINT(10000); }
+        else if (decDA > 1) { decDataA.MulUINT(10);    }
+        else                { decDataA.DivUINT(1000);    }
 
         result = sT * 10;
     }

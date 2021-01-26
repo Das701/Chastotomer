@@ -145,7 +145,7 @@ Order::E operator-(Order::E first, int second)
 
 double ValueSTRICT::ToDouble() const
 {
-    return static_cast<double>(units) / 1E9 * static_cast<double>(Sign());
+    return static_cast<double>(units) / order.UnitsInOne() * static_cast<double>(Sign());
 }
 
 
