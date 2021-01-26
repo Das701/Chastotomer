@@ -83,7 +83,7 @@ struct MathFPGA
         static int CalculatePeriodEmptyZeros();
         static int CalculateDurationEmptyZeros();
 
-        static void Calculate(int &emptyZeroes, ValueSTRICT &data);
+        static void Calculate(int &pow, ValueSTRICT &data);
 
         static void CalculateNewData();
         static void CalculateUnits();

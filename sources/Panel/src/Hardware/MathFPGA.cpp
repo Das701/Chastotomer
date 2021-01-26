@@ -494,9 +494,11 @@ String MathFPGA::BinToString(pString bin, int num)
 }
 
 
-void MathFPGA::Measure::Calculate(int &emptyZeros, ValueSTRICT &data)
+void MathFPGA::Measure::Calculate(int &pow, ValueSTRICT &data)
 {
     int manualZeros = 1;
+
+    int emptyZeros = 0;
 
     TypeMeasure &type = Channel::Current()->mod.typeMeasure;
 
@@ -525,6 +527,14 @@ void MathFPGA::Measure::Calculate(int &emptyZeros, ValueSTRICT &data)
     if (manualZeros != 1) //-V1051
     {
         emptyZeros = manualZeros;
+    }
+
+    pow = 0;
+
+    while (emptyZeros >= 10)
+    {
+        pow++;
+        emptyZeros /= 10;
     }
 }
 
@@ -582,23 +592,15 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
         }
         else
         {
-            int emptyZeros = 0;
+            int pow = 0;
             ValueSTRICT data((int64)0);
 
-            Calculate(emptyZeros, data);
+            Calculate(pow, data);
 
             if (isDivZero)
             {
                 Data::SetDigits(String("=X/0"));
                 return;
-            }
-
-            int pow = 0;
-
-            while (emptyZeros >= 10)
-            {
-                pow++;
-                emptyZeros /= 10;
             }
 
             char format[10];
