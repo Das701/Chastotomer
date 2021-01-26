@@ -592,28 +592,28 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
         }
         else
         {
-            int pow = 0;
-            ValueSTRICT data((int64)0);
-
-            Calculate(pow, data);
-
             if (isDivZero)
             {
                 Data::SetDigits(String("=X/0"));
                 return;
             }
 
+            int pow = 0;
+            ValueSTRICT data((int64)0);
+
+            Calculate(pow, data);
+
             char format[10];
 
             if (pow < 10)
             {
-                std::strcpy(format, "%10.0f"); //-V2513
-                format[4] = (char)(pow | 0x30); //-V2533
+                std::strcpy(format, "%10.0f");
+                format[4] = (char)(pow | 0x30);
             }
             else
             {
-                std::strcpy(format, "%10.10f"); //-V2513
-                format[5] = (char)((pow - 10) | 0x30); //-V2533
+                std::strcpy(format, "%10.10f");
+                format[5] = (char)((pow - 10) | 0x30);
             }
 
             Data::SetDigits(String(format, data.ToDouble()));
