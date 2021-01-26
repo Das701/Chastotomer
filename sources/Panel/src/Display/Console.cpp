@@ -8,7 +8,7 @@
 #include <cstdio>
 
 
-#define S_DBG_NUM_STRINGS_IN_CONSOLE 9
+#define S_DBG_NUM_STRINGS_IN_CONSOLE 3
 
 
 char Console::buffer[10][100];

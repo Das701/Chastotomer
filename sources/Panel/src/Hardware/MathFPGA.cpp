@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Log.h"
 #include "Settings.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
@@ -370,20 +371,18 @@ ValueComparator operator/(const ValueComparator &first, uint second)
 
 void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
 {
+    LOG_WRITE("%d", counterA);
+
     decDataA.FromDouble((double)counterA); //-V2533
 
     powDataA = 0;
 
-    while (counterA > 0)
+    do
     {
         powDataA++;
         counterA /= 10;
-    }
 
-    if (powDataA == 0)
-    {
-        powDataA = 1;
-    }
+    } while (counterA > 0);
 
     if ((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) && Relation::IsEnabled())
     {
@@ -444,6 +443,8 @@ String MathFPGA::Auto::Give()
 
 void MathFPGA::FillFactor::Calculate(uint period, uint duration)
 {
+    LOG_WRITE("%d %d", period, duration);
+
     value = (float)duration / (float)period; //-V2533
 
     if (ModeDuration::Current().IsPhase())
@@ -633,21 +634,29 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
             char text[30];
 
             std::sprintf(text, format, data.ToDouble());
-
-            char *pointer = &format[0];
-
+            
+            char *pointer = &text[0];
+            
             if ((Channel::Current()->mod.typeMeasure.IsFrequency() && Channel::Current()->mod.modeFrequency.IsT_1()) ||         // Если косвенное измерение частоты
                 Channel::Current()->mod.typeMeasure.IsPeriod() && Channel::Current()->mod.modePeriod.IsF_1())                   // или периода
             {
-                while (*pointer != '\0')                                                                                        // Отбросим ложные цифры
-                {
-                    powDataA--;
-                    pointer++;
+                int counter = 0;
 
-                    if (powDataA == 0)
+                while (*pointer != '\0' && powDataA != 0)                                                                       // Отбросим ложные цифры
+                {
+                    counter++;
+
+                    if(((*pointer) & 0xF0) == 0x30)
                     {
-                        break;
+                        powDataA--;
                     }
+
+                    pointer++;
+                }
+                
+                if(counter != 8)
+                {
+                    counter = counter;
                 }
 
                 *pointer = '\0';
