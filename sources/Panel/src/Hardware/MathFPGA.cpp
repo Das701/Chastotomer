@@ -76,7 +76,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 
     if (mode.IsT_1())
     {
-        manualZeros = 1000 * ModesChannel::timeLabels.ToZeros() / 1000 * ModesChannel::numberPeriods.ToAbs();
+        manualZeros = 10 * ModesChannel::timeLabels.ToZeros() / 1000 * ModesChannel::numberPeriods.ToAbs();
 
         decDataA.DivUINT((uint)ModesChannel::timeLabels.ToZeros()); //-V2533
 
@@ -88,7 +88,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
         }
         else
         {
-            ValueSTRICT test2(400.0 * ModesChannel::numberPeriods.ToAbs()); //-V2564
+            ValueSTRICT test2(4.0 * ModesChannel::numberPeriods.ToAbs()); //-V2564
 
             test2.DivDOUBLE(decDataA.ToDouble()); //-V2533 //-V2564
             
@@ -99,7 +99,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 
         if (decDA < 1000)           { }
         else if (decDA < 1000000)   { decDataA.DivUINT(1000);    }
-        else                        { decDataA.DivUINT(100000000); }
+        else                        { decDataA.DivUINT(1000000); }
 
         result = 1;
     }
