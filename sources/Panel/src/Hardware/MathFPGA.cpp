@@ -31,10 +31,11 @@ uint   MathFPGA::Auto::fpgaMax = 0;
 float  MathFPGA::FillFactor::value = 0.0F;
 int    MathFPGA::FillFactor::zeroes = 0;
        
-int       MathFPGA::Measure::decDA = 1;
+int         MathFPGA::Measure::decDA = 1;
 ValueSTRICT MathFPGA::Measure::decDataA((int64)0);
 ValueSTRICT MathFPGA::Measure::decDataB((int64)0);
 ValueSTRICT MathFPGA::Measure::decDataC((int64)0);
+int         MathFPGA::Measure::powDataA = 0;
 
 ValueComparator MathFPGA::Comparator::value(0);
 
@@ -371,6 +372,19 @@ void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
 {
     decDataA.FromDouble((double)counterA); //-V2533
 
+    powDataA = 0;
+
+    while (counterA > 0)
+    {
+        powDataA++;
+        counterA /= 10;
+    }
+
+    if (powDataA == 0)
+    {
+        powDataA = 1;
+    }
+
     if ((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) && Relation::IsEnabled())
     {
         decDataB.FromDouble(counterB); //-V2564
@@ -619,6 +633,25 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
             char text[30];
 
             std::sprintf(text, format, data.ToDouble());
+
+            char *pointer = &format[0];
+
+            if ((Channel::Current()->mod.typeMeasure.IsFrequency() && Channel::Current()->mod.modeFrequency.IsT_1()) ||         // Если косвенное измерение частоты
+                Channel::Current()->mod.typeMeasure.IsPeriod() && Channel::Current()->mod.modePeriod.IsF_1())                   // или периода
+            {
+                while (*pointer != '\0')                                                                                        // Отбросим ложные цифры
+                {
+                    powDataA--;
+                    pointer++;
+
+                    if (powDataA == 0)
+                    {
+                        break;
+                    }
+                }
+
+                *pointer = '\0';
+            }
 
             Data::SetDigits(String(text));
         }

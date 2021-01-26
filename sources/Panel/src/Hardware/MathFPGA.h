@@ -74,6 +74,7 @@ struct MathFPGA
         static int decDA;
 
         static ValueSTRICT decDataA;
+        static int powDataA;            // Сколько знаков в значении decDataA
         static ValueSTRICT decDataB;
         static ValueSTRICT decDataC;
 
