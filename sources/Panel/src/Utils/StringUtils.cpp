@@ -488,3 +488,26 @@ String SU::Int2String(int n)
 
     return String(buffer);
 }
+
+
+void SU::LeaveFewDigits(char *buffer, int size, int digits)
+{
+    char *pointer = buffer;
+
+    while (*pointer != '\0' && digits != 0 && size > 0)
+    {
+        size--;
+
+        if ((*pointer & 0xF0) == 0x30)
+        {
+            digits--;
+        }
+
+        pointer++;
+    }
+
+    if (size > 0)
+    {
+        *pointer = '\0';
+    }
+}

@@ -48,6 +48,8 @@ public:
     static bool String2Int(const char *buffer, int *value, char **end);
     
     static String Int2String(int n);
+
+    static void LeaveFewDigits(char *buffer, int size, int digits);
 };
 
 

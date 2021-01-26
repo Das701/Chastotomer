@@ -447,6 +447,15 @@ void MathFPGA::FillFactor::Calculate(uint period, uint duration)
 
     value = (float)duration / (float)period; //-V2533
 
+    Measure::powDataA = 0;
+
+    do
+    {
+        Measure::powDataA++;
+        period /= 10;
+
+    } while (period > 0);
+
     if (ModeDuration::Current().IsPhase())
     {
         value *= 360; //-V2564
@@ -602,7 +611,10 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
             }
             else
             {
-                Data::SetDigits(String("%10.7f", MathFPGA::FillFactor::value));
+                char buffer[30];
+                std::sprintf(buffer, "%10.7f", MathFPGA::FillFactor::value);
+                SU::LeaveFewDigits(buffer, 30, powDataA);
+                Data::SetDigits(String(buffer));
             }
         }
         else
@@ -635,31 +647,10 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
 
             std::sprintf(text, format, data.ToDouble());
             
-            char *pointer = &text[0];
-            
             if ((Channel::Current()->mod.typeMeasure.IsFrequency() && Channel::Current()->mod.modeFrequency.IsT_1()) ||         // Если косвенное измерение частоты
                 Channel::Current()->mod.typeMeasure.IsPeriod() && Channel::Current()->mod.modePeriod.IsF_1())                   // или периода
             {
-                int counter = 0;
-
-                while (*pointer != '\0' && powDataA != 0)                                                                       // Отбросим ложные цифры
-                {
-                    counter++;
-
-                    if(((*pointer) & 0xF0) == 0x30)
-                    {
-                        powDataA--;
-                    }
-
-                    pointer++;
-                }
-                
-                if(counter != 8)
-                {
-                    counter = counter;
-                }
-
-                *pointer = '\0';
+                SU::LeaveFewDigits(text, 30, powDataA);
             }
 
             Data::SetDigits(String(text));
