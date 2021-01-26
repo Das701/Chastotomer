@@ -200,7 +200,7 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
             decDataA = value;
         }
 
-        decDataA.MulUINT(sT);
+        decDataA.MulUINT((uint)sT);
 
         if (decDA >= 1000)  { decDataA.MulUINT(10000); }
         else if (decDA > 1) { decDataA.MulUINT(10);    }
@@ -601,22 +601,20 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
                 emptyZeros /= 10;
             }
 
+            char format[10];
+
             if (pow < 10)
             {
-                char format[10];
                 std::strcpy(format, "%10.0f"); //-V2513
                 format[4] = (char)(pow | 0x30); //-V2533
-
-                Data::SetDigits(String(format, data.ToDouble()));
             }
             else
             {
-                char format[10];
                 std::strcpy(format, "%10.10f"); //-V2513
                 format[5] = (char)((pow - 10) | 0x30); //-V2533
-
-                Data::SetDigits(String(format, data.ToDouble()));
             }
+
+            Data::SetDigits(String(format, data.ToDouble()));
         }
     }
 }

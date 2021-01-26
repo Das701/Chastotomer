@@ -145,7 +145,7 @@ Order::E operator-(Order::E first, int second)
 
 double ValueSTRICT::ToDouble() const
 {
-    return static_cast<double>(units) / order.UnitsInOne() * static_cast<double>(Sign());
+    return static_cast<double>(units) / (double)order.UnitsInOne() * static_cast<double>(Sign());
 }
 
 
@@ -180,7 +180,7 @@ void ValueSTRICT::DivDOUBLE(double div)
 
 void ValueSTRICT::MulUINT(uint mul)
 {
-    while ((units * (double)mul) >= (double)MAX_UINT64)
+    while (((double)units * (double)mul) >= (double)MAX_UINT64)
     {
         order.Decrease();
         units /= THOUSAND;
