@@ -26,6 +26,8 @@ namespace FreqMeter
 
     void LoadCalibration();
     
+    void LoadCalibrationNoSave();
+    
     void LoadDisplayTime();
    
     void LoadAuto();

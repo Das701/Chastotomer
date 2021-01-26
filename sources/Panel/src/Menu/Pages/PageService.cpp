@@ -22,6 +22,11 @@ static void OnPress_ResetSettings()
 
     Channel::A->mod.typeMeasure.value = TypeMeasure::Frequency;
     Channel::A->mod.modeFrequency.value = ModeFrequency::Frequency;
+    
+    if(FreqMeter::modeTest.IsEnabled())
+    {
+        FreqMeter::modeTest.Switch();
+    }
 
     Channel::SetCurrent(Channel::A);
 

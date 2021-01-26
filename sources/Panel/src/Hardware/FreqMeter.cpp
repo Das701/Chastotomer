@@ -76,13 +76,25 @@ void FreqMeter::LoadCalibration()
     FPGA::WriteCommand(command);
 }
 
+void FreqMeter::LoadCalibrationNoSave()
+{
+    Command command(Command::Calibration);
+
+    if (PageIndication::calibrationMode.IsEnabled())   { }
+    else                                               { command.SetBit(7); 
+                                                         command.SetBit(8);
+                                                         command.SetBit(9); }
+
+    FPGA::WriteCommand(command);
+}
+
 
 void FreqMeter::HardwareReset()
 {
     Command command(Command::Reset);
 
     command.SetBit(7);
-    command.SetBit(9);
+    command.SetBit(8);
 
     FPGA::WriteCommand(command);
 }

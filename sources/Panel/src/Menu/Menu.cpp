@@ -180,10 +180,12 @@ static bool OnKey(const Control &control) //-V2008
     {
         FPGA::GovernorData::Reset();
 
-        FPGA::GovernorData::Write();
+//        FPGA::GovernorData::Write();
 
         PageIndication::calibrationMode.value = CalibrationMode::Disabled;
 
+        FreqMeter::LoadCalibrationNoSave();
+        
         return true;
     }
 
