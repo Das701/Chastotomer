@@ -76,7 +76,7 @@ struct MathFPGA
         static ValueSTRICT dataA;
         static int powDataA;            // Сколько знаков в значении dataA
         static ValueSTRICT dataB;
-        static ValueSTRICT decDataC;
+        static ValueSTRICT dataC;
 
         static void AppendDataMainCounters(uint counterA, uint counterB);
 
