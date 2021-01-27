@@ -259,9 +259,6 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 
     isDivZero = false;
 
-    value1 = 999999840;
-    value2 = 14;
-
     switch (type)
     {
     case TypeData::MainCounters:        AppendDataMainCounters(value1, value2);                                             break;
