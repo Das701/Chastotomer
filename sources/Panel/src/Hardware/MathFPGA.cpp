@@ -259,6 +259,9 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 
     isDivZero = false;
 
+    value1 = 999999840;
+    value2 = 14;
+
     switch (type)
     {
     case TypeData::MainCounters:        AppendDataMainCounters(value1, value2);                                             break;
@@ -458,16 +461,14 @@ void MathFPGA::FillFactor::Calculate(uint period, uint duration)
     value = ValueSTRICT((int64)duration);
     value.DivUINT(period);
 
-    uint power = (period > duration) ? period : duration;       // По этому значению будем вычислять степень - количество значащих знаков
-
     Measure::powDataA = 1;
 
     do
     {
         Measure::powDataA++;
-        power /= 10;
+        period /= 10;
 
-    } while (power > 0);
+    } while (period > 0);
 
     if (ModeDuration::Current().IsPhase())
     {
