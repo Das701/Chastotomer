@@ -107,7 +107,7 @@ void Indicator::DrawData(pString text, int x, int y, Color cDraw, Color cBack)
         }
         else if (*pointer == '.') //-V2516
         {
-            Rectangle(8, 8).Fill(x - 5, y + (int)(sizeLine * 1.7F)); //-V2564
+            Rectangle(8, 8).Fill(x - 5, y + (int)(sizeLine * 1.7F));
             x += DeltaX('.');
         }
 

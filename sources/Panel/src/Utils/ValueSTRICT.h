@@ -56,6 +56,8 @@ struct ValueSTRICT
     // Возвращает знак
     int Sign() const;
 
+    bool IsZero() const;
+
 private:
 
     int sign;       // Если sign < 0 - значение ниже нуля.

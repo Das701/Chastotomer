@@ -144,6 +144,12 @@ double ValueSTRICT::ToDouble() const
 }
 
 
+bool ValueSTRICT::IsZero() const
+{
+    return (units == 0);
+}
+
+
 int ValueSTRICT::Sign() const
 {
     return sign;

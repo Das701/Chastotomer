@@ -92,15 +92,15 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros()
 
         counterA.DivUINT((uint)ModesChannel::timeLabels.ToZeros());
 
-        if (counterA.ToDouble() == 0.0) //-V2550 //-V550
+        if (counterA.IsZero())
         {
             isDivZero = true;
         }
         else
         {
-            ValueSTRICT value(4.0 * ModesChannel::numberPeriods.ToAbs()); //-V2564
+            ValueSTRICT value(4.0 * ModesChannel::numberPeriods.ToAbs());
 
-            value.DivDOUBLE(counterA.ToDouble()); //-V2564
+            value.DivDOUBLE(counterA.ToDouble());
             
             counterA = value;
         }
@@ -126,12 +126,12 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros()
     {
         int sT = ModesChannel::timeMeasure.ToMS();
 
-        if (counterB.ToDouble() == 0.0) //-V2550 //-V550
+        if (counterB.IsZero())
         {
             isDivZero = true;
         }
 
-        counterA.FromDouble(counterA.ToDouble() / counterB.ToDouble() / 32); //-V2564
+        counterA.FromDouble(counterA.ToDouble() / counterB.ToDouble() / 32);
         result = 1000000 * sT;
     }
     else
@@ -174,7 +174,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros()
             }
             else
             {
-                counterC.FromDouble(counterA.ToDouble() * 64 / 1000); //-V2564
+                counterC.FromDouble(counterA.ToDouble() * 64 / 1000);
                 result = mhz;
             }
 
@@ -196,13 +196,13 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 
         decDA = (int)(counterA.ToDouble() / (2.0 * (double)sT));
 
-        if (counterA.ToDouble() == 0.0) //-V550 //-V2550
+        if (counterA.IsZero())
         {
             isDivZero = true;
         }
         else
         {
-            ValueSTRICT value(40000.0 * sT);
+            ValueSTRICT value((int64)(40000) * sT);
 
             value.DivDOUBLE(counterA.ToDouble());
 
@@ -223,7 +223,7 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
         {
             result *= 10;
         }
-        else if (ModesChannel::timeLabels.IsT_8() || ModesChannel::timeLabels.IsT_5()) //-V2516
+        else if (ModesChannel::timeLabels.IsT_8() || ModesChannel::timeLabels.IsT_5())
         {
             result *= 100;
         }
@@ -466,7 +466,7 @@ void MathFPGA::FillFactor::Calculate(uint period, uint duration)
     {
         value.MulUINT(360);
 
-        if (value.ToDouble() == 360.0)
+        if (value.ToDouble() == 360.0) //-V550
         {
             value = ValueSTRICT((int64)0);
         }
@@ -478,7 +478,7 @@ void MathFPGA::FillFactor::Calculate(uint period, uint duration)
             value.SetSign(1);
         }
 
-        if (value.ToDouble() != 0.0)
+        if (!value.IsZero())
         {
             while (value.ToUnits(Order::Milli) < 1000)
             {
@@ -560,7 +560,9 @@ void MathFPGA::Measure::CalculateNewData()
         return;
     }
 
-    if (Channel::Current()->mod.typeMeasure.IsCountPulse())
+    TypeMeasure &type = Channel::Current()->mod.typeMeasure;
+
+    if (type.IsCountPulse())
     {
         double value = counterA.ToDouble() / 2.0;
 
@@ -585,7 +587,7 @@ void MathFPGA::Measure::CalculateNewData()
         {
             Data::SetDigits(String("%10.2f", MathFPGA::Interpolator::value));
         }
-        else if (Channel::Current()->mod.typeMeasure.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
+        else if (type.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
         {
             if (ModeDuration::Current().IsPhase())
             {
@@ -638,8 +640,8 @@ void MathFPGA::Measure::CalculateNewData()
 
             LOG_WRITE(text);
             
-            if ((Channel::Current()->mod.typeMeasure.IsFrequency() && Channel::Current()->mod.modeFrequency.IsT_1()) ||         // ≈сли косвенное измерение частоты
-                Channel::Current()->mod.typeMeasure.IsPeriod() && Channel::Current()->mod.modePeriod.IsF_1())                   // или периода
+            if ((type.IsFrequency() && Channel::Current()->mod.modeFrequency.IsT_1()) ||         // ≈сли косвенное измерение частоты
+                (type.IsPeriod() && Channel::Current()->mod.modePeriod.IsF_1()))                 // или периода
             {
                 SU::LeaveFewDigits(text, 30, powDataA);
             }

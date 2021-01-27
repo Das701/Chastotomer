@@ -6,4 +6,21 @@
    
    *** 1 / f ***
    
-   Input : 
+    Input : counterA
+    Output : outTime, units
+    
+        powDataA
+        sT
+        decDA
+    
+    powDataA = количество значащих цифр в counterA
+    
+    if(Channel::Current() == C)
+    {
+        counterA *= 64
+    }
+    
+    sT = ModesChannel::timeMeasure.ToMS()
+    
+    decDA = counterA / (2 * sT)
+   

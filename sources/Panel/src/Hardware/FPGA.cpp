@@ -467,13 +467,13 @@ bool MathFPGA::Comparator::Stack::AppendValue(double val)
 //        return true;
 //    }
 //
-//    if(val != 0.0) //-V2550 //-V550
+//    if(val != 0.0) //-V550
 //    {
 //        for (int i = 0; i < 5; i++)
 //        {
 //            double fromEnd = GetFromEnd(i);
 //            
-//            if(fromEnd == 0.0) { continue; }                //-V2550 //-V550
+//            if(fromEnd == 0.0) { continue; }                //-V550
 //    
 //            if (val / 10 > fromEnd) { return false; }     // Избавляемся от слишком больших значений
 //    
