@@ -1,4 +1,5 @@
 #pragma once
+#include "Calculator/Calculator.h"
 #include "Menu/Pages/Modes/Modes.h"
 
 
@@ -103,6 +104,8 @@ struct Channel
 
     SettingsChannel set;
     ModesChannel    mod;
+
+    Calculator *calculator;
 
 private:
 

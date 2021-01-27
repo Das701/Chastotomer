@@ -521,6 +521,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Calculator</GroupName>
+          <Files>
+            <File>
+              <FileName>Calculator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Calculator\Calculator.h</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Calculator\Calculator.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Display</GroupName>
           <Files>
             <File>
@@ -1598,6 +1613,21 @@
               <FileName>Settings.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Settings.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Calculator</GroupName>
+          <Files>
+            <File>
+              <FileName>Calculator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Calculator\Calculator.h</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Calculator\Calculator.cpp</FilePath>
             </File>
           </Files>
         </Group>
