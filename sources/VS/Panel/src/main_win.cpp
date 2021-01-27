@@ -43,7 +43,7 @@ void update()
 		break;
 	}
 
-	MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, value, 4839, 1661, 4757, 1661);
+	MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::FillFactorPhase, value, 4839, 1661, 4757, 1661);
 	Display::Refresh();
 	Menu::Update();
 	Display::Update();

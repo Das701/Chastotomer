@@ -30,8 +30,8 @@ uint   MathFPGA::Auto::fpgaMin = 0;
 uint   MathFPGA::Auto::fpgaMid = 0;
 uint   MathFPGA::Auto::fpgaMax = 0;
        
-float  MathFPGA::FillFactor::value = 0.0F;
-int    MathFPGA::FillFactor::zeroes = 0;
+ValueSTRICT MathFPGA::FillFactor::value((int64)0);
+int         MathFPGA::FillFactor::zeroes = 0;
        
 int         MathFPGA::Measure::decDA = 1;
 ValueSTRICT MathFPGA::Measure::decDataA((int64)0);
@@ -259,8 +259,6 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 
     isDivZero = false;
 
-    value1 = 1000;
-
     switch (type)
     {
     case TypeData::MainCounters:        AppendDataMainCounters(value1, value2);                                             break;
@@ -454,38 +452,39 @@ void MathFPGA::FillFactor::Calculate(uint period, uint duration)
 {
     LOG_WRITE("%d %d", period, duration);
 
-    value = (float)duration / (float)period;
+    value = ValueSTRICT((int64)duration);
+    value.DivUINT(period);
 
-    Measure::powDataA = 0;
+    Measure::powDataA = 1;
 
     do
     {
         Measure::powDataA++;
-        period /= 10;
+        duration /= 10;
 
-    } while (period > 0);
+    } while (duration > 0);
 
     if (ModeDuration::Current().IsPhase())
     {
-        value *= 360; //-V2564
+        value.MulUINT(360);
 
-        if (value == 360.0F) //-V2550 //-V550
+        if (value.ToDouble() == 360.0)
         {
-            value = 0.0F;
+            value = ValueSTRICT((int64)0);
         }
     }
     else
     {
-        if (value < 0) //-V2564
+        if (value.Sign() < 0)
         {
-            value *= -1; //-V2564
+            value.SetSign(1);
         }
 
-        if (value != 0.0F) //-V2550 //-V550
+        if (value.ToDouble() != 0.0)
         {
-            while (value < 1) //-V2564
+            while (value.ToUnits(Order::Milli) < 1000)
             {
-                value *=  10; //-V2564
+                value.MulUINT(10);
                 zeroes++;
             }
         }
@@ -592,7 +591,7 @@ void MathFPGA::Measure::CalculateNewData()
         {
             if (ModeDuration::Current().IsPhase())
             {
-                if (Math::InBound(MathFPGA::FillFactor::value, 0.0F, 360.0F))
+                if (Math::InBound((float)MathFPGA::FillFactor::value.ToDouble(), 0.0F, 360.0F))
                 {
                     Data::SetDigits(String("%10.3f", MathFPGA::FillFactor::value));
                 }
@@ -604,8 +603,8 @@ void MathFPGA::Measure::CalculateNewData()
             else
             {
                 char buffer[30];
-                std::sprintf(buffer, "%10.7f", MathFPGA::FillFactor::value);
-                SU::LeaveFewDigits(buffer, 30, powDataA);
+                std::sprintf(buffer, "%10.10f", MathFPGA::FillFactor::value.ToDouble());
+                SU::LeaveFewDigits(buffer, 30, powDataA - 1);
                 Data::SetDigits(String(buffer));
             }
         }

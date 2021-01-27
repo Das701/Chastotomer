@@ -105,7 +105,7 @@ struct MathFPGA
     {
         friend struct Measure;
     private:
-        static float value;
+        static ValueSTRICT value;
         static int zeroes;
         static void Calculate(uint period, uint duration);
     };

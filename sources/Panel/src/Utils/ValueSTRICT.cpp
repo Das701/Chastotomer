@@ -26,20 +26,15 @@ ValueSTRICT::ValueSTRICT(int64 v) :
         v = -v;
     }
 
-    uint64 prevUnits = 0;
-    uint64 _units = v * _order.UnitsInOne();
-    Order::E prevOrder = _order.value;
+    units = v * order.UnitsInOne();
 
-    while (_units > prevUnits && _order.Increase())
+    while (units < (MAX_UINT64 / THOUSAND))
     {
-        prevUnits = _units;
-        prevOrder = _order.value - 1;
-        _units = v * _order.UnitsInOne();
+        if (order.Increase())
+            units *= THOUSAND;
+        else
+            break;
     }
-
-    units = prevUnits;
-
-    order.value = prevOrder;
 }
 
 
