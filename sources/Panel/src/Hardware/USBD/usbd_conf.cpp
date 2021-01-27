@@ -202,7 +202,7 @@ USBD_StatusTypeDef USBD_LL_ClearStallEP(USBD_HandleTypeDef *pdev, uint8_t ep_add
     return USBD_OK; 
 }
 
-uint8_t USBD_LL_IsStallEP(USBD_HandleTypeDef *pdev, uint8_t ep_addr)    //-V2506
+uint8_t USBD_LL_IsStallEP(USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
 {
     PCD_HandleTypeDef *hpcd = (PCD_HandleTypeDef *)pdev->pData;  //-V2533 //-V2571
   

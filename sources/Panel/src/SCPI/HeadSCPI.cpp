@@ -19,7 +19,7 @@ const StructSCPI SCPI::head[] =
 };
 
 
-static pCHAR FuncIDN(pCHAR buffer) //-V2506
+static pCHAR FuncIDN(pCHAR buffer)
 {
     SCPI_PROLOG(buffer)
 
@@ -29,7 +29,7 @@ static pCHAR FuncIDN(pCHAR buffer) //-V2506
 }
 
 
-static pCHAR FuncPicture(pCHAR buffer) //-V2506
+static pCHAR FuncPicture(pCHAR buffer)
 {
     SCPI_PROLOG(buffer);
 
@@ -39,7 +39,7 @@ static pCHAR FuncPicture(pCHAR buffer) //-V2506
 }
 
 
-static pCHAR FuncReset(pCHAR buffer) //-V2506
+static pCHAR FuncReset(pCHAR buffer)
 {
     SCPI_PROLOG(buffer)
         

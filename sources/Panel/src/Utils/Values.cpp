@@ -10,7 +10,7 @@
 const float Float::ERROR = std::numeric_limits<float>::quiet_NaN();
 
 
-static char *FloatToString(float value, bool alwaysSign, int numDigits, char bufferOut[20]) //-V2506
+static char *FloatToString(float value, bool alwaysSign, int numDigits, char bufferOut[20])
 {
     if (Math::IsEquals(value, Float::ERROR))
     {

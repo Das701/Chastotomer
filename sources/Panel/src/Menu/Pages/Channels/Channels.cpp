@@ -196,7 +196,7 @@ bool TypeMeasure::IsActiveTimeComparator(int mode)
 }
 
 
-bool TypeMeasure::IsActiveTimeMeasure(int m) //-V2506
+bool TypeMeasure::IsActiveTimeMeasure(int m)
 {
     if (IsFrequency())
     {
@@ -223,7 +223,7 @@ bool TypeMeasure::IsActiveTimeMeasure(int m) //-V2506
 }
 
 
-bool TypeMeasure::IsActiveNumberPeriods(int m) //-V2506
+bool TypeMeasure::IsActiveNumberPeriods(int m)
 {
     if (IsFrequency())
     {
@@ -269,7 +269,7 @@ bool TypeMeasure::IsActiveNumberPeriods(int m) //-V2506
 #endif
 
 
-bool ModesChannel::ConsistTimeMeasure() //-V2506
+bool ModesChannel::ConsistTimeMeasure()
 {
     if (typeMeasure.IsFrequency())
     {

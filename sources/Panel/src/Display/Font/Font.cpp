@@ -25,7 +25,7 @@ struct NativeSymbol
         return result;
     }
     // Возвращает указатель на первый байт строки
-    uint8 *GetRow(int row) //-V2506
+    uint8 *GetRow(int row)
     {
         if (row > height - 1)
         {
@@ -42,7 +42,7 @@ struct NativeSymbol
     // Возвращает указатель на первый байт данных
     uint8 *Data();
 
-    bool BitIsExist(int r, int b) //-V2506
+    bool BitIsExist(int r, int b)
     {
         uint8 *row = GetRow(r);
 
@@ -69,7 +69,7 @@ struct HeaderFont
     NativeSymbol symbol;        // Первый символ в таблице его смещение 256
 
     // Возвращает указатель на символ, если он присутствует в таблице и nullptr в обратном случае
-    NativeSymbol *GetSymbol(uint8 num) //-V2506
+    NativeSymbol *GetSymbol(uint8 num)
     {
         HeaderFont *header = HeaderFont::Sefl();
 
@@ -118,7 +118,7 @@ void Font::Set(const TypeFont::E typeFont)
 }
 
 
-uint8 Font::GetWidth(uint8 num) //-V2506
+uint8 Font::GetWidth(uint8 num)
 {
     if (num == 0x20)
     {
@@ -171,7 +171,7 @@ uint8 Font::GetHeight(uint8 s)
 }
 
 
-bool Font::RowNotEmpty(uint8 s, int r) //-V2506
+bool Font::RowNotEmpty(uint8 s, int r)
 {
     HeaderFont *header = HeaderFont::Sefl();
 

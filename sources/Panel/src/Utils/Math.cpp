@@ -20,7 +20,7 @@ template void  Math::CircleDecrease<int>(int *, int, int);
 template int16 Math::Abs<int16>(int16);
 template int   Math::Abs<int>(int);
 
-int Math::DigitsInIntPart(float value) //-V2506
+int Math::DigitsInIntPart(float value)
 {
     if (value == std::numeric_limits<float>::infinity())
     {
@@ -69,7 +69,7 @@ bool Math::IsEquals(float x, float y)
 
 
 template<class T>
-T Math::Abs(T x) //-V2506
+T Math::Abs(T x)
 {
      if (x < (T)0)
      {
@@ -120,7 +120,7 @@ int Math::Pow10(int pow)
 }
 
 
-int Math::Sign(int val) //-V2506
+int Math::Sign(int val)
 {
     if (val < 0)
     {

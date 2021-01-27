@@ -338,7 +338,7 @@ void FPGA::GovernorData::SetValueCalibrator(uint value)
 }
 
 
-void FPGA::GovernorData::Write() //-V2506
+void FPGA::GovernorData::Write()
 {
     Calculate();
 
@@ -482,7 +482,7 @@ bool MathFPGA::Comparator::Stack::AppendValue(double val)
 }
 
 
-double MathFPGA::Comparator::Stack::GetFromEnd(int fromEnd) //-V2506
+double MathFPGA::Comparator::Stack::GetFromEnd(int fromEnd)
 {
     if (fromEnd < 0 || fromEnd > (Size() - 1))
     {

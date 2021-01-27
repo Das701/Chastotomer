@@ -41,7 +41,7 @@ void Stack<T>::Push(T elem)
 
 
 template <typename T>
-T Stack<T>::Pop() //-V2506
+T Stack<T>::Pop()
 {
     if(numElements != 0)
     {

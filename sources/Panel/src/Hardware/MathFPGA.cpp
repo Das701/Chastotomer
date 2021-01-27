@@ -228,7 +228,7 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 }
 
 
-int MathFPGA::Measure::CalculateDurationEmptyZeros() //-V2506
+int MathFPGA::Measure::CalculateDurationEmptyZeros()
 {
     if (ModesChannel::timeLabels.IsT_7())
     {
@@ -243,7 +243,7 @@ int MathFPGA::Measure::CalculateDurationEmptyZeros() //-V2506
 }
 
 
-void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3, uint value4, uint value5) //-V2506
+void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3, uint value4, uint value5)
 {
     if (Validator::VerySmallTime())
     {
@@ -565,7 +565,7 @@ void MathFPGA::Measure::Calculate(int &pow, ValueSTRICT &data)
 }
 
 
-void MathFPGA::Measure::CalculateNewData() //-V2506
+void MathFPGA::Measure::CalculateNewData()
 {
     if (FPGA::IsOverloaded())
     {

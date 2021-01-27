@@ -58,7 +58,7 @@ void Object::Update(Object::ModeDraw::E mode)
 }
 
 
-void Object::Refresh() //-V2506
+void Object::Refresh()
 {
     if (this == Display::zoneProgressBarTimeMeasure)
     {

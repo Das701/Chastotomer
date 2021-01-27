@@ -20,7 +20,7 @@ const StructSCPI SCPI::input[] =
 };
 
 
-static pCHAR FuncCoupling(pCHAR buffer) //-V2506
+static pCHAR FuncCoupling(pCHAR buffer)
 {
     static pString coupling[] =
     {
@@ -34,7 +34,7 @@ static pCHAR FuncCoupling(pCHAR buffer) //-V2506
 }
 
 
-static pCHAR FuncFilter(pCHAR buffer) //-V2506
+static pCHAR FuncFilter(pCHAR buffer)
 {
     static pString filter[] =
     {
