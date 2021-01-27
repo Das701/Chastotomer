@@ -452,17 +452,22 @@ void MathFPGA::FillFactor::Calculate(uint period, uint duration)
 {
     LOG_WRITE("%d %d", period, duration);
 
+    if (period == 0 && duration == 0)
+        period = 1;
+
     value = ValueSTRICT((int64)duration);
     value.DivUINT(period);
+
+    uint power = (period > duration) ? period : duration;       // По этому значению будем вычислять степень - количество значащих знаков
 
     Measure::powDataA = 1;
 
     do
     {
         Measure::powDataA++;
-        duration /= 10;
+        power /= 10;
 
-    } while (duration > 0);
+    } while (power > 0);
 
     if (ModeDuration::Current().IsPhase())
     {
@@ -535,7 +540,7 @@ void MathFPGA::Measure::Calculate(int &pow, ValueSTRICT &data)
 
     data.DivUINT((uint)(2 * emptyZeros));
 
-    pow = (int)std::log10(emptyZeros);
+    pow = (int)std::log10((float)emptyZeros);
 }
 
 
@@ -593,7 +598,7 @@ void MathFPGA::Measure::CalculateNewData()
             {
                 if (Math::InBound((float)MathFPGA::FillFactor::value.ToDouble(), 0.0F, 360.0F))
                 {
-                    Data::SetDigits(String("%10.3f", MathFPGA::FillFactor::value));
+                    Data::SetDigits(String("%10.3f", MathFPGA::FillFactor::value.ToDouble()));
                 }
                 else
                 {
