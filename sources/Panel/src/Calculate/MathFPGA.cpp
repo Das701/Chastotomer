@@ -250,12 +250,20 @@ int MathFPGA::Measure::CalculateDurationEmptyZeros()
 }
 
 
-void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3,
-    uint value4, uint value5)
+void MathFPGA::Measure::SetNewData(TypeData::E type, uint value1, uint value2, uint value3, uint value4, uint value5)
 {
     isDivZero = false;
 
     value1 = 5000000;
+
+    if (CreateValue(type, value1, value2, value3, value4, value5))
+    {
+        Validator::SetValidData();
+
+        ProgressBarTimeMeasureZone::timeStart = TIME_MS;
+
+        return;
+    }
 
     switch (type)
     {
@@ -283,6 +291,26 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
     Validator::SetValidData();
 
     ProgressBarTimeMeasureZone::timeStart = TIME_MS;
+}
+
+
+bool MathFPGA::Measure::CreateValue(TypeData::E typeData,
+    uint value1, uint value2, uint value3, uint value4, uint value5)
+{
+    TypeMeasure &type = Channel::Current()->mod.typeMeasure;
+
+    if (typeData == TypeData::MainCounters)
+    {
+        if (type.IsFrequency())
+        {
+            if (Channel::Current()->mod.modeFrequency.IsFrequency())
+            {
+
+            }
+        }
+    }
+
+    return false;
 }
 
 
