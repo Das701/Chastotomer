@@ -2,6 +2,7 @@
 #include "Log.h"
 #include "Settings.h"
 #include "Calculate/MathFPGA.h"
+#include "Calculate/ValueFrequency.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
 #include "Hardware/FPGA.h"
@@ -296,7 +297,7 @@ void MathFPGA::Measure::SetNewData(TypeData::E type, uint value1, uint value2, u
 
 
 bool MathFPGA::Measure::CreateValue(TypeData::E typeData,
-    uint, uint, uint, uint, uint)
+    uint value1, uint, uint, uint, uint)
 {
     TypeMeasure &type = Channel::Current()->mod.typeMeasure;
 
@@ -312,7 +313,7 @@ bool MathFPGA::Measure::CreateValue(TypeData::E typeData,
         {
             if (Channel::Current()->mod.modeFrequency.IsFrequency())
             {
-
+                valueFPGA = new ValueFrequency_Frequency(value1);
             }
         }
     }

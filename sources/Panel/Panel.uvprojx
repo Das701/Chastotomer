@@ -588,6 +588,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\Calculate\ValuePeriod.h</FilePath>
             </File>
+            <File>
+              <FileName>ValueFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Calculate\ValueFPGA.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1728,6 +1733,11 @@
               <FileName>ValuePeriod.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Calculate\ValuePeriod.h</FilePath>
+            </File>
+            <File>
+              <FileName>ValueFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Calculate\ValueFPGA.cpp</FilePath>
             </File>
           </Files>
         </Group>
