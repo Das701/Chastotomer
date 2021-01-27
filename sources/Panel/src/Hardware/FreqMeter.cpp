@@ -218,7 +218,7 @@ void PeriodTimeLabels::LoadToFPGA()
 
 void PeriodTimeLabels::Set(E v)
 {
-    ModesChannel::timeLabels.value = (uint8)v; //-V2533
+    ModesChannel::timeLabels.value = (uint8)v;
     LoadToFPGA();
 }
 
@@ -275,7 +275,7 @@ void NumberPeriods::LoadToFPGA()
 
 void NumberPeriods::Set(E v)
 {
-    ModesChannel::numberPeriods.value = (uint8)v; //-V2533
+    ModesChannel::numberPeriods.value = (uint8)v;
     LoadToFPGA();
 }
 

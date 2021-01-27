@@ -21,9 +21,9 @@ static Color current = Color::BLACK;
 void Color::SetAsCurrent()
 {
     uint val = COLOR(value);
-    uint8 b = (uint8)val; //-V2533
-    uint8 g = (uint8)(val >> 8); //-V2533
-    uint8 r = (uint8)(val >> 16); //-V2533
+    uint8 b = (uint8)val;
+    uint8 g = (uint8)(val >> 8);
+    uint8 r = (uint8)(val >> 16);
 
     wxColour colorDraw = wxColour(r, g, b);
 

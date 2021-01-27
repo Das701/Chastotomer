@@ -80,7 +80,7 @@ struct MathFPGA
 
         static void AppendDataMainCounters(uint counterA, uint counterB);
 
-        static int CalculateFrequencyEmptyZeros(int &manualZeros);
+        static int CalculateFrequencyEmptyZeros();
         static int CalculatePeriodEmptyZeros();
         static int CalculateDurationEmptyZeros();
 

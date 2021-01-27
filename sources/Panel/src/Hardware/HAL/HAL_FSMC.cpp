@@ -116,7 +116,7 @@ struct StructPIO
 
     void Write(int state) const
     {
-        HAL_GPIO_WritePin(gpio, pin, (GPIO_PinState)state); //-V2533
+        HAL_GPIO_WritePin(gpio, pin, (GPIO_PinState)state);
     }
 
     int Read() const
@@ -262,7 +262,7 @@ void HAL_FSMC::WriteData(uint data)
     //pinWR.Reset();
     PORT_WR->BSRR = PIN_WR << 16; //-V2571
 
-    DataBus::Set((uint16)data); //-V2533
+    DataBus::Set((uint16)data);
 
     //pinWR.Set();
     PORT_WR->BSRR = PIN_WR; //-V2571
@@ -280,17 +280,17 @@ static void WindowSet(int s_x, int e_x, int s_y, int e_y)
 {
     HAL_FSMC::WriteCommand(0x2a);               //SET page address
 
-    HAL_FSMC::WriteData((uint)((s_x) >> 8));    //SET start page address=0 //-V2533
-    HAL_FSMC::WriteData((uint)s_x); //-V2533
-    HAL_FSMC::WriteData((uint)(e_x) >> 8);      //SET end page address //-V2533
-    HAL_FSMC::WriteData((uint)e_x); //-V2533
+    HAL_FSMC::WriteData((uint)((s_x) >> 8));    //SET start page address=0
+    HAL_FSMC::WriteData((uint)s_x);
+    HAL_FSMC::WriteData((uint)(e_x) >> 8);      //SET end page address
+    HAL_FSMC::WriteData((uint)e_x);
 
     HAL_FSMC::WriteCommand(0x2b);               //SET column address
 
-    HAL_FSMC::WriteData((uint)(s_y) >> 8);      //SET start column address=0 //-V2533
-    HAL_FSMC::WriteData((uint)s_y); //-V2533
-    HAL_FSMC::WriteData((uint)(e_y) >> 8);      //SET end column address //-V2533
-    HAL_FSMC::WriteData((uint)e_y); //-V2533
+    HAL_FSMC::WriteData((uint)(s_y) >> 8);      //SET start column address=0
+    HAL_FSMC::WriteData((uint)s_y);
+    HAL_FSMC::WriteData((uint)(e_y) >> 8);      //SET end column address
+    HAL_FSMC::WriteData((uint)e_y);
 }
 
 
@@ -377,8 +377,8 @@ void DataBus::Set(uint16 data)
         InitWrite();
     }
 
-    GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data; //-V2533 //-V2571
-    GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8); //-V2533 //-V2571
+    GPIOA->ODR = (GPIOA->ODR & 0xff00) + (uint8)data; //-V2571
+    GPIOC->ODR = (GPIOC->ODR & 0xff00) + (uint8)(data >> 8); //-V2571
 }
 
 
@@ -399,7 +399,7 @@ uint16 DataBus::Read()
 
     for(int i = 0; i < 16; i++)
     {
-        uint16 bit = (uint16)((pins[i].Read() & 0x01) << i); //-V2533
+        uint16 bit = (uint16)((pins[i].Read() & 0x01) << i);
 
         result |= bit;
     }

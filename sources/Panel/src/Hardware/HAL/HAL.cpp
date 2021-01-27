@@ -103,5 +103,5 @@ void SystemClock_Config(void)
 
 void HAL::ERROR_HANDLER()
 {
-    *((int*)((void*)0)) = 0; //-V2533
+    *((int*)((void*)0)) = 0;
 }

@@ -179,13 +179,13 @@ void Switch::NextChoice()
 {
     if (state->correct == nullptr)
     {
-        Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1)); //-V2533
+        Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
     }
     else
     {
         do 
         {
-            Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1)); //-V2533
+            Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
         } while (state->correct[state->value] == false); //-V2563
     }
 
@@ -314,15 +314,15 @@ void Page::OnEvent(EventType::E event)
 
 TypeMeasure *PageModes::GetTypeMeasure() const
 {
-    Switch *item = (Switch *)items[0]; //-V2533 //-V2563
+    Switch *item = (Switch *)items[0]; //-V2563
 
-    return (TypeMeasure *)item->state; //-V2533
+    return (TypeMeasure *)item->state;
 }
 
 
 int PageModes::GetModeMeasure() const
 {
-    Switch *item = (Switch *)items[1]; //-V2533 //-V2563
+    Switch *item = (Switch *)items[1]; //-V2563
 
     if (item != nullptr)
     {
@@ -337,7 +337,7 @@ int PageModes::GetModeMeasure() const
 
 bool PageModes::ExistTypeMeasure(uint8 type) const
 {
-    Switch *item = (Switch *)items[0]; //-V2533 //-V2563
+    Switch *item = (Switch *)items[0]; //-V2563
 
     return item->state->correct[type]; //-V2563
 }
@@ -345,7 +345,7 @@ bool PageModes::ExistTypeMeasure(uint8 type) const
 
 void PageModes::ResetTypeAndModeMeasure()
 {
-    Switch *type = (Switch *)items[0]; //-V2533 //-V2563
+    Switch *type = (Switch *)items[0]; //-V2563
 
     if (type->state->correct == nullptr)
     {
@@ -357,7 +357,7 @@ void PageModes::ResetTypeAndModeMeasure()
         {
             if (type->state->correct[i]) //-V2563
             {
-                type->state->value = (uint8)i; //-V2533
+                type->state->value = (uint8)i;
                 break;
             }
         }
@@ -369,14 +369,14 @@ void PageModes::ResetTypeAndModeMeasure()
 
 bool PageModes::ExistModeMeasure(int mode) const
 {
-    Switch *item = (Switch *)items[1]; //-V2533 //-V2563
+    Switch *item = (Switch *)items[1]; //-V2563
 
     return item->state->correct[mode]; //-V2563
 }
 
 void PageModes::ResetModeMeasure()
 {
-    Switch *mode = (Switch *)items[1]; //-V2533 //-V2563
+    Switch *mode = (Switch *)items[1]; //-V2563
 
     if (mode->state->correct == nullptr)
     {
@@ -388,7 +388,7 @@ void PageModes::ResetModeMeasure()
         {
             if (mode->state->correct[i]) //-V2563
             {
-                mode->state->value = (uint8)i; //-V2533
+                mode->state->value = (uint8)i;
                 break;
             }
         }

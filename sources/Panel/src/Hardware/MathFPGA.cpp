@@ -70,7 +70,7 @@ void MathFPGA::Data::SetUnits(const String &_units)
 }
 
 
-int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
+int MathFPGA::Measure::CalculateFrequencyEmptyZeros()
 {
     int result = 0;
 
@@ -78,20 +78,18 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 
     if (mode.IsT_1())
     {
-        //manualZeros = 10 * ModesChannel::timeLabels.ToZeros() / 1000 * ModesChannel::numberPeriods.ToAbs();
-
-        manualZeros = 1;
+        result = 1;
 
         uint v = (uint)decDataA.ToDouble();
 
         do 
         {
-            manualZeros *= 10;
+            result *= 10;
             v /= 10;
 
         } while (v > 0);
 
-        decDataA.DivUINT((uint)ModesChannel::timeLabels.ToZeros()); //-V2533
+        decDataA.DivUINT((uint)ModesChannel::timeLabels.ToZeros());
 
         if (decDataA.ToDouble() == 0.0) //-V2550 //-V550
         {
@@ -101,12 +99,12 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
         {
             ValueSTRICT value(4.0 * ModesChannel::numberPeriods.ToAbs()); //-V2564
 
-            value.DivDOUBLE(decDataA.ToDouble()); //-V2533 //-V2564
+            value.DivDOUBLE(decDataA.ToDouble()); //-V2564
             
             decDataA = value;
         }
 
-        decDA = (int)(decDataA.ToDouble() / 2.0); //-V2533
+        decDA = (int)(decDataA.ToDouble() / 2.0);
 
         if (decDA < 1000)      { }
         else if (decDA < 1000000)   { decDataA.DivUINT(1000);    }
@@ -133,15 +131,14 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
         }
 
         decDataA.FromDouble(decDataA.ToDouble() / decDataB.ToDouble() / 32); //-V2564
-        manualZeros = 1000000 * sT;
-        result = 1;
+        result = 1000000 * sT;
     }
     else
     {
         int mhz = 1000 * ModesChannel::timeMeasure.ToMS();
         int khz = ModesChannel::timeMeasure.ToMS();
 
-        if (((decDataA.ToDouble() / (float)khz) / 2.0F) < 1000.0F) //-V2533
+        if (((decDataA.ToDouble() / (float)khz) / 2.0F) < 1000.0F)
         {
             result = khz;
         }
@@ -149,7 +146,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
         {
             result = mhz;
         }
-        decDA = (int)((decDataA.ToDouble() / (double)khz) / 2.0); //-V2533
+        decDA = (int)((decDataA.ToDouble() / (double)khz) / 2.0);
 
         if (CURRENT_CHANNEL_IS_C)
         {
@@ -169,7 +166,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
 
         if (CURRENT_CHANNEL_IS_D)
         {
-            if (decDataA.ToDouble() * 64.0F / (1000.0F * (float)khz) > 19000.0F) //-V2533
+            if (decDataA.ToDouble() * 64.0F / (1000.0F * (float)khz) > 19000.0F)
             {
                 decDataC.FromDouble(0.0);
                 result = khz;
@@ -180,7 +177,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros(int &manualZeros)
                 result = mhz;
             }
 
-            decDA = (int)decDataC.ToUnits(Order::Nano); //-V2533
+            decDA = (int)decDataC.ToUnits(Order::Nano);
         }
     }
 
@@ -196,7 +193,7 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
     {
         int sT = ModesChannel::timeMeasure.ToMS();
 
-        decDA = (int)(decDataA.ToDouble() / (2.0 * (double)sT)); //-V2533
+        decDA = (int)(decDataA.ToDouble() / (2.0 * (double)sT));
 
         if (decDataA.ToDouble() == 0.0) //-V550 //-V2550
         {
@@ -384,7 +381,7 @@ void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
 {
     LOG_WRITE("%d", counterA);
 
-    decDataA.FromDouble((double)counterA); //-V2533
+    decDataA.FromDouble((double)counterA);
 
     powDataA = 0;
 
@@ -417,19 +414,19 @@ void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
 
 int MathFPGA::Auto::Mid()
 {
-    return (int)fpgaMid; //-V2533
+    return (int)fpgaMid;
 }
 
 
 int MathFPGA::Auto::Min()
 {
-    return (int)fpgaMin; //-V2533
+    return (int)fpgaMin;
 }
 
 
 int MathFPGA::Auto::Max()
 {
-    return (int)fpgaMax; //-V2533
+    return (int)fpgaMax;
 }
 
 
@@ -437,18 +434,18 @@ String MathFPGA::Auto::Give()
 {
     if (CURRENT_CHANNEL_IS_A)
     {
-        LEVEL_SYNCH_A = ((int)fpgaMid - 512) * 2; //-V2533
-        NA = (int)fpgaMid - 512; //-V2533
+        LEVEL_SYNCH_A = ((int)fpgaMid - 512) * 2;
+        NA = (int)fpgaMid - 512;
     }
 
     if (CURRENT_CHANNEL_IS_B)
     {
-        LEVEL_SYNCH_B = ((int)fpgaMid - 512) * 2; //-V2533
-        NB = (int)fpgaMid - 512; //-V2533
+        LEVEL_SYNCH_B = ((int)fpgaMid - 512) * 2;
+        NB = (int)fpgaMid - 512;
 
     }
 
-    return String("Макс %s Мин %s", SU::Int2String(((int)fpgaMax - 512) * 2).c_str(), SU::Int2String(((int)fpgaMin - 512) * 2).c_str()); //-V2533
+    return String("Макс %s Мин %s", SU::Int2String(((int)fpgaMax - 512) * 2).c_str(), SU::Int2String(((int)fpgaMin - 512) * 2).c_str());
 }
 
 
@@ -456,7 +453,7 @@ void MathFPGA::FillFactor::Calculate(uint period, uint duration)
 {
     LOG_WRITE("%d %d", period, duration);
 
-    value = (float)duration / (float)period; //-V2533
+    value = (float)duration / (float)period;
 
     Measure::powDataA = 0;
 
@@ -531,38 +528,21 @@ String MathFPGA::BinToString(pString bin, int num)
 
 void MathFPGA::Measure::Calculate(int &pow, ValueSTRICT &data)
 {
-    int manualZeros = 1;
-
     int emptyZeros = 0;
 
-    TypeMeasure &type = Channel::Current()->mod.typeMeasure;
-
-    if (type.IsFrequency())
+    switch (Channel::Current()->mod.typeMeasure.value)
     {
-        emptyZeros = CalculateFrequencyEmptyZeros(manualZeros);
+    case TypeMeasure::Frequency:    emptyZeros = CalculateFrequencyEmptyZeros();    break;
+    case TypeMeasure::Duration:     emptyZeros = CalculateDurationEmptyZeros();     break;
+    case TypeMeasure::Period:       emptyZeros = CalculatePeriodEmptyZeros();       break;
     }
-    else if (type.IsDuration())
-    {
-        emptyZeros = CalculateDurationEmptyZeros();
-    }
-    else if (type.IsPeriod()) //-V2516
-    {
-        emptyZeros = CalculatePeriodEmptyZeros();
-    }
-
-    data = decDataA;
 
     if (CURRENT_CHANNEL_IS_D)
-    {
         data.FromDouble(decDataC.ToDouble());
-    }
+    else
+        data = decDataA;
 
-    data.DivUINT((uint)(2 * emptyZeros)); //-V2533
-
-    if (manualZeros != 1) //-V1051
-    {
-        emptyZeros = manualZeros;
-    }
+    data.DivUINT((uint)(2 * emptyZeros));
 
     pow = 0;
 
@@ -588,7 +568,7 @@ void MathFPGA::Measure::CalculateNewData()
 
         if (ModeCountPulse::Current().IsFromPeriod())
         {
-            value /= (double)ModesChannel::numberPeriods.ToAbs(); //-V2533
+            value /= (double)ModesChannel::numberPeriods.ToAbs();
         }
 
         Data::SetDigits(String("%10.0f", value));
@@ -689,7 +669,7 @@ void MathFPGA::Measure::CalculateUnits()
         else
         {
             String result(" E-0");
-            result[3] = (char)(FillFactor::zeroes | 0x30); //-V2533
+            result[3] = (char)(FillFactor::zeroes | 0x30);
 
             FillFactor::zeroes = 0;
 
@@ -778,5 +758,5 @@ void MathFPGA::Auto::Refresh()
 
 void MathFPGA::Interpolator::Calculate(uint timer, uint cal1, uint cal2)
 {
-    value = (float)(100 * timer) / (float)(cal2 - cal1); //-V2533
+    value = (float)(100 * timer) / (float)(cal2 - cal1);
 }

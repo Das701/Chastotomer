@@ -132,9 +132,9 @@ bool ProgressBarTimeMeasureZone::Draw()
     {
         int timeCycle = ModesChannel::timeMeasure.ToMS();
 
-        float part = ((float)(TIME_MS - timeStart) / (float)timeCycle); //-V2533
+        float part = ((float)(TIME_MS - timeStart) / (float)timeCycle);
 
-        int w = (int)(46.0F * part) + 1; //-V2533
+        int w = (int)(46.0F * part) + 1;
 
         LIMITATION(w, 0, Width() - 1); //-V2516
 

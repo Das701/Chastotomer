@@ -118,7 +118,7 @@ static void OnPress_Sync()
         Channel::B->pageSettings->selectedItem = 5;
     }
 
-    TYPE_SYNCH_B = (TypeSynch::E)Channel::B->set.typeSynch.value; //-V2533
+    TYPE_SYNCH_B = (TypeSynch::E)Channel::B->set.typeSynch.value;
 
     TypeSynch::LoadToFPGA();
 }

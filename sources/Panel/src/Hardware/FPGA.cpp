@@ -403,7 +403,7 @@ int FPGA::GovernorData::ValueCalibrator()
 
     LIMITATION_BELOW(value, 0);
 
-    return value; //-V2533
+    return value;
 }
 
 
@@ -411,7 +411,7 @@ void FPGA::GovernorData::Calculate()
 {
     if (PageIndication::calibrationMode.IsEnabled())
     {
-        MathFPGA::DecToBin(ValueCalibrator(), encData); //-V2533
+        MathFPGA::DecToBin(ValueCalibrator(), encData);
     }
     else
     {

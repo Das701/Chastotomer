@@ -243,5 +243,5 @@ int Font::GetLengthSymbols(pCHAR start, int num)
 
 int Font::GetLengthText(pCHAR text)
 {
-    return GetLengthSymbols(text, (int)std::strlen(text)); //-V2513 //-V2533
+    return GetLengthSymbols(text, (int)std::strlen(text)); //-V2513
 }

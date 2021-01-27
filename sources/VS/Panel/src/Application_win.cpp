@@ -117,7 +117,7 @@ void Frame::DrawFPS()
 
     if (TIME_MS - prevTime > 1000)
     {
-        float fps = (float)count / (float)(TIME_MS - prevTime) * 1000.0F; //-V2533
+        float fps = (float)count / (float)(TIME_MS - prevTime) * 1000.0F;
 
         char buffer[100];
         sprintf(buffer, "fps %f", fps);

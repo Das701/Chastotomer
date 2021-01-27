@@ -17,7 +17,7 @@ struct Enumeration
                             // value не может значения индексов, соответствующих false
     int numStates;
     explicit Enumeration(uint8 v, const bool *_correct = nullptr, int states = 0) : value(v), names(nullptr), ugo(nullptr), correct(_correct), numStates(states) {}
-    operator int()         { return (int)value; } //-V2533
+    operator int()         { return (int)value; }
     String ToString() const;
     char *UGO() const;
     int NumStates() const;

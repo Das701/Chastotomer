@@ -261,7 +261,7 @@ float SU::StringToFloat(const char *string)
 
         while (stack.Size() > 0)
         {
-            result += static_cast<float>(pow) * (float)stack.Pop(); //-V2533
+            result += static_cast<float>(pow) * (float)stack.Pop();
             pow *= 10;
         }
     }
@@ -281,7 +281,7 @@ float SU::StringToFloat(const char *string)
             {
                 break;
             }
-            result += pow * (float)(symbol & 0x0f); //-V2533
+            result += pow * (float)(symbol & 0x0f);
             pow /= 10.0F;
             string++;
         }

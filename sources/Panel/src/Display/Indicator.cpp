@@ -96,9 +96,9 @@ void Indicator::DrawData(pString text, int x, int y, Color cDraw, Color cBack)
     {
         if ((*pointer >= '0' && *pointer <= '9'))
         {
-            DrawDigit(x, y, (uint8)(*pointer - 0x30)); //-V2533
+            DrawDigit(x, y, (uint8)(*pointer - 0x30));
 
-            x += DeltaX((uint8)*pointer); //-V2533
+            x += DeltaX((uint8)*pointer);
         }
         else if (*pointer == '-')
         {
@@ -107,7 +107,7 @@ void Indicator::DrawData(pString text, int x, int y, Color cDraw, Color cBack)
         }
         else if (*pointer == '.') //-V2516
         {
-            Rectangle(8, 8).Fill(x - 5, y + (int)(sizeLine * 1.7F)); //-V2533 //-V2564
+            Rectangle(8, 8).Fill(x - 5, y + (int)(sizeLine * 1.7F)); //-V2564
             x += DeltaX('.');
         }
 
@@ -124,7 +124,7 @@ void Indicator::DrawDataAboutRight(pString text, int xRight, int y, Color cDraw,
 
     while (*pointer != '\0')
     {
-        length += DeltaX((uint8)*pointer); //-V2533
+        length += DeltaX((uint8)*pointer);
         pointer++;
     }
 

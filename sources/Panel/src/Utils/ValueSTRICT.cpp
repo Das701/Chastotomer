@@ -198,7 +198,7 @@ void ValueSTRICT::SetSign(int s)
 
 int ValueComparator::Integer() const
 {
-    return (int)(Abs() / 1000 / 1000 / 1000 / 1000) * Sign(); //-V2533
+    return (int)(Abs() / 1000 / 1000 / 1000 / 1000) * Sign();
 }
 
 
@@ -217,14 +217,14 @@ void ValueComparator::FromINT(int v)
 void ValueComparator::FromUNITS(int units, uint mUnits, uint uUnits,
     uint nUnits, uint pUnits, int sign)
 {
-    value = (uint64)units; //-V2533
+    value = (uint64)units;
 
     value = value * 1000 * 1000 * 1000 * 1000;
 
     value += (uint64)pUnits +
         (uint64)nUnits * 1000 + 
         (uint64)uUnits * 1000 * 1000 + 
-        (uint64)mUnits * 1000 * 1000 * 1000; //-V2533
+        (uint64)mUnits * 1000 * 1000 * 1000;
 
     if (sign < 0)
     {
@@ -383,7 +383,7 @@ String ValueComparator::ToString() const
         
         int integer = val.Integer();
         
-        symbol[0] = (char)(integer | 0x30); //-V2533
+        symbol[0] = (char)(integer | 0x30);
 
         std::strcat(buffer, symbol); //-V2513
 
@@ -398,7 +398,7 @@ String ValueComparator::ToString() const
 
 double ValueComparator::ToDouble() const
 {
-    return (double)Abs() / 1E12 * (double)Sign(); //-V2533
+    return (double)Abs() / 1E12 * (double)Sign();
 }
 
 

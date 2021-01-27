@@ -146,7 +146,7 @@ bool TypeMeasure::IsActiveTimeLabels(int m)
 
     if (IsFrequency())
     {
-        ModeFrequency::E mode = (ModeFrequency::E)m; //-V2533
+        ModeFrequency::E mode = (ModeFrequency::E)m;
 
         switch (mode) //-V2522
         {
@@ -161,7 +161,7 @@ bool TypeMeasure::IsActiveTimeLabels(int m)
     }
     else if (IsPeriod())
     {
-        ModePeriod::E mode = (ModePeriod::E)m; //-V2533
+        ModePeriod::E mode = (ModePeriod::E)m;
 
         switch (mode) //-V2522
         {
@@ -172,7 +172,7 @@ bool TypeMeasure::IsActiveTimeLabels(int m)
     }
     else if (IsDuration()) //-V2516
     {
-        ModeDuration::E mode = (ModeDuration::E)m; //-V2533
+        ModeDuration::E mode = (ModeDuration::E)m;
 
         switch (mode)
         {
@@ -200,7 +200,7 @@ bool TypeMeasure::IsActiveTimeMeasure(int m)
 {
     if (IsFrequency())
     {
-        ModeFrequency::E mode = (ModeFrequency::E)m; //-V2533
+        ModeFrequency::E mode = (ModeFrequency::E)m;
 
         switch (mode) //-V2520 //-V2522
         {
@@ -211,7 +211,7 @@ bool TypeMeasure::IsActiveTimeMeasure(int m)
     }
     else if (IsPeriod()) //-V2516
     {
-        ModePeriod::E mode = (ModePeriod::E)m; //-V2533
+        ModePeriod::E mode = (ModePeriod::E)m;
 
         switch (mode) //-V2520 //-V2522
         {
@@ -227,7 +227,7 @@ bool TypeMeasure::IsActiveNumberPeriods(int m)
 {
     if (IsFrequency())
     {
-        ModeFrequency::E mode = (ModeFrequency::E)m; //-V2533
+        ModeFrequency::E mode = (ModeFrequency::E)m;
 
         switch (mode) //-V2520 //-V2522
         {
@@ -240,7 +240,7 @@ bool TypeMeasure::IsActiveNumberPeriods(int m)
     }
     else if (IsPeriod())
     {
-        ModePeriod::E mode = (ModePeriod::E)m; //-V2533
+        ModePeriod::E mode = (ModePeriod::E)m;
 
         switch (mode) //-V2520 //-V2522
         {
@@ -249,7 +249,7 @@ bool TypeMeasure::IsActiveNumberPeriods(int m)
     }
     else if (IsCountPulse()) //-V2516
     {
-        ModeCountPulse::E mode = (ModeCountPulse::E)m; //-V2533
+        ModeCountPulse::E mode = (ModeCountPulse::E)m;
 
         switch (mode) //-V2520 //-V2522
         {
@@ -371,7 +371,7 @@ void Channel::SelectNext()
 {
     int num = Channel::Current()->Number();
 
-    Math::CircleIncrease<uint8>((uint8 *)&num, 0, Channel::Count - 1); //-V2533
+    Math::CircleIncrease<uint8>((uint8 *)&num, 0, Channel::Count - 1);
 
     static Channel *const channels[Count] = { A, B, C, D };
 

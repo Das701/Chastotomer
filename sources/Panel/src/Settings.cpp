@@ -36,7 +36,7 @@ void InputCouple::LoadToFPGA()
 
 void InputCouple::Set(InputCouple::E v)
 {
-    value = (uint8)v; //-V2533
+    value = (uint8)v;
 
     LoadToFPGA();
 }
@@ -105,7 +105,7 @@ void TypeSynch::LoadToFPGA()
 
 void ModeFilter::Set(ModeFilter::E v)
 {
-    value = (uint8)v; //-V2533
+    value = (uint8)v;
 
     LoadToFPGA();
 }
