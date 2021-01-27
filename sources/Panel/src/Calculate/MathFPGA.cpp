@@ -38,6 +38,7 @@ ValueSTRICT MathFPGA::Measure::counterA((int64)0);
 ValueSTRICT MathFPGA::Measure::counterB((int64)0);
 ValueSTRICT MathFPGA::Measure::counterC((int64)0);
 int         MathFPGA::Measure::powDataA = 0;
+ValueFPGA   *MathFPGA::Measure::valueFPGA = nullptr;
 
 ValueComparator MathFPGA::Comparator::value(0);
 
@@ -295,9 +296,15 @@ void MathFPGA::Measure::SetNewData(TypeData::E type, uint value1, uint value2, u
 
 
 bool MathFPGA::Measure::CreateValue(TypeData::E typeData,
-    uint value1, uint value2, uint value3, uint value4, uint value5)
+    uint, uint, uint, uint, uint)
 {
     TypeMeasure &type = Channel::Current()->mod.typeMeasure;
+
+    if (valueFPGA != nullptr)
+    {
+        delete valueFPGA;
+        valueFPGA = nullptr;
+    }
 
     if (typeData == TypeData::MainCounters)
     {

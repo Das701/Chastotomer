@@ -1,4 +1,5 @@
 #pragma once
+#include "Calculate/ValueFPGA.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Stack.h"
 #include "Utils/String.h"
@@ -69,6 +70,8 @@ struct MathFPGA
 
         static void SetNewData(TypeData::E type, uint value1, uint value2, uint value3 = 0, uint value4 = 0,
             uint value5 = 0);
+
+        static ValueFPGA *valueFPGA;
 
     private:
 
