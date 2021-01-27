@@ -254,8 +254,6 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 {
     isDivZero = false;
 
-    value1 = 500001;
-
     switch (type)
     {
     case TypeData::MainCounters:        AppendDataMainCounters(value1, value2);                                             break;
