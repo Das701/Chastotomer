@@ -67,7 +67,8 @@ struct MathFPGA
             };
         };
 
-        static void SetNewData(TypeData::E type, uint value1, uint value2, uint value3 = 0, uint value4 = 0, uint value5 = 0);
+        static void SetNewData(TypeData::E type, uint value1, uint value2, uint value3 = 0, uint value4 = 0,
+            uint value5 = 0);
 
     private:
 

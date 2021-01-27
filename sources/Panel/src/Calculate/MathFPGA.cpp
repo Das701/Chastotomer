@@ -250,7 +250,8 @@ int MathFPGA::Measure::CalculateDurationEmptyZeros()
 }
 
 
-void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3, uint value4, uint value5)
+void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3,
+    uint value4, uint value5)
 {
     isDivZero = false;
 
@@ -258,10 +259,21 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 
     switch (type)
     {
-    case TypeData::MainCounters:        AppendDataMainCounters(value1, value2);                                             break;
-    case TypeData::Interpolator:        Interpolator::Calculate(value1, value2, value3);                                    break;
-    case TypeData::FillFactorPhase:     FillFactor::Calculate(value1, value2);                                              break;
-    case TypeData::Comparator:          Comparator::Calculate(value1, (int)value2, (int)value3, (int)value4, (int)value5);  break;
+    case TypeData::MainCounters:
+        AppendDataMainCounters(value1, value2);
+        break;
+
+    case TypeData::Interpolator:
+        Interpolator::Calculate(value1, value2, value3);
+        break;
+
+    case TypeData::FillFactorPhase:
+        FillFactor::Calculate(value1, value2);
+        break;
+
+    case TypeData::Comparator:
+        Comparator::Calculate(value1, (int)value2, (int)value3, (int)value4, (int)value5);
+        break;
     }
 
     CalculateNewData();
@@ -441,7 +453,9 @@ String MathFPGA::Auto::Give()
 
     }
 
-    return String("Макс %s Мин %s", SU::Int2String(((int)fpgaMax - 512) * 2).c_str(), SU::Int2String(((int)fpgaMin - 512) * 2).c_str());
+    return String("Макс %s Мин %s",
+        SU::Int2String(((int)fpgaMax - 512) * 2).c_str(),
+        SU::Int2String(((int)fpgaMin - 512) * 2).c_str());
 }
 
 
@@ -587,7 +601,8 @@ void MathFPGA::Measure::CalculateNewData()
         {
             Data::SetDigits(String("%10.2f", MathFPGA::Interpolator::value));
         }
-        else if (Channel::Current()->mod.typeMeasure.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
+        else if (Channel::Current()->mod.typeMeasure.IsDuration() &&
+            (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
         {
             if (ModeDuration::Current().IsPhase())
             {
@@ -640,8 +655,10 @@ void MathFPGA::Measure::CalculateNewData()
 
             LOG_WRITE(text);
             
-            if ((Channel::Current()->mod.typeMeasure.IsFrequency() && Channel::Current()->mod.modeFrequency.IsT_1()) ||         // Если косвенное измерение частоты
-                Channel::Current()->mod.typeMeasure.IsPeriod() && Channel::Current()->mod.modePeriod.IsF_1())                   // или периода
+                 // Если косвенное измерение частоты
+            if ((Channel::Current()->mod.typeMeasure.IsFrequency() && Channel::Current()->mod.modeFrequency.IsT_1()) ||
+                 // или периода
+                 Channel::Current()->mod.typeMeasure.IsPeriod() && Channel::Current()->mod.modePeriod.IsF_1())
             {
                 SU::LeaveFewDigits(text, 30, powDataA);
             }
@@ -725,8 +742,13 @@ void MathFPGA::Measure::CalculateUnits()
             }
             else
             {
-                if ((CURRENT_CHANNEL_IS_A && Channel::A->mod.typeMeasure.IsPeriod() && Channel::A->mod.modePeriod.IsF_1()) ||
-                    (CURRENT_CHANNEL_IS_B && Channel::B->mod.typeMeasure.IsPeriod() && Channel::B->mod.modePeriod.IsF_1()))
+                if ((CURRENT_CHANNEL_IS_A &&
+                    Channel::A->mod.typeMeasure.IsPeriod() &&
+                    Channel::A->mod.modePeriod.IsF_1())
+                    ||
+                    (CURRENT_CHANNEL_IS_B &&
+                    Channel::B->mod.typeMeasure.IsPeriod() &&
+                    Channel::B->mod.modePeriod.IsF_1()))
                 {
                     if (decDA >= 1000)      { Data::SetUnits(String(" ns")); }
                     else if (decDA <= 1)    { Data::SetUnits(String(" ms")); }
