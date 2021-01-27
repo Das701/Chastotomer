@@ -13,3 +13,9 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter1) : ValueFrequen
 {
 
 }
+
+
+ValueFrequency_T_1::ValueFrequency_T_1(uint counter1) : ValueFrequency(counter1)
+{
+
+}

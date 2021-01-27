@@ -311,9 +311,15 @@ bool MathFPGA::Measure::CreateValue(TypeData::E typeData,
     {
         if (type.IsFrequency())
         {
-            if (Channel::Current()->mod.modeFrequency.IsFrequency())
+            ModeFrequency &mode = Channel::Current()->mod.modeFrequency;
+
+            if (mode == ModeFrequency::Frequency)
             {
                 valueFPGA = new ValueFrequency_Frequency(value1);
+            }
+            else if (mode == ModeFrequency::T_1)
+            {
+                valueFPGA = new ValueFrequency_T_1(value1);
             }
         }
     }
