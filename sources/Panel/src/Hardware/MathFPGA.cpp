@@ -10,6 +10,7 @@
 #include "Utils/Math.h"
 #include "Utils/StringUtils.h"
 #include "Utils/ValueSTRICT.h"
+#include <cmath>
 #include <cstdio>
 #include <cstring>
 
@@ -258,7 +259,7 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 
     isDivZero = false;
 
-//    value1 = 1055555555;
+    value1 = 1000;
 
     switch (type)
     {
@@ -528,29 +529,29 @@ String MathFPGA::BinToString(pString bin, int num)
 
 void MathFPGA::Measure::Calculate(int &pow, ValueSTRICT &data)
 {
-    int emptyZeros = 0;
+    int emptyZeros = CalculateEmptyZeros();
 
-    switch (Channel::Current()->mod.typeMeasure.value)
-    {
-    case TypeMeasure::Frequency:    emptyZeros = CalculateFrequencyEmptyZeros();    break;
-    case TypeMeasure::Duration:     emptyZeros = CalculateDurationEmptyZeros();     break;
-    case TypeMeasure::Period:       emptyZeros = CalculatePeriodEmptyZeros();       break;
-    }
-
-    if (CURRENT_CHANNEL_IS_D)
-        data.FromDouble(decDataC.ToDouble());
-    else
-        data = decDataA;
+    if (CURRENT_CHANNEL_IS_D) { data.FromDouble(decDataC.ToDouble()); }
+    else                      { data = decDataA; }
 
     data.DivUINT((uint)(2 * emptyZeros));
 
-    pow = 0;
+    pow = (int)std::log10(emptyZeros);
+}
 
-    while (emptyZeros >= 10)
+
+int MathFPGA::Measure::CalculateEmptyZeros()
+{
+    int result = 0;
+
+    switch (Channel::Current()->mod.typeMeasure.value)
     {
-        pow++;
-        emptyZeros /= 10;
+    case TypeMeasure::Frequency:    result = CalculateFrequencyEmptyZeros();  break;
+    case TypeMeasure::Duration:     result = CalculateDurationEmptyZeros();   break;
+    case TypeMeasure::Period:       result = CalculatePeriodEmptyZeros();     break;
     }
+
+    return result;
 }
 
 
