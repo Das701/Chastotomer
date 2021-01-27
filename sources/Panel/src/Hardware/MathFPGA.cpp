@@ -250,16 +250,16 @@ int MathFPGA::Measure::CalculateDurationEmptyZeros()
 }
 
 
-void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3, uint value4, uint value5)
+void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint counter1, uint counter2, uint counter3, uint counter4, uint counter5)
 {
     isDivZero = false;
 
     switch (type)
     {
-    case TypeData::MainCounters:        AppendDataMainCounters(value1, value2);                                             break;
-    case TypeData::Interpolator:        Interpolator::Calculate(value1, value2, value3);                                    break;
-    case TypeData::FillFactorPhase:     FillFactor::Calculate(value1, value2);                                              break;
-    case TypeData::Comparator:          Comparator::Calculate(value1, (int)value2, (int)value3, (int)value4, (int)value5);  break;
+    case TypeData::MainCounters:        AppendDataMainCounters(counter1, counter2);                                                     break;
+    case TypeData::Interpolator:        Interpolator::Calculate(counter1, counter2, counter3);                                          break;
+    case TypeData::FillFactorPhase:     FillFactor::Calculate(counter1, counter2);                                                      break;
+    case TypeData::Comparator:          Comparator::Calculate(counter1, (int)counter2, (int)counter3, (int)counter4, (int)counter5);    break;
     }
 
     CalculateNewData();
