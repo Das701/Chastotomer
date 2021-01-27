@@ -36,7 +36,7 @@ int         MathFPGA::FillFactor::zeroes = 0;
 int         MathFPGA::Measure::decDA = 1;
 ValueSTRICT MathFPGA::Measure::counterA((int64)0);
 ValueSTRICT MathFPGA::Measure::counterB((int64)0);
-ValueSTRICT MathFPGA::Measure::dataC((int64)0);
+ValueSTRICT MathFPGA::Measure::counterC((int64)0);
 int         MathFPGA::Measure::powDataA = 0;
 
 ValueComparator MathFPGA::Comparator::value(0);
@@ -153,13 +153,13 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros()
         {
             if (counterA.ToUnits(Order::Micro) < 10)
             {
-                dataC.FromDouble(counterA.ToDouble());
+                counterC.FromDouble(counterA.ToDouble());
                 khz = khz * 10;
                 result = khz;
             }
             else
             {
-                dataC.FromDouble(counterA.ToDouble());
+                counterC.FromDouble(counterA.ToDouble());
                 mhz = mhz * 10;
                 result = mhz;
             }
@@ -169,16 +169,16 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros()
         {
             if (counterA.ToDouble() * 64.0F / (1000.0F * (float)khz) > 19000.0F)
             {
-                dataC.FromDouble(0.0);
+                counterC.FromDouble(0.0);
                 result = khz;
             }
             else
             {
-                dataC.FromDouble(counterA.ToDouble() * 64 / 1000); //-V2564
+                counterC.FromDouble(counterA.ToDouble() * 64 / 1000); //-V2564
                 result = mhz;
             }
 
-            decDA = (int)dataC.ToUnits(Order::Nano);
+            decDA = (int)counterC.ToUnits(Order::Nano);
         }
     }
 
@@ -528,7 +528,7 @@ void MathFPGA::Measure::Calculate(int &pow, ValueSTRICT &data)
 {
     int emptyZeros = CalculateEmptyZeros();
 
-    if (CURRENT_CHANNEL_IS_D) { data.FromDouble(dataC.ToDouble()); }
+    if (CURRENT_CHANNEL_IS_D) { data.FromDouble(counterC.ToDouble()); }
     else                      { data = counterA; }
 
     data.DivUINT((uint)(2 * emptyZeros));
@@ -707,8 +707,8 @@ void MathFPGA::Measure::CalculateUnits()
                 {
                     if (CURRENT_CHANNEL_IS_C)
                     {
-                        if (dataC.ToUnits(Order::Micro) / 2 < 10) { Data::SetUnits(String(" MHz")); }
-                        else                                      { Data::SetUnits(String(" GHz")); }
+                        if (counterC.ToUnits(Order::Micro) / 2 < 10) { Data::SetUnits(String(" MHz")); }
+                        else                                         { Data::SetUnits(String(" GHz")); }
                     }
                     else if (CURRENT_CHANNEL_IS_D)   
                     {
