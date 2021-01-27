@@ -84,7 +84,7 @@ file(GLOB UTILS               ../../Panel/src/Utils/*)
 
 source_group(_VS\\HAL              FILES ${VS_HAL})
 source_group(src                   FILES ${SRC})
-source_group(Calculaote            FILES ${CALCULATE})
+source_group(Calculate             FILES ${CALCULATE})
 source_group(Display               FILES ${DISPLAY})
 source_group(Display\\Font         FILES ${DISPLAY_FONT})
 source_group(FreqMeter             FILES ${FREQMETER})
