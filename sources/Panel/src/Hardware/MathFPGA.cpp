@@ -35,7 +35,7 @@ int         MathFPGA::FillFactor::zeroes = 0;
        
 int         MathFPGA::Measure::decDA = 1;
 ValueSTRICT MathFPGA::Measure::dataA((int64)0);
-ValueSTRICT MathFPGA::Measure::decDataB((int64)0);
+ValueSTRICT MathFPGA::Measure::dataB((int64)0);
 ValueSTRICT MathFPGA::Measure::decDataC((int64)0);
 int         MathFPGA::Measure::powDataA = 0;
 
@@ -126,12 +126,12 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros()
     {
         int sT = ModesChannel::timeMeasure.ToMS();
 
-        if (decDataB.ToDouble() == 0.0) //-V2550 //-V550
+        if (dataB.ToDouble() == 0.0) //-V2550 //-V550
         {
             isDivZero = true;
         }
 
-        dataA.FromDouble(dataA.ToDouble() / decDataB.ToDouble() / 32); //-V2564
+        dataA.FromDouble(dataA.ToDouble() / dataB.ToDouble() / 32); //-V2564
         result = 1000000 * sT;
     }
     else
@@ -395,7 +395,7 @@ void MathFPGA::Measure::AppendDataMainCounters(uint counterA, uint counterB)
 
     if ((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) && Relation::IsEnabled())
     {
-        decDataB.FromDouble(counterB); //-V2564
+        dataB.FromDouble(counterB); //-V2564
     }
 
     if (CURRENT_CHANNEL_IS_C)
