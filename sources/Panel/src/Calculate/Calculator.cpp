@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "Calculator/Calculator.h"
+#include "Calculate/Calculator.h"
 
 
 Calculator::Calculator()

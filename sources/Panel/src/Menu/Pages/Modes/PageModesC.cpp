@@ -1,7 +1,7 @@
 #include "defines.h"
+#include "Calculate/MathFPGA.h"
 #include "Display/Display.h"
 #include "Display/Primitives.h"
-#include "Hardware/MathFPGA.h"
 #include "Menu/MenuItemsDef.h"
 #include "Menu/Pages/Channels/Channels.h"
 

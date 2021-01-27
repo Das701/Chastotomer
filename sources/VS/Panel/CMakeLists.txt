@@ -43,7 +43,7 @@ file(GLOB SRC                 ../../Panel/src/defines.h
                               ../../Panel/src/Settings.*
                                           src/Application_win.*
                                           src/main_win.cpp)
-file(GLOB CALCULATOR          ../../Panel/src/Calculator/*)
+file(GLOB CALCULATE           ../../Panel/src/Calculate/*)
 file(GLOB DISPLAY                         src/Display/Display_win.cpp
                                           src/Display/Colors_win.cpp
                               ../../Panel/src/Display/Colors.*
@@ -84,7 +84,7 @@ file(GLOB UTILS               ../../Panel/src/Utils/*)
 
 source_group(_VS\\HAL              FILES ${VS_HAL})
 source_group(src                   FILES ${SRC})
-source_group(Calculaotor           FILES ${CALCULATOR})
+source_group(Calculaote            FILES ${CALCULATE})
 source_group(Display               FILES ${DISPLAY})
 source_group(Display\\Font         FILES ${DISPLAY_FONT})
 source_group(FreqMeter             FILES ${FREQMETER})
@@ -99,7 +99,7 @@ source_group(Menu\\Pages\\Modes    FILES ${MENU_PAGES_MODES})
 source_group(SCPI                  FILES ${SCPI})
 source_group(Utils                 FILES ${UTILS})
 
-add_executable(PanelGUI ${VS_HAL} ${SRC} ${CALCULATOR} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${FREQMETER} ${GUI} ${HARDWARE_HAL} ${KEYBOARD} ${MENU}
+add_executable(PanelGUI ${VS_HAL} ${SRC} ${CALCULATE} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${FREQMETER} ${GUI} ${HARDWARE_HAL} ${KEYBOARD} ${MENU}
                         ${MENU_PAGES} ${MENU_PAGES_CHANNELS} ${MENU_PAGES_MODES} ${SCPI} ${UTILS})
 
 target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)

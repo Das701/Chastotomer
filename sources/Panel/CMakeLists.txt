@@ -34,7 +34,7 @@ file(GLOB HAL                 ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_
                               ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Src/*.c)
 file(GLOB SRC                 src/*.h
                               src/*.cpp)
-file(GLOB CALCULATOR          src/Calculator/*)
+file(GLOB CALCULATE           src/Calculate/*)
 file(GLOB DISPLAY             src/Display/*.h
                               src/Display/*.cpp)
 file(GLOB DISPLAY_FONT        src/Display/Font/*)
@@ -61,7 +61,7 @@ file(GLOB UTILS               src/Utils/*)
 
 source_group(HAL                   FILES ${HAL})
 source_group(src                   FILES ${SRC})
-source_group(Calculator            FILES ${CALCULATOR})
+source_group(CALCULATE             FILES ${CALCULATE})
 source_group(Display               FILES ${DISPLAY})
 source_group(Display\\Font         FILES ${DISPLAY_FONT})
 source_group(Hardware              FILES ${HARDWARE})
@@ -83,5 +83,5 @@ set_source_files_properties(${HARDWARE_CMSIS} ${HAL}
                             ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-add_library(Panel ${HAL} ${SRC} ${CALCULATOR} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${HARDWARE_CMSIS} ${HARDWARE_HAL} ${HARDWARE_USBD} ${KEYBOARD} ${MENU}
+add_library(Panel ${HAL} ${SRC} ${CALCULATE} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${HARDWARE_CMSIS} ${HARDWARE_HAL} ${HARDWARE_USBD} ${KEYBOARD} ${MENU}
                   ${MENU_PAGES} ${MENU_PAGES_CHANNELS} ${MENU_PAGES_MODES} ${SCPI} ${UTILS})

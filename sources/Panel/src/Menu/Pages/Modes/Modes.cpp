@@ -1,9 +1,9 @@
 #include "Settings.h"
+#include "Calculate/MathFPGA.h"
 #include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Hardware/FPGA.h"
-#include "Hardware/MathFPGA.h"
 
 
 bool ModeStartStop::enabled = false;

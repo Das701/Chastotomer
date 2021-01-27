@@ -1,5 +1,5 @@
 #pragma once
-#include "Calculator/Calculator.h"
+#include "Calculate/Calculator.h"
 #include "Menu/Pages/Modes/Modes.h"
 
 

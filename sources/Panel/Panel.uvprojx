@@ -521,17 +521,27 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Calculator</GroupName>
+          <GroupName>Calculate</GroupName>
           <Files>
             <File>
               <FileName>Calculator.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Calculator\Calculator.h</FilePath>
+              <FilePath>.\src\Calculate\Calculator.h</FilePath>
             </File>
             <File>
               <FileName>Calculator.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Calculator\Calculator.cpp</FilePath>
+              <FilePath>.\src\Calculate\Calculator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MathFPGA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Calculate\MathFPGA.h</FilePath>
+            </File>
+            <File>
+              <FileName>MathFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Calculate\MathFPGA.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -697,16 +707,6 @@
               <FileName>FreqMeter.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\FreqMeter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>MathFPGA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\MathFPGA.h</FilePath>
-            </File>
-            <File>
-              <FileName>MathFPGA.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\MathFPGA.cpp</FilePath>
             </File>
             <File>
               <FileName>VCP.h</FileName>
@@ -1617,17 +1617,27 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Calculator</GroupName>
+          <GroupName>Calculate</GroupName>
           <Files>
             <File>
               <FileName>Calculator.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Calculator\Calculator.h</FilePath>
+              <FilePath>.\src\Calculate\Calculator.h</FilePath>
             </File>
             <File>
               <FileName>Calculator.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Calculator\Calculator.cpp</FilePath>
+              <FilePath>.\src\Calculate\Calculator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MathFPGA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Calculate\MathFPGA.h</FilePath>
+            </File>
+            <File>
+              <FileName>MathFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Calculate\MathFPGA.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1793,16 +1803,6 @@
               <FileName>FreqMeter.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\FreqMeter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>MathFPGA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\MathFPGA.h</FilePath>
-            </File>
-            <File>
-              <FileName>MathFPGA.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\MathFPGA.cpp</FilePath>
             </File>
             <File>
               <FileName>VCP.h</FileName>
