@@ -252,6 +252,8 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 
     isDivZero = false;
 
+//    value1 = 500000;
+
     switch (type)
     {
     case TypeData::MainCounters:        AppendDataMainCounters(value1, value2);                                             break;
@@ -646,6 +648,8 @@ void MathFPGA::Measure::CalculateNewData() //-V2506
             char text[30];
 
             std::sprintf(text, format, data.ToDouble());
+
+            LOG_WRITE(text);
             
             if ((Channel::Current()->mod.typeMeasure.IsFrequency() && Channel::Current()->mod.modeFrequency.IsT_1()) ||         // ≈сли косвенное измерение частоты
                 Channel::Current()->mod.typeMeasure.IsPeriod() && Channel::Current()->mod.modePeriod.IsF_1())                   // или периода
