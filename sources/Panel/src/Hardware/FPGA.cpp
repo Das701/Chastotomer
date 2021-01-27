@@ -125,6 +125,11 @@ void FPGA::Update() //-V2008
     }
     else
     {
+        if (MathFPGA::Validator::VerySmallTime())
+        {
+            return;
+        }
+
         if (Channel::Current()->mod.typeMeasure.IsDuration() && ModeDuration::Current().IsNdt_1ns())
         {
             ReadInterpolator();

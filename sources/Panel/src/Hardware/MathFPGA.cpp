@@ -252,11 +252,6 @@ int MathFPGA::Measure::CalculateDurationEmptyZeros()
 
 void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3, uint value4, uint value5)
 {
-    if (Validator::VerySmallTime())
-    {
-        return;
-    }
-
     isDivZero = false;
 
     value1 = 500001;
