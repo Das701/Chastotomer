@@ -39,6 +39,7 @@ static void Tests::ValueFrequency_Frequency()
         {11, "6 kHz"},      // ?
         {99, "50 kHz"},
         {100, "50 kHz"},    // ?
+        {101, "50 kHz"},    // ?
         {(uint)-1}
     };
 
