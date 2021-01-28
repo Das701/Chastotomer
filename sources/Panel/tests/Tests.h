@@ -4,4 +4,6 @@
 namespace Tests
 {
     bool Run();
+
+    bool TestValuesFPGA();
 }

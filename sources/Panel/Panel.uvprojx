@@ -1163,6 +1163,11 @@
               <FileType>5</FileType>
               <FilePath>.\tests\Tests.h</FilePath>
             </File>
+            <File>
+              <FileName>TestValuesFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\tests\TestValuesFPGA.cpp</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -2323,6 +2328,11 @@
               <FileName>Tests.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\tests\Tests.h</FilePath>
+            </File>
+            <File>
+              <FileName>TestValuesFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\tests\TestValuesFPGA.cpp</FilePath>
             </File>
           </Files>
         </Group>

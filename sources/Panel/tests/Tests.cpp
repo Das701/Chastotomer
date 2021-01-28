@@ -4,5 +4,10 @@
 
 bool Tests::Run()
 {
+    if (!TestValuesFPGA())
+    {
+        return false;
+    }
+
     return true;
 }
