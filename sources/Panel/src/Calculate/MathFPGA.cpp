@@ -256,7 +256,7 @@ void MathFPGA::Measure::SetNewData(TypeData::E type, uint value1, uint value2, u
 {
     isDivZero = false;
 
-    value1 = 5000000;
+    value1 = 1;
 
     if (CreateValue(type, value1, value2, value3, value4, value5))
     {

@@ -3,7 +3,10 @@
 
 namespace Tests
 {
-    bool Run();
+    void Run();
 
-    bool TestValuesFPGA();
+    void ValuesFPGA();
+
+    void FailExit();
 }
+

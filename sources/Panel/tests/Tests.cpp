@@ -2,12 +2,16 @@
 #include "Tests.h"
 
 
-bool Tests::Run()
+void Tests::Run()
 {
-    if (!TestValuesFPGA())
-    {
-        return false;
-    }
+    ValuesFPGA();
+}
 
-    return true;
+
+void Tests::FailExit()
+{
+    while (true)
+    {
+
+    }
 }

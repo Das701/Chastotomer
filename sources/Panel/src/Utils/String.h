@@ -19,7 +19,7 @@ public:
     explicit String();
              String(const String &);
     explicit String(char symbol);
-    explicit String(pCHAR format, ...);
+             String(pCHAR format, ...);
     ~String();
 
     void Set(TypeConversionString::E conv, pCHAR format, ...);
