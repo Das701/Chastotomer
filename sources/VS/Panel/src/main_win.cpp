@@ -5,6 +5,7 @@
 #include "Keyboard/Keyboard.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/Channels/Channels.h"
+#include "Tests.h"
 
 
 void init()
@@ -13,6 +14,7 @@ void init()
 	Display::Init();
 	Keyboard::Init();
 	Menu::Init();
+	Tests::Run();
 }
 
 

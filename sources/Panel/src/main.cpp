@@ -6,6 +6,7 @@
 #include "Keyboard/Keyboard.h"
 #include "Menu/Menu.h"
 #include "SCPI/SCPI.h"
+#include "Tests.h"
 
 
 int main(void)
@@ -16,6 +17,7 @@ int main(void)
     Keyboard::Init();
     VCP::Init();
     Menu::Init();
+    Tests::Run();
 
     //Display::DrawWelcomeScreen();
 

@@ -2,14 +2,15 @@ cmake_minimum_required(VERSION 3.15)
 
 project (PanelGUI)
 
-include_directories(src/
-                    ../../common/_VS_KEIL/CMSIS/
-                    ../../common/_VS_KEIL/HAL/
-                    ../../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/
-                    ../../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Inc/
-                    ../../Panel/src/
-                    ../../Panel/src/Hardware/HAL/
-                    ../../Panel/src/Hardware/
+include_directories(src
+                    ../../common/_VS_KEIL/CMSIS
+                    ../../common/_VS_KEIL/HAL
+                    ../../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
+                    ../../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Inc
+                    ../../Panel/src
+                    ../../Panel/tests
+                    ../../Panel/src/Hardware/HAL
+                    ../../Panel/src/Hardware
                     ../../ThirdParty/wxWidgets/include
                     ../../ThirdParty/wxWidgets/generated/lib/vc_dll/mswud)
                     
@@ -26,12 +27,15 @@ add_compile_options(/wd4626)    # 'xxx': assignment operator was implicitly defi
 add_compile_options(/wd4710)    # function not inlined
 add_compile_options(/wd4774)    # 'xxx' : format string expected in argument Y is not a string literal
 add_compile_options(/wd4820)    # 'xxx': 'y' bytes padding added after data member 'zzz'
-add_compile_options(/wd4996)    # 'xxx': This function or variable may be unsafe. Consider using yyy instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS
+add_compile_options(/wd4996)    # 'xxx': This function or variable may be unsafe. Consider using yyy instead. To disable
+                                # deprecation, use _CRT_SECURE_NO_WARNINGS
 add_compile_options(/wd5026)    # 'xxx': move constructor was implicitly defined as deleted
 add_compile_options(/wd5027)    # 'xxx': move assignment operator was implicitly defined as deleted
-add_compile_options(/wd5039)    # 'xxx': pointer or reference to potentially throwing function passed to extern C function under -EHc.
+add_compile_options(/wd5039)    # 'xxx': pointer or reference to potentially throwing function passed to extern C
+                                # function under -EHc.
 add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
-add_compile_options(/wd5204)    # 'xxx': class has virtual functions, but its trivial destructor is not virtual; instances of objects derived from this class may not be destructed correctly
+add_compile_options(/wd5204)    # 'xxx': class has virtual functions, but its trivial destructor is not virtual;
+                                # instances of objects derived from this class may not be destructed correctly
 add_compile_options(/wd5219)
 add_compile_options(/wd26821)
 add_compile_options(/wd26812)
@@ -81,6 +85,7 @@ file(GLOB MENU_PAGES_MODES    ../../Panel/src/Menu/Pages/Modes/*.h
                               ../../Panel/src/Menu/Pages/Modes/*.cpp)
 file(GLOB SCPI                ../../Panel/src/SCPI/*)
 file(GLOB UTILS               ../../Panel/src/Utils/*)
+file(GLOB TESTS               ../../Panel/tests/*)
 
 source_group(_VS\\HAL              FILES ${VS_HAL})
 source_group(src                   FILES ${SRC})
@@ -98,9 +103,11 @@ source_group(Menu\\Pages\\Channels FILES ${MENU_PAGES_CHANNELS})
 source_group(Menu\\Pages\\Modes    FILES ${MENU_PAGES_MODES})
 source_group(SCPI                  FILES ${SCPI})
 source_group(Utils                 FILES ${UTILS})
+source_group(Tests                 FILES ${TESTS})
 
-add_executable(PanelGUI ${VS_HAL} ${SRC} ${CALCULATE} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${FREQMETER} ${GUI} ${HARDWARE_HAL} ${KEYBOARD} ${MENU}
-                        ${MENU_PAGES} ${MENU_PAGES_CHANNELS} ${MENU_PAGES_MODES} ${SCPI} ${UTILS})
+add_executable(PanelGUI ${VS_HAL} ${SRC} ${CALCULATE} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${FREQMETER} ${GUI}
+                        ${HARDWARE_HAL} ${KEYBOARD} ${MENU} ${MENU_PAGES} ${MENU_PAGES_CHANNELS} ${MENU_PAGES_MODES}
+                        ${SCPI} ${UTILS} ${TESTS})
 
 target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
 target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxmsw31ud_core)
