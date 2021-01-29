@@ -75,7 +75,7 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
 
     if (!strict.IsZero())
     {
-        if ((uint)strict.ToDouble() < 1)
+        while ((uint)strict.ToDouble() < 1)
         {
             strict.MulUINT(1000);
             order -= 3;
@@ -114,20 +114,9 @@ ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
 
     ValueSTRICT strict((int64)Channel::Current()->mod.numberPeriods.ToAbs());
 
-    double d = strict.ToDouble();
-
     strict.MulUINT((uint)Channel::Current()->mod.timeLabels.ToZeros());
 
-    d = strict.ToDouble();
-
     strict.DivUINT(counter);
-
-    d = strict.ToDouble();
-
-    if (CURRENT_CHANNEL_IS_C || CURRENT_CHANNEL_IS_D)
-    {
-        strict.MulUINT(64);
-    }
 
     int order = 0;
 
