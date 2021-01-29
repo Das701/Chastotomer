@@ -47,7 +47,7 @@ char *ValueFPGA::GetSuffixUnit(int order) const
 }
 
 
-void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
+void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, uint add)
 {
     int order = 0;
 
@@ -76,7 +76,7 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
             order -= 3;
         }
 
-        if (NumDigitsInNumber((uint)strict.ToDouble()) > NumDigitsInNumber(counter))
+        if (NumDigitsInNumber((uint)strict.ToDouble()) > (NumDigitsInNumber(counter) + add))
         {
             strict.DivUINT(1000);
             order += 3;
@@ -88,11 +88,11 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
 
     if (strict.IsZero())
     {
-        SU::LeaveFewDigits(buffer, 29, NumDigitsInNumber(counter));
+        SU::LeaveFewDigits(buffer, 29, NumDigitsInNumber(counter) + add);
     }
     else
     {
-        SU::LeaveFewSignedDigits(buffer, 29, NumDigitsInNumber(counter));
+        SU::LeaveFewSignedDigits(buffer, 29, NumDigitsInNumber(counter) + add);
     }
 
     std::strcat(buffer, " ");

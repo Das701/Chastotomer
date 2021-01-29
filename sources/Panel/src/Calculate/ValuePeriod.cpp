@@ -28,6 +28,11 @@ ValuePeriod_F_1::ValuePeriod_F_1(uint counter) : ValuePeriod()
 {
     counter /= 2;
 
+    if (counter == 100001)
+    {
+        counter = counter;
+    }
+
     if (counter == 0)
     {
         value.Set(TypeConversionString::None, MathFPGA::Data::UGO_DivNULL);
@@ -59,8 +64,11 @@ ValuePeriod_F_1::ValuePeriod_F_1(uint counter) : ValuePeriod()
     };
 
     ValueSTRICT strict(dividers[time]);
+
+    double d = strict.ToDouble();
+
     strict.DivUINT(counter);
     strict.DivUINT(multipliers[time]);
 
-    SetValue(strict, counter);
+    SetValue(strict, counter, 1);
 }
