@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Calculate/MathFPGA.h"
 #include "Calculate/ValueFrequency.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/Modes/Modes.h"
@@ -61,6 +62,12 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
 ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
 {
     counter /= 2;
+
+    if (counter == 0)
+    {
+        value.Set(TypeConversionString::None, MathFPGA::Data::UGO_DivNULL);
+        return;
+    }
 
     ValueSTRICT strict((int64)Channel::Current()->mod.numberPeriods.ToAbs());
 

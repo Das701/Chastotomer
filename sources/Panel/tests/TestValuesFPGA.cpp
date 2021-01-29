@@ -371,6 +371,10 @@ static void Tests::Frequency::T_1::Test()
         {{NumberPeriods::_100K, PeriodTimeLabels::T_8}, {NumberPeriods::_100K, PeriodTimeLabels::T_3}}
     };
 
+    ValuesStruct results_0         (MathFPGA::Data::UGO_DivNULL,
+                                    MathFPGA::Data::UGO_DivNULL,
+                                    MathFPGA::Data::UGO_DivNULL,
+                                    MathFPGA::Data::UGO_DivNULL);
     ValuesStruct results_2         ("0,1 GHz",         "1 kHz",           "0,01 PHz",        "0,1 GHz");
     ValuesStruct results_20        ("10 MHz",          "0,10 kHz",        "1,0 THz",         "10 MHz");
     ValuesStruct results_200       ("1,00 MHz",        "10,0 Hz",         "100 GHz",         "1,00 MHz");
@@ -390,6 +394,7 @@ static void Tests::Frequency::T_1::Test()
 
     TestStruct structs[] =
     {
+        {0,          &results_0},
         {2,          &results_2},
         {20,         &results_20},
         {200,        &results_200},

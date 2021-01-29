@@ -154,7 +154,14 @@ void ValueSTRICT::DivUINT(uint div)
 {
     Normalize();
 
-    units /= div;
+    if (div == 0)
+    {
+        units = 0;
+    }
+    else
+    {
+        units /= div;
+    }
 
     Normalize();
 }
