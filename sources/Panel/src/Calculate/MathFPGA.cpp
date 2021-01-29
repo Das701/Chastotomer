@@ -258,6 +258,8 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 {
     isDivZero = false;
 
+    value1 = 1000;
+
     if (CreateValue(type, value1, value2, value3, value4, value5))
     {
         Validator::SetValidData();

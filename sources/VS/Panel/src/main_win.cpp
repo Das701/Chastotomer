@@ -14,7 +14,7 @@ void init()
 	Display::Init();
 	Keyboard::Init();
 	Menu::Init();
-	Tests::Run();
+	//Tests::Run();
 }
 
 

@@ -551,34 +551,5 @@ static void Tests::Period::F_1::Test()
         MathFPGA::Data::UGO_DivNULL,
         MathFPGA::Data::UGO_DivNULL};
     String results_2[TimeMeasure::Count]          = { "1 ms",           "0,01 s",          "0,1 s",        "1 s",             "0,01 ks",       "0,1 ks",          "1 ks" };      // 1
-    String results_18[TimeMeasure::Count]         = { "" };       // 9
-                                                  
     String results_20[TimeMeasure::Count]         = { "0,10 ms",        "1,0 ms",          "10 ms",         "0,10 s",         "1,0 s",         "10 s",          "0,10 ks" };       // 10
-    String results_22[TimeMeasure::Count]         = { "" };       // 11
-    String results_198[TimeMeasure::Count]        = { "" };      // 99
-                                                  
-    String results_200[TimeMeasure::Count]        = { "" };      // 100
-    String results_202[TimeMeasure::Count]        = { "" };      // 101
-    String results_1998[TimeMeasure::Count]       = { "" };       // 999
-                                                  
-    String results_2000[TimeMeasure::Count]       = { "1,000 MHz",      "100,0 kHz",      "10,00 kHz",      "1,000 kHz",      "100,0 Hz",       "10,00 Hz",       "1,000 Hz" };     // 1 000
-    String results_2002[TimeMeasure::Count]       = { "1,001 MHz",      "100,1 kHz",      "10,01 kHz",      "1,001 kHz",      "100,1 Hz",       "10,01 Hz",       "1,001 Hz" };     // 1 001
-    String results_19998[TimeMeasure::Count]      = { "9,999 MHz",      "999,9 kHz",      "99,99 kHz",      "9,999 kHz",      "999,9 Hz",       "99,99 Hz",       "9,999 Hz" };     // 9 999
-                                                  
-    String results_20000[TimeMeasure::Count]      = { "10,000 MHz",     "1,0000 MHz",     "100,00 kHz",     "10,000 kHz",     "1,0000 kHz",     "100,00 Hz",      "10,000 Hz" };     // 10 000
-    String results_20002[TimeMeasure::Count]      = { "10,001 MHz",     "1,0001 MHz",     "100,01 kHz",     "10,001 kHz",     "1,0001 kHz",     "100,01 Hz",      "10,001 Hz" };     // 10 001
-    String results_199998[TimeMeasure::Count]     = { "99,999 MHz",     "9,9999 MHz",     "999,99 kHz",     "99,999 kHz",     "9,9999 kHz",     "999,99 Hz",      "99,999 Hz" };     // 99 999
-                                                  
-    String results_200002[TimeMeasure::Count]     = { "100,001 MHz",    "10,0001 MHz",    "1,00001 MHz",    "100,001 kHz",    "10,0001 kHz",    "1,00001 kHz",    "100,001 Hz" };    // 100 001
-    String results_1999998[TimeMeasure::Count]    = { "999,999 MHz",    "99,9999 MHz",    "9,99999 MHz",    "999,999 kHz",    "99,9999 kHz",    "9,99999 kHz",    "999,999 Hz" };    // 999 999
-                                                  
-    String results_2000002[TimeMeasure::Count]    = { "1,000001 GHz",   "100,0001 MHz",   "10,00001 MHz",   "1,000001 MHz",   "100,0001 kHz",   "10,00001 kHz",   "1,000001 kHz" };   // 1 000 001
-    String results_19999998[TimeMeasure::Count]   = { "9,999999 GHz",   "999,9999 MHz",   "99,99999 MHz",   "9,999999 MHz",   "999,9999 kHz",   "99,99999 kHz",   "9,999999 kHz" };   // 9 999 999
-                                                  
-    String results_20000002[TimeMeasure::Count]   = { "10,000001 GHz",  "1,0000001 GHz",  "100,00001 MHz",  "10,000001 MHz",  "1,0000001 MHz",  "100,00001 kHz",  "10,000001 kHz" };  // 10 000 001
-    String results_199999998[TimeMeasure::Count]  = { "99,999999 GHz",  "9,9999999 GHz",  "999,99999 MHz",  "99,999999 MHz",  "9,9999999 MHz",  "999,99999 kHz",  "99,999999 kHz" };  // 99 999 999
-                                                  
-    String results_200000002[TimeMeasure::Count]  = { "100,000001 GHz", "10,0000001 GHz", "1,00000001 GHz", "100,000001 MHz", "10,0000001 MHz", "1,00000001 MHz", "100,000001 kHz" }; // 100 000 001
-    String results_1999999998[TimeMeasure::Count] = { "999,999999 GHz", "99,9999999 GHz", "9,99999999 GHz", "999,999999 MHz", "99,9999999 MHz", "9,99999999 MHz", "999,999999 kHz" }; // 999 999 999
-
 }

@@ -15,11 +15,6 @@ ValuePeriod_Period::ValuePeriod_Period(uint counter) : ValuePeriod()
 {
     counter /= 2;
 
-    if (counter > 0)
-    {
-        counter = counter;
-    }
-
     ValueSTRICT strict(counter);
 
     strict.DivINT(Channel::Current()->mod.numberPeriods.ToAbs());

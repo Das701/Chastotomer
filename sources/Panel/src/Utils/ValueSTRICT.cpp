@@ -50,6 +50,8 @@ ValueSTRICT::ValueSTRICT(uint v) : sign(1), order(Order::Nano), units(0)
 
 void ValueSTRICT::FromDouble(double v)
 {
+    order.value = Order::Nano;
+
     units = static_cast<uint64>(std::fabs(v) * 1.E9);
 
     SetSign(v < 0.0 ? -1 : 1);
