@@ -252,11 +252,9 @@ int MathFPGA::Measure::CalculateDurationEmptyZeros()
 }
 
 
-void MathFPGA::Measure::SetNewData(TypeData::E type, uint value1, uint value2, uint value3, uint value4, uint value5)
+void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3, uint value4, uint value5)
 {
     isDivZero = false;
-
-    value1 = 9;
 
     if (CreateValue(type, value1, value2, value3, value4, value5))
     {
@@ -296,8 +294,7 @@ void MathFPGA::Measure::SetNewData(TypeData::E type, uint value1, uint value2, u
 }
 
 
-bool MathFPGA::Measure::CreateValue(TypeData::E typeData,
-    uint value1, uint, uint, uint, uint)
+bool MathFPGA::Measure::CreateValue(TypeData::E typeData, uint value1, uint, uint, uint, uint)
 {
     TypeMeasure &type = Channel::Current()->mod.typeMeasure;
 
