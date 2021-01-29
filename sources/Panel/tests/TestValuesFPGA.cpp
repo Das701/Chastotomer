@@ -31,6 +31,16 @@ namespace Tests
         namespace T_1
         {
             static void Test();
+
+            static void StoreSettings(Channel *channel);
+
+            static void RestoreSettings(Channel *channel);
+
+            static Channel *current = nullptr;
+            static uint8 type = 0;
+            static uint8 mode = 0;
+            static uint8 numberPeriods = 0;
+            static uint8 timeLabels = 0;
         }
     }
 }
@@ -312,6 +322,116 @@ static void Tests::Frequency::Frequency::RestoreSettings(Channel *channel)
 }
 
 
+static void Tests::Frequency::T_1::StoreSettings(Channel *channel)
+{
+    current = Channel::Current();
+    type = channel->mod.typeMeasure.value;
+    mode = channel->mod.modeFrequency.value;
+    numberPeriods = channel->mod.numberPeriods.value;
+    timeLabels = channel->mod.timeLabels.value;
+}
+
+
+static void Tests::Frequency::T_1::RestoreSettings(Channel *channel)
+{
+    Channel::SetCurrent(current);
+    channel->mod.typeMeasure.value = type;
+    channel->mod.modeFrequency.value = mode;
+    channel->mod.numberPeriods.value = numberPeriods;
+    channel->mod.timeLabels.value = timeLabels;
+}
+
+
 static void Tests::Frequency::T_1::Test()
 {
+    struct ValuesStruct
+    {
+        ValuesStruct(pString s00, pString s01, pString s10, pString s11)
+        {
+            results[0][0].Set(TypeConversionString::None, s00);     // N == 1, L == 10-8
+            results[0][1].Set(TypeConversionString::None, s01);     // N == 1, L == 10-3
+            results[1][0].Set(TypeConversionString::None, s10);     // N == 100k, L == 10-8
+            results[1][1].Set(TypeConversionString::None, s11);     // N == 100k, L == 10-3
+        }
+
+        char *c_str(int row, int col) { return results[row][col].c_str(); }
+
+        String results[2][2];
+    };
+
+    struct ParametersStruct
+    {
+        NumberPeriods::E    numberPeriods;
+        PeriodTimeLabels::E timeLabels;
+    };
+
+    ParametersStruct parameters[2][2] =
+    {
+        {{NumberPeriods::_1,    PeriodTimeLabels::T_8}, {NumberPeriods::_1,    PeriodTimeLabels::T_3}},
+        {{NumberPeriods::_100K, PeriodTimeLabels::T_8}, {NumberPeriods::_100K, PeriodTimeLabels::T_8}}
+    };
+
+    ValuesStruct results_2         ("0,1 GHz",         "1 kHz",           "0,01 PHz",        "0,1 GHz");
+    ValuesStruct results_20        ("10 MHz",          "0,10 kHz",        "1,0 THz",         "10 MHz");
+    ValuesStruct results_200       ("1,00 MHz",        "10,0 Hz",         "100 GHz",         "1,00 MHz");
+    ValuesStruct results_2000      ("100,0 kHz",       "1,000 Hz",        "10,00 GHz",       "100,0 kHz");
+    ValuesStruct results_20000     ("10,000 kHz",      "100,00 mHz",      "1,0000 GHz",      "10,000 kHz");
+    ValuesStruct results_200000    ("1,00000 kHz",     "10,0000 mHz",     "100,000 MHz",     "1,00000 kHz");
+    ValuesStruct results_2000000   ("100,0000 Hz",     "1,000000 mHz",    "10,00000 MHz",    "100,0000 Hz");
+    ValuesStruct results_20000000  ("10,000000 Hz",    "100,00000 uHz",   "1,0000000 MHz",   "10,000000 Hz");
+    ValuesStruct results_200000000 ("1,00000000 Hz",   "10,0000000 uHz",  "100,000000 kHz",  "1,00000000 Hz");
+    ValuesStruct results_2000000000("100,0000000 mHz", "1,000000000 uHz", "10,00000000 kHz", "100,0000000 mHz");
+
+    struct TestStruct
+    {
+        uint          counter;
+        ValuesStruct *values;
+    };
+
+    TestStruct structs[] =
+    {
+        {2,          &results_2},
+        {20,         &results_20},
+        {200,        &results_200},
+        {2000,       &results_2000},
+        {20000,      &results_20000},
+        {200000,     &results_200000},
+        {2000000,    &results_2000000},
+        {20000000,   &results_20000000},
+        {200000000,  &results_200000000},
+        {2000000000, &results_2000000000},
+        {0, nullptr}
+    };
+
+    StoreSettings(Channel::A);
+
+    Channel::SetCurrent(Channel::A);
+    Channel::A->mod.typeMeasure.value = TypeMeasure::Frequency;
+    Channel::A->mod.modeFrequency.value = ModeFrequency::T_1;
+
+    for (int i = 0; structs[i].values != nullptr; i++)
+    {
+        TestStruct &s = structs[i];
+
+        for (int row = 0; row < 2; row++)
+        {
+            for (int col = 0; col < 2; col++)
+            {
+                Channel::A->mod.numberPeriods.value = (uint8)parameters[row][col].numberPeriods;
+                Channel::A->mod.timeLabels.value = (uint8)parameters[row][col].timeLabels;
+
+                MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, s.counter, 0);
+
+                char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
+                char *standard_str = s.values->c_str(row, col);
+
+                if (std::strcmp(value_str, standard_str) != 0)
+                {
+                    FailExit();
+                }
+            }
+        }
+    }
+
+    RestoreSettings(Channel::A);
 }

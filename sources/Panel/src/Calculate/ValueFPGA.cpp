@@ -29,13 +29,17 @@ int ValueFPGA::NumDigitsInNumber(uint number) const
 
 char *ValueFPGA::GetSuffixUnit(int order) const
 {
-    if (order >= 12)      { return "T"; }
-    else if (order >= 9)  { return "G"; }
-    else if (order >= 6)  { return "M"; }
-    else if (order >= 3)  { return "k"; }
-    else if (order >= 0)  { return "";  }
-    else if (order >= -3) { return "m"; }
+    if (order >= 15)       { return "P"; }
+    else if (order >= 12)  { return "T"; }
+    else if (order >= 9)   { return "G"; }
+    else if (order >= 6)   { return "M"; }
+    else if (order >= 3)   { return "k"; }
+    else if (order >= 0)   { return "";  }
+    else if (order >= -3)  { return "m"; }
+    else if (order >= -6)  { return "u"; }
+    else if (order >= -9)  { return "n"; }
+    else if (order >= -12) { return "p"; }
     
-    return "u";
+    return "ph";
 }
 
