@@ -15,6 +15,8 @@ struct MathFPGA
         static String GiveDigits();
         static String GiveUnits();
 
+        static const char *UGO_DivNULL;
+
     private:
 
         static void SetDigits(const String &digits);

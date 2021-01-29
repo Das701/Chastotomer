@@ -43,6 +43,7 @@ ValueFPGA   *MathFPGA::Measure::valueFPGA = nullptr;
 
 ValueComparator MathFPGA::Comparator::value(0);
 
+const char *MathFPGA::Data::UGO_DivNULL = "=X/0";
 
 static bool isDivZero = false;
 
@@ -666,7 +667,7 @@ void MathFPGA::Measure::CalculateNewData()
         {
             if (isDivZero)
             {
-                Data::SetDigits(String("=X/0"));
+                Data::SetDigits(String(MathFPGA::Data::UGO_DivNULL));
                 return;
             }
 
