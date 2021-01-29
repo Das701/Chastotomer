@@ -49,8 +49,10 @@ public:
     
     static String Int2String(int n);
 
-    // Оставляет в строке buffer размером size ровно digits значащих цифр
+    // Оставляет в строке buffer размером size ровно digits цифр. Первые нули тоже учитываются
     static void LeaveFewDigits(char *buffer, int size, int digits);
+
+    static void LeaveFewSignedDigits(char *buffer, int size, int digits);
 };
 
 

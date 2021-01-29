@@ -43,6 +43,8 @@ struct ValueSTRICT
 
     double ToDouble() const;
 
+    bool IsZero() const { return units == 0; }
+
     // ¬озвращает абсолютное значение в виде количества юнитов размерности
     // dimension
     uint64 ToUnits(Order order) const;

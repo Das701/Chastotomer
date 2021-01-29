@@ -511,3 +511,36 @@ void SU::LeaveFewDigits(char *buffer, int size, int digits)
         *pointer = '\0';
     }
 }
+
+
+void SU::LeaveFewSignedDigits(char *buffer, int size, int digits)
+{
+    bool isControl = false;
+
+    char *pointer = buffer;
+
+    while (*pointer != '\0' && digits != 0 && size > 0)
+    {
+        size--;
+
+        if ((*pointer & 0xF0) == 0x30)
+        {
+            if (*pointer == 0x30 && !isControl)
+            {
+                pointer++;
+                continue;
+            }
+
+            isControl = true;
+
+            digits--;
+        }
+
+        pointer++;
+    }
+
+    if (size > 0)
+    {
+        *pointer = '\0';
+    }
+}

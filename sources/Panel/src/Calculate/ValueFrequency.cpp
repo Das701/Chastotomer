@@ -18,6 +18,8 @@ ValueFrequency::ValueFrequency(uint value1, uint value2, uint value3, uint value
 
 ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequency(counter)
 {
+    counter /= 2;
+
     TimeMeasure::E time = (TimeMeasure::E)Channel::Current()->mod.timeMeasure.value;
 
     uint multipliers[TimeMeasure::Count] =
@@ -42,7 +44,7 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
         1000    // 1000 s
     };
 
-    ValueSTRICT strict((int64)counter / 2);
+    ValueSTRICT strict((int64)counter);
 
     strict.MulUINT(multipliers[time]);
     strict.DivUINT(dividers[time]);
@@ -66,15 +68,28 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
         }
     }
 
-    char buffer[30];
-    std::sprintf(buffer, "%f", strict.ToDouble());
-
-    if (counter == 2)
+    if (counter == 1)
     {
         counter = counter;
     }
 
-    SU::LeaveFewDigits(buffer, 29, NumDigitsInNumber(counter / 2));
+    if (NumDigitsInNumber((uint)strict.ToDouble()) > NumDigitsInNumber(counter))
+    {
+        strict.DivUINT(1000);
+        order += 3;
+    }
+
+    char buffer[30];
+    std::sprintf(buffer, "%f", strict.ToDouble());
+
+    if (strict.IsZero())
+    {
+        SU::LeaveFewDigits(buffer, 29, NumDigitsInNumber(counter));
+    }
+    else
+    {
+        SU::LeaveFewSignedDigits(buffer, 29, NumDigitsInNumber(counter));
+    }
     std::strcat(buffer, " ");
     std::strcat(buffer, GetSuffixUnit(order));
     std::strcat(buffer, mainUnits.c_str());
