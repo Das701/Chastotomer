@@ -8,21 +8,39 @@
 
 namespace Tests
 {
-    static void ValueFrequency_Frequency();
+    namespace Frequency
+    {
+        namespace Frequency
+        {
+            static void Test();
 
-    static void ValuleFrequency_T_1();
+            static void StoreSettings();
+
+            static void RestoreSettings();
+
+            static Channel *current = nullptr;
+            static uint8 type = 0;
+            static uint8 mode = 0;
+            static uint8 timeMeasure = 0;
+        }
+
+        namespace T_1
+        {
+            static void Test();
+        }
+    }
 }
 
 
 void Tests::ValuesFPGA()
 {
-    ValueFrequency_Frequency();
+    Frequency::Frequency::Test();
 
-    ValuleFrequency_T_1();
+    Frequency::T_1::Test();
 }
 
 
-static void Tests::ValueFrequency_Frequency()
+static void Tests::Frequency::Frequency::Test()
 {
     // Channel::A
 
@@ -91,10 +109,7 @@ static void Tests::ValueFrequency_Frequency()
         results_200000002, results_1999999998
     };
 
-    Channel *current = Channel::Current();
-    uint8 type = Channel::Current()->mod.typeMeasure.value;
-    uint8 mode = Channel::Current()->mod.modeFrequency.value;
-    uint8 timeMeasure = Channel::Current()->mod.timeMeasure.value;
+    StoreSettings();
 
     Channel::SetCurrent(Channel::A);
     Channel::A->mod.typeMeasure.value = TypeMeasure::Frequency;
@@ -124,12 +139,11 @@ static void Tests::ValueFrequency_Frequency()
         }
     }
 
-    Channel::SetCurrent(current);
-    Channel::Current()->mod.typeMeasure.value = type;
-    Channel::Current()->mod.modeFrequency.value = mode;
-    Channel::Current()->mod.timeMeasure.value = timeMeasure;
+    RestoreSettings();
 
     // Channel::B
+
+
 
     // Channel::C
 
@@ -137,7 +151,23 @@ static void Tests::ValueFrequency_Frequency()
 }
 
 
-static void Tests::ValuleFrequency_T_1()
+static void Tests::Frequency::Frequency::StoreSettings()
 {
+    current = Channel::Current();
+    type = Channel::Current()->mod.typeMeasure.value;
+    mode = Channel::Current()->mod.modeFrequency.value;
+    timeMeasure = Channel::Current()->mod.timeMeasure.value;
+}
 
+static void Tests::Frequency::Frequency::RestoreSettings()
+{
+    Channel::SetCurrent(current);
+    Channel::Current()->mod.typeMeasure.value = type;
+    Channel::Current()->mod.modeFrequency.value = mode;
+    Channel::Current()->mod.timeMeasure.value = timeMeasure;
+}
+
+
+static void Tests::Frequency::T_1::Test()
+{
 }
