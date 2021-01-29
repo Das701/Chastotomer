@@ -554,10 +554,18 @@ static void Tests::Period::F_1::Test()
     String results_4[TimeMeasure::Count]          = { "0,5 ms",         "5 ms",            "0,05 s",        "0,5 s",          "5 s",           "0,05 ks",       "0,5 ks" };
     String results_18[TimeMeasure::Count]         = { "0,1 ms",         "1 ms",            "0,01 s",        "0,1 s",          "1 s",           "0,01 ks",       "0,1 ks" };
     String results_20[TimeMeasure::Count]         = { "0,10 ms",        "1,0 ms",          "10 ms",         "0,10 s",         "1,0 s",         "10 s",          "0,10 ks" };       // 10
+    String results_22[TimeMeasure::Count]         = { "90 us",          "0,90 ms",         "9,0 ms",        "90 ms",          "0,90 s",        "9,0 s",         "90 s" };       // 10
+    String results_24[TimeMeasure::Count]         = { "83 us",          "0,83 ms",         "8,3 ms",        "83 ms",          "0,83 s",        "8,3 s",         "83 s" };       // 10
+    String results_30[TimeMeasure::Count]         = { "66 us",          "0,66 ms",         "6,6 ms",        "66 ms",          "0,66 s",        "6,6 s",         "66 s" };       // 10
     String results_1998[TimeMeasure::Count]       = { "1,00 us",        "10,0 us",         "100 us",        "1,00 ms",        "10,0 ms",       "100 ms",        "1,00 s" };
     String results_2000[TimeMeasure::Count]       = { "1,000 us",       "10,00 us",        "100,0 us",      "1,000 ms",       "10,00 ms",      "100,0 ms",      "1,000 s" };
     String results_2002[TimeMeasure::Count]       = { "999,0 ns",       "9,990 us",        "99,90 us",      "999,0 us",       "9,990 ms",      "99,90 ms",      "999,0 ms" };
     String results_2004[TimeMeasure::Count]       = { "998,0 ns",       "9,980 us",        "99,80 us",      "998,0 us",       "9,980 ms",      "99,80 ms",      "998,0 ms" };
+    String results_200000[TimeMeasure::Count]     = { "10,0000 ns",     "100,000 ns",      "1,00000 us",    "10,0000 us",     "100,000 us",    "1,00000 ms",    "10,0000 ms" };
+    String results_200002[TimeMeasure::Count]     = { "9,99990 ns",     "99,9990 ns",      "999,990 ns",    "9,99990 us",     "99,9990 us",    "999,990 us",    "9,99990 ms" };
+    String results_200004[TimeMeasure::Count]     = { "9,99980 ns",     "99,9980 ns",      "999,980 ns",    "9,99980 us",     "99,9980 us",    "999,980 us",    "9,99980 ms" };
+    String results_200006[TimeMeasure::Count]     = { "9,99970 ns",     "99,9970 ns",      "999,970 ns",    "9,99970 us",     "99,9970 us",    "999,970 us",    "9,99970 ms" };
+    String results_200008[TimeMeasure::Count]     = { "9,99960 ns",     "99,9960 ns",      "999,960 ns",    "9,99960 us",     "99,9960 us",    "999,960 us",    "9,99960 ms" };
 
     String *results[] =
     {
@@ -566,10 +574,18 @@ static void Tests::Period::F_1::Test()
         results_4,
         results_18,
         results_20,
+        results_22,
+        results_24,
+        results_30,
         results_1998,
         results_2000,
         results_2002,
-        results_2004
+        results_2004,
+        results_200000,
+        results_200002,
+        results_200004,
+        results_200006,
+        results_200008
     };
 
     uint counters[] = {
@@ -578,10 +594,18 @@ static void Tests::Period::F_1::Test()
         4,
         18,
         20,
+        22,
+        24,
+        30,
         1998,
         2000,
         2002,
         2004,
+        200000,
+        200002,
+        200004,
+        200006,
+        200008,
         (uint)-1
     };
 
