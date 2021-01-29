@@ -33,6 +33,11 @@ namespace Tests
         {
             static void Test();
         }
+
+        namespace F_1
+        {
+            static void Test();
+        }
     }
 
     static void StoreSettings(Channel *channel);
@@ -68,6 +73,8 @@ static void Tests::Frequency::Test()
 static void Tests::Period::Test()
 {
     Period::Test();
+
+    F_1::Test();
 }
 
 
@@ -442,6 +449,71 @@ static void Tests::Frequency::T_1::Test()
 
 
 static void Tests::Period::Period::Test()
+{
+    struct ValuesStruct
+    {
+        ValuesStruct(pString s00, pString s01, pString s10, pString s11)
+        {
+            results[0][0].Set(TypeConversionString::None, s00);     // N == 1, L == 10-8
+            results[0][1].Set(TypeConversionString::None, s01);     // N == 1, L == 10-3
+            results[1][0].Set(TypeConversionString::None, s10);     // N == 100k, L == 10-8
+            results[1][1].Set(TypeConversionString::None, s11);     // N == 100k, L == 10-3
+        }
+
+        char *c_str(int row, int col) { return results[row][col].c_str(); }
+
+        String results[2][2];
+    };
+
+    struct ParametersStruct
+    {
+        NumberPeriods::E    numberPeriods;
+        PeriodTimeLabels::E timeLabels;
+    };
+
+    ParametersStruct parameters[2][2] =
+    {
+        {{NumberPeriods::_1,    PeriodTimeLabels::T_8}, {NumberPeriods::_1,    PeriodTimeLabels::T_3}},
+        {{NumberPeriods::_100K, PeriodTimeLabels::T_8}, {NumberPeriods::_100K, PeriodTimeLabels::T_3}}
+    };
+
+    ValuesStruct results_0         ("0 s",           "0 s",           "0 s",            "0 s");
+    ValuesStruct results_2         ("0,01 us",       "1 ms",          "0,1 ps",         "0,01 us");
+    ValuesStruct results_20        ("0,10 us",       "10 ms",         "1,0 ns",         "0,10 us");
+    ValuesStruct results_200       ("1,00 us",       "100 ms",        "10,0 ns",        "1,00 ms");
+    ValuesStruct results_2000      ("10,00 us",      "1,000 s",       "100,0 ns",       "10,00 ms");
+    ValuesStruct results_20000     ("100,00 us",     "10,00 s",       "1,0000 us",      "100,00 ms");
+    ValuesStruct results_200000    ("1,00000 ms",    "100,00 s",      "10,0000 us",     "1,00000 s");
+    ValuesStruct results_2000000   ("10,00000 ms",   "1,00000 ks",    "100,0000 us",    "10,00000 s");
+    ValuesStruct results_20000000  ("100,00000 ms",  "10,00000 ks",   "1,0000000 ms",   "100,00000 s");
+    ValuesStruct results_200000000 ("1,00000000 s",  "100,00000 ks",  "10,0000000 ms",  "1,00000000 ks");
+    ValuesStruct results_2000000000("10,00000000 s", "1,00000000 Ms", "100,0000000 ms", "10,00000000 ks");
+
+    struct TestStruct
+    {
+        uint          counter;
+        ValuesStruct *values;
+    };
+
+    TestStruct structs[] =
+    {
+        {0,          &results_0},
+        {2,          &results_2},
+        {20,         &results_20},
+        {200,        &results_200},
+        {2000,       &results_2000},
+        {20000,      &results_20000},
+        {200000,     &results_200000},
+        {2000000,    &results_2000000},
+        {20000000,   &results_20000000},
+        {200000000,  &results_200000000},
+        {2000000000, &results_2000000000},
+        {0, nullptr}
+    };
+}
+
+
+static void Tests::Period::F_1::Test()
 {
 
 }
