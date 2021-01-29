@@ -150,7 +150,7 @@ ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
 
     if (!strict.IsZero())
     {
-        if ((uint)strict.ToDouble() < 1)
+        while ((uint)strict.ToDouble() < 1)
         {
             strict.MulUINT(1000);
             order -= 3;
