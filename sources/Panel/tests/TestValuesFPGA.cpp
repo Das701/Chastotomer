@@ -17,30 +17,11 @@ namespace Tests
             static void Test();
 
             static void TestChannelsCD();
-
-            static void StoreSettings(Channel *channel);
-
-            static void RestoreSettings(Channel *channel);
-
-            static Channel *current = nullptr;
-            static uint8 type = 0;
-            static uint8 mode = 0;
-            static uint8 timeMeasure = 0;
         }
 
         namespace T_1
         {
             static void Test();
-
-            static void StoreSettings(Channel *channel);
-
-            static void RestoreSettings(Channel *channel);
-
-            static Channel *current = nullptr;
-            static uint8 type = 0;
-            static uint8 mode = 0;
-            static uint8 numberPeriods = 0;
-            static uint8 timeLabels = 0;
         }
     }
 
@@ -53,6 +34,18 @@ namespace Tests
             static void Test();
         }
     }
+
+    static void StoreSettings(Channel *channel);
+
+    static void RestoreSettings(Channel *channel);
+
+    static Channel *current = nullptr;
+    static uint8 type = 0;
+    static uint8 modeFrequency = 0;
+    static uint8 modePeriod = 0;
+    static uint8 timeMeasure = 0;
+    static uint8 numberPeriods = 0;
+    static uint8 timeLabels = 0;
 }
 
 
@@ -323,38 +316,26 @@ static void Tests::Frequency::Frequency::TestChannelsCD()
 }
 
 
-static void Tests::Frequency::Frequency::StoreSettings(Channel *channel)
+static void Tests::StoreSettings(Channel *channel)
 {
     current = Channel::Current();
     type = channel->mod.typeMeasure.value;
-    mode = channel->mod.modeFrequency.value;
+    modeFrequency = channel->mod.modeFrequency.value;
+    modePeriod = channel->mod.modePeriod.value;
+
     timeMeasure = channel->mod.timeMeasure.value;
-}
-
-static void Tests::Frequency::Frequency::RestoreSettings(Channel *channel)
-{
-    Channel::SetCurrent(current);
-    channel->mod.typeMeasure.value = type;
-    channel->mod.modeFrequency.value = mode;
-    channel->mod.timeMeasure.value = timeMeasure;
-}
-
-
-static void Tests::Frequency::T_1::StoreSettings(Channel *channel)
-{
-    current = Channel::Current();
-    type = channel->mod.typeMeasure.value;
-    mode = channel->mod.modeFrequency.value;
     numberPeriods = channel->mod.numberPeriods.value;
     timeLabels = channel->mod.timeLabels.value;
 }
 
-
-static void Tests::Frequency::T_1::RestoreSettings(Channel *channel)
+static void Tests::RestoreSettings(Channel *channel)
 {
     Channel::SetCurrent(current);
     channel->mod.typeMeasure.value = type;
-    channel->mod.modeFrequency.value = mode;
+    channel->mod.modeFrequency.value = modeFrequency;
+    channel->mod.modePeriod.value = modePeriod;
+
+    channel->mod.timeMeasure.value = timeMeasure;
     channel->mod.numberPeriods.value = numberPeriods;
     channel->mod.timeLabels.value = timeLabels;
 }
