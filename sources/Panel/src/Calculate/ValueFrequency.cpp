@@ -49,6 +49,11 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
     strict.MulUINT(multipliers[time]);
     strict.DivUINT(dividers[time]);
 
+    if (CURRENT_CHANNEL_IS_C)
+    {
+        strict.MulUINT(64);
+    }
+
     int order = 0;
 
     if (strict.ToDouble() < 0.0)
