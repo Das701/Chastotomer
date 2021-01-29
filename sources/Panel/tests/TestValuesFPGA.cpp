@@ -552,4 +552,50 @@ static void Tests::Period::F_1::Test()
         MathFPGA::Data::UGO_DivNULL};
     String results_2[TimeMeasure::Count]          = { "1 ms",           "0,01 s",          "0,1 s",        "1 s",             "0,01 ks",       "0,1 ks",          "1 ks" };      // 1
     String results_20[TimeMeasure::Count]         = { "0,10 ms",        "1,0 ms",          "10 ms",         "0,10 s",         "1,0 s",         "10 s",          "0,10 ks" };       // 10
+
+    String *results[] =
+    {
+        results_0,
+        results_2,
+        results_20
+    };
+
+    uint counters[] = {
+        0,
+        2,
+        20,
+        (uint)-1
+    };
+
+    StoreSettings(Channel::A);
+
+    Channel::SetCurrent(Channel::A);
+    Channel::A->mod.typeMeasure.value = TypeMeasure::Period;
+    Channel::A->mod.modePeriod.value = ModePeriod::F_1;
+
+    for (int i = 0; counters[i] != (uint)-1; i++)
+    {
+        uint counter = counters[i];
+
+        String *result = results[i];
+
+        for (uint8 time = 0; time < TimeMeasure::Count; time++)
+        {
+            Channel::A->mod.timeMeasure.value = time;
+
+            MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, counter, 0);
+
+            char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
+            char *standard_str = (*result).c_str();
+
+            if (std::strcmp(value_str, standard_str) != 0)
+            {
+                FailExit();
+            }
+
+            result++;
+        }
+    }
+
+    RestoreSettings(Channel::A);
 }

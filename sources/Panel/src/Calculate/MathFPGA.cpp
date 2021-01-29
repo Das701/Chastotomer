@@ -255,10 +255,8 @@ int MathFPGA::Measure::CalculateDurationEmptyZeros()
 
 
 void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3, uint value4, uint value5)
-{
+{ 
     isDivZero = false;
-
-    value1 = 1000;
 
     if (CreateValue(type, value1, value2, value3, value4, value5))
     {
@@ -330,6 +328,10 @@ bool MathFPGA::Measure::CreateValue(TypeData::E typeData, uint value1, uint, uin
             if (mode == ModePeriod::Period)
             {
                 valueFPGA = new ValuePeriod_Period(value1);
+            }
+            else if (mode == ModePeriod::F_1)
+            {
+                valueFPGA = new ValuePeriod_F_1(value1);
             }
         }
     }
