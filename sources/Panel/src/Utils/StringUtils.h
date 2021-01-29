@@ -49,6 +49,7 @@ public:
     
     static String Int2String(int n);
 
+    // Оставляет в строке buffer размером size ровно digits значащих цифр
     static void LeaveFewDigits(char *buffer, int size, int digits);
 };
 

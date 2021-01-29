@@ -8,9 +8,14 @@ ValueFPGA::ValueFPGA(uint, uint, uint, uint)
 }
 
 
-int ValueFPGA::NumDigitsInNumber(uint number)
+int ValueFPGA::NumDigitsInNumber(uint number) const
 {
-    int result = 1;
+    if (number == 0)
+    {
+        return 1;
+    }
+
+    int result = 0;
 
     while (number > 0)
     {
@@ -20,3 +25,16 @@ int ValueFPGA::NumDigitsInNumber(uint number)
 
     return result;
 }
+
+
+char *ValueFPGA::GetSuffixUnit(int order) const
+{
+    if (order >= 9)       { return "G"; }
+    else if (order >= 6)  { return "M"; }
+    else if (order >= 3)  { return "k"; }
+    else if (order >= 0)  { return "";  }
+    else if (order >= -3) { return "m"; }
+    
+    return "u";
+}
+
