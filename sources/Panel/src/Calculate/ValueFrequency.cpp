@@ -112,10 +112,17 @@ ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
 {
     counter /= 2;
 
-    ValueSTRICT strict((int64)counter);
+    ValueSTRICT strict((int64)Channel::Current()->mod.numberPeriods.ToAbs());
 
-    strict.MulUINT((uint)Channel::Current()->mod.numberPeriods.ToAbs());
+    double d = strict.ToDouble();
+
     strict.MulUINT((uint)Channel::Current()->mod.timeLabels.ToZeros());
+
+    d = strict.ToDouble();
+
+    strict.DivUINT(counter);
+
+    d = strict.ToDouble();
 
     if (CURRENT_CHANNEL_IS_C || CURRENT_CHANNEL_IS_D)
     {

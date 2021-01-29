@@ -368,7 +368,7 @@ static void Tests::Frequency::T_1::Test()
     ParametersStruct parameters[2][2] =
     {
         {{NumberPeriods::_1,    PeriodTimeLabels::T_8}, {NumberPeriods::_1,    PeriodTimeLabels::T_3}},
-        {{NumberPeriods::_100K, PeriodTimeLabels::T_8}, {NumberPeriods::_100K, PeriodTimeLabels::T_8}}
+        {{NumberPeriods::_100K, PeriodTimeLabels::T_8}, {NumberPeriods::_100K, PeriodTimeLabels::T_3}}
     };
 
     ValuesStruct results_2         ("0,1 GHz",         "1 kHz",           "0,01 PHz",        "0,1 GHz");
