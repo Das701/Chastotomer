@@ -551,6 +551,8 @@ static void Tests::Period::F_1::Test()
         MathFPGA::Data::UGO_DivNULL,
         MathFPGA::Data::UGO_DivNULL };
     String results_2[TimeMeasure::Count]          = { "1 ms",           "0,01 s",          "0,1 s",         "1 s",            "0,01 ks",       "0,1 ks",        "1 ks" };      // 1
+    String results_4[TimeMeasure::Count]          = { "0,5 ms",         "5 ms",            "0,05 s",        "0,5 s",          "5 s",           "0,05 ks",       "0,5 ks" };
+    String results_18[TimeMeasure::Count]         = { "0,1 ms",         "1 ms",            "0,01 s",        "0,1 s",          "1 s",           "0,01 ks",       "0,1 ks" };
     String results_20[TimeMeasure::Count]         = { "0,10 ms",        "1,0 ms",          "10 ms",         "0,10 s",         "1,0 s",         "10 s",          "0,10 ks" };       // 10
     String results_1998[TimeMeasure::Count]       = { "1,00 us",        "10,0 us",         "100 us",        "1,00 ms",        "10,0 ms",       "100 ms",        "1,00 s" };
     String results_2000[TimeMeasure::Count]       = { "1,000 us",       "10,00 us",        "100,0 us",      "1,000 ms",       "10,00 ms",      "100,0 ms",      "1,000 s" };
@@ -561,6 +563,8 @@ static void Tests::Period::F_1::Test()
     {
         results_0,
         results_2,
+        results_4,
+        results_18,
         results_20,
         results_1998,
         results_2000,
@@ -571,6 +575,8 @@ static void Tests::Period::F_1::Test()
     uint counters[] = {
         0,
         2,
+        4,
+        18,
         20,
         1998,
         2000,
