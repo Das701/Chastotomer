@@ -106,8 +106,6 @@ static void Tests::ValueFrequency_Frequency()
 
         String *result = results[i];
 
-        int numString = 0;
-
         for (uint8 time = 0; time < TimeMeasure::Count; time++)
         {
             Channel::A->mod.timeMeasure.value = time;
@@ -116,12 +114,6 @@ static void Tests::ValueFrequency_Frequency()
 
             char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
             char *standard_str = (*result).c_str();
-            numString = numString;
-
-            if (i == 19 && numString == 0)
-            {
-                i = i;
-            }
 
             if (std::strcmp(value_str, standard_str) != 0)
             {
@@ -129,7 +121,6 @@ static void Tests::ValueFrequency_Frequency()
             }
 
             result++;
-            numString++;
         }
     }
 

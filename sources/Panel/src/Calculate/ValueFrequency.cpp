@@ -20,9 +20,6 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
 {
     counter /= 2;
 
-    static int count = 0;
-    count++;
-
     TimeMeasure::E time = (TimeMeasure::E)Channel::Current()->mod.timeMeasure.value;
 
     uint multipliers[TimeMeasure::Count] =
@@ -64,11 +61,6 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
     }
     else
     {
-        if (count > 7 * 22 + 1)
-        {
-            count = count;
-        }
-
         while (strict.ToDouble() >= 1000.0)
         {
             strict.DivUINT(1000);

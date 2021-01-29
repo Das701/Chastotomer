@@ -152,12 +152,18 @@ int ValueSTRICT::Sign() const
 
 void ValueSTRICT::DivUINT(uint div)
 {
+    Normalize();
+
     units /= div;
+
+    Normalize();
 }
 
 
 void ValueSTRICT::DivDOUBLE(double div)
 {
+    Normalize();
+
     if (sign > 0)
     {
         if (div > 0) { sign = 1;  }
@@ -170,6 +176,8 @@ void ValueSTRICT::DivDOUBLE(double div)
     }
 
     units = (uint64)((double)units / std::abs(div));
+
+    Normalize();
 }
 
 
@@ -188,6 +196,20 @@ void ValueSTRICT::MulUINT(uint mul)
 void ValueSTRICT::SetSign(int s)
 {
     sign = s;
+}
+
+
+void ValueSTRICT::Normalize()
+{
+    while ((double)units * 1000.0 < (double)MAX_UINT64)
+    {
+        if (!order.Increase())
+        {
+            break;
+        }
+
+        units *= THOUSAND;
+    }
 }
 
 
