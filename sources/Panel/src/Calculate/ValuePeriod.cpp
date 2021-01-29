@@ -58,15 +58,9 @@ ValuePeriod_F_1::ValuePeriod_F_1(uint counter) : ValuePeriod()
         1000    // 1000 s
     };
 
-    ValueSTRICT strict(counter);
-
-    strict.MulUINT(multipliers[time]);
-    strict.DivUINT(dividers[time]);
-
-    if (CURRENT_CHANNEL_IS_C || CURRENT_CHANNEL_IS_D)
-    {
-        strict.MulUINT(64);
-    }
+    ValueSTRICT strict(dividers[time]);
+    strict.DivUINT(counter);
+    strict.DivUINT(multipliers[time]);
 
     SetValue(strict, counter);
 }

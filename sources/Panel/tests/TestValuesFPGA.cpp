@@ -549,21 +549,33 @@ static void Tests::Period::F_1::Test()
         MathFPGA::Data::UGO_DivNULL,
         MathFPGA::Data::UGO_DivNULL,
         MathFPGA::Data::UGO_DivNULL,
-        MathFPGA::Data::UGO_DivNULL};
-    String results_2[TimeMeasure::Count]          = { "1 ms",           "0,01 s",          "0,1 s",        "1 s",             "0,01 ks",       "0,1 ks",          "1 ks" };      // 1
+        MathFPGA::Data::UGO_DivNULL };
+    String results_2[TimeMeasure::Count]          = { "1 ms",           "0,01 s",          "0,1 s",         "1 s",            "0,01 ks",       "0,1 ks",        "1 ks" };      // 1
     String results_20[TimeMeasure::Count]         = { "0,10 ms",        "1,0 ms",          "10 ms",         "0,10 s",         "1,0 s",         "10 s",          "0,10 ks" };       // 10
+    String results_1998[TimeMeasure::Count]       = { "1,00 us",        "10,0 us",         "100 us",        "1,00 ms",        "10,0 ms",       "100 ms",        "1,00 s" };
+    String results_2000[TimeMeasure::Count]       = { "1,000 us",       "10,00 us",        "100,0 us",      "1,000 ms",       "10,00 ms",      "100,0 ms",      "1,000 s" };
+    String results_2002[TimeMeasure::Count]       = { "999,0 ns",       "9,990 us",        "99,90 us",      "999,0 us",       "9,990 ms",      "99,90 ms",      "999,0 ms" };
+    String results_2004[TimeMeasure::Count]       = { "998,0 ns",       "9,980 us",        "99,80 us",      "998,0 us",       "9,980 ms",      "99,80 ms",      "998,0 ms" };
 
     String *results[] =
     {
         results_0,
         results_2,
-        results_20
+        results_20,
+        results_1998,
+        results_2000,
+        results_2002,
+        results_2004
     };
 
     uint counters[] = {
         0,
         2,
         20,
+        1998,
+        2000,
+        2002,
+        2004,
         (uint)-1
     };
 
