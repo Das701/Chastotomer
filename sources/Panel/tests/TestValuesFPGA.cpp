@@ -10,13 +10,13 @@ namespace Tests
 {
     namespace Frequency
     {
+        static void Test();
+
         namespace Frequency
         {
             static void Test();
 
-            static void TestChannelC();
-
-            static void TestChannelD();
+            static void TestChannelsCD();
 
             static void StoreSettings(Channel *channel);
 
@@ -38,9 +38,15 @@ namespace Tests
 
 void Tests::ValuesFPGA()
 {
-    Frequency::Frequency::Test();
+    Frequency::Test();
+}
 
-    Frequency::T_1::Test();
+
+static void Tests::Frequency::Test()
+{
+    Frequency::Test();
+    
+    T_1::Test();
 }
 
 
@@ -179,24 +185,46 @@ static void Tests::Frequency::Frequency::Test()
 
     RestoreSettings(Channel::B);
 
-    TestChannelC();
-
-    TestChannelD();
+    TestChannelsCD();
 }
 
 
-static void Tests::Frequency::Frequency::TestChannelC()
+static void Tests::Frequency::Frequency::TestChannelsCD()
 {
-    //                                                1 ms              10 ms             100 ms            1 s               10 s              100 s             1000s
-    String results_3126[TimeMeasure::Count] = { "100,0 MHz",     "10,00 MHz",      "1,000 MHz",      "100,0 kHz",      "10,00 kHz",     "1,000 kHz",       "100,0 Hz" };
+    //                                              1 ms               10 ms              100 ms             1 s               10 s               100 s              1000s
+    String results_0[TimeMeasure::Count]        = { "0 Hz",          "0 Hz",           "0 Hz",             "0 Hz",           "0 Hz",           "0 Hz",             "0 Hz" };
+    String results_310[TimeMeasure::Count]      = { "9,92 MHz",      "992 kHz",        "99,2 kHz",         "9,92 kHz",       "992 Hz",         "99,2 Hz",          "9,92 Hz" };
+    String results_312[TimeMeasure::Count]      = { "9,98 MHz",      "998 kHz",        "99,8 kHz",         "9,98 kHz",       "998 Hz",         "99,8 Hz",          "9,98 Hz" };
+    String results_2000[TimeMeasure::Count]     = { "64,00 MHz",     "6,400 MHz",      "640,0 kHz",        "64,00 kHz",      "6,400 kHz",      "640,0 Hz",         "64,00 Hz" };
+    String results_3126[TimeMeasure::Count]     = { "100,0 MHz",     "10,00 MHz",      "1,000 MHz",        "100,0 kHz",      "10,00 kHz",      "1,000 kHz",        "100,0 Hz" };
+    String results_31250[TimeMeasure::Count]    = { "1,0000 GHz",    "100,00 MHz",     "10,000 MHz",       "1,0000 MHz",     "100,00 kHz",     "10,000 kHz",       "1,0000 kHz" };
+    String results_312500[TimeMeasure::Count]   = { "10,0000 GHz",   "1,00000 GHz",    "100,000 MHz",      "10,0000 MHz",    "1,00000 MHz",    "100,000 kHz",      "10,0000 kHz" };
+    String results_3125000[TimeMeasure::Count]  = { "100,0000 GHz",  "10,00000 GHz",   "1,000000 GHz",     "100,0000 MHz",   "10,00000 MHz",   "1,000000 MHz",     "100,0000 kHz" };
+    String results_31250000[TimeMeasure::Count] = { "1,0000000 THz", "100,00000 GHz",  "10,000000 GHz",    "1,0000000 GHz",  "100,00000 MHz",  "10,000000 MHz",    "1,0000000 MHz" };
 
     String *results[] =
     {
-        results_3126
+        results_0,
+        results_310,
+        results_312,
+        results_2000,
+        results_3126,
+        results_31250,
+        results_312500,
+        results_3125000,
+        results_31250000
     };
 
     uint counters[] = {
+        0,
+        310,
+        312,
+        2000,
         3126,
+        31250,
+        312500,
+        3125000,
+        31250000,
         (uint)-1
     };
 
@@ -231,30 +259,38 @@ static void Tests::Frequency::Frequency::TestChannelC()
     }
 
     RestoreSettings(Channel::C);
-    
-    
-//    String results_0[TimeMeasure::Count]  = { "0,0 MHz",        "0,00 MHz",       "0,000 MHz",      "0,0000 MHz",     "0,00000 MHz",    "0,000000 MHz",    "0,0000000 MHz" };    // 0
-//    String results_2[TimeMeasure::Count]  = { "0,0001 GHz",     "0,00001 GHz",    "0,000001 GHz",   "0,0000001 GHz",  "0,00000001 GHz", "0,000000001 GHz", "" };
-//    String results_4[TimeMeasure::Count]  = { "0,0001 GHz",     "0,00001 GHz",    "0,000001 GHz",   "0,0000001 GHz",  "0,00000001 GHz", "0,000000001 GHz", "" };
-//    String results_6[TimeMeasure::Count]  = { "0,0002 GHz",     "0,00002 GHz",    "0,000002 GHz",   "0,0000002 GHz",  "0,00000002 GHz", "0,000000002 GHz", "" };
-//    String results_28[TimeMeasure::Count] = { "0,0009 GHz",     "0,00009 GHz",    "0,000009 GHz",   "0,0000009 GHz",  "0,00000009 GHz", "0,000000008 GHz", "" };
-//    String results_30[TimeMeasure::Count] = { "0,0010 GHz",     "0,00010 GHz",    "0,000010 GHz",   "0,0000010 GHz",  "0,00000010 GHz", "0,000000010 GHz", "" };
-//    String results_32[TimeMeasure::Count] = { "0,0010 GHz",     "0,00010 GHz",    "0,000010 GHz",   "0,0000010 GHz",  "0,00000010 GHz", "0,000000010 GHz", "" };
-//    String results_34[TimeMeasure::Count] = { "0,0011 GHz",     "0,00011 GHz",    "0,000011 GHz",   "0,0000011 GHz",  "0,00000011 GHz", "0,000000010 GHz", "" };
-//    String results_60[TimeMeasure::Count] = { "0,0019 GHz",     "0,00019 GHz",    "0,000019 GHz",   "0,0000019 GHz",  "0,00000019 GHz", "0,000000019 GHz", "" };
-//    String results_62[TimeMeasure::Count] = { "0,0020 GHz",     "0,00020 GHz",    "0,000020 GHz",   "0,0000020 GHz",  "0,00000020 GHz", "0,000000020 GHz", "" }
-//    String results_64[TimeMeasure::Count] = { "0,0020 GHz",     "0,00020 GHz",    "0,000020 GHz",   "0,0000020 GHz",  "0,00000020 GHz", "0,000000020 GHz", "" };      // 32
-//    String results_66[TimeMeasure::Count] = { "0,0021 GHz",     "0,00021 GHz",    "0,000021 GHz",   "0,0000021 GHz",  "0,00000021 GHz", "0,000000021 GHz", "" };
-//
-//    String results_31246870[TimeMeasure::Count] = { "999,8998 GHz", "99,98998 GHz", "9,998998 GHz", "0,9998998 GHz", "0,09998998 GHz", "0,009998998 GHz", "" };
-//    String results_31246872[TimeMeasure::Count] = { "999,8999 GHz", "99,98999 GHz", "9,998999 GHz", "0,9998999 GHz", "0,09998999 GHz", "0,009998999 GHz", "" };
-//    String results_31246874[TimeMeasure::Count] = { "999,9000 GHz", "99,99000 GHz", "9,999000 GHz", "0,9999000 GHz", "0,09999000 GHz", "0,009998999 GHz", "" };
-//    String results_31246876[TimeMeasure::Count] = { "999,9000 GHz", "99,99000 GHz", "9,999000 GHz", "0,9999000 GHz", "0,09999000 GHz", "0,009999000 GHz", "" };
-}
 
+    StoreSettings(Channel::D);
 
-static void Tests::Frequency::Frequency::TestChannelD()
-{
+    Channel::SetCurrent(Channel::D);
+    Channel::D->mod.typeMeasure.value = TypeMeasure::Frequency;
+    Channel::D->mod.modeFrequency.value = ModeFrequency::Frequency;
+
+    for (int i = 0; counters[i] != (uint)-1; i++)
+    {
+        uint counter = counters[i];
+
+        String *result = results[i];
+
+        for (uint8 time = 0; time < TimeMeasure::Count; time++)
+        {
+            Channel::D->mod.timeMeasure.value = time;
+
+            MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, counter, 0);
+
+            char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
+            char *standard_str = (*result).c_str();
+
+            if (std::strcmp(value_str, standard_str) != 0)
+            {
+                FailExit();
+            }
+
+            result++;
+        }
+    }
+
+    RestoreSettings(Channel::D);
 
 }
 

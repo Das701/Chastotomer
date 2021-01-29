@@ -29,7 +29,8 @@ int ValueFPGA::NumDigitsInNumber(uint number) const
 
 char *ValueFPGA::GetSuffixUnit(int order) const
 {
-    if (order >= 9)       { return "G"; }
+    if (order >= 12)      { return "T"; }
+    else if (order >= 9)  { return "G"; }
     else if (order >= 6)  { return "M"; }
     else if (order >= 3)  { return "k"; }
     else if (order >= 0)  { return "";  }
