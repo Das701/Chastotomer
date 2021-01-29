@@ -3,6 +3,7 @@
 #include "Settings.h"
 #include "Calculate/MathFPGA.h"
 #include "Calculate/ValueFrequency.h"
+#include "Calculate/ValuePeriod.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
 #include "Hardware/FPGA.h"
@@ -318,6 +319,15 @@ bool MathFPGA::Measure::CreateValue(TypeData::E typeData, uint value1, uint, uin
             else if (mode == ModeFrequency::T_1)
             {
                 valueFPGA = new ValueFrequency_T_1(value1);
+            }
+        }
+        else if (type.IsPeriod())
+        {
+            ModePeriod &mode = Channel::Current()->mod.modePeriod;
+
+            if (mode == ModePeriod::Period)
+            {
+                valueFPGA = new ValuePeriod_Period(value1);
             }
         }
     }

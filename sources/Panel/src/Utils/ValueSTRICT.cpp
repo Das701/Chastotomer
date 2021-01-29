@@ -16,15 +16,19 @@ ValueSTRICT::ValueSTRICT(double v) : sign(1), order(Order::Nano)
 }
 
 
-ValueSTRICT::ValueSTRICT(int64 v) :
-    sign(v < 0 ? -1 : 1), order(Order::Nano), units(0)
+ValueSTRICT::ValueSTRICT(int64 v) : sign(v < 0 ? -1 : 1), order(Order::Nano), units(0)
 {
-    Order _order(Order::Nano);
+    FromINT64(v);
+}
 
-    if (v < 0)
-    {
-        v = -v;
-    }
+
+void ValueSTRICT::FromINT64(int64 v)
+{
+    sign = (v < 0) ? -1 : 1;
+
+    order.value = Order::Nano;
+
+    v = Math::Abs(v);
 
     units = v * order.UnitsInOne();
 
@@ -35,6 +39,12 @@ ValueSTRICT::ValueSTRICT(int64 v) :
         else
             break;
     }
+}
+
+
+ValueSTRICT::ValueSTRICT(uint v) : sign(1), order(Order::Nano), units(0)
+{
+    FromINT64((int64)v);
 }
 
 
@@ -164,6 +174,14 @@ void ValueSTRICT::DivUINT(uint div)
     }
 
     Normalize();
+}
+
+
+void ValueSTRICT::DivINT(int div)
+{
+    SetSign(Sign() * Math::Sign(div));
+
+    ValueSTRICT::DivUINT((uint)Math::Abs(div));
 }
 
 

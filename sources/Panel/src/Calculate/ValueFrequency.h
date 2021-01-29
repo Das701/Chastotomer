@@ -6,8 +6,6 @@
 struct ValueFrequency : public ValueFPGA
 {
     ValueFrequency();
-
-    void SetValue(ValueSTRICT value, uint counter);
 };
 
 

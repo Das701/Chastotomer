@@ -471,17 +471,17 @@ static void Tests::Period::Period::Test()
         {{NumberPeriods::_100K, PeriodTimeLabels::T_8}, {NumberPeriods::_100K, PeriodTimeLabels::T_3}}
     };
 
-    ValuesStruct results_0         ("0 s",           "0 s",           "0 s",            "0 s");
-    ValuesStruct results_2         ("0,01 us",       "1 ms",          "0,1 ps",         "0,01 us");
-    ValuesStruct results_20        ("0,10 us",       "10 ms",         "1,0 ns",         "0,10 us");
-    ValuesStruct results_200       ("1,00 us",       "100 ms",        "10,0 ns",        "1,00 ms");
-    ValuesStruct results_2000      ("10,00 us",      "1,000 s",       "100,0 ns",       "10,00 ms");
-    ValuesStruct results_20000     ("100,00 us",     "10,00 s",       "1,0000 us",      "100,00 ms");
-    ValuesStruct results_200000    ("1,00000 ms",    "100,00 s",      "10,0000 us",     "1,00000 s");
-    ValuesStruct results_2000000   ("10,00000 ms",   "1,00000 ks",    "100,0000 us",    "10,00000 s");
-    ValuesStruct results_20000000  ("100,00000 ms",  "10,00000 ks",   "1,0000000 ms",   "100,00000 s");
-    ValuesStruct results_200000000 ("1,00000000 s",  "100,00000 ks",  "10,0000000 ms",  "1,00000000 ks");
-    ValuesStruct results_2000000000("10,00000000 s", "1,00000000 Ms", "100,0000000 ms", "10,00000000 ks");
+    ValuesStruct results_0         ("0 s",           "0 s",            "0 s",            "0 s");
+    ValuesStruct results_2         ("0,01 us",       "1 ms",           "0,1 ps",         "0,01 us");
+    ValuesStruct results_20        ("0,10 us",       "10 ms",          "1,0 ps",         "0,10 us");
+    ValuesStruct results_200       ("1,00 us",       "100 ms",         "10,0 ps",        "1,00 us");
+    ValuesStruct results_2000      ("10,00 us",      "1,000 s",        "100,0 ps",       "10,00 us");
+    ValuesStruct results_20000     ("100,00 us",     "10,000 s",       "1,0000 ns",      "100,00 us");
+    ValuesStruct results_200000    ("1,00000 ms",    "100,000 s",      "10,0000 ns",     "1,00000 ms");
+    ValuesStruct results_2000000   ("10,00000 ms",   "1,000000 ks",    "100,0000 ns",    "10,00000 ms");
+    ValuesStruct results_20000000  ("100,00000 ms",  "10,000000 ks",   "1,0000000 us",   "100,00000 ms");
+    ValuesStruct results_200000000 ("1,00000000 s",  "100,000000 ks",  "10,0000000 us",  "1,00000000 s");
+    ValuesStruct results_2000000000("10,00000000 s", "1,000000000 Ms", "100,0000000 us", "10,00000000 s");
 
     struct TestStruct
     {
@@ -504,6 +504,38 @@ static void Tests::Period::Period::Test()
         {2000000000, &results_2000000000},
         {0, nullptr}
     };
+
+    StoreSettings(Channel::A);
+
+    Channel::SetCurrent(Channel::A);
+    Channel::A->mod.typeMeasure.value = TypeMeasure::Period;
+    Channel::A->mod.modePeriod.value = ModePeriod::Period;
+
+    for (int i = 0; structs[i].values != nullptr; i++)
+    {
+        TestStruct &s = structs[i];
+
+        for (int row = 0; row < 2; row++)
+        {
+            for (int col = 0; col < 2; col++)
+            {
+                Channel::A->mod.numberPeriods.value = (uint8)parameters[row][col].numberPeriods;
+                Channel::A->mod.timeLabels.value = (uint8)parameters[row][col].timeLabels;
+
+                MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, s.counter, 0);
+
+                char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
+                char *standard_str = s.values->c_str(row, col);
+
+                if (std::strcmp(value_str, standard_str) != 0)
+                {
+                    FailExit();
+                }
+            }
+        }
+    }
+
+    RestoreSettings(Channel::A);
 }
 
 

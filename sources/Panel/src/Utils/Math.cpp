@@ -19,6 +19,7 @@ template void  Math::CircleDecrease<int>(int *, int, int);
 
 template int16 Math::Abs<int16>(int16);
 template int   Math::Abs<int>(int);
+template int64 Math::Abs<int64>(int64);
 
 int Math::DigitsInIntPart(float value)
 {

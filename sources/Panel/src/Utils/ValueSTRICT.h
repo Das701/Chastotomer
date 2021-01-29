@@ -37,9 +37,11 @@ Order::E operator-(Order::E, int);
 struct ValueSTRICT
 {
     explicit ValueSTRICT(double v);
+    explicit ValueSTRICT(uint v);
     explicit ValueSTRICT(int64 v);
 
     void FromDouble(double v);
+    void FromINT64(int64);
 
     double ToDouble() const;
 
@@ -50,6 +52,7 @@ struct ValueSTRICT
     uint64 ToUnits(Order order) const;
 
     void DivUINT(uint div);
+    void DivINT(int div);
     void DivDOUBLE(double div);
     void MulUINT(uint mul);
 
