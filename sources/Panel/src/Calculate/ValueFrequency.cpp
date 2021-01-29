@@ -69,9 +69,9 @@ ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
         return;
     }
 
-    ValueSTRICT strict((int64)Channel::Current()->mod.numberPeriods.ToAbs());
+    ValueSTRICT strict(Channel::Current()->mod.numberPeriods.ToAbs());
 
-    strict.MulUINT((uint)Channel::Current()->mod.timeLabels.ToZeros());
+    strict.MulINT(Channel::Current()->mod.timeLabels.ToZeros());
 
     strict.DivUINT(counter);
 

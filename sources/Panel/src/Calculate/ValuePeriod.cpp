@@ -58,7 +58,7 @@ ValuePeriod_F_1::ValuePeriod_F_1(uint counter) : ValuePeriod()
         1000    // 1000 s
     };
 
-    ValueSTRICT strict((int64)counter);
+    ValueSTRICT strict(counter);
 
     strict.MulUINT(multipliers[time]);
     strict.DivUINT(dividers[time]);

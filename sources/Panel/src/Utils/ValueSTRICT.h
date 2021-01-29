@@ -39,6 +39,7 @@ struct ValueSTRICT
     explicit ValueSTRICT(double v);
     explicit ValueSTRICT(uint v);
     explicit ValueSTRICT(int64 v);
+    explicit ValueSTRICT(int v);
 
     void FromDouble(double v);
     void FromINT64(int64);
@@ -54,7 +55,9 @@ struct ValueSTRICT
     void DivUINT(uint div);
     void DivINT(int div);
     void DivDOUBLE(double div);
+
     void MulUINT(uint mul);
+    void MulINT(int mul);
 
     void SetSign(int sign);
 
