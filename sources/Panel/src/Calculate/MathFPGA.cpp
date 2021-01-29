@@ -310,28 +310,18 @@ bool MathFPGA::Measure::CreateValue(TypeData::E typeData, uint value1, uint, uin
     {
         if (type.IsFrequency())
         {
-            ModeFrequency &mode = Channel::Current()->mod.modeFrequency;
-
-            if (mode == ModeFrequency::Frequency)
+            switch (Channel::Current()->mod.modeFrequency)
             {
-                valueFPGA = new ValueFrequency_Frequency(value1);
-            }
-            else if (mode == ModeFrequency::T_1)
-            {
-                valueFPGA = new ValueFrequency_T_1(value1);
+            case ModeFrequency::Frequency:  valueFPGA = new ValueFrequency_Frequency(value1);   break;
+            case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1);         break;
             }
         }
         else if (type.IsPeriod())
         {
-            ModePeriod &mode = Channel::Current()->mod.modePeriod;
-
-            if (mode == ModePeriod::Period)
+            switch(Channel::Current()->mod.modePeriod)
             {
-                valueFPGA = new ValuePeriod_Period(value1);
-            }
-            else if (mode == ModePeriod::F_1)
-            {
-                valueFPGA = new ValuePeriod_F_1(value1);
+            case ModePeriod::Period:    valueFPGA = new ValuePeriod_Period(value1); break;
+            case ModePeriod::F_1:       valueFPGA = new ValuePeriod_F_1(value1);    break;
             }
         }
     }
