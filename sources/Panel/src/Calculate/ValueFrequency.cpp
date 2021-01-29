@@ -9,14 +9,14 @@
 #include <cstring>
 
 
-ValueFrequency::ValueFrequency(uint value1, uint value2, uint value3, uint value4) :
-    ValueFPGA(value1, value2, value3, value4)
+ValueFrequency::ValueFrequency() :
+    ValueFPGA()
 {
     mainUnits.Set(TypeConversionString::None, "Hz");
 }
 
 
-ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequency(counter)
+ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequency()
 {
     counter /= 2;
 
@@ -110,7 +110,7 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
 }
 
 
-ValueFrequency_T_1::ValueFrequency_T_1(uint counter1) : ValueFrequency(counter1)
+ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
 {
 
 }

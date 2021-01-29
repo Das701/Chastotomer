@@ -390,16 +390,16 @@ static void Tests::Frequency::T_1::Test()
 
     TestStruct structs[] =
     {
-        {2,          &results_2},
-        {20,         &results_20},
+//        {2,          &results_2},
+//        {20,         &results_20},
         {200,        &results_200},
-        {2000,       &results_2000},
-        {20000,      &results_20000},
-        {200000,     &results_200000},
-        {2000000,    &results_2000000},
-        {20000000,   &results_20000000},
-        {200000000,  &results_200000000},
-        {2000000000, &results_2000000000},
+//        {2000,       &results_2000},
+//        {20000,      &results_20000},
+//        {200000,     &results_200000},
+//        {2000000,    &results_2000000},
+//        {20000000,   &results_20000000},
+//        {200000000,  &results_200000000},
+//        {2000000000, &results_2000000000},
         {0, nullptr}
     };
 
