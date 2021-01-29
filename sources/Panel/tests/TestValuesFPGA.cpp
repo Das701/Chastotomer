@@ -43,12 +43,24 @@ namespace Tests
             static uint8 timeLabels = 0;
         }
     }
+
+    namespace Period
+    {
+        static void Test();
+
+        namespace Period
+        {
+            static void Test();
+        }
+    }
 }
 
 
 void Tests::ValuesFPGA()
 {
     Frequency::Test();
+
+    Period::Test();
 }
 
 
@@ -57,6 +69,12 @@ static void Tests::Frequency::Test()
     Frequency::Test();
     
     T_1::Test();
+}
+
+
+static void Tests::Period::Test()
+{
+    Period::Test();
 }
 
 
@@ -439,4 +457,10 @@ static void Tests::Frequency::T_1::Test()
     }
 
     RestoreSettings(Channel::A);
+}
+
+
+static void Tests::Period::Period::Test()
+{
+
 }
