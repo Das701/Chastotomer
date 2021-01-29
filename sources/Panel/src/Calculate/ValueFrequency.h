@@ -1,10 +1,13 @@
 #pragma once
 #include "Calculate/ValueFPGA.h"
+#include "Utils/ValueSTRICT.h"
 
 
 struct ValueFrequency : public ValueFPGA
 {
     ValueFrequency();
+
+    void SetValue(ValueSTRICT value, uint counter);
 };
 
 

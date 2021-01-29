@@ -54,57 +54,7 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
         strict.MulUINT(64);
     }
 
-    int order = 0;
-
-    if (strict.ToDouble() < 0.0)
-    {
-        while (strict.ToUnits(Order::Milli) < 1)
-        {
-            strict.MulUINT(1000);
-            order -= 3;
-        }
-    }
-    else
-    {
-        while (strict.ToDouble() >= 1000.0)
-        {
-            strict.DivUINT(1000);
-            order += 3;
-        }
-    }
-
-    if (!strict.IsZero())
-    {
-        while ((uint)strict.ToDouble() < 1)
-        {
-            strict.MulUINT(1000);
-            order -= 3;
-        }
-
-        if (NumDigitsInNumber((uint)strict.ToDouble()) > NumDigitsInNumber(counter))
-        {
-            strict.DivUINT(1000);
-            order += 3;
-        }
-    }
-
-    char buffer[30];
-    std::sprintf(buffer, "%10.10f", strict.ToDouble());
-
-    if (strict.IsZero())
-    {
-        SU::LeaveFewDigits(buffer, 29, NumDigitsInNumber(counter));
-    }
-    else
-    {
-        SU::LeaveFewSignedDigits(buffer, 29, NumDigitsInNumber(counter));
-    }
-
-    std::strcat(buffer, " ");
-    std::strcat(buffer, GetSuffixUnit(order));
-    std::strcat(buffer, mainUnits.c_str());
-
-    value.Set(TypeConversionString::None, buffer);
+    SetValue(strict, counter);
 }
 
 
@@ -118,6 +68,12 @@ ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
 
     strict.DivUINT(counter);
 
+    SetValue(strict, counter);
+}
+
+
+void ValueFrequency::SetValue(ValueSTRICT strict, uint counter)
+{
     int order = 0;
 
     if (strict.ToDouble() < 0.0)
@@ -163,7 +119,7 @@ ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
     {
         SU::LeaveFewSignedDigits(buffer, 29, NumDigitsInNumber(counter));
     }
-    
+
     std::strcat(buffer, " ");
     std::strcat(buffer, GetSuffixUnit(order));
     std::strcat(buffer, mainUnits.c_str());
