@@ -34,11 +34,11 @@ static void Tests::ValueFrequency_Frequency()
     String results_18[TimeMeasure::Count]         = { "9 kHz",          "0,9 kHz",        "0,09 kHz",       "9 Hz",           "0,9 Hz",         "0,09 Hz",        "9 mHz"};       // 9
                                                                                                                                                 
     //                                                                                                      0.010kHz          0.0010kHz         0.00010kHz
-    String results_20[TimeMeasure::Count]         = { "10 kHz",         "1.0 kHz",        "0,10 kHz",       "10 Hz",          "10 Hz",          "0,10 Hz",        "10 mHz"};       // 10
+    String results_20[TimeMeasure::Count]         = { "10 kHz",         "1,0 kHz",        "0,10 kHz",       "10 Hz",          "1,0 Hz",         "0,10 Hz",        "10 mHz"};       // 10
     //                                                                                                      0.011kHz          0.0011kHz         0.00011
     String results_22[TimeMeasure::Count]         = { "11 kHz",         "1,1 kHz",        "0,11 kHz",       "11 Hz",          "1,1 Hz",         "0,11 Hz",        "11 mHz"};       // 11
     //                                                                                                      0.099kHz          0.0099kHz         0.00099kHz
-    String results_198[TimeMeasure::Count]        = { "99 kHz",         "9,9 kHz",        "0,99 kHz",       "99 Hz",          "9,9 Hz",         "0,99 Hz",        "90 mHz" };      // 99
+    String results_198[TimeMeasure::Count]        = { "99 kHz",         "9,9 kHz",        "0,99 kHz",       "99 Hz",          "9,9 Hz",         "0,99 Hz",        "99 mHz" };      // 99
                                                                                                                                                 
     //                                                                                                      0.100kHz          0.0100kHz         0.00100kHz
     String results_200[TimeMeasure::Count]        = { "100 kHz",        "10,0 kHz",       "1,00 kHz",       "100 Hz",         "10,0 Hz",        "1,00 Hz",        "100 mHz" };      // 100
@@ -53,7 +53,7 @@ static void Tests::ValueFrequency_Frequency()
     String results_20002[TimeMeasure::Count]      = { "10,001 MHz",     "1,0001 MHz",     "100,01 kHz",     "10,001 kHz",     "1,0001 kHz",     "100,01 Hz",      "10,001 Hz" };     // 10 001
     String results_199998[TimeMeasure::Count]     = { "99,999 MHz",     "9,9999 MHz",     "999,99 kHz",     "99,999 kHz",     "9,9999 kHz",     "999,99 Hz",      "99,999 Hz" };     // 99 999
                                                                                                                                                 
-    String results_200002[TimeMeasure::Count]     = { "100,001 MHz",    "10,0001 MHz",    "1,00001 MHz",    "100,001 kHz",    "10,0001 kHz",    "1,00001 kHz",    "100,001 kHz" };    // 100 001
+    String results_200002[TimeMeasure::Count]     = { "100,001 MHz",    "10,0001 MHz",    "1,00001 MHz",    "100,001 kHz",    "10,0001 kHz",    "1,00001 kHz",    "100,001 Hz" };    // 100 001
     String results_1999998[TimeMeasure::Count]    = { "999,999 MHz",    "99,9999 MHz",    "9,99999 MHz",    "999,999 kHz",    "99,9999 kHz",    "9,99999 kHz",    "999,999 Hz" };    // 999 999
                                                                                                                                                 
     String results_2000002[TimeMeasure::Count]    = { "1,000001 GHz",   "100,0001 MHz",   "10,00001 MHz",   "1,000001 MHz",   "100,0001 kHz",   "10,00001 kHz",   "1,000001 kHz" };   // 1 000 001
@@ -117,6 +117,11 @@ static void Tests::ValueFrequency_Frequency()
             char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
             char *standard_str = (*result).c_str();
             numString = numString;
+
+            if (i == 19 && numString == 0)
+            {
+                i = i;
+            }
 
             if (std::strcmp(value_str, standard_str) != 0)
             {

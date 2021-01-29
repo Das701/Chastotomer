@@ -68,19 +68,34 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
         }
     }
 
-    if (counter == 1)
+    double d = strict.ToDouble();
+    d = d;
+
+    static int count = 0;
+    count++;
+
+    if (count > 7 * 19 + 1)
     {
-        counter = counter;
+        count = count;
     }
 
-    if (NumDigitsInNumber((uint)strict.ToDouble()) > NumDigitsInNumber(counter))
+    if (!strict.IsZero())
     {
-        strict.DivUINT(1000);
-        order += 3;
+        if ((uint)strict.ToDouble() < 1)
+        {
+            strict.MulUINT(1000);
+            order -= 3;
+        }
+
+        if (NumDigitsInNumber((uint)strict.ToDouble()) > NumDigitsInNumber(counter))
+        {
+            strict.DivUINT(1000);
+            order += 3;
+        }
     }
 
     char buffer[30];
-    std::sprintf(buffer, "%f", strict.ToDouble());
+    std::sprintf(buffer, "%10.10f", strict.ToDouble());
 
     if (strict.IsZero())
     {
