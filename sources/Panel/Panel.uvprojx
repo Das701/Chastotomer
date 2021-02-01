@@ -549,24 +549,9 @@
               <FilePath>.\src\Calculate\ValueCountPulse.cpp</FilePath>
             </File>
             <File>
-              <FileName>ValueCountPulse.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\ValueCountPulse.h</FilePath>
-            </File>
-            <File>
               <FileName>ValueDuration.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Calculate\ValueDuration.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ValueDuration.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\ValueDuration.h</FilePath>
-            </File>
-            <File>
-              <FileName>ValueFPGA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\ValueFPGA.h</FilePath>
             </File>
             <File>
               <FileName>ValueFrequency.cpp</FileName>
@@ -574,24 +559,19 @@
               <FilePath>.\src\Calculate\ValueFrequency.cpp</FilePath>
             </File>
             <File>
-              <FileName>ValueFrequency.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\ValueFrequency.h</FilePath>
-            </File>
-            <File>
               <FileName>ValuePeriod.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Calculate\ValuePeriod.cpp</FilePath>
             </File>
             <File>
-              <FileName>ValuePeriod.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\ValuePeriod.h</FilePath>
-            </File>
-            <File>
               <FileName>ValueFPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Calculate\ValueFPGA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ValuesFPGA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Calculate\ValuesFPGA.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1715,24 +1695,9 @@
               <FilePath>.\src\Calculate\ValueCountPulse.cpp</FilePath>
             </File>
             <File>
-              <FileName>ValueCountPulse.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\ValueCountPulse.h</FilePath>
-            </File>
-            <File>
               <FileName>ValueDuration.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Calculate\ValueDuration.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ValueDuration.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\ValueDuration.h</FilePath>
-            </File>
-            <File>
-              <FileName>ValueFPGA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\ValueFPGA.h</FilePath>
             </File>
             <File>
               <FileName>ValueFrequency.cpp</FileName>
@@ -1740,24 +1705,19 @@
               <FilePath>.\src\Calculate\ValueFrequency.cpp</FilePath>
             </File>
             <File>
-              <FileName>ValueFrequency.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\ValueFrequency.h</FilePath>
-            </File>
-            <File>
               <FileName>ValuePeriod.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Calculate\ValuePeriod.cpp</FilePath>
             </File>
             <File>
-              <FileName>ValuePeriod.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\ValuePeriod.h</FilePath>
-            </File>
-            <File>
               <FileName>ValueFPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Calculate\ValueFPGA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ValuesFPGA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Calculate\ValuesFPGA.h</FilePath>
             </File>
           </Files>
         </Group>

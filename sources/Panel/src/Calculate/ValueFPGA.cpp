@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "Calculate/MathFPGA.h"
-#include "Calculate/ValueFPGA.h"
+#include "Calculate/ValuesFPGA.h"
 #include "Utils/StringUtils.h"
 #include <cstdio>
 #include <cstring>

@@ -1,6 +1,5 @@
 #include "defines.h"
 #include "Calculate/MathFPGA.h"
-#include "Calculate/ValuePeriod.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Utils/ValueSTRICT.h"
 

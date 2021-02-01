@@ -1,7 +1,6 @@
 #include "defines.h"
 #include "Log.h"
 #include "Calculate/MathFPGA.h"
-#include "Calculate/ValueFrequency.h"
 #include "Display/Display.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/Modes/Modes.h"

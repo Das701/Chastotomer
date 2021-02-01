@@ -1,6 +1,5 @@
 #include "defines.h"
 #include "Calculate/MathFPGA.h"
-#include "Calculate/ValueDuration.h"
 #include "Menu/Pages/Modes/Modes.h"
 #include "Utils/Math.h"
 #include "Utils/StringUtils.h"
