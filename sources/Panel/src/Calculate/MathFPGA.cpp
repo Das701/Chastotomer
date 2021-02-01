@@ -57,8 +57,15 @@ String MathFPGA::Data::GiveUnits()
 
 void MathFPGA::Data::SetDigits(const String &_digits)
 {
-    std::strcpy(digits, _digits.c_str()); //-V2513
-    Display::zoneData->Refresh();
+    if (FPGA::IsOverloaded())
+    {
+        Data::SetDigits(String("оепеонкмемхе"));
+    }
+    else
+    {
+        std::strcpy(digits, _digits.c_str()); //-V2513
+        Display::zoneData->Refresh();
+    }
 }
 
 
@@ -440,12 +447,6 @@ int MathFPGA::Measure::CalculateEmptyZeros()
 
 void MathFPGA::Measure::CalculateNewData()
 {
-    if (FPGA::IsOverloaded())
-    {
-        Data::SetDigits(String("оепеонкмемхе"));
-        return;
-    }
-
     if (Channel::Current()->mod.typeMeasure.IsCountPulse())
     {
         double value = counterA.ToDouble() / 2.0;
