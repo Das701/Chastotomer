@@ -128,7 +128,6 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
 
     value.Set(TypeConversionString::None, buffer);
 
-
     std::strcpy(buffer, GetSuffixUnit(order));
     std::strcat(buffer, mainUnits.c_str());
 

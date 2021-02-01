@@ -17,16 +17,18 @@ ValueDuration_Ndt_1ns::ValueDuration_Ndt_1ns(uint timer, uint cal1, uint cal2) :
 {
     float v = (float)(100.0 * timer) / (float)(cal2 - cal1);
 
-
-
     MathFPGA::Data::SetDigits(String("%10.2f", v));
 
     MathFPGA::Data::SetUnits(String(" ns"));
 }
 
 
-ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint duration) : ValueDuration()
+ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint counter, uint duration) : ValueDuration()
 {
+    mainUnits.Set(TypeConversionString::None, "");
+
+    uint period = counter;
+
     if (period == 0 && duration == 0)
         period = 1;
 
@@ -70,31 +72,7 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
         }
     }
 
-    if (ModeDuration::Current().IsPhase())
-    {
-        if (Math::InBound((float)val.ToDouble(), 0.0F, 360.0F))
-        {
-            MathFPGA::Data::SetDigits(String("%10.3f", val.ToDouble()));
-        }
-        else
-        {
-            MathFPGA::Data::SetDigits(String(" "));
-        }
-
-        MathFPGA::Data::SetUnits(String(" $"));
-    }
-    else
-    {
-        char buffer[30];
-        std::sprintf(buffer, "%10.10f", val.ToDouble());
-        SU::LeaveFewDigits(buffer, 30, powDataA - 1);
-        MathFPGA::Data::SetDigits(String(buffer));
-
-        String result(" E-0");
-        result[3] = (char)(zeroes | 0x30);
-        zeroes = 0;
-        MathFPGA::Data::SetUnits(result);
-    }
+    SetValue(val, counter);
 }
 
 
@@ -107,4 +85,10 @@ ValueDuration_Ndt_StartStop::ValueDuration_Ndt_StartStop(uint counter) : ValueDu
     val.DivINT(PeriodTimeLabels::Current().ToZeros());
 
     SetValue(val, counter);
+}
+
+
+char *ValueDuration_Phase_FillFactor::GetSuffixUnit(int order) const
+{
+    return GetSuffixUnitRelated(order);
 }

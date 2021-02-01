@@ -23,4 +23,8 @@ struct ValueDuration_Ndt_1ns : public ValueDuration
 struct ValueDuration_Phase_FillFactor : public ValueDuration
 {
     ValueDuration_Phase_FillFactor(uint period, uint duration);
+
+protected:
+
+    virtual char *GetSuffixUnit(int order) const;
 };
