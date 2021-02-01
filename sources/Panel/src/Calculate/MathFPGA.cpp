@@ -184,18 +184,24 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
     {
         switch (Channel::Current()->mod.modePeriod)
         {
-        case ModePeriod::Period:    valueFPGA = new ValuePeriod_Period(value1); return true;
-        case ModePeriod::F_1:       valueFPGA = new ValuePeriod_F_1(value1);    return true;
+        case ModePeriod::Period:    valueFPGA = new ValuePeriod_Period(value1); break;
+        case ModePeriod::F_1:       valueFPGA = new ValuePeriod_F_1(value1);    break;
         }
+
+        return true;
     }
     else if (type.IsDuration())
     {
         switch (Channel::Current()->mod.modeDuration)
         {
-        case ModeDuration::Ndt_1ns:    valueFPGA = new ValueDuration_Ndt_1ns(value1, value2, value3);  return true;
+        case ModeDuration::Ndt_1ns:     valueFPGA = new ValueDuration_Ndt_1ns(value1, value2, value3);  break;;
         case ModeDuration::FillFactor:
-        case ModeDuration::Phase:      valueFPGA = new ValueDuration_Phase_FillFactor(value1, value2); return true;
+        case ModeDuration::Phase:       valueFPGA = new ValueDuration_Phase_FillFactor(value1, value2); break;;
+        case ModeDuration::Ndt:
+        case ModeDuration::StartStop:   valueFPGA = new ValueDuration_Ndt_StartStop(value1);            break;
         }
+
+        return true;
     }
 
     return false;

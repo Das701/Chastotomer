@@ -8,6 +8,12 @@ struct ValueDuration : public ValueFPGA
 };
 
 
+struct ValueDuration_Ndt_StartStop : public ValueDuration
+{
+    ValueDuration_Ndt_StartStop(uint counter);
+};
+
+
 struct ValueDuration_Ndt_1ns : public ValueDuration
 {
     ValueDuration_Ndt_1ns(uint timer, uint cal1, uint cal2);

@@ -17,6 +17,8 @@ ValueDuration_Ndt_1ns::ValueDuration_Ndt_1ns(uint timer, uint cal1, uint cal2) :
 {
     float v = (float)(100.0 * timer) / (float)(cal2 - cal1);
 
+
+
     MathFPGA::Data::SetDigits(String("%10.2f", v));
 
     MathFPGA::Data::SetUnits(String(" ns"));
@@ -93,4 +95,16 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
         zeroes = 0;
         MathFPGA::Data::SetUnits(result);
     }
+}
+
+
+ValueDuration_Ndt_StartStop::ValueDuration_Ndt_StartStop(uint counter) : ValueDuration()
+{
+    counter /= 2;
+
+    ValueSTRICT val(counter);
+
+    val.DivINT(PeriodTimeLabels::Current().ToZeros());
+
+    SetValue(val, counter);
 }
