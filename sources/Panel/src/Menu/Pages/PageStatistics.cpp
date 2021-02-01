@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Calculate/MathFPGA.h"
+#include "Calculate/ValueFrequency.h"
 #include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
@@ -41,7 +42,7 @@ Page *PageStatistics::self = &pageShowStatistics;
 
 void PageStatistics::Clear()
 {
-    MathFPGA::Comparator::values.Clear();
+    ValueFrequency_Comparator::values.Clear();
 }
 
 
@@ -54,52 +55,52 @@ void PageStatistics::Draw()
 
     Rectangle(width, height).Fill(x0, y0, Color::GRAY_50);
 
-    if (MathFPGA::Comparator::values.Size() < 2)
+    if (ValueFrequency_Comparator::values.Size() < 2)
     {
         return;
     }
 
-    int startElement = MathFPGA::Comparator::values.Size() - 6;
+    int startElement = ValueFrequency_Comparator::values.Size() - 6;
 
     if (startElement < 0)
     {
         startElement = 0;
     }
 
-    for (int i = startElement; i < MathFPGA::Comparator::values.Size(); i++)
+    for (int i = startElement; i < ValueFrequency_Comparator::values.Size(); i++)
     {
-        Text(String("%d - %f", i, MathFPGA::Comparator::values[i])).Write(x0 + 330, y0 + 1 + 15 * (i - startElement), Color::WHITE);
+        Text(String("%d - %f", i, ValueFrequency_Comparator::values[i])).Write(x0 + 330, y0 + 1 + 15 * (i - startElement), Color::WHITE);
     }
 
     double min = 1e100;
     double max = 0;
 
-    for (int i = 0; i < MathFPGA::Comparator::values.Size(); i++)
+    for (int i = 0; i < ValueFrequency_Comparator::values.Size(); i++)
     {
-        if (MathFPGA::Comparator::values[i] < min) { min = MathFPGA::Comparator::values[i]; }
+        if (ValueFrequency_Comparator::values[i] < min) { min = ValueFrequency_Comparator::values[i]; }
 
-        if (MathFPGA::Comparator::values[i] > max) { max = MathFPGA::Comparator::values[i]; }
+        if (ValueFrequency_Comparator::values[i] > max) { max = ValueFrequency_Comparator::values[i]; }
     }
 
-    float stepX = (float)width / (float)(MathFPGA::Comparator::values.Size() - 1);
+    float stepX = (float)width / (float)(ValueFrequency_Comparator::values.Size() - 1);
     float stepY = (float)height / (float)(max - min);
 
     y0 = y0 + height;
 
     int x = x0;
-    int y = y0 - (int)(stepY * (MathFPGA::Comparator::values[0] - min));
+    int y = y0 - (int)(stepY * (ValueFrequency_Comparator::values[0] - min));
     
     Color::BLACK.SetAsCurrent();
 
     Point().Draw(x, y);
 
-    for (int i = 1; i < MathFPGA::Comparator::values.Size(); i++)
+    for (int i = 1; i < ValueFrequency_Comparator::values.Size(); i++)
     {
         int x1 = x0 + (int)((float)(i - 1) * stepX);
         int x2 = x0 + (int)((float)i * stepX);
 
-        int y1 = y0 - (int)(stepY * (MathFPGA::Comparator::values[i - 1] - min));
-        int y2 = y0 - (int)(stepY * (MathFPGA::Comparator::values[i] - min));
+        int y1 = y0 - (int)(stepY * (ValueFrequency_Comparator::values[i - 1] - min));
+        int y2 = y0 - (int)(stepY * (ValueFrequency_Comparator::values[i] - min));
 
         Line().Draw(x1, y1, x2, y2);
     }

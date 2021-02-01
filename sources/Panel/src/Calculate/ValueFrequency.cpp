@@ -12,6 +12,9 @@
 #include <cstring>
 
 
+ValueFrequency_Comparator::Stack ValueFrequency_Comparator::values(400);
+
+
 ValueFrequency::ValueFrequency() :
     ValueFPGA()
 {
@@ -138,7 +141,7 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
 
         A.SetSign(1);
 
-        if (MathFPGA::Comparator::values.AppendValue(A.ToDouble()))
+        if (values.AppendValue(A.ToDouble()))
         {
             Display::Refresh();
         }
@@ -190,4 +193,23 @@ ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
 char *ValueFrequency_Ratio::GetSuffixUnit(int order) const
 {
     return GetSuffixUnitRelated(order);
+}
+
+
+bool ValueFrequency_Comparator::Stack::AppendValue(double val)
+{
+    Push(val);
+
+    return true;
+}
+
+
+double ValueFrequency_Comparator::Stack::GetFromEnd(int fromEnd)
+{
+    if (fromEnd < 0 || fromEnd >(Size() - 1))
+    {
+        return -1.0;
+    }
+
+    return (*this)[Size() - 1 - fromEnd];
 }

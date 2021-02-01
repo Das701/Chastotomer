@@ -40,4 +40,15 @@ struct ValueFrequency_Tachometer : public ValueFrequency
 struct ValueFrequency_Comparator : public ValueFrequency
 {
     ValueFrequency_Comparator(uint counter, int interpol1, int cal1, int interpol2, int cal2);
+
+    class Stack : public ::Stack<double>
+    {
+    public:
+        Stack(int size) : ::Stack<double>(size) {};
+        bool AppendValue(double value);
+        double GetFromEnd(int fromEnd);
+    private:
+    };
+
+    static Stack values;
 };

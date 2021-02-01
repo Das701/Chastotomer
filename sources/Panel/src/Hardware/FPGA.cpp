@@ -53,9 +53,6 @@ uint FPGA::GovernorData::kCalib = 0;     // Это значение считывается непосредств
 int FPGA::GovernorData::NAC = 0;         // Поправка для калибровочного коэффициента
 
 
-MathFPGA::Comparator::Stack MathFPGA::Comparator::values(400);
-
-
 void FPGA::CycleRead(int numBits, uint &value, bool verifyOnOverload)
 {
     value = 0;
@@ -451,48 +448,4 @@ void FPGA::GovernorData::Calculate()
 bool FPGA::IsOverloaded()
 {
     return isOverloaded;
-}
-
-
-bool MathFPGA::Comparator::Stack::AppendValue(double val)
-{
-//    if (val > 1e5)
-//    {
-//        return false;
-//    }
-//
-//    if (Size() < 5)
-//    {
-//        Push(val);
-//        return true;
-//    }
-//
-//    if(val != 0.0) //-V2550 //-V550
-//    {
-//        for (int i = 0; i < 5; i++)
-//        {
-//            double fromEnd = GetFromEnd(i);
-//            
-//            if(fromEnd == 0.0) { continue; }                //-V2550 //-V550
-//    
-//            if (val / 10 > fromEnd) { return false; }     // Избавляемся от слишком больших значений
-//    
-//            if (val * 10 < fromEnd) { return false; }     // Выкидываем слишком маленькие значения
-//        }
-//    }
-
-    Push(val);
-
-    return true;
-}
-
-
-double MathFPGA::Comparator::Stack::GetFromEnd(int fromEnd)
-{
-    if (fromEnd < 0 || fromEnd > (Size() - 1))
-    {
-        return -1.0;
-    }
-
-    return (*this)[Size() - 1 - fromEnd];
 }

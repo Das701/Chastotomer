@@ -71,23 +71,6 @@ struct MathFPGA
     };
 
 
-    struct Comparator
-    {
-    public:
-
-        class Stack : public ::Stack<double>
-        {
-        public:
-            Stack(int size) : ::Stack<double>(size) {};
-            bool AppendValue(double value);
-            double GetFromEnd(int fromEnd);
-        private:
-        };
-
-        static Stack values;
-    };
-
-
     struct Auto
     {
         friend struct FPGA;
