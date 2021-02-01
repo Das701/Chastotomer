@@ -35,5 +35,5 @@ struct ValueFrequency_Tachometer : public ValueFrequency
 
 struct ValueFrequency_Comparator : public ValueFrequency
 {
-    ValueFrequency_Comparator(uint counter1);
+    ValueFrequency_Comparator(uint counter, int interpol1, int cal1, int interpol2, int cal2);
 };

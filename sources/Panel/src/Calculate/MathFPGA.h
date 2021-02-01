@@ -13,6 +13,7 @@ struct MathFPGA
         friend struct MathFPGA;
         friend struct ValueFPGA;
         friend struct ValueFrequency_Tachometer;
+        friend struct ValueFrequency_Comparator;
 
         static String GiveDigits();
         static String GiveUnits();
@@ -79,8 +80,7 @@ struct MathFPGA
 
     private:
 
-        static bool CreateValue(TypeData::E type, uint value1, uint value2, uint value3 = 0, uint value4 = 0,
-            uint value5 = 0);
+        static bool CreateValue(uint value1, uint value2, uint value3 = 0, uint value4 = 0, uint value5 = 0);
 
         static int decDA;
 
@@ -124,13 +124,6 @@ struct MathFPGA
 
     struct Comparator
     {
-        friend struct Measure;
-
-    private:
-
-        static void Calculate(uint counter, int interpol1, int cal1, int interpol2, int cal2);
-        static ValueComparator value;
-
     public:
 
         class Stack : public ::Stack<double>

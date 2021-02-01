@@ -42,8 +42,6 @@ ValueSTRICT MathFPGA::Measure::counterC((int64)0);
 int         MathFPGA::Measure::powDataA = 0;
 ValueFPGA   *MathFPGA::Measure::valueFPGA = nullptr;
 
-ValueComparator MathFPGA::Comparator::value(0);
-
 const char *MathFPGA::Data::UGO_DivNULL = "=X/0";
 
 static bool isDivZero = false;
@@ -192,7 +190,7 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 { 
     isDivZero = false;
 
-    if (CreateValue(type, value1, value2, value3, value4, value5))
+    if (CreateValue(value1, value2, value3, value4, value5))
     {
         Validator::SetValidData();
 
@@ -216,7 +214,6 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
         break;
 
     case TypeData::Comparator:
-        Comparator::Calculate(value1, (int)value2, (int)value3, (int)value4, (int)value5);
         break;
     }
 
@@ -230,7 +227,7 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
 }
 
 
-bool MathFPGA::Measure::CreateValue(TypeData::E typeData, uint value1, uint, uint, uint, uint)
+bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint value4, uint value5)
 {
     TypeMeasure &type = Channel::Current()->mod.typeMeasure;
 
@@ -240,24 +237,22 @@ bool MathFPGA::Measure::CreateValue(TypeData::E typeData, uint value1, uint, uin
         valueFPGA = nullptr;
     }
 
-    if (typeData == TypeData::MainCounters)
+    if (type.IsFrequency())
     {
-        if (type.IsFrequency())
+        switch (Channel::Current()->mod.modeFrequency)
         {
-            switch (Channel::Current()->mod.modeFrequency)
-            {
-            case ModeFrequency::Frequency:  valueFPGA = new ValueFrequency_Frequency(value1);   return true;
-            case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1);     ;   return true;
-            case ModeFrequency::Tachometer: valueFPGA = new ValueFrequency_Tachometer(value1);  return true;
-            }
+        case ModeFrequency::Frequency:  valueFPGA = new ValueFrequency_Frequency(value1);                                                       return true;
+        case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1); ;                                                       return true;
+        case ModeFrequency::Tachometer: valueFPGA = new ValueFrequency_Tachometer(value1);                                                      return true;
+        case ModeFrequency::Comparator: valueFPGA = new ValueFrequency_Comparator(value1, (int)value2, (int)value3, (int)value4, (int)value5);  return true;
         }
-        else if (type.IsPeriod())
+    }
+    else if (type.IsPeriod())
+    {
+        switch (Channel::Current()->mod.modePeriod)
         {
-            switch(Channel::Current()->mod.modePeriod)
-            {
-            case ModePeriod::Period:    valueFPGA = new ValuePeriod_Period(value1); return true;
-            case ModePeriod::F_1:       valueFPGA = new ValuePeriod_F_1(value1);    return true;
-            }
+        case ModePeriod::Period:    valueFPGA = new ValuePeriod_Period(value1); return true;
+        case ModePeriod::F_1:       valueFPGA = new ValuePeriod_F_1(value1);    return true;
         }
     }
 
@@ -283,62 +278,6 @@ void MathFPGA::Validator::SetValidData()
 bool MathFPGA::Validator::DataIsValid()
 {
     return !isEmpty;
-}
-
-
-void MathFPGA::Comparator::Calculate(uint counter, int interpol1, int cal1, int interpol2, int cal2)
-{
-    /*
-    *   A = (N - counter) / N - dx / N;
-    *   A = (N - conter - dx) / N
-    *   dx = (interpol1 / cal1 - interpol2 / cal2) / 2
-    */
-
-    if (cal1 != 0 && cal2 != 0)
-    {
-        if ((interpol1 & (1U << 15)) != 0)
-        {
-            interpol1 -= 65536;
-        }
-
-        if ((interpol2 & (1U << 15)) != 0)
-        {
-            interpol2 -= 65536;
-        }
-
-        uint N = 5000000U;
-
-        if (Channel::Current()->mod.timeComparator.Is_10s())
-        {
-            N *= 10;
-        }
-
-        ValueComparator k1 = ValueComparator(interpol1) / (uint)cal1;
-
-        ValueComparator k2 = ValueComparator(interpol2) / (uint)cal2;
-
-        ValueComparator dx = (k1 - k2) / 2;
-
-        ValueComparator A((int)N - (int)counter);
-        A.Sub(dx);
-        A.Div(N);
-
-        A.Mul(1000000);     // Это приводим к своей выводимой степени
-
-        if (!Channel::Current()->mod.timeComparator.Is_1s())
-        {
-            A.Mul(10);
-        }
-
-        A.SetSign(1);
-
-        value = A;
-
-        if (MathFPGA::Comparator::values.AppendValue(A.ToDouble()))
-        {
-            Display::Refresh();
-        }
-    }
 }
 
 
@@ -568,11 +507,7 @@ void MathFPGA::Measure::CalculateNewData()
     }
     else
     {
-        if (ModeFrequency::Current().IsComparator())
-        {
-            Data::SetDigits(Comparator::value.ToString());
-        }
-        else if (ModeDuration::Current().IsNdt_1ns())
+        if (ModeDuration::Current().IsNdt_1ns())
         {
             Data::SetDigits(String("%10.2f", MathFPGA::Interpolator::value));
         }
@@ -671,39 +606,19 @@ void MathFPGA::Measure::CalculateUnits()
         {
             if (type.IsFrequency())
             {
-                if (ModeFrequency::Current().IsT_1())
+                if (CURRENT_CHANNEL_IS_C)
                 {
-                    if (decDA < 1000)           { Data::SetUnits(String(" Hz"));  }
-                    else if (decDA < 1000000)   { Data::SetUnits(String(" kHz")); }
-                    else                        { Data::SetUnits(String(" MHz")); }
+                    if (counterC.ToUnits(Order::Micro) / 2 < 10) { Data::SetUnits(String(" MHz")); }
+                    else { Data::SetUnits(String(" GHz")); }
                 }
-                else if (Channel::A->mod.modeFrequency.IsComparator() && CURRENT_CHANNEL_IS_A)
+                else if (CURRENT_CHANNEL_IS_D)
                 {
-                    if (Channel::Current()->mod.timeComparator.Is_1s())
-                    {
-                        Data::SetUnits(String(" E-6"));
-                    }
-                    else
-                    {
-                        Data::SetUnits(String(" E-7"));
-                    }
+                    Data::SetUnits(String(" GHz"));
                 }
                 else
                 {
-                    if (CURRENT_CHANNEL_IS_C)
-                    {
-                        if (counterC.ToUnits(Order::Micro) / 2 < 10) { Data::SetUnits(String(" MHz")); }
-                        else                                         { Data::SetUnits(String(" GHz")); }
-                    }
-                    else if (CURRENT_CHANNEL_IS_D)   
-                    {
-                        Data::SetUnits(String(" GHz"));
-                    }
-                    else
-                    {
-                        if (decDA < 1000)           { Data::SetUnits(String(" kHz")); }
-                        else                        { Data::SetUnits(String(" MHz")); }
-                    }
+                    if (decDA < 1000) { Data::SetUnits(String(" kHz")); }
+                    else { Data::SetUnits(String(" MHz")); }
                 }
             }
             else

@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Calculate/MathFPGA.h"
 #include "Calculate/ValueFrequency.h"
+#include "Display/Display.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/Modes/Modes.h"
 #include "Utils/StringUtils.h"
@@ -86,4 +87,69 @@ ValueFrequency_Tachometer::ValueFrequency_Tachometer(uint counter) : ValueFreque
     MathFPGA::Data::SetDigits(String("%d", counter));
 
     MathFPGA::Data::SetUnits(String(""));
+}
+
+
+ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1, int cal1, int interpol2, int cal2) : ValueFrequency()
+{
+    /*
+*   A = (N - counter) / N - dx / N;
+*   A = (N - conter - dx) / N
+*   dx = (interpol1 / cal1 - interpol2 / cal2) / 2
+*/
+
+    if (cal1 != 0 && cal2 != 0)
+    {
+        if ((interpol1 & (1U << 15)) != 0)
+        {
+            interpol1 -= 65536;
+        }
+
+        if ((interpol2 & (1U << 15)) != 0)
+        {
+            interpol2 -= 65536;
+        }
+
+        uint N = 5000000U;
+
+        if (Channel::Current()->mod.timeComparator.Is_10s())
+        {
+            N *= 10;
+        }
+
+        ValueComparator k1 = ValueComparator(interpol1) / (uint)cal1;
+
+        ValueComparator k2 = ValueComparator(interpol2) / (uint)cal2;
+
+        ValueComparator dx = (k1 - k2) / 2;
+
+        ValueComparator A((int)N - (int)counter);
+        A.Sub(dx);
+        A.Div(N);
+
+        A.Mul(1000000);     // Это приводим к своей выводимой степени
+
+        if (!Channel::Current()->mod.timeComparator.Is_1s())
+        {
+            A.Mul(10);
+        }
+
+        A.SetSign(1);
+
+        if (MathFPGA::Comparator::values.AppendValue(A.ToDouble()))
+        {
+            Display::Refresh();
+        }
+
+        MathFPGA::Data::SetDigits(A.ToString());
+
+        if (Channel::Current()->mod.timeComparator.Is_1s())
+        {
+            MathFPGA::Data::SetUnits(String("E-6"));
+        }
+        else
+        {
+            MathFPGA::Data::SetUnits(String("E-7"));
+        }
+    }
 }
