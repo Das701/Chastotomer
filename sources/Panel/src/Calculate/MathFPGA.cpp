@@ -2,6 +2,7 @@
 #include "Log.h"
 #include "Settings.h"
 #include "Calculate/MathFPGA.h"
+#include "Calculate/ValueCountPulse.h"
 #include "Calculate/ValueDuration.h"
 #include "Calculate/ValueFrequency.h"
 #include "Calculate/ValuePeriod.h"
@@ -203,6 +204,12 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
 
         return true;
     }
+    else if (type.IsCountPulse())
+    {
+        valueFPGA = new ValueCountPulse(value1);
+
+        return true;
+    }
 
     return false;
 }
@@ -388,47 +395,6 @@ void MathFPGA::Measure::CalculateNewData()
         }
 
         Data::SetDigits(String("%10.0f", value));
-    }
-    else
-    {
-        if (Channel::Current()->mod.typeMeasure.IsDuration() &&
-            (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
-        {
-        }
-        else
-        {
-            if (isDivZero)
-            {
-                Data::SetDigits(String(MathFPGA::Data::UGO_DivNULL));
-                return;
-            }
-
-            int pow = 0;
-            ValueSTRICT data((int64)0);
-
-            Calculate(pow, data);
-
-            char format[10];
-
-            if (pow < 10)
-            {
-                std::strcpy(format, "%10.0f");
-                format[4] = (char)(pow | 0x30);
-            }
-            else
-            {
-                std::strcpy(format, "%10.10f");
-                format[5] = (char)((pow - 10) | 0x30);
-            }
-
-            char text[30];
-
-            std::sprintf(text, format, data.ToDouble());
-
-            LOG_WRITE(text);
-            
-            Data::SetDigits(String(text));
-        }
     }
 }
 

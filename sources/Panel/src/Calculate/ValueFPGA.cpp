@@ -134,3 +134,11 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
     MathFPGA::Data::SetUnits(String(buffer));
 }
 
+
+void ValueFPGA::SetIntegerValue(uint counter)
+{
+    value.Set(TypeConversionString::None, "%d", counter);
+
+    MathFPGA::Data::SetDigits(String("%d", counter));
+    MathFPGA::Data::SetUnits(String(""));
+}
