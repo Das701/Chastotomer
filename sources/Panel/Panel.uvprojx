@@ -524,16 +524,6 @@
           <GroupName>Calculate</GroupName>
           <Files>
             <File>
-              <FileName>Calculator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\Calculator.h</FilePath>
-            </File>
-            <File>
-              <FileName>Calculator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Calculate\Calculator.cpp</FilePath>
-            </File>
-            <File>
               <FileName>MathFPGA.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Calculate\MathFPGA.h</FilePath>
@@ -1669,16 +1659,6 @@
         <Group>
           <GroupName>Calculate</GroupName>
           <Files>
-            <File>
-              <FileName>Calculator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\Calculator.h</FilePath>
-            </File>
-            <File>
-              <FileName>Calculator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Calculate\Calculator.cpp</FilePath>
-            </File>
             <File>
               <FileName>MathFPGA.h</FileName>
               <FileType>5</FileType>

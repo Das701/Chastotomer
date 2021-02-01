@@ -105,7 +105,6 @@ Channel::Channel(int num, Page *pSettings, PageModes *pModes, Switch *pModeFrequ
     mod(pModeFrequency, pModeCountPulse, pModePeriod, pModeDuration, enabledMeasures, enabledModeFrequency, enabledModeCountPulse),
     number(num)
 {
-    calculator = new Calculator();
 }
 
 
