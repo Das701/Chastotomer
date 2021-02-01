@@ -12,6 +12,7 @@ struct MathFPGA
     {
         friend struct MathFPGA;
         friend struct ValueFPGA;
+        friend struct ValueFrequency_Tachometer;
 
         static String GiveDigits();
         static String GiveUnits();

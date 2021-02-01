@@ -77,3 +77,13 @@ ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
 
     SetValue(strict, counter);
 }
+
+
+ValueFrequency_Tachometer::ValueFrequency_Tachometer(uint counter) : ValueFrequency()
+{
+    counter /= 2;
+
+    MathFPGA::Data::SetDigits(String("%d", counter));
+
+    MathFPGA::Data::SetUnits(String(""));
+}

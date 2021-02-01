@@ -248,6 +248,7 @@ bool MathFPGA::Measure::CreateValue(TypeData::E typeData, uint value1, uint, uin
             {
             case ModeFrequency::Frequency:  valueFPGA = new ValueFrequency_Frequency(value1);   return true;
             case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1);     ;   return true;
+            case ModeFrequency::Tachometer: valueFPGA = new ValueFrequency_Tachometer(value1);  return true;
             }
         }
         else if (type.IsPeriod())
@@ -567,11 +568,7 @@ void MathFPGA::Measure::CalculateNewData()
     }
     else
     {
-        if (ModeFrequency::Current().IsTachometer())
-        {
-            Data::SetDigits(String("%10.0f", counterA.ToDouble() / 2.0));
-        }
-        else if (ModeFrequency::Current().IsComparator())
+        if (ModeFrequency::Current().IsComparator())
         {
             Data::SetDigits(Comparator::value.ToString());
         }
@@ -666,7 +663,6 @@ void MathFPGA::Measure::CalculateUnits()
     else
     {
         if (ModeFrequency::Current().IsRatio() ||
-            ModeFrequency::Current().IsTachometer() ||
             type.IsCountPulse())
         {
             Data::SetUnits(String(" "));
