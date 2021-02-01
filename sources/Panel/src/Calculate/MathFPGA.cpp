@@ -41,8 +41,6 @@ ValueFPGA   *MathFPGA::Measure::valueFPGA = nullptr;
 
 const char *MathFPGA::Data::UGO_DivNULL = "=X/0";
 
-static bool isDivZero = false;
-
 
 String MathFPGA::Data::GiveDigits()
 {
@@ -113,20 +111,7 @@ int MathFPGA::Measure::CalculateDurationEmptyZeros()
 
 void MathFPGA::Measure::SetNewData(uint value1, uint value2, uint value3, uint value4, uint value5)
 { 
-    isDivZero = false;
-
-    if (CreateValue(value1, value2, value3, value4, value5))
-    {
-        Validator::SetValidData();
-
-        ProgressBarTimeMeasureZone::timeStart = TIME_MS;
-
-        return;
-    }
-
-    CalculateNewData();
-
-    CalculateUnits();
+    CreateValue(value1, value2, value3, value4, value5);
 
     Validator::SetValidData();
 
@@ -343,81 +328,6 @@ int MathFPGA::Measure::CalculateEmptyZeros()
     }
 
     return result;
-}
-
-
-void MathFPGA::Measure::CalculateNewData()
-{
-    if (Channel::Current()->mod.typeMeasure.IsCountPulse())
-    {
-        double value = counterA.ToDouble() / 2.0;
-
-        if (ModeCountPulse::Current().IsFromPeriod())
-        {
-            value /= (double)ModesChannel::numberPeriods.ToAbs();
-        }
-
-        Data::SetDigits(String("%10.0f", value));
-    }
-}
-
-
-void MathFPGA::Measure::CalculateUnits()
-{
-    TypeMeasure &type = Channel::Current()->mod.typeMeasure;
-
-    if(type.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
-    {
-    }
-    else
-    {
-        if (ModeFrequency::Current().IsRatio() ||  type.IsCountPulse())
-        {
-            Data::SetUnits(String(" "));
-        }
-        else
-        {
-            if (type.IsFrequency())
-            {
-                if (CURRENT_CHANNEL_IS_C)
-                {
-                    if (counterC.ToUnits(Order::Micro) / 2 < 10) { Data::SetUnits(String(" MHz")); }
-                    else { Data::SetUnits(String(" GHz")); }
-                }
-                else if (CURRENT_CHANNEL_IS_D)
-                {
-                    Data::SetUnits(String(" GHz"));
-                }
-                else
-                {
-                    if (decDA < 1000) { Data::SetUnits(String(" kHz")); }
-                    else { Data::SetUnits(String(" MHz")); }
-                }
-            }
-            else
-            {
-                if ((CURRENT_CHANNEL_IS_A &&
-                    Channel::A->mod.typeMeasure.IsPeriod() &&
-                    Channel::A->mod.modePeriod.IsF_1())
-                    ||
-                    (CURRENT_CHANNEL_IS_B &&
-                    Channel::B->mod.typeMeasure.IsPeriod() &&
-                    Channel::B->mod.modePeriod.IsF_1()))
-                {
-                    if (decDA >= 1000)      { Data::SetUnits(String(" ns")); }
-                    else if (decDA <= 1)    { Data::SetUnits(String(" ms")); }
-                    else                    { Data::SetUnits(String(" us")); }
-                }
-                else
-                {
-                    PeriodTimeLabels &current = ModesChannel::timeLabels;
-
-                    if (current.IsT_3() || current.IsT_4() || current.IsT_5())  { Data::SetUnits(String(" ms")); }
-                    else                                                        { Data::SetUnits(String(" us")); }
-                }
-            }
-        }
-    }
 }
 
 

@@ -84,9 +84,6 @@ struct MathFPGA
 
         static void Calculate(int &pow, ValueSTRICT &data);
         static int CalculateEmptyZeros();
-
-        static void CalculateNewData();
-        static void CalculateUnits();
     };
 
 
