@@ -157,7 +157,7 @@ static void Tests::Frequency::Frequency::Test()
         {
             Channel::A->mod.timeMeasure.value = time;
 
-            MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, counter, 0);
+            MathFPGA::Measure::SetNewData(counter, 0);
 
             char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
             char *standard_str = (*result).c_str();
@@ -191,7 +191,7 @@ static void Tests::Frequency::Frequency::Test()
         {
             Channel::B->mod.timeMeasure.value = time;
 
-            MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, counter, 0);
+            MathFPGA::Measure::SetNewData(counter, 0);
 
             char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
             char *standard_str = (*result).c_str();
@@ -266,7 +266,7 @@ static void Tests::Frequency::Frequency::TestChannelsCD()
         {
             Channel::C->mod.timeMeasure.value = time;
 
-            MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, counter, 0);
+            MathFPGA::Measure::SetNewData(counter, 0);
 
             char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
             char *standard_str = (*result).c_str();
@@ -298,7 +298,7 @@ static void Tests::Frequency::Frequency::TestChannelsCD()
         {
             Channel::D->mod.timeMeasure.value = time;
 
-            MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, counter, 0);
+            MathFPGA::Measure::SetNewData(counter, 0);
 
             char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
             char *standard_str = (*result).c_str();
@@ -425,7 +425,7 @@ static void Tests::Frequency::T_1::Test()
                 Channel::A->mod.numberPeriods.value = (uint8)parameters[row][col].numberPeriods;
                 Channel::A->mod.timeLabels.value = (uint8)parameters[row][col].timeLabels;
 
-                MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, s.counter, 0);
+                MathFPGA::Measure::SetNewData(s.counter, 0);
 
                 char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
                 char *standard_str = s.values->c_str(row, col);
@@ -522,7 +522,7 @@ static void Tests::Period::Period::Test()
                 Channel::A->mod.numberPeriods.value = (uint8)parameters[row][col].numberPeriods;
                 Channel::A->mod.timeLabels.value = (uint8)parameters[row][col].timeLabels;
 
-                MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, s.counter, 0);
+                MathFPGA::Measure::SetNewData(s.counter, 0);
 
                 char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
                 char *standard_str = s.values->c_str(row, col);
@@ -599,7 +599,7 @@ static void Tests::Period::F_1::Test()
         {
             Channel::A->mod.timeMeasure.value = time;
 
-            MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, counter, 0);
+            MathFPGA::Measure::SetNewData(counter, 0);
 
             char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
             char *standard_str = (*result).c_str();

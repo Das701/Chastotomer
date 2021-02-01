@@ -64,19 +64,7 @@ struct MathFPGA
         friend struct FPGA;
         friend struct MathFPGA;
 
-        struct TypeData
-        {
-            enum E
-            {
-                MainCounters,       // Главные счётчики, для большинства измерений
-                Interpolator,       // Данные интерполятора
-                FillFactorPhase,    // Данные для коэффициента заполнения и фазы
-                Comparator
-            };
-        };
-
-        static void SetNewData(TypeData::E type, uint value1, uint value2, uint value3 = 0, uint value4 = 0,
-            uint value5 = 0);
+        static void SetNewData(uint value1, uint value2, uint value3 = 0, uint value4 = 0, uint value5 = 0);
 
         static ValueFPGA *valueFPGA;
 
@@ -90,8 +78,6 @@ struct MathFPGA
         static int powDataA;            // Сколько знаков в значении dataA
         static ValueSTRICT counterB;
         static ValueSTRICT counterC;
-
-        static void AppendDataMainCounters(uint counterA, uint counterB);
 
         static int CalculatePeriodEmptyZeros();
         static int CalculateDurationEmptyZeros();

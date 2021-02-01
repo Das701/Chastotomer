@@ -111,7 +111,7 @@ int MathFPGA::Measure::CalculateDurationEmptyZeros()
 }
 
 
-void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint value1, uint value2, uint value3, uint value4, uint value5)
+void MathFPGA::Measure::SetNewData(uint value1, uint value2, uint value3, uint value4, uint value5)
 { 
     isDivZero = false;
 
@@ -122,18 +122,6 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
         ProgressBarTimeMeasureZone::timeStart = TIME_MS;
 
         return;
-    }
-
-    switch (type)
-    {
-    case TypeData::MainCounters:
-        AppendDataMainCounters(value1, value2);
-        break;
-
-    case TypeData::FillFactorPhase:
-    case TypeData::Comparator:
-    case TypeData::Interpolator:
-        break;
     }
 
     CalculateNewData();
@@ -255,31 +243,6 @@ ValueComparator operator/(const ValueComparator &first, uint second)
     ValueComparator result = first;
     result.Div(second);
     return result;
-}
-
-
-void MathFPGA::Measure::AppendDataMainCounters(uint valueA, uint)
-{
-    counterA.FromDouble((double)valueA);
-
-    powDataA = 0;
-
-    do
-    {
-        powDataA++;
-        valueA /= 10;
-
-    } while (valueA > 0);
-
-    if (CURRENT_CHANNEL_IS_C)
-    {
-        counterA.MulUINT(64);
-
-        if (Channel::Current()->mod.typeMeasure.IsFrequency())
-        {
-            counterA.DivUINT(100);
-        }
-    }
 }
 
 
