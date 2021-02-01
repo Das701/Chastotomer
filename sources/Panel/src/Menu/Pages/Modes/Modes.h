@@ -224,6 +224,8 @@ struct TimeMeasure : public Enumeration
     static void LoadToFPGA();
 
     static void Set(E v);
+
+    static const TimeMeasure &Current();
 };
 
 

@@ -121,6 +121,12 @@ int TimeMeasure::ToMS() const
 }
 
 
+const TimeMeasure &TimeMeasure::Current()
+{
+    return Channel::Current()->mod.timeMeasure;
+}
+
+
 void TimeMeasure::Set(TimeMeasure::E v)
 {
     ModesChannel::timeMeasure.value = (uint8)v;

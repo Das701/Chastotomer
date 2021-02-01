@@ -175,6 +175,7 @@ ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
     }
     else if ((mode.IsRatioAC() || mode.IsRatioBC()) && Relation::IsEnabled())
     {
+        valueA.MulINT(TimeMeasure::Current().ToMS());
         valueA.DivUINT(counter2);
         valueA.DivUINT(32);
     }
