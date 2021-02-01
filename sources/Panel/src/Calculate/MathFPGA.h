@@ -61,9 +61,6 @@ struct MathFPGA
 
     struct Measure
     {
-        friend struct FPGA;
-        friend struct MathFPGA;
-
         static void SetNewData(uint value1, uint value2, uint value3 = 0, uint value4 = 0, uint value5 = 0);
 
         static ValueFPGA *valueFPGA;
@@ -71,12 +68,6 @@ struct MathFPGA
     private:
 
         static bool CreateValue(uint value1, uint value2, uint value3 = 0, uint value4 = 0, uint value5 = 0);
-
-        static int decDA;
-
-        static ValueSTRICT counterA;
-        static int powDataA;            // Сколько знаков в значении dataA
-        static ValueSTRICT counterB;
     };
 
 

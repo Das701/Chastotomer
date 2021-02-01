@@ -32,10 +32,6 @@ uint   MathFPGA::Auto::fpgaMin = 0;
 uint   MathFPGA::Auto::fpgaMid = 0;
 uint   MathFPGA::Auto::fpgaMax = 0;
        
-int         MathFPGA::Measure::decDA = 1;
-ValueSTRICT MathFPGA::Measure::counterA((int64)0);
-ValueSTRICT MathFPGA::Measure::counterB((int64)0);
-int         MathFPGA::Measure::powDataA = 0;
 ValueFPGA   *MathFPGA::Measure::valueFPGA = nullptr;
 
 const char *MathFPGA::Data::UGO_DivNULL = "=X/0";
