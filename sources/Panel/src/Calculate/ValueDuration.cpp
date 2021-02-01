@@ -33,6 +33,7 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
     val.DivUINT(period);
 
     int powDataA = 1;
+    int zeroes = 0;
 
     do
     {
@@ -62,7 +63,7 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
             while (val.ToUnits(Order::Milli) < 1000)
             {
                 val.MulUINT(10);
-                MathFPGA::FillFactor::zeroes++;
+                zeroes++;
             }
         }
     }
@@ -88,8 +89,8 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
         MathFPGA::Data::SetDigits(String(buffer));
 
         String result(" E-0");
-        result[3] = (char)(MathFPGA::FillFactor::zeroes | 0x30);
-        MathFPGA::FillFactor::zeroes = 0;
+        result[3] = (char)(zeroes | 0x30);
+        zeroes = 0;
         MathFPGA::Data::SetUnits(result);
     }
 }

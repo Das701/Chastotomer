@@ -31,9 +31,6 @@ uint   MathFPGA::Auto::fpgaMin = 0;
 uint   MathFPGA::Auto::fpgaMid = 0;
 uint   MathFPGA::Auto::fpgaMax = 0;
        
-ValueSTRICT MathFPGA::FillFactor::value((int64)0);
-int         MathFPGA::FillFactor::zeroes = 0;
-       
 int         MathFPGA::Measure::decDA = 1;
 ValueSTRICT MathFPGA::Measure::counterA((int64)0);
 ValueSTRICT MathFPGA::Measure::counterB((int64)0);
@@ -510,19 +507,6 @@ void MathFPGA::Measure::CalculateUnits()
 
     if(type.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
     {
-        if (ModeDuration::Current().IsPhase())
-        {
-            Data::SetUnits(String(" $"));
-        }
-        else
-        {
-            String result(" E-0");
-            result[3] = (char)(FillFactor::zeroes | 0x30);
-
-            FillFactor::zeroes = 0;
-
-            Data::SetUnits(result);
-        }
     }
     else
     {

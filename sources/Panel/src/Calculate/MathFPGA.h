@@ -105,17 +105,6 @@ struct MathFPGA
     };
 
 
-    struct FillFactor
-    {
-        friend struct Measure;
-        friend struct ValueDuration_Phase_FillFactor;
-
-    private:
-        static ValueSTRICT value;
-        static int zeroes;
-    };
-
-
     struct Comparator
     {
     public:
