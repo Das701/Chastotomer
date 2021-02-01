@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Log.h"
 #include "Calculate/MathFPGA.h"
 #include "Calculate/ValueFrequency.h"
 #include "Display/Display.h"
@@ -157,6 +158,8 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
 
 ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
 {
+    LOG_WRITE("%d %d", counter1, counter2);
+
     mainUnits.Set(TypeConversionString::None, "");
 
     const ModeFrequency &mode = ModeFrequency::Current();
@@ -180,5 +183,18 @@ ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
         valueA.MulUINT(100);
     }
 
+    switch (mode.value)
+    {
+    case ModeFrequency::RatioAB:
+        valueA.DivINT(NumberPeriods::Current().ToAbs());
+        break;
+    }
+
     SetValue(valueA, counter1);
+}
+
+
+char *ValueFrequency_Ratio::GetSuffixUnit(int order) const
+{
+    return GetSuffixUnitRelated(order);
 }

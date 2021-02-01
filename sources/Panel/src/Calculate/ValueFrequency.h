@@ -24,6 +24,10 @@ struct ValueFrequency_T_1 : public ValueFrequency
 struct ValueFrequency_Ratio : public ValueFrequency
 {
     ValueFrequency_Ratio(uint counter1, uint counter2);
+
+protected:
+
+    virtual char *GetSuffixUnit(int order) const;
 };
 
 

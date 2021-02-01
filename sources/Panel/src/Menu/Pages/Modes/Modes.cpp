@@ -139,6 +139,12 @@ int NumberPeriods::ToAbs() const
 }
 
 
+const NumberPeriods &NumberPeriods::Current()
+{
+    return Channel::Current()->mod.numberPeriods;
+}
+
+
 const ModeCountPulse &ModeCountPulse::Current()
 {
     static const bool correct[1] = { true };

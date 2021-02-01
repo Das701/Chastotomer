@@ -48,6 +48,23 @@ char *ValueFPGA::GetSuffixUnit(int order) const
 }
 
 
+char *ValueFPGA::GetSuffixUnitRelated(int order)
+{
+    if (order >= 15) { return "E+15"; }
+    else if (order >= 12) { return "E+12"; }
+    else if (order >= 9) { return "E+9"; }
+    else if (order >= 6) { return "E+6"; }
+    else if (order >= 3) { return "E+3"; }
+    else if (order >= 0) { return "E+0"; }
+    else if (order >= -3) { return "E-3"; }
+    else if (order >= -6) { return "E-6"; }
+    else if (order >= -9) { return "E-9"; }
+    else if (order >= -12) { return "E-12"; }
+
+    return "E-15";
+}
+
+
 void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
 {
     int order = 0;

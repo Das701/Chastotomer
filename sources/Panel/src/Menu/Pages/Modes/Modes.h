@@ -195,6 +195,8 @@ struct NumberPeriods : public Enumeration
     static void LoadToFPGA();
 
     static void Set(E v);
+
+    static const NumberPeriods &Current();
 };
 
 
