@@ -5,7 +5,7 @@
 
 struct ValueFrequency : public ValueFPGA
 {
-    ValueFrequency(uint value1 = 0, uint value2 = 0, uint value3 = 0, uint value4 = 0, uint value5 = 0);
+    ValueFrequency();
 };
 
 

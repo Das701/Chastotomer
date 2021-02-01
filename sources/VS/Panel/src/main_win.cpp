@@ -20,7 +20,7 @@ void init()
 
 void update()
 {
-	MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, 1000, 10, 20, 32388, 3252);
+	MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, 738298, 53234, 3334, 160, 34);
 
 	Display::Refresh();
 	Menu::Update();

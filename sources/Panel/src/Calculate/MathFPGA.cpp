@@ -160,16 +160,25 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
         if (Channel::Current()->mod.modeFrequency.IsRatio())
         {
             valueFPGA = new ValueFrequency_Ratio(value1, value2);
-            return true;
         }
 
         switch (Channel::Current()->mod.modeFrequency)
         {
-        case ModeFrequency::Frequency:  valueFPGA = new ValueFrequency_Frequency(value1);                                                       return true;
-        case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1); ;                                                           return true;
-        case ModeFrequency::Tachometer: valueFPGA = new ValueFrequency_Tachometer(value1);                                                      return true;
-        case ModeFrequency::Comparator: valueFPGA = new ValueFrequency_Comparator(value1, (int)value2, (int)value3, (int)value4, (int)value5);  return true;
+        case ModeFrequency::Frequency:  valueFPGA = new ValueFrequency_Frequency(value1);       break;
+        case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1); ;           break;
+        case ModeFrequency::Tachometer: valueFPGA = new ValueFrequency_Tachometer(value1);      break;
+        case ModeFrequency::Comparator:
+            valueFPGA = new ValueFrequency_Comparator(value1, (int)value2, (int)value3, (int)value4, (int)value5);  
+                                                                                                break;
+        case ModeFrequency::RatioAB:
+        case ModeFrequency::RatioAC:
+        case ModeFrequency::RatioBA:
+        case ModeFrequency::RatioBC:
+        case ModeFrequency::RatioCA:
+        case ModeFrequency::RatioCB:    valueFPGA = new ValueFrequency_Ratio(value1, value2);   break;
         }
+
+        return true;
     }
     else if (type.IsPeriod())
     {
