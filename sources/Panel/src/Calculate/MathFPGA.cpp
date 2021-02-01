@@ -35,7 +35,6 @@ uint   MathFPGA::Auto::fpgaMax = 0;
 int         MathFPGA::Measure::decDA = 1;
 ValueSTRICT MathFPGA::Measure::counterA((int64)0);
 ValueSTRICT MathFPGA::Measure::counterB((int64)0);
-ValueSTRICT MathFPGA::Measure::counterC((int64)0);
 int         MathFPGA::Measure::powDataA = 0;
 ValueFPGA   *MathFPGA::Measure::valueFPGA = nullptr;
 
