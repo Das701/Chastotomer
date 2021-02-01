@@ -158,8 +158,6 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
 
 ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
 {
-    LOG_WRITE("%d %d", counter1, counter2);
-
     mainUnits.Set(TypeConversionString::None, "");
 
     const ModeFrequency &mode = ModeFrequency::Current();
@@ -167,11 +165,10 @@ ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
     counter1 /= 2;
 
     ValueSTRICT valueA(counter1);
-    ValueSTRICT valueB((int64)0);
 
     if (mode.IsRatioAB() || mode.IsRatioBA())
     {
-
+        valueA.DivINT(NumberPeriods::Current().ToAbs());
     }
     else if ((mode.IsRatioAC() || mode.IsRatioBC()) && Relation::IsEnabled())
     {
@@ -181,14 +178,8 @@ ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
     }
     else if (mode.IsRatioCA() || mode.IsRatioCB())
     {
-        valueA.MulUINT(100);
-    }
-
-    switch (mode.value)
-    {
-    case ModeFrequency::RatioAB:
+        valueA.MulUINT(64);
         valueA.DivINT(NumberPeriods::Current().ToAbs());
-        break;
     }
 
     SetValue(valueA, counter1);

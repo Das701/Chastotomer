@@ -20,33 +20,6 @@ void init()
 
 void update()
 {
-//	uint value = 995150078;
-//
-//	switch (Channel::Current()->mod.timeMeasure.value)
-//	{
-//	case TimeMeasure::_1ms:
-//		value /= 100000;
-//		break;
-//
-//	case TimeMeasure::_10ms:
-//		value /= 10000;
-//		break;
-//
-//	case TimeMeasure::_100ms:
-//		value /= 1000;
-//		break;
-//
-//	case TimeMeasure::_1s:
-//		value /= 100;
-//		break;
-//
-//	case TimeMeasure::_10s:
-//		value /= 10;
-//		break;
-//	}
-//
-//	MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, value, 4839, 1661, 4757, 1661);
-
 	MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, 1000, 10, 20, 32388, 3252);
 
 	Display::Refresh();

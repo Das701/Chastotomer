@@ -76,38 +76,6 @@ void MathFPGA::Data::SetUnits(const String &_units)
 }
 
 
-int MathFPGA::Measure::CalculateFrequencyEmptyZeros()
-{
-    int result = 0;
-
-    const ModeFrequency &mode = ModeFrequency::Current();
-
-    if (mode.IsRatioAB() || mode.IsRatioBA())
-    {
-        result = ModesChannel::numberPeriods.ToAbs();
-    }
-    else if (mode.IsRatioCA() || mode.IsRatioCB())
-    {
-        counterA.MulUINT(100);
-        result = ModesChannel::numberPeriods.ToAbs();
-    }
-    else if (mode.IsRatioAC() || mode.IsRatioBC())
-    {
-        int sT = ModesChannel::timeMeasure.ToMS();
-
-        if (counterB.ToDouble() == 0.0) //-V2550 //-V550
-        {
-            isDivZero = true;
-        }
-
-        counterA.FromDouble(counterA.ToDouble() / counterB.ToDouble() / 32); //-V2564
-        result = 1000000 * sT;
-    }
-
-    return result;
-}
-
-
 int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 {
     int result = 1;
@@ -395,7 +363,6 @@ int MathFPGA::Measure::CalculateEmptyZeros()
 
     switch (Channel::Current()->mod.typeMeasure.value)
     {
-    case TypeMeasure::Frequency:    result = CalculateFrequencyEmptyZeros();  break;
     case TypeMeasure::Duration:     result = CalculateDurationEmptyZeros();   break;
     case TypeMeasure::Period:       result = CalculatePeriodEmptyZeros();     break;
     }
@@ -470,8 +437,7 @@ void MathFPGA::Measure::CalculateUnits()
     }
     else
     {
-        if (ModeFrequency::Current().IsRatio() ||
-            type.IsCountPulse())
+        if (ModeFrequency::Current().IsRatio() ||  type.IsCountPulse())
         {
             Data::SetUnits(String(" "));
         }

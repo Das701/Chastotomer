@@ -170,6 +170,8 @@ struct PeriodTimeLabels : public Enumeration
     static void LoadToFPGA();
 
     static void Set(E v);
+
+    static const PeriodTimeLabels &Current();
 };
 
 

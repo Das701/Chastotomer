@@ -110,6 +110,12 @@ int PeriodTimeLabels::ToZeros() const
 }
 
 
+const PeriodTimeLabels &PeriodTimeLabels::Current()
+{
+    return Channel::Current()->mod.timeLabels;
+}
+
+
 int TimeMeasure::ToMS() const
 {
     static const int time[Count] =
