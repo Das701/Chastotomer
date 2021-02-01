@@ -11,6 +11,7 @@ struct MathFPGA
     struct Data
     {
         friend struct MathFPGA;
+        friend struct ValueFPGA;
 
         static String GiveDigits();
         static String GiveUnits();

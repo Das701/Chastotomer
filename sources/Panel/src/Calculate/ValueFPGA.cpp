@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Calculate/MathFPGA.h"
 #include "Calculate/ValueFPGA.h"
 #include "Utils/StringUtils.h"
 #include <cstdio>
@@ -102,10 +103,18 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, int sub)
         SU::LeaveFewSignedDigits(buffer, 29, numDigitsInCounter);
     }
 
+    MathFPGA::Data::SetDigits(String(buffer));
+
     std::strcat(buffer, " ");
     std::strcat(buffer, GetSuffixUnit(order));
     std::strcat(buffer, mainUnits.c_str());
 
     value.Set(TypeConversionString::None, buffer);
+
+
+    std::strcpy(buffer, GetSuffixUnit(order));
+    std::strcat(buffer, mainUnits.c_str());
+
+    MathFPGA::Data::SetUnits(String(buffer));
 }
 

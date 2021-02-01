@@ -81,43 +81,7 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros()
 
     const ModeFrequency &mode = ModeFrequency::Current();
 
-    if (mode.IsT_1())
-    {
-        result = 1;
-
-        uint v = (uint)counterA.ToDouble();
-
-        do 
-        {
-            result *= 10;
-            v /= 10;
-
-        } while (v > 0);
-
-        counterA.DivUINT((uint)ModesChannel::timeLabels.ToZeros());
-
-        if (counterA.ToDouble() == 0.0) //-V2550 //-V550
-        {
-            isDivZero = true;
-        }
-        else
-        {
-            ValueSTRICT value(4.0 * ModesChannel::numberPeriods.ToAbs()); //-V2564
-
-            value.DivDOUBLE(counterA.ToDouble()); //-V2564
-            
-            counterA = value;
-        }
-
-        decDA = (int)(counterA.ToDouble() / 2.0);
-
-        if (decDA < 1000)      { }
-        else if (decDA < 1000000)   { counterA.DivUINT(1000);    }
-        else                        { counterA.DivUINT(1000000); }
-
-        result = 1;
-    }
-    else if (mode.IsRatioAB() || mode.IsRatioBA())
+    if (mode.IsRatioAB() || mode.IsRatioBA())
     {
         result = ModesChannel::numberPeriods.ToAbs();
     }
@@ -194,46 +158,16 @@ int MathFPGA::Measure::CalculatePeriodEmptyZeros()
 {
     int result = 1;
 
-    if (ModePeriod::Current().IsF_1())
+    if (ModesChannel::timeLabels.IsT_7() || ModesChannel::timeLabels.IsT_4())
     {
-        int sT = ModesChannel::timeMeasure.ToMS();
-
-        decDA = (int)(counterA.ToDouble() / (2.0 * (double)sT));
-
-        if (counterA.ToDouble() == 0.0) //-V550 //-V2550
-        {
-            isDivZero = true;
-        }
-        else
-        {
-            ValueSTRICT value(40000.0 * sT);
-
-            value.DivDOUBLE(counterA.ToDouble());
-
-            counterA = value;
-        }
-
-        counterA.MulUINT((uint)sT);
-
-        if (decDA >= 1000)  { counterA.MulUINT(10000); }
-        else if (decDA > 1) { counterA.MulUINT(10);    }
-        else                { counterA.DivUINT(1000);    }
-
-        result = sT * 100;
+        result *= 10;
     }
-    else
+    else if (ModesChannel::timeLabels.IsT_8() || ModesChannel::timeLabels.IsT_5()) //-V2516
     {
-        if (ModesChannel::timeLabels.IsT_7() || ModesChannel::timeLabels.IsT_4())
-        {
-            result *= 10;
-        }
-        else if (ModesChannel::timeLabels.IsT_8() || ModesChannel::timeLabels.IsT_5()) //-V2516
-        {
-            result *= 100;
-        }
-
-        result *= ModesChannel::numberPeriods.ToAbs();
+        result *= 100;
     }
+
+    result *= ModesChannel::numberPeriods.ToAbs();
 
     return result;
 }
@@ -312,16 +246,16 @@ bool MathFPGA::Measure::CreateValue(TypeData::E typeData, uint value1, uint, uin
         {
             switch (Channel::Current()->mod.modeFrequency)
             {
-            case ModeFrequency::Frequency:  valueFPGA = new ValueFrequency_Frequency(value1);   break;
-            case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1);         break;
+            case ModeFrequency::Frequency:  valueFPGA = new ValueFrequency_Frequency(value1);   return true;
+            case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1);     ;   return true;
             }
         }
         else if (type.IsPeriod())
         {
             switch(Channel::Current()->mod.modePeriod)
             {
-            case ModePeriod::Period:    valueFPGA = new ValuePeriod_Period(value1); break;
-            case ModePeriod::F_1:       valueFPGA = new ValuePeriod_F_1(value1);    break;
+            case ModePeriod::Period:    valueFPGA = new ValuePeriod_Period(value1); return true;
+            case ModePeriod::F_1:       valueFPGA = new ValuePeriod_F_1(value1);    return true;
             }
         }
     }
@@ -699,14 +633,6 @@ void MathFPGA::Measure::CalculateNewData()
 
             LOG_WRITE(text);
             
-                 // ≈сли косвенное измерение частоты
-            if ((Channel::Current()->mod.typeMeasure.IsFrequency() && Channel::Current()->mod.modeFrequency.IsT_1()) ||
-                 // или периода
-                 Channel::Current()->mod.typeMeasure.IsPeriod() && Channel::Current()->mod.modePeriod.IsF_1())
-            {
-                SU::LeaveFewDigits(text, 30, powDataA);
-            }
-
             Data::SetDigits(String(text));
         }
     }
