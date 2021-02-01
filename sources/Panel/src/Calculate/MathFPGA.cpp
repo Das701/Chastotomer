@@ -205,9 +205,6 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
         break;
 
     case TypeData::FillFactorPhase:
-        FillFactor::Calculate(value1, value2);
-        break;
-
     case TypeData::Comparator:
     case TypeData::Interpolator:
         break;
@@ -255,7 +252,9 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
     {
         switch (Channel::Current()->mod.modeDuration)
         {
-        case ModeDuration::Ndt_1ns: valueFPGA = new ValueDuration_Ndt_1ns(value1, value2, value3);  return true;
+        case ModeDuration::Ndt_1ns:    valueFPGA = new ValueDuration_Ndt_1ns(value1, value2, value3);  return true;
+        case ModeDuration::FillFactor:
+        case ModeDuration::Phase:      valueFPGA = new ValueDuration_Phase_FillFactor(value1, value2); return true;
         }
     }
 
@@ -380,53 +379,6 @@ String MathFPGA::Auto::Give()
 }
 
 
-void MathFPGA::FillFactor::Calculate(uint period, uint duration)
-{
-    LOG_WRITE("%d %d", period, duration);
-
-    if (period == 0 && duration == 0)
-        period = 1;
-
-    value = ValueSTRICT((int64)duration);
-    value.DivUINT(period);
-
-    Measure::powDataA = 1;
-
-    do
-    {
-        Measure::powDataA++;
-        period /= 10;
-
-    } while (period > 0);
-
-    if (ModeDuration::Current().IsPhase())
-    {
-        value.MulUINT(360);
-
-        if (value.ToDouble() == 360.0)
-        {
-            value = ValueSTRICT((int64)0);
-        }
-    }
-    else
-    {
-        if (value.Sign() < 0)
-        {
-            value.SetSign(1);
-        }
-
-        if (value.ToDouble() != 0.0)
-        {
-            while (value.ToUnits(Order::Milli) < 1000)
-            {
-                value.MulUINT(10);
-                zeroes++;
-            }
-        }
-    }
-}
-
-
 void MathFPGA::DecToBin(int dec, char *bin)
 {
     int x = dec;
@@ -513,24 +465,6 @@ void MathFPGA::Measure::CalculateNewData()
         if (Channel::Current()->mod.typeMeasure.IsDuration() &&
             (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
         {
-            if (ModeDuration::Current().IsPhase())
-            {
-                if (Math::InBound((float)MathFPGA::FillFactor::value.ToDouble(), 0.0F, 360.0F))
-                {
-                    Data::SetDigits(String("%10.3f", MathFPGA::FillFactor::value.ToDouble()));
-                }
-                else
-                {
-                    Data::SetDigits(String(" "));
-                }
-            }
-            else
-            {
-                char buffer[30];
-                std::sprintf(buffer, "%10.10f", MathFPGA::FillFactor::value.ToDouble());
-                SU::LeaveFewDigits(buffer, 30, powDataA - 1);
-                Data::SetDigits(String(buffer));
-            }
         }
         else
         {

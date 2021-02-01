@@ -15,6 +15,7 @@ struct MathFPGA
         friend struct ValueDuration_Ndt_1ns;
         friend struct ValueFrequency_Tachometer;
         friend struct ValueFrequency_Comparator;
+        friend struct ValueDuration_Phase_FillFactor;
 
         static String GiveDigits();
         static String GiveUnits();
@@ -107,10 +108,11 @@ struct MathFPGA
     struct FillFactor
     {
         friend struct Measure;
+        friend struct ValueDuration_Phase_FillFactor;
+
     private:
         static ValueSTRICT value;
         static int zeroes;
-        static void Calculate(uint period, uint duration);
     };
 
 
