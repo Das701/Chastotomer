@@ -103,53 +103,6 @@ int MathFPGA::Measure::CalculateFrequencyEmptyZeros()
         counterA.FromDouble(counterA.ToDouble() / counterB.ToDouble() / 32); //-V2564
         result = 1000000 * sT;
     }
-    else
-    {
-        int mhz = 1000 * ModesChannel::timeMeasure.ToMS();
-        int khz = ModesChannel::timeMeasure.ToMS();
-
-        if (((counterA.ToDouble() / (float)khz) / 2.0F) < 1000.0F)
-        {
-            result = khz;
-        }
-        else
-        {
-            result = mhz;
-        }
-        decDA = (int)((counterA.ToDouble() / (double)khz) / 2.0);
-
-        if (CURRENT_CHANNEL_IS_C)
-        {
-            if (counterA.ToUnits(Order::Micro) < 10)
-            {
-                counterC.FromDouble(counterA.ToDouble());
-                khz = khz * 10;
-                result = khz;
-            }
-            else
-            {
-                counterC.FromDouble(counterA.ToDouble());
-                mhz = mhz * 10;
-                result = mhz;
-            }
-        }
-
-        if (CURRENT_CHANNEL_IS_D)
-        {
-            if (counterA.ToDouble() * 64.0F / (1000.0F * (float)khz) > 19000.0F)
-            {
-                counterC.FromDouble(0.0);
-                result = khz;
-            }
-            else
-            {
-                counterC.FromDouble(counterA.ToDouble() * 64 / 1000); //-V2564
-                result = mhz;
-            }
-
-            decDA = (int)counterC.ToUnits(Order::Nano);
-        }
-    }
 
     return result;
 }
@@ -236,10 +189,16 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
 
     if (type.IsFrequency())
     {
+        if (Channel::Current()->mod.modeFrequency.IsRatio())
+        {
+            valueFPGA = new ValueFrequency_Ratio(value1, value2);
+            return true;
+        }
+
         switch (Channel::Current()->mod.modeFrequency)
         {
         case ModeFrequency::Frequency:  valueFPGA = new ValueFrequency_Frequency(value1);                                                       return true;
-        case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1); ;                                                       return true;
+        case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1); ;                                                           return true;
         case ModeFrequency::Tachometer: valueFPGA = new ValueFrequency_Tachometer(value1);                                                      return true;
         case ModeFrequency::Comparator: valueFPGA = new ValueFrequency_Comparator(value1, (int)value2, (int)value3, (int)value4, (int)value5);  return true;
         }

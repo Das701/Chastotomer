@@ -153,3 +153,32 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
         }
     }
 }
+
+
+ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
+{
+    mainUnits.Set(TypeConversionString::None, "");
+
+    const ModeFrequency &mode = ModeFrequency::Current();
+
+    counter1 /= 2;
+
+    ValueSTRICT valueA(counter1);
+    ValueSTRICT valueB((int64)0);
+
+    if (mode.IsRatioAB() || mode.IsRatioBA())
+    {
+
+    }
+    else if ((mode.IsRatioAC() || mode.IsRatioBC()) && Relation::IsEnabled())
+    {
+        valueA.DivUINT(counter2);
+        valueA.DivUINT(32);
+    }
+    else if (mode.IsRatioCA() || mode.IsRatioCB())
+    {
+        valueA.MulUINT(100);
+    }
+
+    SetValue(valueA, counter1);
+}

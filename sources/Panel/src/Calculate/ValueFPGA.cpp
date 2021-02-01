@@ -48,11 +48,11 @@ char *ValueFPGA::GetSuffixUnit(int order) const
 }
 
 
-void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, int sub)
+void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
 {
     int order = 0;
 
-    int numDigitsInCounter = NumDigitsInNumber(counter) + sub;
+    int numDigitsInCounter = NumDigitsInNumber(counter);
 
     if (numDigitsInCounter < 1)
     {

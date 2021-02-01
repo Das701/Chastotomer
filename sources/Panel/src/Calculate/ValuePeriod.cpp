@@ -68,5 +68,5 @@ ValuePeriod_F_1::ValuePeriod_F_1(uint counter) : ValuePeriod()
     strict.DivUINT(counter);
     strict.DivUINT(multipliers[time]);
 
-    SetValue(strict, counter, 0);
+    SetValue(strict, counter);
 }

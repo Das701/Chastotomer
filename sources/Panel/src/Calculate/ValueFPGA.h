@@ -15,7 +15,7 @@ protected:
 
     String mainUnits;
 
-    void SetValue(ValueSTRICT value, uint counter, int sub = 0);
+    void SetValue(ValueSTRICT value, uint counter);
 
     // Возвращает суффикс для единиц измерения для данного порядка. order == 3 - кило, order == -3 - милли
     char *GetSuffixUnit(int order) const;
