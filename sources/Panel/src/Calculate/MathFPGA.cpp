@@ -75,40 +75,6 @@ void MathFPGA::Data::SetUnits(const String &_units)
 }
 
 
-int MathFPGA::Measure::CalculatePeriodEmptyZeros()
-{
-    int result = 1;
-
-    if (ModesChannel::timeLabels.IsT_7() || ModesChannel::timeLabels.IsT_4())
-    {
-        result *= 10;
-    }
-    else if (ModesChannel::timeLabels.IsT_8() || ModesChannel::timeLabels.IsT_5()) //-V2516
-    {
-        result *= 100;
-    }
-
-    result *= ModesChannel::numberPeriods.ToAbs();
-
-    return result;
-}
-
-
-int MathFPGA::Measure::CalculateDurationEmptyZeros()
-{
-    if (ModesChannel::timeLabels.IsT_7())
-    {
-        return 10;
-    }
-    else if (ModesChannel::timeLabels.IsT_8() || ModesChannel::timeLabels.IsT_5()) //-V2516
-    {
-        return 100;
-    }
-
-    return 1;
-}
-
-
 void MathFPGA::Measure::SetNewData(uint value1, uint value2, uint value3, uint value4, uint value5)
 { 
     CreateValue(value1, value2, value3, value4, value5);
@@ -301,33 +267,6 @@ String MathFPGA::BinToString(pString bin, int num)
     buffer[num] = '\0';
 
     return String(buffer);
-}
-
-
-void MathFPGA::Measure::Calculate(int &pow, ValueSTRICT &data)
-{
-    int emptyZeros = CalculateEmptyZeros();
-
-    if (CURRENT_CHANNEL_IS_D) { data.FromDouble(counterC.ToDouble()); }
-    else                      { data = counterA; }
-
-    data.DivUINT((uint)(2 * emptyZeros));
-
-    pow = (int)std::log10((float)emptyZeros);
-}
-
-
-int MathFPGA::Measure::CalculateEmptyZeros()
-{
-    int result = 0;
-
-    switch (Channel::Current()->mod.typeMeasure.value)
-    {
-    case TypeMeasure::Duration:     result = CalculateDurationEmptyZeros();   break;
-    case TypeMeasure::Period:       result = CalculatePeriodEmptyZeros();     break;
-    }
-
-    return result;
 }
 
 
