@@ -2,6 +2,7 @@
 #include "Log.h"
 #include "Settings.h"
 #include "Calculate/MathFPGA.h"
+#include "Calculate/ValueDuration.h"
 #include "Calculate/ValueFrequency.h"
 #include "Calculate/ValuePeriod.h"
 #include "Display/Display.h"
@@ -26,8 +27,6 @@ char MathFPGA::Data::units[10];
 bool MathFPGA::Validator::isEmpty = true;
 uint MathFPGA::Validator::timeClearedFlag = 0;
 
-float  MathFPGA::Interpolator::value = 0.0F;
-       
 uint   MathFPGA::Auto::fpgaMin = 0;
 uint   MathFPGA::Auto::fpgaMid = 0;
 uint   MathFPGA::Auto::fpgaMax = 0;
@@ -205,15 +204,12 @@ void MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::E type, uint val
         AppendDataMainCounters(value1, value2);
         break;
 
-    case TypeData::Interpolator:
-        Interpolator::Calculate(value1, value2, value3);
-        break;
-
     case TypeData::FillFactorPhase:
         FillFactor::Calculate(value1, value2);
         break;
 
     case TypeData::Comparator:
+    case TypeData::Interpolator:
         break;
     }
 
@@ -253,6 +249,13 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
         {
         case ModePeriod::Period:    valueFPGA = new ValuePeriod_Period(value1); return true;
         case ModePeriod::F_1:       valueFPGA = new ValuePeriod_F_1(value1);    return true;
+        }
+    }
+    else if (type.IsDuration())
+    {
+        switch (Channel::Current()->mod.modeDuration)
+        {
+        case ModeDuration::Ndt_1ns: valueFPGA = new ValueDuration_Ndt_1ns(value1, value2, value3);  return true;
         }
     }
 
@@ -507,11 +510,7 @@ void MathFPGA::Measure::CalculateNewData()
     }
     else
     {
-        if (ModeDuration::Current().IsNdt_1ns())
-        {
-            Data::SetDigits(String("%10.2f", MathFPGA::Interpolator::value));
-        }
-        else if (Channel::Current()->mod.typeMeasure.IsDuration() &&
+        if (Channel::Current()->mod.typeMeasure.IsDuration() &&
             (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
         {
             if (ModeDuration::Current().IsPhase())
@@ -575,11 +574,7 @@ void MathFPGA::Measure::CalculateUnits()
 {
     TypeMeasure &type = Channel::Current()->mod.typeMeasure;
 
-    if (ModeDuration::Current().IsNdt_1ns())
-    {
-        Data::SetUnits(String(" ns"));
-    }
-    else if(type.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
+    if(type.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
     {
         if (ModeDuration::Current().IsPhase())
         {
@@ -656,10 +651,4 @@ void MathFPGA::Auto::Refresh()
         fpgaMid = 0;
         fpgaMax = 0;
     }
-}
-
-
-void MathFPGA::Interpolator::Calculate(uint timer, uint cal1, uint cal2)
-{
-    value = (float)(100 * timer) / (float)(cal2 - cal1);
 }

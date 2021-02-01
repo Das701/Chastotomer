@@ -47,7 +47,7 @@ void update()
 //
 //	MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::MainCounters, value, 4839, 1661, 4757, 1661);
 
-	MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Comparator, 10000, 5238, 278, 32388, 3252);
+	MathFPGA::Measure::SetNewData(MathFPGA::Measure::TypeData::Comparator, 1000, 10, 20, 32388, 3252);
 
 	Display::Refresh();
 	Menu::Update();

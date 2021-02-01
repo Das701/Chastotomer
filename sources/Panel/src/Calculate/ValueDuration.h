@@ -4,5 +4,11 @@
 
 struct ValueDuration : public ValueFPGA
 {
-    ValueDuration(uint counter1, uint counter2 = 0, uint counter3 = 0, uint counter4 = 0);
+    ValueDuration();
+};
+
+
+struct ValueDuration_Ndt_1ns : public ValueDuration
+{
+    ValueDuration_Ndt_1ns(uint timer, uint cal1, uint cal2);
 };

@@ -12,6 +12,7 @@ struct MathFPGA
     {
         friend struct MathFPGA;
         friend struct ValueFPGA;
+        friend struct ValueDuration_Ndt_1ns;
         friend struct ValueFrequency_Tachometer;
         friend struct ValueFrequency_Comparator;
 
@@ -100,15 +101,6 @@ struct MathFPGA
 
         static void CalculateNewData();
         static void CalculateUnits();
-    };
-
-
-    struct Interpolator
-    {
-        friend struct Measure;
-    private:
-        static void Calculate(uint timer, uint cal1, uint cal2);
-        static float value;
     };
 
 
