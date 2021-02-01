@@ -236,10 +236,8 @@ ValueComparator operator/(const ValueComparator &first, uint second)
 }
 
 
-void MathFPGA::Measure::AppendDataMainCounters(uint valueA, uint valueB)
+void MathFPGA::Measure::AppendDataMainCounters(uint valueA, uint)
 {
-    LOG_WRITE("%d", valueA);
-
     counterA.FromDouble((double)valueA);
 
     powDataA = 0;
@@ -251,11 +249,6 @@ void MathFPGA::Measure::AppendDataMainCounters(uint valueA, uint valueB)
 
     } while (valueA > 0);
 
-    if ((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) && Relation::IsEnabled())
-    {
-        counterB.FromDouble(valueB);
-    }
-
     if (CURRENT_CHANNEL_IS_C)
     {
         counterA.MulUINT(64);
@@ -264,9 +257,6 @@ void MathFPGA::Measure::AppendDataMainCounters(uint valueA, uint valueB)
         {
             counterA.DivUINT(100);
         }
-    }
-    else if (CURRENT_CHANNEL_IS_D)
-    {
     }
 }
 

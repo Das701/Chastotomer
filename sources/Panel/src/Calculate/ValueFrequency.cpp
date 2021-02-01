@@ -12,7 +12,7 @@
 #include <cstring>
 
 
-ValueFrequency::ValueFrequency() :
+ValueFrequency::ValueFrequency(uint , uint , uint , uint , uint ) :
     ValueFPGA()
 {
     mainUnits.Set(TypeConversionString::None, "Hz");
