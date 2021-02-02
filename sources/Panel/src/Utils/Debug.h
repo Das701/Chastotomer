@@ -12,6 +12,22 @@
 
 #define DEBUG_POINT_0  DEBUG_POINT(0)
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+extern void HardFault_Handler();
+#ifdef __cplusplus
+}
+#endif
+
+
+#define VERIFY_ON_NULL(x)   \
+if (x == nullptr)           \
+{                           \
+    DEBUG_POINT_0;          \
+    HardFault_Handler();    \
+}
+
 namespace Debug
 {
     void StartProfilingUS();
