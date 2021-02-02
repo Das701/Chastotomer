@@ -103,6 +103,7 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
         if (Channel::Current()->mod.modeFrequency.IsRatio())
         {
             valueFPGA = new ValueFrequency_Ratio(value1, value2);
+            VERIFY_ON_NULL(valueFPGA);
         }
 
         switch (Channel::Current()->mod.modeFrequency)
@@ -110,19 +111,30 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
         case ModeFrequency::Frequency:
             DEBUG_POINT_0;
             valueFPGA = new ValueFrequency_Frequency(value1);
+            VERIFY_ON_NULL(valueFPGA);
             DEBUG_POINT_0;
             break;
-        case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1); ;           break;
-        case ModeFrequency::Tachometer: valueFPGA = new ValueFrequency_Tachometer(value1);      break;
+        case ModeFrequency::T_1:
+            valueFPGA = new ValueFrequency_T_1(value1);
+            VERIFY_ON_NULL(valueFPGA);
+            break;
+        case ModeFrequency::Tachometer:
+            valueFPGA = new ValueFrequency_Tachometer(value1);
+            VERIFY_ON_NULL(valueFPGA);
+            break;
         case ModeFrequency::Comparator:
-            valueFPGA = new ValueFrequency_Comparator(value1, (int)value2, (int)value3, (int)value4, (int)value5);  
-                                                                                                break;
+            valueFPGA = new ValueFrequency_Comparator(value1, (int)value2, (int)value3, (int)value4, (int)value5);
+            VERIFY_ON_NULL(valueFPGA);
+            break;
         case ModeFrequency::RatioAB:
         case ModeFrequency::RatioAC:
         case ModeFrequency::RatioBA:
         case ModeFrequency::RatioBC:
         case ModeFrequency::RatioCA:
-        case ModeFrequency::RatioCB:    valueFPGA = new ValueFrequency_Ratio(value1, value2);   break;
+        case ModeFrequency::RatioCB:
+            valueFPGA = new ValueFrequency_Ratio(value1, value2);
+            VERIFY_ON_NULL(valueFPGA);
+            break;
         }
 
         return true;
@@ -135,11 +147,13 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
         case ModePeriod::Period:
             DEBUG_POINT_0;
             valueFPGA = new ValuePeriod_Period(value1);
+            VERIFY_ON_NULL(valueFPGA);
             DEBUG_POINT_0;
             break;
         case ModePeriod::F_1:
             DEBUG_POINT_0;
             valueFPGA = new ValuePeriod_F_1(value1);
+            VERIFY_ON_NULL(valueFPGA);
             DEBUG_POINT_0;
             break;
         }
@@ -152,11 +166,20 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
         DEBUG_POINT_0;
         switch (Channel::Current()->mod.modeDuration)
         {
-        case ModeDuration::Ndt_1ns:     valueFPGA = new ValueDuration_Ndt_1ns(value1, value2, value3);  break;;
+        case ModeDuration::Ndt_1ns:
+            valueFPGA = new ValueDuration_Ndt_1ns(value1, value2, value3);
+            VERIFY_ON_NULL(valueFPGA);
+            break;;
         case ModeDuration::FillFactor:
-        case ModeDuration::Phase:       valueFPGA = new ValueDuration_Phase_FillFactor(value1, value2); break;;
+        case ModeDuration::Phase:
+            valueFPGA = new ValueDuration_Phase_FillFactor(value1, value2);
+            VERIFY_ON_NULL(valueFPGA);
+            break;;
         case ModeDuration::Ndt:
-        case ModeDuration::StartStop:   valueFPGA = new ValueDuration_Ndt_StartStop(value1);            break;
+        case ModeDuration::StartStop:
+            valueFPGA = new ValueDuration_Ndt_StartStop(value1);
+            VERIFY_ON_NULL(valueFPGA);
+            break;
         }
 
         return true;
@@ -165,7 +188,7 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
     {
         DEBUG_POINT_0;
         valueFPGA = new ValueCountPulse(value1);
-
+        VERIFY_ON_NULL(valueFPGA);
         return true;
     }
 

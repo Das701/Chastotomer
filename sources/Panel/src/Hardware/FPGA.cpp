@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Log.h"
 #include "Settings.h"
 #include "Calculate/MathFPGA.h"
 #include "Display/Display.h"
@@ -174,6 +175,7 @@ void FPGA::Update() //-V2008
                 Reset_CS; //-V2571
 
                 DEBUG_POINT_0;
+                LOG_WRITE("%d %d", counterA, counterB);
                 MathFPGA::Measure::SetNewData(counterA, counterB);
 
                 DEBUG_POINT_0;
@@ -198,6 +200,7 @@ void FPGA::ReadFillFactorPhase()
 
 //        LOG_WRITE("%d %d", period, duration);
 
+        LOG_WRITE("%d %d", period, duration);
         MathFPGA::Measure::SetNewData(period, duration);
 
         HAL_TIM::DelayUS(8);
@@ -220,6 +223,7 @@ void FPGA::ReadInterpolator()
         CycleRead(24, cal2, false);
         Reset_CS; //-V2571
 
+        LOG_WRITE("%d %d %d", timer, cal1, cal2);
         MathFPGA::Measure::SetNewData(timer, cal1, cal2);
 
         HAL_TIM::DelayUS(8);
@@ -264,6 +268,7 @@ void FPGA::ReadComparator()
         CycleRead(16, cal2, false);
         Reset_CS; //-V2571
 
+        LOG_WRITE("%d %d %d %d %d", counter, interpol1, cal1, interpol2, cal2);
         MathFPGA::Measure::SetNewData(counter, interpol1, cal1, interpol2, cal2);
 
         HAL_TIM::DelayUS(8);

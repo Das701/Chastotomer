@@ -13,6 +13,7 @@ struct MathFPGA
         friend struct MathFPGA;
         friend struct ValueFPGA;
         friend struct ValueDuration_Ndt_1ns;
+        friend struct ValueFrequency_T_1;
         friend struct ValueFrequency_Tachometer;
         friend struct ValueFrequency_Comparator;
         friend struct ValueDuration_Phase_FillFactor;
