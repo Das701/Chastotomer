@@ -13,10 +13,10 @@ struct Enumeration
     uint8  value;           // Текущее состояние перечисления
     char **names;
     char **ugo;
-    const bool *correct;    // Если указатель на этот массив не равен nullptr, то его элементы используются следующим образом.
-                            // value не может значения индексов, соответствующих false
+    const bool *correct;    // Если указатель на этот массив не равен nullptr, то его элементы используются следующим
+                            // образом : value не может значения индексов, соответствующих false
     int numStates;
-    explicit Enumeration(uint8 v, const bool *_correct = nullptr, int states = 0) : value(v), names(nullptr), ugo(nullptr), correct(_correct), numStates(states) {}
+    explicit Enumeration(uint8 v, const bool *_correct = nullptr, int states = 0);
     operator int()         { return (int)value; }
     String ToString() const;
     char *UGO() const;
@@ -107,7 +107,9 @@ class Page : public Item, public Observer
     friend struct Channel;
 
 public:
-    Page(Item **_items, void (*_onEvent)(EventType::E)) : Item(""), selectedItem(0), items(_items), onEvent(_onEvent) {};
+    Page(Item **_items, void (*_onEvent)(EventType::E)) :
+        Item(""), selectedItem(0), items(_items), onEvent(_onEvent)
+    {};
 
     virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &) { return false; };

@@ -17,6 +17,23 @@
 using namespace Primitives;
 
 
+Enumeration::Enumeration(uint8 v, const bool *_correct, int states) :
+    value(v), names(nullptr), ugo(nullptr), correct(_correct), numStates(states)
+{
+    if (_correct)
+    {
+        for (uint8 i = 0; i < numStates; i++)
+        {
+            if (_correct[i] == true)
+            {
+                value = i;
+                break;
+            }
+        }
+    }
+}
+
+
 int Enumeration::NumStates() const
 {
     int result = 0;
