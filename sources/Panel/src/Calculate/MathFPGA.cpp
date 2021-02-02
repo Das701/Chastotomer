@@ -7,7 +7,6 @@
 #include "Hardware/FPGA.h"
 #include "Menu/Pages/PageStatistics.h"
 #include "Menu/Pages/Channels/Channels.h"
-#include "Utils/Debug.h"
 #include "Utils/Math.h"
 #include "Utils/StringUtils.h"
 #include "Utils/ValueSTRICT.h"
@@ -48,8 +47,6 @@ String MathFPGA::Data::GiveUnits()
 
 void MathFPGA::Data::SetDigits(const String &_digits)
 {
-    DEBUG_POINT_0;
-
     if (FPGA::IsOverloaded())
     {
         std::strcpy(digits, "оепеонкмемхе");
@@ -58,8 +55,6 @@ void MathFPGA::Data::SetDigits(const String &_digits)
     {
         std::strcpy(digits, _digits.c_str()); //-V2513
     }
-
-    DEBUG_POINT_0;
 
     Display::zoneData->Refresh();
 }
@@ -74,104 +69,63 @@ void MathFPGA::Data::SetUnits(const String &_units)
 
 void MathFPGA::Measure::SetNewData(uint value1, uint value2, uint value3, uint value4, uint value5)
 { 
-    DEBUG_POINT_0;
     CreateValue(value1, value2, value3, value4, value5);
-    DEBUG_POINT_0;
     Validator::SetValidData();
-    DEBUG_POINT_0;
     ProgressBarTimeMeasureZone::timeStart = TIME_MS;
-    DEBUG_POINT_0;
 }
 
 
 bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint value4, uint value5)
 {
-    DEBUG_POINT_0;
     TypeMeasure &type = Channel::Current()->mod.typeMeasure;
-    DEBUG_POINT_0;
+
     if (valueFPGA != nullptr)
     {
-        DEBUG_POINT_0;
         delete valueFPGA;
         valueFPGA = nullptr;
     }
 
-    DEBUG_POINT_0;
     if (type.IsFrequency())
     {
         switch (Channel::Current()->mod.modeFrequency)
         {
-        case ModeFrequency::Frequency:
-            DEBUG_POINT_0;
-            valueFPGA = new ValueFrequency_Frequency(value1);
-            VERIFY_ON_NULL(valueFPGA);
-            DEBUG_POINT_0;
-            break;
-        case ModeFrequency::T_1:
-            valueFPGA = new ValueFrequency_T_1(value1);
-            VERIFY_ON_NULL(valueFPGA);
-            break;
-        case ModeFrequency::Tachometer:
-            valueFPGA = new ValueFrequency_Tachometer(value1);
-            VERIFY_ON_NULL(valueFPGA);
-            break;
-        case ModeFrequency::Comparator:
+        case ModeFrequency::Frequency:  valueFPGA = new ValueFrequency_Frequency(value1);           break;
+        case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1);                 break;
+        case ModeFrequency::Tachometer: valueFPGA = new ValueFrequency_Tachometer(value1);          break;
+        case ModeFrequency::Comparator: 
             valueFPGA = new ValueFrequency_Comparator(value1, (int)value2, (int)value3, (int)value4, (int)value5);
-            VERIFY_ON_NULL(valueFPGA);
             break;
         case ModeFrequency::RatioAB:
         case ModeFrequency::RatioAC:
         case ModeFrequency::RatioBA:
         case ModeFrequency::RatioBC:
         case ModeFrequency::RatioCA:
-        case ModeFrequency::RatioCB:
-            valueFPGA = new ValueFrequency_Ratio(value1, value2);
-            VERIFY_ON_NULL(valueFPGA);
-            break;
+        case ModeFrequency::RatioCB:    valueFPGA = new ValueFrequency_Ratio(value1, value2);       break;
         }
 
         return true;
     }
     else if (type.IsPeriod())
     {
-        DEBUG_POINT_0;
         switch (Channel::Current()->mod.modePeriod)
         {
-        case ModePeriod::Period:
-            DEBUG_POINT_0;
-            valueFPGA = new ValuePeriod_Period(value1);
-            VERIFY_ON_NULL(valueFPGA);
-            DEBUG_POINT_0;
-            break;
-        case ModePeriod::F_1:
-            DEBUG_POINT_0;
-            valueFPGA = new ValuePeriod_F_1(value1);
-            VERIFY_ON_NULL(valueFPGA);
-            DEBUG_POINT_0;
-            break;
+        case ModePeriod::Period:        valueFPGA = new ValuePeriod_Period(value1);     break;
+        case ModePeriod::F_1:           valueFPGA = new ValuePeriod_F_1(value1);        break;
         }
-        DEBUG_POINT_0;
 
         return true;
     }
     else if (type.IsDuration())
     {
-        DEBUG_POINT_0;
         switch (Channel::Current()->mod.modeDuration)
         {
-        case ModeDuration::Ndt_1ns:
-            valueFPGA = new ValueDuration_Ndt_1ns(value1, value2, value3);
-            VERIFY_ON_NULL(valueFPGA);
+        case ModeDuration::Ndt_1ns:     valueFPGA = new ValueDuration_Ndt_1ns(value1, value2, value3);
             break;;
         case ModeDuration::FillFactor:
-        case ModeDuration::Phase:
-            valueFPGA = new ValueDuration_Phase_FillFactor(value1, value2);
-            VERIFY_ON_NULL(valueFPGA);
+        case ModeDuration::Phase:       valueFPGA = new ValueDuration_Phase_FillFactor(value1, value2);
             break;;
         case ModeDuration::Ndt:
-        case ModeDuration::StartStop:
-            valueFPGA = new ValueDuration_Ndt_StartStop(value1);
-            VERIFY_ON_NULL(valueFPGA);
+        case ModeDuration::StartStop:           valueFPGA = new ValueDuration_Ndt_StartStop(value1);
             break;
         }
 
@@ -179,13 +133,9 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
     }
     else if (type.IsCountPulse())
     {
-        DEBUG_POINT_0;
         valueFPGA = new ValueCountPulse(value1);
-        VERIFY_ON_NULL(valueFPGA);
         return true;
     }
-
-    DEBUG_POINT_0;
 
     return false;
 }

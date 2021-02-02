@@ -12,7 +12,6 @@
 #include "Menu/Pages/PageStatistics.h"
 #include "Menu/Pages/Modes/Modes.h"
 #include "Menu/Pages/Channels/Channels.h"
-#include "Utils/Debug.h"
 #include "Utils/Math.h"
 #include "Utils/StringUtils.h"
 #include <cstring>
@@ -118,67 +117,53 @@ void FPGA::Init()
 
 void FPGA::Update() //-V2008
 {
-    DEBUG_POINT_0;
     if(autoMode)
     {
-        DEBUG_POINT_0;
         ReadAutoMode();
-        DEBUG_POINT_0;
     }
     else
     {
-        DEBUG_POINT_0;
         if (MathFPGA::Validator::VerySmallTime())
         {
-            DEBUG_POINT_0;
             return;
         }
 
-        DEBUG_POINT_0;
         if (Channel::Current()->mod.typeMeasure.IsDuration() && ModeDuration::Current().IsNdt_1ns())
         {
-            DEBUG_POINT_0;
             ReadInterpolator();
         }
-        else if(Channel::Current()->mod.typeMeasure.IsDuration() && (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
+        else if(Channel::Current()->mod.typeMeasure.IsDuration() && 
+            (ModeDuration::Current().IsFillFactor() || ModeDuration::Current().IsPhase()))
         {
-            DEBUG_POINT_0;
             ReadFillFactorPhase();
         }
-        else if (CURRENT_CHANNEL_IS_A && (Channel::A->mod.modeFrequency.IsComparator() && Channel::A->mod.typeMeasure.IsFrequency())) 
+        else if (CURRENT_CHANNEL_IS_A && 
+            (Channel::A->mod.modeFrequency.IsComparator() && Channel::A->mod.typeMeasure.IsFrequency())) 
         {
-            DEBUG_POINT_0;
             ReadComparator();
         }
         else
         {
-            DEBUG_POINT_0;
             if (Flag_RD != 0) //-V2571
             {
-                DEBUG_POINT_0;
                 uint counterA = 0;
                 uint counterB = 0;
 
                 Set_CS; //-V2571
 
-                DEBUG_POINT_0;
                 CycleRead(32, counterA, true);
               
-                DEBUG_POINT_0;
-                if((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) && Relation::IsEnabled())
+                if((ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC()) &&
+                    Relation::IsEnabled())
                 {
-                    DEBUG_POINT_0;
                     CycleRead(32, counterB, true);
                 }
 
-                DEBUG_POINT_0;
                 Reset_CS; //-V2571
 
-                DEBUG_POINT_0;
                 LOG_WRITE("%d %d", counterA, counterB);
                 MathFPGA::Measure::SetNewData(counterA, counterB);
 
-                DEBUG_POINT_0;
                 HAL_TIM::DelayUS(8);
             }
         }
