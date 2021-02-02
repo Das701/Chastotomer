@@ -749,7 +749,12 @@ void FontBig::Write(char *text, int x, int y)
 */
 uint FontBig::WriteSymbol(uint8 symbol, int x, int y)
 {
-	//	assert(0x30 <= symbol && symbol <= 0x39);
+	if (symbol == '-')
+	{
+		Rectangle(BIGSPACE_WIDTH, 7).Fill(x, y + 20);
+		return BIGSPACE_WIDTH + BIGGAP_WIDTH;
+	}
+
 	bool falsecheck = false;
 	if (0x28 <= symbol && symbol <= 0x39)
 	{

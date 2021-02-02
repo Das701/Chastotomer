@@ -401,7 +401,14 @@ String ValueComparator::ToString() const
 
     buffer[0] = 0;
 
+    int _sign = Sign();
+
     int intPart = Integer();
+
+    if (_sign < 0)
+    {
+        intPart *= -1;
+    }
 
     Stack<char> stack(100);
 
@@ -409,6 +416,12 @@ String ValueComparator::ToString() const
     {
         stack.Push(intPart % 10);
         intPart /= 10;
+    }
+
+    if (_sign == -1)
+    {
+        symbol[0] = '-';
+        std::strcat(buffer, symbol);
     }
     
     if(stack.Empty())
@@ -429,6 +442,8 @@ String ValueComparator::ToString() const
     std::strcat(buffer, symbol); //-V2513
 
     ValueComparator val(*this);
+
+    val.SetSign(1);
 
     val.Sub(ValueComparator(Integer())); 
                                    // “еперь в val осталась только дробна€ часть

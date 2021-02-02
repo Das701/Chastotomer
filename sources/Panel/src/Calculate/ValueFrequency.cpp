@@ -140,8 +140,6 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
 
         LOG_WRITE("%f", A.ToDouble());
 
-        A.SetSign(1);
-
         if (values.AppendValue(A.ToDouble()))
         {
             Display::Refresh();
