@@ -159,6 +159,14 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
 }
 
 
+void ValueFPGA::SetInfiniteValue()
+{
+    MathFPGA::Data::SetDigits(MathFPGA::Data::UGO_DivNULL);
+    MathFPGA::Data::SetUnits("");
+    value.Set(TypeConversionString::None, MathFPGA::Data::UGO_DivNULL);
+}
+
+
 void ValueFPGA::SetIntegerValue(uint counter)
 {
     value.Set(TypeConversionString::None, "%d", counter);

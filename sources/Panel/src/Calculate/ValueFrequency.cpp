@@ -73,9 +73,7 @@ ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
 
     if (counter == 0)
     {
-        MathFPGA::Data::SetDigits(MathFPGA::Data::UGO_DivNULL);
-        MathFPGA::Data::SetUnits("");
-        value.Set(TypeConversionString::None, MathFPGA::Data::UGO_DivNULL);
+        SetInfiniteValue();
         return;
     }
 
@@ -180,6 +178,12 @@ ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
     }
     else if ((mode.IsRatioAC() || mode.IsRatioBC()) && Relation::IsEnabled())
     {
+        if (counter2 == 0)
+        {
+            SetInfiniteValue();
+            return;
+        }
+
         valueA.MulINT(TimeMeasure::Current().ToMS());
         valueA.DivUINT(counter2);
         valueA.DivUINT(32);

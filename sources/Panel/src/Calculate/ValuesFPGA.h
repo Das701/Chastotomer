@@ -18,6 +18,9 @@ protected:
 
     void SetValue(ValueSTRICT value, uint counter);
 
+    // ”становить бесконечное значение - деление на ноль
+    void SetInfiniteValue();
+
     void SetIntegerValue(uint value);
 
     int NumDigitsInNumber(uint number) const;
