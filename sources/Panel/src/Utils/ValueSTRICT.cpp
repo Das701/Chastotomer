@@ -445,7 +445,7 @@ String ValueComparator::ToString() const
 
     val.SetSign(1);
 
-    val.Sub(ValueComparator(Integer())); 
+    val.Sub(ValueComparator(Integer() * (Sign() > 1 ? 1 : -1))); 
                                    // “еперь в val осталась только дробна€ часть
 
     int count = 0;

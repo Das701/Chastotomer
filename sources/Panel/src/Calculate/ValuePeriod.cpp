@@ -34,7 +34,7 @@ ValuePeriod_F_1::ValuePeriod_F_1(uint counter) : ValuePeriod()
 
     if (counter == 0)
     {
-        value.Set(TypeConversionString::None, MathFPGA::Data::UGO_DivNULL);
+        SetInfiniteValue();
         return;
     }
 
