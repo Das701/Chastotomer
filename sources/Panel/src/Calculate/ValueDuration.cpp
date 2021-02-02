@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Log.h"
 #include "Calculate/MathFPGA.h"
 #include "Menu/Pages/Modes/Modes.h"
 #include "Utils/Math.h"
@@ -35,6 +36,8 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
     ValueSTRICT val(duration);
     val.DivUINT(period);
 
+    LOG_WRITE("%f", val.ToDouble());
+
     if (ModeDuration::Current().IsPhase())
     {
         val.MulUINT(360);
@@ -42,16 +45,6 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
         if (period == duration)
         {
             val.FromINT64(0);
-        }
-    }
-    else
-    {
-        if (val.ToDouble() != 0.0)
-        {
-            while (val.ToUnits(Order::Milli) < 1000)
-            {
-                val.MulUINT(10);
-            }
         }
     }
 
