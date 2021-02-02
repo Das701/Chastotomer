@@ -2,6 +2,7 @@
 #include "Calculate/MathFPGA.h"
 #include "Calculate/ValuesFPGA.h"
 #include "Utils/StringUtils.h"
+#include "Utils/Debug.h"
 #include <cstdio>
 #include <cstring>
 
@@ -67,6 +68,7 @@ char *ValueFPGA::GetSuffixUnitRelated(int order)
 
 void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
 {
+    DEBUG_POINT_0;
     int order = 0;
 
     int numDigitsInCounter = NumDigitsInNumber(counter);
@@ -76,6 +78,7 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
         numDigitsInCounter = 1;
     }
 
+    DEBUG_POINT_0;
     if (strict.ToDouble() < 0.0)
     {
         while (strict.ToUnits(Order::Milli) < 1)
@@ -93,6 +96,7 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
         }
     }
 
+    DEBUG_POINT_0;
     if (!strict.IsZero())
     {
         while ((uint)strict.ToDouble() < 1)
@@ -107,7 +111,7 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
             order += 3;
         }
     }
-
+    DEBUG_POINT_0;
     char buffer[30];
     std::sprintf(buffer, "%10.10f", strict.ToDouble());
 
@@ -119,19 +123,39 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
     {
         SU::LeaveFewSignedDigits(buffer, 29, numDigitsInCounter);
     }
+    DEBUG_POINT_0;
 
-    MathFPGA::Data::SetDigits(String(buffer));
+    String digits(buffer);
+
+    DEBUG_POINT_0;
+
+    MathFPGA::Data::SetDigits(digits);
+
+    DEBUG_POINT_0;
 
     std::strcat(buffer, " ");
+
+    DEBUG_POINT_0;
+
     std::strcat(buffer, GetSuffixUnit(order));
+
+    DEBUG_POINT_0;
+
     std::strcat(buffer, mainUnits.c_str());
+
+    DEBUG_POINT_0;
 
     value.Set(TypeConversionString::None, buffer);
 
-    std::strcpy(buffer, GetSuffixUnit(order));
-    std::strcat(buffer, mainUnits.c_str());
+    DEBUG_POINT_0;
 
+    std::strcpy(buffer, GetSuffixUnit(order));
+
+    DEBUG_POINT_0;
+    std::strcat(buffer, mainUnits.c_str());
+    DEBUG_POINT_0;
     MathFPGA::Data::SetUnits(String(buffer));
+    DEBUG_POINT_0;
 }
 
 

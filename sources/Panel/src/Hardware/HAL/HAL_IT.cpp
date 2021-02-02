@@ -1,4 +1,5 @@
 #include "Hardware/HAL/HAL.h"
+#include "Utils/Debug.h"
 #include <stm32f4xx_hal.h>
 
 
@@ -14,8 +15,16 @@ void NMI_Handler(void)
 
 void HardFault_Handler(void)
 {
+    const char *file = Debug::file[0];
+    int line = Debug::line[0];
+
     while (1)
     {
+        file = Debug::file[0];
+        line = Debug::line[0];
+        
+        file = file;
+        line = line;
     }
 }
 

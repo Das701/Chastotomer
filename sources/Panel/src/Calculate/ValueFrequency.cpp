@@ -6,6 +6,7 @@
 #include "Menu/Pages/Modes/Modes.h"
 #include "Utils/StringUtils.h"
 #include "Utils/ValueSTRICT.h"
+#include "Utils/Debug.h"
 #include <cmath>
 #include <cstdio>
 #include <cstring>
@@ -23,6 +24,7 @@ ValueFrequency::ValueFrequency() :
 
 ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequency()
 {
+    DEBUG_POINT_0;
     counter /= 2;
 
     TimeMeasure::E time = (TimeMeasure::E)Channel::Current()->mod.timeMeasure.value;
@@ -59,8 +61,9 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
     {
         strict.MulUINT(64);
     }
-
+    DEBUG_POINT_0;
     SetValue(strict, counter);
+    DEBUG_POINT_0;
 }
 
 

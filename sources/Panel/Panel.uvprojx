@@ -1118,6 +1118,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\Utils\ValueSTRICT.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Debug.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Debug.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Debug.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Debug.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2253,6 +2263,16 @@
               <FileName>ValueSTRICT.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Utils\ValueSTRICT.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Debug.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Debug.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Debug.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Debug.h</FilePath>
             </File>
           </Files>
         </Group>
