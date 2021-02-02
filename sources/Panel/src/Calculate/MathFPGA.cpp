@@ -99,13 +99,6 @@ bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint 
     DEBUG_POINT_0;
     if (type.IsFrequency())
     {
-        DEBUG_POINT_0;
-        if (Channel::Current()->mod.modeFrequency.IsRatio())
-        {
-            valueFPGA = new ValueFrequency_Ratio(value1, value2);
-            VERIFY_ON_NULL(valueFPGA);
-        }
-
         switch (Channel::Current()->mod.modeFrequency)
         {
         case ModeFrequency::Frequency:
