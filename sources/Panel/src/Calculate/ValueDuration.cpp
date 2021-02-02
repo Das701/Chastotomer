@@ -33,19 +33,23 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
         return;
     }
 
-    ValueSTRICT val(duration);
-    val.DivUINT(period);
-
-    LOG_WRITE("%f", val.ToDouble());
+    ValueSTRICT val(0);
 
     if (ModeDuration::Current().IsPhase())
     {
+        val.FromINT64((int64)period);
         val.MulUINT(360);
+        val.DivUINT(duration);
 
         if (period == duration)
         {
             val.FromINT64(0);
         }
+    }
+    else
+    {
+        val.FromINT64((int64)duration);
+        val.DivUINT(period);
     }
 
     SetValue(val, period);
