@@ -73,7 +73,8 @@ ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
 
     if (counter == 0)
     {
-        value.Set(TypeConversionString::None, MathFPGA::Data::UGO_DivNULL);
+        MathFPGA::Data::SetDigits(MathFPGA::Data::UGO_DivNULL);
+        MathFPGA::Data::SetUnits("");
         return;
     }
 
