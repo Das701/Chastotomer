@@ -64,7 +64,7 @@ file(GLOB TESTS               tests/*)
 
 source_group(HAL                   FILES ${HAL})
 source_group(src                   FILES ${SRC})
-source_group(CALCULATE             FILES ${CALCULATE})
+source_group(Calculate             FILES ${CALCULATE})
 source_group(Display               FILES ${DISPLAY})
 source_group(Display\\Font         FILES ${DISPLAY_FONT})
 source_group(Hardware              FILES ${HARDWARE})
