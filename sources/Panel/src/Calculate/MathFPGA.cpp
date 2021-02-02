@@ -49,21 +49,19 @@ String MathFPGA::Data::GiveUnits()
 void MathFPGA::Data::SetDigits(const String &_digits)
 {
     DEBUG_POINT_0;
+
     if (FPGA::IsOverloaded())
     {
-        DEBUG_POINT_0;
-        Data::SetDigits(String("оепеонкмемхе"));
-        DEBUG_POINT_0;
+        std::strcpy(digits, "оепеонкмемхе");
     }
     else
     {
-        DEBUG_POINT_0;
         std::strcpy(digits, _digits.c_str()); //-V2513
-        DEBUG_POINT_0;
-        Display::zoneData->Refresh();
-        DEBUG_POINT_0;
     }
+
     DEBUG_POINT_0;
+
+    Display::zoneData->Refresh();
 }
 
 
