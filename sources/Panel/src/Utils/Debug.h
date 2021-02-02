@@ -25,8 +25,10 @@ extern void HardFault_Handler();
 if (x == nullptr)           \
 {                           \
     DEBUG_POINT_0;          \
-    HardFault_Handler();    \
 }
+
+//HardFault_Handler();    \
+
 
 namespace Debug
 {
