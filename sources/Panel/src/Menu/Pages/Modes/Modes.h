@@ -119,6 +119,11 @@ struct ModePeriod : public Enumeration
 };
 
 // Режим измерения длительности
+
+/*
+* Режим ndt/1нс рассчитан на 20 - 400 нс. Точность измерения - до 100 пс, те. 20,0 нс - 400,0 нс
+*/
+
 struct ModeDuration : public Enumeration
 {
     enum E
