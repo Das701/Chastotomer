@@ -284,7 +284,7 @@ static void DrawHint(int x, int y)
     {
         Rectangle(360, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::GREEN_20);
 
-        Text(MathFPGA::Auto::Give().c_str()).Write(x + dX, y + dY, Color::WHITE);
+        Text(FPGA::Auto::Give().c_str()).Write(x + dX, y + dY, Color::WHITE);
 
         FreqMeter::UnloadAuto();
     }
@@ -292,11 +292,11 @@ static void DrawHint(int x, int y)
     {
         if(FPGA::AutoMode())
         {
-            if((MathFPGA::Auto::Mid() != 0) || (MathFPGA::Auto::Max() != 0) || (MathFPGA::Auto::Min() != 0))
+            if((FPGA::Auto::Mid() != 0) || (FPGA::Auto::Max() != 0) || (FPGA::Auto::Min() != 0))
             {
                 Rectangle(360, 30).FillRounded(x, y, 2, Color::GREEN_20, Color::GREEN_20);
 
-                Text(MathFPGA::Auto::Give().c_str()).Write(x + dX, y + dY, Color::WHITE);
+                Text(FPGA::Auto::Give().c_str()).Write(x + dX, y + dY, Color::WHITE);
                 FPGA::SwitchAuto();
                 timeAutoHint = TIME_MS;
                 autoFlag = true;

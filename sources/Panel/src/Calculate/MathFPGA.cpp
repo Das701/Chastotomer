@@ -15,14 +15,6 @@
 #include <cstring>
 
 
-int    MathFPGA::Auto::NA = 0; //-V707
-int    MathFPGA::Auto::NB = 0; //-V707
-
-uint   MathFPGA::Auto::fpgaMin = 0;
-uint   MathFPGA::Auto::fpgaMid = 0;
-uint   MathFPGA::Auto::fpgaMax = 0;
-       
-
 ValueComparator operator-(const ValueComparator &first, const ValueComparator &second)
 {
     ValueComparator result = first;
@@ -42,54 +34,4 @@ ValueComparator operator/(const ValueComparator &first, uint second)
     ValueComparator result = first;
     result.Div(second);
     return result;
-}
-
-
-int MathFPGA::Auto::Mid()
-{
-    return (int)fpgaMid;
-}
-
-
-int MathFPGA::Auto::Min()
-{
-    return (int)fpgaMin;
-}
-
-
-int MathFPGA::Auto::Max()
-{
-    return (int)fpgaMax;
-}
-
-
-String MathFPGA::Auto::Give()
-{
-    if (CURRENT_CHANNEL_IS_A)
-    {
-        LEVEL_SYNCH_A = ((int)fpgaMid - 512) * 2;
-        NA = (int)fpgaMid - 512;
-    }
-
-    if (CURRENT_CHANNEL_IS_B)
-    {
-        LEVEL_SYNCH_B = ((int)fpgaMid - 512) * 2;
-        NB = (int)fpgaMid - 512;
-
-    }
-
-    return String("Макс %s Мин %s",
-        SU::Int2String(((int)fpgaMax - 512) * 2).c_str(),
-        SU::Int2String(((int)fpgaMin - 512) * 2).c_str());
-}
-
-
-void MathFPGA::Auto::Refresh()
-{
-    for (int i = 0; i < 10; i++)
-    {
-        fpgaMin = 0;
-        fpgaMid = 0;
-        fpgaMax = 0;
-    }
 }

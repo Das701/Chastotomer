@@ -55,6 +55,15 @@ int FPGA::GovernorData::NAC = 0;         // Поправка для калибровочного коэффици
 
 uint FPGA::timeChangeSettings = 0;
 
+
+int    FPGA::Auto::NA = 0;
+int    FPGA::Auto::NB = 0;
+
+uint   FPGA::Auto::fpgaMin = 0;
+uint   FPGA::Auto::fpgaMid = 0;
+uint   FPGA::Auto::fpgaMax = 0;
+
+
 void FPGA::CycleRead(int numBits, uint &value, bool verifyOnOverload)
 {
     value = 0;
@@ -221,9 +230,9 @@ void FPGA::ReadAutoMode()
     {
         Set_CS; //-V2571
         CycleRead(3, ident, false);
-        CycleRead(10, MathFPGA::Auto::fpgaMin, false);
-        CycleRead(10, MathFPGA::Auto::fpgaMid, false);
-        CycleRead(10, MathFPGA::Auto::fpgaMax, false);
+        CycleRead(10, Auto::fpgaMin, false);
+        CycleRead(10, Auto::fpgaMid, false);
+        CycleRead(10, Auto::fpgaMax, false);
         Reset_CS; //-V2571
 
         Display::Refresh();
@@ -270,11 +279,11 @@ void FPGA::GovernorData::IncreaseN()
     {
         if(CURRENT_CHANNEL_IS_A)
         {
-            MathFPGA::Auto::NA++;
+            Auto::NA++;
         }
         else if(CURRENT_CHANNEL_IS_B) //-V2516
         {
-            MathFPGA::Auto::NB++;
+            Auto::NB++;
         }
     }
 }
@@ -289,11 +298,11 @@ void FPGA::GovernorData::DecreaseN()
     {
         if(CURRENT_CHANNEL_IS_A)
         {
-            MathFPGA::Auto::NA--;
+            Auto::NA--;
         }
         else if(CURRENT_CHANNEL_IS_B) //-V2516
         {
-            MathFPGA::Auto::NB--;
+            Auto::NB--;
         }
     }
 }
@@ -430,24 +439,24 @@ void FPGA::GovernorData::Calculate()
 
         if (CURRENT_CHANNEL_IS_A)
         {
-            if (MathFPGA::Auto::NA < 0)
+            if (Auto::NA < 0)
             {
-                DecToBin(negative + MathFPGA::Auto::NA, encData);
+                DecToBin(negative + Auto::NA, encData);
             }
             else
             {
-                DecToBin(MathFPGA::Auto::NA, encData);
+                DecToBin(Auto::NA, encData);
             }
         }
         else if (CURRENT_CHANNEL_IS_B) //-V2516
         {
-            if (MathFPGA::Auto::NB < 0)
+            if (Auto::NB < 0)
             {
-                DecToBin(negative + MathFPGA::Auto::NB, encData);
+                DecToBin(negative + Auto::NB, encData);
             }
             else
             {
-                DecToBin(MathFPGA::Auto::NB, encData);
+                DecToBin(Auto::NB, encData);
             }
         }
     }
@@ -499,4 +508,54 @@ String FPGA::BinToString(pString bin, int num)
     buffer[num] = '\0';
 
     return String(buffer);
+}
+
+
+int FPGA::Auto::Mid()
+{
+    return (int)fpgaMid;
+}
+
+
+int FPGA::Auto::Min()
+{
+    return (int)fpgaMin;
+}
+
+
+int FPGA::Auto::Max()
+{
+    return (int)fpgaMax;
+}
+
+
+String FPGA::Auto::Give()
+{
+    if (CURRENT_CHANNEL_IS_A)
+    {
+        LEVEL_SYNCH_A = ((int)fpgaMid - 512) * 2;
+        NA = (int)fpgaMid - 512;
+    }
+
+    if (CURRENT_CHANNEL_IS_B)
+    {
+        LEVEL_SYNCH_B = ((int)fpgaMid - 512) * 2;
+        NB = (int)fpgaMid - 512;
+
+    }
+
+    return String("Макс %s Мин %s",
+        SU::Int2String(((int)fpgaMax - 512) * 2).c_str(),
+        SU::Int2String(((int)fpgaMin - 512) * 2).c_str());
+}
+
+
+void FPGA::Auto::Refresh()
+{
+    for (int i = 0; i < 10; i++)
+    {
+        fpgaMin = 0;
+        fpgaMid = 0;
+        fpgaMax = 0;
+    }
 }

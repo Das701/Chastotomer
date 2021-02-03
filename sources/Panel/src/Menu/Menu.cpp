@@ -231,7 +231,7 @@ static bool OnKey(const Control &control) //-V2008
             (Channel::A->mod.typeMeasure.IsDuration() && Channel::A->mod.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_A) ||
             (Channel::B->mod.typeMeasure.IsDuration() && Channel::B->mod.modeDuration.IsNdt() && CURRENT_CHANNEL_IS_B))
         {
-            MathFPGA::Auto::Refresh();
+            FPGA::Auto::Refresh();
             FreqMeter::LoadAuto();
             FPGA::SwitchAuto();
         }
