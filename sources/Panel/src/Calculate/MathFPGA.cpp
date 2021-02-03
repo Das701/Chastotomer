@@ -18,7 +18,6 @@
 int    MathFPGA::NA = 0; //-V707
 int    MathFPGA::NB = 0; //-V707
 
-bool MathFPGA::Validator::isEmpty = true;
 uint MathFPGA::Validator::timeClearedFlag = 0;
 
 uint   MathFPGA::Auto::fpgaMin = 0;
@@ -28,21 +27,9 @@ uint   MathFPGA::Auto::fpgaMax = 0;
 
 void MathFPGA::Validator::SetInvalidData()
 {
-    isEmpty = true;
     timeClearedFlag = TIME_MS;
 
     ValueFPGA::SetInvalidData();
-}
-
-
-void MathFPGA::Validator::SetValidData()
-{
-    isEmpty = false;
-}
-
-bool MathFPGA::Validator::DataIsValid()
-{
-    return !isEmpty;
 }
 
 

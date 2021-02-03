@@ -20,18 +20,11 @@ struct MathFPGA
         // ”становка признака того, что настройки изменились и нет корректных данных (дл€ GiveData())
         static void SetInvalidData();
 
-        // ”становка признака того, что данным можно довер€ть
-        static void SetValidData();
-
-        // ¬озвращает true, если данные валидны
-        static bool DataIsValid();
-
         // ¬озвращает true, если прошло слишком мало времени после последнего изменени€ настроек
         static bool VerySmallTime() { return TIME_MS - timeClearedFlag < deltaTime; };
 
     private:
 
-        static bool isEmpty;                // ”становленное в true значение означает, что данных дл€ отображени€ нет
         static uint timeClearedFlag;        // ¬рем€, когда данные были очищены
         static const uint deltaTime = 200;  // Ёто врем€ нужно выждать после того, как изменились настройки
     };

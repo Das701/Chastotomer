@@ -27,8 +27,6 @@ void ValueFPGA::Create(uint value1, uint value2, uint value3, uint value4, uint 
 {
     ProgressBarTimeMeasureZone::Reset();
 
-    MathFPGA::Validator::SetValidData();
-
     TypeMeasure &type = Channel::Current()->mod.typeMeasure;
 
     if (valueFPGA != nullptr)
