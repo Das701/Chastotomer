@@ -202,7 +202,7 @@ void ValueFPGA::SetValue(char *format, ...)
 
         Buffer buffer(numSymbols + 1);
 
-        std::vsnprintf(buffer.DataChar(), (uint)numSymbols, format, args);
+        std::vsnprintf(buffer.DataChar(), (uint)numSymbols + 1U, format, args);
 
         value.Set(buffer.DataChar());
 

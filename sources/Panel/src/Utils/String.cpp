@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Display/Primitives.h"
 #include "Display/Font/Font.h"
+#include "Utils/Buffer.h"
 #include "Utils/String.h"
 #include "Utils/StringUtils.h"
 #include <cstring>
@@ -50,25 +51,22 @@ String::String(pCHAR format, ...) : buffer(nullptr)
         return;
     }
 
-#ifdef WIN32
-    static const int SIZE = 5000;
-#else
-    static const int SIZE = 5000;
-#endif
-    char buf[SIZE + 1];
-
     std::va_list args;
-    va_start(args, format); //-V2528 //-V2567 //-V2563 //-V2571
-    int numSymbols = std::vsprintf(buf, format, args);
+    va_start(args, format);
+
+    int sizeBuffer = std::vsnprintf(nullptr, 0, format, args) + 1;
+
+    Buffer buf(sizeBuffer);
+
+    std::vsnprintf(buf.DataChar(), (uint)(sizeBuffer), format, args);
+
     va_end(args);
 
-    if (numSymbols < 0 || numSymbols > SIZE)
+    Allocate(sizeBuffer);
+
+    if(buffer != nullptr)
     {
-        std::strcpy(buffer, "Буфер слишком мал"); //-V2513
-    }
-    else if (Allocate(static_cast<int>(std::strlen(buf) + 1))) //-V2513 //-V2516
-    {
-        std::strcpy(buffer, buf); //-V2513
+        std::strcpy(buffer, buf.DataChar());
     }
 }
 
