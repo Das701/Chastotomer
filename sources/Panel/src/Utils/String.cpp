@@ -7,7 +7,6 @@
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
-#include <cstdarg>
 
 
 const char * const String::_ERROR = "---.---";
@@ -53,20 +52,9 @@ String::String(pCHAR format, ...) : buffer(nullptr)
     std::va_list args;
     va_start(args, format);
 
-    int sizeBuffer = std::vsnprintf(nullptr, 0, format, args) + 1;
-
-    Buffer buf(sizeBuffer);
-
-    std::vsnprintf(buf.DataChar(), (uint)(sizeBuffer), format, args);
+    ParseArguments(format, args);
 
     va_end(args);
-
-    Allocate(sizeBuffer);
-
-    if(buffer != nullptr)
-    {
-        std::strcpy(buffer, buf.DataChar());
-    }
 }
 
 
@@ -77,6 +65,14 @@ void String::Set(pCHAR format, ...)
     std::va_list args;
     va_start(args, format);
 
+    ParseArguments(format, args);
+
+    va_end(args);
+}
+
+
+void String::ParseArguments(pCHAR format, std::va_list args)
+{
     int sizeBuffer = std::vsnprintf(nullptr, 0, format, args) + 1;
 
     Buffer buf(sizeBuffer);
@@ -91,6 +87,7 @@ void String::Set(pCHAR format, ...)
     {
         std::strcpy(buffer, buf.DataChar());
     }
+
 }
 
 

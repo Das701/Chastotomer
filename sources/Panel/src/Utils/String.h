@@ -1,6 +1,7 @@
 #pragma once
 #include "Display/Colors.h"
 #include "Utils/String.h"
+#include <cstdarg>
 
 
 class String // -V690
@@ -42,4 +43,6 @@ private:
     void Allocate(int size);
 
     char *buffer;
+
+    void ParseArguments(pCHAR format, std::va_list args);
 };
