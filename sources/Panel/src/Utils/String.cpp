@@ -79,8 +79,6 @@ void String::ParseArguments(pCHAR format, std::va_list args)
 
     std::vsnprintf(buf.DataChar(), (uint)(sizeBuffer), format, args);
 
-    va_end(args);
-
     Allocate(sizeBuffer);
 
     if (buffer != nullptr)
