@@ -93,7 +93,7 @@ bool DataZone::Draw()
         {
             if (gset.styleGUI.IsModern())
             {
-                FontBig::Write(data.c_str(), x0 + 10, y0);
+                FontBig::WriteAboutRight(data.c_str(), x0 + 340, y0);
             }
             else
             {
@@ -115,7 +115,7 @@ bool DataZone::Draw()
             }
             else
             {
-//                Indicator::DrawDataAboutRight(data.c_str(), 370, y0 + 1, Color::WHITE, Color::BLACK);
+                Indicator::DrawDataAboutRight(data.c_str(), 370, y0 + 1, Color::WHITE, Color::BLACK);
             }
         }
     }

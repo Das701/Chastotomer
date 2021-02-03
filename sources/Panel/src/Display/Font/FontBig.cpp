@@ -717,37 +717,32 @@ static const uint16_t BigCharOffs[] = {
 };
 
 
-
-/*!*****************************************************************************
-  @brief	Big Text String Proportional space print without Background Padding
-  @param	text - pointer to text string
-  @param	display - pointer to top left corner in LCD buffer memory
-  @param	foreground - palette for foreground (lower byte)
-  @return
-*/
-void FontBig::Write(char *text, int x, int y)
+int FontBig::Write(char *text, int x, int y, bool mapping)
 {
 	while (*text)
 	{
 		uint8 symbol = (uint8)*text;
 
-		uint space = WriteSymbol(symbol, x, y);
+		uint space = WriteSymbol(symbol, x, y, mapping);
 
 		x += (symbol >= '0' && symbol <= '9') ? 33 : space;
 
 		text++;
 	}
+
+	return x;
 }
 
 
-/*!*****************************************************************************
-  @brief	Big Symbol print without background padding
-  @param	symbol - character
-  @param	display - pointer to top left corner in LCD buffer memory
-  @param	foreground - palette for foreground (lower byte)
-  @return	width of symbol in pixels (for proportional string printing)
-*/
-uint FontBig::WriteSymbol(uint8 symbol, int x, int y)
+void FontBig::WriteAboutRight(char *text, int right, int y)
+{
+	int size = Write(text, 0, y, false);
+
+	Write(text, right - size, y);
+}
+
+
+uint FontBig::WriteSymbol(uint8 symbol, int x, int y, bool mapping)
 {
 	if (symbol == '-')
 	{
@@ -823,7 +818,10 @@ uint FontBig::WriteSymbol(uint8 symbol, int x, int y)
 				uint32_t pixel = rowshift & 0x80000000U;
 				if (pixel)
 				{
-					Point().Draw((int)(x + i), y);
+					if (mapping)
+					{
+						Point().Draw((int)(x + i), y);
+					}
 				}
 				if ((pixel != 0) && i > width)
 				{

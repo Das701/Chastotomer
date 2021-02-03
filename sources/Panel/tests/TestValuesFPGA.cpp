@@ -181,11 +181,6 @@ static void Tests::Frequency::Frequency::Test()
             char *value_str = GetMathValue();
             char *standard_str = *result;
 
-            if (i == 1)
-            {
-                i = i;
-            }
-
             if (std::strcmp(value_str, standard_str) != 0)
             {
                 FailExit();

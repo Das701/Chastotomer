@@ -24,9 +24,13 @@
 
 struct FontBig
 {
-    static void Write(char *text, int x, int y);
+    // Если (mapping == false) - не рисовать символ, а только возвращать значение
+    static int Write(char *text, int x, int y, bool mapping = true);
+
+    static void WriteAboutRight(char *text, int right, int y);
     
-    static uint WriteSymbol(uint8 symbol, int x, int y);
+    // Если (mapping == false) - не рисовать символ, а только возвращать значение
+    static uint WriteSymbol(uint8 symbol, int x, int y, bool mapping = true);
 };
 
 #endif
