@@ -8,9 +8,6 @@
 
 struct MathFPGA
 {
-    static void DecToBin(int dec, char *bin);
-    static String BinToString(pString bin, int num);
-
     struct Auto
     {
         friend struct FPGA;

@@ -84,40 +84,6 @@ String MathFPGA::Auto::Give()
 }
 
 
-void MathFPGA::DecToBin(int dec, char *bin)
-{
-    int x = dec;
-    for (int i = 0; i < 10; i++)
-    {
-        if (x % 2 != 0) { bin[i] = 1; } //-V2563
-        else            { bin[i] = 0; } //-V2563
-        x = x / 2;
-    }
-}
-
-
-String MathFPGA::BinToString(pString bin, int num)
-{
-    char buffer[20];
-
-    for (int i = 0; i < num; i++)
-    {
-        if (bin[i] == 0) //-V2563
-        {
-            buffer[i] = '0';
-        }
-        else
-        {
-            buffer[i] = '1';
-        }
-    }
-
-    buffer[num] = '\0';
-
-    return String(buffer);
-}
-
-
 void MathFPGA::Auto::Refresh()
 {
     for (int i = 0; i < 10; i++)

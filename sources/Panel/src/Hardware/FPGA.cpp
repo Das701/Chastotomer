@@ -422,7 +422,7 @@ void FPGA::GovernorData::Calculate()
 {
     if (PageIndication::calibrationMode.IsEnabled())
     {
-        MathFPGA::DecToBin(ValueCalibrator(), encData);
+        DecToBin(ValueCalibrator(), encData);
     }
     else
     {
@@ -432,22 +432,22 @@ void FPGA::GovernorData::Calculate()
         {
             if (MathFPGA::Auto::NA < 0)
             {
-                MathFPGA::DecToBin(negative + MathFPGA::Auto::NA, encData);
+                DecToBin(negative + MathFPGA::Auto::NA, encData);
             }
             else
             {
-                MathFPGA::DecToBin(MathFPGA::Auto::NA, encData);
+                DecToBin(MathFPGA::Auto::NA, encData);
             }
         }
         else if (CURRENT_CHANNEL_IS_B) //-V2516
         {
             if (MathFPGA::Auto::NB < 0)
             {
-                MathFPGA::DecToBin(negative + MathFPGA::Auto::NB, encData);
+                DecToBin(negative + MathFPGA::Auto::NB, encData);
             }
             else
             {
-                MathFPGA::DecToBin(MathFPGA::Auto::NB, encData);
+                DecToBin(MathFPGA::Auto::NB, encData);
             }
         }
     }
@@ -465,4 +465,38 @@ void FPGA::SetInvalidData()
     timeChangeSettings = TIME_MS;
 
     ValueFPGA::SetInvalidData();
+}
+
+
+void FPGA::DecToBin(int dec, char *bin)
+{
+    int x = dec;
+    for (int i = 0; i < 10; i++)
+    {
+        if (x % 2 != 0) { bin[i] = 1; } //-V2563
+        else { bin[i] = 0; } //-V2563
+        x = x / 2;
+    }
+}
+
+
+String FPGA::BinToString(pString bin, int num)
+{
+    char buffer[20];
+
+    for (int i = 0; i < num; i++)
+    {
+        if (bin[i] == 0) //-V2563
+        {
+            buffer[i] = '0';
+        }
+        else
+        {
+            buffer[i] = '1';
+        }
+    }
+
+    buffer[num] = '\0';
+
+    return String(buffer);
 }

@@ -67,6 +67,9 @@ private:
     static void CycleWrite(uint value, int numBits);
     static void WriteBit(uint bit);
 
+    static void DecToBin(int dec, char *bin);
+    static String BinToString(pString bin, int num);
+
     // Установка признака того, что настройки изменились и нет корректных данных
     static void SetInvalidData();
 
