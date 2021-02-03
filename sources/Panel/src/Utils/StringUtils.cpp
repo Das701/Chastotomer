@@ -544,3 +544,17 @@ void SU::LeaveFewSignedDigits(char *buffer, int size, int digits)
         *pointer = '\0';
     }
 }
+
+
+void SU::ReplaceSymbol(char *string, char oldSymbol, char newSymbol)
+{
+    while (*string != '\0')
+    {
+        if (*string == oldSymbol)
+        {
+            *string = newSymbol;
+        }
+
+        string++;
+    }
+}

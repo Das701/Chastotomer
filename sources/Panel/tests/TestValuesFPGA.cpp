@@ -3,6 +3,7 @@
 #include "Calculate/MathFPGA.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/Modes/Modes.h"
+#include "Utils/StringUtils.h"
 #include <cstring>
 
 
@@ -58,7 +59,7 @@ void Tests::ValuesFPGA()
 {
     Frequency::Test();
 
-    Period::Test();
+//    Period::Test();
 }
 
 
@@ -66,7 +67,7 @@ static void Tests::Frequency::Test()
 {
     Frequency::Test();
     
-    T_1::Test();
+//    T_1::Test();
 }
 
 
@@ -75,6 +76,18 @@ static void Tests::Period::Test()
     Period::Test();
 
     F_1::Test();
+}
+
+
+static char *GetMathValue()
+{
+    char *result = MathFPGA::Measure::valueFPGA->value.c_str();
+
+#ifndef WIN32
+    SU::ReplaceSymbol(result, '.', ',');
+#endif
+
+    return result;
 }
 
 
@@ -159,8 +172,13 @@ static void Tests::Frequency::Frequency::Test()
 
             MathFPGA::Measure::SetNewData(counter, 0);
 
-            char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
+            char *value_str = GetMathValue();
             char *standard_str = (*result).c_str();
+
+            if (i == 1)
+            {
+                i = i;
+            }
 
             if (std::strcmp(value_str, standard_str) != 0)
             {
@@ -172,6 +190,8 @@ static void Tests::Frequency::Frequency::Test()
     }
 
     RestoreSettings(Channel::A);
+
+    return;
 
     // Channel::B
 

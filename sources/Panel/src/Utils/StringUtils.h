@@ -53,6 +53,9 @@ public:
     static void LeaveFewDigits(char *buffer, int size, int digits);
 
     static void LeaveFewSignedDigits(char *buffer, int size, int digits);
+
+    // Заменить в строке все символы old на new
+    static void ReplaceSymbol(char *string, char oldSymbol, char newSymbol);
 };
 
 
