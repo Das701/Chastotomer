@@ -25,8 +25,6 @@ void Channel::LoadToFPGA()
                        command.SetBit(9); }
 
     FPGA::WriteCommand(command);
-
-    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -48,8 +46,6 @@ void RefGenerator::LoadToFPGA()
     if (PageIndication::refGenerator.IsExternal())    { command.SetBit(9); }
 
     FPGA::WriteCommand(command);
-
-    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -61,8 +57,6 @@ void LaunchSource::LoadToFPGA()
     else if (PageIndication::launchSource.IsOneTime())  { command.SetBit(8); } //-V2516
 
     FPGA::WriteCommand(command);
-
-    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -152,8 +146,6 @@ void ModeFrequency::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command);
-
-    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -190,8 +182,6 @@ void ModeCountPulse::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command);
-
-    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -211,8 +201,6 @@ void PeriodTimeLabels::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command);
-
-    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -243,8 +231,6 @@ void TimeMeasure::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command);
-
-    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -268,8 +254,6 @@ void NumberPeriods::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command);
-
-    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -370,6 +354,4 @@ void ModeTest::Switch()
     Event(EventType::ModeTestChanged);
 
     FPGA::WriteCommand(command);
-
-    MathFPGA::Validator::SetInvalidData();
 }

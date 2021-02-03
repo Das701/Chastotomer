@@ -235,8 +235,6 @@ void ModePeriod::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command);
-
-    MathFPGA::Validator::SetInvalidData();
 }
 
 
@@ -266,8 +264,6 @@ void ModeDuration::LoadToFPGA()
     }
 
     FPGA::WriteCommand(command);
-
-    MathFPGA::Validator::SetInvalidData();
 }
 
 

@@ -44,8 +44,6 @@ struct Command
 
 struct FPGA
 {
-friend struct MathFPGA;
-
     static void Init();
     static void Update();
     static void WriteCommand(const Command &command);
@@ -68,6 +66,11 @@ private:
     static void CycleRead(int numBits, uint &value, bool verifyOnOverload);
     static void CycleWrite(uint value, int numBits);
     static void WriteBit(uint bit);
+
+    // Установка признака того, что настройки изменились и нет корректных данных
+    static void SetInvalidData();
+
+    static uint timeChangeSettings;        // Время, когда данные были очищены
 
 public:
 

@@ -18,20 +18,10 @@
 int    MathFPGA::NA = 0; //-V707
 int    MathFPGA::NB = 0; //-V707
 
-uint MathFPGA::Validator::timeClearedFlag = 0;
-
 uint   MathFPGA::Auto::fpgaMin = 0;
 uint   MathFPGA::Auto::fpgaMid = 0;
 uint   MathFPGA::Auto::fpgaMax = 0;
        
-
-void MathFPGA::Validator::SetInvalidData()
-{
-    timeClearedFlag = TIME_MS;
-
-    ValueFPGA::SetInvalidData();
-}
-
 
 ValueComparator operator-(const ValueComparator &first, const ValueComparator &second)
 {

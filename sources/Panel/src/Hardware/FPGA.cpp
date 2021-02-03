@@ -53,6 +53,7 @@ static bool isOverloaded = false;
 uint FPGA::GovernorData::kCalib = 0;     // Это значение считывается непосредственно из FPGA
 int FPGA::GovernorData::NAC = 0;         // Поправка для калибровочного коэффициента
 
+uint FPGA::timeChangeSettings = 0;
 
 void FPGA::CycleRead(int numBits, uint &value, bool verifyOnOverload)
 {
@@ -123,7 +124,7 @@ void FPGA::Update() //-V2008
     }
     else
     {
-        if (MathFPGA::Validator::VerySmallTime())
+        if (TIME_MS - timeChangeSettings < 200)
         {
             return;
         }
@@ -397,6 +398,8 @@ void FPGA::WriteCommand(const Command &command)
 
     Reset_CLOCK; //-V2571
     Reset_DATA; //-V2571
+
+    SetInvalidData();
 }
 
 void FPGA::GovernorData::Reset()
@@ -454,4 +457,12 @@ void FPGA::GovernorData::Calculate()
 bool FPGA::IsOverloaded()
 {
     return isOverloaded;
+}
+
+
+void FPGA::SetInvalidData()
+{
+    timeChangeSettings = TIME_MS;
+
+    ValueFPGA::SetInvalidData();
 }
