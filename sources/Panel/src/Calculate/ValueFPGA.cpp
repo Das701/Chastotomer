@@ -163,7 +163,7 @@ String ValueFPGA::GiveUnits()
 
     if (lastSpace == nullptr)
     {
-        return "";
+        return String("");
     }
 
     int size = &value.c_str()[std::strlen(value.c_str())] - lastSpace + 1;
