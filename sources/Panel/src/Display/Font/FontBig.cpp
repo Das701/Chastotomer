@@ -696,7 +696,7 @@ static const uint16_t BigCharOffs[] = {
     offsetof(struct bcrx, BigSpace),        // 0x2b +
     offsetof(struct bcrx, BigComma),        // 0x2c ,
     offsetof(struct bcrx, BigSpace),        // 0x2d -
-    offsetof(struct bcrx, BigDot),            // 0x2e .
+    offsetof(struct bcrx, BigDot),          // 0x2e .
     offsetof(struct bcrx, BigSpace),        // 0x2f /
     offsetof(struct bcrx, Big0),            // 0x30 0 
     offsetof(struct bcrx, Big1),            // 0x31 1 
@@ -746,7 +746,10 @@ uint FontBig::WriteSymbol(uint8 symbol, int x, int y, bool mapping)
 {
     if (symbol == '-')
     {
-        Rectangle(BIGSPACE_WIDTH, 7).Fill(x, y + 20);
+        if (mapping)
+        {
+            Rectangle(BIGSPACE_WIDTH, 7).Fill(x, y + 20);
+        }
         return BIGSPACE_WIDTH + BIGGAP_WIDTH;
     }
 
