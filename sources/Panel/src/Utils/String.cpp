@@ -48,7 +48,7 @@ String::String(char symbol) : buffer(nullptr)
 
 String::String(pCHAR format, ...) : buffer(nullptr)
 {
-    Set("");
+    Free();
 
     if (format == nullptr)
     {
@@ -79,26 +79,22 @@ void String::Set(pCHAR format, ...)
 {
     Free();
 
-    if(format)
+    std::va_list args;
+    va_start(args, format);
+
+    int sizeBuffer = std::vsnprintf(nullptr, 0, format, args) + 1;
+
+    Buffer buf(sizeBuffer);
+
+    std::vsnprintf(buf.DataChar(), (uint)(sizeBuffer), format, args);
+
+    va_end(args);
+
+    Allocate(sizeBuffer);
+
+    if (buffer != nullptr)
     {
-        static const int SIZE = 100;
-        char buf[SIZE + 1];
-
-        std::va_list args;
-        va_start(args, format);
-        int numSymbols = std::vsprintf(buf, format, args);
-        va_end(args);
-
-        if(numSymbols < 0 || numSymbols > SIZE)
-        {
-            std::strcpy(buffer, "Буфер слишком мал");
-        }
-        Allocate(static_cast<int>(std::strlen(buf) + 1));
-
-        if(buffer != nullptr)
-        {
-            std::strcpy(buffer, buf);
-        }
+        std::strcpy(buffer, buf.DataChar());
     }
 }
 
