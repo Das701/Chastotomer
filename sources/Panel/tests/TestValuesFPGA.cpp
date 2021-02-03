@@ -197,8 +197,6 @@ static void Tests::Frequency::Frequency::Test()
 
     RestoreSettings(Channel::A);
 
-    return;
-
     // Channel::B
 
     StoreSettings(Channel::B);
@@ -221,7 +219,7 @@ static void Tests::Frequency::Frequency::Test()
 
             MathFPGA::Measure::SetNewData(counter, 0);
 
-            char *value_str = ValueFPGA::GiveStringValue();
+            char *value_str = GetMathValue();
             char *standard_str = *result;
 
             if (std::strcmp(value_str, standard_str) != 0)
@@ -296,7 +294,7 @@ static void Tests::Frequency::Frequency::TestChannelsCD()
 
             MathFPGA::Measure::SetNewData(counter, 0);
 
-            char *value_str = ValueFPGA::GiveStringValue();
+            char *value_str = GetMathValue();
             char *standard_str = (*result).c_str();
 
             if (std::strcmp(value_str, standard_str) != 0)
@@ -328,7 +326,7 @@ static void Tests::Frequency::Frequency::TestChannelsCD()
 
             MathFPGA::Measure::SetNewData(counter, 0);
 
-            char *value_str = ValueFPGA::GiveStringValue();
+            char *value_str = GetMathValue();
             char *standard_str = (*result).c_str();
 
             if (std::strcmp(value_str, standard_str) != 0)
