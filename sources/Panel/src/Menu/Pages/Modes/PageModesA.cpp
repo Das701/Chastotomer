@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "Settings.h"
-#include "Calculate/MathFPGA.h"
+#include "Calculate/ValuesFPGA.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
 #include "Menu/Menu.h"

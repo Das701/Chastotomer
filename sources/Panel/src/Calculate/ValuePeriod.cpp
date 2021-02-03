@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "Calculate/MathFPGA.h"
+#include "Calculate/ValuesFPGA.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Utils/ValueSTRICT.h"
 

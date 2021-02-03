@@ -501,3 +501,25 @@ ValueSTRICT operator/(int64 first, const ValueSTRICT &second)
 
     return result;
 }
+
+
+ValueComparator operator-(const ValueComparator &first, const ValueComparator &second)
+{
+    ValueComparator result = first;
+    result.Sub(second);
+    return result;
+}
+
+
+ValueComparator operator-(const ValueComparator &first, int second)
+{
+    return first - ValueComparator(second);
+}
+
+
+ValueComparator operator/(const ValueComparator &first, uint second)
+{
+    ValueComparator result = first;
+    result.Div(second);
+    return result;
+}
