@@ -14,13 +14,13 @@ const char * const String::_ERROR = "---.---"; //-V2573
 
 String::String() : buffer(nullptr)
 {
-    Set(TypeConversionString::None, "");
+    Set("");
 }
 
 
 String::String(const String &rhs) : buffer(nullptr)
 {
-    Set(TypeConversionString::None, "");
+    Set("");
 
     if (Allocate(static_cast<int>(std::strlen(rhs.c_str()) + 1))) //-V2513
     {
@@ -31,7 +31,7 @@ String::String(const String &rhs) : buffer(nullptr)
 
 String::String(char symbol) : buffer(nullptr)
 {
-    Set(TypeConversionString::None, "");
+    Set("");
 
     if (Allocate(2))
     {
@@ -43,7 +43,7 @@ String::String(char symbol) : buffer(nullptr)
 
 String::String(pCHAR format, ...) : buffer(nullptr)
 {
-    Set(TypeConversionString::None, "");
+    Set("");
 
     if (format == nullptr)
     {
@@ -73,7 +73,7 @@ String::String(pCHAR format, ...) : buffer(nullptr)
 }
 
 
-void String::Set(TypeConversionString::E conv, pCHAR format, ...)
+void String::Set(pCHAR format, ...)
 {
     Free();
 
@@ -94,7 +94,6 @@ void String::Set(TypeConversionString::E conv, pCHAR format, ...)
         else if(Allocate(static_cast<int>(std::strlen(buf) + 1))) //-V2513 //-V2516
         {
             std::strcpy(buffer, buf); //-V2513
-            Conversion(conv);
         }
     }
 }
@@ -158,7 +157,7 @@ void String::Free()
     {
         std::free(buffer); //-V2511
         buffer = nullptr;
-        Set(TypeConversionString::None, "");
+        Set("");
     }
 }
 
@@ -179,27 +178,6 @@ bool String::Allocate(int size)
     }
 
     return false;
-}
-
-
-void String::Conversion(TypeConversionString::E conv)
-{
-    char *pointer = buffer;
-
-    if(conv == TypeConversionString::FirstUpper)
-    {
-        if(*pointer)
-        {
-            *pointer = SU::ToUpper(*pointer);
-            pointer++;
-        }
-
-        while(*pointer)
-        {
-            *pointer = SU::ToLower(*pointer);
-            pointer++;
-        }
-    }
 }
 
 

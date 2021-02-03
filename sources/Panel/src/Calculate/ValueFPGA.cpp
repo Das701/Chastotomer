@@ -151,7 +151,7 @@ void ValueFPGA::SetValue(char *, ...)
 {
     if (FPGA::IsOverloaded())
     {
-        value.Set(TypeConversionString::None, UGO_OVERLAPPED);
+        value.Set(UGO_OVERLAPPED);
         return;
     }
 
@@ -163,7 +163,7 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
 {
     if (FPGA::IsOverloaded())
     {
-        value.Set(TypeConversionString::None, UGO_OVERLAPPED);
+        value.Set(UGO_OVERLAPPED);
         return;
     }
 
@@ -242,7 +242,7 @@ void ValueFPGA::SetIntegerValue(uint counter)
 
 void ValueFPGA::SetInvalidData()
 {
-    value.Set(TypeConversionString::None, "----------");
+    value.Set("----------");
 
     Display::zoneData->Refresh();
 }

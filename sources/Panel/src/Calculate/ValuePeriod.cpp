@@ -6,7 +6,7 @@
 
 ValuePeriod::ValuePeriod() : ValueFPGA()
 {
-    mainUnits.Set(TypeConversionString::None, "s");
+    mainUnits.Set("s");
 }
 
 

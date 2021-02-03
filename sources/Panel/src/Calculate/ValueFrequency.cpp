@@ -17,7 +17,7 @@ ValueFrequency_Comparator::Stack ValueFrequency_Comparator::values(400);
 ValueFrequency::ValueFrequency() :
     ValueFPGA()
 {
-    mainUnits.Set(TypeConversionString::None, "Hz");
+    mainUnits.Set("Hz");
 }
 
 
@@ -155,7 +155,7 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
 
 ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
 {
-    mainUnits.Set(TypeConversionString::None, "");
+    mainUnits.Set("");
 
     const ModeFrequency &mode = ModeFrequency::Current();
 

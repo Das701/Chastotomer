@@ -6,7 +6,7 @@
 
 ValueCountPulse::ValueCountPulse(uint counter) : ValueFPGA()
 {
-    mainUnits.Set(TypeConversionString::None, "");
+    mainUnits.Set("");
 
     counter /= 2;
 

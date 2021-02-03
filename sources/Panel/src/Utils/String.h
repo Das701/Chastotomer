@@ -3,16 +3,6 @@
 #include "Utils/String.h"
 
 
-struct TypeConversionString
-{
-    enum E
-    {
-        None,           // Преобразование строки не производится
-        FirstUpper      // Первый символ - в вернем регистре, остальные - в нижнем
-    };
-};
-
-
 class String // -V690
 {
 public:
@@ -22,7 +12,7 @@ public:
              String(pCHAR format, ...);
     ~String();
 
-    void Set(TypeConversionString::E conv, pCHAR format, ...);
+    void Set(pCHAR format, ...);
 
     char *c_str() const;
 
@@ -50,7 +40,6 @@ public:
 private:
 
     bool Allocate(int size);
-    void Conversion(TypeConversionString::E conv);
 
     char *buffer;
 };

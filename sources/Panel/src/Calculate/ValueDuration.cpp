@@ -9,7 +9,7 @@
 
 ValueDuration::ValueDuration() : ValueFPGA()
 {
-    mainUnits.Set(TypeConversionString::None, "s");
+    mainUnits.Set("s");
 }
 
 
@@ -23,7 +23,7 @@ ValueDuration_Ndt_1ns::ValueDuration_Ndt_1ns(uint timer, uint cal1, uint cal2) :
 
 ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint duration) : ValueDuration()
 {
-    mainUnits.Set(TypeConversionString::None, "");
+    mainUnits.Set("");
 
     if (period == 0)
     {

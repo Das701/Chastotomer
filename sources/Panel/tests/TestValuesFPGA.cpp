@@ -372,10 +372,10 @@ static void Tests::Frequency::T_1::Test()
     {
         ValuesStruct(pString s00, pString s01, pString s10, pString s11)
         {
-            results[0][0].Set(TypeConversionString::None, s00);     // N == 1, L == 10-8
-            results[0][1].Set(TypeConversionString::None, s01);     // N == 1, L == 10-3
-            results[1][0].Set(TypeConversionString::None, s10);     // N == 100k, L == 10-8
-            results[1][1].Set(TypeConversionString::None, s11);     // N == 100k, L == 10-3
+            results[0][0].Set(s00);     // N == 1, L == 10-8
+            results[0][1].Set(s01);     // N == 1, L == 10-3
+            results[1][0].Set(s10);     // N == 100k, L == 10-8
+            results[1][1].Set(s11);     // N == 100k, L == 10-3
         }
 
         char *c_str(int row, int col) { return results[row][col].c_str(); }
@@ -472,10 +472,10 @@ static void Tests::Period::Period::Test()
     {
         ValuesStruct(pString s00, pString s01, pString s10, pString s11)
         {
-            results[0][0].Set(TypeConversionString::None, s00);     // N == 1, L == 10-8
-            results[0][1].Set(TypeConversionString::None, s01);     // N == 1, L == 10-3
-            results[1][0].Set(TypeConversionString::None, s10);     // N == 100k, L == 10-8
-            results[1][1].Set(TypeConversionString::None, s11);     // N == 100k, L == 10-3
+            results[0][0].Set(s00);     // N == 1, L == 10-8
+            results[0][1].Set(s01);     // N == 1, L == 10-3
+            results[1][0].Set(s10);     // N == 100k, L == 10-8
+            results[1][1].Set(s11);     // N == 100k, L == 10-3
         }
 
         char *c_str(int row, int col) { return results[row][col].c_str(); }

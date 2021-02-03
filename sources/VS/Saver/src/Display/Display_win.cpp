@@ -157,7 +157,7 @@ void Display::Draw(const uint *buffer)
 
         counter++;
 
-        name.Set(TypeConversionString::None, "screens\\Screen%03d.bmp", counter);
+        name.Set("screens\\Screen%03d.bmp", counter);
     }
 
     bmp.SaveFile(name.c_str(), wxBITMAP_TYPE_BMP);
