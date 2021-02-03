@@ -18,9 +18,6 @@
 int    MathFPGA::NA = 0; //-V707
 int    MathFPGA::NB = 0; //-V707
 
-char MathFPGA::Data::digits[30];
-char MathFPGA::Data::units[10];
-
 bool MathFPGA::Validator::isEmpty = true;
 uint MathFPGA::Validator::timeClearedFlag = 0;
 
@@ -28,116 +25,12 @@ uint   MathFPGA::Auto::fpgaMin = 0;
 uint   MathFPGA::Auto::fpgaMid = 0;
 uint   MathFPGA::Auto::fpgaMax = 0;
        
-ValueFPGA   *MathFPGA::Measure::valueFPGA = nullptr;
-
-const char *MathFPGA::Data::UGO_DivNULL = "=X/0";
-
-
-String MathFPGA::Data::GiveDigits()
-{
-    return String(digits);
-}
-
-
-String MathFPGA::Data::GiveUnits()
-{
-    return String(units);
-}
-
-
-void MathFPGA::Data::SetDigits(const String &_digits)
-{
-    if (FPGA::IsOverloaded())
-    {
-        std::strcpy(digits, "оепеонкмемхе");
-    }
-    else
-    {
-        std::strcpy(digits, _digits.c_str()); //-V2513
-    }
-
-    Display::zoneData->Refresh();
-}
-
-
-void MathFPGA::Data::SetUnits(const String &_units)
-{
-    std::strcpy(units, _units.c_str()); //-V2513
-    Display::zoneData->Refresh();
-}
-
-
 void MathFPGA::Measure::SetNewData(uint value1, uint value2, uint value3, uint value4, uint value5)
 { 
-    CreateValue(value1, value2, value3, value4, value5);
+    ValueFPGA::Create(value1, value2, value3, value4, value5);
+
     Validator::SetValidData();
     ProgressBarTimeMeasureZone::timeStart = TIME_MS;
-}
-
-
-bool MathFPGA::Measure::CreateValue(uint value1, uint value2, uint value3, uint value4, uint value5)
-{
-    TypeMeasure &type = Channel::Current()->mod.typeMeasure;
-
-    if (valueFPGA != nullptr)
-    {
-        delete valueFPGA;
-        valueFPGA = nullptr;
-    }
-
-    if (type.IsFrequency())
-    {
-        switch (Channel::Current()->mod.modeFrequency)
-        {
-        case ModeFrequency::Frequency:  valueFPGA = new ValueFrequency_Frequency(value1);           break;
-        case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1);                 break;
-        case ModeFrequency::Tachometer: valueFPGA = new ValueFrequency_Tachometer(value1);          break;
-        case ModeFrequency::Comparator: 
-            valueFPGA = new ValueFrequency_Comparator(value1, (int)value2, (int)value3, (int)value4, (int)value5);
-            break;
-        case ModeFrequency::RatioAB:
-        case ModeFrequency::RatioAC:
-        case ModeFrequency::RatioBA:
-        case ModeFrequency::RatioBC:
-        case ModeFrequency::RatioCA:
-        case ModeFrequency::RatioCB:    valueFPGA = new ValueFrequency_Ratio(value1, value2);       break;
-        }
-
-        return true;
-    }
-    else if (type.IsPeriod())
-    {
-        switch (Channel::Current()->mod.modePeriod)
-        {
-        case ModePeriod::Period:        valueFPGA = new ValuePeriod_Period(value1);     break;
-        case ModePeriod::F_1:           valueFPGA = new ValuePeriod_F_1(value1);        break;
-        }
-
-        return true;
-    }
-    else if (type.IsDuration())
-    {
-        switch (Channel::Current()->mod.modeDuration)
-        {
-        case ModeDuration::Ndt_1ns:     valueFPGA = new ValueDuration_Ndt_1ns(value1, value2, value3);
-            break;;
-        case ModeDuration::FillFactor:
-        case ModeDuration::Phase:       valueFPGA = new ValueDuration_Phase_FillFactor(value1, value2);
-            break;;
-        case ModeDuration::Ndt:
-        case ModeDuration::StartStop:           valueFPGA = new ValueDuration_Ndt_StartStop(value1);
-            break;
-        }
-
-        return true;
-    }
-    else if (type.IsCountPulse())
-    {
-        valueFPGA = new ValueCountPulse(value1);
-        return true;
-    }
-
-    return false;
 }
 
 
@@ -145,9 +38,10 @@ void MathFPGA::Validator::SetInvalidData()
 {
     isEmpty = true;
     timeClearedFlag = TIME_MS;
+
     ProgressBarTimeMeasureZone::timeStart = timeClearedFlag;
-    Data::SetDigits(String("----------"));
-    Data::SetUnits(String(""));
+
+    ValueFPGA::SetInvalidData();
 }
 
 

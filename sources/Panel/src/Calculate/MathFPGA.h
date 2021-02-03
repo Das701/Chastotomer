@@ -17,19 +17,7 @@ struct MathFPGA
         friend struct ValueFrequency_Tachometer;
         friend struct ValueFrequency_Comparator;
         friend struct ValueDuration_Phase_FillFactor;
-
-        static String GiveDigits();
-        static String GiveUnits();
-
-        static const char *UGO_DivNULL;
-
     private:
-
-        static void SetDigits(const String &digits);
-        static void SetUnits(const String &units);
-
-        static char digits[30];
-        static char units[10];
     };
 
     static void DecToBin(int dec, char *bin);
@@ -64,11 +52,6 @@ struct MathFPGA
     {
         static void SetNewData(uint value1, uint value2, uint value3 = 0, uint value4 = 0, uint value5 = 0);
 
-        static ValueFPGA *valueFPGA;
-
-    private:
-
-        static bool CreateValue(uint value1, uint value2, uint value3 = 0, uint value4 = 0, uint value5 = 0);
     };
 
 

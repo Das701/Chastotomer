@@ -83,7 +83,7 @@ void Object::FillBackground()
 
 bool DataZone::Draw()
 {
-    String data = MathFPGA::Data::GiveDigits();
+    String data = ValueFPGA::GiveDigits();
 
     Color::WHITE.SetAsCurrent();
 
@@ -120,7 +120,7 @@ bool DataZone::Draw()
         }
     }
 
-    FontMid::Write(MathFPGA::Data::GiveUnits().c_str(), x0 + 360, y0 + 20);
+    FontMid::Write(ValueFPGA::GiveUnits().c_str(), x0 + 360, y0 + 20);
 
     return true;
 }

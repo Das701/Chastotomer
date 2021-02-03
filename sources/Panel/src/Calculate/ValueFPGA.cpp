@@ -1,14 +1,78 @@
 #include "defines.h"
 #include "Calculate/MathFPGA.h"
 #include "Calculate/ValuesFPGA.h"
+#include "Display/Display.h"
+#include "Display/Objects.h"
+#include "Hardware/FPGA.h"
+#include "Menu/Pages/Channels/Channels.h"
+#include "Menu/Pages/Modes/Modes.h"
 #include "Utils/StringUtils.h"
 #include <cstdio>
 #include <cstring>
 
 
-ValueFPGA::ValueFPGA()
-{
+char *ValueFPGA::UGO_DivNULL = "=X/0";
+char *ValueFPGA::UGO_OVERLAPPED = "оепеонкмемхе";
 
+ValueFPGA *ValueFPGA::valueFPGA = nullptr;
+String ValueFPGA::value;
+
+
+
+void ValueFPGA::Create(uint value1, uint value2, uint value3, uint value4, uint value5)
+{
+    TypeMeasure &type = Channel::Current()->mod.typeMeasure;
+
+    if (valueFPGA == nullptr)
+    {
+        delete valueFPGA;
+        valueFPGA = nullptr;
+    }
+
+    if (type.IsFrequency())
+    {
+        switch (Channel::Current()->mod.modeFrequency)
+        {
+        case ModeFrequency::Frequency:  valueFPGA = new ValueFrequency_Frequency(value1);           break;
+        case ModeFrequency::T_1:        valueFPGA = new ValueFrequency_T_1(value1);                 break;
+        case ModeFrequency::Tachometer: valueFPGA = new ValueFrequency_Tachometer(value1);          break;
+        case ModeFrequency::Comparator:
+            valueFPGA = new ValueFrequency_Comparator(value1, (int)value2, (int)value3, (int)value4, (int)value5);
+            break;
+        case ModeFrequency::RatioAB:
+        case ModeFrequency::RatioAC:
+        case ModeFrequency::RatioBA:
+        case ModeFrequency::RatioBC:
+        case ModeFrequency::RatioCA:
+        case ModeFrequency::RatioCB:    valueFPGA = new ValueFrequency_Ratio(value1, value2);       break;
+        }
+    }
+    else if (type.IsPeriod())
+    {
+        switch (Channel::Current()->mod.modePeriod)
+        {
+        case ModePeriod::Period:        valueFPGA = new ValuePeriod_Period(value1);     break;
+        case ModePeriod::F_1:           valueFPGA = new ValuePeriod_F_1(value1);        break;
+        }
+    }
+    else if (type.IsDuration())
+    {
+        switch (Channel::Current()->mod.modeDuration)
+        {
+        case ModeDuration::Ndt_1ns:     valueFPGA = new ValueDuration_Ndt_1ns(value1, value2, value3);
+            break;;
+        case ModeDuration::FillFactor:
+        case ModeDuration::Phase:       valueFPGA = new ValueDuration_Phase_FillFactor(value1, value2);
+            break;;
+        case ModeDuration::Ndt:
+        case ModeDuration::StartStop:           valueFPGA = new ValueDuration_Ndt_StartStop(value1);
+            break;
+        }
+    }
+    else if (type.IsCountPulse())
+    {
+        valueFPGA = new ValueCountPulse(value1);
+    }
 }
 
 
@@ -65,8 +129,44 @@ char *ValueFPGA::GetSuffixUnitRelated(int order)
 }
 
 
+String ValueFPGA::GiveDigits()
+{
+    return "";
+}
+
+
+String ValueFPGA::GiveUnits()
+{
+    return "";
+}
+
+
+char *ValueFPGA::GiveStringValue()
+{
+    return value.c_str();
+}
+
+
+void ValueFPGA::SetValue(char *, ...)
+{
+    if (FPGA::IsOverloaded())
+    {
+        value.Set(TypeConversionString::None, UGO_OVERLAPPED);
+        return;
+    }
+
+    Display::zoneData->Refresh();
+}
+
+
 void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
 {
+    if (FPGA::IsOverloaded())
+    {
+        value.Set(TypeConversionString::None, UGO_OVERLAPPED);
+        return;
+    }
+
     int order = 0;
 
     int numDigitsInCounter = NumDigitsInNumber(counter);
@@ -120,38 +220,29 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
         SU::LeaveFewSignedDigits(buffer, 29, numDigitsInCounter);
     }
 
-    String digits(buffer);
+    std::sprintf(buffer, GetSuffixUnit(order));
 
-    MathFPGA::Data::SetDigits(digits);
+    std::sprintf(buffer, mainUnits.c_str());
 
-    std::strcat(buffer, " ");
-
-    std::strcat(buffer, GetSuffixUnit(order));
-
-    std::strcat(buffer, mainUnits.c_str());
-
-    value.Set(TypeConversionString::None, buffer);
-
-    std::strcpy(buffer, GetSuffixUnit(order));
-
-    std::strcat(buffer, mainUnits.c_str());
-
-    MathFPGA::Data::SetUnits(String(buffer));
+    SetValue(buffer);
 }
 
 
 void ValueFPGA::SetInfiniteValue()
 {
-    MathFPGA::Data::SetDigits(MathFPGA::Data::UGO_DivNULL);
-    MathFPGA::Data::SetUnits("");
-    value.Set(TypeConversionString::None, MathFPGA::Data::UGO_DivNULL);
+    SetValue(UGO_DivNULL);
 }
 
 
 void ValueFPGA::SetIntegerValue(uint counter)
 {
-    value.Set(TypeConversionString::None, "%d", counter);
+    SetValue("%d", counter);
+}
 
-    MathFPGA::Data::SetDigits(String("%d", counter));
-    MathFPGA::Data::SetUnits(String(""));
+
+void ValueFPGA::SetInvalidData()
+{
+    value.Set(TypeConversionString::None, "----------");
+
+    Display::zoneData->Refresh();
 }

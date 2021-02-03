@@ -17,9 +17,7 @@ ValueDuration_Ndt_1ns::ValueDuration_Ndt_1ns(uint timer, uint cal1, uint cal2) :
 {
     float v = (float)(100 * timer) / (float)(cal2 - cal1);
 
-    MathFPGA::Data::SetDigits(String("%10.1f", v));
-
-    MathFPGA::Data::SetUnits(String(" ns"));
+    SetValue("%10.1f ns", v);
 }
 
 

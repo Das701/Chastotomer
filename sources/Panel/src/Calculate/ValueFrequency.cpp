@@ -88,9 +88,7 @@ ValueFrequency_Tachometer::ValueFrequency_Tachometer(uint counter) : ValueFreque
 {
     counter /= 2;
 
-    MathFPGA::Data::SetDigits(String("%d", counter));
-
-    MathFPGA::Data::SetUnits(String(""));
+    SetValue("%d", counter);
 }
 
 
@@ -138,22 +136,18 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
             A.Mul(10);
         }
 
-        LOG_WRITE("%f", A.ToDouble());
-
         if (values.AppendValue(A.ToDouble()))
         {
             Display::Refresh();
         }
 
-        MathFPGA::Data::SetDigits(A.ToString());
-
         if (Channel::Current()->mod.timeComparator.Is_1s())
         {
-            MathFPGA::Data::SetUnits(String("E-6"));
+            SetValue("%s E-6", A.ToString().c_str());
         }
         else
         {
-            MathFPGA::Data::SetUnits(String("E-7"));
+            SetValue("%s E-7", A.ToString().c_str());
         }
     }
 }

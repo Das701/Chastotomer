@@ -59,7 +59,7 @@ void Tests::ValuesFPGA()
 {
     Frequency::Test();
 
-//    Period::Test();
+    Period::Test();
 }
 
 
@@ -67,7 +67,7 @@ static void Tests::Frequency::Test()
 {
     Frequency::Test();
     
-//    T_1::Test();
+    T_1::Test();
 }
 
 
@@ -81,7 +81,7 @@ static void Tests::Period::Test()
 
 static char *GetMathValue()
 {
-    char *result = MathFPGA::Measure::valueFPGA->value.c_str();
+    char *result = ValueFPGA::GiveStringValue();
 
 #ifndef WIN32
     SU::ReplaceSymbol(result, '.', ',');
@@ -197,8 +197,6 @@ static void Tests::Frequency::Frequency::Test()
 
     RestoreSettings(Channel::A);
 
-    return;
-
     // Channel::B
 
     StoreSettings(Channel::B);
@@ -219,7 +217,7 @@ static void Tests::Frequency::Frequency::Test()
 
             MathFPGA::Measure::SetNewData(counter, 0);
 
-            char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
+            char *value_str = ValueFPGA::GiveStringValue();
             char *standard_str = result;
 
             if (std::strcmp(value_str, standard_str) != 0)
@@ -294,7 +292,7 @@ static void Tests::Frequency::Frequency::TestChannelsCD()
 
             MathFPGA::Measure::SetNewData(counter, 0);
 
-            char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
+            char *value_str = ValueFPGA::GiveStringValue();
             char *standard_str = (*result).c_str();
 
             if (std::strcmp(value_str, standard_str) != 0)
@@ -326,7 +324,7 @@ static void Tests::Frequency::Frequency::TestChannelsCD()
 
             MathFPGA::Measure::SetNewData(counter, 0);
 
-            char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
+            char *value_str = ValueFPGA::GiveStringValue();
             char *standard_str = (*result).c_str();
 
             if (std::strcmp(value_str, standard_str) != 0)
@@ -397,10 +395,10 @@ static void Tests::Frequency::T_1::Test()
         {{NumberPeriods::_100K, PeriodTimeLabels::T_8}, {NumberPeriods::_100K, PeriodTimeLabels::T_3}}
     };
 
-    ValuesStruct results_0         (MathFPGA::Data::UGO_DivNULL,
-                                    MathFPGA::Data::UGO_DivNULL,
-                                    MathFPGA::Data::UGO_DivNULL,
-                                    MathFPGA::Data::UGO_DivNULL);
+    ValuesStruct results_0         (ValueFPGA::UGO_DivNULL,
+                                    ValueFPGA::UGO_DivNULL,
+                                    ValueFPGA::UGO_DivNULL,
+                                    ValueFPGA::UGO_DivNULL);
     ValuesStruct results_2         ("0,1 GHz",         "1 kHz",           "0,01 PHz",        "0,1 GHz");
     ValuesStruct results_20        ("10 MHz",          "0,10 kHz",        "1,0 THz",         "10 MHz");
     ValuesStruct results_200       ("1,00 MHz",        "10,0 Hz",         "100 GHz",         "1,00 MHz");
@@ -453,7 +451,7 @@ static void Tests::Frequency::T_1::Test()
 
                 MathFPGA::Measure::SetNewData(s.counter, 0);
 
-                char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
+                char *value_str = GetMathValue();
                 char *standard_str = s.values->c_str(row, col);
 
                 if (std::strcmp(value_str, standard_str) != 0)
@@ -550,7 +548,7 @@ static void Tests::Period::Period::Test()
 
                 MathFPGA::Measure::SetNewData(s.counter, 0);
 
-                char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
+                char *value_str = GetMathValue();
                 char *standard_str = s.values->c_str(row, col);
 
                 if (std::strcmp(value_str, standard_str) != 0)
@@ -568,13 +566,13 @@ static void Tests::Period::Period::Test()
 static void Tests::Period::F_1::Test()
 {
     String results_0[TimeMeasure::Count] = {
-        MathFPGA::Data::UGO_DivNULL,
-        MathFPGA::Data::UGO_DivNULL,
-        MathFPGA::Data::UGO_DivNULL,
-        MathFPGA::Data::UGO_DivNULL,
-        MathFPGA::Data::UGO_DivNULL,
-        MathFPGA::Data::UGO_DivNULL,
-        MathFPGA::Data::UGO_DivNULL
+        ValueFPGA::UGO_DivNULL,
+        ValueFPGA::UGO_DivNULL,
+        ValueFPGA::UGO_DivNULL,
+        ValueFPGA::UGO_DivNULL,
+        ValueFPGA::UGO_DivNULL,
+        ValueFPGA::UGO_DivNULL,
+        ValueFPGA::UGO_DivNULL
     };
     String results_2[TimeMeasure::Count]          = { "1 ms",           "0,01 s",         "0,1 s",          "1 s",            "0,01 ks",        "0,1 ks",         "1 ks" };      // 1
     String results_18[TimeMeasure::Count]         = { "0,1 ms",         "1 ms",           "0,01 s",         "0,1 s",          "1 s",            "0,01 ks",        "0,1 ks" };       // 9
@@ -627,7 +625,7 @@ static void Tests::Period::F_1::Test()
 
             MathFPGA::Measure::SetNewData(counter, 0);
 
-            char *value_str = MathFPGA::Measure::valueFPGA->value.c_str();
+            char *value_str = GetMathValue();
             char *standard_str = (*result).c_str();
 
             if (std::strcmp(value_str, standard_str) != 0)

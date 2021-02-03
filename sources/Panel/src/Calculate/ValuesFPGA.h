@@ -6,17 +6,28 @@
 
 struct ValueFPGA
 {
-    ValueFPGA();
+    ValueFPGA() {};
     virtual ~ValueFPGA() {};
 
-    String value;
+    static void Create(uint value1, uint value2, uint value3, uint value4, uint value5);
 
+    static String GiveDigits();
+
+    static String GiveUnits();
+
+    static char *GiveStringValue();
+
+    static char *UGO_DivNULL;
+
+    static void SetInvalidData();
 
 protected:
 
     String mainUnits;
 
     void SetValue(ValueSTRICT value, uint counter);
+
+    void SetValue(char *formt, ...);
 
     // ”становить бесконечное значение - деление на ноль
     void SetInfiniteValue();
@@ -30,6 +41,14 @@ protected:
 
     // ¬озвращает относительный пор€док дл€ заданного order
     static char *GetSuffixUnitRelated(int order);
+
+private:
+
+    static ValueFPGA *valueFPGA;
+
+    static String value;
+
+    static char *UGO_OVERLAPPED;
 };
 
 
