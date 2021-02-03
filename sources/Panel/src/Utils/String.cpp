@@ -50,11 +50,6 @@ String::String(pCHAR format, ...) : buffer(nullptr)
 {
     Free();
 
-    if (format == nullptr)
-    {
-        return;
-    }
-
     std::va_list args;
     va_start(args, format);
 
