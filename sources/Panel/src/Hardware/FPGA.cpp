@@ -270,11 +270,11 @@ void FPGA::GovernorData::IncreaseN()
     {
         if(CURRENT_CHANNEL_IS_A)
         {
-            MathFPGA::NA++;
+            MathFPGA::Auto::NA++;
         }
         else if(CURRENT_CHANNEL_IS_B) //-V2516
         {
-            MathFPGA::NB++;
+            MathFPGA::Auto::NB++;
         }
     }
 }
@@ -289,11 +289,11 @@ void FPGA::GovernorData::DecreaseN()
     {
         if(CURRENT_CHANNEL_IS_A)
         {
-            MathFPGA::NA--;
+            MathFPGA::Auto::NA--;
         }
         else if(CURRENT_CHANNEL_IS_B) //-V2516
         {
-            MathFPGA::NB--;
+            MathFPGA::Auto::NB--;
         }
     }
 }
@@ -430,24 +430,24 @@ void FPGA::GovernorData::Calculate()
 
         if (CURRENT_CHANNEL_IS_A)
         {
-            if (MathFPGA::NA < 0)
+            if (MathFPGA::Auto::NA < 0)
             {
-                MathFPGA::DecToBin(negative + MathFPGA::NA, encData);
+                MathFPGA::DecToBin(negative + MathFPGA::Auto::NA, encData);
             }
             else
             {
-                MathFPGA::DecToBin(MathFPGA::NA, encData);
+                MathFPGA::DecToBin(MathFPGA::Auto::NA, encData);
             }
         }
         else if (CURRENT_CHANNEL_IS_B) //-V2516
         {
-            if (MathFPGA::NB < 0)
+            if (MathFPGA::Auto::NB < 0)
             {
-                MathFPGA::DecToBin(negative + MathFPGA::NB, encData);
+                MathFPGA::DecToBin(negative + MathFPGA::Auto::NB, encData);
             }
             else
             {
-                MathFPGA::DecToBin(MathFPGA::NB, encData);
+                MathFPGA::DecToBin(MathFPGA::Auto::NB, encData);
             }
         }
     }

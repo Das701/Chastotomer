@@ -11,9 +11,6 @@ struct MathFPGA
     static void DecToBin(int dec, char *bin);
     static String BinToString(pString bin, int num);
 
-    static int NA; //-V707
-    static int NB; //-V707
-
     struct Auto
     {
         friend struct FPGA;
@@ -25,6 +22,9 @@ struct MathFPGA
         static String Give();
 
         static void Refresh();
+
+        static int NA; //-V707
+        static int NB; //-V707
 
     private:
         static uint fpgaMin;

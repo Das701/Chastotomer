@@ -15,8 +15,8 @@
 #include <cstring>
 
 
-int    MathFPGA::NA = 0; //-V707
-int    MathFPGA::NB = 0; //-V707
+int    MathFPGA::Auto::NA = 0; //-V707
+int    MathFPGA::Auto::NB = 0; //-V707
 
 uint   MathFPGA::Auto::fpgaMin = 0;
 uint   MathFPGA::Auto::fpgaMid = 0;
