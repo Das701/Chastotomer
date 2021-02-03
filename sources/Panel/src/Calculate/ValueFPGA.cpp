@@ -9,6 +9,8 @@
 #include "Utils/StringUtils.h"
 #include <cstdio>
 #include <cstring>
+#include <cstdlib>
+#include <cstdarg>
 
 
 char *ValueFPGA::UGO_DivNULL = "=X/0";
@@ -23,7 +25,7 @@ void ValueFPGA::Create(uint value1, uint value2, uint value3, uint value4, uint 
 {
     TypeMeasure &type = Channel::Current()->mod.typeMeasure;
 
-    if (valueFPGA == nullptr)
+    if (valueFPGA != nullptr)
     {
         delete valueFPGA;
         valueFPGA = nullptr;
@@ -131,13 +133,49 @@ char *ValueFPGA::GetSuffixUnitRelated(int order)
 
 String ValueFPGA::GiveDigits()
 {
-    return "";
+    const char *firstSpace = std::strchr(value.c_str(), ' ');
+
+    if (firstSpace == nullptr)
+    {
+        return String(value.c_str());
+    }
+
+    int size = &value.c_str()[std::strlen(value.c_str())] - firstSpace + 1;
+
+    char *buffer = new char[(uint)size];
+
+    std::memcpy(buffer, value.c_str(), size - 1U);
+    buffer[size - 1] = '\0';
+
+    String result(buffer);
+
+    delete[]buffer;
+
+    return result;
 }
 
 
 String ValueFPGA::GiveUnits()
 {
-    return "";
+    const char *lastSpace = std::strrchr(value.c_str(), ' ');
+
+    if (lastSpace == nullptr)
+    {
+        return "";
+    }
+
+    int size = &value.c_str()[std::strlen(value.c_str())] - lastSpace + 1;
+
+    char *buffer = new char[(uint)size];
+
+    std::memcpy(buffer, lastSpace + 1, size - 1U);
+    buffer[size - 1] = '\0';
+
+    String result(buffer);
+
+    delete[]buffer;
+
+    return result;
 }
 
 
@@ -147,12 +185,37 @@ char *ValueFPGA::GiveStringValue()
 }
 
 
-void ValueFPGA::SetValue(char *, ...)
+void ValueFPGA::SetValue(char *format, ...)
 {
     if (FPGA::IsOverloaded())
     {
         value.Set(UGO_OVERLAPPED);
-        return;
+    }
+    else
+    {
+        uint sizeBuffer = 100U;
+
+        char *buffer = new char[sizeBuffer];
+
+        std::va_list args;
+        va_start(args, format);
+
+        int numSymbols = std::vsprintf(buffer, format, args);
+
+        while (numSymbols < 0)
+        {
+            delete []buffer;
+
+            sizeBuffer += 100U;
+
+            numSymbols = std::vsprintf(buffer, format, args);
+        }
+
+        value.Set(buffer);
+
+        va_end(args);
+
+        delete []buffer;
     }
 
     Display::zoneData->Refresh();
@@ -220,9 +283,11 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
         SU::LeaveFewSignedDigits(buffer, 29, numDigitsInCounter);
     }
 
-    std::sprintf(buffer, GetSuffixUnit(order));
+    std::strcat(buffer, " ");
 
-    std::sprintf(buffer, mainUnits.c_str());
+    std::strcat(buffer, GetSuffixUnit(order));
+
+    std::strcat(buffer, mainUnits.c_str());
 
     SetValue(buffer);
 }
