@@ -29,8 +29,9 @@ void MathFPGA::Measure::SetNewData(uint value1, uint value2, uint value3, uint v
 { 
     ValueFPGA::Create(value1, value2, value3, value4, value5);
 
+    ProgressBarTimeMeasureZone::Reset();
+
     Validator::SetValidData();
-    ProgressBarTimeMeasureZone::timeStart = TIME_MS;
 }
 
 

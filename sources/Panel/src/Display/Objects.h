@@ -60,9 +60,11 @@ class ProgressBarTimeMeasureZone : public Object
 public:
     ProgressBarTimeMeasureZone() : Object(273, 90, 55, 5) {};
 
-    static uint timeStart;
+    static void Reset();
 
 protected:
 
     virtual bool Draw();
+
+    static uint timeStart;      // Здесь хранится время последнего чтения. Используется для расчёта отрисовки
 };

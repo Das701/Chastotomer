@@ -143,3 +143,9 @@ bool ProgressBarTimeMeasureZone::Draw()
 
     return true;
 }
+
+
+void ProgressBarTimeMeasureZone::Reset()
+{
+    timeStart = TIME_MS;
+}
