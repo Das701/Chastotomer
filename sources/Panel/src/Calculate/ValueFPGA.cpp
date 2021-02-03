@@ -140,7 +140,7 @@ String ValueFPGA::GiveDigits()
         return String(value.c_str());
     }
 
-    int size = &value.c_str()[std::strlen(value.c_str())] - firstSpace + 1;
+    int size = firstSpace - value.c_str() + 1;
 
     char *buffer = new char[(uint)size];
 
