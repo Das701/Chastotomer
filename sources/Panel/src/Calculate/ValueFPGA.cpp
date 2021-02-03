@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Log.h"
 #include "Calculate/MathFPGA.h"
 #include "Calculate/ValuesFPGA.h"
 #include "Display/Display.h"
@@ -193,7 +194,9 @@ void ValueFPGA::SetValue(char *format, ...)
     }
     else
     {
-        uint sizeBuffer = 100U;
+        const uint ds = 8U;
+
+        uint sizeBuffer = ds;
 
         char *buffer = new char[sizeBuffer];
 
@@ -204,7 +207,9 @@ void ValueFPGA::SetValue(char *format, ...)
 
         while (numSymbols < 0)
         {
-            sizeBuffer += 100U;
+            LOG_WRITE("Мало %d байт", sizeBuffer);
+
+            sizeBuffer += ds;
 
             delete[]buffer;
 

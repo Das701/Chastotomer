@@ -15,6 +15,12 @@ ValueDuration::ValueDuration() : ValueFPGA()
 
 ValueDuration_Ndt_1ns::ValueDuration_Ndt_1ns(uint timer, uint cal1, uint cal2) : ValueDuration()
 {
+    if (cal1 == cal2)
+    {
+        SetInfiniteValue();
+        return;
+    }
+
     float v = (float)(100 * timer) / (float)(cal2 - cal1);
 
     SetValue("%.1f ns", v);
