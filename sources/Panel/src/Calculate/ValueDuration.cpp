@@ -17,7 +17,7 @@ ValueDuration_Ndt_1ns::ValueDuration_Ndt_1ns(uint timer, uint cal1, uint cal2) :
 {
     float v = (float)(100 * timer) / (float)(cal2 - cal1);
 
-    SetValue("%10.1f ns", v);
+    SetValue("%.1f ns", v);
 }
 
 

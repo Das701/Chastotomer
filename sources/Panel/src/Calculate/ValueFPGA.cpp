@@ -204,9 +204,11 @@ void ValueFPGA::SetValue(char *format, ...)
 
         while (numSymbols < 0)
         {
-            delete []buffer;
-
             sizeBuffer += 100U;
+
+            delete[]buffer;
+
+            buffer = new char[sizeBuffer];
 
             numSymbols = std::vsprintf(buffer, format, args);
         }
