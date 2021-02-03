@@ -39,8 +39,6 @@ void MathFPGA::Validator::SetInvalidData()
     isEmpty = true;
     timeClearedFlag = TIME_MS;
 
-    ProgressBarTimeMeasureZone::timeStart = timeClearedFlag;
-
     ValueFPGA::SetInvalidData();
 }
 
