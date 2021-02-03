@@ -7,6 +7,7 @@
 #include "Hardware/FPGA.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/Modes/Modes.h"
+#include "Utils/Buffer.h"
 #include "Utils/StringUtils.h"
 #include <cstdio>
 #include <cstring>
@@ -194,35 +195,18 @@ void ValueFPGA::SetValue(char *format, ...)
     }
     else
     {
-        const uint ds = 8U;
-
-        uint sizeBuffer = ds;
-
-        char *buffer = new char[sizeBuffer];
-
         std::va_list args;
         va_start(args, format);
 
-        int numSymbols = std::vsprintf(buffer, format, args);
+        int numSymbols = std::vsnprintf(nullptr, 0, format, args);
 
-        while (numSymbols < 0)
-        {
-            LOG_WRITE("Мало %d байт", sizeBuffer);
+        Buffer buffer(numSymbols + 1);
 
-            sizeBuffer += ds;
+        std::vsnprintf(buffer.DataChar(), (uint)numSymbols, format, args);
 
-            delete[]buffer;
-
-            buffer = new char[sizeBuffer];
-
-            numSymbols = std::vsprintf(buffer, format, args);
-        }
-
-        value.Set(buffer);
+        value.Set(buffer.DataChar());
 
         va_end(args);
-
-        delete []buffer;
     }
 
     Display::zoneData->Refresh();
