@@ -9,7 +9,7 @@ struct ValueFPGA
     ValueFPGA() {};
     virtual ~ValueFPGA() {};
 
-    static void Create(uint value1, uint value2, uint value3, uint value4, uint value5);
+    static void Create(uint value1, uint value2 = 0U, uint value3 = 0U, uint value4 = 0U, uint value5 = 0U);
 
     static String GiveDigits();
 

@@ -20,7 +20,7 @@ void init()
 
 void update()
 {
-	MathFPGA::Measure::SetNewData(24, 53234, 3334, 160, 34);
+	ValueFPGA::Create(24, 53234, 3334, 160, 34);
 
 	Display::Refresh();
 	Menu::Update();

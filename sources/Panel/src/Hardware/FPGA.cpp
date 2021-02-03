@@ -162,7 +162,7 @@ void FPGA::Update() //-V2008
                 Reset_CS; //-V2571
 
                 LOG_WRITE("%d %d", counterA, counterB);
-                MathFPGA::Measure::SetNewData(counterA, counterB);
+                ValueFPGA::Create(counterA, counterB);
 
                 HAL_TIM::DelayUS(8);
             }
@@ -173,20 +173,18 @@ void FPGA::Update() //-V2008
 
 void FPGA::ReadFillFactorPhase()
 {
-    if (Flag_RD != 0) //-V2571
+    if (Flag_RD != 0)
     {
         uint period = 0;
         uint duration = 0;
 
-        Set_CS; //-V2571
+        Set_CS;
         CycleRead(32, period, true);
         CycleRead(32, duration, true);
-        Reset_CS; //-V2571
-
-//        LOG_WRITE("%d %d", period, duration);
+        Reset_CS;
 
         LOG_WRITE("%d %d", period, duration);
-        MathFPGA::Measure::SetNewData(period, duration);
+        ValueFPGA::Create(period, duration);
 
         HAL_TIM::DelayUS(8);
     }
@@ -209,7 +207,7 @@ void FPGA::ReadInterpolator()
         Reset_CS; //-V2571
 
         LOG_WRITE("%d %d %d", timer, cal1, cal2);
-        MathFPGA::Measure::SetNewData(timer, cal1, cal2);
+        ValueFPGA::Create(timer, cal1, cal2);
 
         HAL_TIM::DelayUS(8);
     }
@@ -254,7 +252,7 @@ void FPGA::ReadComparator()
         Reset_CS; //-V2571
 
         LOG_WRITE("%d %d %d %d %d", counter, interpol1, cal1, interpol2, cal2);
-        MathFPGA::Measure::SetNewData(counter, interpol1, cal1, interpol2, cal2);
+        ValueFPGA::Create(counter, interpol1, cal1, interpol2, cal2);
 
         HAL_TIM::DelayUS(8);
     }

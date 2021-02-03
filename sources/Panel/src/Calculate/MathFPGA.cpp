@@ -25,15 +25,6 @@ uint   MathFPGA::Auto::fpgaMin = 0;
 uint   MathFPGA::Auto::fpgaMid = 0;
 uint   MathFPGA::Auto::fpgaMax = 0;
        
-void MathFPGA::Measure::SetNewData(uint value1, uint value2, uint value3, uint value4, uint value5)
-{ 
-    ValueFPGA::Create(value1, value2, value3, value4, value5);
-
-    ProgressBarTimeMeasureZone::Reset();
-
-    Validator::SetValidData();
-}
-
 
 void MathFPGA::Validator::SetInvalidData()
 {

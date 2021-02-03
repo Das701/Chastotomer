@@ -36,13 +36,6 @@ struct MathFPGA
         static const uint deltaTime = 200;  // Это время нужно выждать после того, как изменились настройки
     };
 
-    struct Measure
-    {
-        static void SetNewData(uint value1, uint value2, uint value3 = 0, uint value4 = 0, uint value5 = 0);
-
-    };
-
-
     struct Auto
     {
         friend struct FPGA;
