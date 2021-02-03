@@ -39,7 +39,7 @@ public:
 
 private:
 
-    bool Allocate(int size);
+    void Allocate(int size);
 
     char *buffer;
 };
