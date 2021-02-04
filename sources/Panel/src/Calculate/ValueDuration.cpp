@@ -29,8 +29,6 @@ ValueDuration_Ndt_1ns::ValueDuration_Ndt_1ns(uint timer, uint cal1, uint cal2) :
 
 ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint duration) : ValueDuration()
 {
-    mainUnits.Set("");
-
     if (period == 0)
     {
         SetInfiniteValue();
@@ -41,9 +39,11 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
 
     if (ModeDuration::Current().IsPhase())
     {
-        val.FromINT64((int64)period);
+        mainUnits.Set("$");
+
+        val.FromINT64((int64)duration);
         val.MulUINT(360);
-        val.DivUINT(duration);
+        val.DivUINT(period);
 
         if (period == duration)
         {
@@ -52,11 +52,13 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
     }
     else
     {
+        mainUnits.Set("");
+
         val.FromINT64((int64)duration);
         val.DivUINT(period);
     }
 
-    SetValue(val, period);
+    SetValue(val, duration);
 }
 
 
