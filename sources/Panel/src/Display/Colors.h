@@ -29,6 +29,8 @@ struct Color
 
     static Color YELLOW;
 
+    static Color _255;
+
     static const int Count = 256;
 
     explicit Color(uint8 val) : value(val) {};

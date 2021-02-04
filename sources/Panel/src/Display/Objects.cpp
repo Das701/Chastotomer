@@ -171,20 +171,21 @@ void ProgressBarTimeMeasureZone::Reset()
 
 bool SynchroZone::Draw()
 {
-    uint colorWhite = COLOR(Color::WHITE.value);
-
-    COLOR(Color::WHITE.value) = CalculateColor();
-
-    int size = CalculateSize();
-
-    if (size > 0)
+    if (modeDraw == ModeDraw::ToHardware)
     {
-        int d = (MAX_SIZE - size) / 2;
+        //COLOR(255) = COLOR(Color::BLUE.value);
 
-        Primitives::Rectangle(size, size).Fill(x0 + d, y0 + d, Color::WHITE);
-    }
+        int size = CalculateSize();
 
-    COLOR(Color::WHITE.value) = colorWhite;
+        if (size > 0)
+        {
+            int d = (MAX_SIZE - size) / 2;
+
+            Primitives::Rectangle(size, size).Fill(x0 + d, y0 + d, Color::WHITE);
+
+            Display::Sender::SendToFSMC(x0, y0);
+        }
+    };
 
     return true;
 }

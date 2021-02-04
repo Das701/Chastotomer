@@ -156,7 +156,7 @@ void Display::Update()
 {
     zoneSynchro->Refresh();
 
-#ifdef WIN32
+#ifdef GUI
 
     BeginScene();
     DrawScreen();

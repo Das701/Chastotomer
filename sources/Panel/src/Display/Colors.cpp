@@ -22,6 +22,8 @@ Color Color::GREEN_15(14);
 Color Color::GREEN_12(15);
 Color Color::GRAY_75(16);
 
+Color Color::_255(255);
+
 uint colors[Color::Count] =
 {
     MAKE_COLOR(0,   0,   0),    // BLACK
