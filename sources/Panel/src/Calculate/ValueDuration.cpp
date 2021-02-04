@@ -58,7 +58,7 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
         val.DivUINT(period);
     }
 
-    SetValue(val, duration);
+    SetValue(val, duration, ModeDuration::Current().IsFillFactor());
 }
 
 

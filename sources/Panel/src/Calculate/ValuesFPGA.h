@@ -25,7 +25,8 @@ protected:
 
     String mainUnits;
 
-    void SetValue(ValueSTRICT value, uint counter);
+    // ≈сли (isOrdered == true), то приводить число к оптимальному пор€дку, иначе - выводить как есть
+    void SetValue(ValueSTRICT value, uint counter, bool isOrdered = true);
 
     void SetValue(char *formt, ...);
 

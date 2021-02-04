@@ -215,7 +215,7 @@ void ValueFPGA::SetValue(char *format, ...)
 }
 
 
-void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
+void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, bool isOrdered)
 {
     if (FPGA::IsOverloaded())
     {
@@ -224,43 +224,45 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
     }
 
     int order = 0;
-
     int numDigitsInCounter = NumDigitsInNumber(counter);
 
-    if (numDigitsInCounter < 1)
+    if(isOrdered)
     {
-        numDigitsInCounter = 1;
-    }
-
-    if (strict.ToDouble() < 0.0)
-    {
-        while (strict.ToUnits(Order::Milli) < 1)
+        if (numDigitsInCounter < 1)
         {
-            strict.MulUINT(1000);
-            order -= 3;
-        }
-    }
-    else
-    {
-        while (strict.ToDouble() >= 1000.0)
-        {
-            strict.DivUINT(1000);
-            order += 3;
-        }
-    }
-
-    if (!strict.IsZero())
-    {
-        while ((uint)strict.ToDouble() < 1)
-        {
-            strict.MulUINT(1000);
-            order -= 3;
+            numDigitsInCounter = 1;
         }
 
-        if (NumDigitsInNumber((uint)strict.ToDouble()) > numDigitsInCounter)
+        if (strict.ToDouble() < 0.0)
         {
-            strict.DivUINT(1000);
-            order += 3;
+            while (strict.ToUnits(Order::Milli) < 1)
+            {
+                strict.MulUINT(1000);
+                order -= 3;
+            }
+        }
+        else
+        {
+            while (strict.ToDouble() >= 1000.0)
+            {
+                strict.DivUINT(1000);
+                order += 3;
+            }
+        }
+
+        if (!strict.IsZero())
+        {
+            while ((uint)strict.ToDouble() < 1)
+            {
+                strict.MulUINT(1000);
+                order -= 3;
+            }
+
+            if (NumDigitsInNumber((uint)strict.ToDouble()) > numDigitsInCounter)
+            {
+                strict.DivUINT(1000);
+                order += 3;
+            }
         }
     }
 
@@ -278,7 +280,10 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter)
 
     std::strcat(buffer, " ");
 
-    std::strcat(buffer, GetSuffixUnit(order));
+    if (isOrdered)
+    {
+        std::strcat(buffer, GetSuffixUnit(order));
+    }
 
     std::strcat(buffer, mainUnits.c_str());
 
