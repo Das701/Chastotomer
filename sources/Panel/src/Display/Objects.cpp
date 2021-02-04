@@ -44,7 +44,7 @@ void Object::Update(Object::ModeDraw::E mode)
     {
         if (needUpdate)
         {
-            Display::Prepare(width, height);
+            Display::Sender::Prepare(width, height);
 
             FillBackground();
 
@@ -53,9 +53,9 @@ void Object::Update(Object::ModeDraw::E mode)
                 needUpdate = false;
             }
 
-            Display::SendToFSMC(left, top);
+            Display::Sender::SendToFSMC(left, top);
 
-            Display::Restore();
+            Display::Sender::Restore();
         }
     }
 }

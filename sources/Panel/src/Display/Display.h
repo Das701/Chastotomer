@@ -51,10 +51,20 @@ struct Display
     // Отрисовка времени отсчёта времени измерения
     static ProgressBarTimeMeasureZone *zoneProgressBarTimeMeasure;
 
-    // Подготовить дисплей к непосредственному рисованию в аппаратуру
-    static void Prepare(int width, int height);
-    static void SendToFSMC(int x0, int y0);
-    static void Restore();
+
+
+    // Структура для непосредсвенного рисования в дисплей
+    struct Sender
+    {
+        // Подготовить дисплей к непосредственному рисованию в аппаратуру
+        static void Prepare(int width, int height);
+
+        // Послать в дисплей область, ограниченную (x0, y0) и ранее засланными (width, height)
+        static void SendToFSMC(int x0, int y0);
+
+        // Восстановить к нормальному рисованию.
+        static void Restore();
+    };
 
 private:
     static bool sendToSCPI;     // Если true, то надо посылать в SCPI

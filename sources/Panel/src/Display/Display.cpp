@@ -414,7 +414,7 @@ void Display::SendToSCPI()
 static int oldTopRow = 0;
 
 
-void Display::Prepare(int w, int h)
+void Display::Sender::Prepare(int w, int h)
 {
     width = w;
     height = h;
@@ -423,7 +423,7 @@ void Display::Prepare(int w, int h)
 }
 
 
-void Display::Restore()
+void Display::Sender::Restore()
 {
     width = PHYSICAL_WIDTH;
     height = PHYSICAL_HEIGHT;

@@ -208,7 +208,7 @@ void Display::EndScene()
 }
 
 
-void Display::SendToFSMC(int x0, int y0)
+void Display::Sender::SendToFSMC(int x0, int y0)
 {
     HAL_FSMC::SendBuffer(buffer[0], x0, y0, Width(), Height(), 1);
 }
