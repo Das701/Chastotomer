@@ -46,12 +46,13 @@ public:
     static bool StringToDouble(double *value, const char *buffer);
 
     static bool String2Int(const char *buffer, int *value, char **end);
-    
+ 
     static String Int2String(int n);
 
     // Оставляет в строке buffer размером size ровно digits цифр. Первые нули тоже учитываются
     static void LeaveFewDigits(char *buffer, int size, int digits);
 
+    // Оставляет в строке buffer размером size ровно digits значащих цифр. Без учёта первых незначащих нулей
     static void LeaveFewSignedDigits(char *buffer, int size, int digits);
 
     // Заменить в строке все символы old на new

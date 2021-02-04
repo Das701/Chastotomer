@@ -539,6 +539,11 @@ void SU::LeaveFewSignedDigits(char *buffer, int size, int digits)
         pointer++;
     }
 
+    if (*pointer == '.' || *pointer == ',')
+    {
+        pointer++;
+    }
+
     if (size > 0)
     {
         *pointer = '\0';
