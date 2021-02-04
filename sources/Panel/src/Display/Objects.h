@@ -32,6 +32,12 @@ protected:
 
     int Width() { return width; }
 
+    // Функция вызывается перед отрисовкой
+    virtual void BeforeDraw() {};
+
+    // Функция вызывается после отрисовки
+    virtual void AfterDraw() {};
+
 private:
 
     void FillBackground();
@@ -74,7 +80,7 @@ class SynchroZone : public Object
 {
 public:
 
-    SynchroZone() : Object(390, 120, 20, 20) {}
+    SynchroZone() : Object(390, 120, 20, 20), oldColor(0) {}
 
     static void Fire();
 
@@ -89,7 +95,13 @@ protected:
     // Возвращает 0 в момент зажигания и 1.0 в момент потухания и далее
     float CalculateRelativeTime();
 
+    virtual void BeforeDraw();
+
+    virtual void AfterDraw();
+
     static uint timeStart;
 
-    static const int MAX_SIZE = 15;
+    static const int MAX_SIZE = 12;
+
+    uint oldColor;
 };

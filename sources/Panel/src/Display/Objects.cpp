@@ -44,6 +44,8 @@ void Object::Update(Object::ModeDraw::E mode)
     {
         if (needUpdate)
         {
+            BeforeDraw();
+
             Display::Sender::Prepare(width, height);
 
             FillBackground();
@@ -56,6 +58,8 @@ void Object::Update(Object::ModeDraw::E mode)
             Display::Sender::SendToFSMC(left, top);
 
             Display::Sender::Restore();
+
+            AfterDraw();
         }
     }
 }
@@ -168,24 +172,28 @@ void ProgressBarTimeMeasureZone::Reset()
     timeStart = TIME_MS;
 }
 
+void SynchroZone::BeforeDraw()
+{
+    oldColor = COLOR(Color::WHITE.value);
+}
+
+
+void SynchroZone::AfterDraw()
+{
+    COLOR(Color::WHITE.value) = oldColor;
+}
+
 
 bool SynchroZone::Draw()
 {
-    if (modeDraw == ModeDraw::ToHardware)
+    int size = CalculateSize();
+
+    if (size > 0)
     {
-        //COLOR(255) = COLOR(Color::BLUE.value);
+        int d = (MAX_SIZE - size) / 2;
 
-        int size = CalculateSize();
-
-        if (size > 0)
-        {
-            int d = (MAX_SIZE - size) / 2;
-
-            Primitives::Rectangle(size, size).Fill(x0 + d, y0 + d, Color::WHITE);
-
-            Display::Sender::SendToFSMC(x0, y0);
-        }
-    };
+        Primitives::Rectangle(size, size).Fill(x0 + d, y0 + d, Color::WHITE);
+    }
 
     return true;
 }
@@ -193,7 +201,7 @@ bool SynchroZone::Draw()
 
 uint SynchroZone::CalculateColor()
 {
-    uint8 color = (uint8)((1.0F - CalculateRelativeTime()) * 0xFF);
+    uint8 color = (uint8)((1.0F - CalculateRelativeTime() * CalculateRelativeTime()) * 0xFF);
 
     return MAKE_COLOR(color, color, color);
 }
@@ -201,6 +209,13 @@ uint SynchroZone::CalculateColor()
 
 int SynchroZone::CalculateSize()
 {
+//    if (CalculateRelativeTime() < 1.0F)
+//    {
+//        return MAX_SIZE;
+//    }
+//
+//    return 0;
+
     return (int)(MAX_SIZE * (1.0F - CalculateRelativeTime()));
 }
 

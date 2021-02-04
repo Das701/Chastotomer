@@ -32,7 +32,8 @@ struct Display
     static void DrawWelcomeScreen();
 
     // Номер верхней строки в текущей отрисовке.
-    // Отрисовка происходит в два этапа - сначала верхняя часть (TopRow() == 0), затем нижняя (TopRow() == Display/HEIGHT / 2)
+    // Отрисовка происходит в два этапа - сначала верхняя часть (TopRow() == 0),
+    // затем нижняя (TopRow() == Display/HEIGHT / 2)
     static int TopRow();
 
     // Возвращает true, если прямоугльник находится в отрисовываемой в данный момент времени части экрана
@@ -43,14 +44,11 @@ struct Display
 
     static void SendToSCPI();
 
-    static void Draw(const uint *buffer);
-
     // Здесь отрисовка результата измерения
     static DataZone *zoneData;
 
     // Отрисовка времени отсчёта времени измерения
     static ProgressBarTimeMeasureZone *zoneProgressBarTimeMeasure;
-
 
 
     // Структура для непосредсвенного рисования в дисплей
@@ -66,9 +64,13 @@ struct Display
         static void Restore();
     };
 
+    // Эта функция только для win-версии
+    static void Draw(const uint *buffer);
+
 private:
     static bool sendToSCPI;     // Если true, то надо посылать в SCPI
-    static bool drawingScene;   // Если true - находимся в состоянии отрисовки основной части - между BeginScene() и EndScene()
+    static bool drawingScene;   // Если true - находимся в состоянии отрисовки основной части - между BeginScene()
+                                // и EndScene()
 
     static void InitHardware();
 
