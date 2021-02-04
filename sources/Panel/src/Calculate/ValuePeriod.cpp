@@ -27,11 +27,6 @@ ValuePeriod_F_1::ValuePeriod_F_1(uint counter) : ValuePeriod()
 {
     counter /= 2;
 
-    if (counter == 100001)
-    {
-        counter = counter;
-    }
-
     if (counter == 0)
     {
         SetInfiniteValue();

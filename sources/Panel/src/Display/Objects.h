@@ -68,3 +68,21 @@ protected:
 
     static uint timeStart;      // Здесь хранится время последнего чтения. Используется для расчёта отрисовки
 };
+
+
+class SynchroZone : public Object
+{
+public:
+
+    SynchroZone() : Object(390, 120, 20, 20) {}
+
+    static void Fire();
+
+protected:
+
+    virtual bool Draw();
+
+    int CalculateSize();
+
+    static uint timeStart;
+};

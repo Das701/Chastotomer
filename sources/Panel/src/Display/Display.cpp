@@ -83,6 +83,9 @@ DataZone *Display::zoneData = &sDataZone;
 static ProgressBarTimeMeasureZone sProgressBarTimeMeasureZone;
 ProgressBarTimeMeasureZone *Display::zoneProgressBarTimeMeasure = &sProgressBarTimeMeasureZone;
 
+static SynchroZone sSynchroZone;
+SynchroZone *zoneSynchro = &sSynchroZone;
+
 
 static void AddObject(Object *object)
 {
@@ -100,6 +103,7 @@ void Display::Init()
 
     AddObject(zoneData);
     AddObject(zoneProgressBarTimeMeasure);
+    AddObject(zoneSynchro);
 }
 
 
@@ -150,6 +154,8 @@ void Display::Refresh()
 
 void Display::Update()
 {
+    zoneSynchro->Refresh();
+
 #ifdef WIN32
 
     BeginScene();

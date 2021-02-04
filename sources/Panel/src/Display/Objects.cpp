@@ -23,6 +23,7 @@ using namespace Primitives;
 
 
 uint ProgressBarTimeMeasureZone::timeStart = 0;
+uint SynchroZone::timeStart = 0;
 
 
 void Object::Update(Object::ModeDraw::E mode)
@@ -163,6 +164,44 @@ bool ProgressBarTimeMeasureZone::Draw()
 
 
 void ProgressBarTimeMeasureZone::Reset()
+{
+    timeStart = TIME_MS;
+}
+
+
+bool SynchroZone::Draw()
+{
+    int size = CalculateSize();
+
+    if (size > 0)
+    {
+        Primitives::Rectangle(size, size).Fill(x0, y0, Color::WHITE);
+    }
+
+    return true;
+}
+
+
+int SynchroZone::CalculateSize()
+{
+    float timeLife = 2000.0F;
+
+    float time = (float)(TIME_MS - timeStart);
+
+    if (time > timeLife)
+    {
+        time = timeLife;
+    }
+
+    const int MAX_SIZE = 15;
+
+    int size = (int)(MAX_SIZE * (time / timeLife));
+
+    return MAX_SIZE - size;
+}
+
+
+void SynchroZone::Fire()
 {
     timeStart = TIME_MS;
 }
