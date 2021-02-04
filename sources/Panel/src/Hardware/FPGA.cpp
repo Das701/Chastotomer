@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "Log.h"
 #include "Settings.h"
-#include "Calculate/ValuesFPGA.h"
+#include "Calculate/ValueFPGA.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
 #include "Hardware/FPGA.h"

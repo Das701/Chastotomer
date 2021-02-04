@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "Log.h"
-#include "Calculate/ValuesFPGA.h"
+#include "Calculate/ValueFPGA.h"
 #include "Menu/Pages/Modes/Modes.h"
 #include "Utils/Math.h"
 #include "Utils/StringUtils.h"

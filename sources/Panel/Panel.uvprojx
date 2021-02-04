@@ -524,6 +524,11 @@
           <GroupName>Calculate</GroupName>
           <Files>
             <File>
+              <FileName>ValueFPGA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Calculate\ValueFPGA.h</FilePath>
+            </File>
+            <File>
               <FileName>ValueCountPulse.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Calculate\ValueCountPulse.cpp</FilePath>
@@ -547,11 +552,6 @@
               <FileName>ValueFPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Calculate\ValueFPGA.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ValuesFPGA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\ValuesFPGA.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -627,6 +627,11 @@
               <FileName>Symbols.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Symbols.h</FilePath>
+            </File>
+            <File>
+              <FileName>Symbols.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Symbols.cpp</FilePath>
             </File>
             <File>
               <FileName>Text.h</FileName>
@@ -1660,6 +1665,11 @@
           <GroupName>Calculate</GroupName>
           <Files>
             <File>
+              <FileName>ValueFPGA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Calculate\ValueFPGA.h</FilePath>
+            </File>
+            <File>
               <FileName>ValueCountPulse.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Calculate\ValueCountPulse.cpp</FilePath>
@@ -1683,11 +1693,6 @@
               <FileName>ValueFPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Calculate\ValueFPGA.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ValuesFPGA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculate\ValuesFPGA.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1763,6 +1768,11 @@
               <FileName>Symbols.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Symbols.h</FilePath>
+            </File>
+            <File>
+              <FileName>Symbols.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Symbols.cpp</FilePath>
             </File>
             <File>
               <FileName>Text.h</FileName>

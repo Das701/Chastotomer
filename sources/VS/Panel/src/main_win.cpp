@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "Calculate/MathFPGA.h"
+#include "Calculate/ValueFPGA.h"
 #include "Display/Display.h"
 #include "Hardware/HAL/HAL.h"
 #include "Keyboard/Keyboard.h"

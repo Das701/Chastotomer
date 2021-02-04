@@ -1,4 +1,5 @@
 #pragma once
+#include "Display/Symbols.h"
 #include "Utils/Stack.h"
 #include "Utils/String.h"
 #include "Utils/ValueSTRICT.h"
@@ -23,13 +24,11 @@ struct ValueFPGA
     // Возвращает true, если значение - данные. Даже непринятые. Т.е. нет переполнения либо деления на нуль
     static bool IsData() { return !(IsDivNULL() || IsOverlapped()); }
 
-    static bool IsDivNULL()     { return std::strcmp(GiveDigits().c_str(), UGO_DivNULL) == 0; }
+    static bool IsDivNULL()     { return std::strcmp(GiveDigits().c_str(), UGO::DivNULL) == 0; }
 
-    static bool IsOverlapped()  { return std::strcmp(GiveDigits().c_str(), UGO_OVERLAPPED) == 0; };
+    static bool IsOverlapped()  { return std::strcmp(GiveDigits().c_str(), UGO::OVERLAPPED) == 0; };
 
-    static bool IsEmpty()       { return std::strcmp(GiveDigits().c_str(), UGO_EMPTY) == 0; }
-
-    static char *UGO_DivNULL;       // Индикация деления на ноль
+    static bool IsEmpty()       { return std::strcmp(GiveDigits().c_str(), UGO::EMPTY_VALUE) == 0; }
 
 protected:
 
@@ -58,10 +57,6 @@ private:
     static ValueFPGA *valueFPGA;
 
     static String value;
-
-    static char *UGO_OVERLAPPED;    // Индикация переполнения
-
-    static char *UGO_EMPTY;         // Выводится, когда значение ещё не получено после засылки значения
 };
 
 

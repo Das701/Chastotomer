@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "Tests.h"
-#include "Calculate/ValuesFPGA.h"
+#include "Calculate/ValueFPGA.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/Modes/Modes.h"
 #include "Utils/StringUtils.h"
@@ -392,10 +392,10 @@ static void Tests::Frequency::T_1::Test()
         {{NumberPeriods::_100K, PeriodTimeLabels::T_8}, {NumberPeriods::_100K, PeriodTimeLabels::T_3}}
     };
 
-    ValuesStruct results_0         (ValueFPGA::UGO_DivNULL,
-                                    ValueFPGA::UGO_DivNULL,
-                                    ValueFPGA::UGO_DivNULL,
-                                    ValueFPGA::UGO_DivNULL);
+    ValuesStruct results_0         (UGO::DivNULL,
+                                    UGO::DivNULL,
+                                    UGO::DivNULL,
+                                    UGO::DivNULL);
     ValuesStruct results_2         ("0,1 GHz",         "1 kHz",           "0,01 PHz",        "0,1 GHz");
     ValuesStruct results_20        ("10 MHz",          "0,10 kHz",        "1,0 THz",         "10 MHz");
     ValuesStruct results_200       ("1,00 MHz",        "10,0 Hz",         "100 GHz",         "1,00 MHz");
@@ -563,13 +563,13 @@ static void Tests::Period::Period::Test()
 static void Tests::Period::F_1::Test()
 {
     String results_0[TimeMeasure::Count] = {
-        ValueFPGA::UGO_DivNULL,
-        ValueFPGA::UGO_DivNULL,
-        ValueFPGA::UGO_DivNULL,
-        ValueFPGA::UGO_DivNULL,
-        ValueFPGA::UGO_DivNULL,
-        ValueFPGA::UGO_DivNULL,
-        ValueFPGA::UGO_DivNULL
+        UGO::DivNULL,
+        UGO::DivNULL,
+        UGO::DivNULL,
+        UGO::DivNULL,
+        UGO::DivNULL,
+        UGO::DivNULL,
+        UGO::DivNULL
     };
     String results_2[TimeMeasure::Count]          = { "1 ms",           "0,01 s",         "0,1 s",          "1 s",            "0,01 ks",        "0,1 ks",         "1 ks" };      // 1
     String results_18[TimeMeasure::Count]         = { "0,1 ms",         "1 ms",           "0,01 s",         "0,1 s",          "1 s",            "0,01 ks",        "0,1 ks" };       // 9

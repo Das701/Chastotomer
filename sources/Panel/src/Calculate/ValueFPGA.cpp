@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "Log.h"
-#include "Calculate/ValuesFPGA.h"
-#include "Calculate/ValuesFPGA.h"
+#include "Calculate/ValueFPGA.h"
+#include "Calculate/ValueFPGA.h"
 #include "Display/Display.h"
 #include "Display/Objects.h"
 #include "Hardware/FPGA.h"
@@ -15,13 +15,8 @@
 #include <cstdarg>
 
 
-char *ValueFPGA::UGO_DivNULL = "=X/0";
-char *ValueFPGA::UGO_OVERLAPPED = "оепеонкмемхе";
-char *ValueFPGA::UGO_EMPTY = "----------";
-
 ValueFPGA *ValueFPGA::valueFPGA = nullptr;
 String ValueFPGA::value;
-
 
 
 void ValueFPGA::Create(uint value1, uint value2, uint value3, uint value4, uint value5)
@@ -194,7 +189,7 @@ void ValueFPGA::SetValue(char *format, ...)
 {
     if (FPGA::IsOverloaded())
     {
-        value.Set(UGO_OVERLAPPED);
+        value.Set(UGO::OVERLAPPED);
     }
     else
     {
@@ -220,7 +215,7 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, bool isOrdered)
 {
     if (FPGA::IsOverloaded())
     {
-        value.Set(UGO_OVERLAPPED);
+        value.Set(UGO::OVERLAPPED);
         return;
     }
 
@@ -294,7 +289,7 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, bool isOrdered)
 
 void ValueFPGA::SetInfiniteValue()
 {
-    SetValue(UGO_DivNULL);
+    SetValue(UGO::DivNULL);
 }
 
 
@@ -306,7 +301,7 @@ void ValueFPGA::SetIntegerValue(uint counter)
 
 void ValueFPGA::SetInvalidData()
 {
-    value.Set(UGO_EMPTY);
+    value.Set(UGO::EMPTY_VALUE);
 
     Display::zoneData->Refresh();
 }

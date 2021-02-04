@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "FreqMeter.h"
 #include "Settings.h"
-#include "Calculate/ValuesFPGA.h"
+#include "Calculate/ValueFPGA.h"
 #include "Hardware/FPGA.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
