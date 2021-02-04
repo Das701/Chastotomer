@@ -175,7 +175,9 @@ bool SynchroZone::Draw()
 
     if (size > 0)
     {
-        Primitives::Rectangle(size, size).Fill(x0, y0, Color::WHITE);
+        int d = (MAX_SIZE - size) / 2;
+
+        Primitives::Rectangle(size, size).Fill(x0 + d, y0 + d, Color::WHITE);
     }
 
     return true;
@@ -184,20 +186,13 @@ bool SynchroZone::Draw()
 
 int SynchroZone::CalculateSize()
 {
-    float timeLife = 2000.0F;
+    const float timeLife = 2000.0F;
 
     float time = (float)(TIME_MS - timeStart);
 
-    if (time > timeLife)
-    {
-        time = timeLife;
-    }
+    LIMITATION_ABOVE(time, timeLife);
 
-    const int MAX_SIZE = 15;
-
-    int size = (int)(MAX_SIZE * (time / timeLife));
-
-    return MAX_SIZE - size;
+    return MAX_SIZE - (int)(MAX_SIZE * (time / timeLife));
 }
 
 

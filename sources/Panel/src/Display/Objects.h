@@ -85,4 +85,6 @@ protected:
     int CalculateSize();
 
     static uint timeStart;
+
+    static const int MAX_SIZE = 15;
 };
