@@ -20,16 +20,16 @@ struct ValueFPGA
 
     static void SetInvalidData();
 
+    // Возвращает true, если значение - данные. Даже непринятые. Т.е. нет переполнения либо деления на нуль
+    static bool IsData() { return !(IsDivNULL() || IsOverlapped()); }
+
     static bool IsDivNULL()     { return std::strcmp(GiveDigits().c_str(), UGO_DivNULL) == 0; }
 
     static bool IsOverlapped()  { return std::strcmp(GiveDigits().c_str(), UGO_OVERLAPPED) == 0; };
 
-    // Возвращает true, если значение - данные. Даже непринятые. Т.е. нет переполнения либо деления на нуль
-    static bool IsData()        { return !(IsDivNULL() || IsOverlapped());  }
+    static bool IsEmpty()       { return std::strcmp(GiveDigits().c_str(), UGO_EMPTY) == 0; }
 
     static char *UGO_DivNULL;       // Индикация деления на ноль
-
-    static char *UGO_EMPTY;         // Выводится, когда значение ещё не получено после засылки значения
 
 protected:
 
@@ -60,6 +60,8 @@ private:
     static String value;
 
     static char *UGO_OVERLAPPED;    // Индикация переполнения
+
+    static char *UGO_EMPTY;         // Выводится, когда значение ещё не получено после засылки значения
 };
 
 

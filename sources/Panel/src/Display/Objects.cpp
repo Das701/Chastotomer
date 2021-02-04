@@ -85,7 +85,7 @@ void Object::FillBackground()
 
 static bool ConditionSplit(char *text)
 {
-    if (std::strcmp(text, ValueFPGA::UGO_EMPTY) == 0)
+    if (ValueFPGA::IsEmpty())
     {
         return false;
     }
