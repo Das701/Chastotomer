@@ -85,16 +85,6 @@ void Object::FillBackground()
 
 static bool ConditionSplit(char *text)
 {
-    if (std::strcmp(text, ValueFPGA::UGO_DivNULL) == 0)
-    {
-        return false;
-    }
-
-    if (std::strcmp(text, ValueFPGA::UGO_OVERLAPPED) == 0)
-    {
-        return false;
-    }
-
     if (std::strcmp(text, ValueFPGA::UGO_EMPTY) == 0)
     {
         return false;
@@ -116,7 +106,7 @@ bool DataZone::Draw()
 
     if (data[0] != 0)
     {
-        if (std::isdigit(data[0]) != 0 || data[0] == ' ' || data[0] == '-')         // Значит, есть данные
+        if (ValueFPGA::IsData())
         {
             if (gset.styleGUI.IsModern())
             {
@@ -131,8 +121,8 @@ bool DataZone::Draw()
         {
             int x = x0;
 
-            if (data[0] == 'П') { x += 40; }                // Переполнение
-            else if (data[0] == '=') { x += 150; }          // Деление на ноль //-V2516
+            if (ValueFPGA::IsOverlapped())   { x += 40; }   // Переполнение
+            else if (ValueFPGA::IsDivNULL()) { x += 150; }  // Деление на ноль
 
             if (gset.styleGUI.IsModern())
             {
