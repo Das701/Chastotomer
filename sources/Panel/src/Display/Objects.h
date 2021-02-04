@@ -84,6 +84,11 @@ protected:
 
     int CalculateSize();
 
+    uint CalculateColor();
+
+    // Возвращает 0 в момент зажигания и 1.0 в момент потухания и далее
+    float CalculateRelativeTime();
+
     static uint timeStart;
 
     static const int MAX_SIZE = 15;

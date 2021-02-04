@@ -78,7 +78,7 @@ void Object::Refresh()
 
 void Object::FillBackground()
 {
-    //    Rectangle(width, height).Fill(0, 0, Color::BLACK);
+    // Rectangle(width, height).Fill(0, 0, Color::BLACK);
 
     Display::BeginScene(left, top);
 }
@@ -171,6 +171,10 @@ void ProgressBarTimeMeasureZone::Reset()
 
 bool SynchroZone::Draw()
 {
+    uint colorWhite = COLOR(Color::WHITE.value);
+
+    COLOR(Color::WHITE.value) = CalculateColor();
+
     int size = CalculateSize();
 
     if (size > 0)
@@ -180,11 +184,27 @@ bool SynchroZone::Draw()
         Primitives::Rectangle(size, size).Fill(x0 + d, y0 + d, Color::WHITE);
     }
 
+    COLOR(Color::WHITE.value) = colorWhite;
+
     return true;
 }
 
 
+uint SynchroZone::CalculateColor()
+{
+    uint8 color = (uint8)((1.0F - CalculateRelativeTime()) * 0xFF);
+
+    return MAKE_COLOR(color, color, color);
+}
+
+
 int SynchroZone::CalculateSize()
+{
+    return (int)(MAX_SIZE * (1.0F - CalculateRelativeTime()));
+}
+
+
+float SynchroZone::CalculateRelativeTime()
 {
     const float timeLife = 2000.0F;
 
@@ -192,7 +212,7 @@ int SynchroZone::CalculateSize()
 
     LIMITATION_ABOVE(time, timeLife);
 
-    return MAX_SIZE - (int)(MAX_SIZE * (time / timeLife));
+    return (time / timeLife);
 }
 
 
