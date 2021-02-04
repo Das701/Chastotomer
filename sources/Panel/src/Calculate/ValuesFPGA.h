@@ -152,8 +152,4 @@ protected:
 struct ValueCountPulse : public ValueFPGA
 {
     ValueCountPulse(uint counter);
-
-protected:
-
-    virtual char *GetSuffixUnit(int order) const;
 };

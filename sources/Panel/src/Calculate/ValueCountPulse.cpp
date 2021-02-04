@@ -22,11 +22,5 @@ ValueCountPulse::ValueCountPulse(uint counter) : ValueFPGA()
         val.DivINT(NumberPeriods::Current().ToAbs());
     }
 
-    SetValue(val, counter);
-}
-
-
-char *ValueCountPulse::GetSuffixUnit(int order) const
-{
-    return GetSuffixUnitRelated(order);
+    SetValue("%d", (uint)val.ToDouble());
 }
