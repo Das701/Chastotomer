@@ -8,7 +8,7 @@
 #include <cstdio>
 
 
-#define S_DBG_NUM_STRINGS_IN_CONSOLE 3
+#define S_DBG_NUM_STRINGS_IN_CONSOLE 1
 
 
 char Console::buffer[10][100];
@@ -41,7 +41,7 @@ void Console::Draw()
 
     inProcessDraw = true;
 
-    int y = -1;
+    int y = 5;
 
     for (int i = 0; i < stringInConsole; i++)
     {
