@@ -17,7 +17,11 @@ struct ValueFPGA
 
     static char *GiveStringValue();
 
-    static char *UGO_DivNULL;
+    static char *UGO_DivNULL;       // Индикация деления на ноль
+
+    static char *UGO_OVERLAPPED;    // Индикация переполнения
+
+    static char *UGO_EMPTY;         // Выводится, когда значение ещё не получено после засылки значения
 
     static void SetInvalidData();
 
@@ -48,8 +52,6 @@ private:
     static ValueFPGA *valueFPGA;
 
     static String value;
-
-    static char *UGO_OVERLAPPED;
 };
 
 

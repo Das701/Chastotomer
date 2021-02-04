@@ -17,6 +17,7 @@
 
 char *ValueFPGA::UGO_DivNULL = "=X/0";
 char *ValueFPGA::UGO_OVERLAPPED = "оепеонкмемхе";
+char *ValueFPGA::UGO_EMPTY = "----------";
 
 ValueFPGA *ValueFPGA::valueFPGA = nullptr;
 String ValueFPGA::value;
@@ -305,7 +306,7 @@ void ValueFPGA::SetIntegerValue(uint counter)
 
 void ValueFPGA::SetInvalidData()
 {
-    value.Set("----------");
+    value.Set(UGO_EMPTY);
 
     Display::zoneData->Refresh();
 }

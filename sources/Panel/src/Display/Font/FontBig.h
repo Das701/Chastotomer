@@ -25,9 +25,10 @@
 struct FontBig
 {
     // Если (mapping == false) - не рисовать символ, а только возвращать значение
-    static int Write(char *text, int x, int y, bool mapping = true);
+    static int Write(char *text, int x, int y, bool mapping = true, bool splitThrees = false);
 
-    static void WriteAboutRight(char *text, int right, int y);
+    // Если (splitTress == true) - разделять тройки символов, начиная с последнего знака
+    static void WriteAboutRight(char *text, int right, int y, bool splitThress = false);
     
     // Если (mapping == false) - не рисовать символ, а только возвращать значение
     static uint WriteSymbol(uint8 symbol, int x, int y, bool mapping = true);

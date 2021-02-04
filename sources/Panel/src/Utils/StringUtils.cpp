@@ -563,3 +563,19 @@ void SU::ReplaceSymbol(char *string, char oldSymbol, char newSymbol)
         string++;
     }
 }
+
+
+bool SU::ExistSymbol(char *string, char symbol)
+{
+    while (*string != '\0')
+    {
+        if (*string == symbol)
+        {
+            return true;
+        }
+
+        string++;
+    }
+
+    return false;
+}

@@ -13,8 +13,10 @@
 #include "Menu/Pages/Channels/Channels.h"
 #include "Utils/Math.h"
 #include "Utils/String.h"
+#include "Utils/StringUtils.h"
 #include <cctype>
 #include <cstdlib>
+#include <cstring>
 
 
 using namespace Primitives;
@@ -81,6 +83,31 @@ void Object::FillBackground()
 }
 
 
+static bool ConditionSplit(char *text)
+{
+    if (std::strcmp(text, ValueFPGA::UGO_DivNULL) == 0)
+    {
+        return false;
+    }
+
+    if (std::strcmp(text, ValueFPGA::UGO_OVERLAPPED) == 0)
+    {
+        return false;
+    }
+
+    if (std::strcmp(text, ValueFPGA::UGO_EMPTY) == 0)
+    {
+        return false;
+    }
+
+    return !(SU::ExistSymbol(text, '.') || SU::ExistSymbol(text, ','));
+}
+
+
+#define RIGHT_DIGITS 360
+#define LEFT_UNTIS   380
+
+
 bool DataZone::Draw()
 {
     String data = ValueFPGA::GiveDigits();
@@ -93,11 +120,11 @@ bool DataZone::Draw()
         {
             if (gset.styleGUI.IsModern())
             {
-                FontBig::WriteAboutRight(data.c_str(), x0 + 340, y0);
+                FontBig::WriteAboutRight(data.c_str(), x0 + RIGHT_DIGITS, y0, ConditionSplit(data.c_str()));
             }
             else
             {
-                Indicator::DrawDataAboutRight(data.c_str(), x0 + 360, y0 + 1, Color::WHITE, Color::BLACK);
+                Indicator::DrawDataAboutRight(data.c_str(), x0 + RIGHT_DIGITS, y0 + 1, Color::WHITE, Color::BLACK);
             }
         }
         else
@@ -115,12 +142,12 @@ bool DataZone::Draw()
             }
             else
             {
-                Indicator::DrawDataAboutRight(data.c_str(), 370, y0 + 1, Color::WHITE, Color::BLACK);
+                Indicator::DrawDataAboutRight(data.c_str(), RIGHT_DIGITS, y0 + 1, Color::WHITE, Color::BLACK);
             }
         }
     }
 
-    FontMid::Write(ValueFPGA::GiveUnits().c_str(), x0 + 360, y0 + 20);
+    FontMid::Write(ValueFPGA::GiveUnits().c_str(), x0 + LEFT_UNTIS, y0 + 20);
 
     return true;
 }

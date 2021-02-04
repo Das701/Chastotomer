@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include <cstring>
 #include "Display/Font/FontBig.h"
 #include "Display/Primitives.h"
 #include "Display/Display.h"
@@ -682,7 +683,7 @@ static const struct bcrx
   @note        only digits and dot
   */
 static const uint16_t BigCharOffs[] = {
-    offsetof(struct bcrx, BigSpace),        // 0x20    sp
+    offsetof(struct bcrx, BigSpace),        // 0x20 sp
     offsetof(struct bcrx, BigSpace),        // 0x21 !
     offsetof(struct bcrx, BigSpace),        // 0x22 "
     offsetof(struct bcrx, BigSpace),        // 0x23 #
@@ -698,15 +699,15 @@ static const uint16_t BigCharOffs[] = {
     offsetof(struct bcrx, BigSpace),        // 0x2d -
     offsetof(struct bcrx, BigDot),          // 0x2e .
     offsetof(struct bcrx, BigSpace),        // 0x2f /
-    offsetof(struct bcrx, Big0),            // 0x30 0 
-    offsetof(struct bcrx, Big1),            // 0x31 1 
-    offsetof(struct bcrx, Big2),            // 0x32 2 
-    offsetof(struct bcrx, Big3),            // 0x33 3 
-    offsetof(struct bcrx, Big4),            // 0x34 4 
-    offsetof(struct bcrx, Big5),            // 0x35 5 
-    offsetof(struct bcrx, Big6),            // 0x36 6 
-    offsetof(struct bcrx, Big7),            // 0x37 7 
-    offsetof(struct bcrx, Big8),            // 0x38 8 
+    offsetof(struct bcrx, Big0),            // 0x30 0
+    offsetof(struct bcrx, Big1),            // 0x31 1
+    offsetof(struct bcrx, Big2),            // 0x32 2
+    offsetof(struct bcrx, Big3),            // 0x33 3
+    offsetof(struct bcrx, Big4),            // 0x34 4
+    offsetof(struct bcrx, Big5),            // 0x35 5
+    offsetof(struct bcrx, Big6),            // 0x36 6
+    offsetof(struct bcrx, Big7),            // 0x37 7
+    offsetof(struct bcrx, Big8),            // 0x38 8
     offsetof(struct bcrx, Big9),            // 0x39 9
     offsetof(struct bcrx, BigSpace),        // 0x3a :
     offsetof(struct bcrx, BigSpace),        // 0x3b ;
@@ -717,8 +718,26 @@ static const uint16_t BigCharOffs[] = {
 };
 
 
-int FontBig::Write(char *text, int x, int y, bool mapping)
+int FontBig::Write(char *text, int x, int y, bool mapping, bool splitThrees)
 {
+    uint numSymbols = std::strlen(text);
+
+    int counter = (int)(numSymbols % 3);    // Ёто значение будем увеличивать после вывода каждого символа.
+                                            //  огда значение станет равно трЄм, обнул€ем его и делаем промежуток
+
+    if (counter == 0)
+    {
+
+    }
+    else if (counter == 1)
+    {
+        counter = 2;
+    }
+    else if (counter == 2)
+    {
+        counter = 1;
+    }
+
     while (*text)
     {
         uint8 symbol = (uint8)*text;
@@ -728,17 +747,28 @@ int FontBig::Write(char *text, int x, int y, bool mapping)
         x += (symbol >= '0' && symbol <= '9') ? 33 : space;
 
         text++;
+
+        counter++;
+
+        if (splitThrees)
+        {
+            if (counter == 3)
+            {
+                counter = 0;
+                x += 10;
+            }
+        }
     }
 
     return x;
 }
 
 
-void FontBig::WriteAboutRight(char *text, int right, int y)
+void FontBig::WriteAboutRight(char *text, int right, int y, bool splitThrees)
 {
-    int size = Write(text, 0, y, false);
+    int size = Write(text, 0, y, false, splitThrees);
 
-    Write(text, right - size, y);
+    Write(text, right - size, y, true, splitThrees);
 }
 
 

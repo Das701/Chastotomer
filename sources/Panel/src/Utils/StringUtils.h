@@ -57,6 +57,9 @@ public:
 
     // Заменить в строке все символы old на new
     static void ReplaceSymbol(char *string, char oldSymbol, char newSymbol);
+
+    // Возвращает true, если в строке существует символ symbol
+    static bool ExistSymbol(char *string, char symbol);
 };
 
 
