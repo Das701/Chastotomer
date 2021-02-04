@@ -718,25 +718,44 @@ static const uint16_t BigCharOffs[] = {
 };
 
 
+// —труктура разбивает на тройки выводимое значение
+struct Splitter
+{
+    Splitter(char *text, bool splitThrees) : counter(0), split(splitThrees)
+    {
+        uint numSymbols = std::strlen(text);
+
+        counter = (int)(numSymbols % 3);        // Ёто значение будем увеличивать после вывода каждого символа.
+                                                //  огда значение станет равно трЄм, обнул€ем его и делаем промежуток
+
+        if (counter == 1)       { counter = 2; }
+        else if (counter == 2)  { counter = 1; }
+    }
+
+    void ChangeX(int &x)
+    {
+        counter++;
+
+        if (split)
+        {
+            if (counter == 3)
+            {
+                counter = 0;
+                x += 10;
+            }
+        }
+    }
+
+private:
+
+    int counter;
+    bool split;
+};
+
+
 int FontBig::Write(char *text, int x, int y, bool mapping, bool splitThrees)
 {
-    uint numSymbols = std::strlen(text);
-
-    int counter = (int)(numSymbols % 3);    // Ёто значение будем увеличивать после вывода каждого символа.
-                                            //  огда значение станет равно трЄм, обнул€ем его и делаем промежуток
-
-    if (counter == 0)
-    {
-
-    }
-    else if (counter == 1)
-    {
-        counter = 2;
-    }
-    else if (counter == 2)
-    {
-        counter = 1;
-    }
+    Splitter splitter(text, splitThrees);
 
     while (*text)
     {
@@ -748,16 +767,7 @@ int FontBig::Write(char *text, int x, int y, bool mapping, bool splitThrees)
 
         text++;
 
-        counter++;
-
-        if (splitThrees)
-        {
-            if (counter == 3)
-            {
-                counter = 0;
-                x += 10;
-            }
-        }
+        splitter.ChangeX(x);
     }
 
     return x;
