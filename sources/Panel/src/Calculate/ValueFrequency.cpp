@@ -25,6 +25,13 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
 {
     counter /= 2;
 
+    if (counter == 0)
+    {
+        CalculateZero();
+
+        return;
+    }
+
     TimeMeasure::E time = (TimeMeasure::E)Channel::Current()->mod.timeMeasure.value;
 
     uint multipliers[TimeMeasure::Count] =
@@ -61,6 +68,25 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
     }
 
     SetValue(strict, counter);
+}
+
+
+void ValueFrequency_Frequency::CalculateZero()
+{
+    ValueFrequency_Frequency zero(2);
+
+    String zeroString(ValueFPGA::GiveStringValue());
+
+    for (char *symbol = &zeroString[zeroString.Size() - 1]; symbol >= &zeroString[0]; symbol--)
+    {
+        if (SU::IsDigit(*symbol))
+        {
+            *symbol = '0';
+            break;
+        }
+    }
+
+    SetValue(zeroString.c_str());
 }
 
 

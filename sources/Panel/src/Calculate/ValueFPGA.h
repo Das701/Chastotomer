@@ -69,6 +69,10 @@ struct ValueFrequency : public ValueFPGA
 struct ValueFrequency_Frequency : public ValueFrequency
 {
     ValueFrequency_Frequency(uint counter1);
+
+private:
+
+    void CalculateZero();
 };
 
 

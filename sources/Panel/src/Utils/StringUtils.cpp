@@ -579,3 +579,9 @@ bool SU::ExistSymbol(char *string, char symbol)
 
     return false;
 }
+
+
+bool SU::IsDigit(char symbol)
+{
+    return symbol >= '0' && symbol <= '9';
+}

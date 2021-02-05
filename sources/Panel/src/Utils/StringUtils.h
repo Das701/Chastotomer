@@ -28,8 +28,10 @@ public:
     static bool EqualsStrings(uint8 *str1, const char * const str2, int size);
 
     static bool EqualsZeroStrings(char *str1, char *str2);
+
     // Возвращает позицию первого символа, который не является цифрой либо точкой
     static int FirstNotNumeral(char *buffer);
+
     // Преобразует строку в float. Обрабатываются символы до первого нецифрового символа
     static float StringToFloat(const char *string);
 
@@ -42,6 +44,8 @@ public:
     static char ToLower(char symbol);
 
     static char *DoubleToString(double value);
+
+    static bool IsDigit(char symbol);
 
     static bool StringToDouble(double *value, const char *buffer);
 

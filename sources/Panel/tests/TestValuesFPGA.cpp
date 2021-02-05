@@ -99,29 +99,29 @@ static void Tests::Frequency::Frequency::Test()
 
     // Channel::A
 
-    //                                                1 ms              10 ms             100 ms            1 s               10 s              100 s             1000s
-    Array6 results_0          = { "0 Hz",           "0 Hz",           "0 Hz",           "0 Hz",           "0 Hz",           "0 Hz",           "0 Hz"};         // 0
-    Array6 results_2          = { "1, kHz",         "0,1 kHz",        "0,01 kHz",       "1, Hz",          "0,1 Hz",         "0,01 Hz",        "1, mHz" };      // 1
-    Array6 results_18         = { "9, kHz",         "0,9 kHz",        "0,09 kHz",       "9, Hz",          "0,9 Hz",         "0,09 Hz",        "9, mHz"};       // 9
+    //                             1 ms              10 ms             100 ms            1 s               10 s              100 s             1000s
+    Array6 results_0          = { "0, kHz",         "0,0 kHz",        "0,00 kHz",       "0, Hz",          "0,0 Hz",         "0,00 Hz",        "0, mHz"};          // 0
+    Array6 results_2          = { "1, kHz",         "0,1 kHz",        "0,01 kHz",       "1, Hz",          "0,1 Hz",         "0,01 Hz",        "1, mHz" };         // 1
+    Array6 results_18         = { "9, kHz",         "0,9 kHz",        "0,09 kHz",       "9, Hz",          "0,9 Hz",         "0,09 Hz",        "9, mHz"};          // 9
 
-    Array6 results_20         = { "10, kHz",        "1,0 kHz",        "0,10 kHz",       "10, Hz",         "1,0 Hz",         "0,10 Hz",        "10, mHz" };       // 10
-    Array6 results_22         = { "11, kHz",        "1,1 kHz",        "0,11 kHz",       "11, Hz",         "1,1 Hz",         "0,11 Hz",        "11, mHz" };       // 11
-    Array6 results_198        = { "99, kHz",        "9,9 kHz",        "0,99 kHz",       "99, Hz",         "9,9 Hz",         "0,99 Hz",        "99, mHz" };      // 99
+    Array6 results_20         = { "10, kHz",        "1,0 kHz",        "0,10 kHz",       "10, Hz",         "1,0 Hz",         "0,10 Hz",        "10, mHz" };        // 10
+    Array6 results_22         = { "11, kHz",        "1,1 kHz",        "0,11 kHz",       "11, Hz",         "1,1 Hz",         "0,11 Hz",        "11, mHz" };        // 11
+    Array6 results_198        = { "99, kHz",        "9,9 kHz",        "0,99 kHz",       "99, Hz",         "9,9 Hz",         "0,99 Hz",        "99, mHz" };        // 99
 
-    Array6 results_200        = { "100, kHz",       "10,0 kHz",       "1,00 kHz",       "100, Hz",        "10,0 Hz",        "1,00 Hz",        "100, mHz" };      // 100
-    Array6 results_202        = { "101, kHz",       "10,1 kHz",       "1,01 kHz",       "101, Hz",        "10,1 Hz",        "1,01 Hz",        "101, mHz" };      // 101
+    Array6 results_200        = { "100, kHz",       "10,0 kHz",       "1,00 kHz",       "100, Hz",        "10,0 Hz",        "1,00 Hz",        "100, mHz" };       // 100
+    Array6 results_202        = { "101, kHz",       "10,1 kHz",       "1,01 kHz",       "101, Hz",        "10,1 Hz",        "1,01 Hz",        "101, mHz" };       // 101
     Array6 results_1998       = { "999, kHz",       "99,9 kHz",       "9,99 kHz",       "999, Hz",        "99,9 Hz",        "9,99 Hz",        "999, mHz" };       // 999
 
-    Array6 results_2000       = { "1,000 MHz",      "100,0 kHz",      "10,00 kHz",      "1,000 kHz",      "100,0 Hz",       "10,00 Hz",       "1,000 Hz" };     // 1 000
-    Array6 results_2002       = { "1,001 MHz",      "100,1 kHz",      "10,01 kHz",      "1,001 kHz",      "100,1 Hz",       "10,01 Hz",       "1,001 Hz" };     // 1 001
-    Array6 results_19998      = { "9,999 MHz",      "999,9 kHz",      "99,99 kHz",      "9,999 kHz",      "999,9 Hz",       "99,99 Hz",       "9,999 Hz" };     // 9 999
+    Array6 results_2000       = { "1,000 MHz",      "100,0 kHz",      "10,00 kHz",      "1,000 kHz",      "100,0 Hz",       "10,00 Hz",       "1,000 Hz" };       // 1 000
+    Array6 results_2002       = { "1,001 MHz",      "100,1 kHz",      "10,01 kHz",      "1,001 kHz",      "100,1 Hz",       "10,01 Hz",       "1,001 Hz" };       // 1 001
+    Array6 results_19998      = { "9,999 MHz",      "999,9 kHz",      "99,99 kHz",      "9,999 kHz",      "999,9 Hz",       "99,99 Hz",       "9,999 Hz" };       // 9 999
 
-    Array6 results_20000      = { "10,000 MHz",     "1,0000 MHz",     "100,00 kHz",     "10,000 kHz",     "1,0000 kHz",     "100,00 Hz",      "10,000 Hz" };     // 10 000
-    Array6 results_20002      = { "10,001 MHz",     "1,0001 MHz",     "100,01 kHz",     "10,001 kHz",     "1,0001 kHz",     "100,01 Hz",      "10,001 Hz" };     // 10 001
-    Array6 results_199998     = { "99,999 MHz",     "9,9999 MHz",     "999,99 kHz",     "99,999 kHz",     "9,9999 kHz",     "999,99 Hz",      "99,999 Hz" };     // 99 999
+    Array6 results_20000      = { "10,000 MHz",     "1,0000 MHz",     "100,00 kHz",     "10,000 kHz",     "1,0000 kHz",     "100,00 Hz",      "10,000 Hz" };      // 10 000
+    Array6 results_20002      = { "10,001 MHz",     "1,0001 MHz",     "100,01 kHz",     "10,001 kHz",     "1,0001 kHz",     "100,01 Hz",      "10,001 Hz" };      // 10 001
+    Array6 results_199998     = { "99,999 MHz",     "9,9999 MHz",     "999,99 kHz",     "99,999 kHz",     "9,9999 kHz",     "999,99 Hz",      "99,999 Hz" };      // 99 999
 
-    Array6 results_200002     = { "100,001 MHz",    "10,0001 MHz",    "1,00001 MHz",    "100,001 kHz",    "10,0001 kHz",    "1,00001 kHz",    "100,001 Hz" };    // 100 001
-    Array6 results_1999998    = { "999,999 MHz",    "99,9999 MHz",    "9,99999 MHz",    "999,999 kHz",    "99,9999 kHz",    "9,99999 kHz",    "999,999 Hz" };    // 999 999
+    Array6 results_200002     = { "100,001 MHz",    "10,0001 MHz",    "1,00001 MHz",    "100,001 kHz",    "10,0001 kHz",    "1,00001 kHz",    "100,001 Hz" };     // 100 001
+    Array6 results_1999998    = { "999,999 MHz",    "99,9999 MHz",    "9,99999 MHz",    "999,999 kHz",    "99,9999 kHz",    "9,99999 kHz",    "999,999 Hz" };     // 999 999
 
     Array6 results_2000002    = { "1,000001 GHz",   "100,0001 MHz",   "10,00001 MHz",   "1,000001 MHz",   "100,0001 kHz",   "10,00001 kHz",   "1,000001 kHz" };   // 1 000 001
     Array6 results_19999998   = { "9,999999 GHz",   "999,9999 MHz",   "99,99999 MHz",   "9,999999 MHz",   "999,9999 kHz",   "99,99999 kHz",   "9,999999 kHz" };   // 9 999 999
@@ -234,16 +234,16 @@ static void Tests::Frequency::Frequency::Test()
 
 static void Tests::Frequency::Frequency::TestChannelsCD()
 {
-    //                                              1 ms               10 ms              100 ms             1 s               10 s               100 s              1000s
-    String results_0[TimeMeasure::Count]        = { "0 Hz",          "0 Hz",           "0 Hz",             "0 Hz",           "0 Hz",           "0 Hz",             "0 Hz" };
-    String results_310[TimeMeasure::Count]      = { "9,92 MHz",      "992, kHz",       "99,2 kHz",         "9,92 kHz",       "992, Hz",        "99,2 Hz",          "9,92 Hz" };
-    String results_312[TimeMeasure::Count]      = { "9,98 MHz",      "998, kHz",       "99,8 kHz",         "9,98 kHz",       "998, Hz",        "99,8 Hz",          "9,98 Hz" };
-    String results_2000[TimeMeasure::Count]     = { "64,00 MHz",     "6,400 MHz",      "640,0 kHz",        "64,00 kHz",      "6,400 kHz",      "640,0 Hz",         "64,00 Hz" };
-    String results_3126[TimeMeasure::Count]     = { "100,0 MHz",     "10,00 MHz",      "1,000 MHz",        "100,0 kHz",      "10,00 kHz",      "1,000 kHz",        "100,0 Hz" };
-    String results_31250[TimeMeasure::Count]    = { "1,0000 GHz",    "100,00 MHz",     "10,000 MHz",       "1,0000 MHz",     "100,00 kHz",     "10,000 kHz",       "1,0000 kHz" };
-    String results_312500[TimeMeasure::Count]   = { "10,0000 GHz",   "1,00000 GHz",    "100,000 MHz",      "10,0000 MHz",    "1,00000 MHz",    "100,000 kHz",      "10,0000 kHz" };
-    String results_3125000[TimeMeasure::Count]  = { "100,0000 GHz",  "10,00000 GHz",   "1,000000 GHz",     "100,0000 MHz",   "10,00000 MHz",   "1,000000 MHz",     "100,0000 kHz" };
-    String results_31250000[TimeMeasure::Count] = { "1,0000000 THz", "100,00000 GHz",  "10,000000 GHz",    "1,0000000 GHz",  "100,00000 MHz",  "10,000000 MHz",    "1,0000000 MHz" };
+    //                                               1 ms             10 ms            100 ms           1 s              10 s             100 s            1000s
+    String results_0[TimeMeasure::Count]        = { "0,00 MHz",      "0, kHz",        "0,0 kHz",       "0,00 kHz",      "0, Hz",         "0,0 Hz",        "0,00 Hz" };
+    String results_310[TimeMeasure::Count]      = { "9,92 MHz",      "992, kHz",      "99,2 kHz",      "9,92 kHz",      "992, Hz",       "99,2 Hz",       "9,92 Hz" };
+    String results_312[TimeMeasure::Count]      = { "9,98 MHz",      "998, kHz",      "99,8 kHz",      "9,98 kHz",      "998, Hz",       "99,8 Hz",       "9,98 Hz" };
+    String results_2000[TimeMeasure::Count]     = { "64,00 MHz",     "6,400 MHz",     "640,0 kHz",     "64,00 kHz",     "6,400 kHz",     "640,0 Hz",      "64,00 Hz" };
+    String results_3126[TimeMeasure::Count]     = { "100,0 MHz",     "10,00 MHz",     "1,000 MHz",     "100,0 kHz",     "10,00 kHz",     "1,000 kHz",     "100,0 Hz" };
+    String results_31250[TimeMeasure::Count]    = { "1,0000 GHz",    "100,00 MHz",    "10,000 MHz",    "1,0000 MHz",    "100,00 kHz",    "10,000 kHz",    "1,0000 kHz" };
+    String results_312500[TimeMeasure::Count]   = { "10,0000 GHz",   "1,00000 GHz",   "100,000 MHz",   "10,0000 MHz",   "1,00000 MHz",   "100,000 kHz",   "10,0000 kHz" };
+    String results_3125000[TimeMeasure::Count]  = { "100,0000 GHz",  "10,00000 GHz",  "1,000000 GHz",  "100,0000 MHz",  "10,00000 MHz",  "1,000000 MHz",  "100,0000 kHz" };
+    String results_31250000[TimeMeasure::Count] = { "1,0000000 THz", "100,00000 GHz", "10,000000 GHz", "1,0000000 GHz", "100,00000 MHz", "10,000000 MHz", "1,0000000 MHz" };
 
     String *results[] =
     {
