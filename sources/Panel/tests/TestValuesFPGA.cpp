@@ -93,8 +93,6 @@ static char *GetMathValue()
 
 static void Tests::Frequency::Frequency::Test()
 {
-    typedef char *pChar;
-
     typedef char *Array6[TimeMeasure::Count];
 
     // Channel::A
@@ -571,21 +569,21 @@ static void Tests::Period::F_1::Test()
         UGO::DivNULL,
         UGO::DivNULL
     };
-    String results_2[TimeMeasure::Count]          = { "1, ms",          "0,01 s",         "0,1 s",          "1, s",           "0,01 ks",        "0,1 ks",         "1, ks" };      // 1
-    String results_18[TimeMeasure::Count]         = { "0,1 ms",         "1, ms",          "0,01 s",         "0,1 s",          "1, s",           "0,01 ks",        "0,1 ks" };       // 9
+    String results_2[TimeMeasure::Count]          = { "1, ms",         "0,01 s",        "0,1 s",         "1, s",          "0,01 ks",       "0,1 ks",        "1, ks" };      // 1
+    String results_18[TimeMeasure::Count]         = { "0,1 ms",        "1, ms",         "0,01 s",        "0,1 s",         "1, s",          "0,01 ks",       "0,1 ks" };       // 9
                                                   
-    String results_20[TimeMeasure::Count]         = { "0,10 ms",        "1,0 ms",         "10, ms",         "0,10 s",         "1,0 s",          "10, s",          "0,10 ks" };       // 10
-    String results_22[TimeMeasure::Count]         = { "90, us",         "0,90 ms",        "9,0 ms",         "90, ms",         "0,90 s",         "9,0 s",          "90, s" };       // 11
-    String results_198[TimeMeasure::Count]        = { "10, us",         "0,10 ms",        "1,0 ms",         "10, ms",         "0,10 s",         "1,0 s",          "10, s" };      // 99
+    String results_20[TimeMeasure::Count]         = { "0,10 ms",       "1,0 ms",        "10, ms",        "0,10 s",        "1,0 s",         "10, s",         "0,10 ks" };       // 10
+    String results_22[TimeMeasure::Count]         = { "90, us",        "0,90 ms",       "9,0 ms",        "90, ms",        "0,90 s",        "9,0 s",         "90, s" };       // 11
+    String results_198[TimeMeasure::Count]        = { "10, us",        "0,10 ms",       "1,0 ms",        "10, ms",        "0,10 s",        "1,0 s",         "10, s" };      // 99
                                                   
       
-    String results_199999980[TimeMeasure::Count]  = { "10,000001 ps",   "100,00001 ps",   "1,0000001 ns",   "10,000001 ns",   "100,00001 ns",   "1,0000001 us",   "10,000001 us" }; // 100 000 001
-    String results_199999990[TimeMeasure::Count]  = { "10,000000 ps",   "100,00000 ps",   "1,0000000 ns",   "10,000000 ns",   "100,00000 ns",   "1,0000000 us",   "10,000000 us" }; // 100 000 001
-    String results_199999998[TimeMeasure::Count]  = { "10,000000 ps",   "100,00000 ps",   "1,0000000 ns",   "10,000000 ns",   "100,00000 ns",   "1,0000000 us",   "10,000000 us" }; // 100 000 001
-    String results_200000000[TimeMeasure::Count]  = { "10,0000000 ps",  "100,000000 ps",  "1,00000000 ns",  "10,0000000 ns",  "100,000000 ns",  "1,00000000 us",  "10,0000000 us" }; // 100 000 001
-    String results_200000002[TimeMeasure::Count]  = { "9,99999900 ps",  "99,9999990 ps",  "999,999990 ps",  "9,99999990 ns",  "99,9999990 ns",  "999,999990 ns",  "9,99999990 us" }; // 100 000 001
+    String results_199999980[TimeMeasure::Count]  = { "10,000001 ps",  "100,00001 ps",  "1,0000001 ns",  "10,000001 ns",  "100,00001 ns",  "1,0000001 us",  "10,000001 us" }; // 100 000 001
+    String results_199999990[TimeMeasure::Count]  = { "10,000000 ps",  "100,00000 ps",  "1,0000000 ns",  "10,000000 ns",  "100,00000 ns",  "1,0000000 us",  "10,000000 us" }; // 100 000 001
+    String results_199999998[TimeMeasure::Count]  = { "10,000000 ps",  "100,00000 ps",  "1,0000000 ns",  "10,000000 ns",  "100,00000 ns",  "1,0000000 us",  "10,000000 us" }; // 100 000 001
+    String results_200000000[TimeMeasure::Count]  = { "10,0000000 ps", "100,000000 ps", "1,00000000 ns", "10,0000000 ns", "100,000000 ns", "1,00000000 us", "10,0000000 us" }; // 100 000 001
+    String results_200000002[TimeMeasure::Count]  = { "9,99999900 ps", "99,9999990 ps", "999,999990 ps", "9,99999990 ns", "99,9999990 ns", "999,999990 ns", "9,99999990 us" }; // 100 000 001
  
-    String results_1999999998[TimeMeasure::Count] = { "1,00000000 ps",  "10,0000000 ps",  "100,000000 ps",  "1,00000000 ns",  "10,0000000 ns",  "100,000000 ns",  "1,00000000 us" }; // 999 999 999
+    String results_1999999998[TimeMeasure::Count] = { "1,00000000 ps", "10,0000000 ps", "100,000000 ps", "1,00000000 ns", "10,0000000 ns", "100,000000 ns", "1,00000000 us" }; // 999 999 999
 
     uint counters[] = {
         0, 2, 18,

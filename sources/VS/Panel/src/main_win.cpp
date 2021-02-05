@@ -20,7 +20,7 @@ void init()
 
 void update()
 {
-	ValueFPGA::Create(24, 53234, 3334, 160, 34);
+	ValueFPGA::Create(4999900, 55553, 1660, 5972, 1660);
 
 	Display::Refresh();
 	Menu::Update();
