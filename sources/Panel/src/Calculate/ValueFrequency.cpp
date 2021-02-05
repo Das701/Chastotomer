@@ -77,7 +77,10 @@ void ValueFrequency_Frequency::CalculateZero()
 
     String zeroString(ValueFPGA::GiveStringValue());
 
-    for (char *symbol = &zeroString[zeroString.Size() - 1]; symbol >= &zeroString[0]; symbol--)
+    char *end = &zeroString[zeroString.Size() - 1];
+    char *start = &zeroString[0];
+
+    for (char *symbol = end; symbol >= start; symbol--)
     {
         if (SU::IsDigit(*symbol))
         {
