@@ -174,7 +174,6 @@ ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
             return;
         }
 
-        valueA.MulINT(TimeMeasure::Current().ToMS());
         valueA.DivUINT(counter2);
         valueA.DivUINT(32);
     }
