@@ -1,1 +1,1 @@
-start ..\..\generated\Keil\FreqMeter.sln
+start ..\..\generated\Keil\CH3-96-2.sln

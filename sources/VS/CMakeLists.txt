@@ -15,9 +15,9 @@ if (COMMAND cmake_policy)
 endif ()
 
 # Set project name
-project (FreqMeter_GUI)
+project (CH3-96-2_GUI)
 
-set (TARGET_NAME FreqMeter_GUI)
+set (TARGET_NAME CH3-96-2_GUI)
 
 add_subdirectory(Panel)
 add_subdirectory(Saver)

@@ -4,7 +4,7 @@
 
 @echo %TIME%   Building VS-Keil version
 
-MSBuild.exe ..\..\generated\Keil\FreqMeter.sln -clp:ErrorsOnly;WarningsOnly -nologo /m
+MSBuild.exe ..\..\generated\Keil\CH3-96-2.sln -clp:ErrorsOnly;WarningsOnly -nologo /m
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 goto Failed
 

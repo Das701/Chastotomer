@@ -15,8 +15,8 @@ if (COMMAND cmake_policy)
 endif ()
 
 # Set project name
-project (FreqMeter)
+project (CH3-96-2)
 
-set (TARGET_NAME FreqMeter)
+set (TARGET_NAME CH3-96-2)
 
 add_subdirectory(Panel)
