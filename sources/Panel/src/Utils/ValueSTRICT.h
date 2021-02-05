@@ -112,6 +112,9 @@ private:
     uint64 value;   // Значение параметра в единицах измерения "нано".
                     // Установленный в "1" старший бит означает, что число
                     // отрицательное
+
+    void IntegerToString(String &string) const;
+    void FractToString(String &string) const;
 };
 
 

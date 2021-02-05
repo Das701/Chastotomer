@@ -395,11 +395,23 @@ void ValueComparator::SetSign(int sign)
 
 String ValueComparator::ToString() const
 {
-    int _sign = Sign();
+    String string;
 
+    IntegerToString(string);
+
+    string.Append('.');
+
+    FractToString(string);
+
+    return string;
+}
+
+
+void ValueComparator::IntegerToString(String &string) const
+{
     int intPart = Integer();
 
-    if (_sign < 0)
+    if (Sign() < 0)
     {
         intPart *= -1;
     }
@@ -412,25 +424,25 @@ String ValueComparator::ToString() const
         intPart /= 10;
     }
 
-    String buffer;
-
-    if (_sign == -1)
+    if (Sign() == -1)
     {
-        buffer.Append('-');
+        string.Append('-');
     }
-    
-    if(stack.Empty())
+
+    if (stack.Empty())
     {
-        buffer.Append('0');
+        string.Append('0');
     }
 
     while (!stack.Empty())                     // Переводим в строку целую часть
     {
-        buffer.Append(stack.Pop() | 0x30);
+        string.Append(stack.Pop() | 0x30);
     }
+}
 
-    buffer.Append('.');
 
+void ValueComparator::FractToString(String &string) const
+{
     ValueComparator val(*this);
 
     val.SetSign(1);
@@ -442,15 +454,13 @@ String ValueComparator::ToString() const
     while (count < 4)
     {
         val.Mul(10);
-        
-        buffer.Append((char)(val.Integer() | 0x30));
+
+        string.Append((char)(val.Integer() | 0x30));
 
         count++;
 
         val.Sub(ValueComparator(val.Integer()));
     }
-
-    return buffer;
 }
 
 
