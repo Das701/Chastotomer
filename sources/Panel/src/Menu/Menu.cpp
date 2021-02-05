@@ -93,31 +93,7 @@ void Menu::Update()
 }
 
 
-// Устанавливает текущий канал в зависимости от нажатой кнопки
-static void SetCurrentChannel(const Control &control)
-{
-    if (control.value == Control::Channels)
-    {
-        if (Menu::OpenedPage()->IsPageSettings())
-        {
-            Channel::SelectNext();
 
-            Channel::Current()->OnChanged_TypeMeasure();
-
-            Channel::Current()->LoadToFPGA();
-        }
-
-        openedPage = Channel::Current()->pageSettings;
-
-        Hint::Hide();
-    }
-    else if (control.value == Control::Mode) //-V2516
-    {
-        openedPage = Channel::Current()->pageModes;
-
-        Hint::Hide();
-    }
-}
 
 
 static bool OpenPage(Control control)
@@ -127,8 +103,6 @@ static bool OpenPage(Control control)
         return false;
     }
            
-    SetCurrentChannel(control);
-
     Page *const pages[Control::Count] =
     {
         nullptr,              // GovButton,
@@ -207,7 +181,23 @@ static bool OnKey(const Control &control) //-V2008
 
     case Control::Mode:
         Channel::Current()->PressSetup();
-        break;
+        openedPage = (openedPage == Channel::Current()->pageModes) ? Channel::Current()->pageSettings : 
+                                                                     Channel::Current()->pageModes;
+        Hint::Hide();
+        return true;
+
+    case Control::Channels:
+        {
+            bool openSettings = (openedPage == Channel::Current()->pageSettings);
+            bool openModes    = (openedPage == Channel::Current()->pageModes);
+            Channel::SelectNext();
+            Channel::Current()->OnChanged_TypeMeasure();
+            Channel::Current()->LoadToFPGA();
+            if (openSettings)   { openedPage = Channel::Current()->pageSettings; }
+            else if (openModes) { openedPage = Channel::Current()->pageModes; }
+            Hint::Hide();
+        }
+        return true;
 
     case Control::Test:
         if ((Channel::A->mod.modeFrequency.IsRatioAC() && CURRENT_CHANNEL_IS_A) ||
@@ -236,7 +226,6 @@ static bool OnKey(const Control &control) //-V2008
         break;
 
     case Control::Indication:
-    case Control::Channels:
     case Control::Service:
     case Control::Count:
     case Control::GovLeft:
