@@ -395,12 +395,6 @@ void ValueComparator::SetSign(int sign)
 
 String ValueComparator::ToString() const
 {
-    char buffer[50];
-
-    char symbol[2] = { 0, 0 };
-
-    buffer[0] = 0;
-
     int _sign = Sign();
 
     int intPart = Integer();
@@ -418,35 +412,30 @@ String ValueComparator::ToString() const
         intPart /= 10;
     }
 
+    String buffer;
+
     if (_sign == -1)
     {
-        symbol[0] = '-';
-        std::strcat(buffer, symbol);
+        buffer.Append('-');
     }
     
     if(stack.Empty())
     {
-        symbol[0] = '0';
-        std::strcat(buffer, symbol); //-V2513
+        buffer.Append('0');
     }
 
     while (!stack.Empty())                     // Переводим в строку целую часть
     {
-        symbol[0] = stack.Pop() | 0x30;
-
-        std::strcat(buffer, symbol); //-V2513
+        buffer.Append(stack.Pop() | 0x30);
     }
 
-    symbol[0] = '.';
-
-    std::strcat(buffer, symbol); //-V2513
+    buffer.Append('.');
 
     ValueComparator val(*this);
 
     val.SetSign(1);
 
-    val.Sub(ValueComparator(Integer() * (Sign() > 1 ? 1 : -1))); 
-                                   // Теперь в val осталась только дробная часть
+    val.Sub(ValueComparator(Integer() * Sign()));   // Теперь в val осталась только дробная часть
 
     int count = 0;
 
@@ -454,18 +443,14 @@ String ValueComparator::ToString() const
     {
         val.Mul(10);
         
-        int integer = val.Integer();
-        
-        symbol[0] = (char)(integer | 0x30);
-
-        std::strcat(buffer, symbol); //-V2513
+        buffer.Append((char)(val.Integer() | 0x30));
 
         count++;
 
-        val.Sub(ValueComparator(integer));
+        val.Sub(ValueComparator(val.Integer()));
     }
 
-    return String(buffer);
+    return buffer;
 }
 
 
