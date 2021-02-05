@@ -77,10 +77,10 @@ void ValueFrequency_Frequency::CalculateZero()
 
     String zeroString(ValueFPGA::GiveStringValue());
 
-    char *end = &zeroString[zeroString.Size() - 1];
+    char *end = &zeroString[zeroString.Size()];
     char *start = &zeroString[0];
 
-    for (char *symbol = end; symbol >= start; symbol--)
+    for (char *symbol = end - 1; symbol >= start; symbol--)
     {
         if (SU::IsDigit(*symbol))
         {
@@ -122,7 +122,7 @@ ValueFrequency_Tachometer::ValueFrequency_Tachometer(uint counter) : ValueFreque
 ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1, int cal1, int interpol2, int cal2) :
     ValueFrequency()
 {
-    /*
+/*
 *   A = (N - counter) / N - dx / N;
 *   A = (N - conter - dx) / N
 *   dx = (interpol1 / cal1 - interpol2 / cal2) / 2
