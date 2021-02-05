@@ -359,13 +359,21 @@ void ValueComparator::Add(ValueComparator &add)
 }
 
 
-void ValueComparator::Sub(const ValueComparator &val)
+ValueComparator &ValueComparator::Sub(const ValueComparator &val)
 {
     ValueComparator sub(val);
 
     sub.SetSign(-val.Sign());
 
     Add(sub);
+
+    return *this;
+}
+
+
+void ValueComparator::Sub(int val)
+{
+    Sub(ValueComparator(val));
 }
 
 
@@ -447,7 +455,7 @@ void ValueComparator::FractToString(String &string) const
 
     val.SetSign(1);
 
-    val.Sub(ValueComparator(Integer() * Sign()));   // “еперь в val осталась только дробна€ часть
+    val.Sub(Integer() * Sign());   // “еперь в val осталась только дробна€ часть
 
     int count = 0;
 
@@ -459,7 +467,7 @@ void ValueComparator::FractToString(String &string) const
 
         count++;
 
-        val.Sub(ValueComparator(val.Integer()));
+        val.Sub(val.Integer());
     }
 }
 

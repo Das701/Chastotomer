@@ -91,7 +91,8 @@ struct ValueComparator //-V690
     void Mul(uint mul);
 
     void Add(ValueComparator &value);
-    void Sub(const ValueComparator &value);
+    ValueComparator &Sub(const ValueComparator &value);
+    void Sub(int value);
 
     int Sign() const;
     void SetSign(int sign);
@@ -103,6 +104,7 @@ struct ValueComparator //-V690
 
     uint64 Abs() const;
 
+    // ¬озвращает целую часть (единицы) со знаком
     int Integer() const;
 
     uint64 FractPico() const;

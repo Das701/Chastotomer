@@ -154,8 +154,7 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
         ValueComparator dx = (k1 - k2) / 2;
 
         ValueComparator A((int)N - (int)counter);
-        A.Sub(dx);
-        A.Div(N);
+        A.Sub(dx).Div(N);
 
         A.Mul(1000000);     // Это приводим к своей выводимой степени
 
