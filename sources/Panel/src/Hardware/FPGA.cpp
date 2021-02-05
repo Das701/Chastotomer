@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "Log.h"
+//#include "Log.h"
 #include "Settings.h"
 #include "Calculate/ValueFPGA.h"
 #include "Display/Display.h"
@@ -171,7 +171,7 @@ void FPGA::Update() //-V2008
 
                 Reset_CS; //-V2571
 
-                LOG_WRITE("%d %d", counterA, counterB);
+//                LOG_WRITE("%d %d", counterA, counterB);
                 ValueFPGA::Create(counterA, counterB);
 
                 HAL_TIM::DelayUS(8);
@@ -193,7 +193,7 @@ void FPGA::ReadFillFactorPhase()
         CycleRead(32, duration, true);
         Reset_CS;
 
-        LOG_WRITE("%d %d", period, duration);
+///        LOG_WRITE("%d %d", period, duration);
         ValueFPGA::Create(period, duration);
 
         HAL_TIM::DelayUS(8);
@@ -216,7 +216,7 @@ void FPGA::ReadInterpolator()
         CycleRead(24, cal2, false);
         Reset_CS; //-V2571
 
-        LOG_WRITE("%d %d %d", timer, cal1, cal2);
+//        LOG_WRITE("%d %d %d", timer, cal1, cal2);
         ValueFPGA::Create(timer, cal1, cal2);
 
         HAL_TIM::DelayUS(8);
@@ -261,7 +261,7 @@ void FPGA::ReadComparator()
         CycleRead(16, cal2, false);
         Reset_CS; //-V2571
 
-        LOG_WRITE("%d %d %d %d %d", counter, interpol1, cal1, interpol2, cal2);
+//        LOG_WRITE("%d %d %d %d %d", counter, interpol1, cal1, interpol2, cal2);
         ValueFPGA::Create(counter, interpol1, cal1, interpol2, cal2);
 
         HAL_TIM::DelayUS(8);
