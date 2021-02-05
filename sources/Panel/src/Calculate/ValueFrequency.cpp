@@ -86,13 +86,12 @@ ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
 
 ValueFrequency_Tachometer::ValueFrequency_Tachometer(uint counter) : ValueFrequency()
 {
-    counter /= 2;
-
-    SetValue("%d", counter);
+    SetValue("%d", counter / 2);
 }
 
 
-ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1, int cal1, int interpol2, int cal2) : ValueFrequency()
+ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1, int cal1, int interpol2, int cal2) :
+    ValueFrequency()
 {
     /*
 *   A = (N - counter) / N - dx / N;
@@ -183,6 +182,9 @@ ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
     {
         valueA.MulUINT(64);
         valueA.DivINT(NumberPeriods::Current().ToAbs());
+
+        counter1 *= 64;         // Это нужно, чтобы при переводе в текстовое значение учесть знаки, которые добавляются
+                                // после умножения на 64
     }
 
     SetValue(valueA, counter1);
