@@ -260,7 +260,7 @@ void ValueSTRICT::Sub(const ValueSTRICT &value)
 
 void ValueSTRICT::AddUnits(uint64 u)
 {
-    if (((double)units + (double)u) > (double)MAX_UINT64)
+    if (((double)units + (double)u) >= (double)MAX_UINT64)
     {
         DecreaseOrder();
         u /= THOUSAND;
@@ -276,14 +276,20 @@ void ValueSTRICT::AlignOrders(ValueSTRICT &v)
     {
         while (!LeadTo(v.order.value))
         {
-            v.DecreaseOrder();
+            if (!v.DecreaseOrder())
+            {
+                return;             // Да, значение будет посчитано неправильно, но зато не будет зависания
+            }
         }
     }
     else if (v.order.value < order.value)
     {
         while (!v.LeadTo(order.value))
         {
-            DecreaseOrder();
+            if (!DecreaseOrder())
+            {
+                return;             // Да, значение будет посчитано неправильно, но зато не будет зависания
+            }
         }
     }
 }
