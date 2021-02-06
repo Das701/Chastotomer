@@ -305,48 +305,29 @@ void ValueSTRICT::SetSign(int s)
 
 void ValueSTRICT::Normalize()
 {
-    double v = ToDouble();
-
     while ((double)(units * THOUSAND) < (double)MAX_UINT64)
     {
-        v = ToDouble();
-
         if (!IncreaseOrder())
         {
-            v = ToDouble();
-
             break;
         }
-
-        v = ToDouble();
-        v = v;
     }
 }
 
 
 bool ValueSTRICT::IncreaseOrder()
 {
-    double v = ToDouble();
-
     if ((double)(units) * 1000.0 > (double)MAX_UINT64)
     {
         return false;
     }
 
-    v = ToDouble();
-
     if (!order.Increase())
     {
-        v = ToDouble();
-
         return false;
     }
 
-    v = ToDouble();
-
     units *= THOUSAND;
-
-    v = ToDouble();
 
     return true;
 }
