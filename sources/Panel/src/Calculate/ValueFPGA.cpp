@@ -235,7 +235,7 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, bool isOrdered)
         {
             while (strict.ToUnits(Order::Milli) < 1)
             {
-                strict.MulUINT(1000);
+                strict.Mul(1000);
                 order -= 3;
             }
         }
@@ -252,7 +252,7 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, bool isOrdered)
         {
             while ((uint)strict.ToDouble() < 1)
             {
-                strict.MulUINT(1000);
+                strict.Mul(1000);
                 order -= 3;
             }
 

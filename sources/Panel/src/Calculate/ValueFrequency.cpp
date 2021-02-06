@@ -58,13 +58,13 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
 
     ValueSTRICT strict((int64)counter);
 
-    strict.MulUINT(multipliers[time]);
+    strict.Mul(multipliers[time]);
 
     strict.Div(dividers[time]);
 
     if (CURRENT_CHANNEL_IS_C || CURRENT_CHANNEL_IS_D)
     {
-        strict.MulUINT(64);
+        strict.Mul(64);
     }
 
     SetValue(strict, counter);
@@ -105,7 +105,7 @@ ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
 
     ValueSTRICT strict(Channel::Current()->mod.numberPeriods.ToAbs());
 
-    strict.MulINT(Channel::Current()->mod.timeLabels.ToZeros());
+    strict.Mul(Channel::Current()->mod.timeLabels.ToZeros());
 
     strict.Div(counter);
 
@@ -162,7 +162,7 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
 
         if (!Channel::Current()->mod.timeComparator.Is_1s())
         {
-            A.MulINT(10);
+            A.Mul(10);
         }
 
         if (values.AppendValue(A.ToDouble()))
@@ -213,7 +213,7 @@ ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
     }
     else if (mode.IsRatioCA() || mode.IsRatioCB())
     {
-        valueA.MulUINT(64);
+        valueA.Mul(64);
         valueA.Div(NumberPeriods::Current().ToAbs());
 
         counter1 *= 64;         // Это нужно, чтобы при переводе в текстовое значение учесть знаки, которые добавляются

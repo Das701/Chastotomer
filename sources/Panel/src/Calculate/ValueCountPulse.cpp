@@ -14,7 +14,7 @@ ValueCountPulse::ValueCountPulse(uint counter) : ValueFPGA()
 
     if (CURRENT_CHANNEL_IS_C)
     {
-        val.MulUINT(64);
+        val.Mul(64);
     }
 
     if (ModeCountPulse::Current().IsFromPeriod())

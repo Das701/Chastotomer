@@ -42,7 +42,7 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
         mainUnits.Set("$");
 
         val.FromINT64((int64)duration);
-        val.MulUINT(360);
+        val.Mul(360);
         val.Div(period);
 
         if (period == duration)

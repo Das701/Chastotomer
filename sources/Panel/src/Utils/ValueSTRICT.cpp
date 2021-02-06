@@ -194,11 +194,11 @@ void ValueSTRICT::Div(int div)
 }
 
 
-void ValueSTRICT::MulINT(int mul)
+void ValueSTRICT::Mul(int mul)
 {
     SetSign(Sign() * Math::Sign(mul));
 
-    ValueSTRICT::MulUINT((uint)Math::Abs(mul));
+    ValueSTRICT::Mul((uint)Math::Abs(mul));
 }
 
 
@@ -306,7 +306,7 @@ void ValueSTRICT::Div(double div)
 }
 
 
-void ValueSTRICT::MulUINT(uint mul)
+void ValueSTRICT::Mul(uint mul)
 {
     while (((double)units * (double)mul) >= (double)MAX_UINT64)
     {
@@ -397,7 +397,7 @@ bool ValueSTRICT::LeadTo(Order::E newOrder)
 ValueSTRICT operator*(const ValueSTRICT &first, int second)
 {
     ValueSTRICT result = first;
-    result.MulINT(second);
+    result.Mul(second);
     return result;
 }
 

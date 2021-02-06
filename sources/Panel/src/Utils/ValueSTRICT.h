@@ -56,8 +56,8 @@ struct ValueSTRICT
     void Div(int div);
     void Div(double div);
 
-    void MulUINT(uint mul);
-    void MulINT(int mul);
+    void Mul(uint mul);
+    void Mul(int mul);
 
     void Sub(const ValueSTRICT &sub);
 
