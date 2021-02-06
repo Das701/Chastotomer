@@ -119,7 +119,7 @@ ValueFrequency_Tachometer::ValueFrequency_Tachometer(uint counter) : ValueFreque
 }
 
 
-ValueFrequency_Comparator::ValueFrequency_Comparator(uint /*counter*/, int interpol1, int cal1, int interpol2, int cal2) :
+ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1, int cal1, int interpol2, int cal2) :
     ValueFrequency()
 {
 /*
@@ -153,32 +153,35 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint /*counter*/, int inter
         ValueSTRICT k2(interpol2);
         k2.DivINT(cal2);
 
-//        ValueComparator dx = (k1 - k2) / 2;
-//
-//        ValueComparator A((int)N - (int)counter);
-//        A.Sub(dx);
-//        A.Div(N);
-//
-//        A.Mul(1000000);     // Это приводим к своей выводимой степени
-//
-//        if (!Channel::Current()->mod.timeComparator.Is_1s())
-//        {
-//            A.Mul(10);
-//        }
-//
-//        if (values.AppendValue(A.ToDouble()))
-//        {
-//            Display::Refresh();
-//        }
-//
-//        if (Channel::Current()->mod.timeComparator.Is_1s())
-//        {
-//            SetValue("%s E-6", A.ToString().c_str());
-//        }
-//        else
-//        {
-//            SetValue("%s E-7", A.ToString().c_str());
-//        }
+        ValueSTRICT dx = k1;
+        dx.Sub(k2);
+        dx.DivINT(2);
+
+        ValueSTRICT A((int)N - (int)counter);
+        A.Sub(dx);
+        A.DivUINT(N);
+
+        A.MulINT(1000000);     // Это приводим к своей выводимой степени
+
+        if (!Channel::Current()->mod.timeComparator.Is_1s())
+        {
+            A.MulINT(10);
+        }
+
+        if (values.AppendValue(A.ToDouble()))
+        {
+            Display::Refresh();
+        }
+
+        if (Channel::Current()->mod.timeComparator.Is_1s())
+        {
+            //SetValue("%s E-6", A.ToString().c_str());
+            SetValue("%f E-6", A.ToDouble());
+        }
+        else
+        {
+            //SetValue("%s E-7", A.ToString().c_str());
+        }
     }
 }
 
