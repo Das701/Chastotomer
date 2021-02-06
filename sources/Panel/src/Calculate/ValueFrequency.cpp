@@ -58,19 +58,9 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
 
     ValueSTRICT strict((int64)counter);
 
-    double d = strict.ToDouble();
-
-    uint mul = multipliers[time];
-
     strict.MulUINT(multipliers[time]);
 
-    d = strict.ToDouble();
-
-    uint div = dividers[time];
-
     strict.DivUINT(dividers[time]);
-
-    d = strict.ToDouble();
 
     if (CURRENT_CHANNEL_IS_C || CURRENT_CHANNEL_IS_D)
     {

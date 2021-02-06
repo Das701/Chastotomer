@@ -227,7 +227,7 @@ void ValueSTRICT::Sub(const ValueSTRICT &value)
             else                                            // abs(lhs) < abs(rhs)
             {
                 units = sub.units - units;
-                sign = -1;
+                SetSign(-1);
             }
         }
         else                                                // lhs > 0, rhs < 0
@@ -240,6 +240,18 @@ void ValueSTRICT::Sub(const ValueSTRICT &value)
         if (sub.Sign() > 0)                                 // lhs < 0, rhs > 0
         {
             units += sub.units;
+        }
+        else                                                // lhs < 0, rhs < 0
+        {
+            if (units > sub.units)                          // abs(lhs) > abs(rhs)
+            {
+                units -= sub.units;
+            }
+            else                                            // abs(lhs) < abs(rhs)
+            {
+                units = sub.units - units;
+                SetSign(1);
+            }
         }
     }
 }
@@ -373,10 +385,10 @@ bool ValueSTRICT::LeadTo(Order::E newOrder)
 }
 
 
-ValueSTRICT operator*(ValueSTRICT &first, int second)
+ValueSTRICT operator*(const ValueSTRICT &first, int second)
 {
     ValueSTRICT result = first;
-    first.MulINT(second);
+    result.MulINT(second);
     return result;
 }
 

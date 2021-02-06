@@ -93,6 +93,4 @@ private:
 };
 
 
-//ValueSTRICT operator/(int64 first, const ValueSTRICT &second);
-ValueSTRICT operator*(ValueSTRICT &first, int second);
-//bool operator!=(const ValueSTRICT &rist, const ValueSTRICT &second);
+ValueSTRICT operator*(const ValueSTRICT &first, int second);

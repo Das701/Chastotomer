@@ -11,7 +11,7 @@ namespace Tests
 {
     static void AllTests(ValueSTRICT value);
 
-    static void TestSub(ValueSTRICT value);
+    static void TestEqualSub(const ValueSTRICT value);
 }
 
 
@@ -28,32 +28,66 @@ void Tests::ValuesSTRICT()
 
 void Tests::AllTests(ValueSTRICT value)
 {
-    TestSub(value);
+    TestEqualSub(value);
 }
 
 
-void Tests::TestSub(ValueSTRICT one)
+static void Tests::TestEqualSub(const ValueSTRICT value)
 {
-    ValueSTRICT pattern = one;
+    ValueSTRICT one = value;
+    ValueSTRICT two = value;
 
-    one.Abs();
 
-    ValueSTRICT two = one;
+    ValueSTRICT result(0);
 
-    two.Sub(one);
-
-    if (!two.IsZero())
     {
-        FailExit();
+        one.SetSign(1);
+        two.SetSign(1);
+
+        result = one;
+        result.Sub(two);
+        if (!result.IsZero())
+        {
+            FailExit();
+        }
     }
 
-    one.SetSign(1);
-    two.SetSign(-1);
-
-    one.Sub(two);
-
-    if (one != pattern * 2)
     {
-        FailExit();
+        one.SetSign(1);
+        two.SetSign(-1);
+
+        result = one;
+        result.Sub(two);
+
+        if (result != one * 2)
+        {
+            FailExit();
+        }
+    }
+
+    {
+        one.SetSign(-1);
+        two.SetSign(1);
+
+        result = one;
+        result.Sub(two);
+
+        if (result != one * 2)
+        {
+            FailExit();
+        }
+    }
+
+    {
+        one.SetSign(-1);
+        two.SetSign(-1);
+
+        result = one;
+        result.Sub(two);
+
+        if (!result.IsZero())
+        {
+            FailExit();
+        }
     }
 }
