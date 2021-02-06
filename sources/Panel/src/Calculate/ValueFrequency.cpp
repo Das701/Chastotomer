@@ -148,25 +148,18 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
         }
 
         ValueSTRICT k1(interpol1);
-
         k1.DivINT(cal1);
 
         ValueSTRICT k2(interpol2);
-
         k2.DivINT(cal2);
 
         ValueSTRICT dx = k1;
-
         dx.Sub(k2);
-
         dx.DivINT(2);
 
         ValueSTRICT A((int)N - (int)counter);
-
         A.Sub(dx);
-
         A.DivUINT(N);
-
         A.MulINT(1000000);     // Это приводим к своей выводимой степени
 
         if (!Channel::Current()->mod.timeComparator.Is_1s())
@@ -181,12 +174,11 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
 
         if (Channel::Current()->mod.timeComparator.Is_1s())
         {
-            //SetValue("%s E-6", A.ToString().c_str());
-            SetValue("%f E-6", A.ToDouble());
+            SetValue("%.4f E-6", A.ToDouble());
         }
         else
         {
-            //SetValue("%s E-7", A.ToString().c_str());
+            SetValue("%.5f E-7", A.ToDouble());
         }
     }
 }
