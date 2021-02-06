@@ -7,7 +7,10 @@
 
 
 #define THOUSAND   ((uint64)1000U)
-#define MAX_UINT64 ((uint64)0xFFFFFFFFFFFFFFFF)
+
+// \todo Разобраться, почему не работает встроенная арифметика с 64 битами
+#define MAX_UINT64 ((uint64)0xFFFFFFFFFFFFFFFF)     // Максимально возможное число уменьшено в 256 раз, потому что
+                                                    // при сложении 61-битных uint64 баг
 
 
 ValueSTRICT::ValueSTRICT(double v) : sign(1), order(Order::Nano)
@@ -232,14 +235,14 @@ void ValueSTRICT::Sub(const ValueSTRICT &value)
         }
         else                                                // lhs > 0, rhs < 0
         {
-            units += sub.units;
+            AddUnits(sub.units);
         }
     }
     else                                                    // lhs < 0
     {
         if (sub.Sign() > 0)                                 // lhs < 0, rhs > 0
         {
-            units += sub.units;
+            AddUnits(sub.units);
         }
         else                                                // lhs < 0, rhs < 0
         {
@@ -254,6 +257,18 @@ void ValueSTRICT::Sub(const ValueSTRICT &value)
             }
         }
     }
+}
+
+
+void ValueSTRICT::AddUnits(uint64 u)
+{
+    if (((double)units + u) > (double)MAX_UINT64)
+    {
+        DecreaseOrder();
+        u /= THOUSAND;
+    }
+
+    units += u;
 }
 
 

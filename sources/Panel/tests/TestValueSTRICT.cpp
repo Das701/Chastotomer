@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 
-#define NUM_CYCLES  10000
+#define NUM_CYCLES  100000
 
 
 namespace Tests
@@ -58,7 +58,14 @@ static void Tests::TestEqualSub(const ValueSTRICT value)
         two.SetSign(-1);
 
         result = one;
+
         result.Sub(two);
+
+        double dONE = one.ToDouble();
+        double dTWO = two.ToDouble();
+
+        double dRESULT1 = result.ToDouble();
+        double dRESULT2 = one.ToDouble() * 2.0;
 
         if (result != one * 2)
         {
