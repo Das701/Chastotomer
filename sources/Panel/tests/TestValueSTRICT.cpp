@@ -61,12 +61,6 @@ static void Tests::TestEqualSub(const ValueSTRICT value)
 
         result.Sub(two);
 
-        double dONE = one.ToDouble();
-        double dTWO = two.ToDouble();
-
-        double dRESULT1 = result.ToDouble();
-        double dRESULT2 = one.ToDouble() * 2.0;
-
         if (result != one * 2)
         {
             FailExit();

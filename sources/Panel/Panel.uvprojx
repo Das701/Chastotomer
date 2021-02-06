@@ -1143,6 +1143,16 @@
               <FileType>8</FileType>
               <FilePath>.\tests\TestValuesFPGA.cpp</FilePath>
             </File>
+            <File>
+              <FileName>TestValueSTRICT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\tests\TestValueSTRICT.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Utils.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\tests\Utils.cpp</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -2283,6 +2293,16 @@
               <FileName>TestValuesFPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\tests\TestValuesFPGA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TestValueSTRICT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\tests\TestValueSTRICT.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Utils.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\tests\Utils.cpp</FilePath>
             </File>
           </Files>
         </Group>

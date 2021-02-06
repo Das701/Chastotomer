@@ -178,7 +178,7 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
         }
         else
         {
-            SetValue("%.5f E-7", A.ToDouble());
+            SetValue("%.4f E-7", A.ToDouble());
         }
     }
 }
