@@ -276,18 +276,28 @@ void ValueSTRICT::AlignOrders(ValueSTRICT &v)
 {
     if (v.order.value > order.value)
     {
-        while (!LeadTo(v.order.value))
-        {
-            v.IncreaseOrder();
-        }
+        LeadTo(v.order.value);
     }
     else if (v.order.value < order.value)
     {
-        while (!v.LeadTo(order.value))
-        {
-            IncreaseOrder();
-        }
+        v.LeadTo(order.value);
     }
+    
+    
+//    if (v.order.value > order.value)
+//    {
+//        while (!LeadTo(v.order.value))
+//        {
+//            v.IncreaseOrder();
+//        }
+//    }
+//    else if (v.order.value < order.value)
+//    {
+//        while (!v.LeadTo(order.value))
+//        {
+//            IncreaseOrder();
+//        }
+//    }
 }
 
 
