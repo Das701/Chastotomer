@@ -123,7 +123,6 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
     ValueFrequency()
 {
 /*
-*   A = (N - counter) / N - dx / N;
 *   A = (N - conter - dx) / N
 *   dx = (interpol1 / cal1 - interpol2 / cal2) / 2
 */
@@ -140,13 +139,6 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
             interpol2 -= 65536;
         }
 
-        uint N = 5000000U;
-
-        if (Channel::Current()->mod.timeComparator.Is_10s())
-        {
-            N *= 10;
-        }
-
         ValueSTRICT k1(interpol1);
         k1.DivINT(cal1);
 
@@ -157,10 +149,16 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
         dx.Sub(k2);
         dx.DivINT(2);
 
+        uint N = 5000000U;
+
+        if (Channel::Current()->mod.timeComparator.Is_10s())
+        {
+            N *= 10;
+        }
+
         ValueSTRICT A((int)N - (int)counter);
         A.Sub(dx);
-        A.MulINT(1000000);     // Это приводим к своей выводимой степени
-        A.DivUINT(N);
+        A.DivUINT(N / 1000000);
 
         if (!Channel::Current()->mod.timeComparator.Is_1s())
         {
@@ -180,6 +178,10 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
         {
             SetValue("%.4f E-7", A.ToDouble());
         }
+    }
+    else
+    {
+        SetValue(UGO::DivNULL);
     }
 }
 

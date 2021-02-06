@@ -173,7 +173,11 @@ int ValueSTRICT::Sign() const
 
 void ValueSTRICT::DivUINT(uint div)
 {
+    Order o = order;
+
     Normalize();
+
+    o = order;
 
     if (div == 0)
     {
@@ -183,8 +187,6 @@ void ValueSTRICT::DivUINT(uint div)
     {
         units /= div;
     }
-
-    Normalize();
 }
 
 
@@ -293,8 +295,6 @@ void ValueSTRICT::AlignOrders(ValueSTRICT &v)
 
 void ValueSTRICT::DivDOUBLE(double div)
 {
-    Normalize();
-
     if (sign > 0)
     {
         if (div > 0) { sign = 1;  }
@@ -307,8 +307,6 @@ void ValueSTRICT::DivDOUBLE(double div)
     }
 
     units = (uint64)((double)units / std::abs(div));
-
-    Normalize();
 }
 
 

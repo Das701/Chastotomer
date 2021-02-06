@@ -12,7 +12,7 @@ if (interpol2 & (1 << 15)) != 0:
 
 N = 5000000
 
-is10s = True
+is10s = False
 
 if is10s:
     N = N * 10
@@ -28,6 +28,7 @@ dx -= k2
 dx /= 2
 
 A = N - counter
+
 A -= dx
 A /= N
 A *= 1000000
