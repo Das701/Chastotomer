@@ -173,11 +173,7 @@ int ValueSTRICT::Sign() const
 
 void ValueSTRICT::DivUINT(uint div)
 {
-    double v = ToDouble();
-
     Normalize();
-
-    v = ToDouble();
 
     if (div == 0)
     {
@@ -188,12 +184,7 @@ void ValueSTRICT::DivUINT(uint div)
         units /= div;
     }
 
-    v = ToDouble();
-
     Normalize();
-
-    v = ToDouble();
-    v = v;
 }
 
 

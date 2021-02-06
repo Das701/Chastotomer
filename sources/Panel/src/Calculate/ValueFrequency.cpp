@@ -159,8 +159,8 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
 
         ValueSTRICT A((int)N - (int)counter);
         A.Sub(dx);
-        A.DivUINT(N);
         A.MulINT(1000000);     // Это приводим к своей выводимой степени
+        A.DivUINT(N);
 
         if (!Channel::Current()->mod.timeComparator.Is_1s())
         {
