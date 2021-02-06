@@ -148,17 +148,23 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
         }
 
         ValueSTRICT k1(interpol1);
+
         k1.DivINT(cal1);
 
         ValueSTRICT k2(interpol2);
+
         k2.DivINT(cal2);
 
         ValueSTRICT dx = k1;
+
         dx.Sub(k2);
+
         dx.DivINT(2);
 
         ValueSTRICT A((int)N - (int)counter);
+
         A.Sub(dx);
+
         A.DivUINT(N);
 
         A.MulINT(1000000);     // Это приводим к своей выводимой степени

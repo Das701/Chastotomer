@@ -217,7 +217,13 @@ void ValueSTRICT::Sub(const ValueSTRICT &value)
 {
     ValueSTRICT sub = value;
 
+    double dTHIS = ToDouble();
+    double dSUB = sub.ToDouble();
+
     AlignOrders(sub);
+
+    dTHIS = ToDouble();
+    dSUB = sub.ToDouble();
 
     if (Sign() > 0)                                         // lhs > 0
     {
@@ -257,6 +263,9 @@ void ValueSTRICT::Sub(const ValueSTRICT &value)
             }
         }
     }
+
+    dTHIS = ToDouble();
+    dSUB = sub.ToDouble();
 }
 
 
@@ -276,28 +285,18 @@ void ValueSTRICT::AlignOrders(ValueSTRICT &v)
 {
     if (v.order.value > order.value)
     {
-        LeadTo(v.order.value);
+        while (!LeadTo(v.order.value))
+        {
+            v.DecreaseOrder();
+        }
     }
     else if (v.order.value < order.value)
     {
-        v.LeadTo(order.value);
+        while (!v.LeadTo(order.value))
+        {
+            DecreaseOrder();
+        }
     }
-    
-    
-//    if (v.order.value > order.value)
-//    {
-//        while (!LeadTo(v.order.value))
-//        {
-//            v.IncreaseOrder();
-//        }
-//    }
-//    else if (v.order.value < order.value)
-//    {
-//        while (!v.LeadTo(order.value))
-//        {
-//            IncreaseOrder();
-//        }
-//    }
 }
 
 
