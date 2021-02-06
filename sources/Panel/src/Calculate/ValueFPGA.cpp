@@ -243,7 +243,7 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, bool isOrdered)
         {
             while (strict.ToDouble() >= 1000.0)
             {
-                strict.DivUINT(1000);
+                strict.Div(1000);
                 order += 3;
             }
         }
@@ -258,7 +258,7 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, bool isOrdered)
 
             if (NumDigitsInNumber((uint)strict.ToDouble()) > numDigitsInCounter)
             {
-                strict.DivUINT(1000);
+                strict.Div(1000);
                 order += 3;
             }
         }

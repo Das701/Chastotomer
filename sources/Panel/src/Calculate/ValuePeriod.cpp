@@ -16,8 +16,8 @@ ValuePeriod_Period::ValuePeriod_Period(uint counter) : ValuePeriod()
 
     ValueSTRICT strict(counter);
 
-    strict.DivINT(Channel::Current()->mod.numberPeriods.ToAbs());
-    strict.DivINT(Channel::Current()->mod.timeLabels.ToZeros());
+    strict.Div(Channel::Current()->mod.numberPeriods.ToAbs());
+    strict.Div(Channel::Current()->mod.timeLabels.ToZeros());
 
     SetValue(strict, counter);
 }
@@ -59,8 +59,8 @@ ValuePeriod_F_1::ValuePeriod_F_1(uint counter) : ValuePeriod()
 
     ValueSTRICT strict(dividers[time]);
 
-    strict.DivUINT(counter);
-    strict.DivUINT(multipliers[time]);
+    strict.Div(counter);
+    strict.Div(multipliers[time]);
 
     SetValue(strict, counter);
 }

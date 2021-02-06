@@ -19,7 +19,7 @@ ValueCountPulse::ValueCountPulse(uint counter) : ValueFPGA()
 
     if (ModeCountPulse::Current().IsFromPeriod())
     {
-        val.DivINT(NumberPeriods::Current().ToAbs());
+        val.Div(NumberPeriods::Current().ToAbs());
     }
 
     SetValue("%d", (uint)val.ToDouble());

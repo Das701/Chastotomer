@@ -52,9 +52,9 @@ struct ValueSTRICT
     // dimension
     uint64 ToUnits(Order order) const;
 
-    void DivUINT(uint div);
-    void DivINT(int div);
-    void DivDOUBLE(double div);
+    void Div(uint div);
+    void Div(int div);
+    void Div(double div);
 
     void MulUINT(uint mul);
     void MulINT(int mul);

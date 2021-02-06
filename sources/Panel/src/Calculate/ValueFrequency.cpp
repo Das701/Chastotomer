@@ -60,7 +60,7 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
 
     strict.MulUINT(multipliers[time]);
 
-    strict.DivUINT(dividers[time]);
+    strict.Div(dividers[time]);
 
     if (CURRENT_CHANNEL_IS_C || CURRENT_CHANNEL_IS_D)
     {
@@ -107,7 +107,7 @@ ValueFrequency_T_1::ValueFrequency_T_1(uint counter) : ValueFrequency()
 
     strict.MulINT(Channel::Current()->mod.timeLabels.ToZeros());
 
-    strict.DivUINT(counter);
+    strict.Div(counter);
 
     SetValue(strict, counter);
 }
@@ -140,14 +140,14 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
         }
 
         ValueSTRICT k1(interpol1);
-        k1.DivINT(cal1);
+        k1.Div(cal1);
 
         ValueSTRICT k2(interpol2);
-        k2.DivINT(cal2);
+        k2.Div(cal2);
 
         ValueSTRICT dx = k1;
         dx.Sub(k2);
-        dx.DivINT(2);
+        dx.Div(2);
 
         uint N = 5000000U;
 
@@ -158,7 +158,7 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
 
         ValueSTRICT A((int)N - (int)counter);
         A.Sub(dx);
-        A.DivUINT(N / 1000000);
+        A.Div(N / 1000000);
 
         if (!Channel::Current()->mod.timeComparator.Is_1s())
         {
@@ -198,7 +198,7 @@ ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
 
     if (mode.IsRatioAB() || mode.IsRatioBA())
     {
-        valueA.DivINT(NumberPeriods::Current().ToAbs());
+        valueA.Div(NumberPeriods::Current().ToAbs());
     }
     else if ((mode.IsRatioAC() || mode.IsRatioBC()) && Relation::IsEnabled())
     {
@@ -208,13 +208,13 @@ ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
             return;
         }
 
-        valueA.DivUINT(counter2);
-        valueA.DivUINT(32);
+        valueA.Div(counter2);
+        valueA.Div(32);
     }
     else if (mode.IsRatioCA() || mode.IsRatioCB())
     {
         valueA.MulUINT(64);
-        valueA.DivINT(NumberPeriods::Current().ToAbs());
+        valueA.Div(NumberPeriods::Current().ToAbs());
 
         counter1 *= 64;         // Это нужно, чтобы при переводе в текстовое значение учесть знаки, которые добавляются
                                 // после умножения на 64

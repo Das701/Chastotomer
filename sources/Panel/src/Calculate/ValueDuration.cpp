@@ -43,7 +43,7 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
 
         val.FromINT64((int64)duration);
         val.MulUINT(360);
-        val.DivUINT(period);
+        val.Div(period);
 
         if (period == duration)
         {
@@ -55,7 +55,7 @@ ValueDuration_Phase_FillFactor::ValueDuration_Phase_FillFactor(uint period, uint
         mainUnits.Set("");
 
         val.FromINT64((int64)duration);
-        val.DivUINT(period);
+        val.Div(period);
     }
 
     SetValue(val, duration, ModeDuration::Current().IsFillFactor());
@@ -68,7 +68,7 @@ ValueDuration_Ndt_StartStop::ValueDuration_Ndt_StartStop(uint counter) : ValueDu
 
     ValueSTRICT val(counter);
 
-    val.DivINT(PeriodTimeLabels::Current().ToZeros());
+    val.Div(PeriodTimeLabels::Current().ToZeros());
 
     SetValue(val, counter);
 }

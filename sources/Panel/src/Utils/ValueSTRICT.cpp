@@ -171,13 +171,9 @@ int ValueSTRICT::Sign() const
 }
 
 
-void ValueSTRICT::DivUINT(uint div)
+void ValueSTRICT::Div(uint div)
 {
-    Order o = order;
-
     Normalize();
-
-    o = order;
 
     if (div == 0)
     {
@@ -190,11 +186,11 @@ void ValueSTRICT::DivUINT(uint div)
 }
 
 
-void ValueSTRICT::DivINT(int div)
+void ValueSTRICT::Div(int div)
 {
     SetSign(Sign() * Math::Sign(div));
 
-    ValueSTRICT::DivUINT((uint)Math::Abs(div));
+    ValueSTRICT::Div((uint)Math::Abs(div));
 }
 
 
@@ -264,7 +260,7 @@ void ValueSTRICT::Sub(const ValueSTRICT &value)
 
 void ValueSTRICT::AddUnits(uint64 u)
 {
-    if (((double)units + u) > (double)MAX_UINT64)
+    if (((double)units + (double)u) > (double)MAX_UINT64)
     {
         DecreaseOrder();
         u /= THOUSAND;
@@ -293,7 +289,7 @@ void ValueSTRICT::AlignOrders(ValueSTRICT &v)
 }
 
 
-void ValueSTRICT::DivDOUBLE(double div)
+void ValueSTRICT::Div(double div)
 {
     if (sign > 0)
     {
