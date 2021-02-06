@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 
-#define NUM_CYCLES  1000
+#define NUM_CYCLES  10000
 
 
 namespace Tests
@@ -12,6 +12,7 @@ namespace Tests
     static void AllTests(ValueSTRICT value);
 
     static void TestEqualSub(const ValueSTRICT value);
+    static void TestSub(const ValueSTRICT value1, const ValueSTRICT value2);
 }
 
 
@@ -19,9 +20,9 @@ void Tests::ValuesSTRICT()
 {
     for (int i = 0; i < NUM_CYCLES; i++)
     {
-        double value = (double)(std::rand() * std::rand()) / (double)std::rand();
+        AllTests(ValueSTRICT(Utils::RandDouble()));
 
-        AllTests(ValueSTRICT(value));
+        TestSub(ValueSTRICT(Utils::RandDouble()), ValueSTRICT(Utils::RandDouble()));
     }
 }
 
@@ -89,5 +90,22 @@ static void Tests::TestEqualSub(const ValueSTRICT value)
         {
             FailExit();
         }
+    }
+}
+
+
+static void Tests::TestSub(const ValueSTRICT value1, const ValueSTRICT value2)
+{
+    ValueSTRICT one = value1;
+    ValueSTRICT two = value2;
+
+    one.Sub(two);
+
+    double result1 = value1.ToDouble() - value2.ToDouble();
+    double result2 = one.ToDouble();
+
+    if (!Utils::EqualsDouble(result1, result2))
+    {
+        FailExit();
     }
 }
