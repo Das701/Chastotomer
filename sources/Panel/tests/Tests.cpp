@@ -5,6 +5,8 @@
 void Tests::Run()
 {
     ValuesFPGA();
+
+    ValuesSTRICT();
 }
 
 

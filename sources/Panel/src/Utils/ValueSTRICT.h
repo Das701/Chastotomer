@@ -59,68 +59,40 @@ struct ValueSTRICT
     void MulUINT(uint mul);
     void MulINT(int mul);
 
+    void Sub(const ValueSTRICT &sub);
+
     void SetSign(int sign);
 
     // Возвращает знак
     int Sign() const;
 
+    // Пересчитывает units к предыдущему порядку. Если порядок Milli, пересчёт невозможен, и возвращает false.
+    bool IncreaseOrder();
+
+    // Пересчитывает units к следующему порядку. Если изменение порядка невозможно, возвращает false.
+    // !!! ВНИМАНИЕ !!! Данная операция может понизить точность
+    bool DecreaseOrder();
+
+    void Abs() { SetSign(1); }
+
+    bool operator!=(const ValueSTRICT &second) const;
+
 private:
 
-    int sign;       // Если sign < 0 - значение ниже нуля.
-    Order order;    // Размерность юнита члена units. 1 - 1e-1, 3 - милли,
-                    // 6 - микро, 7 - 1е-7
-    uint64 units;   // Значение параметра в юнитах. "Вес" юнита определяется
-                    // параметром powUnit
+    int    sign;    // Если sign < 0 - значение ниже нуля.
+    Order  order;
+    uint64 units;   // Значение параметра в юнитах. "Вес" юнита определяется параметром powUnit
 
     void Normalize();
+
+    // Пересчитать units к размерности newOrder
+    bool LeadTo(Order::E newOrder);
+
+    // Выровнять порядки этого значения и value
+    void AlignOrders(ValueSTRICT &value);
 };
 
 
-ValueSTRICT operator/(int64 first, const ValueSTRICT &second);
-
-
-struct ValueComparator //-V690
-{
-    explicit ValueComparator(int v);
-
-    void FromUNITS(int units, uint mUnits, uint uUnits, uint nUnits,
-        uint pUnits, int sign);
-    void FromINT(int v);
-
-    void Div(uint div);
-    void Mul(uint mul);
-
-    void Add(ValueComparator &value);
-    ValueComparator &Sub(const ValueComparator &value);
-    void Sub(int value);
-
-    int Sign() const;
-    void SetSign(int sign);
-
-    // Возращает строку значения
-    String ToString() const;
-
-    double ToDouble() const;
-
-    uint64 Abs() const;
-
-    // Возвращает целую часть (единицы) со знаком
-    int Integer() const;
-
-    uint64 FractPico() const;
-
-private:
-
-    uint64 value;   // Значение параметра в единицах измерения "нано".
-                    // Установленный в "1" старший бит означает, что число
-                    // отрицательное
-
-    void IntegerToString(String &string) const;
-    void FractToString(String &string) const;
-};
-
-
-ValueComparator operator/(const ValueComparator &first, uint second);
-ValueComparator operator-(const ValueComparator &first,
-    const ValueComparator &second);
-ValueComparator operator-(const ValueComparator &first, int second);
+//ValueSTRICT operator/(int64 first, const ValueSTRICT &second);
+ValueSTRICT operator*(ValueSTRICT &first, int second);
+//bool operator!=(const ValueSTRICT &rist, const ValueSTRICT &second);

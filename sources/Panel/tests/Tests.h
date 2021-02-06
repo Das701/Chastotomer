@@ -7,6 +7,8 @@ namespace Tests
 
     void ValuesFPGA();
 
+    void ValuesSTRICT();
+
     void FailExit();
 }
 

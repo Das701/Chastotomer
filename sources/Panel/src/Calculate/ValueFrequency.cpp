@@ -58,9 +58,19 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
 
     ValueSTRICT strict((int64)counter);
 
+    double d = strict.ToDouble();
+
+    uint mul = multipliers[time];
+
     strict.MulUINT(multipliers[time]);
 
+    d = strict.ToDouble();
+
+    uint div = dividers[time];
+
     strict.DivUINT(dividers[time]);
+
+    d = strict.ToDouble();
 
     if (CURRENT_CHANNEL_IS_C || CURRENT_CHANNEL_IS_D)
     {
@@ -119,7 +129,7 @@ ValueFrequency_Tachometer::ValueFrequency_Tachometer(uint counter) : ValueFreque
 }
 
 
-ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1, int cal1, int interpol2, int cal2) :
+ValueFrequency_Comparator::ValueFrequency_Comparator(uint /*counter*/, int interpol1, int cal1, int interpol2, int cal2) :
     ValueFrequency()
 {
 /*
@@ -147,36 +157,38 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
             N *= 10;
         }
 
-        ValueComparator k1 = ValueComparator(interpol1) / (uint)cal1;
+        ValueSTRICT k1(interpol1);
+        k1.DivINT(cal1);
 
-        ValueComparator k2 = ValueComparator(interpol2) / (uint)cal2;
+        ValueSTRICT k2(interpol2);
+        k2.DivINT(cal2);
 
-        ValueComparator dx = (k1 - k2) / 2;
-
-        ValueComparator A((int)N - (int)counter);
-        A.Sub(dx);
-        A.Div(N);
-
-        A.Mul(1000000);     // Это приводим к своей выводимой степени
-
-        if (!Channel::Current()->mod.timeComparator.Is_1s())
-        {
-            A.Mul(10);
-        }
-
-        if (values.AppendValue(A.ToDouble()))
-        {
-            Display::Refresh();
-        }
-
-        if (Channel::Current()->mod.timeComparator.Is_1s())
-        {
-            SetValue("%s E-6", A.ToString().c_str());
-        }
-        else
-        {
-            SetValue("%s E-7", A.ToString().c_str());
-        }
+//        ValueComparator dx = (k1 - k2) / 2;
+//
+//        ValueComparator A((int)N - (int)counter);
+//        A.Sub(dx);
+//        A.Div(N);
+//
+//        A.Mul(1000000);     // Это приводим к своей выводимой степени
+//
+//        if (!Channel::Current()->mod.timeComparator.Is_1s())
+//        {
+//            A.Mul(10);
+//        }
+//
+//        if (values.AppendValue(A.ToDouble()))
+//        {
+//            Display::Refresh();
+//        }
+//
+//        if (Channel::Current()->mod.timeComparator.Is_1s())
+//        {
+//            SetValue("%s E-6", A.ToString().c_str());
+//        }
+//        else
+//        {
+//            SetValue("%s E-7", A.ToString().c_str());
+//        }
     }
 }
 

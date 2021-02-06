@@ -109,7 +109,7 @@ bool Order::Increase()
 
     value++;
 
-    return true;
+return true;
 }
 
 
@@ -170,7 +170,11 @@ int ValueSTRICT::Sign() const
 
 void ValueSTRICT::DivUINT(uint div)
 {
+    double v = ToDouble();
+
     Normalize();
+
+    v = ToDouble();
 
     if (div == 0)
     {
@@ -181,7 +185,12 @@ void ValueSTRICT::DivUINT(uint div)
         units /= div;
     }
 
+    v = ToDouble();
+
     Normalize();
+
+    v = ToDouble();
+    v = v;
 }
 
 
@@ -198,6 +207,60 @@ void ValueSTRICT::MulINT(int mul)
     SetSign(Sign() * Math::Sign(mul));
 
     ValueSTRICT::MulUINT((uint)Math::Abs(mul));
+}
+
+
+void ValueSTRICT::Sub(const ValueSTRICT &value)
+{
+    ValueSTRICT sub = value;
+
+    AlignOrders(sub);
+
+    if (Sign() > 0)                                         // lhs > 0
+    {
+        if (sub.Sign() > 0)                                 // lhs > 0, rhs > 0
+        {
+            if (units > sub.units)                          // abs(lhs) > abs(rhs)
+            {
+                units -= sub.units;
+            }
+            else                                            // abs(lhs) < abs(rhs)
+            {
+                units = sub.units - units;
+                sign = -1;
+            }
+        }
+        else                                                // lhs > 0, rhs < 0
+        {
+            units += sub.units;
+        }
+    }
+    else                                                    // lhs < 0
+    {
+        if (sub.Sign() > 0)                                 // lhs < 0, rhs > 0
+        {
+            units += sub.units;
+        }
+    }
+}
+
+
+void ValueSTRICT::AlignOrders(ValueSTRICT &v)
+{
+    if (v.order.value > order.value)
+    {
+        while (!LeadTo(v.order.value))
+        {
+            v.IncreaseOrder();
+        }
+    }
+    else if (v.order.value < order.value)
+    {
+        while (!v.LeadTo(order.value))
+        {
+            IncreaseOrder();
+        }
+    }
 }
 
 
@@ -242,287 +305,104 @@ void ValueSTRICT::SetSign(int s)
 
 void ValueSTRICT::Normalize()
 {
-    while ((double)units * 1000.0 < (double)MAX_UINT64)
+    double v = ToDouble();
+
+    while ((double)(units * THOUSAND) < (double)MAX_UINT64)
     {
-        if (!order.Increase())
+        v = ToDouble();
+
+        if (!IncreaseOrder())
         {
+            v = ToDouble();
+
             break;
         }
 
-        units *= THOUSAND;
+        v = ToDouble();
+        v = v;
     }
 }
 
 
-int ValueComparator::Integer() const
+bool ValueSTRICT::IncreaseOrder()
 {
-    return (int)(Abs() / 1000 / 1000 / 1000 / 1000) * Sign();
-}
+    double v = ToDouble();
 
-
-ValueComparator::ValueComparator(int v)
-{
-    FromINT(v);
-}
-
-
-void ValueComparator::FromINT(int v)
-{
-    FromUNITS(v < 0 ? -v : v, 0, 0, 0, 0, v < 0 ? -1 : 1);
-}
-
-
-void ValueComparator::FromUNITS(int units, uint mUnits, uint uUnits,
-    uint nUnits, uint pUnits, int sign)
-{
-    value = (uint64)units;
-
-    value = value * 1000 * 1000 * 1000 * 1000;
-
-    value += (uint64)pUnits +
-        (uint64)nUnits * 1000 + 
-        (uint64)uUnits * 1000 * 1000 + 
-        (uint64)mUnits * 1000 * 1000 * 1000;
-
-    if (sign < 0)
+    if ((double)(units) * 1000.0 > (double)MAX_UINT64)
     {
-        SetSign(sign);
+        return false;
     }
-}
 
+    v = ToDouble();
 
-void ValueComparator::Div(uint div)
-{
-    int sign = Sign();
-
-    SetSign(1);
-
-    value /= div;
-
-    SetSign(sign);
-}
-
-
-void ValueComparator::Mul(uint mul)
-{
-    int sign = Sign();
-
-    SetSign(1);
-
-    value *= mul;
-
-    SetSign(sign);
-}
-
-
-void ValueComparator::Add(ValueComparator &add)
-{
-    int sign = Sign();
-    int signAdd = add.Sign();
-
-    SetSign(1);
-    add.SetSign(1);
-
-    if (sign > 0 && signAdd > 0)
+    if (!order.Increase())
     {
-        value += add.value;
+        v = ToDouble();
+
+        return false;
     }
-    else if (sign < 0 && signAdd < 0)
+
+    v = ToDouble();
+
+    units *= THOUSAND;
+
+    v = ToDouble();
+
+    return true;
+}
+
+
+bool ValueSTRICT::DecreaseOrder()
+{
+    if (!order.Decrease())
     {
-        value += add.value;
-        SetSign(-1);
+        return false;
     }
-    else if (sign > 0 && signAdd < 0)
+
+    units /= THOUSAND;
+
+    return true;
+}
+
+
+bool ValueSTRICT::LeadTo(Order::E newOrder)
+{
+    if (newOrder > order.value)
     {
-        if (value >= add.value)
+        while (newOrder != order.value)
         {
-            value -= add.value;
-        }
-        else
-        {
-            value = add.value - value;
-            SetSign(-1);
+            if (!IncreaseOrder())
+            {
+                return false;
+            }
         }
     }
-    else
+    else if (newOrder < order.value)
     {
-        if (add.value >= value)
+        while (newOrder != order.value)
         {
-            value = add.value - value;
-        }
-        else
-        {
-            value -= add.value;
-            SetSign(-1);
+            if (!DecreaseOrder())
+            {
+                return false;
+            }
         }
     }
+
+    return true;
 }
 
 
-ValueComparator &ValueComparator::Sub(const ValueComparator &val)
+ValueSTRICT operator*(ValueSTRICT &first, int second)
 {
-    ValueComparator sub(val);
-
-    sub.SetSign(-val.Sign());
-
-    Add(sub);
-
-    return *this;
-}
-
-
-void ValueComparator::Sub(int val)
-{
-    Sub(ValueComparator(val));
-}
-
-
-int ValueComparator::Sign() const
-{
-    //                fedcba9876543210
-    return (value & 0x8000000000000000U) ? -1 : 1;
-}
-
-
-void ValueComparator::SetSign(int sign)
-{
-    if (sign >= 0)
-    {
-        //         fedcba9876543210
-        value &= 0x7FFFFFFFFFFFFFFFU;   // —брасываем старший бит -
-                                        // признак положительного числа
-    }
-    else
-    {
-        //         fedcba9876543210
-        value |= 0x8000000000000000U;   // ”станавливаем старший бит - 
-                                        // признак отрицательного числа
-    }
-}
-
-
-String ValueComparator::ToString() const
-{
-    String string;
-
-    IntegerToString(string);
-
-    string.Append('.');
-
-    FractToString(string);
-
-    return string;
-}
-
-
-void ValueComparator::IntegerToString(String &string) const
-{
-    int intPart = Integer();
-
-    if (Sign() < 0)
-    {
-        intPart *= -1;
-    }
-
-    Stack<char> stack(100);
-
-    while (intPart != 0)
-    {
-        stack.Push(intPart % 10);
-        intPart /= 10;
-    }
-
-    if (Sign() == -1)
-    {
-        string.Append('-');
-    }
-
-    if (stack.Empty())
-    {
-        string.Append('0');
-    }
-
-    while (!stack.Empty())                     // ѕереводим в строку целую часть
-    {
-        string.Append(stack.Pop() | 0x30);
-    }
-}
-
-
-void ValueComparator::FractToString(String &string) const
-{
-    ValueComparator val(*this);
-
-    val.SetSign(1);
-
-    val.Sub(Integer() * Sign());   // “еперь в val осталась только дробна€ часть
-
-    int count = 0;
-
-    while (count < 4)
-    {
-        val.Mul(10);
-
-        string.Append((char)(val.Integer() | 0x30));
-
-        count++;
-
-        val.Sub(val.Integer());
-    }
-}
-
-
-double ValueComparator::ToDouble() const
-{
-    return (double)Abs() / 1E12 * (double)Sign();
-}
-
-
-uint64 ValueComparator::Abs() const
-{   //                fedcba9876543210
-    return (value & 0x7fffffffffffffff);
-}
-
-
-uint64 ValueComparator::FractPico() const
-{
-    ValueComparator val(*this);
-
-    val.SetSign(1);
-
-    int whole = val.Integer();
-
-    return (val.value - (uint64)whole * 1000 * 1000 * 1000 * 1000);
-}
-
-
-ValueSTRICT operator/(int64 first, const ValueSTRICT &second)
-{
-    ValueSTRICT result(first);
-
-    result.DivDOUBLE(second.ToDouble());
-
+    ValueSTRICT result = first;
+    first.MulINT(second);
     return result;
 }
 
 
-ValueComparator operator-(const ValueComparator &first, const ValueComparator &second)
+bool ValueSTRICT::operator!=(const ValueSTRICT &second) const
 {
-    ValueComparator result = first;
-    result.Sub(second);
-    return result;
-}
-
-
-ValueComparator operator-(const ValueComparator &first, int second)
-{
-    return first - ValueComparator(second);
-}
-
-
-ValueComparator operator/(const ValueComparator &first, uint second)
-{
-    ValueComparator result = first;
-    result.Div(second);
-    return result;
+    return (units != second.units) ||
+           (sign != second.sign) ||
+           (order.value != second.order.value);
 }
