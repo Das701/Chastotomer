@@ -52,7 +52,7 @@ static pchar FuncImpedance(pchar buffer)
 {
     static const pchar impedance[] =
     {
-        " 10MOHM",
+        " 1MOHM",
         " 50OHM",
         ""
     };
