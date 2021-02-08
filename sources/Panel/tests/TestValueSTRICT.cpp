@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 
-#define NUM_CYCLES  100000
+#define NUM_CYCLES  1000
 
 
 namespace Tests
