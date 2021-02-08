@@ -111,7 +111,23 @@ void ModeFilter::Set(ModeFilter::E v)
 }
 
 
+void ModeFront::Set(E v)
+{
+    value = (uint8)v;
+
+    LoadToFPGA();
+}
+
+
 void InputImpedance::Set(E v)
+{
+    value = (uint8)v;
+
+    LoadToFPGA();
+}
+
+
+void Divider::Set(E v)
 {
     value = (uint8)v;
 

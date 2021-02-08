@@ -334,6 +334,8 @@ struct ModeFront : public Enumeration
     explicit ModeFront(E v) : Enumeration((uint8)v) {};
     bool IsFront() const { return (value == Front); }
 
+    void Set(E v);
+
     static void LoadToFPGA();
 };
 
@@ -369,6 +371,8 @@ struct Divider : public Enumeration
     explicit Divider(E v) : Enumeration((uint8)v) {};
     bool Is1() const { return (value == _1); }
     int ToAbs() const { return Is1() ? 1 : 10; }
+
+    void Set(E v);
 
     static void LoadToFPGA();
 };
