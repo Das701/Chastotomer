@@ -26,19 +26,23 @@ const StructSCPI SCPI::head[] =
 
 static pchar FuncIDN(pchar buffer)
 {
-    SCPI_PROLOG(buffer)
+    SCPI_PROLOG(buffer);
 
     SCPI::SendAnswer(String("OAO MNIPI, CH3-96/2, Cherem V1.2").c_str());
 
-    SCPI_EPILOG(buffer)
+    SCPI_EPILOG(buffer);
+
+    return nullptr;
 }
 
 
 static pchar FuncReset(pchar buffer)
 {
-    SCPI_PROLOG(buffer)
-        
-    SCPI_EPILOG(buffer)
+    SCPI_PROLOG(buffer);
+
+    SCPI_EPILOG(buffer);
+
+    return nullptr;
 }
 
 
@@ -102,4 +106,6 @@ static pchar FuncPicture(pchar buffer)
     Display::SendToSCPI();
 
     SCPI_EPILOG(buffer);
+
+    return nullptr;
 }

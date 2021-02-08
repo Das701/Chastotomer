@@ -35,13 +35,15 @@ struct StructSCPI
 #define SCPI_EMPTY() {""}
 
 #define SCPI_PROLOG(t)  if(SCPI::IsLineEnding(&t)) { SCPI::SendBadSymbols();
-#define SCPI_EPILOG(t)  return t; } return nullptr;
+#define SCPI_EPILOG_REQUEST(t) return t; } return nullptr;
+#define SCPI_EPILOG(t)         return t; }
 
-#define SCPI_RUN_IF_END(func) if(end) { SCPI_PROLOG(end) func; SCPI_EPILOG(end) }
+#define SCPI_RUN_IF_END_REQUEST(func) if(end) { SCPI_PROLOG(end) func; SCPI_EPILOG_REQUEST(end) }
+#define SCPI_RUN_IF_END(func)         if(end) { SCPI_PROLOG(end) func; SCPI_EPILOG(end) }
 
 #define SCPI_REQUEST(func)                          \
     pchar end = SCPI::BeginWith(buffer, "?");       \
-    SCPI_RUN_IF_END(func)
+    SCPI_RUN_IF_END_REQUEST(func)
 
 #define SCPI_PROCESS_ARRAY(names, func)             \
     for(int i = 0; i < names[i][0] != 0; i++)       \
