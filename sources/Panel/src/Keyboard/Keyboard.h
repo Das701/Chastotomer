@@ -49,4 +49,6 @@ namespace Keyboard
     bool Empty();
     // Возвращает следующее событие
     Control NextControl();
+
+    void AppendControl(const Control &control);
 };

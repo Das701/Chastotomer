@@ -33,6 +33,12 @@ static void AddAction(Control control, Control::Action::E action) //-V2506
 }
 
 
+void Keyboard::AppendControl(const Control &control)
+{
+    AddAction(control, control.action.value);
+}
+
+
 void Frame::OnDown(wxCommandEvent &event)
 {
     Control::E key = (Control::E)event.GetId();

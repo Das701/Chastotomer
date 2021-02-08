@@ -309,6 +309,12 @@ static void AddAction(Control control, Control::Action::E action)
 }
 
 
+void Keyboard::AppendControl(const Control &control)
+{
+    AddAction(control, control.action.value);
+}
+
+
 bool Keyboard::Empty()
 {
     return numActions == 0;

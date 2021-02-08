@@ -56,16 +56,42 @@ static void SetCurrentChannel(int i)
 
 static pchar FuncChannel(pchar buffer)
 {
-    pchar names[] = { " A", " B", " C", " D", "" };
+    static const pchar names[] = { " A", " B", " C", " D", "" };
 
     SCPI_REQUEST(SCPI::SendAnswer(names[Channel::Current()->Number()]));
     SCPI_PROCESS_ARRAY(names, SetCurrentChannel(i));
 }
 
 
+static void FuncControl(int i)
+{
+    Keyboard::AppendControl(Control((Control::E)i, Control::Action::Press));
+    Keyboard::AppendControl(Control((Control::E)i, Control::Action::Release));
+}
+
+
 static pchar FuncKeyPress(pchar buffer)
 {
-    return nullptr;
+    static const pchar names[] =
+    {
+        " REG",
+        " MODE",
+        " INDICATION",
+        " LEFT",
+        " RIGHT",
+        " CHANNEL",
+        " ENTER",
+        " SERVICE",
+        " ",
+        " ",
+        " TEST",
+        " AUTO",
+        ""
+    };
+
+    pchar end = nullptr;
+
+    SCPI_PROCESS_ARRAY(names, FuncControl(i));
 }
 
 
