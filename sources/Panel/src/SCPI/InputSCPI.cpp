@@ -44,7 +44,8 @@ pchar SCPI::ProcessSimpleParameter(pchar buffer, const pchar choice[], uint8 val
 
 static pchar FuncCoupling(pchar buffer)
 {
-    struct CoupleSCPI : public SetSCPI { virtual void SetParameter(int i, int) const { Channel::Current()->set.couple.Set((InputCouple::E)i); } };
+    struct CoupleSCPI : public SetSCPI
+    { virtual void SetParameter(int i, int) const { Channel::Current()->set.couple.Set((InputCouple::E)i); } };
 
     static const pchar coupling[] =
     {
@@ -59,7 +60,8 @@ static pchar FuncCoupling(pchar buffer)
 
 static pchar FuncImpedance(pchar buffer)
 {
-    struct ImpedanceSCPI : public SetSCPI { virtual void SetParameter(int i, int) const { Channel::Current()->set.impedance.Set((InputImpedance::E)i); } };
+    struct ImpedanceSCPI : public SetSCPI
+    { virtual void SetParameter(int i, int) const { Channel::Current()->set.impedance.Set((InputImpedance::E)i); } };
 
     static const pchar impedance[] =
     {
@@ -74,7 +76,8 @@ static pchar FuncImpedance(pchar buffer)
 
 static pchar FuncFilter(pchar buffer)
 {
-    struct FilterSCPI : public SetSCPI { virtual void SetParameter(int i, int) const { Channel::Current()->set.modeFilter.Set((ModeFilter::E)i); } };
+    struct FilterSCPI : public SetSCPI
+    { virtual void SetParameter(int i, int) const { Channel::Current()->set.modeFilter.Set((ModeFilter::E)i); } };
 
     static const pchar filter[] =
     {
@@ -89,7 +92,8 @@ static pchar FuncFilter(pchar buffer)
 
 static pchar FuncTriggerSlope(pchar buffer)
 {
-    struct ModeFrontSCPI : public SetSCPI { virtual void SetParameter(int i, int) const { Channel::Current()->set.modeFront.Set((ModeFront::E)i); } };
+    struct ModeFrontSCPI : public SetSCPI
+    { virtual void SetParameter(int i, int) const { Channel::Current()->set.modeFront.Set((ModeFront::E)i); } };
 
     static const pchar modeFront[] =
     {
@@ -104,7 +108,8 @@ static pchar FuncTriggerSlope(pchar buffer)
 
 static pchar FuncDivider(pchar buffer)
 {
-    struct DividerSCPI : public SetSCPI { virtual void SetParameter(int i, int) const { Channel::Current()->set.divider.Set((Divider::E)i); }; };
+    struct DividerSCPI : public SetSCPI
+    { virtual void SetParameter(int i, int) const { Channel::Current()->set.divider.Set((Divider::E)i); }; };
 
     static const pchar divider[] =
     {
