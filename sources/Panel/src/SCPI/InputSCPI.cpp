@@ -143,15 +143,25 @@ static pchar FuncDivider(pchar buffer)
 
     pchar end = SCPI::BeginWith(buffer, "?");
 
-    if (end) {
+    if (end)
+    {
         if (SCPI::IsLineEnding(&end))
         {
             SCPI::SendBadSymbols();
-        
+
             AnswerInput(divider, Channel::Current()->set.divider.value);
-            
-            SCPI_EPILOG(end)
+
+            return end;
         }
 
-    SCPI_PROCESS_ARRAY(divider, DividerSCPI().Set(i));
+        return nullptr;
+    }
+
+    for (int i = 0; i < divider[i][0] != 0; i++)
+    {
+        end = SCPI::BeginWith(buffer, divider[i]);
+        SCPI_RUN_IF_END(DividerSCPI().Set(i))
+    }
+
+    return nullptr;
 }
