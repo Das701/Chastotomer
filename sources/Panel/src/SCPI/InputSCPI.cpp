@@ -20,14 +20,7 @@ const StructSCPI SCPI::input[] =
 };
 
 
-static const pchar coupling[] =
-{
-    " AC",
-    " DC",
-    ""
-};
-
-static void Answer(const pchar choice[], uint8 value)
+static void AnswerInput(const pchar choice[], uint8 value)
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
@@ -38,12 +31,6 @@ static void Answer(const pchar choice[], uint8 value)
         SCPI::Answer::CurrentChannelHasNotParameter();
     }
 }
-
-static void AnswerCoupling()
-{
-    Answer(coupling, Channel::Current()->set.couple.value);
-}
-
 
 static void SetCoupling(int i)
 {
@@ -59,22 +46,17 @@ static void SetCoupling(int i)
 
 static pchar FuncCoupling(pchar buffer)
 {
-    SCPI_REQUEST(AnswerCoupling());
+    static const pchar coupling[] =
+    {
+        " AC",
+        " DC",
+        ""
+    };
+
+    SCPI_REQUEST(AnswerInput(coupling, Channel::Current()->set.couple.value));
     SCPI_PROCESS_ARRAY(coupling, SetCoupling(i));
 }
 
-
-static const pchar impedance[] =
-{
-    " 1MOHM",
-    " 50OHM",
-    ""
-};
-
-static void AnswerImpedance()
-{
-    Answer(impedance, Channel::Current()->set.impedance.value);
-}
 
 static void SetImpedance(int i)
 {
@@ -90,7 +72,14 @@ static void SetImpedance(int i)
 
 static pchar FuncImpedance(pchar buffer)
 {
-    SCPI_REQUEST(AnswerImpedance());
+    static const pchar impedance[] =
+    {
+        " 1MOHM",
+        " 50OHM",
+        ""
+    };
+
+    SCPI_REQUEST(AnswerInput(impedance, Channel::Current()->set.impedance.value));
     SCPI_PROCESS_ARRAY(impedance, SetImpedance(i));
 }
 
