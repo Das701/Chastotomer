@@ -141,5 +141,6 @@ static pchar FuncDivider(pchar buffer)
         ""
     };
 
-    return FuncInput(buffer, divider, Channel::Current()->set.divider.value, DividerSCPI());
+    SCPI_REQUEST(AnswerInput(divider, Channel::Current()->set.divider.value));
+    SCPI_PROCESS_ARRAY(divider, DividerSCPI().Set(i));
 }
