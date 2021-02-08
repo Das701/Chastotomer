@@ -162,11 +162,11 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
 
         if (Channel::Current()->mod.timeComparator.Is_1s())
         {
-            A.Mul(10);
             SetValue("%.4f E-6", A.ToDouble());
         }
         else
         {
+            A.Mul(10);
             SetValue("%.4f E-7", A.ToDouble());
         }
 
