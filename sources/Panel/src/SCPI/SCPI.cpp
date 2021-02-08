@@ -303,5 +303,5 @@ void SCPI::SendMeasure(const String &str)
 
 void SCPI::Answer::CurrentChannelHasNotParameter()
 {
-    SendAnswer("Current channel does has not this parameter");
+    SendAnswer("!!! ERROR !!! Current channel does has not this parameter");
 }

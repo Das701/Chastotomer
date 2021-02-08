@@ -12,7 +12,7 @@ static pchar FuncDivider(pchar);
 
 const StructSCPI SCPI::input[] =
 {
-    SCPI_LEAF(":COUPLING",  FuncCoupling),
+    SCPI_LEAF(":COUPLE",  FuncCoupling),
     SCPI_LEAF(":FILTER",    FuncFilter),
     SCPI_LEAF(":IMPEDANCE", FuncImpedance),
     SCPI_LEAF(":DIVIDER",   FuncDivider),
@@ -27,17 +27,23 @@ static const pchar coupling[] =
     ""
 };
 
-static void AnswerCoupling()
+static void Answer(const pchar choice[], uint8 value)
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        SCPI::SendAnswer(coupling[Channel::Current()->set.couple.value]);
+        SCPI::SendAnswer(choice[value]);
     }
     else
     {
         SCPI::Answer::CurrentChannelHasNotParameter();
     }
 }
+
+static void AnswerCoupling()
+{
+    Answer(coupling, Channel::Current()->set.couple.value);
+}
+
 
 static void SetCoupling(int i)
 {
@@ -67,14 +73,7 @@ static const pchar impedance[] =
 
 static void AnswerImpedance()
 {
-    if (CURRENT_CHANNEL_IS_A_OR_B)
-    {
-        SCPI::SendAnswer(impedance[Channel::Current()->set.impedance.value]);
-    }
-    else
-    {
-        SCPI::Answer::CurrentChannelHasNotParameter();
-    }
+    Answer(impedance, Channel::Current()->set.impedance.value);
 }
 
 static void SetImpedance(int i)
