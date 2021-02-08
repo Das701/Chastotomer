@@ -141,6 +141,9 @@ static pchar FuncDivider(pchar buffer)
         ""
     };
 
-    SCPI_REQUEST(AnswerInput(divider, Channel::Current()->set.divider.value));
+    pchar end = SCPI::BeginWith(buffer, "?");
+
+    if (end) { SCPI_PROLOG(end) AnswerInput(divider, Channel::Current()->set.divider.value); SCPI_EPILOG(end) }
+
     SCPI_PROCESS_ARRAY(divider, DividerSCPI().Set(i));
 }
