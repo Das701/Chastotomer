@@ -127,9 +127,9 @@ void Display::Draw(const uint *buffer)
 
     for (int i = 0; i < 480 * 272; i++)
     {
-        *pointer++ = buffer[i] & 0xFF; //-V2563
-        *pointer++ = (buffer[i] >> 8) & 0xFF; //-V2563
-        *pointer++ = (buffer[i] >> 16) & 0xFF; //-V2563
+        *pointer++ = buffer[i] & 0xFF;
+        *pointer++ = (buffer[i] >> 8) & 0xFF;
+        *pointer++ = (buffer[i] >> 16) & 0xFF;
     }
 
     wxImage image(480, 272, data, true);

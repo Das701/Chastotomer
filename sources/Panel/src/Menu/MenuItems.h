@@ -115,7 +115,7 @@ public:
     virtual bool OnControl(const Control &) { return false; };
 
     // Возвращает указатель на выделенный пункт меню
-    Item *SelectedItem() { return items[selectedItem]; }; //-V2563
+    Item *SelectedItem() { return items[selectedItem]; };
 
     // Возвращает true, если это страница режимов
     bool IsPageModes() const;

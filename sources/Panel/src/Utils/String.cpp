@@ -123,8 +123,8 @@ void String::Append(pCHAR str, int numSymbols)
     Allocate(size);
 
     std::strcpy(buffer, old.c_str()); //-V2513
-    std::memcpy(buffer + old.Size(), str, static_cast<uint>(numSymbols)); //-V2563
-    buffer[size - 1] = '\0'; //-V2563
+    std::memcpy(buffer + old.Size(), str, static_cast<uint>(numSymbols));
+    buffer[size - 1] = '\0';
 }
 
 
@@ -189,7 +189,7 @@ void String::RemoveFromEnd()
 {
     if(Size() > 0)
     {
-        buffer[Size() - 1] = '\0'; //-V2563
+        buffer[Size() - 1] = '\0';
     }
 }
 
@@ -220,5 +220,5 @@ char &String::operator[](int i) const
         return result;
     }
 
-    return buffer[i]; //-V2563
+    return buffer[i];
 }

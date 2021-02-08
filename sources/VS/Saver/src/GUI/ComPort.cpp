@@ -72,7 +72,7 @@ int ComPort::Receive(char *buffer, int size, int timeWait) //-V2506
 
         while (received < size && clock() < timeStart + timeWait)
         {
-            int newBytes = RS232_PollComport(openedPort, reinterpret_cast<unsigned char *>(buffer + received), size - received); //-V2563
+            int newBytes = RS232_PollComport(openedPort, reinterpret_cast<unsigned char *>(buffer + received), size - received);
             received += newBytes;
         }
 

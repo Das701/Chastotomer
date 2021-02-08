@@ -482,8 +482,8 @@ void FPGA::DecToBin(int dec, char *bin)
     int x = dec;
     for (int i = 0; i < 10; i++)
     {
-        if (x % 2 != 0) { bin[i] = 1; } //-V2563
-        else { bin[i] = 0; } //-V2563
+        if (x % 2 != 0) { bin[i] = 1; }
+        else { bin[i] = 0; }
         x = x / 2;
     }
 }
@@ -495,7 +495,7 @@ String FPGA::BinToString(pString bin, int num)
 
     for (int i = 0; i < num; i++)
     {
-        if (bin[i] == 0) //-V2563
+        if (bin[i] == 0)
         {
             buffer[i] = '0';
         }

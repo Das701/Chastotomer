@@ -347,10 +347,10 @@ void Channel::PressSetup()
 {
     switch (Channel::A->mod.typeMeasure.value)
     {
-    case TypeMeasure::Frequency:    pageModes->items[1] = mod.switchModeFrequency;     break; //-V2563
-    case TypeMeasure::Period:       pageModes->items[1] = mod.switchModePeriod;        break; //-V2563
-    case TypeMeasure::Duration:     pageModes->items[1] = mod.switchModeDuration;      break; //-V2563
-    case TypeMeasure::CountPulse:   pageModes->items[1] = mod.switchModeCountPulse;    break; //-V2563
+    case TypeMeasure::Frequency:    pageModes->items[1] = mod.switchModeFrequency;     break;
+    case TypeMeasure::Period:       pageModes->items[1] = mod.switchModePeriod;        break;
+    case TypeMeasure::Duration:     pageModes->items[1] = mod.switchModeDuration;      break;
+    case TypeMeasure::CountPulse:   pageModes->items[1] = mod.switchModeCountPulse;    break;
     }
 }
 

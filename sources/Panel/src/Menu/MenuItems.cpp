@@ -40,7 +40,7 @@ int Enumeration::NumStates() const
 
     if (correct == nullptr)
     {
-        for (int i = 0; names[i] != nullptr; i++) //-V2563
+        for (int i = 0; names[i] != nullptr; i++)
         {
             result++;
         }
@@ -56,7 +56,7 @@ int Enumeration::NumStates() const
 
 String Enumeration::ToString() const
 {
-    return String(names[IndexName()]); //-V2563
+    return String(names[IndexName()]);
 }
 
 
@@ -71,7 +71,7 @@ int Enumeration::IndexName() const
 
     for (int i = 0; i < value; i++)
     {
-        if (correct[i]) //-V2563
+        if (correct[i])
         {
             index++;
         }
@@ -83,7 +83,7 @@ int Enumeration::IndexName() const
 
 char *Enumeration::UGO() const
 {
-    return (ugo == nullptr) ? "" : ugo[IndexName()]; //-V2563
+    return (ugo == nullptr) ? "" : ugo[IndexName()];
 }
 
 
@@ -105,7 +105,7 @@ void Page::Draw(int x, int y, int, bool)
 
             Rectangle(WidthItem(i) - 1, HEIGHT - 1).FillRounded(x, y + 1, 2, ColorBackground(selected), Color::WHITE);
 
-            items[i]->Draw(x, y + 5, WidthItem(i), selected); //-V2563
+            items[i]->Draw(x, y + 5, WidthItem(i), selected);
 
             x += WidthItem(i);
         }
@@ -161,7 +161,7 @@ bool Page::IsPageSettings() const
 int Page::NumItems() const
 {
     int i = 0;
-    while (items[i] != nullptr) //-V2563
+    while (items[i] != nullptr)
     {
         i++;
     }
@@ -203,7 +203,7 @@ void Switch::NextChoice()
         do 
         {
             Math::CircleIncrease<uint8>(&state->value, 0, (uint8)(state->NumStates() - 1));
-        } while (state->correct[state->value] == false); //-V2563
+        } while (state->correct[state->value] == false);
     }
 
     if (funcOnPress)
@@ -331,7 +331,7 @@ void Page::OnEvent(EventType::E event)
 
 TypeMeasure *PageModes::GetTypeMeasure() const
 {
-    Switch *item = (Switch *)items[0]; //-V2563
+    Switch *item = (Switch *)items[0];
 
     return (TypeMeasure *)item->state;
 }
@@ -339,7 +339,7 @@ TypeMeasure *PageModes::GetTypeMeasure() const
 
 int PageModes::GetModeMeasure() const
 {
-    Switch *item = (Switch *)items[1]; //-V2563
+    Switch *item = (Switch *)items[1];
 
     if (item != nullptr)
     {
@@ -354,15 +354,15 @@ int PageModes::GetModeMeasure() const
 
 bool PageModes::ExistTypeMeasure(uint8 type) const
 {
-    Switch *item = (Switch *)items[0]; //-V2563
+    Switch *item = (Switch *)items[0];
 
-    return item->state->correct[type]; //-V2563
+    return item->state->correct[type];
 }
 
 
 void PageModes::ResetTypeAndModeMeasure()
 {
-    Switch *type = (Switch *)items[0]; //-V2563
+    Switch *type = (Switch *)items[0];
 
     if (type->state->correct == nullptr)
     {
@@ -372,7 +372,7 @@ void PageModes::ResetTypeAndModeMeasure()
     {
         for (int i = 0; i < type->state->numStates; i++)
         {
-            if (type->state->correct[i]) //-V2563
+            if (type->state->correct[i])
             {
                 type->state->value = (uint8)i;
                 break;
@@ -386,14 +386,14 @@ void PageModes::ResetTypeAndModeMeasure()
 
 bool PageModes::ExistModeMeasure(int mode) const
 {
-    Switch *item = (Switch *)items[1]; //-V2563
+    Switch *item = (Switch *)items[1];
 
-    return item->state->correct[mode]; //-V2563
+    return item->state->correct[mode];
 }
 
 void PageModes::ResetModeMeasure()
 {
-    Switch *mode = (Switch *)items[1]; //-V2563
+    Switch *mode = (Switch *)items[1];
 
     if (mode->state->correct == nullptr)
     {
@@ -403,7 +403,7 @@ void PageModes::ResetModeMeasure()
     {
         for (int i = 0; i < mode->state->numStates; i++)
         {
-            if (mode->state->correct[i]) //-V2563
+            if (mode->state->correct[i])
             {
                 mode->state->value = (uint8)i;
                 break;

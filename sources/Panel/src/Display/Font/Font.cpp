@@ -37,7 +37,7 @@ struct NativeSymbol
             return nullptr;
         }
 
-        return Data() + (row - firstRow) * BytesInRow(); //-V2563
+        return Data() + (row - firstRow) * BytesInRow();
     }
     // ¬озвращает указатель на первый байт данных
     uint8 *Data();
@@ -78,7 +78,7 @@ struct HeaderFont
             return nullptr;
         }
 
-        uint8 *offset = reinterpret_cast<uint8 *>(header) + header->offsets[num]; //-V2563
+        uint8 *offset = reinterpret_cast<uint8 *>(header) + header->offsets[num];
 
         return reinterpret_cast<NativeSymbol *>(offset);
     }
@@ -101,7 +101,7 @@ HeaderFont *HeaderFont::Sefl()
 
 uint8 *NativeSymbol::Data()
 {
-    return reinterpret_cast<uint8 *>(this) + sizeof(*this); //-V2563
+    return reinterpret_cast<uint8 *>(this) + sizeof(*this);
 }
 
 
@@ -190,7 +190,7 @@ bool Font::RowNotEmpty(uint8 s, int r)
         {
             for (int i = 0; i < symbol->BytesInRow(); i++)
             {
-                if (row[i] != 0) //-V2563
+                if (row[i] != 0)
                 {
                     return true;
                 }
