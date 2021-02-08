@@ -111,6 +111,14 @@ void ModeFilter::Set(ModeFilter::E v)
 }
 
 
+void InputImpedance::Set(E v)
+{
+    value = (uint8)v;
+
+    LoadToFPGA();
+}
+
+
 void ModeFilter::LoadToFPGA()
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)

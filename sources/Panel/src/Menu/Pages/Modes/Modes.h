@@ -296,6 +296,8 @@ struct InputImpedance : public Enumeration
     bool Is_1MOhm() const { return (value == _1MOmh); }
     bool Is_50Ohm() const { return (value == _50Omh); }
 
+    void Set(E v);
+
     static void LoadToFPGA();
 };
 

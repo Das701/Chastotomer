@@ -22,7 +22,7 @@ const StructSCPI SCPI::input[] =
 
 static pchar FuncCoupling(pchar buffer)
 {
-    static pString coupling[] =
+    static const pchar coupling[] =
     {
         " AC",
         " DC",
@@ -36,7 +36,7 @@ static pchar FuncCoupling(pchar buffer)
 
 static pchar FuncFilter(pchar buffer)
 {
-    static pString filter[] =
+    static const pchar filter[] =
     {
         " ON",
         " OFF",
@@ -48,9 +48,17 @@ static pchar FuncFilter(pchar buffer)
 }
 
 
-static pchar FuncImpedance(pchar)
+static pchar FuncImpedance(pchar buffer)
 {
-    return 0;
+    static const pchar impedance[] =
+    {
+        " 10MOHM",
+        " 50OHM",
+        ""
+    };
+
+    SCPI_REQUEST(SCPI::SendAnswer(impedance[Channel::Current()->set.impedance.value]));
+    SCPI_PROCESS_ARRAY(impedance, Channel::Current()->set.impedance.Set((InputImpedance::E)i));
 }
 
 
