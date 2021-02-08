@@ -35,17 +35,17 @@ static pchar FuncInput(pchar buffer, const pchar choice[], uint8 value, const Se
 static pchar FuncCoupling(pchar);
 static pchar FuncImpedance(pchar);
 static pchar FuncFilter(pchar);
-static pchar FuncModeFront(pchar);
+static pchar FuncTriggerSlope(pchar);
 static pchar FuncDivider(pchar);
 
 
 const StructSCPI SCPI::input[] =
 {
-    SCPI_LEAF(":COUPLE",    FuncCoupling),
-    SCPI_LEAF(":IMPEDANCE", FuncImpedance),
-    SCPI_LEAF(":FILTER",    FuncFilter),
-    SCPI_LEAF(":FRONT",     FuncModeFront),
-    SCPI_LEAF(":DIVIDER",   FuncDivider),
+    SCPI_LEAF(":COUPLE",        FuncCoupling),
+    SCPI_LEAF(":IMPEDANCE",     FuncImpedance),
+    SCPI_LEAF(":FILTER",        FuncFilter),
+    SCPI_LEAF(":TRIGGER:SLOPE", FuncTriggerSlope),
+    SCPI_LEAF(":DIVIDER",       FuncDivider),
     SCPI_EMPTY()
 };
 
@@ -115,7 +115,7 @@ static pchar FuncFilter(pchar buffer)
 }
 
 
-static pchar FuncModeFront(pchar buffer)
+static pchar FuncTriggerSlope(pchar buffer)
 {
     struct ModeFrontSCPI : public SetSCPI { virtual void SetParameter(int i, int) const { Channel::Current()->set.modeFront.Set((ModeFront::E)i); } };
 
