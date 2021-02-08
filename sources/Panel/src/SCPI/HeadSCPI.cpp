@@ -40,11 +40,18 @@ static pCHAR FuncReset(pCHAR buffer)
 }
 
 
+static void SetCurrentChannel(int i)
+{
+
+}
+
+
 static pCHAR FuncChannel(pCHAR buffer)
 {
     pchar names[] = { "A", "B", "C", "D", "" };
 
     SCPI_REQUEST(SCPI::SendAnswer(names[Channel::Current()->Number()]));
+    SCPI_PROCESS_ARRAY(names, SetCurrentChannel(i));
 }
 
 

@@ -3,6 +3,7 @@
 #include "Display/Display.h"
 #include "Display/Primitives.h"
 #include "Display/Text.h"
+#include "Menu/Hint.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Utils/Math.h"
@@ -376,6 +377,18 @@ void Channel::SelectNext()
     static Channel *const channels[Count] = { A, B, C, D };
 
     current = channels[num];
+}
+
+
+void Channel::LoadCurrentToFPGA()
+{
+    bool openSettings = (Menu::OpenedPage() == Current()->pageSettings);
+    bool openModes = (Menu::OpenedPage() == Current()->pageModes);
+    Current()->OnChanged_TypeMeasure();
+    Current()->LoadToFPGA();
+    if (openSettings) { Menu::SetOpenedPage(Current()->pageSettings); }
+    else if (openModes) { Menu::SetOpenedPage(Current()->pageModes); }
+    Hint::Hide();
 }
 
 

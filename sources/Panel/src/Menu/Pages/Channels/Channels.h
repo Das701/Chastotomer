@@ -76,8 +76,12 @@ struct Channel
     static void Create();
 
     static Channel *Current() { return current; };
+
     static void SetCurrent(Channel *channel) { current = channel; }
     static void SelectNext();
+
+    // Загружает настройки текущего канала в FPGA
+    static void LoadCurrentToFPGA();
 
     void DrawMode(int x, int y);
 
