@@ -160,29 +160,24 @@ ValueFrequency_Comparator::ValueFrequency_Comparator(uint counter, int interpol1
         A.Sub(dx);
         A.Div(N / 1000000);
 
-        if (!Channel::Current()->mod.timeComparator.Is_1s())
-        {
-            A.Mul(10);
-        }
-
-        if (values.AppendValue(A.ToDouble()))
-        {
-            Display::Refresh();
-        }
-
         if (Channel::Current()->mod.timeComparator.Is_1s())
         {
+            A.Mul(10);
             SetValue("%.4f E-6", A.ToDouble());
         }
         else
         {
             SetValue("%.4f E-7", A.ToDouble());
         }
+
+        values.Push(A.ToDouble());
     }
     else
     {
         SetValue(UGO::DivNULL);
     }
+
+    Display::Refresh();
 }
 
 
@@ -227,14 +222,6 @@ ValueFrequency_Ratio::ValueFrequency_Ratio(uint counter1, uint counter2)
 char *ValueFrequency_Ratio::GetSuffixUnit(int order) const
 {
     return GetSuffixUnitRelated(order);
-}
-
-
-bool ValueFrequency_Comparator::Stack::AppendValue(double val)
-{
-    Push(val);
-
-    return true;
 }
 
 

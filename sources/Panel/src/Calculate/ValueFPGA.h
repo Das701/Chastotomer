@@ -106,7 +106,6 @@ struct ValueFrequency_Comparator : public ValueFrequency
     {
     public:
         Stack(int size) : ::Stack<double>(size) {};
-        bool AppendValue(double value);
         double GetFromEnd(int fromEnd);
     private:
     };
