@@ -8,16 +8,18 @@
 static pCHAR FuncIDN(pCHAR);
 static pCHAR FuncReset(pCHAR);
 static pCHAR FuncChannel(pCHAR);
+static pchar FuncKeyPress(pchar);
 static pCHAR FuncPicture(pCHAR);
 
 
 const StructSCPI SCPI::head[] =
 {
-    SCPI_LEAF("*IDN?",    FuncIDN),
-    SCPI_LEAF("*RST",     FuncReset),
-    SCPI_LEAF(":CHANNEL", FuncChannel),
-    SCPI_LEAF(":PICTURE", FuncPicture),
-    SCPI_NODE(":INPUT",   SCPI::input),
+    SCPI_LEAF("*IDN?",      FuncIDN),
+    SCPI_LEAF("*RST",       FuncReset),
+    SCPI_LEAF(":CHANNEL",   FuncChannel),
+    SCPI_LEAF(":KEY:PRESS", FuncKeyPress),
+    SCPI_LEAF(":PICTURE",   FuncPicture),
+    SCPI_NODE(":INPUT",     SCPI::input),
     SCPI_EMPTY()
 };
 
@@ -58,6 +60,12 @@ static pCHAR FuncChannel(pCHAR buffer)
 
     SCPI_REQUEST(SCPI::SendAnswer(names[Channel::Current()->Number()]));
     SCPI_PROCESS_ARRAY(names, SetCurrentChannel(i));
+}
+
+
+static pchar FuncKeyPress(pchar buffer)
+{
+    return nullptr;
 }
 
 
