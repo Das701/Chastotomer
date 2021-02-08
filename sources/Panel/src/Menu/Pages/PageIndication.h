@@ -82,14 +82,19 @@ class PageIndication
 {
 public:
     static Page *self;
+
     // Время отображения результата измерения
     static DisplayTime displayTime;
+
     // Выбор опорного генератора
     static RefGenerator refGenerator;
+
     // Выбор источника запуска
     static LaunchSource launchSource;
+
     // Выбор 
     static CalibrationMode calibrationMode;
+
     // Включение(отключение) режима памяти
     static MemoryMode memoryMode;
     static bool OnceLaunch();
