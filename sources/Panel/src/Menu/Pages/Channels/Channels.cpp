@@ -368,7 +368,7 @@ void Channel::OnChanged_TypeMeasure()
 }
 
 
-void Channel::SelectNext()
+void Channel::SetCurrentNext()
 {
     int num = Channel::Current()->Number();
 

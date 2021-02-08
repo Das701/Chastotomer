@@ -42,13 +42,19 @@ static pCHAR FuncReset(pCHAR buffer)
 
 static void SetCurrentChannel(int i)
 {
+    Channel *channels[4] = { Channel::A, Channel::B, Channel::C, Channel::D };
 
+    Channel::SetCurrent(channels[i]);
+
+    Channel::LoadCurrentToFPGA();
+
+    Display::Refresh();
 }
 
 
 static pCHAR FuncChannel(pCHAR buffer)
 {
-    pchar names[] = { "A", "B", "C", "D", "" };
+    pchar names[] = { " A", " B", " C", " D", "" };
 
     SCPI_REQUEST(SCPI::SendAnswer(names[Channel::Current()->Number()]));
     SCPI_PROCESS_ARRAY(names, SetCurrentChannel(i));

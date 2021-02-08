@@ -78,7 +78,7 @@ struct Channel
     static Channel *Current() { return current; };
 
     static void SetCurrent(Channel *channel) { current = channel; }
-    static void SelectNext();
+    static void SetCurrentNext();
 
     // Загружает настройки текущего канала в FPGA
     static void LoadCurrentToFPGA();

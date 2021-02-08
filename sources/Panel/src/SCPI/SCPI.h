@@ -73,7 +73,7 @@ namespace SCPI
     bool IsLineEnding(pCHAR *bufer);
     
     // Послать ответ м в конце дописать 0x0D, если нет
-    void SendAnswer(pCHAR message);
+    void SendAnswer(pchar message);
     void SendAnswer(const String &message);
 
     // Послать строку как есть - без завершающего символа

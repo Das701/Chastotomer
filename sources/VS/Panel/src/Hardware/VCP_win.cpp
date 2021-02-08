@@ -6,5 +6,5 @@
 void VCP::SendStringAsynch(const char *message)
 {
     ConsoleSCPI::Self()->AddText(ConsoleSCPI::REVERSE_PROMT);
-    ConsoleSCPI::Self()->AddLine(message);
+    ConsoleSCPI::Self()->AddText(message);
 }

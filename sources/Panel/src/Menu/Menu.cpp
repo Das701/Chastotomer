@@ -188,7 +188,7 @@ static bool OnKey(const Control &control) //-V2008
 
     case Control::Channels:
         {
-            Channel::SelectNext();
+            Channel::SetCurrentNext();
             Channel::LoadCurrentToFPGA();
         }
         return true;

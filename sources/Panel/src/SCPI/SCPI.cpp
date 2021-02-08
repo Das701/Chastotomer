@@ -205,8 +205,13 @@ static bool RemoveSeparatorsSequenceFromBegin()
 }
 
 
-void SCPI::SendAnswer(pCHAR message)
+void SCPI::SendAnswer(pchar message)
 {
+    while (*message == ' ')
+    {
+        message++;
+    }
+
     if(message[std::strlen(message) - 1] != 0x0D) //-V2513
     {
         String msg(message);
