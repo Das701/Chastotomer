@@ -9,10 +9,10 @@
 
 namespace Tests
 {
-    static void AllTests(ValueSTRICT value);
+    static void AllTests(const ValueSTRICT &value);
 
-    static void TestEqualSub(const ValueSTRICT value);
-    static void TestSub(const ValueSTRICT value1, const ValueSTRICT value2);
+    static void TestEqualSub(const ValueSTRICT &value);
+    static void TestSub(const ValueSTRICT &value1, const ValueSTRICT &value2);
 }
 
 
@@ -27,13 +27,13 @@ void Tests::ValuesSTRICT()
 }
 
 
-void Tests::AllTests(ValueSTRICT value)
+void Tests::AllTests(const ValueSTRICT &value)
 {
     TestEqualSub(value);
 }
 
 
-static void Tests::TestEqualSub(const ValueSTRICT value)
+static void Tests::TestEqualSub(const ValueSTRICT &value)
 {
     ValueSTRICT one = value;
     ValueSTRICT two = value;
@@ -95,12 +95,11 @@ static void Tests::TestEqualSub(const ValueSTRICT value)
 }
 
 
-static void Tests::TestSub(const ValueSTRICT value1, const ValueSTRICT value2)
+static void Tests::TestSub(const ValueSTRICT &value1, const ValueSTRICT &value2)
 {
     ValueSTRICT one = value1;
-    ValueSTRICT two = value2;
 
-    one.Sub(two);
+    one.Sub(value2);
 
     double result1 = value1.ToDouble() - value2.ToDouble();
     double result2 = one.ToDouble();
