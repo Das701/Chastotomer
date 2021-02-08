@@ -5,6 +5,7 @@
 #include "Keyboard/Keyboard.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/Channels/Channels.h"
+#include "SCPI/SCPI.h"
 #include "Tests.h"
 
 
@@ -24,5 +25,6 @@ void update()
 
 	Display::Refresh();
 	Menu::Update();
+	SCPI::Update();
 	Display::Update();
 }

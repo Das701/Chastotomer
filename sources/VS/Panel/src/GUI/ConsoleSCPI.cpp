@@ -19,8 +19,10 @@ enum
 static wxTextCtrl *text = nullptr;
 static wxTextCtrl *line = nullptr;
 
-
 static ConsoleSCPI *self = nullptr;
+
+pString ConsoleSCPI::DIRECT_PROMT = ">>> ";
+pString ConsoleSCPI::REVERSE_PROMT = "<<< ";
 
 
 ConsoleSCPI::ConsoleSCPI(wxFrame *parent) : wxFrame(parent, wxID_ANY, wxT("SCPI"))
@@ -144,9 +146,9 @@ void ConsoleSCPI::OnTextEnter(wxCommandEvent &)
 {
     history.Add(line->GetLineText(0));
 
-    String txt("    %s", static_cast<const char *>(line->GetLineText(0).mb_str()));
+    AddText(DIRECT_PROMT);
 
-    AddLine(txt.c_str());
+    AddLine(line->GetLineText(0));
 
     SendToSCPI(line->GetLineText(0).c_str());
 
@@ -211,7 +213,7 @@ void ConsoleSCPI::SendToSCPI(const char *txt)
     }
     else
     {
-        SCPI::AppendNewData(message.c_str(), static_cast<int>(std::strlen(message.c_str()))); //-V2513
+        SCPI::AppendNewData(message.c_str(), static_cast<int>(std::strlen(message.c_str())));
     }
 }
 
