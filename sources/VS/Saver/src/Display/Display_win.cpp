@@ -183,13 +183,13 @@ void Frame::HandlerEvents()
 
 static void CreateFrame()
 {
-	Frame *frame = new Frame(""); //-V2511
+	Frame *frame = new Frame("");
 
 	SetPositionAndSize(frame);
 
-	wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL); //-V2511
+	wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
 
-    screen = new Screen(frame); //-V2511
+    screen = new Screen(frame);
 
     sizer->Add(screen);
 
@@ -227,9 +227,9 @@ static void CreateButtons(Frame *frame)
         CreateButton(keys3[i], frame, { x0 + (width + dX) * i, y0 + (height + dY) * 2 + 10 }, size);
     }
 
-    governor = new GovernorGUI(frame, { 700, 150 }); //-V2511
+    governor = new GovernorGUI(frame, { 700, 150 });
 
-    wxButton *button = new wxButton(frame, wxID_ANY, wxT("Сохранить"), { 500, 200 }, size); //-V2511
+    wxButton *button = new wxButton(frame, wxID_ANY, wxT("Сохранить"), { 500, 200 }, size);
 
     button->Connect(wxID_ANY, wxEVT_LEFT_DOWN, wxCommandEventHandler(Frame::OnSavePicture));
 } //-V773
@@ -256,7 +256,7 @@ static void CreateButton(Control::E key, Frame *frame, const wxPoint &pos, const
         return;
     }
 
-    wxButton *button = new wxButton(frame, (wxWindowID)key, Control(key).Name().c_str(), pos, size); //-V2511 //-V2533
+    wxButton *button = new wxButton(frame, (wxWindowID)key, Control(key).Name().c_str(), pos, size); //-V2533
 
     button->Connect((wxWindowID)key, wxEVT_LEFT_DOWN, wxCommandEventHandler(Frame::OnDown)); //-V2533
     button->Connect((wxWindowID)key, wxEVT_LEFT_UP, wxCommandEventHandler(Frame::OnUp)); //-V2533

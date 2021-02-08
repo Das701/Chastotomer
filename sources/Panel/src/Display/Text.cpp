@@ -29,7 +29,7 @@ Text::Text(const String &t)
 
 Text::~Text()
 {
-    delete []text; //-V2511
+    delete []text;
 }
 
 
@@ -39,7 +39,7 @@ void Text::Create(const char *_text)
 
     if (numSymbols)
     {
-        text = new char[numSymbols + 1]; //-V2511
+        text = new char[numSymbols + 1];
         std::strcpy(text, _text); //-V2513
     }
     else

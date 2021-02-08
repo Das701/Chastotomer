@@ -137,7 +137,7 @@ void String::Append(char symbol)
 
 String::~String()
 {
-    std::free(buffer); //-V2511
+    std::free(buffer);
 }
 
 
@@ -145,7 +145,7 @@ void String::Free()
 {
     if(buffer)
     {
-        std::free(buffer); //-V2511
+        std::free(buffer);
         buffer = nullptr;
         Set("");
     }

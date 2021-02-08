@@ -29,7 +29,7 @@ wxBEGIN_EVENT_TABLE(Frame, wxFrame)
     EVT_TIMER(TIMER_LONG_ID, Frame::OnTimerLong)
 wxEND_EVENT_TABLE()
 
-wxIMPLEMENT_APP_NO_MAIN(Application); //-V2511
+wxIMPLEMENT_APP_NO_MAIN(Application);
 
 
 
@@ -64,16 +64,16 @@ Frame::Frame(const wxString& title)
 {
     SetIcon(wxICON(sample));
 
-    wxMenu *fileMenu = new wxMenu; //-V2511
-
-    wxMenu *helpMenu = new wxMenu; //-V2511
-    helpMenu->Append(Help_About, "&About\tF1", "Show about dialog");
-
+    wxMenu *fileMenu = new wxMenu;
     //fileMenu->Append(File_Size, "&Size", "Resize screen");
-
     fileMenu->Append(File_Quit, "E&xit\tAlt-X", "Quit this program");
 
-    wxMenuBar *menuBar = new wxMenuBar(); //-V2511
+    wxMenu *toolsMenu = new wxMenu;
+
+    wxMenu *helpMenu = new wxMenu;
+    helpMenu->Append(Help_About, "&About\tF1", "Show about dialog");
+
+    wxMenuBar *menuBar = new wxMenuBar();
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(helpMenu, "&Help");
 
