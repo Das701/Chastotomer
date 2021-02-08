@@ -10,9 +10,10 @@ extern void init();
 
 enum
 {
-    File_Size = wxID_HIGHEST + 1,
-    File_Quit = wxID_EXIT,
-    Help_About = wxID_ABOUT
+    FILE_SIZE = wxID_HIGHEST + 1,
+    FILE_QUIT = wxID_EXIT,
+    GENERATOR,
+    HELP_ABOUT = wxID_ABOUT
 };
 
 enum
@@ -22,9 +23,9 @@ enum
 };
 
 wxBEGIN_EVENT_TABLE(Frame, wxFrame)
-    EVT_MENU(File_Size, Frame::OnSize)
-    EVT_MENU(File_Quit, Frame::OnQuit)
-    EVT_MENU(Help_About, Frame::OnAbout)
+    EVT_MENU(FILE_SIZE, Frame::OnSize)
+    EVT_MENU(FILE_QUIT, Frame::OnQuit)
+    EVT_MENU(HELP_ABOUT, Frame::OnAbout)
     EVT_TIMER(TIMER_ID, Frame::OnTimer)
     EVT_TIMER(TIMER_LONG_ID, Frame::OnTimerLong)
 wxEND_EVENT_TABLE()
@@ -66,15 +67,17 @@ Frame::Frame(const wxString& title)
 
     wxMenu *fileMenu = new wxMenu;
     //fileMenu->Append(File_Size, "&Size", "Resize screen");
-    fileMenu->Append(File_Quit, "E&xit\tAlt-X", "Quit this program");
+    fileMenu->Append(FILE_QUIT, "E&xit\tAlt-X", "Quit this program");
 
     wxMenu *toolsMenu = new wxMenu;
+    toolsMenu->Append(GENERATOR, "Генератор");
 
     wxMenu *helpMenu = new wxMenu;
-    helpMenu->Append(Help_About, "&About\tF1", "Show about dialog");
+    helpMenu->Append(HELP_ABOUT, "&About\tF1", "Show about dialog");
 
     wxMenuBar *menuBar = new wxMenuBar();
     menuBar->Append(fileMenu, "&File");
+    menuBar->Append(toolsMenu, "Инструменты");
     menuBar->Append(helpMenu, "&Help");
 
     SetMenuBar(menuBar);
