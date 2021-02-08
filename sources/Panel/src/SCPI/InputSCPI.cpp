@@ -35,10 +35,10 @@ void SCPI::AnswerInput(const pchar choice[], uint8 value)
 }
 
 
-pchar SCPI::ProcessSimpleParameter(pchar buffer, const pchar choice[], uint8 value, const SetSCPI &set)
+pchar SCPI::ProcessSimpleParameter(pchar buffer, const pchar choice[], uint8 value, const SetSCPI &s)
 {
     SCPI_REQUEST(AnswerInput(choice, value));
-    SCPI_PROCESS_ARRAY(choice, set.Set(i));
+    SCPI_PROCESS_ARRAY(choice, s.Set(i));
 }
 
 

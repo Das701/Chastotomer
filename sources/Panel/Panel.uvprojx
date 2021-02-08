@@ -1014,9 +1014,9 @@
           <GroupName>SCPI</GroupName>
           <Files>
             <File>
-              <FileName>HeadSCPI.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\SCPI\HeadSCPI.cpp</FilePath>
+              <FileName>SCPI.txt</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\SCPI.txt</FilePath>
             </File>
             <File>
               <FileName>SCPI.h</FileName>
@@ -1029,14 +1029,19 @@
               <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
             </File>
             <File>
+              <FileName>SetSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\SetSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HeadSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\HeadSCPI.cpp</FilePath>
+            </File>
+            <File>
               <FileName>InputSCPI.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\InputSCPI.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SCPI.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\SCPI\SCPI.txt</FilePath>
             </File>
           </Files>
         </Group>
@@ -2165,9 +2170,9 @@
           <GroupName>SCPI</GroupName>
           <Files>
             <File>
-              <FileName>HeadSCPI.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\SCPI\HeadSCPI.cpp</FilePath>
+              <FileName>SCPI.txt</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\SCPI.txt</FilePath>
             </File>
             <File>
               <FileName>SCPI.h</FileName>
@@ -2180,14 +2185,19 @@
               <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
             </File>
             <File>
+              <FileName>SetSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\SetSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HeadSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\HeadSCPI.cpp</FilePath>
+            </File>
+            <File>
               <FileName>InputSCPI.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\InputSCPI.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SCPI.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\SCPI\SCPI.txt</FilePath>
             </File>
           </Files>
         </Group>
