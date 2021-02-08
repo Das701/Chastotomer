@@ -267,14 +267,17 @@ void NumberPeriods::Set(E v)
 
 void InputImpedance::LoadToFPGA()
 {
-    Command command(Command::Impedance);
-
-    if (Channel::Current()->set.impedance.Is_50Ohm())
+    if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        command.SetBit(9);
-    }
+        Command command(Command::Impedance);
 
-    FPGA::WriteCommand(command);
+        if (Channel::Current()->set.impedance.Is_50Ohm())
+        {
+            command.SetBit(9);
+        }
+
+        FPGA::WriteCommand(command);
+    }
 }
 
 

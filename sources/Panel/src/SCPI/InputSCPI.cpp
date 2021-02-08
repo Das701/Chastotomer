@@ -20,17 +20,79 @@ const StructSCPI SCPI::input[] =
 };
 
 
+static const pchar coupling[] =
+{
+    " AC",
+    " DC",
+    ""
+};
+
+static void AnswerCoupling()
+{
+    if (CURRENT_CHANNEL_IS_A_OR_B)
+    {
+        SCPI::SendAnswer(coupling[Channel::Current()->set.couple.value]);
+    }
+    else
+    {
+        SCPI::Answer::CurrentChannelHasNotParameter();
+    }
+}
+
+static void SetCoupling(int i)
+{
+    if (CURRENT_CHANNEL_IS_A_OR_B)
+    {
+        Channel::Current()->set.couple.Set((InputCouple::E)i);
+    }
+    else
+    {
+        SCPI::Answer::CurrentChannelHasNotParameter();
+    }
+}
+
 static pchar FuncCoupling(pchar buffer)
 {
-    static const pchar coupling[] =
-    {
-        " AC",
-        " DC",
-        ""
-    };
+    SCPI_REQUEST(AnswerCoupling());
+    SCPI_PROCESS_ARRAY(coupling, SetCoupling(i));
+}
 
-    SCPI_REQUEST(SCPI::SendAnswer(coupling[Channel::Current()->set.couple.value]));
-    SCPI_PROCESS_ARRAY(coupling, Channel::Current()->set.couple.Set((InputCouple::E)i));
+
+static const pchar impedance[] =
+{
+    " 1MOHM",
+    " 50OHM",
+    ""
+};
+
+static void AnswerImpedance()
+{
+    if (CURRENT_CHANNEL_IS_A_OR_B)
+    {
+        SCPI::SendAnswer(impedance[Channel::Current()->set.impedance.value]);
+    }
+    else
+    {
+        SCPI::Answer::CurrentChannelHasNotParameter();
+    }
+}
+
+static void SetImpedance(int i)
+{
+    if (CURRENT_CHANNEL_IS_A_OR_B)
+    {
+        Channel::Current()->set.impedance.Set((InputImpedance::E)i);
+    }
+    else
+    {
+        SCPI::Answer::CurrentChannelHasNotParameter();
+    }
+}
+
+static pchar FuncImpedance(pchar buffer)
+{
+    SCPI_REQUEST(AnswerImpedance());
+    SCPI_PROCESS_ARRAY(impedance, SetImpedance(i));
 }
 
 
@@ -48,21 +110,16 @@ static pchar FuncFilter(pchar buffer)
 }
 
 
-static pchar FuncImpedance(pchar buffer)
+static pchar FuncDivider(pchar buffer)
 {
-    static const pchar impedance[] =
+    static const pchar divider[] =
     {
-        " 1MOHM",
-        " 50OHM",
+        " 1",
+        " 10",
         ""
     };
 
-    SCPI_REQUEST(SCPI::SendAnswer(impedance[Channel::Current()->set.impedance.value]));
-    SCPI_PROCESS_ARRAY(impedance, Channel::Current()->set.impedance.Set((InputImpedance::E)i));
-}
+    SCPI_REQUEST(SCPI::SendAnswer(divider[Channel::Current()->set.divider.value]));
 
-
-static pchar FuncDivider(pchar)
-{
-    return 0;
+    return buffer;
 }

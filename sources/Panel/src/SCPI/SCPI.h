@@ -83,7 +83,8 @@ namespace SCPI
     // ѕослать измерение в SCPI - с заменой нечитаемых символов и единиц измерени€
     void SendMeasure(const String &message);
     
-    // ≈сли строка buffer начинаетс€ с последовательности символов word, то возвращает указатель на символ, следующий за последним символом последовательности word.
+    // ≈сли строка buffer начинаетс€ с последовательности символов word, то возвращает указатель на символ, следующий за
+    // последним символом последовательности word.
     // »наче возвращает nullptr.
     const char *BeginWith(pchar buffer, pchar word);
     
@@ -91,6 +92,11 @@ namespace SCPI
     void SendBadSymbols();
 
     void ProcessHint(String *message, pchar const *names); //-V2504
+
+    namespace Answer
+    {
+        void CurrentChannelHasNotParameter();
+    }
 };
 
 

@@ -299,3 +299,9 @@ void SCPI::SendMeasure(const String &str)
 
     SendAnswer(message.c_str());
 }
+
+
+void SCPI::Answer::CurrentChannelHasNotParameter()
+{
+    SendAnswer("Current channel does has not this parameter");
+}
