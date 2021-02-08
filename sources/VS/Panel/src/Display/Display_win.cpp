@@ -8,7 +8,7 @@
 
 #pragma warning(push, 0)
 #undef CRC
-#include "Application_win.h"
+#include "GUI/Application.h"
 
 #define uint    unsigned int
 #define int8    signed char
