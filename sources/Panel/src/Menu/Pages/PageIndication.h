@@ -27,6 +27,8 @@ struct RefGenerator : public Enumeration
     explicit RefGenerator(E v) : Enumeration((uint8)v) {};
     bool IsExternal() const { return (value == External); }
 
+    void Set(E v);
+
     static void LoadToFPGA();
 };
 
@@ -59,7 +61,7 @@ struct MemoryMode : public Enumeration
     explicit MemoryMode(E v) : Enumeration((uint8)v) {};
     bool IsOn() const { return (value == On); }
 
-    static void Load();
+    static void LoadToFPGA();
 };
 
 

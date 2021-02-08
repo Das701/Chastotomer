@@ -4,34 +4,6 @@
 #include "Utils/String.h"
 
 
-// Базовая структура для установки значения параметра
-struct SetSCPI
-{
-    virtual ~SetSCPI() {}
-
-    void Set(int i) const
-    {
-        if (CURRENT_CHANNEL_IS_A_OR_B)
-        {
-            SetParameter(i, 0);
-        }
-        else
-        {
-            SCPI::Answer::CurrentChannelHasNotParameter();
-        }
-    }
-
-    virtual void SetParameter(int, int) const {};         // Неиспользуемый второй аргумент нужен для того, чтобы случайно не вызвать напрямую
-};
-
-
-// Общая функция для отправки ответа на запросную форму команды
-static void AnswerInput(const pchar choice[], uint8 value);
-
-// Общая функция обработки запроса
-static pchar FuncInput(pchar buffer, const pchar choice[], uint8 value, const SetSCPI &set);
-
-
 static pchar FuncCoupling(pchar);
 static pchar FuncImpedance(pchar);
 static pchar FuncFilter(pchar);
@@ -50,7 +22,7 @@ const StructSCPI SCPI::input[] =
 };
 
 
-static void AnswerInput(const pchar choice[], uint8 value)
+void SCPI::AnswerInput(const pchar choice[], uint8 value)
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
@@ -63,7 +35,7 @@ static void AnswerInput(const pchar choice[], uint8 value)
 }
 
 
-static pchar FuncInput(pchar buffer, const pchar choice[], uint8 value, const SetSCPI &set)
+pchar SCPI::ProcessSimpleParameter(pchar buffer, const pchar choice[], uint8 value, const SetSCPI &set)
 {
     SCPI_REQUEST(AnswerInput(choice, value));
     SCPI_PROCESS_ARRAY(choice, set.Set(i));
@@ -81,7 +53,7 @@ static pchar FuncCoupling(pchar buffer)
         ""
     };
 
-    return FuncInput(buffer, coupling, Channel::Current()->set.couple.value, CoupleSCPI());
+    return SCPI::ProcessSimpleParameter(buffer, coupling, Channel::Current()->set.couple.value, CoupleSCPI());
 }
 
 
@@ -96,7 +68,7 @@ static pchar FuncImpedance(pchar buffer)
         ""
     };
 
-    return FuncInput(buffer, impedance, Channel::Current()->set.impedance.value, ImpedanceSCPI());
+    return SCPI::ProcessSimpleParameter(buffer, impedance, Channel::Current()->set.impedance.value, ImpedanceSCPI());
 }
 
 
@@ -111,7 +83,7 @@ static pchar FuncFilter(pchar buffer)
         ""
     };
 
-    return FuncInput(buffer, filter, Channel::Current()->set.modeFilter.value, FilterSCPI());
+    return SCPI::ProcessSimpleParameter(buffer, filter, Channel::Current()->set.modeFilter.value, FilterSCPI());
 }
 
 
@@ -126,7 +98,7 @@ static pchar FuncTriggerSlope(pchar buffer)
         ""
     };
 
-    return FuncInput(buffer, modeFront, Channel::Current()->set.modeFront.value, ModeFrontSCPI());
+    return SCPI::ProcessSimpleParameter(buffer, modeFront, Channel::Current()->set.modeFront.value, ModeFrontSCPI());
 }
 
 
@@ -141,5 +113,5 @@ static pchar FuncDivider(pchar buffer)
         ""
     };
 
-    return FuncInput(buffer, divider, Channel::Current()->set.divider.value, DividerSCPI());
+    return SCPI::ProcessSimpleParameter(buffer, divider, Channel::Current()->set.divider.value, DividerSCPI());
 }

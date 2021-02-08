@@ -94,7 +94,7 @@ void FreqMeter::HardwareReset()
 }
 
 
-void MemoryMode::Load()
+void MemoryMode::LoadToFPGA()
 {
     Command command(Command::MemoryMode);
 

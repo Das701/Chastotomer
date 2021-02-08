@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Hardware/VCP.h"
+#include "Menu/Pages/Channels/Channels.h"
 #include "SCPI/SCPI.h"
 #include "Utils/Buffer.h"
 #include "Utils/String.h"
@@ -304,4 +305,17 @@ void SCPI::SendMeasure(const String &str)
 void SCPI::Answer::CurrentChannelHasNotParameter()
 {
     SendAnswer("!!! ERROR !!! Current channel does has not this parameter");
+}
+
+
+void SetSCPI::Set(int i) const
+{
+    if (CURRENT_CHANNEL_IS_A_OR_B)
+    {
+        SetParameter(i, 0);
+    }
+    else
+    {
+        SCPI::Answer::CurrentChannelHasNotParameter();
+    }
 }

@@ -60,6 +60,17 @@ struct StructSCPI
 #define SCPI_IF_BEGIN_WITH_THEN(begin, func) end = SCPI::BeginWith(buffer, begin); if (end) { SCPI_PROLOG(end); func; SCPI_EPILOG(end); }
 
 
+// Базовая структура для установки значения параметра
+struct SetSCPI
+{
+    virtual ~SetSCPI() {}
+
+    void Set(int i) const;
+
+    virtual void SetParameter(int, int) const {};         // Неиспользуемый второй аргумент нужен для того, чтобы случайно не вызвать напрямую
+};
+
+
 namespace SCPI
 {
     // Символ-разделить морфем команды
@@ -99,6 +110,12 @@ namespace SCPI
     {
         void CurrentChannelHasNotParameter();
     }
+
+    // Общая функция обработки команды обычного запроса
+    pchar ProcessSimpleParameter(pchar buffer, const pchar choice[], uint8 value, const SetSCPI &set);
+
+    // Общая функция для отправки ответа на запросную форму команды
+    void AnswerInput(const pchar choice[], uint8 value);
 };
 
 

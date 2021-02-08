@@ -19,6 +19,13 @@ CalibrationMode PageIndication::calibrationMode(CalibrationMode::Disabled);
 MemoryMode      PageIndication::memoryMode(MemoryMode::On);
 
 
+void RefGenerator::Set(E v)
+{
+    value = (uint8)v;
+
+    LoadToFPGA();
+}
+
 
 static void OnPress_DisplayTime()
 {
@@ -77,7 +84,7 @@ DEF_SWITCH_2(sCalibration,
 
 static void OnPress_MemoryMode()
 {
-    MemoryMode::Load();
+    MemoryMode::LoadToFPGA();
 }
 
 bool PageIndication::OnceLaunch()

@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Display/Display.h"
 #include "Menu/Pages/Channels/Channels.h"
+#include "Menu/Pages/PageIndication.h"
 #include "SCPI/SCPI.h"
 #include "Utils/String.h"
 
@@ -10,16 +11,18 @@ static pchar FuncReset(pchar);
 static pchar FuncChannel(pchar);
 static pchar FuncKeyPress(pchar);
 static pchar FuncPicture(pchar);
+static pchar FuncRefGenerator(pchar);
 
 
 const StructSCPI SCPI::head[] =
 {
-    SCPI_LEAF("*IDN?",      FuncIDN),
-    SCPI_LEAF("*RST",       FuncReset),
-    SCPI_LEAF(":CHANNEL",   FuncChannel),
-    SCPI_LEAF(":KEY:PRESS", FuncKeyPress),
-    SCPI_LEAF(":PICTURE",   FuncPicture),
-    SCPI_NODE(":INPUT",     SCPI::input),
+    SCPI_LEAF("*IDN?",         FuncIDN),
+    SCPI_LEAF("*RST",          FuncReset),
+    SCPI_LEAF(":CHANNEL",      FuncChannel),
+    SCPI_LEAF(":KEY:PRESS",    FuncKeyPress),
+    SCPI_LEAF(":PICTURE",      FuncPicture),
+    SCPI_LEAF(":REFGENERATOR", FuncRefGenerator),
+    SCPI_NODE(":INPUT",        SCPI::input),
     SCPI_EMPTY()
 };
 
@@ -108,4 +111,20 @@ static pchar FuncPicture(pchar buffer)
     SCPI_EPILOG(buffer);
 
     return nullptr;
+}
+
+
+static pchar FuncRefGenerator(pchar buffer)
+{
+    struct RefGeneratorSCPI : public SetSCPI 
+    { virtual void SetParameter(int i, int) const { PageIndication::refGenerator.Set((RefGenerator::E)i); } };
+
+    static const pchar generator[] =
+    {
+        " INT",
+        " EXT",
+        ""
+    };
+
+    return SCPI::ProcessSimpleParameter(buffer, generator, PageIndication::refGenerator.value, RefGeneratorSCPI());
 }
