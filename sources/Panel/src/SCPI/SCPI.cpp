@@ -10,13 +10,13 @@
 // Рекурсивная функция обработки массива структур StructSCPI.
 // В случае успешного выполнения возвращает адрес символа, расположенного за последним обработанным символом.
 // В случае неуспешного завершения - возвращает nullptr. Код ошибки находится в *error
-static pCHAR Process(pCHAR buffer, const StructSCPI structs[]); //-V2504
+static pchar Process(pchar buffer, const StructSCPI structs[]); //-V2504
 
 // Обработка узла дерева node
-static pCHAR ProcessNode(pCHAR begin, const StructSCPI *node);
+static pchar ProcessNode(pchar begin, const StructSCPI *node);
 
 // Обработка листа node
-static pCHAR ProcessLeaf(pCHAR begin, const StructSCPI *node);
+static pchar ProcessLeaf(pchar begin, const StructSCPI *node);
 
 // Возвращает true, если символ является началом комнады - разделителем или '*'
 static bool IsBeginCommand(const char &symbol);
@@ -34,7 +34,7 @@ static String data;
 
 static String badSymbols;
 
-void SCPI::AppendNewData(pCHAR buffer, int size)
+void SCPI::AppendNewData(pchar buffer, int size)
 {
     data.Append(buffer, size);
 
@@ -59,7 +59,7 @@ void SCPI::Update()
         return;
     }
 
-    pCHAR end = Process(data.c_str(), head);
+    pchar end = Process(data.c_str(), head);
 
     if(end)
     {
@@ -68,11 +68,11 @@ void SCPI::Update()
 }
 
 
-static pCHAR Process(pCHAR buffer, const StructSCPI strct[]) //-V2504
+static pchar Process(pchar buffer, const StructSCPI strct[]) //-V2504
 {
     while (!strct->IsEmpty())
     {
-        pCHAR end = SCPI::BeginWith(buffer, strct->key);
+        pchar end = SCPI::BeginWith(buffer, strct->key);
 
         if (end)
         {
@@ -95,7 +95,7 @@ static pCHAR Process(pCHAR buffer, const StructSCPI strct[]) //-V2504
 }
 
 
-pCHAR SCPI::BeginWith(pCHAR buffer, pCHAR word)
+pchar SCPI::BeginWith(pchar buffer, pchar word)
 {
     while (*word)
     {
@@ -119,20 +119,20 @@ pCHAR SCPI::BeginWith(pCHAR buffer, pCHAR word)
 }
 
 
-static pCHAR ProcessNode(pCHAR begin, const StructSCPI *node)
+static pchar ProcessNode(pchar begin, const StructSCPI *node)
 {
     return Process(begin, node->strct);
 }
 
 
-static pCHAR ProcessLeaf(pCHAR begin, const StructSCPI *node)
+static pchar ProcessLeaf(pchar begin, const StructSCPI *node)
 {
     if (*begin == '\0')                     // Подстраховка от того, что символ окончания команды не принят
     {
         return nullptr;
     }
 
-    pCHAR result = node->func(begin);
+    pchar result = node->func(begin);
 
     if (result)
     {
@@ -145,7 +145,7 @@ static pCHAR ProcessLeaf(pCHAR begin, const StructSCPI *node)
 }
 
 
-bool SCPI::IsLineEnding(pCHAR *buffer)
+bool SCPI::IsLineEnding(pchar *buffer)
 {
     bool result = (**buffer == 0x0D);
 
@@ -231,7 +231,7 @@ void SCPI::SendAnswer(const String &message)
 }
 
 
-void SCPI::SendData(pCHAR message)
+void SCPI::SendData(pchar message)
 {
     VCP::SendStringAsynch(message);
 }
@@ -249,7 +249,7 @@ static bool IsBeginCommand(const char &symbol)
 }
 
 
-void SCPI::ProcessHint(String *message, pCHAR const *names)
+void SCPI::ProcessHint(String *message, pchar const *names)
 {
     message->Append(" {");
     for(int i = 0; i < names[i][0] != 0; i++)

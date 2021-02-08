@@ -15,7 +15,7 @@ typedef signed long long int   int64;
 typedef unsigned long long int uint64;
 typedef unsigned int           uint;
 typedef const char * const     pString;
-typedef const char *           pCHAR;
+typedef const char *           pchar;
 typedef const char *           pchar;
 
 typedef void(*pFuncVII)(int, int);

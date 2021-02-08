@@ -45,7 +45,7 @@ String::String(char symbol) : buffer(nullptr)
 }
 
 
-String::String(pCHAR format, ...) : buffer(nullptr)
+String::String(pchar format, ...) : buffer(nullptr)
 {
     Free();
 
@@ -58,7 +58,7 @@ String::String(pCHAR format, ...) : buffer(nullptr)
 }
 
 
-void String::Set(pCHAR format, ...)
+void String::Set(pchar format, ...)
 {
     Free();
 
@@ -71,7 +71,7 @@ void String::Set(pCHAR format, ...)
 }
 
 
-void String::ParseArguments(pCHAR format, std::va_list args)
+void String::ParseArguments(pchar format, std::va_list args)
 {
     int sizeBuffer = std::vsnprintf(nullptr, 0, format, args) + 1;
 
@@ -89,7 +89,7 @@ void String::ParseArguments(pCHAR format, std::va_list args)
 }
 
 
-void String::Append(pCHAR str)
+void String::Append(pchar str)
 {
     if (!str || *str == '\0')
     {
@@ -107,7 +107,7 @@ void String::Append(pCHAR str)
 }
 
 
-void String::Append(pCHAR str, int numSymbols)
+void String::Append(pchar str, int numSymbols)
 {
     if (!str || *str == '\0')
     {

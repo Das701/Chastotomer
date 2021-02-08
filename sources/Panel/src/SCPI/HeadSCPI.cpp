@@ -5,11 +5,11 @@
 #include "Utils/String.h"
 
 
-static pCHAR FuncIDN(pCHAR);
-static pCHAR FuncReset(pCHAR);
-static pCHAR FuncChannel(pCHAR);
+static pchar FuncIDN(pchar);
+static pchar FuncReset(pchar);
+static pchar FuncChannel(pchar);
 static pchar FuncKeyPress(pchar);
-static pCHAR FuncPicture(pCHAR);
+static pchar FuncPicture(pchar);
 
 
 const StructSCPI SCPI::head[] =
@@ -24,7 +24,7 @@ const StructSCPI SCPI::head[] =
 };
 
 
-static pCHAR FuncIDN(pCHAR buffer)
+static pchar FuncIDN(pchar buffer)
 {
     SCPI_PROLOG(buffer)
 
@@ -34,7 +34,7 @@ static pCHAR FuncIDN(pCHAR buffer)
 }
 
 
-static pCHAR FuncReset(pCHAR buffer)
+static pchar FuncReset(pchar buffer)
 {
     SCPI_PROLOG(buffer)
         
@@ -54,7 +54,7 @@ static void SetCurrentChannel(int i)
 }
 
 
-static pCHAR FuncChannel(pCHAR buffer)
+static pchar FuncChannel(pchar buffer)
 {
     pchar names[] = { " A", " B", " C", " D", "" };
 
@@ -69,7 +69,7 @@ static pchar FuncKeyPress(pchar buffer)
 }
 
 
-static pCHAR FuncPicture(pCHAR buffer)
+static pchar FuncPicture(pchar buffer)
 {
     SCPI_PROLOG(buffer);
 

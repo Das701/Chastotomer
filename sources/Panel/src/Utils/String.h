@@ -10,10 +10,10 @@ public:
     explicit String();
              String(const String &);
     explicit String(char symbol);
-             String(pCHAR format, ...);
+             String(pchar format, ...);
     ~String();
 
-    void Set(pCHAR format, ...);
+    void Set(pchar format, ...);
 
     char *c_str() const;
 
@@ -21,9 +21,9 @@ public:
 
     void Free();
 
-    void Append(pCHAR str);
+    void Append(pchar str);
 
-    void Append(pCHAR str, int numSymbols);
+    void Append(pchar str, int numSymbols);
 
     void Append(char symbol);
     
@@ -44,5 +44,5 @@ private:
 
     char *buffer;
 
-    void ParseArguments(pCHAR format, std::va_list args);
+    void ParseArguments(pchar format, std::va_list args);
 };

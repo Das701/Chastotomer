@@ -4,10 +4,10 @@
 #include "Utils/String.h"
 
 
-static pCHAR FuncCoupling(pCHAR);
-static pCHAR FuncFilter(pCHAR);
-static pCHAR FuncImpedance(pCHAR);
-static pCHAR FuncDivider(pCHAR);
+static pchar FuncCoupling(pchar);
+static pchar FuncFilter(pchar);
+static pchar FuncImpedance(pchar);
+static pchar FuncDivider(pchar);
 
 
 const StructSCPI SCPI::input[] =
@@ -20,7 +20,7 @@ const StructSCPI SCPI::input[] =
 };
 
 
-static pCHAR FuncCoupling(pCHAR buffer)
+static pchar FuncCoupling(pchar buffer)
 {
     static pString coupling[] =
     {
@@ -34,7 +34,7 @@ static pCHAR FuncCoupling(pCHAR buffer)
 }
 
 
-static pCHAR FuncFilter(pCHAR buffer)
+static pchar FuncFilter(pchar buffer)
 {
     static pString filter[] =
     {
@@ -48,13 +48,13 @@ static pCHAR FuncFilter(pCHAR buffer)
 }
 
 
-static pCHAR FuncImpedance(pCHAR)
+static pchar FuncImpedance(pchar)
 {
     return 0;
 }
 
 
-static pCHAR FuncDivider(pCHAR)
+static pchar FuncDivider(pchar)
 {
     return 0;
 }

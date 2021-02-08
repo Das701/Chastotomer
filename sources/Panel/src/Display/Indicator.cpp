@@ -90,7 +90,7 @@ void Indicator::DrawData(pString text, int x, int y, Color cDraw, Color cBack)
     colorDraw = cDraw;
     colorBack = cBack;
 
-    pCHAR pointer = text;
+    pchar pointer = text;
 
     while (*pointer != '\0')
     {
@@ -118,7 +118,7 @@ void Indicator::DrawData(pString text, int x, int y, Color cDraw, Color cBack)
 
 void Indicator::DrawDataAboutRight(pString text, int xRight, int y, Color cDraw, Color cBack)
 {
-    pCHAR pointer = text;
+    pchar pointer = text;
 
     int length = 0;
 

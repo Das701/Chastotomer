@@ -12,13 +12,13 @@
 
 class String;
 
-typedef pCHAR (*FuncSCPI)(pCHAR);
+typedef pchar (*FuncSCPI)(pchar);
 
 
 // Структура, соотвествующая узлу дерева.
 struct StructSCPI
 {
-    pCHAR key;            // Ключевое слово узла (морфема)
+    pchar key;            // Ключевое слово узла (морфема)
 
     const StructSCPI *strct;    // Если структура имеет тип Node, то здесь хранится массив потомков - StructSCPI *structs.
 
@@ -40,7 +40,7 @@ struct StructSCPI
 #define SCPI_RUN_IF_END(func) if(end) { SCPI_PROLOG(end) func; SCPI_EPILOG(end) }
 
 #define SCPI_REQUEST(func)                          \
-    pCHAR end = SCPI::BeginWith(buffer, "?");       \
+    pchar end = SCPI::BeginWith(buffer, "?");       \
     SCPI_RUN_IF_END(func)
 
 #define SCPI_PROCESS_ARRAY(names, func)             \
@@ -65,19 +65,19 @@ namespace SCPI
 
     const int SIZE_SEPARATOR = 1;
 
-    void AppendNewData(pCHAR buffer, int length);
+    void AppendNewData(pchar buffer, int length);
 
     void Update();
     
     // Возвращает true, если указатель указывает на завершающую последовательность
-    bool IsLineEnding(pCHAR *bufer);
+    bool IsLineEnding(pchar *bufer);
     
     // Послать ответ м в конце дописать 0x0D, если нет
     void SendAnswer(pchar message);
     void SendAnswer(const String &message);
 
     // Послать строку как есть - без завершающего символа
-    void SendData(pCHAR message);
+    void SendData(pchar message);
     void SendData(const String &message);
 
     // Послать измерение в SCPI - с заменой нечитаемых символов и единиц измерения
@@ -85,12 +85,12 @@ namespace SCPI
     
     // Если строка buffer начинается с последовательности символов word, то возвращает указатель на символ, следующий за последним символом последовательности word.
     // Иначе возвращает nullptr.
-    const char *BeginWith(pCHAR buffer, pCHAR word);
+    const char *BeginWith(pchar buffer, pchar word);
     
     // Послать сообщение об ошибочных символах, если таковые имеются
     void SendBadSymbols();
 
-    void ProcessHint(String *message, pCHAR const *names); //-V2504
+    void ProcessHint(String *message, pchar const *names); //-V2504
 };
 
 

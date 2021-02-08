@@ -150,9 +150,9 @@ bool SU::GetWord(const char *string, Word *word, const int numWord)
 }
 
 
-bool SU::WordEqualZeroString(Word *word, pCHAR string)
+bool SU::WordEqualZeroString(Word *word, pchar string)
 {
-    pCHAR ch = string;
+    pchar ch = string;
     char *w = word->address;
 
     while (*ch != 0)

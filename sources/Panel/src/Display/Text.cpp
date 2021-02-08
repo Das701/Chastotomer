@@ -10,7 +10,7 @@ using namespace Primitives;
 
 
 
-Text::Text(pCHAR t)
+Text::Text(pchar t)
 {
     if (t == nullptr)
     {
