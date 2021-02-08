@@ -206,13 +206,7 @@ void ValueSTRICT::Sub(const ValueSTRICT &value)
 {
     ValueSTRICT sub = value;
 
-    double dTHIS = ToDouble();
-    double dSUB = sub.ToDouble();
-
     AlignOrders(sub);
-
-    dTHIS = ToDouble();
-    dSUB = sub.ToDouble();
 
     if (Sign() > 0)                                         // lhs > 0
     {
@@ -252,9 +246,6 @@ void ValueSTRICT::Sub(const ValueSTRICT &value)
             }
         }
     }
-
-    dTHIS = ToDouble();
-    dSUB = sub.ToDouble();
 }
 
 
