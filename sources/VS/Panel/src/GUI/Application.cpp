@@ -1,4 +1,5 @@
 #include "GUI/Application.h"
+#include "GUI/ConsoleSCPI.h"
 
 #undef main
 
@@ -12,7 +13,7 @@ enum
 {
     FILE_SIZE = wxID_HIGHEST + 1,
     FILE_QUIT = wxID_EXIT,
-    GENERATOR,
+    TOOL_SCPI,
     HELP_ABOUT = wxID_ABOUT
 };
 
@@ -70,7 +71,7 @@ Frame::Frame(const wxString& title)
     fileMenu->Append(FILE_QUIT, "E&xit\tAlt-X", "Quit this program");
 
     wxMenu *toolsMenu = new wxMenu;
-    toolsMenu->Append(GENERATOR, "Генератор");
+    toolsMenu->Append(TOOL_SCPI, "SCPI");
 
     wxMenu *helpMenu = new wxMenu;
     helpMenu->Append(HELP_ABOUT, "&About\tF1", "Show about dialog");
@@ -85,6 +86,8 @@ Frame::Frame(const wxString& title)
     CreateStatusBar(2);
     SetStatusText("Welcome to wxWidgets!");
 
+    Bind(wxEVT_MENU, &Frame::OnSCPI, this, TOOL_SCPI);
+
     timer.SetOwner(this, TIMER_ID);
 
     timer.Start(0);
@@ -92,6 +95,8 @@ Frame::Frame(const wxString& title)
     timerLongPress.SetOwner(this, TIMER_LONG_ID);
 
     self = this;
+
+    ConsoleSCPI::Self()->Show();
 }
 
 
@@ -159,4 +164,10 @@ void Frame::OnAbout(wxCommandEvent& WXUNUSED(event))
         "About wxWidgets minimal sample",
         wxOK | wxICON_INFORMATION,
         this);
+}
+
+
+void Frame::OnSCPI(wxCommandEvent &)
+{
+    ConsoleSCPI::Self()->SwitchVisibility();
 }

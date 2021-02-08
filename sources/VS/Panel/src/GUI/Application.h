@@ -20,6 +20,7 @@ public:
 
     void OnSize(wxCommandEvent& event);
     void OnQuit(wxCommandEvent& event);
+    void OnSCPI(wxCommandEvent &event);
     void OnAbout(wxCommandEvent& event);
     void OnTimer(wxTimerEvent& event);
     void OnTimerLong(wxTimerEvent& event);
