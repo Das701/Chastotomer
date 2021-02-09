@@ -457,13 +457,21 @@ void PageModes::ResetModeMeasure()
 
 void Switch::FuncForSCPI(int i)
 {
-    if (state->SetValue((uint8)i))
-    {
-        FuncOnPress();
-        Display::Refresh();
-    }
-    else
+    if (!SetValue((uint8)i))
     {
         SCPI::Answer::InvalidParameter();
     }
+}
+
+
+bool Switch::SetValue(uint8 v)
+{
+    if (state->SetValue(v))
+    {
+        FuncOnPress();
+        Display::Refresh();
+        return true;
+    }
+
+    return false;
 }

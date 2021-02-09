@@ -101,6 +101,8 @@ public:
     // Для управления по SCPI
     void FuncForSCPI(int i);
 
+    bool SetValue(uint8 v);
+
 private:
     char        *text;              // Надпись на переключателе
     void       (*funcOnPress)();    // Эта функция вызывается после изменения состояния переключателя
