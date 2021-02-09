@@ -48,20 +48,28 @@ Channel *Channel::C = nullptr;
 Channel *Channel::D = nullptr;
 
 static const bool enabledMeasuresA[TypeMeasure::Count] = { true, true, true, true };
-static const bool enabledModeFrequencyA[ModeFrequency::Count] = { true, true, true, true, false, false, false, false, true, true };
-static const bool enabledModeCountPulseA[ModeCountPulse::Count] = { true, true, false, false, false, false, false, false, true };
+static const bool enabledModeFrequencyA[ModeFrequency::Count] =
+                                                     { true, true, true, true, false, false, false, false, true, true };
+static const bool enabledModeCountPulseA[ModeCountPulse::Count] =
+                                                         { true, true, false, false, false, false, false, false, true };
 
 static const bool enabledMeasuresB[TypeMeasure::Count] = { true, true, true, true };
-static const bool enabledModeFrequencyB[ModeFrequency::Count] = { true, true, false, false, true, true, false, false, true, false };
-static const bool enabledModeCountPulseB[ModeCountPulse::Count] = { false, false, true, true, false, false, false, false, true };
+static const bool enabledModeFrequencyB[ModeFrequency::Count] =
+                                                    { true, true, false, false, true, true, false, false, true, false };
+static const bool enabledModeCountPulseB[ModeCountPulse::Count] =
+                                                         { false, false, true, true, false, false, false, false, true };
 
 static const bool enabledMeasuresC[TypeMeasure::Count] = { true, false, false, true };
-static const bool enabledModeFrequencyC[ModeFrequency::Count] = { true, false, false, false, false, false, true, true, false, false };
-static const bool enabledModeCountPulseC[ModeCountPulse::Count] = { false, false, false, false, true, true, true, true, false };
+static const bool enabledModeFrequencyC[ModeFrequency::Count] =
+                                                  { true, false, false, false, false, false, true, true, false, false };
+static const bool enabledModeCountPulseC[ModeCountPulse::Count] =
+                                                          { false, false, false, false, true, true, true, true, false };
 
 static const bool enabledMeasuresD[TypeMeasure::Count] = { true, false, false, false };
-static const bool enabledModeFrequencyD[ModeFrequency::Count] = { true, false, false, false, false, false, false, false, false, false };
-static const bool enabledModeCountPulseD[ModeCountPulse::Count] = { false, false, false, false, false, false, false, false, false };
+static const bool enabledModeFrequencyD[ModeFrequency::Count] =
+                                                { true, false, false, false, false, false, false, false, false, false };
+static const bool enabledModeCountPulseD[ModeCountPulse::Count] =
+                                                      { false, false, false, false, false, false, false, false, false };
 
 
 PeriodTimeLabels ModesChannel::timeLabels(PeriodTimeLabels::T_8);
@@ -98,12 +106,14 @@ ModesChannel::ModesChannel(Switch *pModeFrequency, Switch *pModeCountPulse, Swit
 }
 
 
-Channel::Channel(int num, Page *pSettings, PageModes *pModes, Switch *pModeFrequency, Switch *pModeCountPulse, Switch *pModePeriod, Switch *pModeDuration,
+Channel::Channel(int num, Page *pSettings, PageModes *pModes,
+    Switch *pModeFrequency, Switch *pModeCountPulse, Switch *pModePeriod, Switch *pModeDuration,
     const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse) :
     pageSettings(pSettings),
     pageModes(pModes),
     set(),
-    mod(pModeFrequency, pModeCountPulse, pModePeriod, pModeDuration, enabledMeasures, enabledModeFrequency, enabledModeCountPulse),
+    mod(pModeFrequency, pModeCountPulse, pModePeriod, pModeDuration, enabledMeasures, enabledModeFrequency,
+        enabledModeCountPulse),
     number(num)
 {
 }
@@ -113,19 +123,23 @@ void Channel::Create()
 {
     if (A == nullptr)
     {
-        A = new Channel(0, &pageChannelA, &pageModesA, switchModeFrequencyA, switchModeCountPulseA, switchModePeriodA, switchModeDurationA, enabledMeasuresA, enabledModeFrequencyA, enabledModeCountPulseA);
+        A = new Channel(0, &pageChannelA, &pageModesA, switchModeFrequencyA, switchModeCountPulseA, switchModePeriodA,
+            switchModeDurationA, enabledMeasuresA, enabledModeFrequencyA, enabledModeCountPulseA);
     }
     if (B == nullptr)
     {
-        B = new Channel(1, &pageChannelB, &pageModesB, switchModeFrequencyB, switchModeCountPulseB, switchModePeriodB, switchModeDurationB, enabledMeasuresB, enabledModeFrequencyB, enabledModeCountPulseB);
+        B = new Channel(1, &pageChannelB, &pageModesB, switchModeFrequencyB, switchModeCountPulseB, switchModePeriodB,
+            switchModeDurationB, enabledMeasuresB, enabledModeFrequencyB, enabledModeCountPulseB);
     }
     if (C == nullptr)
     {
-        C = new Channel(2, &pageChannelC, &pageModesC, switchModeFrequencyC, switchModeCountPulseC, nullptr, nullptr, enabledMeasuresC, enabledModeFrequencyC, enabledModeCountPulseC);
+        C = new Channel(2, &pageChannelC, &pageModesC, switchModeFrequencyC, switchModeCountPulseC, nullptr, nullptr,
+            enabledMeasuresC, enabledModeFrequencyC, enabledModeCountPulseC);
     }
     if (D == nullptr)
     {
-        D = new Channel(3, &pageChannelD, &pageModesD, switchModeFrequencyD, nullptr, nullptr, nullptr, enabledMeasuresD, enabledModeFrequencyD, enabledModeCountPulseD);
+        D = new Channel(3, &pageChannelD, &pageModesD, switchModeFrequencyD, nullptr, nullptr, nullptr,
+            enabledMeasuresD, enabledModeFrequencyD, enabledModeCountPulseD);
     }
 
     if (Current() == nullptr)
@@ -153,11 +167,14 @@ bool TypeMeasure::IsActiveTimeLabels(int m)
         {
         case ModeFrequency::T_1:
         case ModeFrequency::RatioCA:
-        case ModeFrequency::RatioCB:     result = true;                                                                     break;
+        case ModeFrequency::RatioCB:    result = true;
+            break;
 
-        case ModeFrequency::Frequency:   result = CURRENT_CHANNEL_IS_A_OR_B ? FreqMeter::modeTest.IsEnabled() : false;      break;
+        case ModeFrequency::Frequency:  result = CURRENT_CHANNEL_IS_A_OR_B ? FreqMeter::modeTest.IsEnabled() : false;
+            break;
 
-        case ModeFrequency::Tachometer:  result = FreqMeter::modeTest.IsEnabled();                                          break;
+        case ModeFrequency::Tachometer: result = FreqMeter::modeTest.IsEnabled();
+            break;
         }
     }
     else if (IsPeriod())
@@ -274,7 +291,9 @@ bool ModesChannel::ConsistTimeMeasure()
 {
     if (typeMeasure.IsFrequency())
     {
-        if (ModeFrequency::Current().IsFrequency() || ModeFrequency::Current().IsRatioAC() || ModeFrequency::Current().IsRatioBC())
+        if (ModeFrequency::Current().IsFrequency() ||
+            ModeFrequency::Current().IsRatioAC() ||
+            ModeFrequency::Current().IsRatioBC())
         {
             return true;
         }
@@ -360,10 +379,14 @@ void Channel::OnChanged_TypeMeasure()
 {
     switch (mod.typeMeasure.value)
     {
-    case TypeMeasure::Frequency:    if (mod.switchModeFrequency != nullptr)  { mod.switchModeFrequency->FuncOnPress();  }   break;
-    case TypeMeasure::CountPulse:   if (mod.switchModeCountPulse != nullptr) { mod.switchModeCountPulse->FuncOnPress(); }   break;
-    case TypeMeasure::Period:       if (mod.switchModePeriod != nullptr)     { mod.switchModePeriod->FuncOnPress();     }   break;
-    case TypeMeasure::Duration:     if (mod.switchModeDuration != nullptr)   { mod.switchModeDuration->FuncOnPress();   }   break;
+    case TypeMeasure::Frequency:   if (mod.switchModeFrequency != nullptr)  { mod.switchModeFrequency->FuncOnPress();  }
+        break;
+    case TypeMeasure::CountPulse:  if (mod.switchModeCountPulse != nullptr) { mod.switchModeCountPulse->FuncOnPress(); }
+        break;
+    case TypeMeasure::Period:      if (mod.switchModePeriod != nullptr)     { mod.switchModePeriod->FuncOnPress();     }
+        break;
+    case TypeMeasure::Duration:    if (mod.switchModeDuration != nullptr)   { mod.switchModeDuration->FuncOnPress();   }
+        break;
     }
 }
 
@@ -403,32 +426,32 @@ String Channel::GetSettings()
 
     char settings[100] = { 0 };
 
-    std::strcpy(settings, names[NUMBER_CURRENT_CHANNEL]); //-V2513
+    std::strcpy(settings, names[NUMBER_CURRENT_CHANNEL]);
 
-    ADD_UGO(current->set.couple.UGO()); //-V2513
-    ADD_UGO(current->set.impedance.UGO()); //-V2513
-    ADD_UGO(current->set.modeFilter.UGO()); //-V2513
-    ADD_UGO(current->set.modeFront.UGO()); //-V2513
-    ADD_UGO(current->set.divider.UGO()); //-V2513
-    ADD_UGO(current->set.typeSynch.UGO()); //-V2513
+    ADD_UGO(current->set.couple.UGO());
+    ADD_UGO(current->set.impedance.UGO());
+    ADD_UGO(current->set.modeFilter.UGO());
+    ADD_UGO(current->set.modeFront.UGO());
+    ADD_UGO(current->set.divider.UGO());
+    ADD_UGO(current->set.typeSynch.UGO());
 
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
-        ADD_UGO(SU::Int2String(LEVEL_SYNCH(CURRENT_CHANNEL) * current->set.divider.ToAbs()).c_str()); //-V2513
+        ADD_UGO(SU::Int2String(LEVEL_SYNCH(CURRENT_CHANNEL) * current->set.divider.ToAbs()).c_str());
         if (current->set.typeSynch.IsManual())
         {
-            std::strcat(settings, "ìÂ"); //-V2513
+            std::strcat(settings, "ìÂ");
         }
         else
         {
             switch (ModesChannel::timeLabels.value)
             {
-            case PeriodTimeLabels::T_3:     std::strcat(settings, "x10-3");     break; //-V2513
-            case PeriodTimeLabels::T_4:     std::strcat(settings, "x10-4");     break; //-V2513
-            case PeriodTimeLabels::T_5:     std::strcat(settings, "x10-5");     break; //-V2513
-            case PeriodTimeLabels::T_6:     std::strcat(settings, "x10-6");     break; //-V2513
-            case PeriodTimeLabels::T_7:     std::strcat(settings, "x10-7");     break; //-V2513
-            case PeriodTimeLabels::T_8:     std::strcat(settings, "x10-8");     break; //-V2513
+            case PeriodTimeLabels::T_3:     std::strcat(settings, "x10-3");     break;
+            case PeriodTimeLabels::T_4:     std::strcat(settings, "x10-4");     break;
+            case PeriodTimeLabels::T_5:     std::strcat(settings, "x10-5");     break;
+            case PeriodTimeLabels::T_6:     std::strcat(settings, "x10-6");     break;
+            case PeriodTimeLabels::T_7:     std::strcat(settings, "x10-7");     break;
+            case PeriodTimeLabels::T_8:     std::strcat(settings, "x10-8");     break;
             }
         }
     }

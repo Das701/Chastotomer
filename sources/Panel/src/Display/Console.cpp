@@ -59,7 +59,7 @@ void Console::DeleteFirstString()
 {
     for (int16 i = 1; i < stringInConsole; i++)
     {
-        std::strcpy(buffer[i - 1], buffer[i]); //-V2513
+        std::strcpy(buffer[i - 1], buffer[i]);
     }
     stringInConsole--;
 }

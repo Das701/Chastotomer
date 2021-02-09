@@ -114,7 +114,7 @@ void ConsoleSCPI::OnTimerComPort(wxTimerEvent &)
             if (positionOD < 0)
             {
                 buffer[n] = '\0';
-                std::strcat(fullBuffer, buffer); //-V2513
+                std::strcat(fullBuffer, buffer);
             }
             else
             {

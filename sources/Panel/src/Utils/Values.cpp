@@ -14,7 +14,7 @@ static char *FloatToString(float value, bool alwaysSign, int numDigits, char buf
 {
     if (Math::IsEquals(value, Float::ERROR))
     {
-        std::strcpy(bufferOut, String::_ERROR); //-V2513
+        std::strcpy(bufferOut, String::_ERROR);
         return bufferOut;
     }
 
@@ -60,9 +60,9 @@ static char *FloatToString(float value, bool alwaysSign, int numDigits, char buf
     }
 
     bool signExist = alwaysSign || value < 0; //-V2564
-    while (std::strlen(bufferOut) < static_cast<uint>(numDigits + (signExist ? 2 : 1))) //-V2513
+    while (std::strlen(bufferOut) < static_cast<uint>(numDigits + (signExist ? 2 : 1)))
     {
-        std::strcat(bufferOut, "0"); //-V2513
+        std::strcat(bufferOut, "0");
     }
 
 #ifdef WIN32

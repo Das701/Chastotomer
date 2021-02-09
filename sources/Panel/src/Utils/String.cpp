@@ -100,10 +100,10 @@ void String::Append(pchar str)
 
     Free();
 
-    Allocate(static_cast<int>(old.Size() + std::strlen(str) + 1)); //-V2513
+    Allocate(static_cast<int>(old.Size() + std::strlen(str) + 1));
 
-    std::strcpy(buffer, old.c_str()); //-V2513
-    std::strcat(buffer, str); //-V2513
+    std::strcpy(buffer, old.c_str());
+    std::strcat(buffer, str);
 }
 
 
@@ -122,7 +122,7 @@ void String::Append(pchar str, int numSymbols)
 
     Allocate(size);
 
-    std::strcpy(buffer, old.c_str()); //-V2513
+    std::strcpy(buffer, old.c_str());
     std::memcpy(buffer + old.Size(), str, static_cast<uint>(numSymbols));
     buffer[size - 1] = '\0';
 }
@@ -201,7 +201,7 @@ int String::Size() const
         return 0;
     }
 
-    return static_cast<int>(std::strlen(buffer)); //-V2513
+    return static_cast<int>(std::strlen(buffer));
 }
 
 

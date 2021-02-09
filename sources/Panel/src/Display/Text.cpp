@@ -35,12 +35,12 @@ Text::~Text()
 
 void Text::Create(const char *_text)
 {
-    uint numSymbols = std::strlen(_text); //-V2513
+    uint numSymbols = std::strlen(_text);
 
     if (numSymbols)
     {
         text = new char[numSymbols + 1];
-        std::strcpy(text, _text); //-V2513
+        std::strcpy(text, _text);
     }
     else
     {
@@ -61,7 +61,7 @@ int Text::Write(int x, int y)
 {
     if (text)
     {
-        x = WriteSymbols(text, (int)std::strlen(text), x, y); //-V2513
+        x = WriteSymbols(text, (int)std::strlen(text), x, y);
     }
 
     return x;
