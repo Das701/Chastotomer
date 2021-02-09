@@ -226,12 +226,6 @@ void SCPI::SendAnswer(pchar message)
 }
 
 
-void SCPI::SendAnswer(const String &message)
-{
-    SendAnswer(message.c_str());
-}
-
-
 void SCPI::SendData(pchar message)
 {
     VCP::SendStringAsynch(message);

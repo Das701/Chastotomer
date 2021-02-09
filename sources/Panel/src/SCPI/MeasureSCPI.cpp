@@ -110,7 +110,7 @@ static pchar FuncCurrent(pchar buffer)
         break;
     }
 
-    SCPI::SendAnswer(answer);
+    SCPI::SendAnswer(answer.c_str());
 
     SCPI_EPILOG(buffer);
 

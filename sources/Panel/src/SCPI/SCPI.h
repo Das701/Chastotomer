@@ -77,7 +77,6 @@ namespace SCPI
     
     // Послать ответ м в конце дописать 0x0D, если нет
     void SendAnswer(pchar message);
-    void SendAnswer(const String &message);
 
     // Послать строку как есть - без завершающего символа
     void SendData(pchar message);
