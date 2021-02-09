@@ -312,3 +312,24 @@ void SCPI::Answer::InvalidParameter()
 {
     SendAnswer("!!! ERROR !!! Invalid parameter");
 }
+
+
+void SCPI::AnswerInput(const pchar choice[], uint8 value)
+{
+    if (CURRENT_CHANNEL_IS_A_OR_B)
+    {
+        SCPI::SendAnswer(choice[value]);
+    }
+    else
+    {
+        SCPI::Answer::CurrentChannelHasNotParameter();
+    }
+}
+
+
+pchar SCPI::ProcessSimpleParameter(pchar buffer, const pchar choice[], Switch *const sw)
+{
+    SCPI_REQUEST(AnswerInput(choice, sw->Value()));
+
+    SCPI_PROCESS_ARRAY(choice, sw->FuncForSCPI(i));
+}

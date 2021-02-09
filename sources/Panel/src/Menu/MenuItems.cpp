@@ -460,6 +460,7 @@ void Switch::FuncForSCPI(int i)
     if (state->SetValue((uint8)i))
     {
         FuncOnPress();
+        Display::Refresh();
     }
     else
     {
