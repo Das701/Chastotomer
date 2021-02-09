@@ -107,11 +107,57 @@ static pchar FuncCurrent(pchar buffer)
 }
 
 
+static void Function(TypeMeasure::E type, int i)
+{
+    Channel *channel = Channel::Current();
+
+    if (!channel->ExistMeasure(type, i))
+    {
+        SCPI::Answer::ThisModeCannotBeSetForTheCurrentChannel();
+    }
+    else
+    {
+        if (channel->mod.typeMeasure.value != type)
+        {
+            channel->mod.typeMeasure.sw->SetValue((uint8)type);
+        }
+
+        if (channel->mod.modeFrequency.value != i)
+        {
+            channel->mod.modeFrequency.sw->SetValue((uint8)i);
+        }
+    }
+}
+
+
 static pchar FuncFrequency(pchar buffer)
 {
-    SCPI_REQUEST(SCPI::AnswerInput(modesFrequency, Channel::Current()->mod.typeMeasure.value));
+    pchar end = nullptr;
+
+    SCPI_PROCESS_ARRAY(modesFrequency, Function(TypeMeasure::Frequency, i));
+
+    /*
+    pchar end = nullptr;
+
+    for (int i = 0; i < modesFrequency[i][0] != 0; i++)
+    {
+        end = SCPI::BeginWith(buffer, modesFrequency[i]);
+
+        if (end)
+        {
+            if (SCPI::IsLineEnding(&end))
+            {
+                SCPI::SendBadSymbols();
+
+                Function();
+
+                return end;
+            }
+        }
+    }
 
     return nullptr;
+    */
 }
 
 

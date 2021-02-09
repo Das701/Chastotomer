@@ -100,6 +100,8 @@ namespace SCPI
         void CurrentChannelHasNotParameter();
 
         void InvalidParameter();
+
+        void ThisModeCannotBeSetForTheCurrentChannel();
     }
 
     // Общая функция обработки команды обычного запроса

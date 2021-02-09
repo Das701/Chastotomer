@@ -84,14 +84,6 @@ bool Channel::ExistMeasure(TypeMeasure::E type, int mode)
         case 3: return enabledModeFrequencyD[mode];
         }
     }
-    else if (type == TypeMeasure::Period)
-    {
-        return Number() < 2;
-    }
-    else if (type == TypeMeasure::Duration)
-    {
-
-    }
     else if (type == TypeMeasure::CountPulse)
     {
         switch (Number())
@@ -102,6 +94,8 @@ bool Channel::ExistMeasure(TypeMeasure::E type, int mode)
         case 3: return enabledModeCountPulseD[mode];
         }
     }
+
+    return Number() > 2;
 }
 
 

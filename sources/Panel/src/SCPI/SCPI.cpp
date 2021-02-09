@@ -308,6 +308,12 @@ void SCPI::Answer::InvalidParameter()
 }
 
 
+void SCPI::Answer::ThisModeCannotBeSetForTheCurrentChannel()
+{
+    SendAnswer("!!! ERROR !!! This mode cannot be set for the current channel");
+}
+
+
 void SCPI::AnswerInput(const pchar choice[], uint8 value)
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
