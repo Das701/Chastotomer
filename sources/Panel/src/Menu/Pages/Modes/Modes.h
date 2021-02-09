@@ -275,8 +275,6 @@ struct InputCouple : public Enumeration
     explicit InputCouple(E v) : Enumeration((uint8)v) {};
     bool IsDC() const { return (value == InputCouple::DC); }
 
-    void Set(E v);
-
     static void LoadToFPGA();
 };
 

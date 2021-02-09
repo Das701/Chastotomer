@@ -34,14 +34,6 @@ void InputCouple::LoadToFPGA()
 }
 
 
-void InputCouple::Set(InputCouple::E v)
-{
-    value = (uint8)v;
-
-    LoadToFPGA();
-}
-
-
 void LevelSynch::Change(int delta)
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
