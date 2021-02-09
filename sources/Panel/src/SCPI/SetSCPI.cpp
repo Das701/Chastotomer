@@ -37,11 +37,33 @@ static pchar FuncTimeMeasure(pchar buffer)
 
 static pchar FuncN(pchar buffer)
 {
-    return nullptr;
+    static const pchar n[] =
+    {
+        " 1",
+        " 10",
+        " 100",
+        " 1K",
+        " 10K",
+        " 100K",
+        ""
+    };
+
+    return SCPI::ProcessSimpleParameter(buffer, n, Channel::Current()->mod.numberPeriods.sw);
 }
 
 
 static pchar FuncTimeLabels(pchar buffer)
 {
-    return nullptr;
+    static const pchar labels[] =
+    {
+        " 10-3",
+        " 10-4",
+        " 10-5",
+        " 10-6",
+        " 10-7",
+        " 10-8",
+        ""
+    };
+
+    return SCPI::ProcessSimpleParameter(buffer, labels, Channel::Current()->mod.timeLabels.sw);
 }
