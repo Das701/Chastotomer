@@ -7,6 +7,7 @@
 #include "Hardware/FPGA.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/Modes/Modes.h"
+#include "SCPI/SCPI.h"
 #include "Utils/Buffer.h"
 #include "Utils/StringUtils.h"
 #include <cstdio>
@@ -209,6 +210,8 @@ void ValueFPGA::SetValue(char *format, ...)
         va_end(args);
     }
 
+    SCPI::Sender::SendValue(value.c_str());
+
     Display::zoneData->Refresh();
 }
 
@@ -292,12 +295,6 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, bool isOrdered)
 void ValueFPGA::SetInfiniteValue()
 {
     SetValue(UGO::DivNULL);
-}
-
-
-void ValueFPGA::SetIntegerValue(uint counter)
-{
-    SetValue("%d", counter);
 }
 
 

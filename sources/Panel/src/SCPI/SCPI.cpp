@@ -35,6 +35,9 @@ static String data;
 
 static String badSymbols;
 
+bool SCPI::Sender::needSend = false;
+
+
 void SCPI::AppendNewData(pchar buffer, int size)
 {
     data.Append(buffer, size);
@@ -314,7 +317,8 @@ void SCPI::Answer::ThisModeCannotBeSetForTheCurrentChannel()
 }
 
 
-void SCPI::AnswerInput(const pchar choice[], uint8 value)
+// Общая функция для отправки ответа на запросную форму команды
+static void AnswerInput(const pchar choice[], uint8 value)
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
     {
@@ -332,4 +336,14 @@ pchar SCPI::ProcessSimpleParameter(pchar buffer, const pchar choice[], Switch *c
     SCPI_REQUEST(AnswerInput(choice, sw->Value()));
 
     SCPI_PROCESS_ARRAY(choice, sw->FuncForSCPI(i));
+}
+
+
+void SCPI::Sender::SendValue(pchar value)
+{
+    if (needSend)
+    {
+        SendAnswer(value);
+        needSend = false;
+    }
 }

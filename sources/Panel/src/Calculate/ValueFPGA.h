@@ -42,8 +42,6 @@ protected:
     // Установить бесконечное значение - деление на ноль
     void SetInfiniteValue();
 
-    void SetIntegerValue(uint value);
-
     int NumDigitsInNumber(uint number) const;
 
     // Возвращает суффикс для единиц измерения для данного порядка. order == 3 - кило, order == -3 - милли
