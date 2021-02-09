@@ -115,5 +115,6 @@ namespace SCPI
 {
     extern const StructSCPI head[];
     extern const StructSCPI input[];
+    extern const StructSCPI measure[];
     extern const StructSCPI set[];
 }

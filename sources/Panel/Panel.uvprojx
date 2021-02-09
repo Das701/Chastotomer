@@ -1029,11 +1029,6 @@
               <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
             </File>
             <File>
-              <FileName>SetSCPI.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\SCPI\SetSCPI.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HeadSCPI.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\HeadSCPI.cpp</FilePath>
@@ -1042,6 +1037,16 @@
               <FileName>InputSCPI.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\InputSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MeasureSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\MeasureSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SetSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\SetSCPI.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -2185,11 +2190,6 @@
               <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
             </File>
             <File>
-              <FileName>SetSCPI.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\SCPI\SetSCPI.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HeadSCPI.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\HeadSCPI.cpp</FilePath>
@@ -2198,6 +2198,16 @@
               <FileName>InputSCPI.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\InputSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MeasureSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\MeasureSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SetSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\SetSCPI.cpp</FilePath>
             </File>
           </Files>
         </Group>
