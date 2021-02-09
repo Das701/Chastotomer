@@ -95,7 +95,7 @@ bool Channel::ExistMeasure(TypeMeasure::E type, int mode)
         }
     }
 
-    return Number() > 2;
+    return Number() < 2;
 }
 
 

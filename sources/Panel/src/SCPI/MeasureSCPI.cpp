@@ -130,7 +130,7 @@ static void SetModeMeasure(TypeMeasure::E type, int i, Enumeration &mode)
 }
 
 
-static pchar ProcessSetModeMeasure(pchar buffer, const pchar choice[], TypeMeasure::E type)
+static pchar ProcessSetModeMeasure(pchar buffer, TypeMeasure::E type)
 {
     Channel *channel = Channel::Current();
 
@@ -142,33 +142,41 @@ static pchar ProcessSetModeMeasure(pchar buffer, const pchar choice[], TypeMeasu
         &channel->mod.modeCountPulse
     };
 
+    const pchar *choices[] =
+    {
+        modesFrequency,
+        modesPeriod,
+        modesDuration,
+        modesCounter
+    };
+
     pchar end = nullptr;
 
-    SCPI_PROCESS_ARRAY(choice, SetModeMeasure(type, i, *modes[type]));
+    SCPI_PROCESS_ARRAY(choices[type], SetModeMeasure(type, i, *modes[type]));
 }
 
 
 static pchar FuncFrequency(pchar buffer)
 {
-    return ProcessSetModeMeasure(buffer, modesFrequency, TypeMeasure::Frequency);
+    return ProcessSetModeMeasure(buffer, TypeMeasure::Frequency);
 }
 
 
 static pchar FuncPeriod(pchar buffer)
 {
-    return ProcessSetModeMeasure(buffer, modesPeriod, TypeMeasure::Period);
+    return ProcessSetModeMeasure(buffer, TypeMeasure::Period);
 }
 
 
 static pchar FuncDuration(pchar buffer)
 {
-    return ProcessSetModeMeasure(buffer, modesDuration, TypeMeasure::Duration);
+    return ProcessSetModeMeasure(buffer, TypeMeasure::Duration);
 }
 
 
 static pchar FuncCounter(pchar buffer)
 {
-    return ProcessSetModeMeasure(buffer, modesCounter, TypeMeasure::CountPulse);
+    return ProcessSetModeMeasure(buffer, TypeMeasure::CountPulse);
 }
 
 
