@@ -188,8 +188,10 @@ static bool OnKey(const Control &control) //-V2008
 
     case Control::Channels:
         {
+            bool openSettings = (Menu::OpenedPage() == Channel::Current()->pageSettings);
+            bool openModes = (Menu::OpenedPage() == Channel::Current()->pageModes);
             Channel::SetCurrentNext();
-            Channel::LoadCurrentToFPGA();
+            Channel::LoadCurrentToFPGA(openSettings, openModes);
         }
         return true;
 

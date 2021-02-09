@@ -83,7 +83,7 @@ struct Channel
     static void SetCurrentNext();
 
     // Загружает настройки текущего канала в FPGA
-    static void LoadCurrentToFPGA();
+    static void LoadCurrentToFPGA(bool openSettings, bool openMode);
 
     void DrawMode(int x, int y);
 

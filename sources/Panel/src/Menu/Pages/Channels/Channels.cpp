@@ -436,14 +436,12 @@ void Channel::SetCurrentNext()
 }
 
 
-void Channel::LoadCurrentToFPGA()
+void Channel::LoadCurrentToFPGA(bool openSettings, bool openMode)
 {
-    bool openSettings = (Menu::OpenedPage() == Current()->pageSettings);
-    bool openModes = (Menu::OpenedPage() == Current()->pageModes);
     Current()->OnChanged_TypeMeasure();
     Current()->LoadToFPGA();
     if (openSettings) { Menu::SetOpenedPage(Current()->pageSettings); }
-    else if (openModes) { Menu::SetOpenedPage(Current()->pageModes); }
+    else if (openMode) { Menu::SetOpenedPage(Current()->pageModes); }
     Hint::Hide();
 }
 

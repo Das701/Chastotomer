@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Display/Display.h"
+#include "Menu/Menu.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/PageIndication.h"
 #include "SCPI/SCPI.h"
@@ -55,9 +56,12 @@ static void SetCurrentChannel(int i)
 {
     Channel *channels[4] = { Channel::A, Channel::B, Channel::C, Channel::D };
 
+    bool openSettings = Menu::OpenedPage() == Channel::Current()->pageSettings;
+    bool openModes = Menu::OpenedPage() == Channel::Current()->pageModes;
+
     Channel::SetCurrent(channels[i]);
 
-    Channel::LoadCurrentToFPGA();
+    Channel::LoadCurrentToFPGA(openSettings, openModes);
 
     Display::Refresh();
 }
