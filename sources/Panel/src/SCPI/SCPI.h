@@ -106,6 +106,8 @@ namespace SCPI
     // Общая функция обработки команды обычного запроса
     pchar ProcessSimpleParameter(pchar buffer, const pchar choice[], Switch * const sw);
 
+//    pchar ProcessSetMeasure(pchar buffer, TypeMeasure::E type, const pchar choice[], Switch *const sw);
+
     // Общая функция для отправки ответа на запросную форму команды
     void AnswerInput(const pchar choice[], uint8 value);
 };
