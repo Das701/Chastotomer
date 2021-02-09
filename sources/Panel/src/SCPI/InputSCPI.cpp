@@ -35,18 +35,16 @@ void SCPI::AnswerInput(const pchar choice[], uint8 value)
 }
 
 
-pchar SCPI::ProcessSimpleParameter(pchar buffer, const pchar choice[], uint8 value, const SetSCPI &s)
+pchar SCPI::ProcessSimpleParameter(pchar buffer, const pchar choice[], Switch * const sw)
 {
-    SCPI_REQUEST(AnswerInput(choice, value));
-    SCPI_PROCESS_ARRAY(choice, s.Set(i));
+    SCPI_REQUEST(AnswerInput(choice, sw->Value()));
+
+    SCPI_PROCESS_ARRAY(choice, sw->FuncForSCPI(i));
 }
 
 
 static pchar FuncCoupling(pchar buffer)
 {
-    struct CoupleSCPI : public SetSCPI
-    { virtual void SetParameter(int i, int) const { Channel::Current()->set.couple.Set((InputCouple::E)i); } };
-
     static const pchar coupling[] =
     {
         " AC",
@@ -54,15 +52,12 @@ static pchar FuncCoupling(pchar buffer)
         ""
     };
 
-    return SCPI::ProcessSimpleParameter(buffer, coupling, Channel::Current()->set.couple.value, CoupleSCPI());
+    return SCPI::ProcessSimpleParameter(buffer, coupling, Channel::Current()->set.couple.sw);
 }
 
 
 static pchar FuncImpedance(pchar buffer)
 {
-    struct ImpedanceSCPI : public SetSCPI
-    { virtual void SetParameter(int i, int) const { Channel::Current()->set.impedance.Set((InputImpedance::E)i); } };
-
     static const pchar impedance[] =
     {
         " 1MOHM",
@@ -70,15 +65,12 @@ static pchar FuncImpedance(pchar buffer)
         ""
     };
 
-    return SCPI::ProcessSimpleParameter(buffer, impedance, Channel::Current()->set.impedance.value, ImpedanceSCPI());
+    return SCPI::ProcessSimpleParameter(buffer, impedance, Channel::Current()->set.impedance.sw);
 }
 
 
 static pchar FuncFilter(pchar buffer)
 {
-    struct FilterSCPI : public SetSCPI
-    { virtual void SetParameter(int i, int) const { Channel::Current()->set.modeFilter.Set((ModeFilter::E)i); } };
-
     static const pchar filter[] =
     {
         " ON",
@@ -86,15 +78,12 @@ static pchar FuncFilter(pchar buffer)
         ""
     };
 
-    return SCPI::ProcessSimpleParameter(buffer, filter, Channel::Current()->set.modeFilter.value, FilterSCPI());
+    return SCPI::ProcessSimpleParameter(buffer, filter, Channel::Current()->set.modeFilter.sw);
 }
 
 
 static pchar FuncTriggerSlope(pchar buffer)
 {
-    struct ModeFrontSCPI : public SetSCPI
-    { virtual void SetParameter(int i, int) const { Channel::Current()->set.modeFront.Set((ModeFront::E)i); } };
-
     static const pchar modeFront[] =
     {
         " RISE",
@@ -102,15 +91,12 @@ static pchar FuncTriggerSlope(pchar buffer)
         ""
     };
 
-    return SCPI::ProcessSimpleParameter(buffer, modeFront, Channel::Current()->set.modeFront.value, ModeFrontSCPI());
+    return SCPI::ProcessSimpleParameter(buffer, modeFront, Channel::Current()->set.modeFront.sw);
 }
 
 
 static pchar FuncDivider(pchar buffer)
 {
-    struct DividerSCPI : public SetSCPI
-    { virtual void SetParameter(int i, int) const { Channel::Current()->set.divider.Set((Divider::E)i); }; };
-
     static const pchar divider[] =
     {
         " 1",
@@ -118,5 +104,5 @@ static pchar FuncDivider(pchar buffer)
         ""
     };
 
-    return SCPI::ProcessSimpleParameter(buffer, divider, Channel::Current()->set.divider.value, DividerSCPI());
+    return SCPI::ProcessSimpleParameter(buffer, divider, Channel::Current()->set.divider.sw);
 }

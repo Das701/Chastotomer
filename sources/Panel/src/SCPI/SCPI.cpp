@@ -308,14 +308,7 @@ void SCPI::Answer::CurrentChannelHasNotParameter()
 }
 
 
-void SetSCPI::Set(int i) const
+void SCPI::Answer::InvalidParameter()
 {
-    if (CURRENT_CHANNEL_IS_A_OR_B)
-    {
-        SetParameter(i, 0);
-    }
-    else
-    {
-        SCPI::Answer::CurrentChannelHasNotParameter();
-    }
+    SendAnswer("!!! ERROR !!! Invalid parameter");
 }

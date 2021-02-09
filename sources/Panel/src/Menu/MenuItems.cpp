@@ -10,6 +10,7 @@
 #include "Menu/MenuItems.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/PageIndication.h"
+#include "SCPI/SCPI.h"
 #include "Utils/Math.h"
 #include <cstring>
 
@@ -57,6 +58,47 @@ int Enumeration::NumStates() const
 String Enumeration::ToString() const
 {
     return String(names[IndexName()]);
+}
+
+
+bool Enumeration::SetValue(uint8 v)
+{
+    if (v >= numStates)
+    {
+        return false;
+    }
+
+    if (correct == nullptr)
+    {
+        value = v;
+
+        return true;
+    }
+
+    if (correct[v] == false)
+    {
+        return false;
+    }
+
+    value = v;
+    
+    return true;
+}
+
+
+bool Enumeration::ValidValue(uint8 v) const
+{
+    if (v >= numStates)
+    {
+        return false;
+    }
+
+    if (correct == nullptr)
+    {
+        return true;
+    }
+
+    return correct[v];
 }
 
 
@@ -413,29 +455,10 @@ void PageModes::ResetModeMeasure()
 }
 
 
-//void Page::SetTypeAndModeMeasure(int t, int m)
-//{
-//    Switch *type = (Switch *)items[0];
-//
-//    type->state->value = (uint8)t;
-//
-//    Switch *mode = (Switch *)items[1];
-//
-//    mode->state->value = (uint8)m;
-//
-//    if (this == Channel::A->pageModes)
-//    {
-//        PageModesA::OnChanged_TypeMeasure();
-//    }
-//    else if (this == Channel::B->pageModes)
-//    {
-//        PageModesB::OnChanged_TypeMeasure();
-//    }
-//    else if (this == Channel::C.pageModes)
-//    {
-//        PageModesC::OnChanged_TypeMeasure();
-//    }
-//    else if (this == Channel::D.pageModes)
-//    {
-//    }
-//}
+void Switch::FuncForSCPI(int i)
+{
+    if (!state->SetValue((uint8)i))
+    {
+        SCPI::Answer::InvalidParameter();
+    }
+}

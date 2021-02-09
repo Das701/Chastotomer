@@ -6,6 +6,7 @@
 
 
 struct TypeMeasure;
+class Switch;
 
 
 struct Enumeration
@@ -24,6 +25,9 @@ struct Enumeration
     // Возвращает индекс из массива names, соотвествующий текущему value
     int IndexName() const;
     bool Is(uint8 v) const { return value == v; }
+    Switch *sw;
+    bool SetValue(uint8 v);
+    bool ValidValue(uint8 v) const;
 };
 
 
@@ -85,11 +89,17 @@ public:
     {
         state->names = _names;
         state->ugo = _ugo;
+        state->sw = this;
     };
     virtual void Draw(int x, int y, int width, bool selected = false);
     virtual bool OnControl(const Control &control);
 
-    void FuncOnPress() { if (funcOnPress) { funcOnPress(); }; }
+    void FuncOnPress() const { if (funcOnPress) { funcOnPress(); }; }
+
+    uint8 Value() const { return state->value; }
+
+    // Для управления по SCPI
+    void FuncForSCPI(int i);
 
 private:
     char        *text;              // Надпись на переключателе

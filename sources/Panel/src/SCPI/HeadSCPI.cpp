@@ -117,9 +117,6 @@ static pchar FuncPicture(pchar buffer)
 
 static pchar FuncRefGenerator(pchar buffer)
 {
-    struct RefGeneratorSCPI : public SetSCPI 
-    { virtual void SetParameter(int i, int) const { PageIndication::refGenerator.Set((RefGenerator::E)i); } };
-
     static const pchar generator[] =
     {
         " INT",
@@ -127,5 +124,5 @@ static pchar FuncRefGenerator(pchar buffer)
         ""
     };
 
-    return SCPI::ProcessSimpleParameter(buffer, generator, PageIndication::refGenerator.value, RefGeneratorSCPI());
+    return SCPI::ProcessSimpleParameter(buffer, generator, PageIndication::refGenerator.sw);
 }

@@ -32,7 +32,8 @@ struct SettingsChannel
 
 struct ModesChannel
 {
-    ModesChannel(Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
+    ModesChannel(Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod,
+        Switch *switchModeDuration,
         const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
     TypeMeasure    typeMeasure;
@@ -63,7 +64,8 @@ struct ModesChannel
 
 struct Channel
 {
-    Channel(int number, Page *pSettings, PageModes *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse, Switch *switchModePeriod, Switch *switchModeDuration,
+    Channel(int number, Page *pSettings, PageModes *pModes, Switch *switchModeFrequency, Switch *switchModeCountPulse,
+        Switch *switchModePeriod, Switch *switchModeDuration,
         const bool *enabledMeasures, const bool *enabledModeFrequency, const bool *enabledModeCountPulse);
 
     static Channel *A;
