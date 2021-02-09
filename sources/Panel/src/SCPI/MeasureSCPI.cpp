@@ -107,25 +107,25 @@ static pchar FuncCurrent(pchar buffer)
 }
 
 
-static void Function(TypeMeasure::E type, int i)
+static void SetModeMeasure(TypeMeasure::E type, int i, Enumeration &mode)
 {
     Channel *channel = Channel::Current();
 
-    if (!channel->ExistMeasure(type, i))
-    {
-        SCPI::Answer::ThisModeCannotBeSetForTheCurrentChannel();
-    }
-    else
+    if (channel->ExistMeasure(type, i))
     {
         if (channel->mod.typeMeasure.value != type)
         {
             channel->mod.typeMeasure.sw->SetValue((uint8)type);
         }
 
-        if (channel->mod.modeFrequency.value != i)
+        if (mode.value != i)
         {
-            channel->mod.modeFrequency.sw->SetValue((uint8)i);
+            mode.sw->SetValue((uint8)i);
         }
+    }
+    else
+    {
+        SCPI::Answer::ThisModeCannotBeSetForTheCurrentChannel();
     }
 }
 
@@ -134,46 +134,53 @@ static pchar FuncFrequency(pchar buffer)
 {
     pchar end = nullptr;
 
-    SCPI_PROCESS_ARRAY(modesFrequency, Function(TypeMeasure::Frequency, i));
-
-    /*
-    pchar end = nullptr;
-
-    for (int i = 0; i < modesFrequency[i][0] != 0; i++)
-    {
-        end = SCPI::BeginWith(buffer, modesFrequency[i]);
-
-        if (end)
-        {
-            if (SCPI::IsLineEnding(&end))
-            {
-                SCPI::SendBadSymbols();
-
-                Function();
-
-                return end;
-            }
-        }
-    }
-
-    return nullptr;
-    */
+    SCPI_PROCESS_ARRAY(modesFrequency, SetModeMeasure(TypeMeasure::Frequency, i, Channel::Current()->mod.modeFrequency));
 }
 
 
 static pchar FuncPeriod(pchar buffer)
 {
-    return nullptr;
+    pchar end = nullptr;
+
+    SCPI_PROCESS_ARRAY(modesPeriod, SetModeMeasure(TypeMeasure::Period, i, Channel::Current()->mod.modePeriod));
 }
 
 
 static pchar FuncDuration(pchar buffer)
 {
-    return nullptr;
+    pchar end = nullptr;
+
+    SCPI_PROCESS_ARRAY(modesDuration, SetModeMeasure(TypeMeasure::Duration, i, Channel::Current()->mod.modeDuration));
 }
 
 
 static pchar FuncCounter(pchar buffer)
 {
-    return nullptr;
+    pchar end = nullptr;
+
+    SCPI_PROCESS_ARRAY(modesCounter, SetModeMeasure(TypeMeasure::CountPulse, i, Channel::Current()->mod.modeCountPulse));
 }
+
+
+/*
+pchar end = nullptr;
+
+for (int i = 0; i < modesFrequency[i][0] != 0; i++)
+{
+    end = SCPI::BeginWith(buffer, modesFrequency[i]);
+
+    if (end)
+    {
+        if (SCPI::IsLineEnding(&end))
+        {
+            SCPI::SendBadSymbols();
+
+            Function();
+
+            return end;
+        }
+    }
+}
+
+return nullptr;
+*/
