@@ -19,14 +19,6 @@ CalibrationMode PageIndication::calibrationMode(CalibrationMode::Disabled);
 MemoryMode      PageIndication::memoryMode(MemoryMode::On);
 
 
-void RefGenerator::Set(E v)
-{
-    value = (uint8)v;
-
-    LoadToFPGA();
-}
-
-
 static void OnPress_DisplayTime()
 {
     FreqMeter::LoadDisplayTime();
