@@ -19,7 +19,7 @@ using namespace Primitives;
 
 
 Enumeration::Enumeration(uint8 v, const bool *_correct, int states) :
-    value(v), names(nullptr), ugo(nullptr), correct(_correct), numStates(states)
+    value(v), names(nullptr), ugo(nullptr), correct(_correct), sw(nullptr), numStates(states)
 {
     if (_correct)
     {
@@ -190,13 +190,19 @@ int Page::WidthItem(int num) const
 
 bool Page::IsPageModes() const
 {
-    return (this == Channel::A->pageModes) || (this == Channel::B->pageModes) || (this == Channel::C->pageModes) || (this == Channel::D->pageModes);
+    return (this == Channel::A->pageModes) ||
+        (this == Channel::B->pageModes) ||
+        (this == Channel::C->pageModes) ||
+        (this == Channel::D->pageModes);
 }
 
 
 bool Page::IsPageSettings() const
 {
-    return (this == Channel::A->pageSettings) || (this == Channel::B->pageSettings) || (this == Channel::C->pageSettings) || (this == Channel::D->pageSettings);
+    return (this == Channel::A->pageSettings) ||
+        (this == Channel::B->pageSettings) ||
+        (this == Channel::C->pageSettings) ||
+        (this == Channel::D->pageSettings);
 }
 
 
@@ -259,7 +265,8 @@ bool Switch::OnControl(const Control &control)
 {
     if (PageIndication::calibrationMode.IsEnabled())
     {
-        if (control.action.IsPress() && (control.value != Control::GovRight || control.value != Control::GovLeft)) //-V560      // \todo разобраться, что за дела
+        if (control.action.IsPress() &&
+            (control.value != Control::GovRight || control.value != Control::GovLeft)) //-V560      // \todo разобраться, что за дела
         {
             if (Hint::UnderItem() == this)
             {
