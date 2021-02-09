@@ -16,7 +16,6 @@ struct Enumeration
     char **ugo;
     const bool *correct;    // Если указатель на этот массив не равен nullptr, то его элементы используются следующим
                             // образом : value не может значения индексов, соответствующих false
-    int numStates;
     explicit Enumeration(uint8 v, const bool *_correct = nullptr, int states = 0);
     operator int()         { return (int)value; }
     String ToString() const;
@@ -28,6 +27,7 @@ struct Enumeration
     Switch *sw;
     bool SetValue(uint8 v);
     bool ValidValue(uint8 v) const;
+    int numStates;
 };
 
 

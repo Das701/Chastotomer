@@ -63,7 +63,7 @@ String Enumeration::ToString() const
 
 bool Enumeration::SetValue(uint8 v)
 {
-    if (v >= numStates)
+    if (v >= NumStates())
     {
         return false;
     }
@@ -88,7 +88,7 @@ bool Enumeration::SetValue(uint8 v)
 
 bool Enumeration::ValidValue(uint8 v) const
 {
-    if (v >= numStates)
+    if (v >= NumStates())
     {
         return false;
     }
@@ -457,7 +457,11 @@ void PageModes::ResetModeMeasure()
 
 void Switch::FuncForSCPI(int i)
 {
-    if (!state->SetValue((uint8)i))
+    if (state->SetValue((uint8)i))
+    {
+        FuncOnPress();
+    }
+    else
     {
         SCPI::Answer::InvalidParameter();
     }
