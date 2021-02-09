@@ -72,6 +72,39 @@ static const bool enabledModeCountPulseD[ModeCountPulse::Count] =
                                                       { false, false, false, false, false, false, false, false, false };
 
 
+bool Channel::ExistMeasure(TypeMeasure::E type, int mode)
+{
+    if (type == TypeMeasure::Frequency)
+    {
+        switch (Number())
+        {
+        case 0: return enabledModeFrequencyA[mode];
+        case 1: return enabledModeFrequencyB[mode];
+        case 2: return enabledModeFrequencyC[mode];
+        case 3: return enabledModeFrequencyD[mode];
+        }
+    }
+    else if (type == TypeMeasure::Period)
+    {
+        return Number() < 2;
+    }
+    else if (type == TypeMeasure::Duration)
+    {
+
+    }
+    else if (type == TypeMeasure::CountPulse)
+    {
+        switch (Number())
+        {
+        case 0: return enabledModeCountPulseA[mode];
+        case 1: return enabledModeCountPulseB[mode];
+        case 2: return enabledModeCountPulseC[mode];
+        case 3: return enabledModeCountPulseD[mode];
+        }
+    }
+}
+
+
 PeriodTimeLabels ModesChannel::timeLabels(PeriodTimeLabels::T_8);
 NumberPeriods    ModesChannel::numberPeriods(NumberPeriods::_1);
 TimeMeasure      ModesChannel::timeMeasure(TimeMeasure::_1ms);

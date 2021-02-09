@@ -110,6 +110,9 @@ struct Channel
     SettingsChannel set;
     ModesChannel    mod;
 
+    // ¬озвращает true, если на данном канале доступно измерение type в режиме mode
+    bool ExistMeasure(TypeMeasure::E type, int mode);
+
 private:
 
     static Channel *current;                // “екущий канал

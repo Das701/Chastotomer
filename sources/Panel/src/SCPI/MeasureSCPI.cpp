@@ -93,21 +93,10 @@ static pchar FuncCurrent(pchar buffer)
 
     switch (type)
     {
-    case TypeMeasure::Frequency:
-        answer.Append(modesFrequency[modes.modeFrequency] + 1);
-        break;
-
-    case TypeMeasure::Period:
-        answer.Append(modesPeriod[modes.modePeriod] + 1);
-        break;
-
-    case TypeMeasure::Duration:
-        answer.Append(modesDuration[modes.modeDuration] + 1);
-        break;
-
-    case TypeMeasure::CountPulse:
-        answer.Append(modesCounter[modes.modeCountPulse] + 1);
-        break;
+    case TypeMeasure::Frequency:    answer.Append(modesFrequency[modes.modeFrequency] + 1); break;
+    case TypeMeasure::Period:       answer.Append(modesPeriod[modes.modePeriod] + 1);       break;
+    case TypeMeasure::Duration:     answer.Append(modesDuration[modes.modeDuration] + 1);   break;
+    case TypeMeasure::CountPulse:   answer.Append(modesCounter[modes.modeCountPulse] + 1);  break;
     }
 
     SCPI::SendAnswer(answer.c_str());
