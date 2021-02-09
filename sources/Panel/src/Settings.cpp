@@ -95,38 +95,6 @@ void TypeSynch::LoadToFPGA()
 }
 
 
-void ModeFilter::Set(ModeFilter::E v)
-{
-    value = (uint8)v;
-
-    LoadToFPGA();
-}
-
-
-void ModeFront::Set(E v)
-{
-    value = (uint8)v;
-
-    LoadToFPGA();
-}
-
-
-void InputImpedance::Set(E v)
-{
-    value = (uint8)v;
-
-    LoadToFPGA();
-}
-
-
-void Divider::Set(E v)
-{
-    value = (uint8)v;
-
-    LoadToFPGA();
-}
-
-
 void ModeFilter::LoadToFPGA()
 {
     if (CURRENT_CHANNEL_IS_A_OR_B)
