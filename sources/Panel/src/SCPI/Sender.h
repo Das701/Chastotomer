@@ -5,10 +5,29 @@ namespace SCPI
 {
     struct Sender
     {
+        struct Mode
+        {
+            enum E
+            {
+                Hand,
+                Auto,
+                Count
+            };
+        };
+
         // После вычисления очередного измеренного значения ValueFPGA должно вызывать эту функцию
         static void SendValue(pchar data);
+
+        // Установка ручного или автоматического режима засылки данных
+        static void SetMode(Mode::E m);
+
+        // Приказывает заслать в порт n последних значений
+        static void SendArray(int n);
+
     private:
-        // Если true, то данные нуждаются в засылке
-        static bool needSend;
+
+        static int valuesForSend;
+
+        static Mode::E mode;
     };
 }

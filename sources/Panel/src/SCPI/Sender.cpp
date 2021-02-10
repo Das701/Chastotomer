@@ -3,14 +3,19 @@
 #include "SCPI/Sender.h"
 
 
-bool SCPI::Sender::needSend = false;
+int SCPI::Sender::valuesForSend = 0;
+SCPI::Sender::Mode::E SCPI::Sender::mode = SCPI::Sender::Mode::Hand;
 
 
 void SCPI::Sender::SendValue(pchar value)
 {
-    if (needSend)
+    if (mode == Mode::Auto || valuesForSend > 0)
     {
         SendAnswer(value);
-        needSend = false;
+
+        if (valuesForSend > 0)
+        {
+            valuesForSend--;
+        }
     }
 }
