@@ -1,4 +1,5 @@
 #pragma once
+#include "SCPI/Utils.h"
 
 
 /*
@@ -35,7 +36,7 @@ struct StructSCPI
 #define SCPI_LEAF(key, func) {key, nullptr, func}
 #define SCPI_EMPTY() {""}
 
-#define SCPI_PROLOG(t)  if(SCPI::IsLineEnding(&t)) { SCPI::SendBadSymbols();
+#define SCPI_PROLOG(t)  if(SCPI::SU::IsLineEnding(&t)) { SCPI::SendBadSymbols();
 #define SCPI_EPILOG_REQUEST(t) return t; } return nullptr;
 #define SCPI_EPILOG(t)         return t; }
 
@@ -71,10 +72,7 @@ namespace SCPI
     void AppendNewData(pchar buffer, int length);
 
     void Update();
-    
-    // ¬озвращает true, если указатель указывает на завершающую последовательность
-    bool IsLineEnding(pchar *bufer);
-    
+   
     // ѕослать ответ м в конце дописать 0x0D, если нет
     void SendAnswer(pchar message);
 

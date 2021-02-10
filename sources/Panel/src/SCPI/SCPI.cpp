@@ -40,7 +40,7 @@ void SCPI::AppendNewData(pchar buffer, int size)
 {
     inputBuffer.Append(buffer, size);
 
-    SU::ToUpper(inputBuffer.c_str());
+    ::SU::ToUpper(inputBuffer.c_str());
 
     RemoveBadSymbolsFromBegin();
 
@@ -144,19 +144,6 @@ static pchar ProcessLeaf(pchar begin, const StructSCPI *node)
     badSymbols.Append(*begin);
 
     return begin + 1;
-}
-
-
-bool SCPI::IsLineEnding(pchar *buffer)
-{
-    bool result = (**buffer == 0x0D);
-
-    if (result)
-    {
-        *(*buffer)++; //-V532
-    }
-
-    return result;
 }
 
 

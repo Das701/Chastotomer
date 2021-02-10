@@ -1038,6 +1038,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\Sender.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Utils.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\Utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>Utils.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\Utils.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2218,6 +2228,16 @@
               <FileName>Sender.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\Sender.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Utils.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\Utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>Utils.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\Utils.cpp</FilePath>
             </File>
           </Files>
         </Group>
