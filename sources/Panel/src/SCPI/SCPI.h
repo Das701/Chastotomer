@@ -43,16 +43,16 @@ struct StructSCPI
 #define SCPI_RUN_IF_END_REQUEST(func) if(end) { SCPI_PROLOG(end) func; SCPI_EPILOG_REQUEST(end) }
 #define SCPI_RUN_IF_END(func)         if(end) { SCPI_PROLOG(end) func; SCPI_EPILOG(end) }
 
-#define SCPI_REQUEST(func)                          \
-    pchar end = SCPI::BeginWith(buffer, "?");       \
+#define SCPI_REQUEST(func)                              \
+    pchar end = SCPI::SU::BeginWith(buffer, "?");       \
     SCPI_RUN_IF_END_REQUEST(func)
 
-#define SCPI_PROCESS_ARRAY(names, func)             \
-    for(int i = 0; i < names[i][0] != 0; i++)       \
-    {                                               \
-        end = SCPI::BeginWith(buffer, names[i]);    \
-        SCPI_RUN_IF_END(func)                       \
-    }                                               \
+#define SCPI_PROCESS_ARRAY(names, func)                 \
+    for(int i = 0; i < names[i][0] != 0; i++)           \
+    {                                                   \
+        end = SCPI::SU::BeginWith(buffer, names[i]);    \
+        SCPI_RUN_IF_END(func)                           \
+    }                                                   \
     return nullptr;
 
 #define SCPI_EXIT_ERROR()   LOG_WRITE("Ошибка теста SCPI %s:%d", __FILE__, __LINE__); return false;
@@ -82,12 +82,7 @@ namespace SCPI
 
     // Послать измерение в SCPI - с заменой нечитаемых символов и единиц измерения
     void SendMeasure(const String &message);
-    
-    // Если строка buffer начинается с последовательности символов word, то возвращает указатель на символ, следующий за
-    // последним символом последовательности word.
-    // Иначе возвращает nullptr.
-    const char *BeginWith(pchar buffer, pchar word);
-    
+       
     void ProcessHint(String *message, pchar const *names); //-V2504
 
     namespace Answer

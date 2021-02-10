@@ -4,6 +4,7 @@
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/PageIndication.h"
 #include "SCPI/SCPI.h"
+#include "SCPI/Utils.h"
 #include "Utils/String.h"
 
 

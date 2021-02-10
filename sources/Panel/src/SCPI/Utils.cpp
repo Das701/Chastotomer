@@ -13,3 +13,27 @@ bool SCPI::SU::IsLineEnding(pchar *buffer)
 
     return result;
 }
+
+
+pchar SCPI::SU::BeginWith(pchar buffer, pchar word)
+{
+    while (*word)
+    {
+        if (*buffer == '\0')
+        {
+            return nullptr;
+        }
+
+        if (*word == *buffer)
+        {
+            ++word;
+            ++buffer;
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    return (*word == '\0') ? buffer : nullptr;
+}

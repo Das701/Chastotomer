@@ -2,6 +2,7 @@
 #include "Hardware/VCP.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "SCPI/SCPI.h"
+#include "SCPI/Utils.h"
 #include "Utils/Buffer.h"
 #include "Utils/String.h"
 #include "Utils/StringUtils.h"
@@ -74,7 +75,7 @@ static pchar Process(pchar buffer, const StructSCPI strct[]) //-V2504
 {
     while (!strct->IsEmpty())
     {
-        pchar end = SCPI::BeginWith(buffer, strct->key);
+        pchar end = SCPI::SU::BeginWith(buffer, strct->key);
 
         if (end)
         {
@@ -94,30 +95,6 @@ static pchar Process(pchar buffer, const StructSCPI strct[]) //-V2504
     badSymbols.Append(*buffer);         // Перебрали все ключи в strct и не нашли ни одного соответствия. Поэтому помещаем начальный разделитель в бракованные символыа
 
     return buffer + 1;
-}
-
-
-pchar SCPI::BeginWith(pchar buffer, pchar word)
-{
-    while (*word)
-    {
-        if (*buffer == '\0')
-        {
-            return nullptr;
-        }
-
-        if (*word == *buffer)
-        {
-            ++word;
-            ++buffer;
-        }
-        else
-        {
-            break;
-        }
-    }
-
-    return (*word == '\0') ? buffer : nullptr;
 }
 
 
