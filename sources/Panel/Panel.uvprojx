@@ -1029,16 +1029,6 @@
               <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
             </File>
             <File>
-              <FileName>Sender.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\SCPI\Sender.h</FilePath>
-            </File>
-            <File>
-              <FileName>Sender.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\SCPI\Sender.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\SCPI\Utils.h</FilePath>
@@ -1053,6 +1043,16 @@
         <Group>
           <GroupName>SCPI/Process</GroupName>
           <Files>
+            <File>
+              <FileName>DataSender.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\Process\DataSender.h</FilePath>
+            </File>
+            <File>
+              <FileName>DataSender.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\Process\DataSender.cpp</FilePath>
+            </File>
             <File>
               <FileName>DataSCPI.cpp</FileName>
               <FileType>8</FileType>
@@ -2220,16 +2220,6 @@
               <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
             </File>
             <File>
-              <FileName>Sender.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\SCPI\Sender.h</FilePath>
-            </File>
-            <File>
-              <FileName>Sender.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\SCPI\Sender.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\SCPI\Utils.h</FilePath>
@@ -2244,6 +2234,16 @@
         <Group>
           <GroupName>SCPI/Process</GroupName>
           <Files>
+            <File>
+              <FileName>DataSender.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\Process\DataSender.h</FilePath>
+            </File>
+            <File>
+              <FileName>DataSender.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\Process\DataSender.cpp</FilePath>
+            </File>
             <File>
               <FileName>DataSCPI.cpp</FileName>
               <FileType>8</FileType>

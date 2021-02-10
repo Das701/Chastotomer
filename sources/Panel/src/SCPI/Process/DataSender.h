@@ -3,7 +3,9 @@
 
 namespace SCPI
 {
-    struct Sender
+
+    // Для передачи данных в VCP
+    struct DataSender
     {
         struct Mode
         {

@@ -7,7 +7,7 @@
 #include "Hardware/FPGA.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/Modes/Modes.h"
-#include "SCPI/Sender.h"
+#include "SCPI/Process/DataSender.h"
 #include "Utils/Buffer.h"
 #include "Utils/StringUtils.h"
 #include <cstdio>
@@ -210,7 +210,7 @@ void ValueFPGA::SetValue(char *format, ...)
         va_end(args);
     }
 
-    SCPI::Sender::SendValue(value.c_str());
+    SCPI::DataSender::SendValue(value.c_str());
 
     Display::zoneData->Refresh();
 }

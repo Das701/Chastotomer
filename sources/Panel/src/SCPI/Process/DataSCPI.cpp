@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "SCPI/SCPI.h"
-#include "SCPI/Sender.h"
+#include "SCPI/Process/DataSender.h"
 
 
 static pchar FuncMode(pchar);
@@ -28,7 +28,7 @@ static pchar FuncMode(pchar buffer)
 
     pchar end = nullptr;
 
-    SCPI_PROCESS_ARRAY(mode, SCPI::Sender::SetMode((SCPI::Sender::Mode::E)i));
+    SCPI_PROCESS_ARRAY(mode, SCPI::DataSender::SetMode((SCPI::DataSender::Mode::E)i));
 }
 
 
@@ -36,7 +36,7 @@ static pchar FuncValue(pchar buffer)
 {
     SCPI_PROLOG(buffer);
 
-    SCPI::Sender::SendArray(1);
+    SCPI::DataSender::SendArray(1);
 
     SCPI_EPILOG(buffer);
 
