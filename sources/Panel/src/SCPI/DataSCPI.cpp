@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "SCPI/SCPI.h"
+#include "SCPI/Sender.h"
 
 
 static pchar FuncMode(pchar);
@@ -18,12 +19,27 @@ const StructSCPI SCPI::data[] =
 
 static pchar FuncMode(pchar buffer)
 {
-    return nullptr;
+    static const pchar mode[] =
+    {
+        " HAND",
+        " AUTO",
+        ""
+    };
+
+    pchar end = nullptr;
+
+    SCPI_PROCESS_ARRAY(mode, SCPI::Sender::SetMode((SCPI::Sender::Mode::E)i));
 }
 
 
 static pchar FuncValue(pchar buffer)
 {
+    SCPI_PROLOG(buffer);
+
+    SCPI::Sender::SendArray(1);
+
+    SCPI_EPILOG(buffer);
+
     return nullptr;
 }
 
