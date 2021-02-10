@@ -50,7 +50,8 @@ file(GLOB MENU                src/Menu/*.*)
 file(GLOB MENU_PAGES          src/Menu/Pages/*.*)
 file(GLOB MENU_PAGES_CHANNELS src/Menu/Pages/Channels/*)
 file(GLOB MENU_PAGES_MODES    src/Menu/Pages/Modes/*)
-file(GLOB SCPI                src/SCPI/*)
+file(GLOB SCPI                src/SCPI/*.*)
+file(GLOB SCPI_PROCESS        src/SCPI/Process/*)
 file(GLOB UTILS               src/Utils/*)
 file(GLOB TESTS               tests/*)
 
@@ -70,6 +71,7 @@ source_group(Menu\\Pages           FILES ${MENU_PAGES})
 source_group(Menu\\Pages\\Channels FILES ${MENU_PAGES_CHANNELS})
 source_group(Menu\\Pages\\Modes    FILES ${MENU_PAGES_MODES})
 source_group(SCPI                  FILES ${SCPI})
+source_group(SCPI\\Process         FILES ${SCPI_PROCESS})
 source_group(Utils                 FILES ${UTILS})
 source_group(Tests                 FILES ${TESTS})
 
@@ -81,4 +83,4 @@ set_source_files_properties(${HARDWARE_CMSIS} ${HAL}
 
 add_library(Panel ${HAL} ${SRC} ${CALCULATE} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${HARDWARE_CMSIS} ${HARDWARE_HAL}
                   ${HARDWARE_USBD} ${KEYBOARD} ${MENU} ${MENU_PAGES} ${MENU_PAGES_CHANNELS} ${MENU_PAGES_MODES} ${SCPI}
-                  ${UTILS} ${TESTS})
+                  ${SCPI_PROCESS} ${UTILS} ${TESTS})

@@ -98,12 +98,13 @@ source_group(Menu\\Pages           FILES ${MENU_PAGES})
 source_group(Menu\\Pages\\Channels FILES ${MENU_PAGES_CHANNELS})
 source_group(Menu\\Pages\\Modes    FILES ${MENU_PAGES_MODES})
 source_group(SCPI                  FILES ${SCPI})
+source_group(SCPI\\Process         FILES ${SCPI_PROCESS})
 source_group(Utils                 FILES ${UTILS})
 source_group(Tests                 FILES ${TESTS})
 
 add_executable(PanelGUI ${VS_HAL} ${SRC} ${CALCULATE} ${DISPLAY} ${DISPLAY_FONT} ${HARDWARE} ${FREQMETER} ${GUI}
                         ${HARDWARE_HAL} ${KEYBOARD} ${MENU} ${MENU_PAGES} ${MENU_PAGES_CHANNELS} ${MENU_PAGES_MODES}
-                        ${SCPI} ${UTILS} ${TESTS})
+                        ${SCPI} ${SCPI_PROCESS} ${UTILS} ${TESTS})
 
 target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxbase31ud)
 target_link_libraries(PanelGUI ../../../ThirdParty/wxWidgets/generated/lib/vc_dll/wxmsw31ud_core)
