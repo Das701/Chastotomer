@@ -1029,6 +1029,11 @@
               <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
             </File>
             <File>
+              <FileName>DataSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\DataSCPI.cpp</FilePath>
+            </File>
+            <File>
               <FileName>HeadSCPI.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\HeadSCPI.cpp</FilePath>
@@ -2188,6 +2193,11 @@
               <FileName>SCPI.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DataSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\DataSCPI.cpp</FilePath>
             </File>
             <File>
               <FileName>HeadSCPI.cpp</FileName>
