@@ -34,27 +34,20 @@ add_compile_options(/wd26812)
 
 file(GLOB HAL                 ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Inc/*.h
                               ../common/libs/STM32Cube_F4/Drivers/STM32F4xx_HAL_Driver/Src/*.c)
-file(GLOB SRC                 src/*.h
-                              src/*.cpp)
+file(GLOB SRC                 src/*.*)
 file(GLOB CALCULATE           src/Calculate/*)
-file(GLOB DISPLAY             src/Display/*.h
-                              src/Display/*.cpp)
+file(GLOB DISPLAY             src/Display/*.*)
 file(GLOB DISPLAY_FONT        src/Display/Font/*)
-file(GLOB HARDWARE            src/Hardware/*.h
-                              src/Hardware/*.cpp)
+file(GLOB HARDWARE            src/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS      src/Hardware/CMSIS/*)
 file(GLOB HARDWARE_HAL        src/Hardware/HAL/*)
 file(GLOB HARDWARE_USBD       src/Hardware/USBD/*
                               ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
                               ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
                               ../common/libs/STM32Cube_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c)
-file(GLOB KEYBOARD            src/Keyboard/*.h
-                              src/Keyboard/*.cpp)
-file(GLOB MENU                src/Menu/*.h
-                              src/Menu/*.cpp
-                              src/Menu/*.txt)
-file(GLOB MENU_PAGES          src/Menu/Pages/*.h
-                              src/Menu/Pages/*.cpp)
+file(GLOB KEYBOARD            src/Keyboard/*)
+file(GLOB MENU                src/Menu/*.*)
+file(GLOB MENU_PAGES          src/Menu/Pages/*.*)
 file(GLOB MENU_PAGES_CHANNELS src/Menu/Pages/Channels/*)
 file(GLOB MENU_PAGES_MODES    src/Menu/Pages/Modes/*)
 file(GLOB SCPI                src/SCPI/*)
