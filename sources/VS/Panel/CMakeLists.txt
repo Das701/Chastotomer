@@ -74,15 +74,10 @@ file(GLOB HARDWARE_HAL        ../../Panel/src/Hardware/HAL/HAL.*
                               ../../Panel/src/Hardware/HAL/HAL_TIM.cpp)
 file(GLOB KEYBOARD            ../../Panel/src/Keyboard/Keyboard.h
                                           src/Keyboard/Keyboard_win.cpp)
-file(GLOB MENU                ../../Panel/src/Menu/*.h
-                              ../../Panel/src/Menu/*.cpp
-                              ../../Panel/src/Menu/*.txt)
-file(GLOB MENU_PAGES          ../../Panel/src/Menu/Pages/*.h
-                              ../../Panel/src/Menu/Pages/*.cpp)
-file(GLOB MENU_PAGES_CHANNELS ../../Panel/src/Menu/Pages/Channels/*.h
-                              ../../Panel/src/Menu/Pages/Channels/*.cpp)
-file(GLOB MENU_PAGES_MODES    ../../Panel/src/Menu/Pages/Modes/*.h
-                              ../../Panel/src/Menu/Pages/Modes/*.cpp)
+file(GLOB MENU                ../../Panel/src/Menu/*.*)
+file(GLOB MENU_PAGES          ../../Panel/src/Menu/Pages/*.*)
+file(GLOB MENU_PAGES_CHANNELS ../../Panel/src/Menu/Pages/Channels/*)
+file(GLOB MENU_PAGES_MODES    ../../Panel/src/Menu/Pages/Modes/*)
 file(GLOB SCPI                ../../Panel/src/SCPI/*)
 file(GLOB UTILS               ../../Panel/src/Utils/*)
 file(GLOB TESTS               ../../Panel/tests/*)
