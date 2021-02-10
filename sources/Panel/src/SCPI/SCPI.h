@@ -106,15 +106,6 @@ namespace SCPI
 
     // Общая функция обработки команды обычного запроса
     pchar ProcessSimpleParameter(pchar buffer, const pchar choice[], Switch * const sw);
-
-    namespace Sender
-    {
-        // Послать измеренное значение
-        void SendValue(pchar data);
-
-        // Если true, то данные нуждаются в засылке
-        extern bool needSend;
-    }
 };
 
 

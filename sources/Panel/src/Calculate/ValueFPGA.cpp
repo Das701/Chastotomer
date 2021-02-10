@@ -7,7 +7,7 @@
 #include "Hardware/FPGA.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/Modes/Modes.h"
-#include "SCPI/SCPI.h"
+#include "SCPI/Sender.h"
 #include "Utils/Buffer.h"
 #include "Utils/StringUtils.h"
 #include <cstdio>

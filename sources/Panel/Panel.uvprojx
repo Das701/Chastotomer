@@ -1029,6 +1029,16 @@
               <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
             </File>
             <File>
+              <FileName>Sender.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\Sender.h</FilePath>
+            </File>
+            <File>
+              <FileName>Sender.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\Sender.cpp</FilePath>
+            </File>
+            <File>
               <FileName>DataSCPI.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\DataSCPI.cpp</FilePath>
@@ -2193,6 +2203,16 @@
               <FileName>SCPI.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Sender.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\Sender.h</FilePath>
+            </File>
+            <File>
+              <FileName>Sender.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\Sender.cpp</FilePath>
             </File>
             <File>
               <FileName>DataSCPI.cpp</FileName>
