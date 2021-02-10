@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Utils/Stack.h"
 #include "SCPI/Utils.h"
 
 
@@ -8,7 +9,7 @@ bool SCPI::SU::IsLineEnding(pchar *buffer)
 
     if (result)
     {
-        *(*buffer)++; //-V532
+        *(*buffer)++;
     }
 
     return result;
@@ -36,4 +37,20 @@ pchar SCPI::SU::BeginWith(pchar buffer, pchar word)
     }
 
     return (*word == '\0') ? buffer : nullptr;
+}
+
+
+bool SCPI::SU::ReadIntegerValue(pchar buffer, int *outValue, pchar *outEnd)
+{
+    ConverterToInteger converter;
+
+    int result = 0;
+
+    while (*buffer >= '0' && *buffer <= '9')
+    {
+        converter.Push(*buffer);
+        buffer++;
+    }
+
+
 }

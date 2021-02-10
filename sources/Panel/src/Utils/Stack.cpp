@@ -83,3 +83,34 @@ int Stack<T>::NumFirstZeros() const
 
     return result;
 }
+
+
+bool ConverterToInteger::IsInterger() const
+{
+    for (int i = 0; i < Size(); i++)
+    {
+        if ((*this)[i] >= '9' || (*this)[i] <= '0')
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+int ConverterToInteger::GetValue() const
+{
+    int result = 0;
+
+    int pow = 1;
+
+    for (int i = Size() - 1; i >= 0; i--)
+    {
+        result += (*this)[i] * pow;
+        pow *= 10;
+    }
+
+    return result;
+}
+

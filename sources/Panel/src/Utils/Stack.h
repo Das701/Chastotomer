@@ -31,3 +31,16 @@ private:
     int size;
     int numElements;
 };
+
+
+class ConverterToInteger : public Stack<char>
+{
+public:
+    ConverterToInteger() : Stack<char>(20) {}
+    
+    // Возвращает true, если содерждщиеся данные могут быть преобразованы в int
+    bool IsInterger() const;
+
+    // Возвращает значение. Если значение не может быть получено, возвращает 0
+    int GetValue() const;
+};
