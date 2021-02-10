@@ -46,7 +46,7 @@ void SCPI::AppendNewData(pchar buffer, int size)
 
     if (inputBuffer.Size() == 0)
     {
-        SendBadSymbols();
+        Answer::SendBadSymbols();
     }
 }
 
@@ -57,7 +57,7 @@ void SCPI::Update()
 
     if(inputBuffer.Size() == 0)
     {
-        SendBadSymbols();
+        Answer::SendBadSymbols();
         return;
     }
 
@@ -144,17 +144,6 @@ static pchar ProcessLeaf(pchar begin, const StructSCPI *node)
     badSymbols.Append(*begin);
 
     return begin + 1;
-}
-
-
-void SCPI::SendBadSymbols()
-{
-    if (badSymbols.Size())
-    {
-        String message("!!! ERROR !!! Invalid sequency : %s", badSymbols.c_str());
-        SCPI::SendAnswer(message.c_str());
-        badSymbols.Free();
-    }
 }
 
 
@@ -281,6 +270,17 @@ void SCPI::SendMeasure(const String &str)
     }
 
     SendAnswer(message.c_str());
+}
+
+
+void SCPI::Answer::SendBadSymbols()
+{
+    if (badSymbols.Size())
+    {
+        String message("!!! ERROR !!! Invalid sequency : %s", badSymbols.c_str());
+        SCPI::SendAnswer(message.c_str());
+        badSymbols.Free();
+    }
 }
 
 

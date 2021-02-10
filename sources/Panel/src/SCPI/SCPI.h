@@ -36,7 +36,7 @@ struct StructSCPI
 #define SCPI_LEAF(key, func) {key, nullptr, func}
 #define SCPI_EMPTY() {""}
 
-#define SCPI_PROLOG(t)  if(SCPI::SU::IsLineEnding(&t)) { SCPI::SendBadSymbols();
+#define SCPI_PROLOG(t)  if(SCPI::SU::IsLineEnding(&t)) { SCPI::Answer::SendBadSymbols();
 #define SCPI_EPILOG_REQUEST(t) return t; } return nullptr;
 #define SCPI_EPILOG(t)         return t; }
 
@@ -88,13 +88,13 @@ namespace SCPI
     // Иначе возвращает nullptr.
     const char *BeginWith(pchar buffer, pchar word);
     
-    // Послать сообщение об ошибочных символах, если таковые имеются
-    void SendBadSymbols();
-
     void ProcessHint(String *message, pchar const *names); //-V2504
 
     namespace Answer
     {
+        // Послать сообщение об ошибочных символах, если таковые имеются
+        void SendBadSymbols();
+
         void CurrentChannelHasNotParameter();
 
         void InvalidParameter();
