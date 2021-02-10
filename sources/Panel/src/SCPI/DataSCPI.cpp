@@ -7,7 +7,7 @@ static pchar FuncValue(pchar);
 static pchar FuncArray(pchar);
 
 
-const StructSCPI SCPI::values[] =
+const StructSCPI SCPI::data[] =
 {
     SCPI_LEAF(":MODE", FuncMode),
     SCPI_LEAF(":VALUE?", FuncValue),

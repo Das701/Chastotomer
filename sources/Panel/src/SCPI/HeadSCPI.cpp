@@ -23,7 +23,7 @@ const StructSCPI SCPI::head[] =
     SCPI_LEAF(":KEY:PRESS",    FuncKeyPress),
     SCPI_LEAF(":PICTURE",      FuncPicture),
     SCPI_LEAF(":REFGENERATOR", FuncRefGenerator),
-    SCPI_NODE(":DATA",         SCPI::values),
+    SCPI_NODE(":DATA",         SCPI::data),
     SCPI_NODE(":INPUT",        SCPI::input),
     SCPI_NODE(":MEASURE",      SCPI::measure),
     SCPI_NODE(":SET",          SCPI::set),

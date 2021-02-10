@@ -120,7 +120,7 @@ namespace SCPI
 
 namespace SCPI
 {
-    extern const StructSCPI values[];
+    extern const StructSCPI data[];
     extern const StructSCPI head[];
     extern const StructSCPI input[];
     extern const StructSCPI measure[];

@@ -31,7 +31,7 @@ static bool RemoveSeparatorsSequenceFromBegin();
 // Удалить все символы до первого разделителя
 static bool RemoveSymbolsBeforeSeparator();
 
-static String data;
+static String inputBuffer;
 
 static String badSymbols;
 
@@ -40,13 +40,13 @@ bool SCPI::Sender::needSend = false;
 
 void SCPI::AppendNewData(pchar buffer, int size)
 {
-    data.Append(buffer, size);
+    inputBuffer.Append(buffer, size);
 
-    SU::ToUpper(data.c_str());
+    SU::ToUpper(inputBuffer.c_str());
 
     RemoveBadSymbolsFromBegin();
 
-    if (data.Size() == 0)
+    if (inputBuffer.Size() == 0)
     {
         SendBadSymbols();
     }
@@ -57,17 +57,17 @@ void SCPI::Update()
 {
     RemoveBadSymbolsFromBegin();
 
-    if(data.Size() == 0)
+    if(inputBuffer.Size() == 0)
     {
         SendBadSymbols();
         return;
     }
 
-    pchar end = Process(data.c_str(), head);
+    pchar end = Process(inputBuffer.c_str(), head);
 
     if(end)
     {
-        data.RemoveFromBegin(static_cast<int>(end - data.c_str()));
+        inputBuffer.RemoveFromBegin(static_cast<int>(end - inputBuffer.c_str()));
     }
 }
 
@@ -183,10 +183,10 @@ static bool RemoveSymbolsBeforeSeparator()
 {
     bool result = false;
 
-    while ((data.Size() != 0) && !IsBeginCommand(data[0]))
+    while ((inputBuffer.Size() != 0) && !IsBeginCommand(inputBuffer[0]))
     {
-        badSymbols.Append(data[0]);
-        data.RemoveFromBegin(1);
+        badSymbols.Append(inputBuffer[0]);
+        inputBuffer.RemoveFromBegin(1);
         result = true;
     }
 
@@ -198,10 +198,10 @@ static bool RemoveSeparatorsSequenceFromBegin()
 {
     bool result = false;
 
-    while (data.Size() > 1 && IsBeginCommand(data[0]) && IsBeginCommand(data[1]))
+    while (inputBuffer.Size() > 1 && IsBeginCommand(inputBuffer[0]) && IsBeginCommand(inputBuffer[1]))
     {
-        badSymbols.Append(data[0]);
-        data.RemoveFromBegin(1);
+        badSymbols.Append(inputBuffer[0]);
+        inputBuffer.RemoveFromBegin(1);
         result = true;
     }
 
