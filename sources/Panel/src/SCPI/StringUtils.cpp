@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "Utils/Stack.h"
-#include "SCPI/Utils.h"
+#include "SCPI/StringUtils.h"
 
 
 bool SCPI::SU::IsLineEnding(pchar *buffer)
@@ -44,13 +44,15 @@ bool SCPI::SU::ReadIntegerValue(pchar buffer, int *outValue, pchar *outEnd)
 {
     ConverterToInteger converter;
 
-    int result = 0;
-
     while (*buffer >= '0' && *buffer <= '9')
     {
         converter.Push(*buffer);
         buffer++;
     }
 
+    *outValue = converter.IsInterger() ? converter.GetValue() : 0;
 
+    *outEnd = buffer;
+
+    return converter.IsInterger();
 }

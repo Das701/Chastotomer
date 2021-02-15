@@ -89,13 +89,13 @@ bool ConverterToInteger::IsInterger() const
 {
     for (int i = 0; i < Size(); i++)
     {
-        if ((*this)[i] >= '9' || (*this)[i] <= '0')
+        if ((*this)[i] > '9' || (*this)[i] < '0')
         {
             return false;
         }
     }
 
-    return true;
+    return Size() != 0;
 }
 
 
@@ -107,7 +107,7 @@ int ConverterToInteger::GetValue() const
 
     for (int i = Size() - 1; i >= 0; i--)
     {
-        result += (*this)[i] * pow;
+        result += ((*this)[i] - 0x30) * pow;
         pow *= 10;
     }
 

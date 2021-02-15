@@ -46,5 +46,27 @@ static pchar FuncValue(pchar buffer)
 
 static pchar FuncArray(pchar buffer)
 {
+    int result = 0;
+    pchar end = nullptr;
+
+    while (*buffer == ' ')              // Пропускаем все пробелы
+    {
+        buffer++;
+    }
+
+    if (SCPI::SU::ReadIntegerValue(buffer, &result, &end))
+    {
+        SCPI_PROLOG(end);
+
+        SCPI::DataSender::SendArray(result);
+
+        SCPI_EPILOG(end);
+    }
+
+    if (SCPI::SU::IsLineEnding(&end))
+    {
+        SCPI::Answer::SendBadSymbols();
+    }
+
     return nullptr;
 }

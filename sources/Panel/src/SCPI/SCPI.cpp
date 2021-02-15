@@ -2,7 +2,7 @@
 #include "Hardware/VCP.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "SCPI/SCPI.h"
-#include "SCPI/Utils.h"
+#include "SCPI/StringUtils.h"
 #include "Utils/Buffer.h"
 #include "Utils/String.h"
 #include "Utils/StringUtils.h"

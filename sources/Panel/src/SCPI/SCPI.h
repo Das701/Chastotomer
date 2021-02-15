@@ -1,5 +1,5 @@
 #pragma once
-#include "SCPI/Utils.h"
+#include "SCPI/StringUtils.h"
 
 
 /*

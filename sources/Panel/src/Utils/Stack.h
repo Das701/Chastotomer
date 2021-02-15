@@ -6,17 +6,17 @@ class Stack
 {
 public:
     explicit Stack(int size);
-    
+
     ~Stack();
-    
+
     void Push(T elem);
-    
+
     T Pop();
-    
+
     int Size() const;
-    
+
     bool Empty() const;
-    
+
     // Возвращает количество нулей на дне стека
     int NumFirstZeros() const;
 
@@ -37,7 +37,7 @@ class ConverterToInteger : public Stack<char>
 {
 public:
     ConverterToInteger() : Stack<char>(20) {}
-    
+
     // Возвращает true, если содерждщиеся данные могут быть преобразованы в int
     bool IsInterger() const;
 

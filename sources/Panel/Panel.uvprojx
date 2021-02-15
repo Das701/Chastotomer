@@ -1029,14 +1029,14 @@
               <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
             </File>
             <File>
-              <FileName>Utils.h</FileName>
+              <FileName>StringUtils.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\SCPI\Utils.h</FilePath>
+              <FilePath>.\src\SCPI\StringUtils.h</FilePath>
             </File>
             <File>
-              <FileName>Utils.cpp</FileName>
+              <FileName>StringUtils.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\SCPI\Utils.cpp</FilePath>
+              <FilePath>.\src\SCPI\StringUtils.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -2220,14 +2220,14 @@
               <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
             </File>
             <File>
-              <FileName>Utils.h</FileName>
+              <FileName>StringUtils.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\SCPI\Utils.h</FilePath>
+              <FilePath>.\src\SCPI\StringUtils.h</FilePath>
             </File>
             <File>
-              <FileName>Utils.cpp</FileName>
+              <FileName>StringUtils.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\SCPI\Utils.cpp</FilePath>
+              <FilePath>.\src\SCPI\StringUtils.cpp</FilePath>
             </File>
           </Files>
         </Group>
