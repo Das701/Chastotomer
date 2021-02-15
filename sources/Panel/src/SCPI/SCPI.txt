@@ -51,7 +51,3 @@
 +                        C(TB)       |     C   --//-- периода на канале B
 +                        HAND        | A B   } Начало интревала подсчёта определяется нажатием ручки регулятора, конец -
 +                                              повторным нажатием
-
-+   :KEY:PRESS       { REG | CHANNEL | MODE | INDICATION | SERVICE | TEST | AUTO | ENTER | LEFT | RIGHT } Нажатие кнопки
-
-    :REGULATOR:ROTATE  { LEFT | RIGHT }                                                                    Поворот ручки
