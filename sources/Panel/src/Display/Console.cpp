@@ -8,7 +8,7 @@
 #include <cstdio>
 
 
-#define S_DBG_NUM_STRINGS_IN_CONSOLE 0
+#define S_DBG_NUM_STRINGS_IN_CONSOLE 1
 
 
 char Console::buffer[10][100];
@@ -29,6 +29,8 @@ void Console::Init()
 
 void Console::Draw()
 {
+    return;
+    
     if (prevMaxStrinsInConsole == -1)
     {
         prevMaxStrinsInConsole = S_DBG_NUM_STRINGS_IN_CONSOLE;
