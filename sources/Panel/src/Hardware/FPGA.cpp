@@ -307,6 +307,25 @@ void FPGA::GovernorData::DecreaseN()
     }
 }
 
+void FPGA::GovernorData::SetN(int num)
+{       
+    if(PageIndication::calibrationMode.IsEnabled())
+    {
+        NAC = num;
+    }
+    else
+    {
+        if(CURRENT_CHANNEL_IS_A)
+        {
+            Auto::NA = num;
+        }
+        else if(CURRENT_CHANNEL_IS_B) //-V2516
+        {
+            Auto::NB = num;
+        }
+    }
+}
+
 
 void FPGA::SwitchAuto()
 {

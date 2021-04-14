@@ -9,7 +9,8 @@ static pchar FuncImpedance(pchar);
 static pchar FuncFilter(pchar);
 static pchar FuncTriggerSlope(pchar);
 static pchar FuncDivider(pchar);
-
+static pchar FuncTriggerLevel(pchar);
+static pchar FuncTriggerAuto(pchar);
 
 const StructSCPI SCPI::input[] =
 {
@@ -17,6 +18,8 @@ const StructSCPI SCPI::input[] =
     SCPI_LEAF(":IMPEDANCE",     FuncImpedance),
     SCPI_LEAF(":FILTER",        FuncFilter),
     SCPI_LEAF(":TRIGGER:SLOPE", FuncTriggerSlope),
+    SCPI_LEAF(":TRIGGER:LEVEL", FuncTriggerLevel),
+    SCPI_LEAF(":TRIGGER:AUTO",  FuncTriggerAuto),
     SCPI_LEAF(":DIVIDER",       FuncDivider),
     SCPI_EMPTY()
 };
@@ -73,6 +76,44 @@ static pchar FuncTriggerSlope(pchar buffer)
     return SCPI::ProcessSimpleParameter(buffer, modeFront, Channel::Current()->set.modeFront.sw);
 }
 
+static pchar FuncTriggerLevel(pchar buffer)
+{
+    int result = 0;
+    pchar end = nullptr;
+
+    while (*buffer == ' ')              // Пропускаем все пробелы
+    {
+        buffer++;
+    }
+
+    if (SCPI::SU::ReadIntegerValue(buffer, &result, &end))
+    {
+        SCPI_PROLOG(end);
+
+        LevelSynch::Set(result);
+
+        SCPI_EPILOG(end);
+    }
+
+    if (SCPI::SU::IsLineEnding(&end))
+    {
+        SCPI::Answer::SendBadSymbols();
+    }
+
+    return nullptr;
+}
+
+static pchar FuncTriggerAuto(pchar buffer)
+{
+    SCPI_PROLOG(buffer);
+
+    Keyboard::AppendControl(Control(Control::Auto, Control::Action::Press));
+    Keyboard::AppendControl(Control(Control::Auto, Control::Action::Release));
+    
+    SCPI_EPILOG(buffer);
+
+    return nullptr;
+}
 
 static pchar FuncDivider(pchar buffer)
 {

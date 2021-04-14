@@ -92,7 +92,7 @@ static pchar Process(pchar buffer, const StructSCPI strct[]) //-V2504
         strct++;
     }
 
-    badSymbols.Append(*buffer);         // Перебрали все ключи в strct и не нашли ни одного соответствия. Поэтому помещаем начальный разделитель в бракованные символыа
+    badSymbols.Append(*buffer);         // Перебрали все ключи в strct и не нашли ни одного соответствия. Поэтому помещаем начальный разделитель в бракованные символы
 
     return buffer + 1;
 }

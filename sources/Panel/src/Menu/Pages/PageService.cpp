@@ -82,6 +82,10 @@ static Item *items[7] =
     nullptr
 };
 
+void PageService::UseReset()
+{
+    OnPress_ResetSettings();
+}
 
 static Page pageService(items, nullptr);
 

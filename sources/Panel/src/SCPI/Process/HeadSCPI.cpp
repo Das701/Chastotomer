@@ -3,10 +3,11 @@
 #include "Menu/Menu.h"
 #include "Menu/Pages/Channels/Channels.h"
 #include "Menu/Pages/PageIndication.h"
+#include "Menu/Pages/PageService.h"
 #include "SCPI/SCPI.h"
 #include "SCPI/StringUtils.h"
 #include "Utils/String.h"
-
+#include "Hardware/FreqMeter.h"
 
 static pchar FuncIDN(pchar);
 static pchar FuncReset(pchar);
@@ -15,6 +16,7 @@ static pchar FuncKeyPress(pchar);
 static pchar FuncGovernorRotate(pchar);
 static pchar FuncPicture(pchar);
 static pchar FuncRefGenerator(pchar);
+static pchar FuncTestSwitch(pchar);
 
 
 const StructSCPI SCPI::head[] =
@@ -30,6 +32,7 @@ const StructSCPI SCPI::head[] =
     SCPI_NODE(":INPUT",            SCPI::input),
     SCPI_NODE(":MEASURE",          SCPI::measure),
     SCPI_NODE(":SET",              SCPI::set),
+    SCPI_LEAF("*TEST",             FuncTestSwitch),
     SCPI_EMPTY()
 };
 
@@ -49,9 +52,9 @@ static pchar FuncIDN(pchar buffer)
 static pchar FuncReset(pchar buffer)
 {
     SCPI_PROLOG(buffer);
-
+    PageService::UseReset();
     SCPI_EPILOG(buffer);
-
+    Display::Refresh();
     return nullptr;
 }
 
@@ -160,4 +163,16 @@ static pchar FuncRefGenerator(pchar buffer)
     };
 
     return SCPI::ProcessSimpleParameter(buffer, generator, PageIndication::refGenerator.sw);
+}
+
+
+static pchar FuncTestSwitch(pchar buffer)
+{
+    SCPI_PROLOG(buffer);
+
+    FreqMeter::modeTest.Switch();
+    
+    SCPI_EPILOG(buffer);
+
+    return nullptr;
 }

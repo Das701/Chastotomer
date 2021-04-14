@@ -465,7 +465,7 @@ String Channel::GetSettings()
         ADD_UGO(SU::Int2String(LEVEL_SYNCH(CURRENT_CHANNEL) * current->set.divider.ToAbs()).c_str());
         if (current->set.typeSynch.IsManual())
         {
-            std::strcat(settings, "ìÂ");
+            std::strcat(settings, " ìÂ");
         }
         else
         {

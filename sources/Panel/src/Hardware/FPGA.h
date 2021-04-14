@@ -102,6 +102,7 @@ public:
     {
         static void IncreaseN();
         static void DecreaseN();
+        static void SetN(int num);
         static void Reset();
         static int ValueCalibrator();
         static void Write();

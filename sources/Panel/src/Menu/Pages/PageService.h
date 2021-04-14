@@ -5,6 +5,6 @@
 class PageService
 {
 public:
-
+    static void UseReset();
     static Page *self;
 };

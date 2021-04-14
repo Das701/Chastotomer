@@ -62,6 +62,32 @@ void LevelSynch::Change(int delta)
     }
 }
 
+void LevelSynch::Set(int num)
+{
+    if (CURRENT_CHANNEL_IS_A_OR_B)
+    {
+        int prev = LEVEL_SYNCH(Channel::Current());
+
+        LEVEL_SYNCH(CURRENT_CHANNEL) = num;
+
+        int MIN = -800;
+        int MAX = 800;
+
+        if (Channel::Current()->set.typeSynch.IsHoldoff())
+        {
+            MIN = 1;
+        }
+
+        LIMITATION(LEVEL_SYNCH(CURRENT_CHANNEL), MIN, MAX); //-V2516
+
+        if (prev != LEVEL_SYNCH(CURRENT_CHANNEL))
+        {
+            FPGA::GovernorData::SetN(num);
+            FPGA::GovernorData::Write();
+        }
+    }
+}
+
 
 void ModeFront::LoadToFPGA()
 {
