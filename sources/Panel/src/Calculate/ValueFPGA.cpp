@@ -225,7 +225,14 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, bool isOrdered)
         Display::zoneData->Refresh();
         return;
     }
-
+    
+    if(CURRENT_CHANNEL_IS_D)
+    {
+        value.Set("0");
+        Display::zoneData->Refresh();
+        return;
+    }
+    
     int order = 0;
     int numDigitsInCounter = NumDigitsInNumber(counter);
 

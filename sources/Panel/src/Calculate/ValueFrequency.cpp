@@ -66,7 +66,7 @@ ValueFrequency_Frequency::ValueFrequency_Frequency(uint counter) : ValueFrequenc
     {
         strict.Mul(64);
     }
-
+    
     SetValue(strict, counter);
 }
 

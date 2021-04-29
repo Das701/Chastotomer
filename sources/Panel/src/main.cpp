@@ -17,7 +17,7 @@ int main(void)
     Keyboard::Init();
     VCP::Init();
     Menu::Init();
-    Tests::Run();
+//    Tests::Run();
 
     Display::DrawWelcomeScreen();
 
