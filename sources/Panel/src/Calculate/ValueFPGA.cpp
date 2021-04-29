@@ -228,9 +228,25 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, bool isOrdered)
     
     if(CURRENT_CHANNEL_IS_D)
     {
-        value.Set("0");
-        Display::zoneData->Refresh();
-        return;
+        TimeMeasure::E time = (TimeMeasure::E)Channel::Current()->mod.timeMeasure.value;
+
+        uint64 div[TimeMeasure::Count] =
+        {
+            1,   // 1 ms
+            10,    // 10 ms
+            100,     // 100 ms
+            1000,      // 1 s
+            10000,      // 10 s
+            100000,      // 100 s
+            1000000       // 1000 s
+        };
+        uint64 temp = (uint64)counter / div[time] * 64;
+        if(temp > 19000000)
+        {
+            value.Set("0");
+            Display::zoneData->Refresh();
+            return;
+        }
     }
     
     int order = 0;
