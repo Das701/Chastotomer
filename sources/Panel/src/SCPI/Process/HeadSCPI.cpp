@@ -53,8 +53,8 @@ static pchar FuncReset(pchar buffer)
 {
     SCPI_PROLOG(buffer);
     PageService::UseReset();
-    SCPI_EPILOG(buffer);
     Display::Refresh();
+    SCPI_EPILOG(buffer);
     return nullptr;
 }
 
@@ -171,7 +171,7 @@ static pchar FuncTestSwitch(pchar buffer)
     SCPI_PROLOG(buffer);
 
     FreqMeter::modeTest.Switch();
-    
+    Display::Refresh();
     SCPI_EPILOG(buffer);
 
     return nullptr;

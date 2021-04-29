@@ -193,6 +193,7 @@ void ValueFPGA::SetValue(char *format, ...)
     if (FPGA::IsOverloaded())
     {
         value.Set(UGO::OVERLAPPED);
+        Display::zoneData->Refresh();
     }
     else
     {
@@ -221,6 +222,7 @@ void ValueFPGA::SetValue(ValueSTRICT strict, uint counter, bool isOrdered)
     if (FPGA::IsOverloaded())
     {
         value.Set(UGO::OVERLAPPED);
+        Display::zoneData->Refresh();
         return;
     }
 

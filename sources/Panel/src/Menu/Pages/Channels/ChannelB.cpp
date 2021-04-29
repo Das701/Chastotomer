@@ -126,8 +126,8 @@ static void OnPress_Sync()
 // Выбор уровня синхронизации ТТЛ, ЭСЛ
 DEF_SWITCH_UGO_2(sSync,
     "Синхр", "Выбор уровня сихронизации",
-    "Ручн", "Holdoff",
-    "Ручн", "Holdoff",
+    "Уров", "Holdoff",
+    "Уров", "Holdoff",
     Channel::B->set.typeSynch, OnPress_Sync
 );
 

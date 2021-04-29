@@ -2,7 +2,7 @@
 #include "Settings.h"
 #include "SCPI/SCPI.h"
 #include "Utils/String.h"
-
+#include "Display/Display.h"
 
 static pchar FuncCoupling(pchar);
 static pchar FuncImpedance(pchar);
@@ -91,7 +91,7 @@ static pchar FuncTriggerLevel(pchar buffer)
         SCPI_PROLOG(end);
 
         LevelSynch::Set(result);
-
+        Display::Refresh();
         SCPI_EPILOG(end);
     }
 
@@ -99,7 +99,7 @@ static pchar FuncTriggerLevel(pchar buffer)
     {
         SCPI::Answer::SendBadSymbols();
     }
-
+    
     return nullptr;
 }
 
@@ -109,7 +109,7 @@ static pchar FuncTriggerAuto(pchar buffer)
 
     Keyboard::AppendControl(Control(Control::Auto, Control::Action::Press));
     Keyboard::AppendControl(Control(Control::Auto, Control::Action::Release));
-    
+    Display::Refresh();
     SCPI_EPILOG(buffer);
 
     return nullptr;

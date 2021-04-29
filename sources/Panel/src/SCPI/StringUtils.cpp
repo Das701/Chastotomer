@@ -5,7 +5,15 @@
 
 bool SCPI::SU::IsLineEnding(pchar *buffer)
 {
-    bool result = (**buffer == 0x0D);
+    bool result;
+    if((**buffer == 0x0D) || (**buffer == 0x0A))
+    {
+        result = true;
+    }
+    else
+    {
+        result = false;
+    }
 
     if (result)
     {

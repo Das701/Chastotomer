@@ -19,7 +19,7 @@ int main(void)
     Menu::Init();
     Tests::Run();
 
-//  Display::DrawWelcomeScreen();
+    Display::DrawWelcomeScreen();
 
     while (1)
     {

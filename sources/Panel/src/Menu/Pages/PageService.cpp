@@ -27,11 +27,12 @@ static void OnPress_ResetSettings()
     {
         FreqMeter::modeTest.Switch();
     }
-
+    LevelSynch::Set(0);
+    
     Channel::SetCurrent(Channel::A);
 
     Menu::SetOpenedPage(Channel::A->pageModes);
-
+    
     Channel::Current()->OnChanged_TypeMeasure(); //-V760
 
     Channel::Current()->LoadToFPGA();
@@ -39,7 +40,9 @@ static void OnPress_ResetSettings()
     Channel::Current()->OnChanged_TypeMeasure();
 
     Channel::Current()->LoadToFPGA();
-
+    
+    LevelSynch::Set(0);
+    
     FreqMeter::HardwareReset();
 }
 
