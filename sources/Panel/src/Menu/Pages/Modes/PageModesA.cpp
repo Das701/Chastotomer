@@ -196,7 +196,7 @@ static void OnChanged_ModeCountPulse()
 
 // Выбор режима счёта импульсов
 DEF_SWITCH_3(sModeCountPulse,
-    "Режим", "Счёт числа импульсов",
+    "Режим", "Счет числа импульсов",
     "А(tB)", "А(TB)", "Старт/Стоп",
     Channel::A->mod.modeCountPulse, OnChanged_ModeCountPulse
 );

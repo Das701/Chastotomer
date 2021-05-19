@@ -14,13 +14,16 @@ int main(void)
     HAL::Init();
     FPGA::Init();
     Display::Init();
-    Keyboard::Init();
+    if(Keyboard::Init())
+    {
+        Display::DrawKeyboardFailScreen();
+        HAL_TIM::DelayMS(5000);
+    }
     VCP::Init();
     Menu::Init();
 //    Tests::Run();
-
     Display::DrawWelcomeScreen();
-
+    
     while (1)
     {
         FPGA::Update();

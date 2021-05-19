@@ -30,6 +30,7 @@ struct Display
     static void EndScene();
 
     static void DrawWelcomeScreen();
+    static void DrawKeyboardFailScreen();
 
     // Ќомер верхней строки в текущей отрисовке.
     // ќтрисовка происходит в два этапа - сначала верхн€€ часть (TopRow() == 0),

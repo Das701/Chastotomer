@@ -155,7 +155,6 @@ static void Update()
     Set_All_SL(1);
 }
 
-
 static void DetectRegulator()
 {  
 // ƒетектируем поворот
@@ -194,7 +193,41 @@ static void DetectRegulator()
     }
 }
 
-void Keyboard::Init()
+static bool KeyboardCheck()
+{
+    bool keyboardFail = false;
+    
+    Set_All_SL(1);
+
+    for (int sl = 0; sl < NUM_SL; ++sl)
+    {
+        Set_SL(sl, 0);
+
+        for (int rl = 0; rl < NUM_RL; ++rl)
+        {
+            int state = Read_RL(rl);
+
+            Control control = controls[sl][rl];
+
+            if (control.value != Control::None)
+            {
+                if (BUTTON_IS_PRESS(state))
+                {
+                    keyboardFail = true;
+                }
+                else
+                {
+                    // остальное не обрабатываем
+                }
+            }
+        }
+
+        Set_All_SL(1);
+    }
+    return keyboardFail;
+}
+
+bool Keyboard::Init()
 {
     for (int sl = 0; sl < NUM_SL; ++sl)
     {
@@ -206,6 +239,7 @@ void Keyboard::Init()
 
     InitPins();
     InitTimer();
+    return KeyboardCheck();
 }
 
 

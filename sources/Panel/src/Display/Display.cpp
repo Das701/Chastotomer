@@ -125,17 +125,31 @@ void Display::DrawWelcomeScreen()
         {
             SetTopRow(i);
             BeginScene();
-            Text("OAO ÃÕ»œ», 43-96/2, Cherm V 1.2").Write(100, 110, Color::WHITE);
+            Text("OAO ÃÕ»œ», ◊3-96/2, Cherm V 1.2").Write(100, 110, Color::WHITE);
             EndScene();
         }
     }
 }
 
+void Display::DrawKeyboardFailScreen()
+{
+    uint startTime = TIME_MS;
+    
+    while (TIME_MS - startTime < 3000)
+    {
+        for (int i = 0; i < NUM_PARTS; i++)
+        {
+            SetTopRow(i);
+            BeginScene();
+            Text("Œÿ»¡ ¿  À¿¬»¿“”–€").Write(100, 110, Color::WHITE);
+            EndScene();
+        }
+    }
+}
 
 static void SetTopRow(int i)
 {
     topRow = i * (Display::PHYSICAL_HEIGHT / Display::NUM_PARTS);
-
     topDraw = topRow;
     bottomhDraw = topDraw + Display::PHYSICAL_HEIGHT / Display::NUM_PARTS;
 }
