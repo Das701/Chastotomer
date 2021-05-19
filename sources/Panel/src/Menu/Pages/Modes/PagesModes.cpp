@@ -9,7 +9,7 @@
 #ifdef USE_1000s
 
 DEF_SWITCH_7(sTimeMeasure,
-    "Время", "Время счёта",
+    "Время", "Время счета",
     "1ms", "10ms", "100ms", "1s", "10s", "100s", "1000s",
     ModesChannel::timeMeasure, TimeMeasure::LoadToFPGA
 );
@@ -17,7 +17,7 @@ DEF_SWITCH_7(sTimeMeasure,
 #else
 
 DEF_SWITCH_6(sTimeMeasure,
-    "Время", "Время счёта",
+    "Время", "Время счета",
     "1ms", "10ms", "100ms", "1s", "10s", "100s",
     ModesChannel::timeMeasure, TimeMeasure::LoadToFPGA
 );
